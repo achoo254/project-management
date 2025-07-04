@@ -27,4 +27,30 @@
 
 ---
 
+## III. Kế hoạch phát triển dự án trong tương lai
+
+Để xác định hướng phát triển tiếp theo và ưu tiên dự án nào trước, cần thu thập thêm thông tin từ các bộ phận liên quan:
+
+1. **Kinh doanh / Marketing**
+   - Dự án nào có tiềm năng thương mại hóa cao nhất trong 3–6 tháng tới?
+   - Khách hàng phản hồi tích cực nhất với nền tảng nào hiện tại?
+   - Dịch vụ nào giúp tăng giá trị gói sản phẩm hiện có?
+
+2. **Hỗ trợ / Chăm sóc khách hàng**
+   - Dự án nào đang nhận được nhiều yêu cầu hỗ trợ hoặc phàn nàn nhất?
+   - Người dùng gặp khó khăn nhiều nhất ở bước nào trong quy trình sử dụng?
+   - Có nhóm khách hàng nào đang cần tính năng mới gấp không?
+
+3. **Kỹ thuật / Vận hành**
+   - Dự án nào gây tải lớn lên hệ thống hoặc có nguy cơ ảnh hưởng đến toàn hệ sinh thái?
+   - Tính năng nào cần được tối ưu hóa để đảm bảo hiệu suất và bảo mật?
+   - Có yêu cầu tích hợp nội bộ nào đang bị chặn do thiếu module từ dự án khác không?
+
+4. **Ban Giám Đốc**
+   - Ưu tiên chiến lược quý này là gì? (Tăng trưởng người dùng, tối ưu vận hành, tăng doanh thu?)
+   - Có quyết định nào liên quan đến việc mở rộng thị trường hoặc sản phẩm mới không?
+   - Dự án nào cần hoàn thành để phục vụ mục tiêu tổng thể?
+
+---
+
 > Cập nhật: 04/07/2025  
