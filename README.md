@@ -39,7 +39,7 @@
 2. **Kinh doanh / Marketing**
    - Dự án nào có tiềm năng thương mại hóa cao nhất trong các tháng tới?
    - Khách hàng phản hồi tích cực nhất với nền tảng nào hiện tại?
-   - Dịch vụ nào giúp tăng giá trị gói sản phẩm hiện có?
+   - Dịch vụ nào nếu được phát triển hoặc cải tiến sẽ khiến gói sản phẩm (VD: OneMail + Drive) có giá trị hơn với khách hàng?
 
 3. **Hỗ trợ / Chăm sóc khách hàng**
    - Dự án nào đang nhận được nhiều yêu cầu hỗ trợ hoặc phàn nàn nhất?
@@ -47,7 +47,7 @@
    - Có nhóm khách hàng nào đang cần tính năng mới gấp không?
 
 4. **Kỹ thuật / Vận hành**
-   - Dự án nào gây tải lớn lên hệ thống hoặc có nguy cơ ảnh hưởng?
+   - Dự án nào hiện đang sử dụng nhiều tài nguyên hệ thống hoặc có thể ảnh hưởng đến các hệ thống khác nếu xảy ra lỗi?
    - Tính năng nào cần được tối ưu hóa để đảm bảo hiệu suất và bảo mật?
    - Có chức năng nào trong hệ thống đang bị chậm tiến độ vì phụ thuộc vào dự án chưa hoàn thành không?
 
