@@ -12,7 +12,7 @@
 | **Drive**       | Không gian lưu trữ, chia sẻ file, quản lý dữ liệu theo tên miền                                 | Đã hoàn thiện, đang theo dõi vận hành và tiếp tục bổ sung các chức năng chính như: nén, giải nén, xử lý file lớn |
 | **Server Tools**| Hệ thống quản lý server, terminal, file và tài nguyên VPS                                      | Đang trong giai đoạn thu thập yêu cầu và xây dựng tài liệu trước khi triển khai tính năng chính       |
 | **Portal**      | Nền tảng điều phối và quản trị tập trung các dịch vụ, người dùng, gói dịch vụ                  | Đã đưa vào vận hành thực tế, tiếp tục phát triển thêm tính năng theo nhu cầu phát sinh               |
-| **OnePanel**    | Dịch vụ quản lý hosting tương tự như cPanel 
+| **OnePanel**    | Dịch vụ quản lý hosting                                                    | Đang vận hành ổn định, không cần cập nhật thường xuyên; chỉ cần 1–2 frontend developer hỗ trợ xử lý   |
 
 ---
 
