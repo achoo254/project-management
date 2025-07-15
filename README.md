@@ -22,9 +22,9 @@
 |-------------------------|----------------------------------------------------------------------------------|
 | **Bùi Văn Hổ**          | Server Tools (Frontend)                                                         |
 | **Trịnh Quốc Hoàn Đạt** | Server Tools (Backend)                                                          |
-| **Nguyễn Huy Hoàng**    | Workspace (Backend – dự án Drive), hỗ trợ OnePanel (Frontend, nếu cần)         |
-| **Nguyễn Đăng Đức**     | Workspace (Frontend – dự án Drive), hỗ trợ OnePanel (Frontend, nếu cần)        |
-| **Đinh Tiến Chương**    | Portal (Frontend + Backend)<br>**Backup:** Bùi Văn Hổ, Nguyễn Huy Hoàng, Nguyễn Đăng Đức |
+| **Nguyễn Huy Hoàng**    | Portal (Backend)         |
+| **Nguyễn Đăng Đức**     | Portal (Frontend)        |
+| **Đinh Tiến Chương**    | Portal (Frontend + Backend) |
 
 ---
 
