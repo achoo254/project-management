@@ -53,5 +53,3 @@
    - Có chức năng nào trong hệ thống đang bị chậm tiến độ vì phụ thuộc vào dự án chưa hoàn thành không?
 
 ---
-
-> Cập nhật: 04/07/2025  
