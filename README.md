@@ -20,7 +20,7 @@
 
 | Họ và Tên               | Dự án phụ trách                                                                 |
 |-------------------------|----------------------------------------------------------------------------------|
-| **Bùi Văn Hổ**          | Server Tools (Frontend)                                                         |
+| **Bùi Văn Hổ**          | Portal (Frontend)                                                         |
 | **Trịnh Quốc Hoàn Đạt** | Server Tools (Backend)                                                          |
 | **Nguyễn Huy Hoàng**    | Portal (Backend)         |
 | **Nguyễn Đăng Đức**     | Portal (Frontend)        |
