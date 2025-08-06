@@ -20,13 +20,13 @@
 - 🟡 Cao
 - 🟢 Trung bình
 
-| Họ và Tên               | Dự án phụ trách                                            |
-|-------------------------|------------------------------------------------------------|
-| **Bùi Văn Hổ**          | 🔴 Task my iNET + 🟡 Server Tools (FE) + 🟢 Portal (FE)    |
-| **Trịnh Quốc Hoàn Đạt** | 🔴 Server Tools (BE)                                       |
-| **Nguyễn Huy Hoàng**    | 🔴 Portal (BE) + 🟡 Drive (BE) + 🟢 n8n workflow           |
-| **Nguyễn Đăng Đức**     | 🔴 Drive (FE + BE) + 🟡 OneMail (FE + BE) + 🟢 Portal (FE) |
-| **Đinh Tiến Chương**    | 🔴 Portal (FE + BE)                                        |
+| Họ và Tên               | Dự án phụ trách                                       |
+|-------------------------|-------------------------------------------------------|
+| **Bùi Văn Hổ**          | 🔴 Task my iNET + 🟡 Portal (FE) + 🟢 OneMail (FE)    |
+| **Trịnh Quốc Hoàn Đạt** | 🔴 OneMail (FE + BE)                                  |
+| **Nguyễn Huy Hoàng**    | 🔴 Portal (FE + BE)                                   |
+| **Nguyễn Đăng Đức**     | 🔴 Drive (FE + BE) + 🟡 OneMail (FE) + 🟢 Portal (FE) |
+| **Đinh Tiến Chương**    | 🔴 Portal (FE + BE)                                   |
 
 ---
 
