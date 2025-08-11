@@ -24,7 +24,7 @@
 |-------------------------|----------------------------------------------------|
 | **Bùi Văn Hổ**          | 🔴 Task my iNET + 🟡 Portal (FE) + 🟢 OneMail (FE) |
 | **Trịnh Quốc Hoàn Đạt** | 🔴 OneMail (FE + BE)                               |
-| **Nguyễn Huy Hoàng**    | 🔴 Portal (FE + BE) + 🟡 OnePanel (FE)             |
+| **Nguyễn Huy Hoàng**    | 🔴 Portal (FE + BE) + 🟢 OnePanel (FE)             |
 | **Nguyễn Đăng Đức**     | 🔴 Drive (FE + BE) + 🟡 OneMail (FE)               |
 | **Đinh Tiến Chương**    | 🔴 Portal (FE + BE)                                |
 
