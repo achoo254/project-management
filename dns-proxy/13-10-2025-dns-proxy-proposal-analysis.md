@@ -60,6 +60,8 @@ Dưới đây là các câu hỏi cần được làm rõ để hoàn thiện m�
 - Hiện tại DNS có tỷ lệ tải / query per second (QPS) trung bình bao nhiêu?
 - Có log hoặc metric nào chứng minh 2 khu vực hiện tại chưa đủ đáp ứng HA?
 
+>> Trả lời: Hệ thống được thiết kế với ít nhất 2 khu vực để đảm bảo HA, và mở rộng theo chiều ngang. Nhưng để đảm bảo HA ở mức tối đa thì cần 3 khu vực
+
 ### ❓ 2. Cơ chế khi hệ thống bị tấn công hoặc DNS bị nghẽn
 
 - Khi một khu vực hoặc dải IP bị tấn công (ví dụ DDoS), hệ thống có tự động chuyển vùng (auto
@@ -67,12 +69,16 @@ Dưới đây là các câu hỏi cần được làm rõ để hoàn thiện m�
 - Nếu có, thời gian chuyển vùng trung bình là bao lâu?
 - Có cảnh báo (alert) cho khách hàng về tình trạng "DNS degradation" không?
 
+>> Trả lời: Không, cái này ở trang admin. Tương tự như CloudFlare.
+
 ### ❓ 3. Cơ chế phản ứng khi Proxy Layer hoặc DNS Resolver gặp sự cố
 
 - Phía khách hàng có thể tự chuyển thủ công sang server khác (qua UI/Portal) hay phải do hệ thống xử lý?
 - Nếu DNS Proxy service bị down, dữ liệu hiển thị trong giao diện quản lý:
     - Có được cache từ bản ghi gần nhất (read-only)?
     - Có backup hoặc phương án "disable proxy" để khách hàng vẫn thao tác được?
+
+>> Trả lời: Có thể xảy ra nếu toàn bộ khu vực bị down cùng 1 lúc
 
 ### ❓ 4. Các dịch vụ liên quan
 
@@ -94,6 +100,8 @@ Dưới đây là các câu hỏi cần được làm rõ để hoàn thiện m�
       - ReplicaSet across regions: hoàn toàn khả thi — MongoDB hỗ trợ replica nodes đặt ở nhiều region. Nhưng:
         * Lợi: primary nằm ở region chính → nếu region chính down, election có thể promote node ở region khác → HA global.
         * Hại: Nếu máy chính (primary) ở một khu vực, mà các bản sao (secondary) ở xa nhau, khi mạng giữa các khu vực chập chờn → việc “chọn máy chính mới” sẽ rắc rối, có thể khiến hệ thống tạm ngưng ghi dữ liệu.
+
+>> Trả lời: Các service này đều được cấu hình cluster để đảm bảo HA
 
 ---
 
