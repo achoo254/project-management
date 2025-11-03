@@ -1,11 +1,27 @@
 {
-  // Tắt Code Spell Checker extension
-  "cSpell.enabled": false,
+  // Bật Code Spell Checker extension
+  "cSpell.enabled": true,
   
-  // Tắt Spell Right extension (nếu có)
-  "spellright.documentTypes": [],
+  // Chỉ kiểm tra spell check trong thư mục src/ (nếu có)
+  // Bỏ qua tất cả các file/thư mục ngoài src/
+  // Ignore tất cả file/thư mục ngoài src/ (nếu có)
+  "cSpell.ignorePaths": [
+    "**/node_modules/**",
+    "**/dist/**",
+    "**/build/**",
+    "**/.git/**",
+    "**/package*.json",
+    "**/README.md",
+    "**/*.md"
+  ],
   
-  // Tắt spell check cho tất cả file types
-  "cSpell.enableFiletypes": []
+  // Chỉ kiểm tra các file trong src/ (nếu có)
+  "cSpell.enabledLanguageIds": [
+    "typescript",
+    "javascript",
+    "typescriptreact",
+    "javascriptreact",
+    "json"
+  ]
 }
 
