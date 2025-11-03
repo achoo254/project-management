@@ -1,0 +1,11 @@
+{
+  // Tắt Code Spell Checker extension
+  "cSpell.enabled": false,
+  
+  // Tắt Spell Right extension (nếu có)
+  "spellright.documentTypes": [],
+  
+  // Tắt spell check cho tất cả file types
+  "cSpell.enableFiletypes": []
+}
+
