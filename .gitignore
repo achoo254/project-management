@@ -4,6 +4,7 @@
 # IntelliJ project files
 .idea
 .vscode
+.cursorrules
 *.iml
 out
 gen
