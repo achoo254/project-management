@@ -1,0 +1,1302 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đánh Giá P2 - Bộ Phận Công Nghệ</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap');
+
+        body {
+            font-family: 'Share Tech Mono', 'Courier New', monospace;
+            background: #0a0a0a;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(0, 255, 0, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(0, 255, 255, 0.03) 0%, transparent 50%),
+                linear-gradient(180deg, #0a0a0a 0%, #000000 100%);
+            color: #00ff00;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                transparent 50%,
+                rgba(0, 255, 0, 0.03) 50%
+            );
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 9999;
+            animation: scanline 8s linear infinite;
+        }
+
+        @keyframes scanline {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(4px); }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: #0d1117;
+            border: 2px solid #00ff00;
+            border-radius: 0;
+            box-shadow: 
+                0 0 20px rgba(0, 255, 0, 0.3),
+                0 0 40px rgba(0, 255, 0, 0.1),
+                inset 0 0 20px rgba(0, 255, 0, 0.05);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+            color: #00ff00;
+            padding: 40px;
+            text-align: center;
+            border-bottom: 3px solid #00ff00;
+            box-shadow: 0 0 30px rgba(0, 255, 0, 0.5);
+            text-shadow: 
+                0 0 10px rgba(0, 255, 0, 0.8),
+                0 0 20px rgba(0, 255, 0, 0.5),
+                0 0 30px rgba(0, 255, 0, 0.3);
+        }
+
+        .header h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 900;
+            letter-spacing: 3px;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 
+                    0 0 10px rgba(0, 255, 0, 0.8),
+                    0 0 20px rgba(0, 255, 0, 0.5),
+                    0 0 30px rgba(0, 255, 0, 0.3);
+            }
+            to {
+                text-shadow: 
+                    0 0 20px rgba(0, 255, 0, 1),
+                    0 0 30px rgba(0, 255, 0, 0.8),
+                    0 0 40px rgba(0, 255, 0, 0.6),
+                    0 0 50px rgba(0, 255, 0, 0.4);
+            }
+        }
+
+        .header p {
+            font-size: 1.2em;
+            color: #00ffff;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+
+        .nav {
+            background: #161b22;
+            padding: 20px 40px;
+            border-bottom: 2px solid #00ff00;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 5px 15px rgba(0, 255, 0, 0.2);
+        }
+
+        .nav a {
+            padding: 10px 20px;
+            background: transparent;
+            color: #00ff00;
+            text-decoration: none;
+            border: 2px solid #00ff00;
+            border-radius: 0;
+            transition: all 0.3s;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 255, 0, 0.1);
+            transition: left 0.3s;
+        }
+
+        .nav a:hover::before {
+            left: 0;
+        }
+
+        .nav a:hover {
+            background: rgba(0, 255, 0, 0.1);
+            color: #00ff00;
+            transform: translateY(-2px);
+            box-shadow: 
+                0 0 15px rgba(0, 255, 0, 0.6),
+                0 0 30px rgba(0, 255, 0, 0.3);
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.8);
+        }
+
+        .section {
+            padding: 40px;
+            border-bottom: 1px solid #21262d;
+            background: #0d1117;
+        }
+
+        .section:last-child {
+            border-bottom: none;
+        }
+
+        .section h2 {
+            color: #00ff00;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #00ff00;
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+            box-shadow: 0 2px 0 rgba(0, 255, 0, 0.2);
+        }
+
+        .section h3 {
+            color: #00ffff;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5em;
+            margin: 30px 0 15px 0;
+            text-shadow: 0 0 8px rgba(0, 255, 255, 0.5);
+        }
+
+        .section h4 {
+            color: #00ff00;
+            text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+        }
+
+        .section p, .section li {
+            color: #c9d1d9;
+        }
+
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .card {
+            background: #161b22;
+            padding: 25px;
+            border: 2px solid #00ff00;
+            border-radius: 0;
+            box-shadow: 
+                0 0 15px rgba(0, 255, 0, 0.2),
+                inset 0 0 15px rgba(0, 255, 0, 0.05);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(0, 255, 0, 0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.5s;
+        }
+
+        .card:hover::before {
+            animation: scan 1s linear;
+        }
+
+        @keyframes scan {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 
+                0 0 25px rgba(0, 255, 0, 0.6),
+                0 0 50px rgba(0, 255, 0, 0.3),
+                inset 0 0 20px rgba(0, 255, 0, 0.1);
+            border-color: #00ffff;
+        }
+
+        .card h4 {
+            color: #00ff00;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+            text-shadow: 0 0 8px rgba(0, 255, 0, 0.6);
+            position: relative;
+            z-index: 1;
+        }
+
+        .card .value {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #00ffff;
+            text-shadow: 
+                0 0 10px rgba(0, 255, 255, 0.8),
+                0 0 20px rgba(0, 255, 255, 0.4);
+            position: relative;
+            z-index: 1;
+        }
+
+        .card p {
+            color: #8b949e;
+            position: relative;
+            z-index: 1;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #161b22;
+            border: 2px solid #00ff00;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
+            overflow: hidden;
+        }
+
+        thead {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+            color: #00ff00;
+        }
+
+        th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 0 0 8px rgba(0, 255, 0, 0.6);
+            border-bottom: 2px solid #00ff00;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #21262d;
+            color: #c9d1d9;
+        }
+
+        tbody tr:hover {
+            background: rgba(0, 255, 0, 0.05);
+            box-shadow: inset 0 0 10px rgba(0, 255, 0, 0.1);
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 0;
+            font-size: 0.85em;
+            font-weight: 600;
+            border: 1px solid;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .badge-level-a {
+            background: rgba(0, 255, 0, 0.1);
+            color: #00ff00;
+            border-color: #00ff00;
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+        }
+
+        .badge-level-b {
+            background: rgba(0, 255, 255, 0.1);
+            color: #00ffff;
+            border-color: #00ffff;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+        }
+
+        .badge-level-c {
+            background: rgba(255, 255, 0, 0.1);
+            color: #ffff00;
+            border-color: #ffff00;
+            box-shadow: 0 0 10px rgba(255, 255, 0, 0.3);
+        }
+
+        .badge-level-d {
+            background: rgba(255, 0, 0, 0.1);
+            color: #ff0000;
+            border-color: #ff0000;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+        }
+
+        .badge-role {
+            background: rgba(0, 255, 0, 0.1);
+            color: #00ff00;
+            border-color: #00ff00;
+            box-shadow: 0 0 8px rgba(0, 255, 0, 0.4);
+        }
+
+        .info-box {
+            background: rgba(0, 255, 255, 0.05);
+            border-left: 4px solid #00ffff;
+            border-right: 1px solid #00ffff;
+            border-top: 1px solid #00ffff;
+            border-bottom: 1px solid #00ffff;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0;
+            box-shadow: 
+                0 0 15px rgba(0, 255, 255, 0.2),
+                inset 0 0 15px rgba(0, 255, 255, 0.05);
+        }
+
+        .info-box.warning {
+            background: rgba(255, 255, 0, 0.05);
+            border-color: #ffff00;
+            box-shadow: 
+                0 0 15px rgba(255, 255, 0, 0.2),
+                inset 0 0 15px rgba(255, 255, 0, 0.05);
+        }
+
+        .info-box.success {
+            background: rgba(0, 255, 0, 0.05);
+            border-color: #00ff00;
+            box-shadow: 
+                0 0 15px rgba(0, 255, 0, 0.2),
+                inset 0 0 15px rgba(0, 255, 0, 0.05);
+        }
+
+        .info-box h3, .info-box h4 {
+            color: #00ffff;
+            text-shadow: 0 0 8px rgba(0, 255, 255, 0.6);
+        }
+
+        .info-box.warning h3, .info-box.warning h4 {
+            color: #ffff00;
+            text-shadow: 0 0 8px rgba(255, 255, 0, 0.6);
+        }
+
+        .info-box.success h3, .info-box.success h4 {
+            color: #00ff00;
+            text-shadow: 0 0 8px rgba(0, 255, 0, 0.6);
+        }
+
+        .criteria-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .criteria-card {
+            background: #161b22;
+            border: 2px solid #00ff00;
+            border-radius: 0;
+            padding: 20px;
+            transition: all 0.3s;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.1);
+        }
+
+        .criteria-card:hover {
+            border-color: #00ffff;
+            box-shadow: 
+                0 0 25px rgba(0, 255, 255, 0.4),
+                0 0 50px rgba(0, 255, 255, 0.2);
+        }
+
+        .criteria-card h4 {
+            color: #00ff00;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+            text-shadow: 0 0 8px rgba(0, 255, 0, 0.6);
+        }
+
+        .level-item {
+            padding: 10px;
+            margin: 8px 0;
+            background: rgba(0, 255, 0, 0.03);
+            border-radius: 0;
+            border-left: 3px solid #00ff00;
+            border-right: 1px solid rgba(0, 255, 0, 0.2);
+            color: #c9d1d9;
+        }
+
+        .level-item strong {
+            color: #00ffff;
+            text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+        }
+
+        .chart-container {
+            background: #161b22;
+            padding: 20px;
+            border: 2px solid #00ff00;
+            border-radius: 0;
+            margin: 20px 0;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 30px;
+            background: #0a0a0a;
+            border: 2px solid #00ff00;
+            border-radius: 0;
+            overflow: hidden;
+            margin: 10px 0;
+            position: relative;
+            box-shadow: inset 0 0 10px rgba(0, 255, 0, 0.2);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00ff00 0%, #00ffff 100%);
+            border-radius: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000;
+            font-weight: 600;
+            transition: width 0.5s;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+            box-shadow: 
+                0 0 15px rgba(0, 255, 0, 0.6),
+                inset 0 0 10px rgba(0, 255, 255, 0.3);
+        }
+
+        .stats-row {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 20px;
+            background: #161b22;
+            border: 2px solid #00ff00;
+            border-radius: 0;
+            min-width: 150px;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.2);
+            transition: all 0.3s;
+        }
+
+        .stat-item:hover {
+            border-color: #00ffff;
+            box-shadow: 
+                0 0 25px rgba(0, 255, 255, 0.4),
+                0 0 50px rgba(0, 255, 255, 0.2);
+        }
+
+        .stat-item .number {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #00ffff;
+            text-shadow: 
+                0 0 10px rgba(0, 255, 255, 0.8),
+                0 0 20px rgba(0, 255, 255, 0.4);
+        }
+
+        .stat-item .label {
+            color: #8b949e;
+            margin-top: 5px;
+        }
+
+        .footer {
+            background: #0a0a0a;
+            color: #00ff00;
+            padding: 30px;
+            text-align: center;
+            border-top: 3px solid #00ff00;
+            box-shadow: 0 -5px 20px rgba(0, 255, 0, 0.2);
+            text-shadow: 0 0 8px rgba(0, 255, 0, 0.5);
+        }
+
+        strong {
+            color: #00ffff;
+            text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+        }
+
+        @media print {
+            body {
+                background: #0a0a0a;
+            }
+            .nav {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+            .section {
+                padding: 20px;
+            }
+            table {
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Đánh Giá P2 - Bộ Phận Công Nghệ</h1>
+            <p>Hệ thống đánh giá năng lực theo mô hình lương 3P</p>
+        </div>
+
+        <div class="nav">
+            <a href="#overview">Tổng Quan</a>
+            <a href="#config">Cấu Hình</a>
+            <a href="#criteria">Tiêu Chí</a>
+            <a href="#evaluation">Đánh Giá</a>
+            <a href="#calculation">Tính Toán</a>
+            <a href="#summary">Tóm Tắt</a>
+        </div>
+
+        <!-- Overview Section -->
+        <div id="overview" class="section">
+            <h2>📋 Tổng Quan Hệ Thống</h2>
+            
+            <div class="info-box">
+                <h3>Mục đích</h3>
+                <p>Hệ thống đánh giá P2 được thiết kế để đánh giá năng lực nhân viên Bộ phận Công nghệ theo 4 tiêu chí chính: <strong>Core Skill</strong>, <strong>Bàn giao</strong>, <strong>DevOps</strong>, và <strong>AI Agent</strong>.</p>
+            </div>
+
+            <div class="overview-grid">
+                <div class="card">
+                    <h4>🎯 Core Skill</h4>
+                    <div class="value">30%</div>
+                    <p>Đánh giá năng lực kỹ thuật cốt lõi theo từng vai trò</p>
+                </div>
+                <div class="card">
+                    <h4>📦 Bàn Giao</h4>
+                    <div class="value">25%</div>
+                    <p>Khả năng hoàn thành và bàn giao công việc đúng hạn</p>
+                </div>
+                <div class="card">
+                    <h4>⚙️ DevOps</h4>
+                    <div class="value">25%</div>
+                    <p>Năng lực về CI/CD, deployment, monitoring</p>
+                </div>
+                <div class="card">
+                    <h4>🤖 AI Agent</h4>
+                    <div class="value">20%</div>
+                    <p>Khả năng sử dụng AI trong công việc hiệu quả</p>
+                </div>
+            </div>
+
+            <h3>Quy trình đánh giá</h3>
+            <div class="info-box success">
+                <ol style="padding-left: 20px;">
+                    <li><strong>Xác định Vai trò (Role):</strong> Chọn vai trò thực thi chính (BE, FE, DE, FS) - <strong style="color: #ffff00;">không phải Chức danh (Position)</strong></li>
+                    <li><strong>Chấm điểm:</strong> Đánh giá từng category theo thang điểm 1-5 dựa trên tiêu chí của Role đã chọn</li>
+                    <li><strong>Thu thập bằng chứng:</strong> Link MR, ticket, design doc, etc.</li>
+                    <li><strong>Calibration:</strong> Đồng nhất cách cho điểm giữa các đánh giá viên</li>
+                    <li><strong>Tính toán:</strong> Áp dụng CAP_3.2 và DOWN_1_LEVEL nếu có</li>
+                    <li><strong>Xếp loại:</strong> A (>3.8), B (3.3-3.8), C (2.5-3.2), D (<2.5)</li>
+                </ol>
+                <p style="margin-top: 15px; color: #c9d1d9;"><strong style="color: #00ffff;">Lưu ý:</strong> P2 đánh giá <strong>kỹ năng thực thi (Skill Role)</strong>, không đánh giá trực tiếp Chức danh. Chức danh (Position) quyết định phạm vi trách nhiệm và kỳ vọng, trong khi Role quyết định tiêu chí chấm Core Skill.</p>
+            </div>
+
+            <h3>Ví dụ minh họa</h3>
+            <div class="info-box" style="border-color: #00ff00;">
+                <h4 style="color: #00ff00; margin-bottom: 15px;">📝 Ví dụ: Phân biệt Chức danh và Vai trò</h4>
+                <div style="margin-top: 15px;">
+                    <p style="color: #c9d1d9; margin-bottom: 10px;"><strong style="color: #00ffff;">Tình huống:</strong> Nguyễn Văn A có Chức danh là "Lead Product Engineer"</p>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px;">
+                        <div style="border: 1px solid #00ff00; padding: 15px; background: rgba(0, 255, 0, 0.03);">
+                            <p style="color: #00ff00; font-weight: bold; margin-bottom: 8px;">🔹 CHỨC DANH (Position)</p>
+                            <p style="color: #c9d1d9; margin: 0;"><strong>Lead Product Engineer</strong></p>
+                            <p style="color: #8b949e; font-size: 0.9em; margin-top: 5px;">→ Trách nhiệm: Dẫn dắt team, quyết định technical direction, ownership product</p>
+                        </div>
+                        <div style="border: 1px solid #00ffff; padding: 15px; background: rgba(0, 255, 255, 0.03);">
+                            <p style="color: #00ffff; font-weight: bold; margin-bottom: 8px;">🔹 VAI TRÒ (Role) - Dùng cho P2</p>
+                            <p style="color: #c9d1d9; margin: 0;"><strong>FE</strong> (Frontend Engineer)</p>
+                            <p style="color: #8b949e; font-size: 0.9em; margin-top: 5px;">→ Kỹ năng thực thi: Xây UI, state management, tích hợp API → Chấm Core Skill theo tiêu chí FE</p>
+                        </div>
+                    </div>
+                    <p style="color: #ffff00; margin-top: 15px; font-weight: bold;">💡 Kết luận: Dù có Chức danh "Lead Product Engineer", nhưng khi chấm P2, chọn Role = FE vì người này thực thi chủ yếu bằng kỹ năng Frontend.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Configuration Section -->
+        <div id="config" class="section">
+            <h2>⚙️ Cấu Hình Hệ Thống</h2>
+
+            <h3>📌 Phân Biệt: Chức Danh vs Vai Trò</h3>
+            
+            <div class="info-box" style="border-color: #00ffff; margin-bottom: 30px;">
+                <h4 style="color: #00ffff; text-shadow: 0 0 8px rgba(0, 255, 255, 0.6); margin-bottom: 15px;">Mô hình 2 lớp trong đánh giá P2</h4>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 15px;">
+                    <div style="border: 2px solid #00ff00; padding: 20px; background: rgba(0, 255, 0, 0.03);">
+                        <h4 style="color: #00ff00; margin-bottom: 10px;">🔹 CHỨC DANH (Position / Title)</h4>
+                        <p style="color: #c9d1d9; margin-bottom: 10px;"><strong style="color: #00ffff;">Câu hỏi:</strong> Người này chịu trách nhiệm cho cái gì?</p>
+                        <ul style="padding-left: 20px; color: #c9d1d9; margin-top: 10px;">
+                            <li><strong>Ví dụ:</strong> Product Engineer, Lead Product Engineer</li>
+                            <li><strong>Gắn với:</strong></li>
+                            <li style="margin-left: 20px;">• Phạm vi trách nhiệm</li>
+                            <li style="margin-left: 20px;">• Mức độ ảnh hưởng tới product</li>
+                            <li style="margin-left: 20px;">• Kỳ vọng về ownership, decision, outcome</li>
+                        </ul>
+                    </div>
+                    <div style="border: 2px solid #00ffff; padding: 20px; background: rgba(0, 255, 255, 0.03);">
+                        <h4 style="color: #00ffff; margin-bottom: 10px;">🔹 VAI TRÒ (Role / Skill Role)</h4>
+                        <p style="color: #c9d1d9; margin-bottom: 10px;"><strong style="color: #00ff00;">Câu hỏi:</strong> Người này thực thi bằng kỹ năng gì?</p>
+                        <ul style="padding-left: 20px; color: #c9d1d9; margin-top: 10px;">
+                            <li><strong>Ví dụ:</strong> BE, FE, DE, FS</li>
+                            <li><strong>Gắn với:</strong></li>
+                            <li style="margin-left: 20px;">• Kỹ năng chuyên môn</li>
+                            <li style="margin-left: 20px;">• Tiêu chí chấm Core Skill</li>
+                            <li style="margin-left: 20px;">• <strong style="color: #ffff00;">Không quyết định level lương P2 một mình</strong></li>
+                        </ul>
+                    </div>
+                </div>
+                <div style="margin-top: 20px; padding: 15px; background: rgba(0, 255, 0, 0.05); border: 1px solid #00ff00;">
+                    <p style="color: #00ff00; font-weight: bold; margin-bottom: 10px;">📊 Cấu trúc phân cấp:</p>
+                    <pre style="color: #00ffff; font-family: 'Share Tech Mono', monospace; margin: 0; white-space: pre-wrap;">
+CHỨC DANH (Position)
+└─ Product Engineer
+└─ Lead Product Engineer
+
+VAI TRÒ THỰC THI (Role / Skill)
+└─ BE | FE | DE | FS
+                    </pre>
+                </div>
+            </div>
+
+            <h3>Vai trò được hỗ trợ (Role / Skill Role)</h3>
+            <div class="info-box" style="border-color: #00ffff; margin-bottom: 20px;">
+                <p style="color: #c9d1d9;"><strong style="color: #00ffff;">Lưu ý:</strong> Đây là <strong>Vai trò thực thi (Skill Role)</strong> - xác định kỹ năng chuyên môn để chấm Core Skill. <strong style="color: #ffff00;">Không phải Chức danh (Position)</strong> như Product Engineer hay Lead Product Engineer.</p>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Mã Vai Trò</th>
+                        <th>Tên Vai Trò</th>
+                        <th>Mô Tả Kỹ Năng</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="badge badge-role">BE</span></td>
+                        <td>Backend Engineer</td>
+                        <td>Kỹ năng: Phát triển API, database, hệ thống backend</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-role">FE</span></td>
+                        <td>Frontend Engineer</td>
+                        <td>Kỹ năng: Phát triển giao diện người dùng, UI/UX</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-role">DE</span></td>
+                        <td>Designer</td>
+                        <td>Kỹ năng: Thiết kế giao diện, UX/UI, design system</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-role">FS</span></td>
+                        <td>Fullstack Engineer</td>
+                        <td>Kỹ năng: Kết hợp cả Frontend và Backend</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Trọng số đánh giá</h3>
+            <div class="chart-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>Trọng Số</th>
+                            <th>Mô Tả</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Core Skill</strong></td>
+                            <td>30%</td>
+                            <td>Năng lực kỹ thuật cốt lõi theo vai trò</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Bàn Giao (Delivery)</strong></td>
+                            <td>25%</td>
+                            <td>Khả năng hoàn thành và bàn giao công việc</td>
+                        </tr>
+                        <tr>
+                            <td><strong>DevOps</strong></td>
+                            <td>25%</td>
+                            <td>CI/CD, deployment, monitoring, on-call</td>
+                        </tr>
+                        <tr>
+                            <td><strong>AI Agent</strong></td>
+                            <td>20%</td>
+                            <td>Sử dụng AI để code, review, debug hiệu quả</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="info-box warning">
+                <h4>⚠️ Quy tắc đặc biệt</h4>
+                <ul style="padding-left: 20px; margin-top: 10px;">
+                    <li><strong>CAP_3.2:</strong> Nếu DevOps < 3 hoặc AI_Agent < 3 → P2_Final tối đa 3.2</li>
+                    <li><strong>DOWN_1_LEVEL:</strong> Nếu có sự cố (Has_Incident = Yes) hoặc trễ bàn giao (Miss_Delivery = Yes) → hạ 1 bậc xếp loại</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Criteria Section -->
+        <div id="criteria" class="section">
+            <h2>📏 Tiêu Chí Đánh Giá</h2>
+
+            <div class="info-box">
+                <p><strong>Thang điểm:</strong> Mỗi category được đánh giá từ 1-5, với 3 là mức kỳ vọng cho nhân viên đã quen vai trò.</p>
+            </div>
+
+            <div class="criteria-grid">
+                <div class="criteria-card">
+                    <h4>Level 1 - Cần Hướng Dẫn</h4>
+                    <div class="level-item">
+                        <strong>Mô tả:</strong> Cần hướng dẫn liên tục; thường gây lỗi hoặc chậm trễ
+                    </div>
+                    <div class="level-item">
+                        <strong>Áp dụng:</strong> Chỉ khi nhân viên chưa đáp ứng được mô tả level 2 một cách ổn định
+                    </div>
+                </div>
+
+                <div class="criteria-card">
+                    <h4>Level 2 - Làm Được Việc Đơn Giản</h4>
+                    <div class="level-item">
+                        <strong>Mô tả:</strong> Làm được việc đơn giản với hướng dẫn; cần hỗ trợ khi phức tạp
+                    </div>
+                    <div class="level-item">
+                        <strong>Áp dụng:</strong> Có thể làm nhiệm vụ nhỏ, nhưng chưa làm việc phức tạp độc lập
+                    </div>
+                </div>
+
+                <div class="criteria-card">
+                    <h4>Level 3 - Tự Làm Được ⭐</h4>
+                    <div class="level-item">
+                        <strong>Mô tả:</strong> Tự làm được phần lớn công việc trong phạm vi role; chất lượng ổn định
+                    </div>
+                    <div class="level-item">
+                        <strong>Áp dụng:</strong> Mức kỳ vọng cho nhân viên đã quen vai trò. Cần bằng chứng: MR/ticket/design được merge/ship
+                    </div>
+                </div>
+
+                <div class="criteria-card">
+                    <h4>Level 4 - Nâng Cao Chất Lượng</h4>
+                    <div class="level-item">
+                        <strong>Mô tả:</strong> Nâng cao chất lượng, tối ưu quy trình, giảm rework; ảnh hưởng tốt đến team
+                    </div>
+                    <div class="level-item">
+                        <strong>Áp dụng:</strong> Có cải tiến rõ (tooling, review, docs, metrics). Cần bằng chứng: MR cải tiến, doc, số liệu
+                    </div>
+                </div>
+
+                <div class="criteria-card">
+                    <h4>Level 5 - Định Hướng Kỹ Thuật</h4>
+                    <div class="level-item">
+                        <strong>Mô tả:</strong> Định hướng kỹ thuật/chuẩn cho team; đào tạo, dẫn dắt; giảm rủi ro hệ thống
+                    </div>
+                    <div class="level-item">
+                        <strong>Áp dụng:</strong> Thường là tech lead / senior đã chứng minh qua nhiều kỳ. Bằng chứng: design/system doc, mentoring, postmortem
+                    </div>
+                </div>
+            </div>
+
+            <h3>Ví dụ tiêu chí theo Category</h3>
+            
+            <h4>Core Skill</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Level</th>
+                        <th>BE</th>
+                        <th>FE</th>
+                        <th>DE</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>3</strong></td>
+                        <td>Viết API, xử lý DB, test cơ bản</td>
+                        <td>Xây UI, state management, tích hợp API</td>
+                        <td>Thiết kế UI/UX cơ bản, tạo mockup, design handoff</td>
+                    </tr>
+                    <tr>
+                        <td><strong>4</strong></td>
+                        <td>Tối ưu query, refactor, design pattern</td>
+                        <td>Tối ưu performance, component tái sử dụng</td>
+                        <td>Thiết kế hệ thống, design system, cải thiện UX, tối ưu workflow</td>
+                    </tr>
+                    <tr>
+                        <td><strong>5</strong></td>
+                        <td>Architecture design, chuẩn hóa, mentoring</td>
+                        <td>System design, best practices, training</td>
+                        <td>Định hướng design strategy, chuẩn hóa design system, mentoring, leadership</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h4>Bàn Giao (Delivery)</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Level</th>
+                        <th>Tiêu Chí</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>3</strong></td>
+                        <td>Hoàn thành task đúng hạn, cập nhật tiến độ, ít rework</td>
+                    </tr>
+                    <tr>
+                        <td><strong>4</strong></td>
+                        <td>Chủ động tách task, xử lý risk, giảm rework, ảnh hưởng tích cực</td>
+                    </tr>
+                    <tr>
+                        <td><strong>5</strong></td>
+                        <td>Định hướng quy trình, cải tiến workflow, mentoring team</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h4>DevOps</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Level</th>
+                        <th>Tiêu Chí</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>3</strong></td>
+                        <td>Hiểu và sử dụng CI/CD, deploy, monitor cơ bản, tham gia on-call</td>
+                    </tr>
+                    <tr>
+                        <td><strong>4</strong></td>
+                        <td>Cải tiến pipeline, tối ưu deploy, setup monitoring, giảm incident</td>
+                    </tr>
+                    <tr>
+                        <td><strong>5</strong></td>
+                        <td>Định hướng DevOps strategy, chuẩn hóa, training, giảm rủi ro hệ thống</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h4>AI Agent</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Level</th>
+                        <th>Tiêu Chí</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>3</strong></td>
+                        <td>Sử dụng AI để code/review/debug cơ bản, kiểm tra kết quả, không gây regression</td>
+                    </tr>
+                    <tr>
+                        <td><strong>4</strong></td>
+                        <td>Prompt engineering tốt, tối ưu workflow với AI, cải thiện chất lượng code</td>
+                    </tr>
+                    <tr>
+                        <td><strong>5</strong></td>
+                        <td>Định hướng AI strategy cho team, training, best practices, chuẩn hóa</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Evaluation Section -->
+        <div id="evaluation" class="section">
+            <h2>📝 Quy Trình Đánh Giá</h2>
+
+            <div class="info-box">
+                <h3>Bước 1: Xác định Vai trò (Role) và Thu thập Bằng chứng</h3>
+                <ul style="padding-left: 20px; margin-top: 10px;">
+                    <li>Xác định <strong>Role_Code</strong> (BE, FE, DE, FS) - <strong style="color: #ffff00;">đây là Vai trò thực thi (Skill Role), không phải Chức danh (Position)</strong></li>
+                    <li style="margin-top: 8px; color: #8b949e;"><em>Ví dụ: Một người có Chức danh "Lead Product Engineer" nhưng thực thi chủ yếu bằng kỹ năng Frontend → chọn Role = FE</em></li>
+                    <li>Thu thập bằng chứng cho từng category:
+                        <ul style="padding-left: 20px; margin-top: 5px;">
+                            <li><strong>Core Skill:</strong> Link MR/PR (đã merge), ticket, code review, design doc</li>
+                            <li><strong>Bàn giao:</strong> Ticket, timeline, comment cập nhật tiến độ, biên bản họp</li>
+                            <li><strong>DevOps:</strong> File cấu hình CI/CD, MR thay đổi pipeline, log/alert, lịch on-call</li>
+                            <li><strong>AI Agent:</strong> Đoạn prompt, MR/comment có dùng AI, ghi chú review output AI</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="info-box">
+                <h3>Bước 2: Chấm điểm theo Tiêu chí</h3>
+                <ul style="padding-left: 20px; margin-top: 10px;">
+                    <li>Mở sheet <strong>Tiêu chí</strong>, lọc theo <strong>Role_Code</strong> (BE/FE/DE/FS) và Category - <strong style="color: #ffff00;">lưu ý: lọc theo Vai trò (Role), không phải Chức danh (Position)</strong></li>
+                    <li>So sánh mô tả từng level (1–5) với công việc thực tế và bằng chứng</li>
+                    <li>Chọn level <strong>cao nhất</strong> mà nhân viên <strong>đạt ổn định</strong> (không phải 1–2 lần)</li>
+                    <li>Nếu bằng chứng mâu thuẫn: ưu tiên <strong>mức thấp hơn</strong> trừ khi có giải thích rõ</li>
+                </ul>
+            </div>
+
+            <div class="info-box warning">
+                <h3>Bước 3: Kiểm tra Quy tắc Đặc biệt</h3>
+                <ul style="padding-left: 20px; margin-top: 10px;">
+                    <li><strong>Has_Incident:</strong> Có sự cố nghiêm trọng do lỗi cá nhân? (Yes/No)</li>
+                    <li><strong>Miss_Delivery:</strong> Trễ cam kết quan trọng hoặc bỏ sót bàn giao đáng kể? (Yes/No)</li>
+                    <li>Lưu ý: Dùng đúng <strong>Yes</strong> / <strong>No</strong> (chữ in hoa) để công thức chạy đúng</li>
+                </ul>
+            </div>
+
+            <h3>Ví dụ Đánh Giá</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nhân Viên</th>
+                        <th>Role</th>
+                        <th>Core</th>
+                        <th>Delivery</th>
+                        <th>DevOps</th>
+                        <th>AI Agent</th>
+                        <th>Has_Incident</th>
+                        <th>Miss_Delivery</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Nguyễn Văn A</td>
+                        <td><span class="badge badge-role">BE</span></td>
+                        <td>4</td>
+                        <td>4</td>
+                        <td>3</td>
+                        <td>4</td>
+                        <td>No</td>
+                        <td>No</td>
+                    </tr>
+                    <tr>
+                        <td>Trần Thị B</td>
+                        <td><span class="badge badge-role">FE</span></td>
+                        <td>3</td>
+                        <td>3</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>No</td>
+                        <td>No</td>
+                    </tr>
+                    <tr>
+                        <td>Lê Văn C</td>
+                        <td><span class="badge badge-role">DE</span></td>
+                        <td>5</td>
+                        <td>4</td>
+                        <td>4</td>
+                        <td>5</td>
+                        <td>Yes</td>
+                        <td>No</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Calculation Section -->
+        <div id="calculation" class="section">
+            <h2>🧮 Tính Toán và Xếp Loại</h2>
+
+            <h3>Công thức tính P2</h3>
+            <div class="info-box">
+                <p style="font-size: 1.2em; text-align: center; padding: 20px;">
+                    <strong>P2 = (Core × 30%) + (Delivery × 25%) + (DevOps × 25%) + (AI_Agent × 20%)</strong>
+                </p>
+            </div>
+
+            <h3>Ví dụ tính toán</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nhân Viên</th>
+                        <th>Core (30%)</th>
+                        <th>Delivery (25%)</th>
+                        <th>DevOps (25%)</th>
+                        <th>AI Agent (20%)</th>
+                        <th>P2 Trước CAP</th>
+                        <th>CAP_3.2</th>
+                        <th>P2 Sau CAP</th>
+                        <th>DOWN_1_LEVEL</th>
+                        <th>Level Cuối</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Nguyễn Văn A</td>
+                        <td>4 × 0.30 = 1.20</td>
+                        <td>4 × 0.25 = 1.00</td>
+                        <td>3 × 0.25 = 0.75</td>
+                        <td>4 × 0.20 = 0.80</td>
+                        <td><strong>3.75</strong></td>
+                        <td>-</td>
+                        <td><strong>3.75</strong></td>
+                        <td>-</td>
+                        <td><span class="badge badge-level-b">B</span></td>
+                    </tr>
+                    <tr>
+                        <td>Trần Thị B</td>
+                        <td>3 × 0.30 = 0.90</td>
+                        <td>3 × 0.25 = 0.75</td>
+                        <td>2 × 0.25 = 0.50</td>
+                        <td>3 × 0.20 = 0.60</td>
+                        <td><strong>2.75</strong></td>
+                        <td>DevOps < 3</td>
+                        <td><strong>3.20</strong></td>
+                        <td>-</td>
+                        <td><span class="badge badge-level-c">C</span></td>
+                    </tr>
+                    <tr>
+                        <td>Lê Văn C</td>
+                        <td>5 × 0.30 = 1.50</td>
+                        <td>4 × 0.25 = 1.00</td>
+                        <td>4 × 0.25 = 1.00</td>
+                        <td>5 × 0.20 = 1.00</td>
+                        <td><strong>4.50</strong></td>
+                        <td>-</td>
+                        <td><strong>4.50</strong></td>
+                        <td>Has_Incident = Yes</td>
+                        <td><span class="badge badge-level-b">B</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Ngưỡng xếp loại</h3>
+            <div class="stats-row">
+                <div class="stat-item">
+                    <div class="number" style="color: #00ff00; text-shadow: 0 0 10px rgba(0, 255, 0, 0.8), 0 0 20px rgba(0, 255, 0, 0.4);">A</div>
+                    <div class="label">P2 > 3.8</div>
+                </div>
+                <div class="stat-item">
+                    <div class="number" style="color: #00ffff; text-shadow: 0 0 10px rgba(0, 255, 255, 0.8), 0 0 20px rgba(0, 255, 255, 0.4);">B</div>
+                    <div class="label">3.3 - 3.8</div>
+                </div>
+                <div class="stat-item">
+                    <div class="number" style="color: #ffff00; text-shadow: 0 0 10px rgba(255, 255, 0, 0.8), 0 0 20px rgba(255, 255, 0, 0.4);">C</div>
+                    <div class="label">2.5 - 3.2</div>
+                </div>
+                <div class="stat-item">
+                    <div class="number" style="color: #ff0000; text-shadow: 0 0 10px rgba(255, 0, 0, 0.8), 0 0 20px rgba(255, 0, 0, 0.4);">D</div>
+                    <div class="label">< 2.5</div>
+                </div>
+            </div>
+
+            <div class="info-box warning">
+                <h4>Lưu ý quan trọng</h4>
+                <ul style="padding-left: 20px; margin-top: 10px;">
+                    <li><strong>CAP_3.2:</strong> Nếu DevOps < 3 hoặc AI_Agent < 3 → P2_Final tối đa 3.2 (dù tính ra cao hơn)</li>
+                    <li><strong>DOWN_1_LEVEL:</strong> Nếu Has_Incident = Yes hoặc Miss_Delivery = Yes → hạ 1 bậc (A→B, B→C, C→D, D→D)</li>
+                    <li>Ví dụ: P2 = 4.0 (Level A) nhưng có Has_Incident = Yes → Level cuối = B</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Summary Section -->
+        <div id="summary" class="section">
+            <h2>📊 Tóm Tắt và Dashboard</h2>
+
+            <h3>Phân bố xếp loại (Ví dụ)</h3>
+            <div class="chart-container">
+                <div style="margin-bottom: 15px;">
+                    <strong>Level A (>3.8):</strong>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 25%;">25%</div>
+                    </div>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <strong>Level B (3.3-3.8):</strong>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 40%;">40%</div>
+                    </div>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <strong>Level C (2.5-3.2):</strong>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 30%;">30%</div>
+                    </div>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <strong>Level D (<2.5):</strong>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 5%;">5%</div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Thống kê theo Role</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Role</th>
+                        <th>Số Lượng</th>
+                        <th>P2 Trung Bình</th>
+                        <th>Level A</th>
+                        <th>Level B</th>
+                        <th>Level C</th>
+                        <th>Level D</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="badge badge-role">BE</span></td>
+                        <td>15</td>
+                        <td>3.65</td>
+                        <td>3 (20%)</td>
+                        <td>7 (47%)</td>
+                        <td>4 (27%)</td>
+                        <td>1 (6%)</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-role">FE</span></td>
+                        <td>12</td>
+                        <td>3.52</td>
+                        <td>2 (17%)</td>
+                        <td>6 (50%)</td>
+                        <td>3 (25%)</td>
+                        <td>1 (8%)</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-role">DE</span></td>
+                        <td>8</td>
+                        <td>3.88</td>
+                        <td>3 (38%)</td>
+                        <td>4 (50%)</td>
+                        <td>1 (12%)</td>
+                        <td>0 (0%)</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-role">FS</span></td>
+                        <td>5</td>
+                        <td>3.40</td>
+                        <td>1 (20%)</td>
+                        <td>2 (40%)</td>
+                        <td>2 (40%)</td>
+                        <td>0 (0%)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Thống kê theo Category</h3>
+            <div class="stats-row">
+                <div class="stat-item">
+                    <div class="number">3.72</div>
+                    <div class="label">Core Skill TB</div>
+                </div>
+                <div class="stat-item">
+                    <div class="number">3.65</div>
+                    <div class="label">Delivery TB</div>
+                </div>
+                <div class="stat-item">
+                    <div class="number">3.28</div>
+                    <div class="label">DevOps TB</div>
+                </div>
+                <div class="stat-item">
+                    <div class="number">3.55</div>
+                    <div class="label">AI Agent TB</div>
+                </div>
+            </div>
+
+            <div class="info-box success">
+                <h4>✅ Điểm mạnh</h4>
+                <ul style="padding-left: 20px; margin-top: 10px;">
+                    <li>Core Skill và Delivery đạt mức tốt (trung bình > 3.5)</li>
+                    <li>AI Agent được áp dụng hiệu quả trong công việc</li>
+                    <li>Phân bố xếp loại hợp lý, tập trung ở mức B (40%)</li>
+                </ul>
+            </div>
+
+            <div class="info-box warning">
+                <h4>⚠️ Cần cải thiện</h4>
+                <ul style="padding-left: 20px; margin-top: 10px;">
+                    <li>DevOps còn thấp (3.28) - cần đào tạo và nâng cao năng lực</li>
+                    <li>Một số nhân viên bị CAP_3.2 do DevOps < 3 hoặc AI_Agent < 3</li>
+                    <li>Cần tăng cường training và mentoring cho level C và D</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p><strong>P2 Evaluation System - Technology Department</strong></p>
+            <p>Hệ thống đánh giá năng lực theo mô hình lương 3P | Version 2.0</p>
+            <p style="margin-top: 10px; opacity: 0.8;">Tài liệu: P2_Template_BP_Cong_Nghe_v2.xlsx</p>
+        </div>
+    </div>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('.nav a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add active state to navigation
+        const sections = document.querySelectorAll('.section');
+        const navLinks = document.querySelectorAll('.nav a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.style.background = 'transparent';
+                link.style.color = '#00ff00';
+                link.style.boxShadow = 'none';
+                if (link.getAttribute('href') === '#' + current) {
+                    link.style.background = 'rgba(0, 255, 0, 0.1)';
+                    link.style.color = '#00ff00';
+                    link.style.boxShadow = '0 0 15px rgba(0, 255, 0, 0.6), 0 0 30px rgba(0, 255, 0, 0.3)';
+                    link.style.textShadow = '0 0 10px rgba(0, 255, 0, 0.8)';
+                } else {
+                    link.style.textShadow = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
