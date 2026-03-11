@@ -138,11 +138,11 @@ File naming: DD-MM-YYYY.md (e.g., 02-03-2026.md = March 2, 2026)
 | Name | Email | Role | P2 File |
 |------|-------|------|---------|
 | Trịnh Quốc Hoàn Đạt | dattqh@inet.vn | Trưởng phòng Công Nghệ (Tech Lead) | P2_Form_BP_Cong_Nghe - Dat.xlsx |
-| Nguyễn Đăng Đức | duc@inet.vn | Frontend/Backend Dev | P2_Form_BP_Cong_Nghe - Duc.xlsx |
-| (Hổ) | ho@inet.vn | Designer/System Designer | P2_Form_BP_Cong_Nghe - Ho.xlsx |
-| Đinh Tiến Chương | chuong@inet.vn | Backend Dev | P2_Form_BP_Cong_Nghe - Chuong.xlsx |
-| Nguyễn Huy Hoàng | hoang@inet.vn | DevOps/System Admin | P2_Form_BP_Cong_Nghe - Hoang.xlsx |
-| Tuấn Anh | tuananh@inet.vn | Backend/Process Specialist | P2 riêng (đánh giá riêng, không trong repo này) |
+| Nguyễn Đăng Đức | duc@inet.vn | Frontend | P2_Form_BP_Cong_Nghe - Duc.xlsx |
+| Bùi Văn Hổ | ho@inet.vn | Design System | P2_Form_BP_Cong_Nghe - Ho.xlsx |
+| Đinh Tiến Chương | chuong@inet.vn | Frontend | P2_Form_BP_Cong_Nghe - Chuong.xlsx |
+| Nguyễn Huy Hoàng | hoang@inet.vn | Backend | P2_Form_BP_Cong_Nghe - Hoang.xlsx |
+| Tuấn Anh | tuananh@inet.vn | AI Research | P2 riêng (đánh giá riêng, không trong repo này) |
 
 ## External Dependencies
 

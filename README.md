@@ -31,11 +31,11 @@ Hệ thống quản lý nội bộ theo dõi **OKR/KPI hàng tháng**, **đánh 
 | Tên | Vai Trò | KPI Link |
 |-----|---------|----------|
 | Trịnh Quốc Hoàn Đạt (dattqh) | Trưởng phòng Công Nghệ | [KPI](https://my.inet.vn/account/kpi/detail/dattqh@inet.vn) |
-| Nguyễn Đăng Đức | Frontend/Backend | [KPI](https://my.inet.vn/account/kpi/detail/duc@inet.vn) |
-| Hổ | Designer/System | [KPI](https://my.inet.vn/account/kpi/detail/ho@inet.vn) |
-| Đinh Tiến Chương | Backend | [KPI](https://my.inet.vn/account/kpi/detail/chuong@inet.vn) |
-| Nguyễn Huy Hoàng | DevOps/System | [KPI](https://my.inet.vn/account/kpi/detail/hoang@inet.vn) |
-| Tuấn Anh | Backend/Process | — |
+| Nguyễn Đăng Đức | Frontend | [KPI](https://my.inet.vn/account/kpi/detail/duc@inet.vn) |
+| Bùi Văn Hổ | Design System | [KPI](https://my.inet.vn/account/kpi/detail/ho@inet.vn) |
+| Đinh Tiến Chương | Frontend | [KPI](https://my.inet.vn/account/kpi/detail/chuong@inet.vn) |
+| Nguyễn Huy Hoàng | Backend | [KPI](https://my.inet.vn/account/kpi/detail/hoang@inet.vn) |
+| Tuấn Anh | AI Research | — |
 
 ### Bắt Đầu Nhanh
 

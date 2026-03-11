@@ -2,7 +2,7 @@
 name: ck:okr-kpi-myinet
 description: "Automate OKR/KPI entry on my.inet.vn management portal. Read monthly meeting targets, browse issues, and fill KPI forms via browser automation."
 license: MIT
-version: 1.1.0
+version: 1.2.0
 argument-hint: "[month/year] [member name] [source: meeting notes or plan report]"
 ---
 
@@ -14,12 +14,12 @@ Automate reading and writing OKR/KPI on https://my.inet.vn for iNET Tech Departm
 
 | Name | Role | KPI URL |
 |------|------|---------|
-| Trinh Quoc Hoan Dat (dattqh) | Fullstack - Truong phong Cong Nghe | https://my.inet.vn/account/kpi/detail/dattqh@inet.vn |
-| Bui Van Ho (hobv) | Fullstack - Truong phong Cong Nghe | https://my.inet.vn/account/kpi/detail/hobv@inet.vn |
-| Nguyen Huy Hoang (hoangnh) | Fullstack - Truong phong Cong Nghe | https://my.inet.vn/account/kpi/detail/hoangnh@inet.vn |
-| Dinh Tien Chuong (chuongdt) | Fullstack - Truong phong Cong Nghe | https://my.inet.vn/account/kpi/detail/chuongdt@inet.vn |
-| Nguyen Dang Duc (ducnd) | Fullstack - Truong phong Cong Nghe | https://my.inet.vn/account/kpi/detail/ducnd@inet.vn |
-| Tran Cong Tuan Anh (anhtct) | Fullstack - Truong phong Cong Nghe | https://my.inet.vn/account/kpi/detail/anhtct@inet.vn |
+| Trinh Quoc Hoan Dat (dattqh) | Truong phong Cong Nghe | https://my.inet.vn/account/kpi/detail/dattqh@inet.vn |
+| Bui Van Ho (hobv) | Design System | https://my.inet.vn/account/kpi/detail/hobv@inet.vn |
+| Nguyen Huy Hoang (hoangnh) | Backend | https://my.inet.vn/account/kpi/detail/hoangnh@inet.vn |
+| Dinh Tien Chuong (chuongdt) | Frontend | https://my.inet.vn/account/kpi/detail/chuongdt@inet.vn |
+| Nguyen Dang Duc (ducnd) | Frontend | https://my.inet.vn/account/kpi/detail/ducnd@inet.vn |
+| Tran Cong Tuan Anh (anhtct) | AI Research | https://my.inet.vn/account/kpi/detail/anhtct@inet.vn |
 
 ## Data Sources
 
@@ -39,6 +39,57 @@ ssid=<secure session id>
 **CRITICAL - Cookie names are lowercase `sid` and `ssid` in .env file.**
 
 ## Workflow
+
+### Phase 0: Pre-flight Validation
+
+**CRITICAL:** Chạy tất cả checks bên dưới TRƯỚC khi bắt đầu Phase 1. Nếu thiếu bất kỳ thông tin nào, dùng `AskUserQuestion` để hỏi user bổ sung. Thông tin bổ sung chỉ dùng tạm trong session hiện tại, KHÔNG ghi vào file.
+
+#### Check 1: Cookie my.inet.vn
+1. Đọc `.env` tại `<project-root>`
+2. Kiểm tra có cả `sid` và `ssid` hay không
+3. Nếu thiếu → `AskUserQuestion`:
+   - Header: "Cookie my.inet.vn"
+   - Question: "Thiếu cookie xác thực my.inet.vn. Bạn lấy từ Browser DevTools → Application → Cookies → my.inet.vn"
+   - Options: (a) "Nhập sid và ssid" — user nhập qua text, (b) "Bỏ qua" — dừng skill
+4. Nếu có cookie → validate bằng: `curl -s -o /dev/null -w "%{http_code}" -H "Cookie: sid=<sid>; ssid=<ssid>" https://my.inet.vn/account/kpi`
+   - HTTP 200 = OK, tiếp tục
+   - HTTP 302/401 = cookie hết hạn → hỏi user nhập lại như bước 3
+
+#### Check 2: GitLab Authentication (gitlabs.inet.vn)
+1. Kiểm tra GitLab access: `curl -s -H "PRIVATE-TOKEN: <token>" https://gitlabs.inet.vn/api/v4/user`
+2. Token lấy từ `.env` key `GITLAB_PRIVATE_TOKEN` (nếu có)
+3. Nếu không có token hoặc auth fail → `AskUserQuestion`:
+   - Header: "GitLab Auth"
+   - Question: "Cần Private Token để truy cập issues trên gitlabs.inet.vn. Tạo tại: Settings → Access Tokens → scope: read_api"
+   - Options: (a) "Nhập Private Token" — user nhập token, (b) "Bỏ qua GitLab" — không link issues, chỉ điền KPI text
+4. Nếu user chọn bỏ qua → tiếp tục nhưng bỏ qua bước link issues từ GitLab
+
+#### Check 3: Xác nhận thành viên
+1. Parse tên thành viên từ arguments hoặc meeting notes
+2. So khớp với bảng Team Members ở trên (khớp theo tên, username, hoặc email)
+3. Nếu không khớp → `AskUserQuestion`:
+   - Header: "Thành viên"
+   - Question: "Không tìm thấy thành viên '{tên}'. Chọn đúng người:"
+   - Options: liệt kê tất cả thành viên trong bảng (tối đa 4, nếu >4 thì gộp nhóm)
+4. Nếu argument không chỉ định thành viên → `AskUserQuestion` hỏi chọn thành viên nào cần điền KPI
+
+#### Check 4: Tìm Meeting Notes
+1. Parse tháng/năm từ arguments (vd: `03/2026`)
+2. Tìm file meeting notes: `weekly meetings/DD-MM-YYYY.md` matching tháng target
+3. Nếu không tìm thấy → `AskUserQuestion`:
+   - Header: "Meeting Notes"
+   - Question: "Không tìm thấy ghi chép cho tháng {MM/YYYY}. Chọn nguồn dữ liệu:"
+   - Options: (a) "Chỉ đường dẫn file" — user nhập path, (b) "Dùng plan report" — tìm trong `plans/reports/`, (c) "Nhập thủ công" — user tự ghi OKR/KPI entries
+
+#### Kết quả Pre-flight
+Sau khi tất cả checks pass, hiển thị bảng tóm tắt:
+```
+✓ Cookie my.inet.vn: hợp lệ
+✓ GitLab: đã xác thực (hoặc: bỏ qua)
+✓ Thành viên: Đức, Hoàng (2 người)
+✓ Meeting notes: weekly meetings/02-03-2026.md
+```
+Tiếp tục Phase 1.
 
 ### Phase 1: Gather OKR/KPI Targets
 1. Read source file (meeting notes from `weekly meetings/` or plan report)

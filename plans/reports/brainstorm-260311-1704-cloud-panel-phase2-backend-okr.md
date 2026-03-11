@@ -14,45 +14,45 @@ Milestones: M2.1 (Alert + Notification) → M2.2 (File Manager + Firewall) → M
 
 ---
 
-## Objective 1: Xay dung he thong Alert & Notification hoan chinh
+## Objective 1: Xây dựng hệ thống Alert & Notification hoàn chỉnh
 
 > Features: F-ALERT-01 (Alert Rule Engine) + F-NOTIF-01 (Notification Channels)
 
-| # | Key Result | Do luong |
+| # | Key Result | Đo lường |
 |---|-----------|---------|
-| KR1 | Hoan thanh API Alert Rule Engine: CRUD rule, threshold config (CPU/RAM/Disk/BW), severity levels (Critical/Warning/Log) | API deployed, unit test ≥80% |
-| KR2 | Tich hop ≥3 notification channels (Telegram Bot, Email SMTP, Slack/Discord) voi routing theo severity | End-to-end test tren staging |
-| KR3 | Alert engine xu ly real-time metrics tu agent, trigger alert ≤10s khi vuot threshold | Benchmark dat SLA |
+| KR1 | Hoàn thành API Alert Rule Engine: CRUD rule, threshold config (CPU/RAM/Disk/BW), severity levels (Critical/Warning/Log) | API deployed, unit test ≥80% |
+| KR2 | Tích hợp ≥3 notification channels (Telegram Bot, Email SMTP, Slack/Discord) với routing theo severity | End-to-end test trên staging |
+| KR3 | Alert engine xử lý real-time metrics từ agent, trigger alert ≤10s khi vượt threshold | Benchmark đạt SLA |
 
 ---
 
-## Objective 2: Mo rong kha nang quan ly server tu xa
+## Objective 2: Mở rộng khả năng quản lý server từ xa
 
 > Features: F-FMGR-01 (File Manager) + F-FWDET-01 (Firewall Detection) + F-ADATA-01 (Agent Data Expansion)
 
-| # | Key Result | Do luong |
+| # | Key Result | Đo lường |
 |---|-----------|---------|
-| KR1 | File Manager API: upload/download/browse qua SSH session, ho tro file ≤100MB | Test tren ≥3 OS (Ubuntu, CentOS, Debian) |
-| KR2 | Firewall Detection API: detect iptables/ufw/nftables, tra current rules (read-only) | Chinh xac tren ≥3 loai firewall |
-| KR3 | Agent Data Expansion: thu thap dmidecode, service list, user list, login logs hang ngay | Data luu MongoDB, API query hoat dong |
+| KR1 | File Manager API: upload/download/browse qua SSH session, hỗ trợ file ≤100MB | Test trên ≥3 OS (Ubuntu, CentOS, Debian) |
+| KR2 | Firewall Detection API: detect iptables/ufw/nftables, trả current rules (read-only) | Chính xác trên ≥3 loại firewall |
+| KR3 | Agent Data Expansion: thu thập dmidecode, service list, user list, login logs hàng ngày | Data lưu MongoDB, API query hoạt động |
 
 ---
 
-## Objective 3: Nang cao bao mat & chat luong API
+## Objective 3: Nâng cao bảo mật & chất lượng API
 
 > Features: F-ROT-01 (Key Rotation) + F-SHARE-01 (Server Sharing) + Security Hardening
 
-| # | Key Result | Do luong |
+| # | Key Result | Đo lường |
 |---|-----------|---------|
-| KR1 | Password/SSH Key Rotation: scheduled auto-renewal, auto-generate + encrypt (AES-256) | Rotation dung schedule, 0 downtime |
-| KR2 | Server Sharing API: share server/group voi scoped permissions (view-only, execute, full) | RBAC test pass, ≥3 permission levels |
-| KR3 | Postman Collection (JSON) cho toan bo Phase 2 endpoints + tai lieu API kem theo; rate limiting & input validation (Zod) tren tat ca routes moi | Collection exported, 0 endpoint thieu validation |
+| KR1 | Password/SSH Key Rotation: scheduled auto-renewal, auto-generate + encrypt (AES-256) | Rotation đúng schedule, 0 downtime |
+| KR2 | Server Sharing API: share server/group với scoped permissions (view-only, execute, full) | RBAC test pass, ≥3 permission levels |
+| KR3 | Postman Collection (JSON) cho toàn bộ Phase 2 endpoints + tài liệu API kèm theo; rate limiting & input validation (Zod) trên tất cả routes mới | Collection exported, 0 endpoint thiếu validation |
 
 ---
 
 ## Notes
 
-- Uu tien Objective 1 neu chi chon 1 — ROI cao nhat, foundation cho monitoring toan he thong
-- Dependency: Alert Engine (2.1) truoc → Notification Channels (2.2) phu thuoc vao no
-- Phase 1 can hoan thanh 100% truoc khi bat tay Phase 2
-- Feature F-XFER-01 (Transfer Server) da loai khoi OKR nay, thay bang API docs & security hardening
+- Ưu tiên Objective 1 nếu chỉ chọn 1 — ROI cao nhất, foundation cho monitoring toàn hệ thống
+- Dependency: Alert Engine (2.1) trước → Notification Channels (2.2) phụ thuộc vào nó
+- Phase 1 cần hoàn thành 100% trước khi bắt tay Phase 2
+- Feature F-XFER-01 (Transfer Server) đã loại khỏi OKR này, thay bằng API docs & security hardening
