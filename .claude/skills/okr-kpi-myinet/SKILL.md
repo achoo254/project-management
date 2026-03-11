@@ -2,8 +2,8 @@
 name: ck:okr-kpi-myinet
 description: "Automate OKR/KPI entry on my.inet.vn management portal. Read monthly meeting targets, browse issues, and fill KPI forms via browser automation."
 license: MIT
-version: 1.0.0
-argument-hint: "[month/year] or [member name]"
+version: 1.1.0
+argument-hint: "[month/year] [member name] [source: meeting notes or plan report]"
 ---
 
 # OKR/KPI Automation - my.inet.vn
@@ -21,120 +21,141 @@ Automate reading and writing OKR/KPI on https://my.inet.vn for iNET Tech Departm
 | Nguyen Dang Duc (ducnd) | Fullstack - Truong phong Cong Nghe | https://my.inet.vn/account/kpi/detail/ducnd@inet.vn |
 | Tran Cong Tuan Anh (anhtct) | Fullstack - Truong phong Cong Nghe | https://my.inet.vn/account/kpi/detail/anhtct@inet.vn |
 
-> **Add more members** by appending rows with format: `https://my.inet.vn/account/kpi/detail/{email}`
-
 ## Data Sources
 
-1. **Monthly OKR/KPI targets**: `<project-root>/weekly meetings/` folder - read the latest file matching target month
+1. **Monthly OKR/KPI targets**: `<project-root>/weekly meetings/` folder OR plan reports in `<project-root>/plans/reports/`
 2. **Issue details**: Retrieved from my.inet.vn issue tracker via KPI detail modal
-3. **Guide reference**: `<project-root>/agent/huong dan doc - ghi KPI tren my inet.md`
 
 ## Authentication
 
-Before any browser interaction, read `.env` file in `<project-root>` to get session cookies:
+Read `.env` file in `<project-root>` to get session cookies:
 
 ```env
-# Required .env variables for my.inet.vn authentication
-MY_INET_SID=<session id>
-MY_INET_SSID=<secure session id>
+# .env cookie names are lowercase
+sid=<jwt token>
+ssid=<secure session id>
 ```
 
-**Auth flow:**
-1. Read `.env` file from project root
-2. Extract `MY_INET_SID` and `MY_INET_SSID` values
-3. Set cookies on `my.inet.vn` domain before navigating:
-   - `SID={MY_INET_SID}`
-   - `SSID={MY_INET_SSID}`
-4. Verify auth by loading any KPI page - if 403/redirect to login, notify user to update `.env` with fresh session values
-
-> **How to get SID/SSID:** Login to my.inet.vn in browser → DevTools → Application → Cookies → copy SID and SSID values into `.env`
+**CRITICAL - Cookie names are lowercase `sid` and `ssid` in .env file.**
 
 ## Workflow
 
 ### Phase 1: Gather OKR/KPI Targets
-1. Read the latest file in `<project-root>/weekly meetings/` folder
-2. Extract each member's OKR and KPI assignments for the target month
-3. Summarize: member name, task description, type (OKR or KPI)
+1. Read source file (meeting notes from `weekly meetings/` or plan report)
+2. Extract member's OKR/KPI assignments for target month
+3. Present summary table to user for confirmation before proceeding
+4. Ask user which entries to create (all or subset)
+5. **All Vietnamese text must use diacritics (có dấu)**, except English technical terms
 
-### Phase 2: Browser Automation (per member)
-Use `ck:agent-browser` or `ck:chrome-devtools` skill for browser interaction.
+### Phase 2: Browser Automation (agent-browser)
 
-1. **Navigate** to member's KPI URL
-2. **Click** "Them KPI" button (next to label "KPI thang MM/yyyy")
-3. **KPI Modal** appears with fields:
-   - Chi tiet KPI (KPI details - has "lay chi tiet cac KPI" button)
-   - Muc tieu (Objective)
-   - Ket qua (Result)
-   - Ghi chu (Notes)
-4. **Click** "lay chi tiet cac KPI" button to open issue browser
-5. **In issue browser**:
-   - Select "Du an" (Project) matching the member's assigned project
-   - Set "Trang thai" (Status) = "Dang mo" (Open)
-   - Click "Tim" (Search) and wait for results
-6. **Cross-reference** issues with OKR/KPI targets from Phase 1
-7. **Check** relevant issues in "Chon" (Select) column
-8. **Click** "Them vao chi tiet cac KPI" to add selected issues to KPI details
-9. **Read each issue link** in the KPI details to understand context
-10. **Write** Muc tieu (objective) and Ket qua (result) based on issue content and meeting targets
-11. **Add** Ghi chu (notes) if needed
-12. **Click** "Luu lai" (Save)
+**IMPORTANT: Use `agent-browser` (npm package). Install if needed: `npm install -g agent-browser && agent-browser install`**
 
-### Phase 3: Verification
-1. Reload member KPI page
-2. Confirm new KPI entry appears for correct month
-3. Report completion status per member
+#### Step 1: Set cookies and navigate
+```bash
+# Open any page first (will redirect to login - that's OK)
+agent-browser open "https://my.inet.vn" --headed
 
-## Usage Examples
+# Set cookies using --url parameter (NOT --domain)
+agent-browser cookies set sid "<jwt_token>" --url "https://my.inet.vn"
+agent-browser cookies set ssid "<ssid_value>" --url "https://my.inet.vn"
 
+# Navigate to member KPI page
+agent-browser open "https://my.inet.vn/account/kpi/detail/{email}"
 ```
-# Fill KPI for all members for current month
-/okr-kpi-myinet 03/2026
 
-# Fill KPI for specific member
-/okr-kpi-myinet Ho 03/2026
-
-# Review existing KPIs (read-only)
-/okr-kpi-myinet --review 03/2026
+#### Step 2: Verify page loaded
+```bash
+agent-browser snapshot -i
+# Verify month/year dropdowns show correct values (03 selected, 2026 selected)
+# Find "Thêm KPI" button ref
 ```
+
+#### Step 3: Open KPI modal
+```bash
+# Click "Thêm KPI" button (find ref from snapshot)
+agent-browser click @e60  # ref varies - use snapshot to find
+```
+
+#### Step 4: Fill KPI form (CRITICAL - exact method)
+
+The KPI modal has these fields:
+- **Chi tiết KPI**: Rich text editor (iframe-based, NOT a regular textbox)
+- **Mục tiêu** (Objective): Regular textbox
+- **Kết quả** (Result): Regular textbox
+- **Ghi chú** (Notes): Regular textbox
+- **Đề xuất thưởng**: Checkbox (usually unchecked)
+
+**Fill the rich text editor (Chi tiết KPI) via iframe JavaScript:**
+```bash
+agent-browser eval "(function() { var iframe = document.querySelector('iframe'); var body = iframe.contentDocument.body; body.innerHTML = '<p><strong>Title</strong></p><p>Description</p>'; body.dispatchEvent(new Event('input', {bubbles: true})); return 'done'; })()"
+```
+
+**Fill regular textboxes using snapshot refs:**
+```bash
+# After snapshot -i of modal, fields are typically:
+# @e35 = Mục tiêu, @e36 = Kết quả, @e37 = Ghi chú
+# (verify with snapshot -s ".modal-content")
+agent-browser fill @e35 "Objective text"
+agent-browser fill @e36 "Result text"
+agent-browser fill @e37 "Notes text"
+```
+
+#### Step 5: Save via Angular scope (CRITICAL - do NOT click save button)
+
+**The save button click does NOT reliably work. MUST use Angular scope directly:**
+
+```bash
+agent-browser eval "(function() { var el = document.querySelector('.modal-content'); var scope = angular.element(el).scope(); while (scope && !scope.save) { scope = scope.$parent; } scope.kpi.description = '<p><strong>Title</strong></p><p>Description</p>'; scope.save(); scope.$apply(); return 'saved'; })()"
+```
+
+**CRITICAL:** The `scope.kpi.description` MUST be set in the Angular model before calling `save()`. The iframe innerHTML alone does NOT sync to Angular model. Always set `description` explicitly in the save script.
+
+#### Step 6: Verify save
+```bash
+agent-browser screenshot
+# Check: Tổng KPI count increased, new row visible in KPI table
+# Status should show "Chờ duyệt"
+```
+
+#### Step 7: Repeat for next KPI entry
+After successful save, modal auto-closes. For next entry:
+1. Re-snapshot to get fresh refs
+2. Click "Thêm KPI" again
+3. Repeat Steps 4-6
+
+### Phase 3: Verification & Cleanup
+1. Take final screenshot showing all KPI entries
+2. Report completion: total entries created, all statuses
+3. Close browser: `agent-browser close`
 
 ## User Confirmation Rules
 
-**CRITICAL:** Always confirm with user (via `AskUserQuestion`) in these situations:
+**CRITICAL:** Always confirm with user (via `AskUserQuestion`):
 
-1. **Before saving any KPI**: Show full draft (Chi tiet, Muc tieu, Ket qua, Ghi chu) and ask user to approve or edit
-2. **Ambiguous issue matching**: When multiple issues could match an OKR/KPI target, list candidates and ask user to pick
-3. **Missing data**: When meeting notes lack clarity on a member's target, ask user to clarify before proceeding
-4. **Project selection**: If a member works on multiple projects, ask which project to select in issue browser
-5. **Objective/Result wording**: When unsure how to phrase Muc tieu or Ket qua, propose options and let user choose
-6. **Unexpected UI state**: If the page layout differs from expected (new buttons, changed labels), screenshot and ask user how to proceed
-7. **Bulk operations**: Before filling KPI for all members, show summary table of planned actions and get confirmation
-
-**Principle:** When in doubt, ask. Never assume. It's better to confirm once than to fix a wrong KPI entry.
-
-## Important Notes
-
-- **Authentication via .env**: SID/SSID cookies loaded from `.env` - no manual browser login needed
-- **One KPI per OKR/KPI item**: Each OKR or KPI target from meeting notes = one KPI entry
-- **Vietnamese UI**: All button labels and fields are in Vietnamese on my.inet.vn
+1. **Before starting**: Show planned KPI entries table, ask which to create
+2. **Before first save**: Show filled form screenshot, ask to approve or edit
+3. **Content language**: All Vietnamese text must use diacritics (có dấu)
+4. **Ambiguous matching**: When multiple issues match, list candidates for user to pick
 
 ## Error Handling
 
-- If no issues found for a project: notify user, skip or manually input
-- If member KPI link returns 403/404: skip member, report error
-- If modal doesn't appear: retry once, then report to user
-- If issue content is unclear: show to user and ask for objective/result text
+- **Cookie auth fails** (redirect to login): Notify user to update `.env` with fresh sid/ssid
+- **Save button doesn't work**: Use Angular scope method (Step 5 above)
+- **Iframe content not syncing**: Always set `scope.kpi.description` in save script
+- **Refs expired after page change**: Re-run `snapshot -i` to get fresh refs
+- **Modal doesn't appear**: Wait 2s, retry click once, then report to user
 
-## Weekly Meeting File Format
+## Known Gotchas
 
-Expected format in `weekly meetings/MM-DD-YYYY.md`:
-```markdown
-- **Member Name:**
-  - Task description (OKR)
-  - Task description (KPI)
-```
+1. `agent-browser cookies set` requires `--url` NOT `--domain` parameter
+2. Rich text editor is inside an `<iframe>`, not a contenteditable div
+3. Angular model does NOT auto-sync from iframe - must set `scope.kpi.description` manually
+4. Click on "Lưu lại" button is unreliable - always use `scope.save()` + `scope.$apply()`
+5. Element refs expire after page navigation - always re-snapshot after any page change
+6. `agent-browser wait --idle` doesn't work reliably - skip it, just take screenshot to verify
 
 ## Dependencies
 
-- `ck:agent-browser` or `ck:chrome-devtools` for browser automation
-- `.env` file with `MY_INET_SID` and `MY_INET_SSID` values for cookie-based auth
-- Access to `<project-root>/weekly meetings/` folder
+- `agent-browser` (npm global package) for browser automation
+- `.env` file with `sid` and `ssid` values (lowercase) for cookie-based auth
