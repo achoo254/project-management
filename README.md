@@ -1,29 +1,54 @@
 # project-management
 
-## Báo Cáo Tình Hình Các Dự Án & Phân Bổ Nhân Sự
+## Quản Lý Dự Án & Đánh Giá Hiệu Suất - iNET Tech Department
 
-### I. Thông tin dự án
+Hệ thống quản lý nội bộ theo dõi **OKR/KPI hàng tháng**, **đánh giá hiệu suất (P2)**, và **phối hợp nhóm** cho bộ phận Công Nghệ.
 
-| Tên Dự Án        | Mô Tả                                                                         | Tình Trạng Hiện Tại                                                                         |
-|------------------|-------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------|
-| **OneMail**      | Nền tảng cung cấp email doanh nghiệp theo tên miền riêng                      | Đang cải thiện tính năng                                                                    |
-| **Drive**        | Không gian lưu trữ, chia sẻ file, quản lý dữ liệu theo tên miền               | Đang cải thiện tính năng                                                                    |
-| **Server Tools** | Hệ thống quản lý server, terminal, file và tài nguyên VPS                     | Đang tạm dừng                                                                               |
-| **Portal**       | Nền tảng điều phối và quản trị tập trung các dịch vụ, người dùng, gói dịch vụ | Đã đưa vào vận hành thực tế, tiếp tục phát triển thêm, sửa tính năng theo nhu cầu phát sinh |
-| **DNS Proxy**    | Dịch vụ quản lý DNS + Proxy                                                   | Đang triển khai; cần 2 frontend developer hỗ trợ xử lý                                      |
+### Cấu Trúc Chính
+
+- **`weekly meetings/`** - Ghi chép các cuộc họp hàng tuần với phân công OKR/KPI
+- **`members/`** - Các biểu mẫu đánh giá P2 theo từng thành viên
+- **`docs/`** - Tài liệu hướng dẫn, quy chuẩn và lộ trình dự án
+- **`P2_Form_BP_Cong_Nghe.xlsx`** - Mẫu đánh giá P2 chính
+- **`.env`** - Cookie xác thực my.inet.vn (bí mật, không commit)
+
+### Quy Trình Chính
+
+1. **Họp hàng tháng** → Ghi chép trong `weekly meetings/DD-MM-YYYY.md`
+2. **Tự động hóa OKR/KPI** → Skill `okr-kpi-myinet` điền vào my.inet.vn
+3. **Đánh giá P2** → Cập nhật file Excel theo từng thành viên
+4. **Theo dõi tiến độ** → Dashboard hiệu suất (sắp tới)
+
+### Tài Liệu Tham Khảo
+
+- **[Tổng Quan Dự Án](./docs/project-overview-pdr.md)** - Mục tiêu, quy trình, KPI thành công
+- **[Tóm Tắt Codebase](./docs/codebase-summary.md)** - Cấu trúc repo, mô tả file
+- **[Quy Chuẩn Code](./docs/code-standards.md)** - Quy ước đặt tên, định dạng ghi chép
+- **[Lộ Trình Dự Án](./docs/project-roadmap.md)** - Trạng thái hiện tại, cải tiến sắp tới
+
+### Thành Viên Nhóm
+
+| Tên | Vai Trò | KPI Link |
+|-----|---------|----------|
+| Trịnh Quốc Hoàn Đạt (dattqh) | Trưởng phòng Công Nghệ | [KPI](https://my.inet.vn/account/kpi/detail/dattqh@inet.vn) |
+| Nguyễn Đăng Đức | Frontend/Backend | [KPI](https://my.inet.vn/account/kpi/detail/duc@inet.vn) |
+| Hổ | Designer/System | [KPI](https://my.inet.vn/account/kpi/detail/ho@inet.vn) |
+| Đinh Tiến Chương | Backend | [KPI](https://my.inet.vn/account/kpi/detail/chuong@inet.vn) |
+| Nguyễn Huy Hoàng | DevOps/System | [KPI](https://my.inet.vn/account/kpi/detail/hoang@inet.vn) |
+| Tuấn Anh | Backend/Process | — |
+
+### Bắt Đầu Nhanh
+
+**Thêm KPI cho tháng này:**
+1. Cập nhật file ghi chép trong `weekly meetings/`
+2. Chạy skill automation: `/okr-kpi-myinet 03/2026`
+3. Xác nhận các entry trên my.inet.vn
+
+**Cập nhật đánh giá P2:**
+1. Mở file thành viên trong `members/`
+2. Điền điểm và kết quả đánh giá
+3. Kiểm tra công thức tính tổng hợp
 
 ---
 
-### II. Phân bổ nhân sự theo dự án
-
-- 🔴 Ưu tiên cao nhất
-- 🟡 Cao
-- 🟢 Trung bình
-
-| Họ và Tên               | Dự án phụ trách                                        |
-|-------------------------|--------------------------------------------------------|
-| **Bùi Văn Hổ**          | 🔴 OneMail (FE)                                        |
-| **Trịnh Quốc Hoàn Đạt** | 🔴 OneMail + Drive (FE + BE) 🟢 Server Tools (FE + BE) |
-| **Nguyễn Huy Hoàng**    | 🔴 DNS Proxy (FE)                                      |
-| **Nguyễn Đăng Đức**     | 🔴 OneMail + Drive (FE)                                |
-| **Đinh Tiến Chương**    | 🔴 DNS Proxy + Portal (FE + BE)                        |
+*Lần cập nhật: Tháng 03/2026 | Trưởng phòng: Đạt | Quản lý: Team Lead*
