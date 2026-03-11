@@ -2,8 +2,8 @@
 name: ck:okr-kpi-myinet
 description: "Automate OKR/KPI entry on my.inet.vn management portal. Read monthly meeting targets, browse issues, and fill KPI forms via browser automation."
 license: MIT
-version: 1.2.0
-argument-hint: "[month/year] [member name] [source: meeting notes or plan report]"
+version: 1.3.0
+argument-hint: "[month/year] [member] [--audit] [--verify-gitlab]"
 ---
 
 # OKR/KPI Automation - my.inet.vn
@@ -206,7 +206,60 @@ After successful save, modal auto-closes. For next entry:
 5. Element refs expire after page navigation - always re-snapshot after any page change
 6. `agent-browser wait --idle` doesn't work reliably - skip it, just take screenshot to verify
 
+## Optional Steps (Flags)
+
+### `--audit` — So sánh OKR/KPI vs Meeting Notes
+
+Kiểm tra nội dung OKR/KPI trên my.inet.vn có khớp với kế hoạch trong meeting notes không.
+
+**Quy trình:**
+1. Đọc meeting notes tháng target từ `weekly meetings/` → trích xuất expected OKR/KPI mỗi thành viên
+2. Đọc actual OKR/KPI từ my.inet.vn (dùng agent-browser, extract text từ bảng KPI)
+3. So sánh từng entry:
+   - ✅ **Khớp**: entry trên my.inet.vn match với kế hoạch
+   - ⚠️ **Thiếu**: có trong meeting notes nhưng chưa điền trên my.inet.vn
+   - ❓ **Thừa**: có trên my.inet.vn nhưng không có trong meeting notes
+   - ⚡ **Sai lệch**: nội dung khác biệt đáng kể (fuzzy match < 70%)
+4. Khi không chắc chắn → dùng `AskUserQuestion` hỏi user xác nhận
+5. Xuất report markdown vào `<project-root>/plans/reports/`
+
+**Report format:**
+```markdown
+# Báo cáo kiểm tra OKR/KPI — Tháng MM/YYYY
+| Thành viên | Kế hoạch (meeting notes) | Thực tế (my.inet.vn) | Trạng thái |
+|------------|--------------------------|----------------------|------------|
+| Tên | Nội dung expected | Nội dung actual | ✅/⚠️/❓/⚡ |
+```
+
+### `--verify-gitlab` — Kiểm tra liên kết GitLab
+
+Kiểm tra OKR/KPI có liên quan đến issues/projects trên gitlabs.inet.vn không.
+
+**Yêu cầu:** GitLab Private Token (Check 2 trong Pre-flight). Thông tin thành viên và GitLab projects đọc từ `<project-root>/README.md` (bảng Thành Viên Nhóm).
+
+**Quy trình:**
+1. Đọc `README.md` → lấy danh sách projects mỗi thành viên tham gia
+2. Với mỗi thành viên, lấy OKR/KPI entries từ my.inet.vn
+3. Với mỗi entry, kiểm tra trên GitLab:
+   - Tìm issues liên quan trong projects của thành viên: `GET /api/v4/projects/:id/issues?search=<keyword>`
+   - Kiểm tra có issue/MR nào match với nội dung OKR/KPI không
+4. Đánh giá:
+   - ✅ **Có liên kết**: tìm thấy issue/MR liên quan trên GitLab
+   - ⚠️ **Không rõ**: không tìm thấy issue trực tiếp, có thể thuộc task chung
+   - ❌ **Không có liên kết**: OKR/KPI không liên quan đến bất kỳ project nào
+5. Khi không chắc chắn → dùng `AskUserQuestion` hỏi user xác nhận
+6. Xuất report markdown vào `<project-root>/plans/reports/`
+
+**Report format:**
+```markdown
+# Báo cáo kiểm tra GitLab — Tháng MM/YYYY
+| Thành viên | OKR/KPI | GitLab Project | Issue/MR | Trạng thái |
+|------------|---------|----------------|----------|------------|
+| Tên | Nội dung | project-name | #123 | ✅/⚠️/❌ |
+```
+
 ## Dependencies
 
 - `agent-browser` (npm global package) for browser automation
 - `.env` file with `sid` and `ssid` values (lowercase) for cookie-based auth
+- `README.md` chứa bảng thành viên với vai trò và GitLab projects (cho `--verify-gitlab`)
