@@ -14,7 +14,7 @@
 - **Master Template:** `P2_Form_BP_Cong_Nghe.xlsx` (root, immutable)
 - **Member Forms:** `P2_Form_BP_Cong_Nghe - {FirstName}.xlsx`
 - **Naming Pattern:**
-  - Full Vietnamese first name (as shown in examples: Đạt, Đức, Hổ, Chương, Hoàng)
+  - Full Vietnamese first name (as shown in examples: Đạt, Đức, Hổ, Chương)
   - Space before hyphen, space after hyphen (` - `)
   - .xlsx extension (Excel 2007+)
 - **Examples:**

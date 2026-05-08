@@ -18,7 +18,7 @@ Internal project management repo for iNET Tech Department. Tracks project status
 
 ## Team Members
 
-Dat (dattqh), Duc, Ho, Chuong, Hoang, Tuan Anh
+Dat (dattqh), Duc, Ho, Chuong, Tuan Anh
 
 ## Key Workflows
 

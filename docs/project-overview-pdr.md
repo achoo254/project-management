@@ -8,7 +8,7 @@ Internal project management system for iNET Tech Department. Centralized trackin
 
 **Department:** iNET Tech Department
 **Location:** Internal management portal (my.inet.vn)
-**Team Members:** Đạt (Trưởng phòng), Đức, Hổ, Chương, Hoàng, Tuấn Anh
+**Team Members:** Đạt (Trưởng phòng), Đức, Hổ, Chương, Tuấn Anh
 
 ## Key Processes
 
@@ -73,7 +73,6 @@ Archive or distribute results
 | Tuấn Anh | Cải thiện quy trình xử lý lạm dụng tự động | Cải thiện hệ thống số hóa tài liệu |
 | Đức | Nâng cấp vFirewall v2 | Hoàn thiện FE CloudPanel |
 | Chương | — | Hoàn thiện service hosting |
-| Hoàng | OSSEC | Hoàn thiện các tính năng Agent |
 | Đạt (Trưởng phòng) | Team leadership & OKR/KPI oversight | — |
 
 ### Training Topics (March 2026)

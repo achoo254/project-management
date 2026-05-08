@@ -34,7 +34,6 @@ Hệ thống quản lý nội bộ theo dõi **OKR/KPI hàng tháng**, **đánh 
 | Nguyễn Đăng Đức | Frontend | [KPI](https://my.inet.vn/account/kpi/detail/duc@inet.vn) |
 | Bùi Văn Hổ | Design System | [KPI](https://my.inet.vn/account/kpi/detail/ho@inet.vn) |
 | Đinh Tiến Chương | Frontend | [KPI](https://my.inet.vn/account/kpi/detail/chuong@inet.vn) |
-| Nguyễn Huy Hoàng | Backend | [KPI](https://my.inet.vn/account/kpi/detail/hoang@inet.vn) |
 | Tuấn Anh | AI Research | — |
 
 ### Bắt Đầu Nhanh
