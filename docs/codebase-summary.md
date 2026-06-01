@@ -30,8 +30,7 @@ project-management/
 │   ├── P2_Form_BP_Cong_Nghe - Chuong.xlsx
 │   ├── P2_Form_BP_Cong_Nghe - Dat.xlsx
 │   ├── P2_Form_BP_Cong_Nghe - Duc.xlsx
-│   ├── P2_Form_BP_Cong_Nghe - Ho.xlsx
-│   └── P2_Form_BP_Cong_Nghe - Hoang.xlsx
+│   └── P2_Form_BP_Cong_Nghe - Ho.xlsx
 │
 ├── weekly meetings/                    # Team meeting notes
 │   ├── 2025/                          # Historical 2025 notes (9 files)
@@ -81,7 +80,7 @@ project-management/
 | File | Purpose | Format | Owner |
 |------|---------|--------|-------|
 | `P2_Form_BP_Cong_Nghe.xlsx` | Master P2 evaluation template (scoring, formulas) | Excel | Team Lead |
-| `members/*.xlsx` | Per-member evaluation forms (5 members) | Excel | Individual/Lead |
+| `members/*.xlsx` | Per-member evaluation forms (4 members) | Excel | Individual/Lead |
 
 ### Meeting Notes
 | File | Period | Purpose | Format |
@@ -141,7 +140,6 @@ File naming: DD-MM-YYYY.md (e.g., 02-03-2026.md = March 2, 2026)
 | Nguyễn Đăng Đức | duc@inet.vn | Frontend | P2_Form_BP_Cong_Nghe - Duc.xlsx |
 | Bùi Văn Hổ | ho@inet.vn | Design System | P2_Form_BP_Cong_Nghe - Ho.xlsx |
 | Đinh Tiến Chương | chuong@inet.vn | Frontend | P2_Form_BP_Cong_Nghe - Chuong.xlsx |
-| Nguyễn Huy Hoàng | hoang@inet.vn | Backend | P2_Form_BP_Cong_Nghe - Hoang.xlsx |
 | Tuấn Anh | tuananh@inet.vn | AI Research | P2 riêng (đánh giá riêng, không trong repo này) |
 
 ## External Dependencies
@@ -167,7 +165,7 @@ File naming: DD-MM-YYYY.md (e.g., 02-03-2026.md = March 2, 2026)
 
 ### P2 Evaluations
 - **Evaluation Period:** Quarterly (typical)
-- **Number of Evaluees:** 5 members
+- **Number of Evaluees:** 4 members
 - **Scoring Formula:** P2+ Tổng = (P2-Core × A) + (P2-Delivery × B)
 - **Formula Dependencies:** Cell references for summary calculations
 

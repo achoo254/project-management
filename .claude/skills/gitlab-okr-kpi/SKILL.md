@@ -21,7 +21,6 @@ Does NOT handle: SSH key management, deployment automation, non-GitLab git opera
 |------|----------|------|---------|
 | Trinh Quoc Hoan Dat | dattqh | Truong phong Cong Nghe | https://my.inet.vn/account/kpi/detail/dattqh@inet.vn |
 | Bui Van Ho | hobv | Design System | https://my.inet.vn/account/kpi/detail/hobv@inet.vn |
-| Nguyen Huy Hoang | hoangnh | Backend | https://my.inet.vn/account/kpi/detail/hoangnh@inet.vn |
 | Dinh Tien Chuong | chuongdt | Frontend | https://my.inet.vn/account/kpi/detail/chuongdt@inet.vn |
 | Nguyen Dang Duc | ducnd | Frontend | https://my.inet.vn/account/kpi/detail/ducnd@inet.vn |
 | Tran Cong Tuan Anh | anhtct | AI Research | https://my.inet.vn/account/kpi/detail/anhtct@inet.vn |

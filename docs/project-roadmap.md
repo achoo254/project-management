@@ -28,7 +28,6 @@
 | Hổ | 100% Design System | — | High |
 | Đức | Nâng cấp vFirewall v2 | Hoàn thiện FE CloudPanel | High |
 | Chương | — | Hoàn thiện service hosting | Medium |
-| Hoàng | OSSEC | Hoàn thiện các tính năng Agent | High |
 | Tuấn Anh | Cải thiện quy trình xử lý lạm dụng | Cải thiện số hóa tài liệu | Medium |
 | Đạt (Lead) | Team leadership | OKR/KPI oversight | Critical |
 
