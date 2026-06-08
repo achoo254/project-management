@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Audit P2-Delivery — BP Công Nghệ T05/2026</title>
+<style>
+  :root{
+    --bg:#0f1117; --panel:#161a23; --panel2:#1d2230; --line:#2a3142;
+    --txt:#e6e9ef; --muted:#9aa4b6; --muted2:#6b7488;
+    --green:#34d399; --green-bg:rgba(52,211,153,.12);
+    --amber:#fbbf24; --amber-bg:rgba(251,191,36,.12);
+    --blue:#60a5fa; --blue-bg:rgba(96,165,250,.12);
+    --red:#f87171; --red-bg:rgba(248,113,113,.12);
+    --accent:#49c98d;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;line-height:1.55;font-size:15px}
+  .wrap{max-width:1080px;margin:0 auto;padding:32px 20px 80px}
+  header.hero{background:linear-gradient(135deg,#13241d 0%,#161a23 60%);border:1px solid var(--line);border-radius:16px;padding:28px 30px;margin-bottom:26px}
+  header.hero h1{margin:0 0 6px;font-size:26px;letter-spacing:-.3px}
+  header.hero .sub{color:var(--muted);font-size:14px}
+  .pill{display:inline-block;background:var(--accent);color:#06130d;font-weight:700;font-size:11px;padding:3px 10px;border-radius:999px;letter-spacing:.5px;vertical-align:middle;margin-left:8px}
+  .meta-row{margin-top:14px;display:flex;flex-wrap:wrap;gap:8px}
+  .meta-row span{font-size:12px;color:var(--muted);background:var(--panel2);border:1px solid var(--line);padding:4px 10px;border-radius:8px}
+  .note{background:var(--amber-bg);border:1px solid rgba(251,191,36,.35);border-radius:10px;padding:12px 16px;margin:20px 0;font-size:13.5px;color:#f4e2b6}
+  .note b{color:var(--amber)}
+  h2.sec{font-size:18px;margin:34px 0 14px;padding-bottom:8px;border-bottom:1px solid var(--line);letter-spacing:-.2px}
+  h2.sec .em{color:var(--accent)}
+  table{width:100%;border-collapse:collapse;font-size:13.5px;background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+  th{background:var(--panel2);color:var(--muted);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.4px}
+  tr:last-child td{border-bottom:none}
+  td.center,th.center{text-align:center}
+  .badge{display:inline-block;font-weight:700;font-size:11.5px;padding:2px 9px;border-radius:6px;white-space:nowrap}
+  .b-tot{background:var(--green-bg);color:var(--green);border:1px solid rgba(52,211,153,.4)}
+  .b-dat{background:var(--blue-bg);color:var(--blue);border:1px solid rgba(96,165,250,.4)}
+  .b-ok{background:var(--green-bg);color:var(--green);border:1px solid rgba(52,211,153,.4)}
+  .b-warn{background:var(--amber-bg);color:var(--amber);border:1px solid rgba(251,191,36,.4)}
+  .score{font-weight:800;font-variant-numeric:tabular-nums}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px 24px;margin:16px 0}
+  .card h3{margin:0 0 2px;font-size:17px}
+  .card .role{color:var(--muted);font-size:12.5px;margin-bottom:14px}
+  .crit{border-left:3px solid var(--line);padding:4px 0 4px 14px;margin:14px 0}
+  .crit.tot{border-color:var(--green)}
+  .crit.dat{border-color:var(--blue)}
+  .crit .ch{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:5px}
+  .crit .ch .name{font-weight:700;font-size:14px}
+  .crit .ch .w{color:var(--muted2);font-size:11.5px}
+  .crit .verdict{font-size:13px;color:var(--muted);margin-bottom:8px}
+  .ev{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+  a.commit{display:inline-flex;align-items:center;gap:6px;text-decoration:none;background:var(--panel2);border:1px solid var(--line);border-radius:7px;padding:3px 8px;font-size:12px;color:var(--txt);transition:.15s}
+  a.commit:hover{border-color:var(--accent);background:#10231a}
+  a.commit .sha{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--accent);font-size:11px}
+  a.commit .repo{color:var(--muted2);font-size:10.5px}
+  a.issue{color:var(--blue);text-decoration:none;border-bottom:1px dotted var(--blue);font-size:12px}
+  .kq{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:8px 12px;font-size:12.5px;color:#cdd5e3;margin-top:8px}
+  .kq b{color:var(--green)}
+  .trans{display:flex;flex-wrap:wrap;gap:14px;margin-top:14px;font-size:12.5px}
+  .trans div{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:8px 12px}
+  .trans .lbl{color:var(--muted2);font-size:11px;display:block}
+  footer{margin-top:30px;color:var(--muted2);font-size:12px;text-align:center;border-top:1px solid var(--line);padding-top:18px}
+  .legend{font-size:12px;color:var(--muted);margin:10px 0 0}
+  .legend .badge{margin-right:4px}
+  ul.fix{font-size:13.5px;color:var(--muted);padding-left:20px}
+  ul.fix li{margin:5px 0}
+  ul.fix b{color:var(--txt)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <h1>Audit "KẾT QUẢ CÔNG VIỆC" (P2-Delivery)<span class="pill">T05/2026</span></h1>
+    <div class="sub">Bộ phận Công Nghệ — iNET · Kiểm chứng tính <b style="color:var(--green)">chính xác</b>, <b style="color:var(--blue)">minh bạch</b>, <b style="color:var(--accent)">có bằng chứng</b> của phần đánh giá Delivery trong file P2 Excel</div>
+    <div class="meta-row">
+      <span>📅 Lập: 2026-06-02</span>
+      <span>🔍 Nguồn: git log T05/2026 + my.inet.vn KPI</span>
+      <span>👥 4 thành viên: Đạt · Đức · Hổ · Chương</span>
+      <span>📊 Thang Delivery: Chưa đạt 0.8 · Đạt 1.0 · Tốt 1.2</span>
+    </div>
+  </header>
+
+  <div class="note">
+    <b>⚠ Lưu ý phương pháp:</b> KHÔNG xét trạng thái "Đã duyệt/Duyệt" trên my.inet.vn (mục dành cho cấp quản lý, không liên quan đánh giá hoàn thành công việc). Đánh giá chỉ dựa trên <b>công việc thực tế</b> (git commit + KPI shipped). Baseline OKR = KPI chính thức trên my.inet.vn (KHÔNG dùng <code>weekly meetings/</code> — folder lịch sử/stale). Mọi link commit dưới đây là SHA thật trên gitlabs.inet.vn.
+  </div>
+
+  <!-- SUMMARY -->
+  <h2 class="sec"><span class="em">1.</span> Bảng tổng — verdict 3 tiêu chí Delivery</h2>
+  <table>
+    <thead><tr>
+      <th>Thành viên</th><th>Dự án</th>
+      <th class="center">Hoàn thành OKR<br><span style="font-weight:400">(40%)</span></th>
+      <th class="center">Chất lượng<br><span style="font-weight:400">(35%)</span></th>
+      <th class="center">Cam kết & tiến độ<br><span style="font-weight:400">(25%)</span></th>
+      <th class="center">Delivery</th><th class="center">P2+</th><th class="center">Đánh giá audit</th>
+    </tr></thead>
+    <tbody>
+      <tr>
+        <td><b>Trịnh Quốc Hoàn Đạt</b><br><span style="color:var(--muted2);font-size:11px">Fullstack · Trưởng phòng</span></td>
+        <td>OneDash + OneMail</td>
+        <td class="center"><span class="badge b-tot">Tốt</span></td>
+        <td class="center"><span class="badge b-dat">Đạt</span></td>
+        <td class="center"><span class="badge b-tot">Tốt</span></td>
+        <td class="center score">1.13</td><td class="center score">1.065</td>
+        <td class="center"><span class="badge b-ok">✓ Chính xác</span></td>
+      </tr>
+      <tr>
+        <td><b>Nguyễn Đăng Đức</b><br><span style="color:var(--muted2);font-size:11px">Frontend</span></td>
+        <td>OneDash</td>
+        <td class="center"><span class="badge b-tot">Tốt</span></td>
+        <td class="center"><span class="badge b-dat">Đạt</span></td>
+        <td class="center"><span class="badge b-tot">Tốt</span></td>
+        <td class="center score">1.13</td><td class="center score">1.065</td>
+        <td class="center"><span class="badge b-ok">✓ Chính xác</span></td>
+      </tr>
+      <tr>
+        <td><b>Bùi Văn Hổ</b><br><span style="color:var(--muted2);font-size:11px">Design System</span></td>
+        <td>Design System</td>
+        <td class="center"><span class="badge b-tot">Tốt</span></td>
+        <td class="center"><span class="badge b-dat">Đạt</span></td>
+        <td class="center"><span class="badge b-tot">Tốt</span></td>
+        <td class="center score">1.13</td><td class="center score">1.065</td>
+        <td class="center"><span class="badge b-ok">✓ Chính xác</span></td>
+      </tr>
+      <tr>
+        <td><b>Đinh Tiến Chương</b><br><span style="color:var(--muted2);font-size:11px">Frontend</span></td>
+        <td>Portal + Developers</td>
+        <td class="center"><span class="badge b-dat">Đạt</span></td>
+        <td class="center"><span class="badge b-dat">Đạt</span></td>
+        <td class="center"><span class="badge b-tot">Tốt</span></td>
+        <td class="center score">1.05</td><td class="center score">1.025</td>
+        <td class="center"><span class="badge b-ok">✓ Chính xác</span></td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="legend"><span class="badge b-tot">Tốt</span>=1.2 (trần) &nbsp; <span class="badge b-dat">Đạt</span>=1.0 &nbsp; <span class="badge b-ok">✓ Chính xác</span> verdict audit &nbsp; <span class="badge b-warn">⚠ Lưu ý</span> điểm cần chú ý. Công thức: Delivery = OKR×0.4 + CL×0.35 + Cam kết×0.25 · P2+ = Core×0.5 + Delivery×0.5.</p>
+
+  <!-- ĐẠT -->
+  <h2 class="sec"><span class="em">2.</span> Chi tiết &amp; bằng chứng từng người</h2>
+
+  <div class="card">
+    <h3>Trịnh Quốc Hoàn Đạt <span class="badge b-tot" style="font-size:10px">P2+ 1.065 · TỐT</span></h3>
+    <div class="role">Fullstack (Trưởng phòng) · OneDash + OneMail · 667 commit T05 · my.inet.vn: 4 KPI</div>
+
+    <div class="crit tot">
+      <div class="ch"><span class="name">Mức độ hoàn thành OKR</span> <span class="badge b-tot">Tốt</span> <span class="w">40%</span></div>
+      <div class="verdict">✓ Đúng — 4 KPI (3 OneDash + 1 OneMail) đều có sản phẩm ship; OneMail verify deploy prod qua <code>server-scripts/README</code> (Typesense + monitoring chạy thật trên 103.57.223.64).</div>
+      <div class="ev">
+        <a class="commit" href="https://gitlabs.inet.vn/server-tools/cloud-panel-application/-/commit/dd7f30091eee556706dad488be22985ce062f0bf" target="_blank"><span class="sha">dd7f300</span> customer-effectiveness OKR dashboard <span class="repo">OneDash</span></a>
+        <a class="commit" href="https://gitlabs.inet.vn/server-tools/cloud-panel-application/-/commit/3b768a0fccefaac4577042b6ad556a733016838c" target="_blank"><span class="sha">3b768a0</span> CASL permission audit phase 1-14 <span class="repo">OneDash</span></a>
+        <a class="commit" href="https://gitlabs.inet.vn/server-tools/cloud-panel-application/-/commit/206dd4c26969df66eb2910fb3cf6cd71337293ef" target="_blank"><span class="sha">206dd4c</span> windows-event-log stream perm <span class="repo">OneDash</span></a>
+        <a class="commit" href="https://gitlabs.inet.vn/inet-workspace/workspace-application/-/commit/c250f43a4023e60e00cff4c5ea79b69b344266c1" target="_blank"><span class="sha">c250f43</span> fix ZWA2 502 burst <span class="repo">OneMail</span></a>
+        <a class="commit" href="https://gitlabs.inet.vn/inet-workspace/workspace-application/-/commit/a091acc94952fff86c23a49009aa29d29588a79d" target="_blank"><span class="sha">a091acc</span> infra-watchdog monitoring <span class="repo">OneMail</span></a>
+      </div>
+    </div>
+
+    <div class="crit dat">
+      <div class="ch"><span class="name">Chất lượng kết quả</span> <span class="badge b-dat">Đạt</span> <span class="w">35%</span></div>
+      <div class="verdict">✓ Đúng &amp; trung thực — KHÔNG max vì có sự cố prod + rework thực: SPACE OOM lặp, 502 burst, FD leak, silent-fail 19h. Tự phát hiện qua giám sát + fix nhanh → không hạ "Chưa đạt".</div>
+      <div class="ev">
+        <a class="commit" href="https://gitlabs.inet.vn/inet-workspace/workspace-application/-/commit/55f9fd2c2455147977f37f76a9184f09cd0a7b29" target="_blank"><span class="sha">55f9fd2</span> SPACE OOM v2 (incident) <span class="repo">OneMail</span></a>
+        <a class="commit" href="https://gitlabs.inet.vn/inet-workspace/workspace-application/-/commit/9cd17ed3169eadf30d800f5bd83a3d9d63e284db" target="_blank"><span class="sha">9cd17ed</span> system error audit foundation <span class="repo">OneMail</span></a>
+        <a class="commit" href="https://gitlabs.inet.vn/inet-workspace/workspace-application/-/commit/93a943d05398e446900ae887bf42404c9aca0e03" target="_blank"><span class="sha">93a943d</span> decom Elasticsearch → Typesense <span class="repo">OneMail</span></a>
+      </div>
+    </div>
+
+    <div class="crit tot">
+      <div class="ch"><span class="name">Cam kết &amp; tiến độ</span> <span class="badge b-tot">Tốt</span> <span class="w">25%</span></div>
+      <div class="verdict">✓ Đúng — commit đều mỗi ngày 4/5→1/6; "chủ động báo sớm rủi ro" hiện thực hóa thành hệ thống (watchdog, probe L1-L3, alert attribution).</div>
+      <div class="ev">
+        <a class="commit" href="https://gitlabs.inet.vn/server-tools/cloud-panel-application/-/commit/cfb4545e433e8bef9fd020a636ee3881d44367fa" target="_blank"><span class="sha">cfb4545</span> close perm audit (KPI may w1) <span class="repo">OneDash</span></a>
+        <a class="commit" href="https://gitlabs.inet.vn/server-tools/cloud-panel-application/-/commit/0774c8676888c8d2aed56a53a52449d69ce65018" target="_blank"><span class="sha">0774c86</span> role-base audit UI (KPI may w2) <span class="repo">OneDash</span></a>
+      </div>
+    </div>
+
+    <div class="trans">
+      <div><span class="lbl">Kết quả KPI điền</span> <span class="badge b-warn">1/4</span></div>
+      <div><span class="lbl">Kỳ đánh giá (C3)</span> <span class="badge b-warn">trống</span></div>
+      <div><span class="lbl">Người đánh giá (C4)</span> <span class="badge b-warn">trống</span></div>
+    </div>
+  </div>
+
+  <!-- ĐỨC -->
+  <div class="card">
+    <h3>Nguyễn Đăng Đức <span class="badge b-tot" style="font-size:10px">P2+ 1.065 · TỐT</span></h3>
+    <div class="role">Frontend · OneDash · 382 commit T05 · my.inet.vn: 4 KPI (Windows VPS)</div>
+
+    <div class="crit tot">
+      <div class="ch"><span class="name">Mức độ hoàn thành OKR</span> <span class="badge b-tot">Tốt</span> <span class="w">40%</span></div>
+      <div class="verdict">✓ Đúng — 382 commit toàn OneDash; Windows VPS Console + PowerShell Console đã ship (KPI3 Kết quả ghi "hoạt động ổn định"). KPI2/KPI4 nên điền Kết quả để minh chứng đầy đủ.</div>
+      <div class="ev">
+        <a class="commit" href="https://gitlabs.inet.vn/server-tools/cloud-panel-application/-/commit/01e338682473a44c9cf2f5ff09a37cc2d36d8635" target="_blank"><span class="sha">01e3386</span> TypeAhead PowerShell console <span class="repo">OneDash</span></a>
+        <a class="commit" href="https://gitlabs.inet.vn/server-tools/cloud-panel-application/-/commit/ad82f542744f130144b03a72b559f726c3dc29ee" target="_blank"><span class="sha">ad82f54</span> rename CLI onedash-agent→onedash <span class="repo">OneDash</span></a>
+        <a class="commit" href="https://gitlabs.inet.vn/server-tools/cloud-panel-application/-/commit/a65d99d5358b9817bed77dd38fc8ff80b0f3b85d" target="_blank"><span class="sha">a65d99d</span> onedash diagnose/config CLI + tests <span class="repo">OneDash</span></a>
+      </div>
+    </div>
+
+    <div class="crit dat">
+      <div class="ch"><span class="name">Chất lượng kết quả</span> <span class="badge b-dat">Đạt</span> <span class="w">35%</span></div>
+      <div class="verdict">✓ Đúng &amp; trung thực — KHÔNG max vì agent uninstall/self-heal lặp ~7 version (2.3.33→2.3.39) = rework thực; nhiều fix eslint/favicon.</div>
+      <div class="ev">
+        <a class="commit" href="https://gitlabs.inet.vn/server-tools/cloud-panel-application/-/commit/6561d9174cad589b2fd34bcb007170e8fb47c25f" target="_blank"><span class="sha">6561d91</span> fix auto-update binary replacement <span class="repo">OneDash</span></a>
+      </div>
+    </div>
+
+    <div class="crit tot">
+      <div class="ch"><span class="name">Cam kết &amp; tiến độ</span> <span class="badge b-tot">Tốt</span> <span class="w">25%</span></div>
+      <div class="verdict">✓ Đúng (mạnh) — active gần như mọi ngày làm việc 4/5→1/6 (14-33 commit/ngày, cả cuối tuần 5/9-10).</div>
+      <div class="ev">
+        <a class="commit" href="https://gitlabs.inet.vn/server-tools/cloud-panel-application/-/commit/ca192f350160e2c1f07608c4b501ec0b274e2052" target="_blank"><span class="sha">ca192f3</span> tag management page + cascade rename <span class="repo">OneDash</span></a>
+      </div>
+    </div>
+
+    <div class="trans">
+      <div><span class="lbl">Kết quả KPI điền</span> <span class="badge b-warn">1/4</span></div>
+      <div><span class="lbl">Kỳ đánh giá (C3)</span> <span class="badge b-ok">Tháng 5 ✓</span></div>
+      <div><span class="lbl">Người đánh giá (C4)</span> <span class="badge b-warn">trống</span></div>
+    </div>
+  </div>
+
+  <!-- HỔ -->
+  <div class="card">
+    <h3>Bùi Văn Hổ <span class="badge b-tot" style="font-size:10px">P2+ 1.065 · TỐT</span> <span class="badge b-ok" style="font-size:10px">Minh chứng tốt nhất</span></h3>
+    <div class="role">Design System · design-sys-fe · ~256 commit thực (433 gồm release-bot) · my.inet.vn: 3 KPI</div>
+
+    <div class="crit tot">
+      <div class="ch"><span class="name">Mức độ hoàn thành OKR</span> <span class="badge b-tot">Tốt</span> <span class="w">40%</span></div>
+      <div class="verdict">✓ Đúng — được chứng thực mạnh NHẤT nhóm: cả 3 KPI đều điền Kết quả định lượng. Design system (viui + tokens + Storybook + MCP) release qua semantic versioning.</div>
+      <div class="kq">Kết quả KPI (đã điền trên my.inet.vn): <b>"5/5 Objectives hoàn thành (DS-R3 closed 02/06)"</b> · <b>"Đã online trên inet.vn"</b> · <b>"Đã xử lý xong"</b></div>
+      <div class="ev">
+        <a class="commit" href="https://gitlabs.inet.vn/design-system/design-sys-fe/-/commit/e184d69b6657ac0a55b2fb93d87be03c2681b6c4" target="_blank"><span class="sha">e184d69</span> Storybook DNA 16 concepts <span class="repo">design-sys-fe</span></a>
+        <a class="commit" href="https://gitlabs.inet.vn/design-system/design-sys-fe/-/commit/5ce8a39223fb10d7b3eb717f87c11adbe8929203" target="_blank"><span class="sha">5ce8a39</span> iNET Brand Center portal <span class="repo">design-sys-fe</span></a>
+        <a class="commit" href="https://gitlabs.inet.vn/design-system/design-sys-fe/-/commit/2f550965154f3146c63556198634efd229100ae7" target="_blank"><span class="sha">2f55096</span> One* product brand colors <span class="repo">design-sys-fe</span></a>
+        <a class="commit" href="https://gitlabs.inet.vn/design-system/design-sys-fe/-/commit/93a03de7f563dee6ae4bb2ae99fc25c1af5f4a27" target="_blank"><span class="sha">93a03de</span> MCP plan-comments API <span class="repo">design-sys-fe</span></a>
+      </div>
+      <div class="verdict" style="margin-top:8px">Issue ref: <a class="issue" href="https://gitlabs.inet.vn/design-system/design-sys-fe/-/issues/36" target="_blank">#36 Component Layer</a> · <a class="issue" href="https://gitlabs.inet.vn/design-system/design-sys-fe/-/issues/37" target="_blank">#37 Storybook Docs</a> · <a class="issue" href="https://gitlabs.inet.vn/design-system/design-sys-fe/-/issues/41" target="_blank">#41 redesign One*</a> · #76 whois (repo website inet.vn — ngoài design-sys-fe)</div>
+    </div>
+
+    <div class="crit dat">
+      <div class="ch"><span class="name">Chất lượng kết quả</span> <span class="badge b-dat">Đạt</span> <span class="w">35%</span></div>
+      <div class="verdict">✓ Đúng — xử lý 17 important security findings + nhiều infra fix (EACCES, CORS/CSP, rate-limit) → không max là hợp lý.</div>
+      <div class="ev">
+        <a class="commit" href="https://gitlabs.inet.vn/design-system/design-sys-fe/-/commit/89b0017ad948c5e373b55a520ca196d348d56542" target="_blank"><span class="sha">89b0017</span> address 17 security findings (round 2) <span class="repo">design-sys-fe</span></a>
+      </div>
+    </div>
+
+    <div class="crit tot">
+      <div class="ch"><span class="name">Cam kết &amp; tiến độ</span> <span class="badge b-tot">Tốt</span> <span class="w">25%</span></div>
+      <div class="verdict">✓ Đúng — active gần như mọi ngày làm việc; release kỷ luật qua CI/CD semantic-release.</div>
+    </div>
+
+    <div class="trans">
+      <div><span class="lbl">Kết quả KPI điền</span> <span class="badge b-ok">3/3 ✓</span></div>
+      <div><span class="lbl">Kỳ đánh giá (C3)</span> <span class="badge b-warn">trống</span></div>
+      <div><span class="lbl">Người đánh giá (C4)</span> <span class="badge b-warn">trống</span></div>
+    </div>
+  </div>
+
+  <!-- CHƯƠNG -->
+  <div class="card">
+    <h3>Đinh Tiến Chương <span class="badge b-tot" style="font-size:10px">P2+ 1.025 · TỐT</span></h3>
+    <div class="role">Frontend · Portal + Developers · 181 commit T05 · my.inet.vn: 3 KPI</div>
+
+    <div class="crit dat">
+      <div class="ch"><span class="name">Mức độ hoàn thành OKR</span> <span class="badge b-dat">Đạt</span> <span class="w">40%</span></div>
+      <div class="verdict">✓ Đúng (giữ "Đạt" theo quyết định 2026-06-02) — 3/3 KPI đã ship; về lý đủ cơ sở "Tốt" nhưng Kết quả chưa điền nên giữ "Đạt" an toàn.</div>
+      <div class="ev">
+        <a class="commit" href="https://gitlabs.inet.vn/donv/developers.inet.vn/-/commit/3ee1eba73c6b7ae638eeabc890df94bb39361c6b" target="_blank"><span class="sha">3ee1eba</span> API-reference nested DFS render <span class="repo">developers</span></a>
+        <a class="commit" href="https://gitlabs.inet.vn/donv/developers.inet.vn/-/commit/2cfa0751e3f108889a3f2bd09eb49b9f307d990c" target="_blank"><span class="sha">2cfa075</span> markdown bundle generator <span class="repo">developers</span></a>
+        <a class="commit" href="https://gitlabs.inet.vn/donv/portal-client/-/commit/8329580be1d28356c33b4f7bc2598974bd8cedae" target="_blank"><span class="sha">8329580</span> release Clone Snapshot to all users <span class="repo">portal-client</span></a>
+      </div>
+    </div>
+
+    <div class="crit dat">
+      <div class="ch"><span class="name">Chất lượng kết quả</span> <span class="badge b-dat">Đạt</span> <span class="w">35%</span></div>
+      <div class="verdict">✓ Đúng — có rework/revert (one-shield, backup) + commit hygiene chưa sạch ([200~ artifact, "test", "update" mơ hồ) → không max.</div>
+      <div class="ev">
+        <a class="commit" href="https://gitlabs.inet.vn/donv/portal-server/-/commit/a7a3bd5453c9862a412b6cea580a31baf0f23153" target="_blank"><span class="sha">a7a3bd5</span> block cross-tenant access (security) <span class="repo">portal-server</span></a>
+        <a class="commit" href="https://gitlabs.inet.vn/donv/portal-server/-/commit/84ff8784b5cb36ff4284edba61d658e566f14437" target="_blank"><span class="sha">84ff878</span> ownership guard backup endpoints <span class="repo">portal-server</span></a>
+      </div>
+    </div>
+
+    <div class="crit tot">
+      <div class="ch"><span class="name">Cam kết &amp; tiến độ</span> <span class="badge b-tot">Tốt</span> <span class="w">25%</span></div>
+      <div class="verdict">✓ Chấp nhận — giao đúng hạn, cadence workday đều (gap chủ yếu cuối tuần). Lưu ý: OKR="Đạt" + Cam kết="Tốt" hơi ngược chiều nhưng đã chốt giữ.</div>
+      <div class="ev">
+        <a class="commit" href="https://gitlabs.inet.vn/donv/portal-client/-/commit/92444154749719ffc8b5cd7704dd590796bdd26c" target="_blank"><span class="sha">9244415</span> add Clone Snapshot CS→CS <span class="repo">portal-client</span></a>
+        <a class="commit" href="https://gitlabs.inet.vn/donv/portal-client/-/commit/17872af489c87d87e599d5cf2d0e1b42f4e84259" target="_blank"><span class="sha">17872af</span> hosting iNET-to-iNET picker <span class="repo">portal-client</span></a>
+        <a class="commit" href="https://gitlabs.inet.vn/donv/developers.inet.vn/-/commit/bcaf932bbfa7cf7c94177baa4ee1cd998d12c85d" target="_blank"><span class="sha">bcaf932</span> gateway auto-inject customerEmail <span class="repo">developers</span></a>
+      </div>
+    </div>
+
+    <div class="trans">
+      <div><span class="lbl">Kết quả KPI điền</span> <span class="badge b-warn">0/3</span></div>
+      <div><span class="lbl">Kỳ đánh giá (C3)</span> <span class="badge b-warn">trống</span></div>
+      <div><span class="lbl">Người đánh giá (C4)</span> <span class="badge b-warn">trống</span></div>
+    </div>
+  </div>
+
+  <!-- OBSERVATION -->
+  <h2 class="sec"><span class="em">3.</span> Quan sát mô hình &amp; minh bạch</h2>
+  <div class="card">
+    <p style="margin-top:0"><b style="color:var(--amber)">⚠ Mô hình nén điểm:</b> Đạt = Đức = Hổ = <span class="score">1.065</span> dù scope rất khác (Trưởng phòng 2 sản phẩm + ops/security 667 commit · OneDash agent 382 commit · Design System 256 commit). Mô hình P2+ đưa mọi tổ hợp "Tốt/Đạt/Tốt" về cùng 1.065 — <b>không phân biệt scope/seniority/khối lượng</b>. Đây là giới hạn thiết kế mô hình, KHÔNG phải lỗi đánh giá cá nhân.</p>
+    <p style="margin-bottom:0"><b style="color:var(--green)">✓ Điểm sáng minh bạch:</b> <b>Hổ</b> là người duy nhất điền đủ Kết quả 3/3 KPI với minh chứng định lượng ("5/5 Objectives hoàn thành", "đã online") → mức "Tốt" của Hổ là defensible nhất. 3 người còn lại nên bổ sung cột Kết quả + minh chứng để đạt độ minh bạch tương đương.</p>
+  </div>
+
+  <!-- FIX -->
+  <h2 class="sec"><span class="em">4.</span> Cần xử lý trước khi gửi báo cáo</h2>
+  <ul class="fix">
+    <li><b>Điền metadata Excel:</b> <code>Kỳ đánh giá</code> = "Tháng 05/2026" + <code>Người đánh giá</code> (Đạt/Hổ/Chương đang trống; Đức đã có "Tháng 5").</li>
+    <li><b>Bổ sung cột "Kết quả" KPI</b> trên my.inet.vn để minh chứng hoàn thành (Đạt 1/4, Đức 1/4, Chương 0/3; Hổ 3/3 ✓). <i>Không liên quan trạng thái duyệt.</i></li>
+    <li><b>Sửa sheet <code>Summary_Ranking</code></b> (file dùng chung): lỗi <code>#REF!</code> toàn cột J/K/M/N + còn tên "Nguyễn Huy Hoàng" (đã rời) → ranking không tính được.</li>
+    <li><b>Cân nhắc mô hình:</b> nếu cần phân tách Đạt/Đức/Hổ → điều chỉnh trọng số A/B (Core/Delivery) theo vai trò, hoặc thêm cấp "Xuất sắc" (>1.2) cho Delivery.</li>
+  </ul>
+
+  <footer>
+    Audit tự động dựa trên git log T05/2026 + KPI my.inet.vn · BP Công Nghệ iNET · 2026-06-02<br>
+    Kết luận: 3 tiêu chí P2-Delivery của cả 4 thành viên <b style="color:var(--green)">CHÍNH XÁC, đủ bằng chứng để gửi</b>; bổ sung minh bạch theo mục 4.
+  </footer>
+
+</div>
+</body>
+</html>

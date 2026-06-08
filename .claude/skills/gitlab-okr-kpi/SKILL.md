@@ -1,9 +1,9 @@
 ---
 name: gitlab-okr-kpi
-description: "GitLab operations and OKR/KPI automation for iNET projects. Read credentials from .env, manage pipelines/repos/MRs on gitlabs.inet.vn, and automate KPI entry on my.inet.vn. Activate when user mentions GitLab, GitLabs, CI/CD pipelines, GitLab API, OKR, KPI, or my.inet.vn."
+description: "GitLab operations, OKR/KPI automation, and P2+ performance evaluation for iNET projects. Read credentials from .env, manage pipelines/repos/MRs on gitlabs.inet.vn, automate KPI entry, and draft monthly P2+ evaluations (P2-Core năng lực + P2-Delivery kết quả) on my.inet.vn. Activate when user mentions GitLab, GitLabs, CI/CD pipelines, GitLab API, OKR, KPI, P2, P2+, đánh giá P2, P2-Core, P2-Delivery, năng lực nền tảng, or my.inet.vn."
 license: MIT
-version: 2.0.0
-argument-hint: "[gitlab-task] | [month/year] [member] [--audit] [--verify-gitlab]"
+version: 2.1.0
+argument-hint: "[gitlab-task] | [month/year] [member] [--audit] [--verify-gitlab] | p2 [account] [YYYY-MM]"
 ---
 
 # GitLab & OKR/KPI — iNET
@@ -12,8 +12,8 @@ GitLab API operations and OKR/KPI automation for iNET internal projects. OKR/KPI
 
 ## Scope
 
-Handles: GitLab credentials from `.env`, GitLab API (pipelines, repos, CI/CD, MRs), OKR/KPI automation on my.inet.vn, KPI audit, GitLab-KPI linkage verification.
-Does NOT handle: SSH key management, deployment automation, non-GitLab git operations, non-iNET portals.
+Handles: GitLab credentials from `.env`, GitLab API (pipelines, repos, CI/CD, MRs), OKR/KPI automation on my.inet.vn, KPI audit, GitLab-KPI linkage verification, P2+ monthly evaluation drafting (P2-Core + P2-Delivery via my.inet.vn API).
+Does NOT handle: SSH key management, deployment automation, non-GitLab git operations, non-iNET portals, submitting/approving P2+ evaluations (agent only saves `draft`; manager reviews & approves).
 
 ## Team Members
 
@@ -89,6 +89,30 @@ Use `agent-browser` (npm). See `references/browser-automation-guide.md` for exac
 2. Report: total entries, statuses
 3. Close browser: `agent-browser close`
 
+## Mode 3: P2+ Evaluation (Đánh giá P2+)
+
+Draft monthly P2+ performance evaluations on my.inet.vn via JSON API (curl-first). See `references/p2-evaluation-automation.md` for full API contract, curl examples, and exact value strings.
+
+**Activate when:** user mentions "Đánh giá P2+", "P2", "P2-Core", "P2-Delivery", "năng lực nền tảng", "kết quả công việc".
+
+**Two parts:**
+- **P2-Core** — năng lực nền tảng, per role: A/B/C/D → `"Đạt"` | `"Chưa đạt"`
+- **P2-Delivery** — kết quả công việc, chung: okr/quality/commitment → `"Chưa đạt"` | `"Đạt"` | `"Tốt"`
+
+**Workflow:**
+1. **Pre-flight**: read `.env` → `sid`+`ssid` (validate); xác định SSO account (email) + period (`YYYY-MM`).
+2. **Load baseline (GET)**: `GET /api/client/v1/p2evaluation/compute?account=&period=` → lấy `roles` (mỗi người khác nhau), `department`, scores hiện tại, metadata. Giữ nguyên mọi field, chỉ sửa `scores`.
+3. **Xác định mức**: dùng giá trị user cung cấp; nếu thiếu → `AskUserQuestion` hỏi, KHÔNG tự suy diễn. Phân tích GitLab (Mode 1) chỉ khi user yêu cầu rõ → luôn cho user xác nhận.
+4. **Compute (POST /compute)**: validate điểm theo trọng số, hiển thị cho user xác nhận.
+5. **Lưu nháp (POST /save, `status="draft"`)**: chỉ draft, KHÔNG submit. Bảo toàn account/period/department/roles/reason từ baseline; chỉ `scores` là mới.
+6. **Verify + report**: xác nhận đã lưu nháp, báo điểm tổng, nhắc quản lý vào my.inet.vn review.
+
+**Critical:**
+- `status` LUÔN = `"draft"` — agent KHÔNG bao giờ duyệt/submit.
+- Chỉ thay đổi `scores`; mọi field khác giữ nguyên từ baseline.
+- `scores.core` keyed theo tên role; `delivery` là object phẳng (okr/quality/commitment).
+- Giá trị phải khớp chính xác option (dấu, hoa/thường) — verify qua `<select>` nếu save lỗi.
+
 ## Optional Flags
 
 - `--audit`: Compare OKR/KPI on my.inet.vn vs meeting notes. See `references/audit-verify-flags.md`
@@ -101,6 +125,7 @@ Always confirm via `AskUserQuestion`:
 2. Before first save: show filled form screenshot
 3. Vietnamese text: diacritics required
 4. Ambiguous matching: list candidates for user to pick
+5. P2+ (Mode 3): if scores not provided → ask for each item; show compute result + final `scores` before `save` (draft)
 
 ## Error Handling
 
