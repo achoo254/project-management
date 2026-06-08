@@ -1,142 +1,173 @@
 # P2+ Evaluation Automation — my.inet.vn
 
-Đánh giá P2+ hằng tháng cho thành viên. Agent điền mức đánh giá **P2-Core** + **P2-Delivery** rồi **lưu nháp (`status="draft"`)** để quản lý review. Agent **KHÔNG bao giờ** submit/duyệt — chỉ draft.
+Đánh giá P2+ hằng tháng cho thành viên. Agent điền mức đánh giá **P2-Core** + **P2-Delivery** rồi **lưu nháp (`draft`)** để quản lý review. Agent **KHÔNG bao giờ** "Trình duyệt" (submit) hay "Khoá kết quả" — chỉ draft.
 
-- Base API: `https://my.inet.vn/api/client/v1`
+- Base API: `https://my.inet.vn/api/client/v1` — **tất cả endpoint là POST, JSON, RPC-style** (có field `api` trong body). KHÔNG có GET.
 - Page: `https://my.inet.vn/account/p2/evaluation?account={SSO}&period={YYYY-MM}`
 - Auth: Cookie `sid` + `ssid` (đọc `.env`, tên lowercase).
-- `{SSO}` = email tài khoản (vd `dattqh@inet.vn`); `{period}` = `YYYY-MM` (vd `2026-05`).
+- `{SSO}` = email (vd `chuongdt@inet.vn`); `{period}` = `YYYY-MM` (vd `2026-05`).
 
 ## Cấu trúc đánh giá
 
-### P2-Core — Năng lực nền tảng (theo TỪNG role)
-| Key | Hạng mục | Trọng số | Giá trị hợp lệ |
-|-----|----------|----------|----------------|
-| A | Năng lực kỹ thuật | 30% | `"Đạt"` / `"Chưa đạt"` |
-| B | Ownership & trách nhiệm | 30% | `"Đạt"` / `"Chưa đạt"` |
-| C | DevOps & vận hành | 15% | `"Đạt"` / `"Chưa đạt"` |
-| D | AI Agent & cải tiến | 25% | `"Đạt"` / `"Chưa đạt"` |
+### Vai trò (roles) — gửi CHÍNH XÁC text, kể cả dấu cách
+Mỗi người có vai trò khác nhau. Giá trị `role` hợp lệ (đúng như dropdown trên page):
+| role (gửi nguyên văn) | Ghi chú |
+|-----------------------|---------|
+| `"Design System"` | **có dấu cách** — KHÔNG đổi thành `DesignSystem`/`design_system` |
+| `"Backend"` | |
+| `"Frontend"` | |
+| `"Fullstack"` | |
 
-- Chỉ **2 mức**: `Đạt` hoặc `Chưa đạt`.
-- `scores.core` được keyed theo **TÊN ROLE**: `{"Fullstack": {"A": ..., "B": ..., "C": ..., "D": ...}}`. Nhiều role → nhiều key (mỗi role 1 bộ A/B/C/D).
+- Chuỗi `role` dùng **đồng thời** ở 2 nơi, phải **trùng khớp tuyệt đối** (case + dấu cách):
+  1. Trong `roles[]`: `{"role": "Design System", "weight": 1}`
+  2. Làm **key** trong `scores.core`: `"scores":{"core":{"Design System":{"A":...}}}`
+- `weight` ∈ [0–1]. Một người có thể nhiều vai trò ("Thêm vai trò"); **tổng trọng số vai trò = 1**.
+- **Luôn lấy `roles` + tên role + weight từ baseline `/get`** (hoặc dropdown trên page) — KHÔNG tự gõ lại, tránh sai dấu cách/hoa thường.
+
+### P2-Core — Năng lực nền tảng (theo TỪNG role)
+| Key | Hạng mục | Giá trị hợp lệ |
+|-----|----------|----------------|
+| A | Năng lực kỹ thuật | `"Đạt"` / `"Chưa đạt"` |
+| B | Ownership & trách nhiệm | `"Đạt"` / `"Chưa đạt"` |
+| C | DevOps & vận hành | `"Đạt"` / `"Chưa đạt"` |
+| D | AI Agent & cải tiến | `"Đạt"` / `"Chưa đạt"` |
+
+- Chỉ **2 mức**: `Đạt` / `Chưa đạt` (đ thường). `Đạt` = full điểm hạng mục, `Chưa đạt` = 0.
+- ⚠️ **Trọng số A/B/C/D KHÁC theo role** — KHÔNG hardcode. VD Fullstack = 30/30/15/25; Frontend = 30/25/10/35. Điểm do server tính (xem `computed`).
+- `scores.core` keyed theo **TÊN ROLE** và **chứa TẤT CẢ role** hệ thống biết; role không active để rỗng `{"A":"","B":"","C":"","D":""}`. **Bảo toàn nguyên** structure, chỉ điền role active.
 
 ### P2-Delivery — Kết quả công việc (CHUNG, không theo role)
-| Key | Tiêu chí | Trọng số | Giá trị (hệ số) |
-|-----|----------|----------|-----------------|
-| okr | Mức độ hoàn thành OKR | 40% | `"Chưa đạt"` (0.8) / `"Đạt"` (1) / `"Tốt"` (1.2) |
-| quality | Chất lượng kết quả | 35% | `"Chưa đạt"` (0.8) / `"Đạt"` (1) / `"Tốt"` (1.2) |
-| commitment | Cam kết & tiến độ | 25% | `"Chưa đạt"` (0.8) / `"Đạt"` (1) / `"Tốt"` (1.2) |
+| Key | Tiêu chí | Giá trị (hệ số) |
+|-----|----------|-----------------|
+| okr | Mức độ hoàn thành OKR | `"Chưa đạt"` (×0.8) / `"Đạt"` (×1) / `"Tốt"` (×1.2) |
+| quality | Chất lượng kết quả | `"Chưa đạt"` / `"Đạt"` / `"Tốt"` |
+| commitment | Cam kết & tiến độ | `"Chưa đạt"` / `"Đạt"` / `"Tốt"` |
 
 - Gửi **label KHÔNG kèm hệ số**: `"Tốt"`, KHÔNG phải `"Tốt (1.2)"`.
-- `scores.delivery` là object phẳng: `{"okr": ..., "quality": ..., "commitment": ...}`.
+- `scores.delivery` phẳng: `{"okr":..., "quality":..., "commitment":...}`.
 
-> ⚠️ **Chuỗi giá trị phải khớp CHÍNH XÁC** option trên form (dấu + hoa/thường). Cả Core và Delivery dùng `"Chưa đạt"` (đ thường). Nếu `save` báo lỗi giá trị, đọc lại `<select>` option trên page để lấy đúng chuỗi rồi gửi lại.
+> ⚠️ Chuỗi giá trị phải khớp CHÍNH XÁC (dấu + hoa/thường). Nếu lỗi, đọc `<select>` option trên page.
 
 ## Nguồn mức đánh giá
 
-**Mặc định: chỉ điền khi có sẵn dữ liệu.**
-1. **User cung cấp** → dùng đúng giá trị user gửi (ưu tiên tuyệt đối).
-2. **User không cung cấp** → dùng `AskUserQuestion` hỏi từng hạng mục. **KHÔNG tự suy diễn.**
-3. **Phân tích GitLab (chỉ khi user yêu cầu RÕ)** — vd "phân tích GitLab để đánh giá P2 cho X": dùng Mode 1 (GitLab API) lấy commits/MRs/issues/pipelines/reviews trong `period`, đối chiếu rubric (link "Xem" trên page) → đề xuất mức + bằng chứng → **luôn cho user xác nhận trước khi save**.
+**Ưu tiên đọc file Excel P2 trong repo. Chỉ điền khi có sẵn dữ liệu, KHÔNG tự suy diễn.**
 
-## Quy trình (API-first, dùng `curl`)
+1. **File Excel P2 (nguồn CHÍNH)** — `members/{năm}/T{thang}/P2_Form_BP_Cong_Nghe - {TênNgắn}.xlsx`
+   - **Folder năm chứa folder tháng** `T{số tháng}`: `members/2026/T5/` = period `2026-05`, `members/2026/T4/` = `2026-04`, ... (năm lấy từ `period` `YYYY-MM`).
+   - Tên ngắn file: `Dat`=dattqh, `Duc`=ducnd, `Ho`=hobv, `Chuong`=chuongdt.
+   - ⛔ **KHÔNG làm P2 cho `anhtct`** (Trần Công Tuấn Anh) — do quản lý khác phụ trách. Bỏ qua kể cả khi có file Excel. Phạm vi P2 của dattqh: dattqh, hobv, ducnd, chuongdt.
+   - Đọc sheet **`ĐÁNH GIÁ HIỆU SUẤT P2`** (cần `openpyxl`, `data_only=True`):
 
-### Bước 1 — Load baseline (GET)
-Mỗi người có roles khác nhau → **PHẢI** lấy trước.
+   | Ô | Nội dung | → API |
+   |----|----------|-------|
+   | `B3` | Họ tên | — |
+   | `B4` | Vai trò | `roles[].role` + key `scores.core` |
+   | `C8` / `C9` / `C10` / `C11` | Core A / B / C / D | `scores.core[role].A..D` |
+   | `C17` / `C18` / `C19` | Delivery OKR / Chất lượng / Cam kết | `scores.delivery.okr/quality/commitment` |
 
-```bash
-# Lấy sid/ssid từ .env (tôn trọng privacy hook)
-curl -s "https://my.inet.vn/api/client/v1/p2evaluation/compute?account=${ACCOUNT}&period=${PERIOD}" \
-  -H "Cookie: sid=${SID}; ssid=${SSID}" \
-  -H "Accept: application/json"
+   - **Chuẩn hóa giá trị** (Excel → API): `chưa đạt`→`"Chưa đạt"`, `đạt`→`"Đạt"`, `tốt`→`"Tốt"` (lower-case rồi map; tránh sai hoa/thường như `"Chưa Đạt"` trong sheet CẤU TRÚC).
+   - Sheet `NHÂN SỰ` (cột A=tên, B=vai trò) và `CẤU TRÚC & TRỌNG SỐ` (mục IV — trọng số theo vai trò) để đối chiếu role.
+   - ⚠️ File `.xlsx` ở **`members/` (root)** là **template/mẫu** (giữ để cập nhật công thức) — **KHÔNG** dùng làm nguồn điểm. Chỉ đọc trong `members/{năm}/T{tháng}/`.
+2. **User cung cấp trực tiếp** → dùng đúng giá trị user gửi.
+3. **Không có Excel + user không cung cấp** → `AskUserQuestion` hỏi từng hạng mục.
+4. **Phân tích GitLab (chỉ khi user yêu cầu RÕ)**: dùng Mode 1 lấy commits/MRs/issues/pipelines trong `period`, đối chiếu rubric ("Xem" trên page) → đề xuất mức + bằng chứng → **luôn cho user xác nhận trước khi save**.
+
+## API contract (đã verify thực tế)
+
+### 1. `/p2evaluation/get` — load baseline + check quyền
+Body: `{"account": "<email>", "period": "<YYYY-MM>"}`
+
+- **Chưa có record** → `{"__permission": "self" | "manager"}` (chỉ quyền, chưa có roles/scores).
+- **Đã có record** → object đầy đủ:
+```json
+{"_id":"...","account":"chuongdt@inet.vn","period":"2026-05","department":"technology",
+ "roles":[{"role":"Frontend","weight":1}],
+ "scores":{"core":{"Fullstack":{"A":"","B":"","C":"","D":""},
+                   "Frontend":{"A":"Đạt","B":"Đạt","C":"Đạt","D":"Đạt"}},
+           "delivery":{"okr":"Đạt","quality":"Đạt","commitment":"Tốt"}},
+ "evidence":{},"notes":"","status":"draft","evaluator":"dattqh@inet.vn",
+ "computed":{"core":{"subScores":{...},"total":1},"delivery":{...},"total":1.025,"grade":"Tốt",
+             "coreWeight":0.5,"deliveryWeight":0.5,"primaryRole":"Frontend"},
+ "__permission":"manager"}
 ```
 
-Trả về: `roles` (kèm `weight`), `department`, `scores` hiện tại, và metadata khác.
-**Giữ nguyên TOÀN BỘ field; chỉ sửa `scores`.** Nếu GET thiếu `department`/`period`, lấy từ tham số URL đã dùng / page.
+**`__permission` quyết định luồng save:**
+- `"manager"` (quản lý đánh giá cấp dưới) → dùng `/save` (`scores` + `status`).
+- `"self"` (tự đánh giá) → dùng `/saveself` (`selfScores` + `selfStatus`).
 
-> Nếu GET trả HTML/redirect login thay vì JSON → cookie hết hạn (xem Error Handling) hoặc endpoint chặn curl → dùng fallback browser fetch() ở cuối file.
+> Nếu record CHƯA tồn tại (get chỉ trả `__permission`) → roles chưa biết. Lấy role từ: badge role hiển thị trên page P2-Core ("Frontend trọng số 1"), hoặc hỏi user. `department` mặc định `"technology"` (phòng Công Nghệ).
 
-### Bước 2 — Dựng `scores`
-Theo "Nguồn mức đánh giá" ở trên. Điền đủ 4 hạng mục core (mỗi role) + 3 tiêu chí delivery.
+### 2. `/p2evaluation/compute` — tính điểm (validate, nên làm trước khi save)
+Body (ghi ra file UTF-8, gửi `--data-binary @file`):
+```json
+{"api":"/p2evaluation/compute",
+ "roles":[{"role":"Frontend","weight":1}],
+ "scores":{"core":{"Frontend":{"A":"Đạt","B":"Đạt","C":"Đạt","D":"Đạt"}},
+           "delivery":{"okr":"Đạt","quality":"Đạt","commitment":"Tốt"}}}
+```
+Response:
+```json
+{"core":{"subScores":{"A":0.3,"B":0.25,"C":0.1,"D":0.35},"total":1},
+ "delivery":{"subScores":{"okr":0.4,"quality":0.35,"commitment":0.3},"total":1.05},
+ "total":1.025,"grade":"Tốt","coreWeight":0.5,"deliveryWeight":0.5,"primaryRole":"Frontend"}
+```
+- Thiếu `roles` → lỗi `{"status":"error","message":"Trường roles không được để trống"}`.
+- **Hiển thị `total` + `grade` cho user xác nhận trước khi save.**
 
-### Bước 3 — Compute (validate điểm — NÊN làm)
-Ghi body ra file UTF-8 (an toàn tiếng Việt trên Windows) rồi gửi bằng `--data-binary @file`:
-
-```bash
-# body-compute.json (UTF-8, no BOM)
-{
-  "api": "/p2evaluation/compute",
-  "roles": [{"role": "Fullstack", "weight": 1}],
-  "scores": {
-    "core": {"Fullstack": {"A": "Đạt", "B": "Đạt", "C": "Đạt", "D": "Đạt"}},
-    "delivery": {"okr": "Tốt", "quality": "Đạt", "commitment": "Tốt"}
-  }
-}
+### 3a. `/p2evaluation/save` — MANAGER lưu nháp (`__permission="manager"`)
+Body — **bảo toàn account/period/department/reason/roles + FULL scores.core (mọi role) từ baseline**, chỉ sửa role active + delivery:
+```json
+{"api":"/p2evaluation/save",
+ "account":"chuongdt@inet.vn","period":"2026-05","department":"technology","reason":"",
+ "roles":[{"role":"Frontend","weight":1}],
+ "scores":{"core":{"Fullstack":{"A":"","B":"","C":"","D":""},
+                   "Frontend":{"A":"Đạt","B":"Đạt","C":"Đạt","D":"Đạt"}},
+           "delivery":{"okr":"Đạt","quality":"Đạt","commitment":"Tốt"}},
+ "status":"draft"}
 ```
 
-```bash
-curl -s -X POST "https://my.inet.vn/api/client/v1/p2evaluation/compute" \
-  -H "Cookie: sid=${SID}; ssid=${SSID}" \
-  -H "Content-Type: application/json" \
-  --data-binary @body-compute.json
-```
-
-→ Trả điểm tính toán (theo trọng số). **Hiển thị cho user xác nhận trước khi save.**
-
-### Bước 4 — Lưu nháp (POST save, `status="draft"`)
-
-```bash
-# body-save.json (UTF-8, no BOM) — account/period/department/reason/roles lấy từ baseline Bước 1
-{
-  "api": "/p2evaluation/save",
-  "account": "dattqh@inet.vn",
-  "period": "2026-05",
-  "department": "technology",
-  "reason": "",
-  "roles": [{"role": "Fullstack", "weight": 1}],
-  "scores": {
-    "core": {"Fullstack": {"A": "Đạt", "B": "Đạt", "C": "Đạt", "D": "Đạt"}},
-    "delivery": {"okr": "Tốt", "quality": "Đạt", "commitment": "Tốt"}
-  },
-  "status": "draft"
-}
-```
-
-```bash
-curl -s -X POST "https://my.inet.vn/api/client/v1/p2evaluation/save" \
-  -H "Cookie: sid=${SID}; ssid=${SSID}" \
-  -H "Content-Type: application/json" \
-  --data-binary @body-save.json
+### 3b. `/p2evaluation/saveself` — SELF lưu nháp (`__permission="self"`)
+Khác `/save`: `scores`→`selfScores`, `status`→`selfStatus`. Giữ `reason` nếu baseline có.
+```json
+{"api":"/p2evaluation/saveself",
+ "account":"dattqh@inet.vn","period":"2026-05","department":"technology",
+ "roles":[{"role":"Fullstack","weight":1}],
+ "selfScores":{"core":{"Fullstack":{"A":"Đạt","B":"Đạt","C":"Đạt","D":"Đạt"}},
+               "delivery":{"okr":"Tốt","quality":"Đạt","commitment":"Tốt"}},
+ "selfStatus":"draft"}
 ```
 
 **Quy tắc save (BẮT BUỘC):**
-- `status` **LUÔN** = `"draft"`. Không bao giờ `"submit"`/`"approved"`/giá trị khác.
-- `account`, `period`, `department`, `roles`, `reason` + **mọi field khác** lấy từ baseline (Bước 1) → **GIỮ NGUYÊN**. Chỉ `scores` là phần mới.
+- `status`/`selfStatus` **LUÔN** = `"draft"`. KHÔNG bao giờ submit/khoá.
+- Bảo toàn mọi field không liên quan đánh giá (`account`, `period`, `department`, `reason`, `roles`, `notes`, `evidence`...) từ baseline `/get`. Chỉ `scores`/`selfScores` là mới.
+- KHÔNG cần gửi `_id`/`computed`/`history`/`evaluator` (server tự quản lý).
 - Xóa file body tạm sau khi xong (chứa dữ liệu nhân sự).
 
-### Bước 5 — Verify + report
-1. Đọc response `save` → xác nhận thành công.
-2. (Optional) GET lại Bước 1 → kiểm tra `scores` + `status="draft"` đã ghi.
-3. Báo cáo: điểm tổng (core/delivery), trạng thái `draft`, nhắc quản lý vào my.inet.vn review.
+## Quy trình curl (đầy đủ)
+```bash
+# 1. Lấy sid/ssid từ .env (tôn trọng privacy hook)
+SID=...; SSID=...; COOKIE="sid=${SID}; ssid=${SSID}"; BASE="https://my.inet.vn/api/client/v1"
 
-## Fallback — Browser fetch() (khi curl bị chặn CSRF/WAF)
+# 2. Load baseline + quyền
+echo '{"account":"chuongdt@inet.vn","period":"2026-05"}' > /tmp/get.json
+curl -s --max-time 25 -X POST "$BASE/p2evaluation/get" \
+  -H "Cookie: $COOKIE" -H "Content-Type: application/json" --data-binary @/tmp/get.json
 
-Mở page evaluation trong session đã đăng nhập, chạy `fetch()` từ chính origin (browser tự gắn cookie):
-
-```javascript
-// Chạy qua claude-in-chrome javascript_tool hoặc agent-browser eval, trên tab my.inet.vn
-await fetch('/api/client/v1/p2evaluation/save', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  credentials: 'include',
-  body: JSON.stringify({ /* body-save như trên, status: "draft" */ })
-}).then(r => r.json());
+# 3. compute (validate) → 4. save / saveself (status=draft) — body từ file UTF-8
+curl -s --max-time 25 -X POST "$BASE/p2evaluation/save" \
+  -H "Cookie: $COOKIE" -H "Content-Type: application/json" --data-binary @/tmp/save.json
 ```
 
-## Error Handling
+> **Lưu ý:** gửi nhiều request dồn dập gây **502 "page temporarily unavailable"** (rate-limit). Gọi tuần tự, `--max-time 25`, có khoảng nghỉ.
 
-- GET/POST trả HTML hoặc 302/401 → cookie hết hạn → báo user cập nhật `sid`/`ssid` trong `.env`.
-- 403/CSRF → dùng fallback browser fetch().
-- Giá trị mức không hợp lệ → đọc lại `<select>` option trên page lấy đúng chuỗi (dấu/hoa-thường).
-- Role trong baseline khác kỳ vọng → dùng đúng role + weight từ GET, không hardcode.
-- Tiếng Việt lỗi dấu trong request → đảm bảo body file là UTF-8 (no BOM) và dùng `--data-binary @file`.
+## Verify sau save
+1. Đọc response `save`/`saveself` → xác nhận thành công.
+2. Gọi lại `/get` → kiểm tra `scores` + `status="draft"` + `computed.grade` đã ghi.
+3. Báo cáo: điểm tổng (`computed.total`), `grade`, trạng thái `draft`, nhắc quản lý vào my.inet.vn review.
+
+## Error Handling
+- `/get`,`/compute`,`/save` trả HTML hoặc 302/401 → cookie hết hạn → báo user cập nhật `sid`/`ssid` trong `.env`.
+- 502 "temporarily unavailable" → server quá tải do gọi dồn → đợi ~15s, gọi lại tuần tự.
+- `{"status":"error","message":"Trường roles không được để trống"}` → thiếu `roles` trong body compute.
+- Giá trị mức không hợp lệ → đọc `<select>` option trên page lấy đúng chuỗi (dấu/hoa-thường).
+- Tiếng Việt lỗi dấu → body file UTF-8 (no BOM) + `--data-binary @file`.

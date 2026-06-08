@@ -91,7 +91,7 @@ Use `agent-browser` (npm). See `references/browser-automation-guide.md` for exac
 
 ## Mode 3: P2+ Evaluation (Đánh giá P2+)
 
-Draft monthly P2+ performance evaluations on my.inet.vn via JSON API (curl-first). See `references/p2-evaluation-automation.md` for full API contract, curl examples, and exact value strings.
+Draft monthly P2+ performance evaluations on my.inet.vn via JSON API (curl-first, all POST, no GET). See `references/p2-evaluation-automation.md` for full verified API contract, payloads, and curl examples.
 
 **Activate when:** user mentions "Đánh giá P2+", "P2", "P2-Core", "P2-Delivery", "năng lực nền tảng", "kết quả công việc".
 
@@ -101,17 +101,22 @@ Draft monthly P2+ performance evaluations on my.inet.vn via JSON API (curl-first
 
 **Workflow:**
 1. **Pre-flight**: read `.env` → `sid`+`ssid` (validate); xác định SSO account (email) + period (`YYYY-MM`).
-2. **Load baseline (GET)**: `GET /api/client/v1/p2evaluation/compute?account=&period=` → lấy `roles` (mỗi người khác nhau), `department`, scores hiện tại, metadata. Giữ nguyên mọi field, chỉ sửa `scores`.
-3. **Xác định mức**: dùng giá trị user cung cấp; nếu thiếu → `AskUserQuestion` hỏi, KHÔNG tự suy diễn. Phân tích GitLab (Mode 1) chỉ khi user yêu cầu rõ → luôn cho user xác nhận.
-4. **Compute (POST /compute)**: validate điểm theo trọng số, hiển thị cho user xác nhận.
-5. **Lưu nháp (POST /save, `status="draft"`)**: chỉ draft, KHÔNG submit. Bảo toàn account/period/department/roles/reason từ baseline; chỉ `scores` là mới.
-6. **Verify + report**: xác nhận đã lưu nháp, báo điểm tổng, nhắc quản lý vào my.inet.vn review.
+2. **Load baseline + quyền (POST `/get`)**: body `{account, period}`. Nếu đã có record → trả full object (`roles`, `department`, `scores`, `__permission`...). Nếu chưa → chỉ `{__permission}` (lấy role từ page/user; `department` mặc định `"technology"`). Giữ nguyên mọi field, chỉ sửa `scores`.
+3. **Xác định mức** (ưu tiên): đọc file Excel `members/{năm}/T{thang}/P2_Form_BP_Cong_Nghe - {TênNgắn}.xlsx` (folder năm chứa folder tháng; `2026/T5`=2026-05) sheet `ĐÁNH GIÁ HIỆU SUẤT P2` — ô B4=role, C8-C11=Core A/B/C/D, C17-C19=Delivery. Không có Excel → user cung cấp / `AskUserQuestion`, KHÔNG tự suy diễn. GitLab (Mode 1) chỉ khi user yêu cầu rõ. Chi tiết: `references/p2-evaluation-automation.md`.
+4. **Compute (POST `/compute`)**: validate, lấy `total`+`grade`, hiển thị cho user xác nhận.
+5. **Lưu nháp (POST, draft)** — chọn theo `__permission`:
+   - `"manager"` → `/save` với `scores` + `status:"draft"`
+   - `"self"` → `/saveself` với `selfScores` + `selfStatus:"draft"`
+6. **Verify + report**: gọi lại `/get` kiểm tra `status="draft"`, báo `total`/`grade`, nhắc quản lý review.
 
 **Critical:**
-- `status` LUÔN = `"draft"` — agent KHÔNG bao giờ duyệt/submit.
-- Chỉ thay đổi `scores`; mọi field khác giữ nguyên từ baseline.
-- `scores.core` keyed theo tên role; `delivery` là object phẳng (okr/quality/commitment).
-- Giá trị phải khớp chính xác option (dấu, hoa/thường) — verify qua `<select>` nếu save lỗi.
+- ⛔ KHÔNG làm P2 cho `anhtct` (quản lý khác phụ trách). Phạm vi P2 của dattqh: dattqh, hobv, ducnd, chuongdt.
+- `status`/`selfStatus` LUÔN = `"draft"` — agent KHÔNG bao giờ "Trình duyệt"/"Khoá kết quả".
+- Bảo toàn mọi field từ baseline (account/period/department/reason/roles/notes/evidence); chỉ `scores`/`selfScores` là mới.
+- Tên role gửi CHÍNH XÁC như page (kể cả dấu cách: `"Design System"`), dùng đồng thời ở `roles[].role` và làm key `scores.core[<role>]`. Role hợp lệ: `Design System`/`Backend`/`Frontend`/`Fullstack`. Lấy từ baseline `/get`, không tự gõ lại.
+- `scores.core` chứa TẤT CẢ role (role không active để rỗng `""`) — giữ nguyên, chỉ điền role active. `delivery` phẳng. `weight` tổng = 1.
+- Trọng số A/B/C/D KHÁC theo role → KHÔNG hardcode; điểm do server tính (`computed`).
+- Giá trị khớp chính xác (dấu, hoa/thường) — verify qua `<select>` nếu save lỗi.
 
 ## Optional Flags
 
