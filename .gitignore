@@ -9,3 +9,9 @@
 out
 gen
 .env
+
+# ctxsync-secrets: env & Claude transient — NEVER commit
+.env.*
+!.env.example
+.claude/session-state/
+.claude/agent-memory/
