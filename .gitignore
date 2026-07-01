@@ -15,3 +15,6 @@ gen
 !.env.example
 .claude/session-state/
 .claude/agent-memory/
+
+# macOS Finder metadata
+.DS_Store
