@@ -25,6 +25,7 @@ Hệ thống quản lý nội bộ theo dõi **OKR/KPI hàng tháng**, **đánh 
 - **[Tóm Tắt Codebase](./docs/codebase-summary.md)** - Cấu trúc repo, mô tả file
 - **[Quy Chuẩn Code](./docs/code-standards.md)** - Quy ước đặt tên, định dạng ghi chép
 - **[Lộ Trình Dự Án](./docs/project-roadmap.md)** - Trạng thái hiện tại, cải tiến sắp tới
+- **[Review OKR + P2 hằng tháng](./docs/monthly-okr-p2-review-guide.md)** - Runbook đối chiếu tự đánh giá vs thực tế + xuất báo cáo HTML
 
 ### Thành Viên Nhóm
 
