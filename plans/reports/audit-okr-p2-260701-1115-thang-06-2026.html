@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Đối chiếu tự đánh giá — Tháng 6/2026 · iNET</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  /* iNET Design System tokens (viui / @hobui/tokens) — light theme, primary */
+  :root{
+    --brand:#0582D4; --brand-dark:#024799; --brand-accent:#619ee9; --logo-red:#E8353C; --tech:#22D3EE;
+    --grad-start:#0582D4; --grad-end:#619ee9;
+    --bg:#F4F7FA; --card:#FFFFFF; --ink:#0F1E2D; --muted:#4A6278; --line:#D0DAE6; --subtle:#E8EEF4;
+    --ok:#0E9F6E; --ok-bg:#ECFDF5; --ok-br:#A7F3D0; --ok-tx:#065F46;
+    --warn:#D47B0A; --warn-bg:#FFFBEB; --warn-br:#FDE68A; --warn-tx:#92400E;
+    --err:#B91C1C; --err-bg:#FEF2F2; --err-br:#FECACA; --err-tx:#991B1B;
+    --info:#1E40AF; --info-bg:#EFF6FF; --info-br:#BFDBFE;
+    --red-bg:#FDECEE; --red-tx:#C1121F;
+    --r-sm:4px; --r-base:8px; --r-md:12px; --r-lg:16px; --r-full:9999px;
+    --sp1:.5rem; --sp2:1rem; --sp3:1.5rem; --sp4:2rem;
+    --sh-sm:0 1px 2px rgba(15,30,45,.05); --sh-base:0 1px 3px rgba(15,30,45,.10),0 1px 2px rgba(15,30,45,.06);
+    --sh-md:0 4px 6px rgba(15,30,45,.08),0 2px 4px rgba(15,30,45,.05); --glow:0 0 24px rgba(5,130,212,.28);
+    --font:'Be Vietnam Pro',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    --mono:'JetBrains Mono','Fira Code',Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:var(--font);color:var(--ink);background:var(--bg);line-height:1.5;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1080px;margin:0 auto;padding:28px 20px 56px}
+  code{font-family:var(--mono);background:var(--subtle);padding:1px 6px;border-radius:var(--r-sm);font-size:.86em;color:var(--brand-dark)}
+
+  header{position:relative;background:linear-gradient(135deg,var(--grad-start),var(--grad-end));color:#fff;
+    border-radius:var(--r-lg);padding:24px 26px;margin-bottom:var(--sp3);box-shadow:var(--glow);overflow:hidden}
+  header::after{content:"";position:absolute;right:-40px;top:-40px;width:180px;height:180px;border-radius:var(--r-full);
+    background:radial-gradient(circle,rgba(255,255,255,.16),transparent 70%)}
+  .brandline{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.85);margin-bottom:8px}
+  .brandline .dot{width:9px;height:9px;border-radius:var(--r-full);background:var(--logo-red);box-shadow:0 0 0 3px rgba(232,53,60,.3)}
+  header h1{margin:0 0 6px;font-size:21px;font-weight:700;letter-spacing:-.01em}
+  header p{margin:0;color:rgba(255,255,255,.9);font-size:13px}
+  header .philo{margin-top:10px;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.75)}
+
+  .tldr{display:flex;gap:12px;flex-wrap:wrap;margin:16px 0 14px}
+  .tldr .kpi{flex:1;min-width:160px;background:var(--card);border:1px solid var(--line);border-radius:var(--r-md);padding:15px 17px;box-shadow:var(--sh-sm);border-top:3px solid var(--brand)}
+  .tldr .kpi b{display:block;font-size:20px;font-weight:700;line-height:1.1;color:var(--brand-dark)}
+  .tldr .kpi span{font-size:12px;color:var(--muted)}
+
+  .method{background:var(--info-bg);border:1px solid var(--info-br);border-radius:var(--r-md);padding:12px 15px;font-size:12.5px;color:#1E3A8A;margin-bottom:10px}
+  .deadline{background:var(--warn-bg);border:1px solid var(--warn-br);border-radius:var(--r-md);padding:11px 15px;font-size:12.5px;color:var(--warn-tx);margin-bottom:16px}
+  .legend{display:flex;gap:16px;font-size:11.5px;color:var(--muted);margin:2px 0 8px;flex-wrap:wrap;align-items:center}
+  .legend span{display:inline-flex;align-items:center;gap:5px}
+  .efflegend{font-size:11.5px;color:var(--muted);margin:0 0 20px}
+
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--r-md);margin-bottom:16px;overflow:hidden;box-shadow:var(--sh-base)}
+  .top{display:flex;align-items:center;gap:14px;padding:16px 18px;border-bottom:1px solid var(--line);flex-wrap:wrap;background:linear-gradient(180deg,#FBFDFF,#fff)}
+  .avatar{width:42px;height:42px;border-radius:var(--r-base);background:linear-gradient(135deg,var(--brand),var(--brand-accent));color:#fff;display:grid;place-items:center;font-weight:700;font-size:16px;flex-shrink:0;box-shadow:var(--sh-sm)}
+  .who{flex:1;min-width:140px}
+  .who .name{font-weight:700;font-size:15px}
+  .who .role{font-size:12px;color:var(--muted)}
+  .score{text-align:right}
+  .score .num{font-size:18px;font-weight:700;color:var(--ink)}
+  .score .lbl{font-size:11px;color:var(--muted)}
+  .pill{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;padding:5px 11px;border-radius:var(--r-full);white-space:nowrap}
+  .pill.ok{background:var(--ok-bg);color:var(--ok-tx);border:1px solid var(--ok-br)}
+  .pill.mid{background:var(--warn-bg);color:var(--warn-tx);border:1px solid var(--warn-br)}
+  .grade{display:inline-block;font-size:11px;font-weight:700;padding:2px 9px;border-radius:var(--r-sm);margin-left:6px}
+  .grade.tot{background:var(--ok-bg);color:var(--ok-tx)} .grade.dat{background:var(--info-bg);color:var(--info)}
+
+  .body{padding:15px 18px;display:grid;grid-template-columns:1.25fr 1fr 1.05fr;gap:18px}
+  @media(max-width:760px){.body{grid-template-columns:1fr}.score{text-align:left}}
+  .body h4{margin:0 0 9px;font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--brand);font-weight:600}
+  ul.okr{list-style:none;margin:0;padding:0;font-size:12.5px}
+  ul.okr li{display:flex;gap:7px;align-items:flex-start;padding:3px 0}
+  .dot{width:8px;height:8px;border-radius:var(--r-full);margin-top:6px;flex-shrink:0}
+  .dot.done{background:var(--ok)} .dot.prog{background:var(--warn)} .dot.no{background:var(--err)}
+  .eff{font-size:9.5px;font-weight:700;padding:1px 6px;border-radius:var(--r-sm);letter-spacing:.03em;flex-shrink:0;margin-top:2px}
+  .eff.s{background:var(--subtle);color:var(--muted)} .eff.m{background:var(--info-bg);color:var(--info)}
+  .eff.l{background:var(--warn-bg);color:var(--warn-tx)} .eff.xl{background:var(--red-bg);color:var(--red-tx)}
+  .ev{font-size:12.5px;color:#2E4A5C}
+  .ev b{color:var(--ink)} .ev .m{color:var(--muted)}
+  .ev .prof{display:block;margin-top:6px;font-weight:600;color:var(--ink)}
+  .ev .code{display:block;margin-top:7px;padding-top:7px;border-top:1px dashed var(--line);color:var(--ok-tx)}
+  .ev .code .w{color:var(--warn-tx)}
+  .adj{border-radius:var(--r-base);padding:12px 14px}
+  .adj.keep{background:var(--ok-bg);border:1px solid var(--ok-br);border-left:3px solid var(--ok)}
+  .adj.review{background:var(--warn-bg);border:1px solid var(--warn-br);border-left:3px solid var(--warn)}
+  .adj .kb{display:inline-block;font-size:10px;font-weight:700;padding:2px 9px;border-radius:var(--r-full);margin-bottom:8px;letter-spacing:.04em;text-transform:uppercase}
+  .adj.keep .kb{background:#fff;color:var(--ok-tx);border:1px solid var(--ok-br)} .adj.review .kb{background:#fff;color:var(--warn-tx);border:1px solid var(--warn-br)}
+  .adj .r{font-size:12.5px;margin:3px 0} .adj .r b{color:var(--ink)}
+  .adj .fin{margin-top:8px;font-weight:700;font-size:13px}
+  .adj.keep .fin{color:var(--ok-tx)} .adj.review .fin{color:var(--warn-tx)}
+  .note{padding:12px 18px;font-size:12.5px;border-top:1px solid var(--line);background:#FBFDFF;color:#2E4A5C}
+  .note b{color:var(--ink)} .note .w{color:var(--warn-tx)}
+
+  footer{font-size:12px;color:var(--muted);border-top:1px solid var(--line);padding-top:14px;margin-top:8px}
+  footer .credit{margin-top:8px;display:inline-flex;align-items:center;gap:7px;font-size:11px;color:var(--muted)}
+  footer .credit .swatch{width:12px;height:12px;border-radius:var(--r-sm);background:var(--brand);box-shadow:0 0 0 2px rgba(5,130,212,.2)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brandline"><span class="dot"></span> iNET · Phòng Công Nghệ</div>
+    <h1>Đối chiếu tự đánh giá vs thực tế — Tháng 6/2026</h1>
+    <p>P2 tự đánh giá + OKR (my.inet.vn) ⟷ commits/MR/issues (gitlabs) ⟷ xác minh code local ⟷ cân theo effort</p>
+    <div class="philo">Simple · Secure · Stable</div>
+  </header>
+
+  <div class="tldr">
+    <div class="kpi"><b>4/4</b><span>tự đánh giá khớp thực tế (code + effort-weighted)</span></div>
+    <div class="kpi"><b>0</b><span>thổi phồng</span></div>
+    <div class="kpi"><b>3 giữ · ducnd điều chỉnh</b><span>ducnd okr Tốt→Đạt (1.065→1.025, grade vẫn "Tốt")</span></div>
+  </div>
+
+  <div class="method">🧭 <b>Phương pháp:</b> điểm <b>okr</b> chấm theo <b>effort-weighted completion</b>, không chỉ đếm task xong. Effort (S/M/L/XL) ước lượng <b>khách quan từ code footprint</b> — không tin effort tự khai (tránh liệt kê toàn task S/M để luôn "Tốt").
+    <br><b>✅ Ngưỡng đã chốt (quản lý):</b> "Tốt" = hoàn thành cao <b>VÀ</b> ≥1 deliverable stretch (L–XL) → đã áp cho ducnd bên dưới.
+    <br>ℹ️ <b>Mọi entry OKR đang "Chờ duyệt"</b> (status=waiting) = chờ quản lý duyệt, <b>KHÔNG phải chưa làm</b> — công việc đã hoàn thành & đã đối chiếu code. Liệt kê đủ <b>14 entry</b> (dattqh 2 · ducnd 6 · chuongdt 4 · hobv 2).</div>
+
+  <div class="deadline">⏱ <b>Deadline 30/6:</b> hầu hết landed ≤ 30/6. Ngoại lệ: hobv <b>O1 (#42) đóng 01/07</b> (trễ 1 ngày) + publish npm <code>@hobui/viui-icons</code> 01/07 (code xong 30/6). chuongdt <b>Log Collector</b> chưa bắt đầu (chủ động hoãn).</div>
+
+  <div class="legend">
+    <span><span class="dot done"></span> Xong (code verified)</span>
+    <span><span class="dot prog"></span> Pending/trễ nhẹ</span>
+    <span><span class="dot no"></span> Chưa làm</span>
+    <span><span class="pill ok" style="padding:2px 8px">✓ Khớp</span></span>
+    <span><span class="pill mid" style="padding:2px 8px">◐ Điều chỉnh</span></span>
+  </div>
+  <div class="efflegend">Effort: <span class="eff s">S</span> nhỏ &nbsp; <span class="eff m">M</span> vừa &nbsp; <span class="eff l">L</span> lớn &nbsp; <span class="eff xl">XL</span> rất lớn / stretch</div>
+
+  <!-- dattqh -->
+  <div class="card">
+    <div class="top">
+      <div class="avatar">Đ</div>
+      <div class="who"><div class="name">Trịnh Quốc Hoàn Đạt <span class="role">· dattqh</span></div>
+        <div class="role">Fullstack · Trưởng phòng</div></div>
+      <div class="score"><div class="num">1.10 <span class="grade tot">Tốt</span></div><div class="lbl">self · draft</div></div>
+      <span class="pill ok">✓ Khớp</span>
+    </div>
+    <div class="body">
+      <div>
+        <h4>OKR tháng 6 · Cloud Panel</h4>
+        <ul class="okr">
+          <li><span class="dot done"></span><span class="eff xl">XL</span><span>Observability/VictoriaLogs — <b>vượt cam kết</b> (hứa research+plan cỡ M, thực tế impl 7 phase + prod 22/6)</span></li>
+          <li><span class="dot done"></span><span class="eff l">L</span><span>Firewall CRUD Linux (#148) — full-stack + Go agent</span></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Bằng chứng</h4>
+        <div class="ev"><b>868</b> commits · 4 MR merged · ~15 issue close
+          <span class="prof">Effort: XL + L, đều xong — vượt cam kết.</span>
+          <span class="code">✔ Code: log-management BE + Vector agent + FE viewer + <code>onedash-victoria</code>; firewall multi-distro. Landed 10–22/6.</span>
+        </div>
+      </div>
+      <div>
+        <h4>🔧 Điều chỉnh đề xuất</h4>
+        <div class="adj keep">
+          <span class="kb">Giữ nguyên</span>
+          <div class="r"><b>Core:</b> 4×Đạt — giữ nguyên</div>
+          <div class="r"><b>Delivery:</b> Tốt·Tốt·Tốt — giữ nguyên</div>
+          <div class="fin">→ 1.10 "Tốt" — effort củng cố (XL+L, vượt cam kết)</div>
+        </div>
+      </div>
+    </div>
+    <div class="note">Self chính xác, effort cao nhất nhóm. <span class="w">⚠ "rollout khách 22/6" thực chất dark-launch (<code>user:log:manage</code> chưa mở đại trà) — chỉnh câu chữ, không đổi điểm.</span></div>
+  </div>
+
+  <!-- ducnd -->
+  <div class="card">
+    <div class="top">
+      <div class="avatar">Đ</div>
+      <div class="who"><div class="name">Nguyễn Đăng Đức <span class="role">· ducnd</span></div>
+        <div class="role">Frontend</div></div>
+      <div class="score"><div class="num">1.065 → 1.025 <span class="grade tot">Tốt</span></div><div class="lbl">self · đã áp chuẩn stretch</div></div>
+      <span class="pill mid">◐ Điều chỉnh okr</span>
+    </div>
+    <div class="body">
+      <div>
+        <h4>OKR tháng 6 · Cloud Panel (6 entry)</h4>
+        <ul class="okr">
+          <li><span class="dot done"></span><span class="eff l">M–L</span><span>Terminal predictive echo (#168) — type-ahead RTT</span></li>
+          <li><span class="dot prog"></span><span class="eff l">M–L</span><span>Dashboard Overview + Access Log SSH/RDP (#155) — code done, RDP QA pending</span></li>
+          <li><span class="dot done"></span><span class="eff m">M</span><span>Hoàn thiện Alert: RDP watch + service watch (#174)</span></li>
+          <li><span class="dot done"></span><span class="eff m">M</span><span>onedash-agent CLI lifecycle (#169)</span></li>
+          <li><span class="dot done"></span><span class="eff m">M</span><span>Nâng cấp module Projects (deploy/web hosting)</span></li>
+          <li><span class="dot done"></span><span class="eff s">S–M</span><span>Tăng tỉ lệ cài agent — nudge (#175)</span></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Bằng chứng</h4>
+        <div class="ev"><b>351</b> commits · ~10 issue FE close · 21 issue tự tạo
+          <span class="prof">Effort: 6× S–M–L (đỉnh M–L), <b>không có XL/stretch</b>.</span>
+          <span class="code">✔ Code: cả 6 hạng mục là code thật (non-stub), merged ≤ 30/6; GitLab "done" khớp.</span>
+        </div>
+      </div>
+      <div>
+        <h4>🔧 Điều chỉnh đề xuất</h4>
+        <div class="adj review">
+          <span class="kb">Đã điều chỉnh</span>
+          <div class="r"><b>Core:</b> 4×Đạt — giữ nguyên</div>
+          <div class="r"><b>Delivery:</b> <b>okr: Tốt → Đạt</b> (không có deliverable XL/stretch) · quality/commitment giữ</div>
+          <div class="fin">→ 1.065 → <b>1.025</b> · grade vẫn "Tốt" (commitment=Tốt on-time giữ trên 1.0)</div>
+        </div>
+      </div>
+    </div>
+    <div class="note">Áp chuẩn "Tốt=phải có stretch": okr hạ Tốt→Đạt (đủ 6 việc nhưng đều S–M–L, không XL). <b>Grade vẫn "Tốt" (1.025)</b> vì giao đúng hạn (commitment=Tốt) — hợp lệ, độc lập với tiêu chí stretch. Việc đã làm thực chất (predictive echo, access-log là M–L).</div>
+  </div>
+
+  <!-- chuongdt -->
+  <div class="card">
+    <div class="top">
+      <div class="avatar">C</div>
+      <div class="who"><div class="name">Đinh Tiến Chương <span class="role">· chuongdt</span></div>
+        <div class="role">Fullstack</div></div>
+      <div class="score"><div class="num">1.00 <span class="grade dat">Đạt</span></div><div class="lbl">self · submitted</div></div>
+      <span class="pill ok">✓ Khớp</span>
+    </div>
+    <div class="body">
+      <div>
+        <h4>OKR tháng 6 · Developers Portal (4)</h4>
+        <ul class="okr">
+          <li><span class="dot done"></span><span class="eff xl">L–XL</span><span>Notification Hub đa kênh — <b>prod</b> (HMAC, fan-out, retry, DLQ)</span></li>
+          <li><span class="dot done"></span><span class="eff l">L</span><span>RBAC phân quyền (12 khu vực) — <b>prod</b></span></li>
+          <li><span class="dot done"></span><span class="eff l">M–L</span><span>MCP AI-docs — <b>prod</b></span></li>
+          <li><span class="dot no"></span><span class="eff xl">L–XL</span><span>Log Collector — <b>chưa bắt đầu</b> (đúng tự báo)</span></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Bằng chứng</h4>
+        <div class="ev"><b>722</b> commits · 4 MR merged · pipeline deploy prod thật
+          <span class="prof">Effort: 3× L–XL lên prod + 1× L–XL chưa làm.</span>
+          <span class="code">✔ Code: RBAC &amp; Notif Hub production-level đầy đủ; MCP prod. <span class="w">⚠ chặn nội dung MCP mới ở tầng prompt.</span></span>
+        </div>
+      </div>
+      <div>
+        <h4>🔧 Điều chỉnh đề xuất</h4>
+        <div class="adj keep">
+          <span class="kb">Giữ nguyên</span>
+          <div class="r"><b>Core:</b> 4×Đạt — giữ nguyên</div>
+          <div class="r"><b>Delivery:</b> Đạt·Đạt·Đạt — giữ nguyên</div>
+          <div class="fin">→ 1.00 "Đạt" — effort cao (3× L–XL prod) nhưng 1× L–XL bỏ dở → cân bằng</div>
+        </div>
+      </div>
+    </div>
+    <div class="note">Self "Đạt" <b>chính xác</b>: các việc hoàn thành đều là <b>L–XL thực chất</b> (không phải S/M), nhưng 1 việc lớn chưa bắt đầu → "Đạt" hợp lý, không nâng "Tốt".</div>
+  </div>
+
+  <!-- hobv -->
+  <div class="card">
+    <div class="top">
+      <div class="avatar">H</div>
+      <div class="who"><div class="name">Bùi Văn Hổ <span class="role">· hobv</span></div>
+        <div class="role">Design System · (P2 chọn role Fullstack)</div></div>
+      <div class="score"><div class="num">1.00 <span class="grade dat">Đạt</span></div><div class="lbl">self · submitted</div></div>
+      <span class="pill ok">✓ Khớp</span>
+    </div>
+    <div class="body">
+      <div>
+        <h4>OKR tháng 6 · 2 entry (DS-R4 + Website)</h4>
+        <ul class="okr">
+          <li><span class="dot done"></span><span class="eff xl">XL</span><span><b>① DS-R4</b> · O4 Brand Center + Icon catalog (1.327 icon, 3 MCP tool)</span></li>
+          <li><span class="dot done"></span><span class="eff l">M–L</span><span>O5 v1 ecosystem (@hobui/tokens, viui) · O3 Quality gates (visual CI)</span></li>
+          <li><span class="dot prog"></span><span class="eff l">M–L</span><span>O1 Runtime/feature-flags (#42 — đóng 1/7, trễ 1 ngày)</span></li>
+          <li><span class="dot no"></span><span class="eff l">L</span><span>O2 Adoption/North Star (#43) — <b>chưa xong</b> → DS-R4 = 4/5</span></li>
+          <li><span class="dot prog"></span><span class="eff m">M</span><span><b>② Website inet.vn</b> — 3 issue done (#80/#79/#62), 2 đang làm (#81/#82)</span></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Bằng chứng</h4>
+        <div class="ev"><b>454</b> commits · <b>21</b> MR merged
+          <span class="prof">Effort: 1× XL (O4) + 3× M–L xong; 1× L (O2) chưa.</span>
+          <span class="code">✔ Code: O1/O3/O4/O5 code thật ≤ 30/6; O4 mạnh (1.327 icon, /icons, 3 MCP tool). <span class="w">⚠ publish npm 1/7.</span></span>
+        </div>
+      </div>
+      <div>
+        <h4>🔧 Điều chỉnh đề xuất</h4>
+        <div class="adj keep">
+          <span class="kb">Giữ nguyên</span>
+          <div class="r"><b>Core:</b> 4×Đạt — giữ nguyên</div>
+          <div class="r"><b>Delivery:</b> Đạt·Đạt·Đạt — giữ nguyên</div>
+          <div class="fin">→ 1.00 "Đạt" — có 1 XL (O4) nhưng O2 chưa xong + O1 trễ → cân bằng</div>
+        </div>
+      </div>
+    </div>
+    <div class="note">Self "Đạt" <b>chính xác</b> — làm được 1 việc XL (O4) nhưng thực tế 4/5 (O2 chưa xong, O1 trễ). <span class="w">Sửa OKR tự báo "4/4" → 4/5.</span> Entry ② Website nằm ở repo inet.vn (ngoài design-sys-fe đã scout) — tự báo, chưa verify code.</div>
+  </div>
+
+  <footer>
+    Nguồn: OKR <code>accountkpi/search</code> · P2 <code>p2evaluation/get</code> · GitLab (2026-06) · xác minh code local (cloud-panel-application, design-sys-fe, developers.inet.vn) · effort ước lượng từ code footprint.
+    <br>Phạm vi: dattqh · ducnd · chuongdt · hobv. Audit chỉ-đọc; điểm P2 cuối & ngưỡng "Tốt" do quản lý quyết định. · 01/07/2026
+    <span class="credit"><span class="swatch"></span> Thiết kế theo iNET Design System (viui) · token primary #0582D4 · Be Vietnam Pro</span>
+  </footer>
+</div>
+</body>
+</html>
