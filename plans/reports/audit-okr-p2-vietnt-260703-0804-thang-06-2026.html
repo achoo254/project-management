@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Đánh giá OKR + đề xuất P2 — vietnt · Tháng 6/2026 · iNET</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  /* iNET Design System tokens (viui / @hobui/tokens) — light theme, primary */
+  :root{
+    --brand:#0582D4; --brand-dark:#024799; --brand-accent:#619ee9; --logo-red:#E8353C; --tech:#22D3EE;
+    --grad-start:#0582D4; --grad-end:#619ee9;
+    --bg:#F4F7FA; --card:#FFFFFF; --ink:#0F1E2D; --muted:#4A6278; --line:#D0DAE6; --subtle:#E8EEF4;
+    --ok:#0E9F6E; --ok-bg:#ECFDF5; --ok-br:#A7F3D0; --ok-tx:#065F46;
+    --warn:#D47B0A; --warn-bg:#FFFBEB; --warn-br:#FDE68A; --warn-tx:#92400E;
+    --err:#B91C1C; --err-bg:#FEF2F2; --err-br:#FECACA; --err-tx:#991B1B;
+    --info:#1E40AF; --info-bg:#EFF6FF; --info-br:#BFDBFE;
+    --red-bg:#FDECEE; --red-tx:#C1121F;
+    --r-sm:4px; --r-base:8px; --r-md:12px; --r-lg:16px; --r-full:9999px;
+    --sp1:.5rem; --sp2:1rem; --sp3:1.5rem; --sp4:2rem;
+    --sh-sm:0 1px 2px rgba(15,30,45,.05); --sh-base:0 1px 3px rgba(15,30,45,.10),0 1px 2px rgba(15,30,45,.06);
+    --sh-md:0 4px 6px rgba(15,30,45,.08),0 2px 4px rgba(15,30,45,.05); --glow:0 0 24px rgba(5,130,212,.28);
+    --font:'Be Vietnam Pro',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    --mono:'JetBrains Mono','Fira Code',Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:var(--font);color:var(--ink);background:var(--bg);line-height:1.5;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1080px;margin:0 auto;padding:28px 20px 56px}
+  code{font-family:var(--mono);background:var(--subtle);padding:1px 6px;border-radius:var(--r-sm);font-size:.86em;color:var(--brand-dark)}
+  a{color:var(--brand-dark);text-decoration:none;border-bottom:1px dotted var(--brand-accent)}
+  a:hover{color:var(--brand);border-bottom-style:solid}
+
+  header{position:relative;background:linear-gradient(135deg,var(--grad-start),var(--grad-end));color:#fff;
+    border-radius:var(--r-lg);padding:24px 26px;margin-bottom:var(--sp3);box-shadow:var(--glow);overflow:hidden}
+  header::after{content:"";position:absolute;right:-40px;top:-40px;width:180px;height:180px;border-radius:var(--r-full);
+    background:radial-gradient(circle,rgba(255,255,255,.16),transparent 70%)}
+  .brandline{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.85);margin-bottom:8px}
+  .brandline .dot{width:9px;height:9px;border-radius:var(--r-full);background:var(--logo-red);box-shadow:0 0 0 3px rgba(232,53,60,.3)}
+  header h1{margin:0 0 6px;font-size:21px;font-weight:700;letter-spacing:-.01em}
+  header p{margin:0;color:rgba(255,255,255,.9);font-size:13px}
+  header .philo{margin-top:10px;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.75)}
+
+  .tldr{display:flex;gap:12px;flex-wrap:wrap;margin:16px 0 14px}
+  .tldr .kpi{flex:1;min-width:160px;background:var(--card);border:1px solid var(--line);border-radius:var(--r-md);padding:15px 17px;box-shadow:var(--sh-sm);border-top:3px solid var(--brand)}
+  .tldr .kpi b{display:block;font-size:19px;font-weight:700;line-height:1.15;color:var(--brand-dark)}
+  .tldr .kpi span{font-size:12px;color:var(--muted)}
+
+  .method{background:var(--info-bg);border:1px solid var(--info-br);border-radius:var(--r-md);padding:12px 15px;font-size:12.5px;color:#1E3A8A;margin-bottom:10px}
+  .deadline{background:var(--warn-bg);border:1px solid var(--warn-br);border-radius:var(--r-md);padding:11px 15px;font-size:12.5px;color:var(--warn-tx);margin-bottom:16px}
+  .legend{display:flex;gap:16px;font-size:11.5px;color:var(--muted);margin:2px 0 8px;flex-wrap:wrap;align-items:center}
+  .legend span{display:inline-flex;align-items:center;gap:5px}
+  .efflegend{font-size:11.5px;color:var(--muted);margin:0 0 20px}
+
+  .sec-title{font-size:14px;font-weight:700;color:var(--brand-dark);margin:26px 0 12px;padding-bottom:6px;border-bottom:2px solid var(--subtle)}
+
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--r-md);margin-bottom:16px;overflow:hidden;box-shadow:var(--sh-base)}
+  .top{display:flex;align-items:center;gap:14px;padding:16px 18px;border-bottom:1px solid var(--line);flex-wrap:wrap;background:linear-gradient(180deg,#FBFDFF,#fff)}
+  .avatar{width:42px;height:42px;border-radius:var(--r-base);background:linear-gradient(135deg,var(--brand),var(--brand-accent));color:#fff;display:grid;place-items:center;font-weight:700;font-size:16px;flex-shrink:0;box-shadow:var(--sh-sm)}
+  .who{flex:1;min-width:140px}
+  .who .name{font-weight:700;font-size:15px}
+  .who .role{font-size:12px;color:var(--muted)}
+  .score{text-align:right}
+  .score .num{font-size:18px;font-weight:700;color:var(--ink)}
+  .score .lbl{font-size:11px;color:var(--muted)}
+  .pill{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;padding:5px 11px;border-radius:var(--r-full);white-space:nowrap}
+  .pill.prop{background:var(--info-bg);color:var(--info);border:1px solid var(--info-br)}
+  .grade{display:inline-block;font-size:11px;font-weight:700;padding:2px 9px;border-radius:var(--r-sm);margin-left:6px}
+  .grade.tot{background:var(--ok-bg);color:var(--ok-tx)} .grade.dat{background:var(--info-bg);color:var(--info)}
+
+  .body{padding:15px 18px;display:grid;grid-template-columns:1.25fr 1fr 1.05fr;gap:18px}
+  @media(max-width:760px){.body{grid-template-columns:1fr}.score{text-align:left}}
+  .body h4{margin:0 0 9px;font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--brand);font-weight:600}
+  ul.okr{list-style:none;margin:0;padding:0;font-size:12.5px}
+  ul.okr li{display:flex;gap:7px;align-items:flex-start;padding:3px 0}
+  .dot{width:8px;height:8px;border-radius:var(--r-full);margin-top:6px;flex-shrink:0}
+  .dot.done{background:var(--ok)} .dot.no{background:var(--err)}
+  .eff{font-size:9.5px;font-weight:700;padding:1px 6px;border-radius:var(--r-sm);letter-spacing:.03em;flex-shrink:0;margin-top:2px}
+  .eff.s{background:var(--subtle);color:var(--muted)} .eff.m{background:var(--info-bg);color:var(--info)}
+  .eff.l{background:var(--warn-bg);color:var(--warn-tx)} .eff.xl{background:var(--red-bg);color:var(--red-tx)}
+  .ev{font-size:12.5px;color:#2E4A5C}
+  .ev b{color:var(--ink)}
+  .ev .code{display:block;margin-top:4px;color:var(--ok-tx)}
+  .adj{border-radius:var(--r-base);padding:12px 14px}
+  .adj.prop{background:var(--info-bg);border:1px solid var(--info-br);border-left:3px solid var(--info)}
+  .adj .kb{display:inline-block;font-size:10px;font-weight:700;padding:2px 9px;border-radius:var(--r-full);margin-bottom:8px;letter-spacing:.04em;text-transform:uppercase}
+  .adj.prop .kb{background:#fff;color:var(--info);border:1px solid var(--info-br)}
+  .adj .r{font-size:12.5px;margin:3px 0} .adj .r b{color:var(--ink)}
+  .adj .fin{margin-top:8px;font-weight:700;font-size:13px;color:var(--info)}
+  .note{padding:12px 18px;font-size:12.5px;border-top:1px solid var(--line);background:#FBFDFF;color:#2E4A5C}
+  .note b{color:var(--ink)} .note .w{color:var(--warn-tx)}
+
+  .breakdown{margin:6px 0 8px}
+  table.okrtab{width:100%;border-collapse:collapse;font-size:12px;background:var(--card);border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden;box-shadow:var(--sh-sm)}
+  table.okrtab th{background:linear-gradient(180deg,#FBFDFF,#fff);text-align:left;padding:9px 11px;font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--brand);border-bottom:1px solid var(--line);font-weight:600}
+  table.okrtab td{padding:9px 11px;border-bottom:1px solid var(--subtle);vertical-align:top;color:#2E4A5C}
+  table.okrtab tr:last-child td{border-bottom:none}
+  table.okrtab td b{color:var(--ink)}
+  .st{display:inline-block;font-size:10px;font-weight:700;padding:1px 8px;border-radius:var(--r-full);white-space:nowrap}
+  .st.done{background:var(--ok-bg);color:var(--ok-tx);border:1px solid var(--ok-br)}
+  .st.wait{background:var(--warn-bg);color:var(--warn-tx);border:1px solid var(--warn-br)}
+  .st.defer{background:var(--err-bg);color:var(--err-tx);border:1px solid var(--err-br)}
+
+  /* Technical complexity highlight */
+  .cx{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:6px}
+  @media(max-width:680px){.cx{grid-template-columns:1fr}}
+  .cx-item{background:var(--card);border:1px solid var(--line);border-radius:var(--r-md);padding:13px 15px;box-shadow:var(--sh-sm);border-left:3px solid var(--brand)}
+  .cx-item.hard{border-left-color:var(--logo-red)}
+  .cx-item .h{display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap}
+  .cx-item .h b{font-size:13px;color:var(--ink)}
+  .cx-item p{margin:0;font-size:12px;color:#2E4A5C}
+  .cx-item .files{display:block;margin-top:6px;font-family:var(--mono);font-size:10.5px;color:var(--brand-dark);word-break:break-all}
+  .tag{font-size:9.5px;font-weight:700;padding:1px 7px;border-radius:var(--r-full);letter-spacing:.02em}
+  .tag.sec{background:var(--red-bg);color:var(--red-tx)} .tag.xplat{background:var(--info-bg);color:var(--info)}
+  .tag.test{background:var(--ok-bg);color:var(--ok-tx)} .tag.infra{background:var(--warn-bg);color:var(--warn-tx)}
+
+  /* Gantt timeline */
+  .gantt{background:var(--card);border:1px solid var(--line);border-radius:var(--r-md);box-shadow:var(--sh-sm);padding:15px 16px;margin-bottom:12px;overflow-x:auto}
+  .gantt-inner{min-width:600px}
+  .gantt-hd{display:flex;font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:9px}
+  .gantt-hd .sp{width:168px;flex-shrink:0}
+  .gantt-hd .mos{flex:1;display:flex}
+  .gantt-hd .mo{text-align:center;border-left:1px solid var(--line);padding:2px 0}
+  .gantt-row{display:flex;align-items:center;margin:7px 0}
+  .gantt-lbl{width:168px;flex-shrink:0;font-size:11px;color:var(--ink);padding-right:10px;line-height:1.25}
+  .gantt-lbl b{color:var(--brand-dark)}
+  .gantt-track{position:relative;flex:1;height:22px;background:var(--subtle);border-radius:var(--r-full)}
+  .gantt-bar{position:absolute;top:0;height:22px;border-radius:var(--r-full);background:linear-gradient(90deg,var(--brand),var(--brand-accent));display:flex;align-items:center;justify-content:center;font-size:9.5px;color:#fff;font-weight:700;white-space:nowrap;overflow:hidden;box-shadow:var(--sh-sm)}
+  .gantt-tick{position:absolute;top:-2px;width:0;height:26px;border-left:2px dashed var(--ok)}
+  .gantt-lg{font-size:11px;color:var(--muted);margin-top:10px}
+  .gantt-lg b{color:var(--ink)}
+
+  /* P2 score calc */
+  .p2grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:12px}
+  @media(max-width:760px){.p2grid{grid-template-columns:1fr}}
+  .p2h{margin:0 0 8px;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--brand);font-weight:700}
+  .p2total{background:var(--info-bg);border:1px solid var(--info-br);border-radius:var(--r-md);padding:13px 16px;font-size:13px;color:#1E3A8A}
+  .p2total .big{font-size:19px;font-weight:700;color:var(--brand-dark)}
+  .p2total .alt{margin-top:8px;font-size:12px;color:#2E4A5C;font-weight:400}
+
+  .fe-note{background:var(--ok-bg);border:1px solid var(--ok-br);border-radius:var(--r-md);padding:11px 15px;font-size:12.5px;color:var(--ok-tx);margin:14px 0 6px}
+  .fe-note b{color:var(--ok-tx)}
+
+  footer{font-size:12px;color:var(--muted);border-top:1px solid var(--line);padding-top:14px;margin-top:20px}
+  footer .credit{margin-top:8px;display:inline-flex;align-items:center;gap:7px;font-size:11px;color:var(--muted)}
+  footer .credit .swatch{width:12px;height:12px;border-radius:var(--r-sm);background:var(--brand);box-shadow:0 0 0 2px rgba(5,130,212,.2)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brandline"><span class="dot"></span> iNET · Phòng Công Nghệ</div>
+    <h1>Đánh giá OKR + đề xuất P2 — Nguyễn Tiến Việt (vietnt) · Tháng 6/2026</h1>
+    <p>OKR tự báo (my.inet.vn) ⟷ GitLab issues OneDash ⟷ xác minh code local ⟷ cân theo effort &amp; độ phức tạp kỹ thuật</p>
+    <div class="philo">Simple · Secure · Stable</div>
+  </header>
+
+  <div class="tldr">
+    <div class="kpi"><b>2/3 hoàn thành · 1 không đạt</b><span>Projects ✓ · Webserver ✓ · rsync KHÔNG hoàn thành</span></div>
+    <div class="kpi"><b>35 commit · +25.8k dòng</b><span>492 file · Go agent + Node.js/Express BE + Vue client (T6)</span></div>
+    <div class="kpi"><b>Cross-platform + có test</b><span>Linux &amp; Windows (port-bind, phpMyAdmin) · unit test agent</span></div>
+    <div class="kpi"><b>Đề xuất: 1.025 "Tốt"</b><span>Core 4×Đạt (1.0) · Delivery okr Đạt/quality Đạt/commitment Tốt (1.05)</span></div>
+  </div>
+
+  <div class="method">🧭 <b>Phương pháp:</b> đối chiếu <b>3 OKR tự báo T6/2026</b> (my.inet.vn, cả 3 "Chờ duyệt") với <b>GitLab issue</b> (assignee <code>vietnt1</code>) + <b>commit thật</b> (<code>vietnt@inet.vn</code>) + đọc source. Điểm <b>okr</b> chấm theo <b>effort-weighted completion</b>; effort S/M/L/XL ước lượng <b>khách quan từ code footprint</b> (số tầng/hệ thống/cross-platform/độ phức tạp), không tin effort tự khai.
+    <br><b>✅ Ngưỡng "Tốt":</b> hoàn thành cao <b>VÀ</b> ≥1 deliverable stretch (L–XL). vietnt có stretch thật (runtime switching cross-platform + test, agent Go đa module) → đạt ngưỡng.
+    <br>ℹ️ vietnt <b>push thẳng <code>main</code></b> (0 MR) → dùng commit footprint, không đếm MR. "Chờ duyệt" = chờ quản lý duyệt, KHÔNG phải chưa làm.</div>
+
+  <div class="deadline">⏱ <b>Deadline 30/6:</b> toàn bộ <b>code landed ≤ 24/6</b> (commit T6 cuối: 24/6, không có commit T7) — <b>KHÔNG trễ</b>. Issue <a href="https://gitlabs.inet.vn/server-tools/cloud-panel-application/-/issues/172">#172</a>/<a href="https://gitlabs.inet.vn/server-tools/cloud-panel-application/-/issues/171">#171</a>/<a href="https://gitlabs.inet.vn/server-tools/cloud-panel-application/-/issues/134">#134</a> hiển thị <code>closed 01/07</code> nhưng là <b>đóng hành chính</b> (code đã vào main từ T6).</div>
+
+  <div class="legend">
+    <span><span class="dot done"></span> Hoàn thành (code verified)</span>
+    <span><span class="dot no"></span> Không hoàn thành</span>
+    <span><span class="tag sec">security</span> nhạy cảm bảo mật</span>
+    <span><span class="tag xplat">cross-platform</span> Linux+Windows</span>
+    <span><span class="tag test">có test</span></span>
+  </div>
+  <div class="efflegend">Effort: <span class="eff s">S</span> nhỏ &nbsp; <span class="eff m">M</span> vừa &nbsp; <span class="eff l">L</span> lớn &nbsp; <span class="eff xl">XL</span> rất lớn / stretch &nbsp; · &nbsp; effort tự báo → effort khách quan (code footprint)</div>
+
+  <!-- vietnt card -->
+  <div class="card">
+    <div class="top">
+      <div class="avatar">V</div>
+      <div class="who"><div class="name">Nguyễn Tiến Việt <span class="role">· vietnt (GitLab: vietnt1)</span></div>
+        <div class="role">OneDash — Cloud Panel · Projects + Webserver (span Go agent + Node.js/Express BE + Vue client → P2 role suy ra "Fullstack")</div></div>
+      <div class="score"><div class="num">"Tốt" <span class="grade tot">đề xuất</span></div><div class="lbl">quản lý khóa điểm cuối</div></div>
+      <span class="pill prop">◆ Đề xuất P2</span>
+    </div>
+    <div class="body">
+      <div>
+        <h4>OKR tự báo T6 · 3 entry (Chờ duyệt)</h4>
+        <ul class="okr">
+          <li><span class="dot done"></span><span class="eff xl">L→L–XL</span><span><b>① OneDash: Projects</b> — deploy / runtime / UX (15 mục). <b>Hoàn thành.</b> <a href="https://gitlabs.inet.vn/server-tools/cloud-panel-application/-/issues/137">#137</a> <a href="https://gitlabs.inet.vn/server-tools/cloud-panel-application/-/issues/172">#172</a></span></li>
+          <li><span class="dot done"></span><span class="eff l">M→M–L</span><span><b>② OneDash: Webserver</b> — lưu tạm + auto-login phpMyAdmin, refactor DB. <b>Hoàn thành.</b> <a href="https://gitlabs.inet.vn/server-tools/cloud-panel-application/-/issues/173">#173</a></span></li>
+          <li><span class="dot no"></span><span class="eff l">L (0 giao)</span><span><b>③ OneDash: rsync</b> — nghiên cứu rsync từ aaPanel/CyberPanel. <b>KHÔNG hoàn thành</b> — chỉ có 1 design doc <code>site-import-overview.md</code> (pending), 0 code implementation.</span></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Bằng chứng (scope thực tế)</h4>
+        <div class="ev"><b>35</b> commit T6 · <b>492</b> file · <b>+25.841 / −2.245</b> dòng · 0 MR (push thẳng main)
+          <span class="code">✔ Trải 3 lớp: agent Go (<code>project_manager</code>, <code>webserver</code>) + backend Node.js/Express (<code>user</code>) + client Vue (<code>projects</code>, <code>webserver</code>). Deliverable trội <b>L–XL</b>, nhiều phần cross-platform (Linux+Windows) và có unit test — chi tiết ở mục "Độ phức tạp kỹ thuật" bên dưới.</span>
+        </div>
+      </div>
+      <div>
+        <h4>◆ Đề xuất P2 (mới)</h4>
+        <div class="adj prop">
+          <span class="kb">Đề xuất</span>
+          <div class="r"><b>Core:</b> 4×Đạt — giao đa tầng (agent Go/BE/client), cross-platform, có test + design docs</div>
+          <div class="r"><b>Delivery:</b> okr <b>Đạt</b> (2/3 hoàn thành — rsync không đạt; 2 việc còn lại đủ mạnh, có stretch L–XL) · quality <b>Đạt</b> (code + test + threat model; có churn: revert index.ts, fix chown/python-lock) · commitment <b>Tốt</b> (đúng hạn ≤24/6, volume cao)</div>
+          <div class="fin">→ tổng <b>1.025</b> · grade <b>"Tốt"</b> (công thức chi tiết bên dưới; điểm cuối quản lý khóa)</div>
+        </div>
+      </div>
+    </div>
+    <div class="note"><b>Kết luận:</b> khối lượng &amp; độ khó T6 cao, <b>2/3 OKR hoàn thành</b> thực chất (nhiều phần production infra + cross-platform + test); OKR ③ (rsync) <b>tính là KHÔNG hoàn thành</b> (vietnt tự ghi "Pending" nhưng chưa giao sản phẩm). Hai hạng mục hoàn thành đủ mạnh (có stretch L–XL) → đề xuất vẫn "Tốt" theo delivery, nhưng <span class="w">quản lý cân nhắc mức hạ nếu chấm OKR completion nghiêm ngặt (2/3).</span></div>
+  </div>
+
+  <!-- OKR breakdown table -->
+  <div class="sec-title">📋 Chi tiết 3 hạng mục OKR ⟷ GitLab issue ⟷ code</div>
+  <div class="breakdown">
+    <table class="okrtab">
+      <thead><tr><th style="width:14%">Hạng mục</th><th style="width:32%">Mục tiêu tự báo</th><th style="width:10%">Effort<br>(tự→KQ)</th><th style="width:32%">Bằng chứng code + GitLab issue</th><th style="width:12%">Trạng thái</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><b>① OneDash: Projects</b></td>
+          <td>15 mục: hình thức chạy local/ip/domain(proxy); deploy project phổ biến; link truy cập; trạng thái start/stop/error/Init; đổi version + đổi runtime khác; upload file manager auto-detect runtime; UX card project/webserver; terminal project; log khi build lỗi; CASL permissions; filter theo máy chủ; giữ node_modules khi đổi runtime; refactor log <code>/var/log/onedash/modules/</code>; ẩn version nginx/OLS</td>
+          <td><span class="eff l">L</span>→<span class="eff xl">L–XL</span></td>
+          <td>✔ <code>projects/composables/use-change-runtime.ts</code>, <code>components/runtime/ChangeRuntimeDialog.vue</code>; agent <code>project_manager/service/port_bind_verify.service.go</code> + <code>_windows.go</code> + <code>port_bind_verify_test.go</code>; deploy SPA/Python (Caddy); auto-pick-port; filter theo host (09/6); log build lỗi (05/6); giữ node_modules (skip-wipe-and-revert); ẩn version header (17/6).<br>Issues: <a href="https://gitlabs.inet.vn/server-tools/cloud-panel-application/-/issues/137">#137 Refactor+Fix+features</a> · <a href="https://gitlabs.inet.vn/server-tools/cloud-panel-application/-/issues/172">#172 Tiếp tục update Projects</a></td>
+          <td><span class="st done">Hoàn thành</span><br><span class="st wait">Chờ duyệt</span></td>
+        </tr>
+        <tr>
+          <td><b>② OneDash: Webserver</b></td>
+          <td>Lưu tạm tài khoản phpMyAdmin để dùng; truy cập phpMyAdmin auto-login theo tài khoản quản lý chung.<br><i>Kết quả tự báo: + refactor code DB.</i></td>
+          <td><span class="eff m">M</span>→<span class="eff l">M–L</span></td>
+          <td>✔ agent <code>service/pma_bootstrap_linux.go</code> + <code>pma_bootstrap_windows.go</code> (auto-login cross-OS); <code>webserver/handler/wordpress_manage.handler.go</code>; rebrand cert → OneDash.<br>Liên quan: <a href="https://gitlabs.inet.vn/server-tools/cloud-panel-application/-/issues/173">#173 connect phpMyAdmin</a> · <a href="https://gitlabs.inet.vn/server-tools/cloud-panel-application/-/issues/134">#134 tách services (DB refactor)</a> · <a href="https://gitlabs.inet.vn/server-tools/cloud-panel-application/-/issues/171">#171 cải thiện loading</a></td>
+          <td><span class="st done">Hoàn thành</span><br><span class="st wait">Chờ duyệt</span></td>
+        </tr>
+        <tr>
+          <td><b>③ OneDash: rsync</b></td>
+          <td>Nghiên cứu triển khai tính năng rsync dữ liệu từ aaPanel, CyberPanel.</td>
+          <td><span class="eff l">L</span>→<span class="eff s">0</span></td>
+          <td>✗ Chỉ có 1 design doc <code>project_manager/docs/site-import-overview.md</code> (vietnt, commit 09/6, status "pending — chưa implement"); <b>0 code</b>: <code>aapanel_adapter.go</code>/<code>cpanel_adapter.go</code> + module <code>site_import</code> đều chưa tạo. vietnt tự ghi <i>"Pending..."</i> → <b>KHÔNG hoàn thành</b>.</td>
+          <td><span class="st defer">Không hoàn thành</span><br><span class="st wait">Chờ duyệt</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Technical complexity — focus on hard parts vietnt shipped -->
+  <!-- Timeline per issue -->
+  <div class="sec-title">🗓️ Timeline từng issue — thời gian bắt đầu → kết thúc</div>
+  <div class="gantt">
+    <div class="gantt-inner">
+      <div class="gantt-hd"><span class="sp"></span><span class="mos"><span class="mo" style="flex:31">Tháng 5</span><span class="mo" style="flex:30">Tháng 6</span><span class="mo" style="flex:1">7</span></span></div>
+      <div class="gantt-row"><span class="gantt-lbl"><b>#137</b> Refactor+Fix+features</span><div class="gantt-track"><div class="gantt-bar" style="left:19.4%;width:45.2%">13/5 → 10/6</div></div></div>
+      <div class="gantt-row"><span class="gantt-lbl"><b>#134</b> Tách services webserver</span><div class="gantt-track"><div class="gantt-bar" style="left:19.4%;width:79.0%">13/5 → 1/7</div><span class="gantt-tick" style="left:75.8%" title="code landed ~17/6"></span></div></div>
+      <div class="gantt-row"><span class="gantt-lbl"><b>#173</b> phpMyAdmin connect</span><div class="gantt-track"><div class="gantt-bar" style="left:64.5%;width:9.7%"></div></div></div>
+      <div class="gantt-row"><span class="gantt-lbl"><b>#172</b> Tiếp tục Projects</span><div class="gantt-track"><div class="gantt-bar" style="left:64.5%;width:33.9%">10/6 → 1/7</div><span class="gantt-tick" style="left:87.1%" title="code landed 24/6"></span></div></div>
+      <div class="gantt-row"><span class="gantt-lbl"><b>#171</b> Cải thiện loading WS</span><div class="gantt-track"><div class="gantt-bar" style="left:64.5%;width:33.9%">10/6 → 1/7</div><span class="gantt-tick" style="left:74.2%" title="code landed ~15/6"></span></div></div>
+      <div class="gantt-lg">▬ thanh = vòng đời issue (tạo → đóng, GitLab) · <span style="color:var(--ok);font-weight:700">┊</span> vạch xanh = mốc code landed (commit cuối) — với issue đóng hành chính 1/7 thì code đã xong trong T6. <b>#173</b> gọn (10/6→16/6).</div>
+    </div>
+  </div>
+  <div class="breakdown">
+    <table class="okrtab">
+      <thead><tr><th style="width:22%">Issue</th><th style="width:13%">Mở (tạo)</th><th style="width:20%">Code active (≈, từ commit)</th><th style="width:13%">Đóng</th><th style="width:32%">Ghi chú</th></tr></thead>
+      <tbody>
+        <tr><td><b><a href="https://gitlabs.inet.vn/server-tools/cloud-panel-application/-/issues/137">#137</a></b> Refactor + Fix + tính năng mới</td><td>13/5</td><td>~05/5 → 10/6</td><td><span class="st done">10/6</span></td><td>Umbrella Projects (runtime, deploy, log refactor, WAF). Đóng đúng hạn.</td></tr>
+        <tr><td><b><a href="https://gitlabs.inet.vn/server-tools/cloud-panel-application/-/issues/173">#173</a></b> Webserver: connect phpMyAdmin</td><td>10/6</td><td>12/6 → 15/6</td><td><span class="st done">16/6</span></td><td>Gọn ~4 ngày; auto-login cross-OS.</td></tr>
+        <tr><td><b><a href="https://gitlabs.inet.vn/server-tools/cloud-panel-application/-/issues/172">#172</a></b> Tiếp tục update Projects</td><td>10/6</td><td>10/6 → 24/6</td><td><span class="st wait">1/7 (hành chính)</span></td><td>Code landed ≤24/6 (trong T6); issue đóng 1/7.</td></tr>
+        <tr><td><b><a href="https://gitlabs.inet.vn/server-tools/cloud-panel-application/-/issues/134">#134</a></b> Tách services webserver</td><td>13/5</td><td>~05/5 → 17/6</td><td><span class="st wait">1/7 (hành chính)</span></td><td>Trải 2 tháng (FTP/backup/DB/isolation); code ≤17/6; đóng 1/7.</td></tr>
+        <tr><td><b><a href="https://gitlabs.inet.vn/server-tools/cloud-panel-application/-/issues/171">#171</a></b> Cải thiện loading Webserver</td><td>10/6</td><td>~13/6 → 15/6</td><td><span class="st wait">1/7 (hành chính)</span></td><td>Scope nhỏ (refetch-in-finally + indicator); đóng 1/7.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="fe-note" style="background:var(--info-bg);border-color:var(--info-br);color:#1E3A8A">📌 <b>Cách đọc:</b> ngày <b>Mở/Đóng</b> lấy chính xác từ GitLab. "<b>Code active</b>" là cửa sổ commit thực tế (xấp xỉ) — vietnt push thẳng <code>main</code>, commit không gắn số issue nên suy từ chủ đề commit. Toàn bộ code T6 landed <b>≤ 24/6</b> (đúng hạn 30/6). Issue #135/#136 (backup permissions + file manager) đã hoàn thành <b>tháng 5</b> (13/5→26/5) — chu kỳ trước, ngoài kỳ OKR tháng 6.</div>
+
+  <!-- P2 score calculation (Fullstack formula) -->
+  <div class="sec-title">🧮 Đề xuất tính điểm P2 — công thức Fullstack (verify qua <code>/p2evaluation/compute</code>)</div>
+  <div class="p2grid">
+    <div>
+      <h4 class="p2h">P2-Core · Fullstack — trọng số A30 / B30 / C15 / D25</h4>
+      <table class="okrtab">
+        <thead><tr><th>Hạng mục</th><th>Trọng số</th><th>Đề xuất</th><th>Điểm</th></tr></thead>
+        <tbody>
+          <tr><td><b>A</b> Năng lực kỹ thuật</td><td>0.30</td><td><span class="st done">Đạt</span></td><td>0.30</td></tr>
+          <tr><td><b>B</b> Ownership &amp; trách nhiệm</td><td>0.30</td><td><span class="st done">Đạt</span></td><td>0.30</td></tr>
+          <tr><td><b>C</b> DevOps &amp; vận hành</td><td>0.15</td><td><span class="st done">Đạt</span></td><td>0.15</td></tr>
+          <tr><td><b>D</b> AI Agent &amp; cải tiến</td><td>0.25</td><td><span class="st done">Đạt</span></td><td>0.25</td></tr>
+          <tr style="background:var(--subtle)"><td colspan="3"><b>Core total</b> (4 hạng mục Đạt)</td><td><b>1.00</b></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <h4 class="p2h">P2-Delivery · chung — hệ số: Chưa đạt ×0.8 · Đạt ×1.0 · Tốt ×1.2</h4>
+      <table class="okrtab">
+        <thead><tr><th>Tiêu chí</th><th>Tr.số gốc</th><th>Đề xuất</th><th>Điểm</th></tr></thead>
+        <tbody>
+          <tr><td><b>okr</b> Hoàn thành OKR</td><td>0.40</td><td><span class="st wait">Đạt ×1.0</span></td><td>0.40</td></tr>
+          <tr><td><b>quality</b> Chất lượng</td><td>0.35</td><td><span class="st wait">Đạt ×1.0</span></td><td>0.35</td></tr>
+          <tr><td><b>commitment</b> Cam kết &amp; tiến độ</td><td>0.25</td><td><span class="st done">Tốt ×1.2</span></td><td>0.30</td></tr>
+          <tr style="background:var(--subtle)"><td colspan="3"><b>Delivery total</b></td><td><b>1.05</b></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="p2total">
+    Tổng = Core×0.5 + Delivery×0.5 = 1.00×0.5 + 1.05×0.5 = <span class="big">1.025</span> → grade <b>"Tốt"</b> · coreWeight 0.5 · deliveryWeight 0.5 · primaryRole Fullstack
+    <div class="alt"><b>Vì sao okr = Đạt (không phải Tốt):</b> ngưỡng "Tốt" cần hoàn thành cao <b>và</b> có stretch; 1/3 OKR (rsync) không hoàn thành → okr = Đạt. Commitment = Tốt (đúng hạn ≤24/6, volume lớn) giữ tổng &gt; 1.0 nên grade vẫn "Tốt". Số liệu verify qua <code>/p2evaluation/compute</code> (role Fullstack).
+    <br><b>Phương án thay thế</b> — nếu quản lý đánh giá độ khó 2 việc đã giao vượt kỳ vọng → okr = Tốt (×1.2 = 0.48): Delivery = 1.13 → <b>tổng 1.065</b>, vẫn grade "Tốt".</div>
+  </div>
+
+  <div class="sec-title">🧩 Độ phức tạp kỹ thuật — điểm khó trong issue vietnt đã làm</div>
+  <div class="cx">
+    <div class="cx-item hard">
+      <div class="h"><b>Đổi version / đổi runtime an toàn</b> <span class="eff xl">L–XL</span></div>
+      <p>Đổi version cùng runtime & đổi runtime khác, <b>giữ nguyên node_modules</b> (chỉ đổi version, không wipe), SkipHealthCheck khi đổi, cơ chế skip-wipe-and-revert về version trước; push trạng thái project realtime qua socket. Quản lý state + rollback an toàn.
+      <span class="files">use-change-runtime.ts · components/runtime/ChangeRuntimeDialog.vue</span></p>
+    </div>
+    <div class="cx-item hard">
+      <div class="h"><b>Quản lý port cross-platform</b> <span class="tag xplat">cross-platform</span> <span class="tag test">có test</span> <span class="eff l">L</span></div>
+      <p>Verify bind port trên <b>Linux &amp; Windows</b>, scheduler recheck sau khi bind, auto-pick-port + recheck, scan cổng nguồn framework Node. Có unit test.
+      <span class="files">port_bind_verify.service.go · port_bind_verify_windows.go · port_bind_recheck_scheduler.go · port_bind_verify_test.go</span></p>
+    </div>
+    <div class="cx-item">
+      <div class="h"><b>Deploy đa runtime</b> <span class="eff l">L</span></div>
+      <p>Deploy project SPA/Python qua Caddy, auto-detect runtime khi upload file manager, chạy đúng PM khai báo (không fallback pnpm), hiển thị log khi cài deps / khởi chạy lỗi, fix tạo project (chown, python lock-frontend).
+      <span class="files">agent project_manager/* · client modules/projects</span></p>
+    </div>
+    <div class="cx-item hard">
+      <div class="h"><b>phpMyAdmin auto-login</b> <span class="tag sec">security</span> <span class="tag xplat">cross-platform</span> <span class="eff l">M–L</span></div>
+      <p>Bootstrap phpMyAdmin trên Linux &amp; Windows, lưu tạm tài khoản + tự động login theo tài khoản quản lý chung, rebrand cert Organization → OneDash. Nhạy cảm bảo mật (credential handling).
+      <span class="files">agent/service/pma_bootstrap_linux.go · pma_bootstrap_windows.go</span></p>
+    </div>
+    <div class="cx-item hard">
+      <div class="h"><b>Backup site / project isolation</b> <span class="tag sec">security</span> <span class="tag test">có test</span> <span class="eff l">L</span></div>
+      <p>Tách "site thật" khỏi "project" trong cùng <code>/home/onedash/</code> (marker <code># onedash-project:</code>), refuse-to-archive non-site, có <b>threat model</b> + test 5 case. Kèm FTP password validator (embed common-pw list, 3-of-4 char classes).
+      <span class="files">webserver/service/remote_backup.service.go · ftp_password_validator.go</span></p>
+    </div>
+    <div class="cx-item">
+      <div class="h"><b>Hạ tầng agent</b> <span class="tag infra">infra</span> <span class="eff m">M–L</span></div>
+      <p>Refactor log tập trung <code>/var/log/onedash/modules/{module}/</code> (path theo GOOS, ClassifyModule longest-prefix), fix apt lock contention (<code>DPkg::Lock::Timeout=300</code> tránh race unattended-upgrades), tự ẩn version header nginx + OpenLiteSpeed.
+      <span class="files">agent CHANGELOG · runtime_install_build_deps.service.go</span></p>
+    </div>
+  </div>
+
+  <div class="fe-note">🔀 <b>Đối chiếu FE cùng module Projects:</b> đã kiểm tra chồng lấn với FE dev khác — <b>tree sạch, không có conflict tồn đọng</b>, tests còn chạy. Phần dev khác chạm trên file chung chủ yếu là scope nhỏ (refactor/di chuyển file + i18n); <b>toàn bộ feature-logic deploy/runtime + agent Go do vietnt đảm nhiệm.</b></div>
+
+  <footer>
+    Nguồn: OKR <code>accountkpi/search</code> (vietnt@inet.vn · <code>monthStr=062026</code> · 3 entry, đều "Chờ duyệt") · GitLab <code>api/v4</code> project 300 (issues assignee vietnt1) · xác minh code local <code>cloud-panel-application</code> (onedash-agent Go / onedash-backend Node.js/Express / onedash-client Vue) · effort &amp; độ phức tạp ước lượng từ code footprint.
+    <br>Phạm vi: vietnt (Nguyễn Tiến Việt). Đây là <b>đề xuất tham khảo</b>; điểm P2 cuối &amp; role P2 chính thức do quản lý khóa. · 03/07/2026
+    <span class="credit"><span class="swatch"></span> Thiết kế theo iNET Design System (viui) · token primary #0582D4 · Be Vietnam Pro</span>
+  </footer>
+</div>
+</body>
+</html>
