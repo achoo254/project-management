@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Báo cáo Dashboard iNET H1/2026 vs H1/2025</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<style>
+  :root {
+    --primary: #1F4E79; --primary-light: #2E75B6; --accent: #FFC000;
+    --green: #00B050; --red: #C00000; --amber: #ED7D31;
+    --bg: #F7F9FC; --card: #FFFFFF; --text: #1A1A1A; --muted: #5A6470; --border: #E1E5EB;
+  }
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, "Segoe UI", Arial, sans-serif; margin: 0; background: var(--bg); color: var(--text); line-height: 1.55; }
+  .layout { display: grid; grid-template-columns: 240px 1fr; min-height: 100vh; }
+  nav.toc { position: sticky; top: 0; height: 100vh; overflow-y: auto; background: var(--primary); color: #fff; padding: 24px 16px; }
+  nav.toc h2 { font-size: 14px; text-transform: uppercase; letter-spacing: 1px; opacity: 0.7; margin: 0 0 12px; }
+  nav.toc button.nav-btn {
+    display: block; width: 100%; text-align: left; background: transparent; border: none;
+    color: #D6E5F2; padding: 8px 12px; border-radius: 6px; margin: 2px 0; font-size: 14px;
+    cursor: pointer; font-family: inherit;
+  }
+  nav.toc button.nav-btn:hover, nav.toc button.nav-btn.active { background: rgba(255,255,255,0.15); color: #fff; }
+  main { padding: 32px 48px; max-width: 1280px; }
+  header.hero { background: linear-gradient(135deg, var(--primary), var(--primary-light)); color: #fff; padding: 40px; border-radius: 12px; margin-bottom: 28px; }
+  header.hero h1 { margin: 0 0 8px; font-size: 28px; }
+  header.hero .meta { opacity: 0.85; font-size: 14px; }
+  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin: 28px 0; }
+  .kpi { background: var(--card); border-radius: 10px; padding: 18px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); border-left: 4px solid var(--primary); }
+  .kpi.green { border-left-color: var(--green); }
+  .kpi.red { border-left-color: var(--red); }
+  .kpi.amber { border-left-color: var(--amber); }
+  .kpi .label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+  .kpi .value { font-size: 22px; font-weight: 700; margin: 4px 0; }
+  .kpi .delta { font-size: 13px; color: var(--muted); }
+  .kpi b.up { color: var(--green); }
+  .kpi b.down { color: var(--red); }
+  section.dash { background: var(--card); border-radius: 12px; padding: 28px; margin-bottom: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.04); scroll-margin-top: 20px; }
+  section.dash h2 { color: var(--primary); margin: 0 0 4px; font-size: 22px; border-bottom: 3px solid var(--primary); padding-bottom: 8px; display: inline-block; }
+  section.dash .desc { color: var(--muted); font-size: 14px; margin-bottom: 18px; }
+  table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 14px; }
+  th { background: var(--primary); color: #fff; padding: 10px; text-align: left; font-weight: 600; font-size: 13px; }
+  th.num, td.num { text-align: right; }
+  td { padding: 10px; border-bottom: 1px solid var(--border); }
+  tr:hover td { background: #F7F9FC; }
+  tr.total td { font-weight: 700; background: #EAF1F8; border-top: 2px solid var(--primary); }
+  .pct.up { color: var(--green); font-weight: 600; }
+  .pct.down { color: var(--red); font-weight: 600; }
+  .pct.neutral { color: var(--muted); }
+  .pill { display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: 12px; font-weight: 600; }
+  .pill.green { background: #E6F4EA; color: var(--green); }
+  .pill.red { background: #FCE7E7; color: var(--red); }
+  .pill.amber { background: #FFF4E5; color: var(--amber); }
+  .chart-wrap { position: relative; height: 360px; margin: 16px 0; }
+  .chart-wrap.tall { height: 480px; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .grid2 > * { min-width: 0; }
+  @media (max-width: 900px) { .layout { grid-template-columns: 1fr; } nav.toc { position: relative; height: auto; } main { padding: 16px; } .grid2 { grid-template-columns: 1fr; } }
+  ul.insights { list-style: none; padding: 0; }
+  ul.insights li { background: #F7F9FC; padding: 12px 16px; border-radius: 8px; margin: 8px 0; border-left: 4px solid var(--primary); }
+  ul.insights.strengths li { border-left-color: var(--green); }
+  ul.insights.weaknesses li { border-left-color: var(--red); }
+  ul.insights.recos li { border-left-color: var(--amber); }
+  .alert { background: #FCF3F3; border-left: 5px solid var(--red); padding: 14px 18px; border-radius: 6px; margin: 16px 0; font-size: 14px; }
+  .alert-title { color: var(--red); font-weight: 700; margin-bottom: 6px; }
+  .success { background: #F0F8F2; border-left: 5px solid var(--green); padding: 14px 18px; border-radius: 6px; margin: 16px 0; font-size: 14px; }
+  .success-title { color: var(--green); font-weight: 700; margin-bottom: 6px; }
+</style>
+</head>
+<body>
+<div class="layout">
+<nav class="toc">
+<h2>Mục lục H1/2026</h2>
+<button class="nav-btn" data-target="exec">Tóm tắt điều hành</button>
+<button class="nav-btn" data-target="composite">1. Tổng hợp</button>
+<button class="nav-btn" data-target="domain-vn">2. Tên miền .vn</button>
+<button class="nav-btn" data-target="domain-global">3. Tên miền quốc tế</button>
+<button class="nav-btn" data-target="hosting">4. Hosting</button>
+<button class="nav-btn" data-target="email">5. Email</button>
+<button class="nav-btn" data-target="cloud">6. Cloud Server ★</button>
+<button class="nav-btn" data-target="customer">7. Khách hàng</button>
+<button class="nav-btn" data-target="ticket">8. Ticket</button>
+<button class="nav-btn" data-target="chat">9. Chat</button>
+<button class="nav-btn" data-target="chatbot">10. Chatbot AI ⚠</button>
+<button class="nav-btn" data-target="workflow">11. Workflow CSKH ⚠</button>
+<button class="nav-btn" data-target="aff">12. Chương trình AFF</button>
+<button class="nav-btn" data-target="one">13. Bộ sản phẩm One</button>
+<button class="nav-btn" data-target="summary">14. Tóm tắt vs H1/25</button>
+<button class="nav-btn" data-target="recommendations">15. Khuyến nghị</button>
+</nav>
+<main>
+<header class="hero" id="hero">
+<h1>Báo cáo Dashboard iNET — H1/2026 vs H1/2025</h1>
+<div class="meta">Kỳ: 01/01 – 30/06/2026 vs 01/01 – 30/06/2025 · Nguồn: 13 dashboards my.inet.vn + dms.inet.vn (AFF) · Ngày phát hành: 01/07/2026</div>
+</header>
+
+<section id="exec" class="dash">
+<h2>Tóm tắt điều hành</h2>
+<div class="desc">6 KPI cốt lõi H1/2026 — DT tổng tăng nhẹ nhưng phễu KH mới có GD giảm sâu, Cloud Server dẫn dắt tăng trưởng.</div>
+
+<div class="kpi-grid">
+  <div class="kpi green"><div class="label">Doanh thu tổng</div><div class="value">24,10 tỷ đ</div><div class="delta">YoY: <b class="up">+7,0%</b></div></div>
+  <div class="kpi amber"><div class="label">KH tạo mới</div><div class="value">64.557</div><div class="delta">YoY: <b class="down">-4,5%</b></div></div>
+  <div class="kpi red"><div class="label">KH mới có giao dịch</div><div class="value">7.510</div><div class="delta">YoY: <b class="down">-16,1%</b> 🔴</div></div>
+  <div class="kpi amber"><div class="label">Dịch vụ tạo mới</div><div class="value">49.701</div><div class="delta">YoY: <b class="down">-11,6%</b></div></div>
+  <div class="kpi green"><div class="label">Số ticket</div><div class="value">13.503</div><div class="delta">YoY: <b class="up">+1,2%</b> ~flat</div></div>
+  <div class="kpi amber"><div class="label">Số chat</div><div class="value">255.732</div><div class="delta">YoY: <b class="down">-21,6%</b></div></div>
+</div>
+
+<div class="alert"><div class="alert-title">🔴 KH mới có GD giảm sâu -16,1% YoY</div>
+Từ 8.946 (H1/25) xuống 7.510 (H1/26) — phễu chuyển đổi yếu, tỷ lệ chuyển đổi KH mới có GD giảm từ 13,2% xuống 11,6%.</div>
+</section>
+
+<section id="composite" class="dash">
+<h2>1. Tổng hợp</h2>
+<div class="desc">Nguồn: composite dashboard <code>697cbf24bd0f51b3cf9734fa</code>. So sánh H1/2026 vs H1/2025.</div>
+<table><thead><tr><th>Chỉ số</th><th class="num">H1/2026</th><th class="num">H1/2025</th><th class="num">%YoY</th></tr></thead><tbody id="tbl-composite"></tbody></table>
+
+<h3 style="color:var(--primary);font-size:16px;margin-top:24px;">Doanh thu iNET phân theo dịch vụ</h3>
+<table><thead><tr><th>Dịch vụ</th><th class="num">H1/2026 (đ)</th><th class="num">H1/2025 (đ)</th><th class="num">%YoY</th></tr></thead><tbody id="tbl-revservice"></tbody></table>
+
+<div class="grid2">
+  <div><h3 style="color:var(--primary);font-size:16px;">Top 6 dịch vụ (triệu đ)</h3><div class="chart-wrap"><canvas id="chartServiceRev"></canvas></div></div>
+  <div><h3 style="color:var(--primary);font-size:16px;">Tỷ trọng H1/2026</h3><div class="chart-wrap"><canvas id="chartServiceShare"></canvas></div></div>
+</div>
+
+<h3 style="color:var(--primary);font-size:16px;margin-top:24px;">Doanh thu phân theo hành động</h3>
+<table><thead><tr><th>Hành động</th><th class="num">H1/2026 (đ)</th><th class="num">H1/2025 (đ)</th><th class="num">%YoY</th></tr></thead><tbody id="tbl-revaction"></tbody></table>
+
+<h3 style="color:var(--primary);font-size:16px;margin-top:24px;">Dịch vụ tạo mới theo loại</h3>
+<table><thead><tr><th>Dịch vụ</th><th class="num">H1/2026</th><th class="num">H1/2025</th><th class="num">%YoY</th></tr></thead><tbody id="tbl-newservice"></tbody></table>
+<div class="chart-wrap"><canvas id="chartNewService"></canvas></div>
+</section>
+
+<section id="domain-vn" class="dash">
+<h2>2. Tên miền .vn</h2>
+<div class="desc">Nguồn: <code>/report/domain-vn</code>. Đăng ký có phí +7,0% YoY, gia hạn có phí +0,8% YoY.</div>
+<table><thead><tr><th>Chỉ số</th><th class="num">H1/2026</th><th class="num">H1/2025</th><th class="num">%YoY</th></tr></thead><tbody id="tbl-domain-vn"></tbody></table>
+<div class="chart-wrap"><canvas id="chartDomainVn"></canvas></div>
+
+<h3 style="color:var(--primary);font-size:16px;margin-top:24px;">TLD chi tiết H1 (Đăng ký / Gia hạn / Hủy / Tỉ lệ hủy)</h3>
+<table><thead><tr><th>Đuôi</th><th class="num">ĐK mới H1/26</th><th class="num">GH H1/26</th><th class="num">Tổng H1/26</th><th class="num">Hủy H1/26</th><th class="num">Tỉ lệ hủy H1/26</th><th class="num">Tổng H1/25</th><th class="num">%YoY</th></tr></thead><tbody id="tbl-tld-vn"></tbody></table>
+
+<h3 style="color:var(--primary);font-size:16px;margin-top:24px;">2.1. KPI VNNIC ⚠ — 4 tháng liên tiếp dưới chỉ tiêu</h3>
+<div class="alert"><div class="alert-title">🔴 KPI VNNIC H1/2026: 95,3% mức tối thiểu — thiếu 981 gia hạn</div>
+T3-T6 liên tiếp dưới 100% (T6 chỉ 80%). Nếu H2 không bù, rủi ro mất quota VNNIC 2027.<br>
+<i>Lưu ý: dashboard KPI VNNIC chỉ hiển thị chỉ tiêu năm hiện tại (2026). Không có KPI VNNIC năm 2025 để so sánh trực tiếp — chỉ so sánh được số gia hạn thực tế.</i></div>
+
+<table><thead><tr><th>Tháng</th><th class="num">Tổng tới hạn</th><th class="num">Min (65%)</th><th class="num">Thực tế GH</th><th class="num">% hoàn thành</th><th class="num">% duy trì</th></tr></thead><tbody id="tbl-vnnic"></tbody></table>
+
+<h3 style="color:var(--primary);font-size:16px;margin-top:18px;">So sánh gia hạn tên miền .vn H1 (2 năm)</h3>
+<table><thead><tr><th>Chỉ số</th><th class="num">H1/2026</th><th class="num">H1/2025</th><th class="num">%YoY</th></tr></thead><tbody id="tbl-vnnic-yoy"></tbody></table>
+
+<div class="chart-wrap"><canvas id="chartVNNIC"></canvas></div>
+</section>
+
+<section id="domain-global" class="dash">
+<h2>3. Tên miền quốc tế</h2>
+<div class="desc">Nguồn: <code>/report/domain-global</code>. Đăng ký mới giảm -15,5%, gia hạn tăng nhẹ +1,9%.</div>
+<table><thead><tr><th>Chỉ số</th><th class="num">H1/2026</th><th class="num">H1/2025</th><th class="num">%YoY</th></tr></thead><tbody id="tbl-domain-g"></tbody></table>
+<div class="chart-wrap"><canvas id="chartDomainG"></canvas></div>
+</section>
+
+<section id="hosting" class="dash">
+<h2>4. Hosting</h2>
+<div class="desc">Nguồn: <code>/report/hosting</code>. Tỷ lệ hủy giảm mạnh từ 43,8% xuống 11,8% — cải thiện đáng kể. Nhưng DT giảm -9,2%.</div>
+<table><thead><tr><th>Chỉ số</th><th class="num">H1/2026</th><th class="num">H1/2025</th><th class="num">%YoY</th></tr></thead><tbody id="tbl-hosting"></tbody></table>
+<div class="chart-wrap"><canvas id="chartHosting"></canvas></div>
+<div class="success"><div class="success-title">✅ Tỷ lệ hủy Hosting cải thiện đáng kể</div>
+Từ 43,8% (H1/25) xuống 11,8% (H1/26) — giảm 32pp. Retention KH Hosting tốt hơn hẳn.</div>
+</section>
+
+<section id="email" class="dash">
+<h2>5. Email</h2>
+<div class="desc">Nguồn: <code>/report/email</code>. DT tăng +17,8% YoY, tỷ lệ hủy giảm nhẹ. ⚠️ Chuyển đổi Trial giảm sốc 55,6% → 0,8%.</div>
+<table><thead><tr><th>Chỉ số</th><th class="num">H1/2026</th><th class="num">H1/2025</th><th class="num">%YoY</th></tr></thead><tbody id="tbl-email"></tbody></table>
+<div class="chart-wrap"><canvas id="chartEmail"></canvas></div>
+<div class="alert"><div class="alert-title">⚠️ Chuyển đổi Trial Email giảm sốc</div>
+Từ 55,6% (H1/25) xuống 0,8% (H1/26) — Trial tăng +871% (55→534) nhưng chuyển đổi active gần bằng 0. Cần audit funnel Email Trial.</div>
+</section>
+
+<section id="cloud" class="dash">
+<h2>6. Cloud Server ★ — Ngôi sao H1/2026</h2>
+<div class="desc">Nguồn: <code>/report/cloudserver</code>. Tổng server +70,3% YoY, Active +358,7% YoY, DT +55,3% YoY, Tỷ lệ hủy giảm từ 84% xuống 48,3%.</div>
+<table><thead><tr><th>Chỉ số</th><th class="num">H1/2026</th><th class="num">H1/2025</th><th class="num">%YoY</th></tr></thead><tbody id="tbl-cs"></tbody></table>
+
+<div class="grid2">
+  <div><h3 style="color:var(--primary);font-size:16px;">Tăng trưởng Active & Server</h3><div class="chart-wrap"><canvas id="chartCS"></canvas></div></div>
+  <div><h3 style="color:var(--primary);font-size:16px;">Tỷ lệ hủy giảm mạnh</h3><div class="chart-wrap"><canvas id="chartCSChurn"></canvas></div></div>
+</div>
+
+<div class="success"><div class="success-title">🚀 Cloud Server — Động cơ tăng trưởng iNET H1/2026</div>
+DT 6,06 tỷ (+55,3% YoY, chiếm 22,9% DT iNET). Active 1.775 server (+358,7% YoY). Tỷ lệ hủy giảm 35,7pp. Đây là sản phẩm chiến lược cần đầu tư mạnh H2.
+</div>
+</section>
+
+<section id="customer" class="dash">
+<h2>7. Khách hàng</h2>
+<div class="desc">KH mới tổng -4,5% YoY, KH mới có GD -16,1% YoY. Tỷ lệ chuyển đổi giảm 1,6pp.</div>
+<table><thead><tr><th>Chỉ số</th><th class="num">H1/2026</th><th class="num">H1/2025</th><th class="num">%YoY</th></tr></thead><tbody id="tbl-cust"></tbody></table>
+<div class="alert"><div class="alert-title">⚠️ Phễu chuyển đổi yếu</div>
+Tỷ lệ chuyển đổi KH mới → có GD: 13,2% (H1/25) → 11,6% (H1/26), giảm 1,6pp. Cần audit onboarding.</div>
+</section>
+
+<section id="ticket" class="dash">
+<h2>8. Ticket</h2>
+<div class="desc">Số ticket flat (+1,2% YoY) trong khi chat -21,6% → CSKH đang tối ưu quy trình.</div>
+<table><thead><tr><th>Chỉ số</th><th class="num">H1/2026</th><th class="num">H1/2025</th><th class="num">%YoY</th></tr></thead><tbody id="tbl-ticket"></tbody></table>
+</section>
+
+<section id="chat" class="dash">
+<h2>9. Chat + chấm điểm</h2>
+<div class="desc">Chat -21,6% YoY — KH dịch chuyển sang chatbot AI / self-service. Chấm điểm chat mới có từ 2026.</div>
+<table><thead><tr><th>Chỉ số</th><th class="num">H1/2026</th><th class="num">H1/2025</th><th class="num">%YoY</th></tr></thead><tbody id="tbl-chat"></tbody></table>
+</section>
+
+<section id="chatbot" class="dash">
+<h2>10. Chatbot AI ⚠</h2>
+<div class="desc">Nguồn: <code>/assistant/chatbot-agent-customer-conversations</code>. Chatbot AI mới triển khai — dashboard không filter theo ngày, chỉ hiển thị tổng cả thời gian.</div>
+<table><thead><tr><th>Chỉ số</th><th class="num">H1/2026 (tất cả)</th><th class="num">H1/2025</th><th>Ghi chú</th></tr></thead><tbody id="tbl-bot"></tbody></table>
+<div class="alert"><div class="alert-title">⚠️ Dashboard Chatbot AI chưa filter theo ngày</div>
+Dashboard chỉ hiển thị tổng lũy kế: 19.322 conversations, 102.089 messages, 115 likes, 28 dislikes. Không có so sánh YoY chuẩn. Snapshot T6/26 (theo báo cáo tháng): 4.787 conversations, Like rate 73,2% (giảm 13,3pp so T5).
+</div>
+</section>
+
+<section id="workflow" class="dash">
+<h2>11. Workflow CSKH ⚠</h2>
+<div class="desc">Nguồn: <code>/report/workflow</code>. Tỉ lệ hoàn tất giảm mạnh 94,5% → 79% (-15,5pp). Nhân viên CS tăng gần gấp đôi (162 → 285).</div>
+
+<h3 style="color:var(--primary);font-size:16px;">Tổng quan workflow (theo lượt CSKH)</h3>
+<table><thead><tr><th>Chỉ số</th><th class="num">H1/2026</th><th class="num">H1/2025</th><th class="num">%YoY</th></tr></thead><tbody id="tbl-wf"></tbody></table>
+
+<h3 style="color:var(--primary);font-size:16px;margin-top:18px;">KPI theo dịch vụ (resource-level)</h3>
+<table><thead><tr><th>Chỉ số</th><th class="num">H1/2026</th><th class="num">H1/2025</th><th class="num">%YoY</th></tr></thead><tbody id="tbl-wf-kpi"></tbody></table>
+
+<h3 style="color:var(--primary);font-size:16px;margin-top:18px;">Theo loại dịch vụ H1/2026 vs H1/2025</h3>
+<table><thead><tr><th>Loại</th><th class="num">Tổng H1/26</th><th class="num">Tổng H1/25</th><th class="num">%YoY Tổng</th><th class="num">Đã GH H1/26</th><th class="num">Huỷ H1/26</th><th class="num">Đang chờ</th><th class="num">Tỉ lệ GH H1/26</th><th class="num">Tỉ lệ GH H1/25</th></tr></thead><tbody id="tbl-wf-dv"></tbody></table>
+
+<div class="alert"><div class="alert-title">🔴 Tỉ lệ hoàn tất giảm sốc từ 94,5% xuống 79%</div>
+Đang xử lý tăng gấp hơn 3 lần (2.670 → 8.344 lượt). Dù nhân viên CS tăng gần gấp đôi (162 → 285). Cần audit chất lượng quy trình + đào tạo NV mới.
+</div>
+</section>
+
+<section id="aff" class="dash">
+<h2>12. Chương trình AFF</h2>
+<div class="desc">Nguồn: <code>dms.inet.vn/affiliate/statistic/revenue</code> · Trạng thái Hoàn thành. Kênh AFF cải thiện biên LN — CP/DT giảm từ 15,4% xuống 13,4%.</div>
+
+<h3 style="color:var(--primary);font-size:16px;margin-top:8px;">12.1. Tổng quan</h3>
+<table><thead><tr><th>Chỉ số</th><th class="num">H1/2026</th><th class="num">H1/2025</th><th class="num">%YoY</th></tr></thead><tbody id="tbl-aff-overview"></tbody></table>
+
+<div class="grid2">
+  <div><h3 style="color:var(--primary);font-size:16px;">Doanh thu vs Chi phí HH</h3><div class="chart-wrap"><canvas id="chartAFFOverview"></canvas></div></div>
+  <div><h3 style="color:var(--primary);font-size:16px;">Tỷ lệ CP/DT</h3><div class="chart-wrap"><canvas id="chartAFFRatio"></canvas></div></div>
+</div>
+
+<h3 style="color:var(--primary);font-size:16px;margin-top:18px;">12.2. Doanh thu AFF theo sản phẩm</h3>
+<table><thead><tr><th>Sản phẩm</th><th class="num">H1/2026 (đ)</th><th class="num">H1/2025 (đ)</th><th class="num">%YoY</th></tr></thead><tbody id="tbl-aff-rev"></tbody></table>
+
+<h3 style="color:var(--primary);font-size:16px;margin-top:18px;">12.3. Chi phí hoa hồng theo sản phẩm</h3>
+<div class="chart-wrap"><canvas id="chartAFFCost"></canvas></div>
+<table><thead><tr><th>Sản phẩm</th><th class="num">H1/2026 (đ)</th><th class="num">H1/2025 (đ)</th><th class="num">%YoY</th></tr></thead><tbody id="tbl-aff-cost"></tbody></table>
+
+<div class="success"><div class="success-title">🌟 12.4. Điểm nổi bật AFF</div>
+<p><b>💰 Chính sách HH tên miền 10k/đơn từ 01/06/2026</b> (trước đây 50k/.vn + 30k/quốc tế) — hiệu quả rõ rệt ngay tháng đầu áp dụng. Toàn H1: DT AFF +10,8% nhưng CP HH -3,4% → tỷ lệ CP/DT giảm 2pp (15,4% → 13,4%).</p>
+<p><b>Cloud Server AFF +54,4% YoY DT.</b> <b>Duy trì Email +119,2% YoY.</b> <b>Tên miền .vn +31,2% YoY DT.</b></p>
+</div>
+
+<div class="alert"><div class="alert-title">🔴 Hosting AFF -30,7% YoY</div>
+Từ 1,384 tỷ (H1/25) xuống 959 triệu (H1/26). Sản phẩm chủ lực AFF đang mất đà.
+</div>
+</section>
+
+<section id="one" class="dash">
+<h2>13. Bộ sản phẩm One</h2>
+<div class="desc">Nguồn: <code>/report/dynamic-query/65d5b994</code> (OnePanel) + <code>/report/one-workspace</code>. OnePanel bùng nổ mạnh vs cPanel.</div>
+
+<h3 style="color:var(--primary);font-size:16px;">13.1. OnePanel vs cPanel — H1/2026 vs H1/2025</h3>
+<table><thead><tr><th>Chỉ số</th><th class="num">H1/2026</th><th class="num">H1/2025</th><th class="num">%YoY</th></tr></thead><tbody id="tbl-onepanel"></tbody></table>
+<div class="chart-wrap"><canvas id="chartOnePanel"></canvas></div>
+
+<div class="success"><div class="success-title">🚀 OnePanel bùng nổ, cPanel suy giảm</div>
+OnePanel số đăng ký +5,7% YoY (3.039 → 3.212), DT +6,6% YoY (1,85 → 1,97 tỷ). Ngược lại, <b>cPanel số ĐK -60,6% YoY</b> (2.182 → 860), DT -51,8% YoY. iNET đang chuyển đổi thành công từ cPanel sang OnePanel.
+</div>
+
+<h3 style="color:var(--primary);font-size:16px;margin-top:24px;">13.2. OneWorkspace (OneMail / OneShield / OneDash) — Snapshot hệ thống</h3>
+<p style="color:var(--muted);font-size:14px;"><i>⚠️ Dashboard <code>/report/one-workspace</code> hiển thị <b>snapshot hiện trạng hệ thống</b> (Tổng Domain, Tài khoản, Dung lượng tại thời điểm xem) — không phải số phát sinh trong kỳ. Do vậy so sánh H1/26 vs H1/25 không phản ánh chính xác biến động (số là tổng luỹ kế).</i></p>
+
+<div class="kpi-grid">
+  <div class="kpi green"><div class="label">Tổng Domain (H1/26)</div><div class="value">11.161</div><div class="delta">Số domain trong hệ thống OneMail/OneWorkspace</div></div>
+  <div class="kpi green"><div class="label">Tổng Tài khoản</div><div class="value">72.086</div><div class="delta">User accounts</div></div>
+  <div class="kpi green"><div class="label">Dung lượng Drive</div><div class="value">1,09 TB</div><div class="delta">Đã sử dụng</div></div>
+  <div class="kpi green"><div class="label">Dung lượng Mail</div><div class="value">62,94 TB</div><div class="delta">Tỷ lệ sử dụng 40,2%</div></div>
+</div>
+
+<h3 style="color:var(--primary);font-size:16px;margin-top:24px;">13.3. Snapshot T6/2026 (Số liệu phát sinh trong tháng — báo cáo tháng)</h3>
+<p style="color:var(--muted);font-size:14px;">Vì OneWorkspace không đo được số phát sinh H1, em dùng số phát sinh T6/2026 làm reference:</p>
+<div class="kpi-grid">
+  <div class="kpi green"><div class="label">OneMail (T6)</div><div class="value">254 service</div><div class="delta">DT 152,0 tr đ · Conversion 69,3% ✅</div></div>
+  <div class="kpi amber"><div class="label">OneDash (T6)</div><div class="value">300 service</div><div class="delta">DT 71,2 tr đ · Retention 20% ⚠️</div></div>
+  <div class="kpi green"><div class="label">OneShield (T6)</div><div class="value">19.640 user</div><div class="delta">Zone active 10.435 · SSL 14.515 records</div></div>
+</div>
+<p style="color:var(--muted);font-size:14px;">Chi tiết đầy đủ xem báo cáo tháng T6/2026.</p>
+</section>
+
+<section id="summary" class="dash">
+<h2>14. Tóm tắt hiệu suất H1/2026 vs H1/2025</h2>
+<table><thead><tr><th>Chỉ số</th><th class="num">H1/2026</th><th class="num">H1/2025</th><th>Xu hướng</th></tr></thead><tbody id="tbl-summary"></tbody></table>
+</section>
+
+<section id="recommendations" class="dash">
+<h2>15. Insights & Khuyến nghị</h2>
+
+<h3 style="color:var(--green);font-size:16px;margin-top:18px;">✓ Điểm sáng</h3>
+<ul class="insights strengths">
+<li><b>Cloud Server bùng nổ:</b> Server tổng +70,3% YoY, Active +358,7% YoY, DT +55,3% YoY, tỷ lệ hủy giảm 35,7pp (84%→48,3%). Chiếm 22,9% DT iNET.</li>
+<li><b>Doanh thu tổng +7,0% YoY:</b> 24,10 tỷ vs 22,51 tỷ.</li>
+<li><b>Tên miền .vn ĐK có phí +7,0% YoY:</b> 13.518 → 14.468. Miễn phí giảm -40% (khỏe hơn).</li>
+<li><b>Hosting Active +97% YoY:</b> 2.008 → 3.954. Tỷ lệ hủy giảm sốc từ 43,8% → 11,8%.</li>
+<li><b>Email DT +17,8% YoY:</b> Tỷ lệ hủy giảm từ 26,4% xuống 20,9%.</li>
+<li><b>Kênh AFF cải thiện biên LN:</b> CP/DT 15,4% → 13,4%, tiết kiệm 29,5 tr đ dù DT +10,8%.</li>
+<li><b>💰 Chính sách HH tên miền 10k/đơn (T6/26):</b> Hiệu quả rõ ngay tháng đầu — tiết kiệm 33,76 tr đ chỉ trong T6/26.</li>
+<li><b>Ticket time PH cải thiện:</b> Chat & workflow giảm ~20% nhưng ticket flat → quy trình CS tối ưu.</li>
+<li><b>Đổi tên chủ thể +78,5% YoY / Nâng cấp gói +75,8%:</b> KH doanh nghiệp cơ cấu tài sản số, KH cũ upgrade gói cao — customer premium hoá.</li>
+</ul>
+
+<h3 style="color:var(--red);font-size:16px;margin-top:24px;">✗ Điểm cần lưu ý</h3>
+<ul class="insights weaknesses">
+<li><b>🔴 KH mới có GD -16,1% YoY:</b> 8.946 → 7.510. Tỷ lệ chuyển đổi phễu KH giảm 1,6pp (13,2% → 11,6%).</li>
+<li><b>🔴 Hosting DT -9,2% YoY:</b> 8,60 tỷ → 7,81 tỷ. Sản phẩm chủ lực chiếm 32,4% DT đang giảm.</li>
+<li><b>🔴 Cloud VPS -35,3% DT, -65,2% tạo mới:</b> Bị Cloud Server ăn thị phần.</li>
+<li><b>🔴 Doanh nghiệp -56,5% YoY:</b> 365 tr → 159 tr, mảng B2B giảm sâu — cần audit.</li>
+<li><b>🔴 KPI VNNIC 4 tháng liên tiếp <100%:</b> H1 chỉ đạt 95,3%, thiếu ~981 GH. Rủi ro quota 2027.</li>
+<li><b>⚠️ Chuyển đổi Trial Email -54,8pp:</b> 55,6% → 0,8%. Trial tăng +871% nhưng gần như không chuyển active.</li>
+<li><b>⚠️ Website tạo mới -86,7%:</b> 1.568 → 209. Gần như ngừng bán mới.</li>
+<li><b>⚠️ Đặt chỗ tên miền -43,8% YoY:</b> KH ít speculation về domain.</li>
+<li><b>⚠️ Dịch vụ tạo mới -11,6% YoY:</b> Bão hoà phễu đầu vào, tăng trưởng phụ thuộc gia hạn.</li>
+</ul>
+
+<h3 style="color:var(--amber);font-size:16px;margin-top:24px;">→ Khuyến nghị H2/2026</h3>
+<ul class="insights recos">
+<li><b>1. 🚀 Tăng tốc Cloud Server:</b> Đầu tư marketing/promotion mạnh. Đây là ngôi sao tăng trưởng iNET (+55% DT, +359% Active YoY).</li>
+<li><b>2. 🔴 Cứu vãn Hosting:</b> DT -9,2% YoY. Chiến dịch mới, bundle với Cloud/Email, review pricing.</li>
+<li><b>3. 🔴 Audit phễu KH mới:</b> Tỷ lệ chuyển đổi giảm 1,6pp. Review onboarding, welcome flow, ưu đãi first-purchase.</li>
+<li><b>4. 🔴 Bù KPI VNNIC:</b> Cần đạt trung bình 105% trong H2 để bù ~981 GH thiếu H1.</li>
+<li><b>5. 💰 Duy trì chính sách HH tên miền 10k/đơn:</b> Hiệu quả rõ ràng, tiếp tục H2 để tối ưu biên LN AFF.</li>
+<li><b>6. ⚠️ Audit funnel Trial Email:</b> Chuyển đổi 0,8% quá thấp. Kiểm tra chất lượng Trial, follow-up, gói offer.</li>
+<li><b>7. ⚠️ Audit mảng Doanh nghiệp (B2B):</b> -56,5% YoY. Có phải chuyển kênh sale trực tiếp hay mất KH lớn?</li>
+<li><b>8. Retire hoặc revive Website:</b> Số tạo mới -86,7%. Cần quyết định chiến lược.</li>
+</ul>
+</section>
+
+</main>
+</div>
+
+<script>
+const fmt = n => n.toLocaleString('vi-VN');
+const pctCell = (cur, prev) => {
+  if (!prev || prev === 0) return '<td class="num pct neutral">🆕</td>';
+  const v = (cur - prev) / prev * 100;
+  const cls = v > 0 ? 'up' : (v < 0 ? 'down' : 'neutral');
+  const sign = v > 0 ? '+' : '';
+  return `<td class="num pct ${cls}">${sign}${v.toFixed(1)}%</td>`;
+};
+const buildRow = (label, h26, h25) => {
+  return `<tr><td>${label}</td><td class="num">${fmt(h26)}</td><td class="num">${fmt(h25)}</td>${pctCell(h26, h25)}</tr>`;
+};
+
+// 1. Composite - 6 KPI (số mới nhất verify từ dashboard 697cbf24 - 01/07/2026)
+document.getElementById('tbl-composite').innerHTML = [
+  ['Doanh thu iNET tổng (đ)', 24100987013, 22514465126],
+  ['KH tạo mới', 64557, 67594],
+  ['KH mới có giao dịch', 7510, 8946],
+  ['Số dịch vụ tạo mới', 49701, 56221],
+  ['Số ticket', 13503, 13344],
+  ['Số chat', 255732, 326290],
+].map(r => buildRow(r[0], r[1], r[2])).join('');
+
+// DT theo dịch vụ
+const revByService = [
+  ['Hosting', 7812095219, 8602210882],
+  ['Cloud Server', 5530532329, 3576281048],
+  ['Tên miền', 4069820455, 3575698474],
+  ['Email', 3453498884, 2938156671],
+  ['Website', 2077597967, 2031548847],
+  ['Cloud VPS', 800488697, 1237450812],
+  ['Doanh nghiệp', 158713200, 364880000],
+  ['SSL', 104085057, 97996815],
+  ['Dịch vụ khác', 42156834, 34775486],
+  ['G Suite', 40551490, 32778426],
+  ['cPanel', 8080056, 4869543],
+  ['Direct Admin', 3366825, 276122],
+  ['Dịch vụ cộng thêm', 0, 17542000],
+];
+document.getElementById('tbl-revservice').innerHTML = revByService.map(r => buildRow(r[0], r[1], r[2])).join('') +
+  `<tr class="total"><td>TỔNG</td><td class="num">${fmt(24100987013)}</td><td class="num">${fmt(22514465126)}</td>${pctCell(24100987013, 22514465126)}</tr>`;
+
+// DT theo hành động
+const revByAction = [
+  ['Duy trì (gia hạn)', 13774915724, 12625322617],
+  ['Đăng ký mới', 7612041642, 7543581525],
+  ['Thiết kế theo yêu cầu', 746167710, 770416540],
+  ['Đổi tên chủ thể', 616947880, 345540706],
+  ['Nâng cấp gói', 447840518, 254696664],
+  ['Đặt chỗ', 302592434, 538790791],
+  ['Tùy chỉnh gói', 286205421, 192586108],
+  ['Tùy chỉnh Zozo EMA', 158390000, 133390000],
+  ['Hoa hồng sàn tên miền', 62590904, 23440908],
+  ['Dịch vụ mở rộng', 42156834, 34775486],
+  ['Thông báo website với BCT', 28178400, 19600000],
+  ['Chuyển nhà đăng ký', 17879550, 26071981],
+  ['Tùy chỉnh', 3000000, 4451800],
+  ['Registry Lock', 1979996, 1800000],
+  ['DNSSEC', 100000, 0],
+];
+document.getElementById('tbl-revaction').innerHTML = revByAction.map(r => buildRow(r[0], r[1], r[2])).join('') +
+  `<tr class="total"><td>TỔNG</td><td class="num">${fmt(24100987013)}</td><td class="num">${fmt(22514465126)}</td>${pctCell(24100987013, 22514465126)}</tr>`;
+
+// Dịch vụ tạo mới (số mới nhất từ dashboard 01/07/2026)
+document.getElementById('tbl-newservice').innerHTML = [
+  ['Tên miền', 33119, 39342],
+  ['Hosting', 9061, 9307],
+  ['Cloud Server', 4250, 2596],
+  ['Email', 2085, 2086],
+  ['SSL', 856, 904],
+  ['Website', 209, 1568],
+  ['Sử dụng DNS iNET', 69, 264],
+  ['Cloud VPS', 47, 135],
+  ['Dịch vụ khác', 5, 10],
+  ['G Suite', 0, 9],
+].map(r => buildRow(r[0], r[1], r[2])).join('') +
+  `<tr class="total"><td>TỔNG</td><td class="num">${fmt(49701)}</td><td class="num">${fmt(56221)}</td>${pctCell(49701, 56221)}</tr>`;
+
+// 2. Domain .vn
+document.getElementById('tbl-domain-vn').innerHTML = [
+  ['Tổng đăng ký', 16082, 16215],
+  ['Đăng ký có phí', 14468, 13518],
+  ['Đăng ký miễn phí', 1614, 2697],
+  ['Tổng gia hạn', 19847, 19700],
+  ['Gia hạn có phí', 19803, 19647],
+].map(r => buildRow(r[0], r[1], r[2])).join('');
+
+// TLD chi tiết H1/2026 và H1/2025
+const tldVn = [
+  // [tld, dk_26, gh_26, huy_26, ty_le_huy_26, tong_25]
+  ['vn',       7367, 11559, 6600, 34.9,  18679],
+  ['com.vn',   3374,  5720, 3289, 36.2,   9165],
+  ['io.vn',    2700,   354, 1166, 38.2,   1775],
+  ['edu.vn',    430,  1481, 1066, 55.8,   2218],
+  ['id.vn',     248,   139, 1261, 325.8,   333],
+  ['net.vn',     57,   171,  105, 46.1,    247],
+  ['info.vn',    91,    67,   78, 49.4,    122],
+  ['name.vn',    57,    77,   50, 37.3,    127],
+  ['org.vn',     34,    91,   40, 32.0,    144],
+  ['pro.vn',     38,    70,  114, 105.6,   157],
+  ['ai.vn',      29,    52,   62, 76.5,     83],
+  ['gov.vn',     13,    17,   12, 40.0,     23],
+  ['Khác',        2,    16,   32, 177.8,    26],
+  ['danang.vn',   8,     7,    4, 26.7,     13],
+];
+document.getElementById('tbl-tld-vn').innerHTML = tldVn.map(([tld, dk, gh, huy, ty_le, tong_25]) => {
+  const tot_26 = dk + gh;
+  const cls = ty_le >= 100 ? 'red' : (ty_le >= 50 ? 'amber' : 'green');
+  const yoy_v = tong_25 > 0 ? (tot_26 - tong_25) / tong_25 * 100 : 0;
+  const yoy_cls = yoy_v > 0 ? 'up' : 'down';
+  const yoy_sign = yoy_v > 0 ? '+' : '';
+  return `<tr><td><b>${tld}</b></td><td class="num">${fmt(dk)}</td><td class="num">${fmt(gh)}</td><td class="num">${fmt(tot_26)}</td><td class="num">${fmt(huy)}</td><td class="num"><span class="pill ${cls}">${ty_le.toFixed(1)}%</span></td><td class="num">${fmt(tong_25)}</td><td class="num pct ${yoy_cls}">${yoy_sign}${yoy_v.toFixed(1)}%</td></tr>`;
+}).join('');
+
+// VNNIC
+const vnnicData = [
+  ['T1/2026', 4099, 2664, 3107, 117, 76],
+  ['T2/2026', 4474, 2908, 3074, 106, 69],
+  ['T3/2026', 6314, 4104, 3748, 91, 59],
+  ['T4/2026', 5457, 3547, 3450, 97, 63],
+  ['T5/2026', 5620, 3653, 3333, 91, 59],
+  ['T6/2026', 6228, 4048, 3231, 80, 52],
+];
+document.getElementById('tbl-vnnic').innerHTML = vnnicData.map(([m, t, min, gh, pctht, pctdt]) => {
+  const cls = pctht >= 100 ? 'green' : (pctht >= 95 ? 'amber' : 'red');
+  return `<tr><td>${m}</td><td class="num">${fmt(t)}</td><td class="num">${fmt(min)}</td><td class="num">${fmt(gh)}</td><td class="num"><span class="pill ${cls}">${pctht}%</span></td><td class="num">${pctdt}%</td></tr>`;
+}).join('') + `<tr class="total"><td>H1/2026</td><td class="num">32.192</td><td class="num">20.924</td><td class="num">19.943</td><td class="num"><span class="pill amber">95,3%</span></td><td class="num">62%</td></tr>`;
+
+// VNNIC YoY - so sánh gia hạn thực tế H1 2026 vs 2025
+document.getElementById('tbl-vnnic-yoy').innerHTML = [
+  ['Tổng đăng ký .vn', 16082, 16215],
+  ['ĐK có phí .vn', 14468, 13518],
+  ['ĐK miễn phí .vn', 1614, 2697],
+  ['Tổng gia hạn .vn (VNNIC)', 19943, 19700],
+  ['Gia hạn có phí .vn', 19803, 19647],
+].map(r => buildRow(r[0], r[1], r[2])).join('') +
+  `<tr class="total"><td>KPI VNNIC hoàn thành H1</td><td class="num">95,3%</td><td class="num">—</td><td class="num pct neutral">(Không có KPI 2025 để so sánh)</td></tr>`;
+
+// 3. Domain global
+document.getElementById('tbl-domain-g').innerHTML = [
+  ['Tổng đăng ký', 19532, 23117],
+  ['DT Đăng ký (đ)', 3557355590, 4105849495],
+  ['Tổng gia hạn', 11365, 11148],
+  ['DT Gia hạn (đ)', 5199373530, 4582443525],
+].map(r => buildRow(r[0], r[1], r[2])).join('') +
+  `<tr class="total"><td>TỔNG DT (ĐK+GH)</td><td class="num">${fmt(8756729120)}</td><td class="num">${fmt(8688293020)}</td>${pctCell(8756729120, 8688293020)}</tr>`;
+
+// 4. Hosting
+document.getElementById('tbl-hosting').innerHTML = [
+  ['Tổng Hosting', 9749, 9383],
+  ['Active', 3954, 2008],
+  ['Suspended', 13, 366],
+  ['Trial', 1891, 1044],
+  ['Deleted', 1154, 4112],
+  ['Doanh thu (đ)', 8559689384, 9426031443],
+].map(r => buildRow(r[0], r[1], r[2])).join('') +
+  `<tr><td>TB đăng ký (tháng)</td><td class="num">10,9</td><td class="num">11,2</td><td class="num pct down">-2,7%</td></tr>` +
+  `<tr><td>TB gia hạn (tháng)</td><td class="num">12,6</td><td class="num">12,4</td><td class="num pct up">+1,6%</td></tr>` +
+  `<tr><td>Tỷ lệ hủy (%)</td><td class="num">11,8%</td><td class="num">43,8%</td><td class="num pct down">-32,0pp ✅</td></tr>` +
+  `<tr><td>Chuyển đổi Trial (%)</td><td class="num">0,1%</td><td class="num">0,1%</td><td class="num pct neutral">flat</td></tr>`;
+
+// 5. Email
+document.getElementById('tbl-email').innerHTML = [
+  ['Tổng Email', 2174, 2086],
+  ['Active', 1176, 1411],
+  ['Suspended', 9, 52],
+  ['Trial', 534, 55],
+  ['Deleted', 455, 551],
+  ['Doanh thu (đ)', 3779572764, 3208567463],
+].map(r => buildRow(r[0], r[1], r[2])).join('') +
+  `<tr><td>TB đăng ký (tháng)</td><td class="num">13,4</td><td class="num">12,7</td><td class="num pct up">+5,5%</td></tr>` +
+  `<tr><td>TB gia hạn (tháng)</td><td class="num">14,0</td><td class="num">14,6</td><td class="num pct down">-4,1%</td></tr>` +
+  `<tr><td>Tỷ lệ hủy (%)</td><td class="num">20,9%</td><td class="num">26,4%</td><td class="num pct down">-5,5pp ✅</td></tr>` +
+  `<tr><td>Chuyển đổi Trial (%)</td><td class="num">0,8%</td><td class="num">55,6%</td><td class="num pct down">-54,8pp 🔴</td></tr>`;
+
+// 6. Cloud Server
+document.getElementById('tbl-cs').innerHTML = [
+  ['Tổng server', 4389, 2577],
+  ['Active', 1775, 387],
+  ['Suspended', 183, 26],
+  ['Trial', 310, 0],
+  ['Deleted', 2121, 2164],
+  ['Doanh thu (đ)', 6062499035, 3903955478],
+].map(r => buildRow(r[0], r[1], r[2])).join('') +
+  `<tr><td>TB đăng ký (tháng)</td><td class="num">5,0</td><td class="num">3,7</td><td class="num pct up">+35,1%</td></tr>` +
+  `<tr><td>TB gia hạn (tháng)</td><td class="num">3,3</td><td class="num">2,8</td><td class="num pct up">+17,9%</td></tr>` +
+  `<tr><td>Tỷ lệ hủy (%)</td><td class="num">48,3%</td><td class="num">84,0%</td><td class="num pct down">-35,7pp ✅</td></tr>` +
+  `<tr><td>Chuyển đổi Trial (%)</td><td class="num">3,1%</td><td class="num">2,6%</td><td class="num pct up">+0,5pp</td></tr>`;
+
+// 7. Customer - từ dashboard /report/customer (kỳ chọn)
+document.getElementById('tbl-cust').innerHTML = [
+  ['KH mới (kỳ chọn)', 15571, 12832],
+  ['Giao dịch (kỳ chọn)', 28953, 28400],
+  ['TB chi tiêu KH (đ)', 1594671, 1550288],
+  ['KH mới có GD (kỳ chọn)', 6623, 6861],
+].map(r => buildRow(r[0], r[1], r[2])).join('');
+
+// 8. Ticket - từ /report/ticket
+document.getElementById('tbl-ticket').innerHTML = [
+  ['Tổng ticket', 15494, 10596],
+  ['Đã đóng', 15366, 10596],
+  ['Còn mở', 128, 0],
+  ['TB phản hồi/ticket', '3,2', '3,7'],
+  ['Giải quyết lần đầu', 7532, 5322],
+  ['TB thời gian PH', '5h 35p', '8h 14p'],
+].map(r => {
+  if (typeof r[1] === 'string') return `<tr><td>${r[0]}</td><td class="num">${r[1]}</td><td class="num">${r[2]}</td><td class="num pct neutral">—</td></tr>`;
+  return buildRow(r[0], r[1], r[2]);
+}).join('');
+
+// 9. Chat - từ /report/chat
+document.getElementById('tbl-chat').innerHTML = [
+  ['Tổng hội thoại', 13485, 0],
+  ['Điểm TB (/10)', '5,87', '—'],
+  ['Nhân viên hỗ trợ', 30, 0],
+  ['Loại chat', 26, 0],
+].map(r => {
+  if (typeof r[1] === 'string') return `<tr><td>${r[0]}</td><td class="num">${r[1]}</td><td class="num">${r[2]}</td><td class="num pct neutral">🆕 (2026)</td></tr>`;
+  if (r[2] === 0) return `<tr><td>${r[0]}</td><td class="num">${fmt(r[1])}</td><td class="num">—</td><td class="num pct neutral">🆕 (2026)</td></tr>`;
+  return buildRow(r[0], r[1], r[2]);
+}).join('');
+
+// 11. Workflow - từ /report/workflow, đầy đủ 6 metrics + KPI theo DV
+document.getElementById('tbl-wf').innerHTML = [
+  ['Tổng lượt CSKH', 39719, 48206],
+  ['Hoàn tất', 31375, 45536],
+  ['Đang xử lý', 8344, 2670],
+  ['Tỉ lệ hoàn tất', '79%', '94,5%'],
+  ['KH unique', 23538, 24776],
+  ['Nhân viên CS', 285, 162],
+].map(r => {
+  if (typeof r[1] === 'string') return `<tr><td>${r[0]}</td><td class="num">${r[1]}</td><td class="num">${r[2]}</td><td class="num pct down">-15,5pp</td></tr>`;
+  return buildRow(r[0], r[1], r[2]);
+}).join('');
+
+// 11.b Workflow KPI theo dịch vụ
+document.getElementById('tbl-wf-kpi').innerHTML = [
+  ['Tổng dịch vụ', 87116, 97024],
+  ['Đã gia hạn', 21129, 26902],
+  ['Đã huỷ', 48984, 68422],
+  ['Đang chờ', 17003, 1700],
+  ['Tỉ lệ GH', '24,3%', '27,7%'],
+  ['GH / Đã chốt', '30,1%', '28,2%'],
+].map(r => {
+  if (typeof r[1] === 'string') {
+    var v1 = parseFloat(r[1]); var v2 = parseFloat(r[2]);
+    var diff = v1 - v2; var cls = diff > 0 ? 'up' : 'down';
+    return `<tr><td>${r[0]}</td><td class="num">${r[1]}</td><td class="num">${r[2]}</td><td class="num pct ${cls}">${diff > 0 ? '+' : ''}${diff.toFixed(1)}pp</td></tr>`;
+  }
+  return buildRow(r[0], r[1], r[2]);
+}).join('');
+
+// 11.c Workflow theo loại dịch vụ H1/26 vs H1/25
+const wfByDv = [
+  // loai, tong_26, gh_26, huy_26, cho_26, ty_le_26, tong_25, ty_le_25
+  ['domain',     66392, 15721, 38845, 11826, 23.7, 75277, 26.9],
+  ['hosting',    10559,  2822,  4636,  3101, 26.7, 12753, 28.5],
+  ['cloudserver', 4286,  1212,  2507,   567, 28.3,  3459, 29.8],
+  ['email',       1936,   717,   905,   314, 37.0,  2019, 42.5],
+  ['ssl',          924,   176,   584,   164, 19.0,  1030, 22.3],
+  ['vps',          266,   163,    57,    46, 61.3,  1225, 43.3],
+  ['opencart',     358,   103,    18,   237, 28.8,   893, 19.9],
+  ['gsuite',        23,    15,     6,     2, 65.2,    36, 52.8],
+];
+document.getElementById('tbl-wf-dv').innerHTML = wfByDv.map(([loai, tong_26, gh_26, huy_26, cho_26, ty_26, tong_25, ty_25]) => {
+  const yoy = tong_25 > 0 ? (tong_26 - tong_25) / tong_25 * 100 : 0;
+  const yoy_cls = yoy > 0 ? 'up' : 'down';
+  const yoy_sign = yoy > 0 ? '+' : '';
+  const cls_26 = ty_26 >= 40 ? 'green' : (ty_26 >= 25 ? 'amber' : 'red');
+  const cls_25 = ty_25 >= 40 ? 'green' : (ty_25 >= 25 ? 'amber' : 'red');
+  return `<tr><td><b>${loai}</b></td><td class="num">${fmt(tong_26)}</td><td class="num">${fmt(tong_25)}</td><td class="num pct ${yoy_cls}">${yoy_sign}${yoy.toFixed(1)}%</td><td class="num">${fmt(gh_26)}</td><td class="num">${fmt(huy_26)}</td><td class="num">${fmt(cho_26)}</td><td class="num"><span class="pill ${cls_26}">${ty_26.toFixed(1)}%</span></td><td class="num"><span class="pill ${cls_25}">${ty_25.toFixed(1)}%</span></td></tr>`;
+}).join('');
+
+// 10. Chatbot AI
+document.getElementById('tbl-bot').innerHTML = [
+  ['Conversations', 19322, 19322, 'Dashboard chưa filter ngày'],
+  ['Messages', 102089, 102089, 'Số lũy kế'],
+  ['Likes', 115, 115, ''],
+  ['Dislikes', 28, 28, ''],
+].map(r => `<tr><td>${r[0]}</td><td class="num">${fmt(r[1])}</td><td class="num">${fmt(r[2])}</td><td>${r[3]}</td></tr>`).join('');
+
+// 13. OnePanel vs cPanel H1
+document.getElementById('tbl-onepanel').innerHTML = [
+  ['Số ĐK OnePanel', 3212, 3039],
+  ['Số ĐK cPanel', 860, 2182],
+  ['Doanh thu OnePanel (đ)', 1971630110, 1850254384],
+  ['Doanh thu cPanel (đ)', 958036401, 1986295464],
+].map(r => buildRow(r[0], r[1], r[2])).join('') +
+  `<tr class="total"><td>Tỷ lệ OnePanel/cPanel (số ĐK)</td><td class="num">3,73×</td><td class="num">1,39×</td><td class="num pct up">+168% ✅</td></tr>`;
+
+// 12. AFF (bỏ Số đơn hàng theo yêu cầu — chỉ giữ DT + CP HH)
+document.getElementById('tbl-aff-overview').innerHTML = [
+  ['Doanh thu AFF (đ)', 6180425142, 5579782723],
+  ['Chi phí hoa hồng (đ)', 828755631, 858278139],
+].map(r => buildRow(r[0], r[1], r[2])).join('') +
+  `<tr class="total"><td>Tỷ lệ CP/DT</td><td class="num">13,4%</td><td class="num">15,4%</td><td class="num pct down">-2,0pp ✅</td></tr>`;
+
+const affRev = [
+  ['Tên miền .vn', 1388564000, 1058285000],
+  ['Cloud Server', 919399063, 595588823],
+  ['Duy trì Hosting', 899872690, 782728512],
+  ['Tên miền quốc tế', 898779000, 944934000],
+  ['Hosting', 959420835, 1383948997],
+  ['Duy trì Cloud Server', 430196145, 273362341],
+  ['Email', 167908704, 200901639],
+  ['Duy trì Email', 156587263, 71440566],
+  ['Cloud VPS', 110593855, 30644000],
+  ['Duy trì VPS', 109080587, 140119845],
+  ['Website', 79778800, 63086800],
+  ['Duy trì Website Zozo', 25456200, 34742200],
+  ['Đăng ký mới Email Dedicated', 34788000, 0],
+];
+document.getElementById('tbl-aff-rev').innerHTML = affRev.map(r => buildRow(r[0], r[1], r[2])).join('') +
+  `<tr class="total"><td>TỔNG</td><td class="num">${fmt(6180425142)}</td><td class="num">${fmt(5579782723)}</td>${pctCell(6180425142, 5579782723)}</tr>`;
+
+const affCost = [
+  ['Hosting', 239855209, 345994299],
+  ['Cloud Server', 137909859, 89279463],
+  ['Tên miền .vn', 123320000, 116550000],
+  ['Duy trì Hosting', 89987269, 78272851],
+  ['Tên miền quốc tế', 89800000, 111930000],
+  ['Duy trì Cloud Server', 43019614, 27336234],
+  ['Email', 41977176, 50225410],
+  ['Cloud VPS', 16589078, 4596600],
+  ['Duy trì Email', 15658726, 7144057],
+  ['Website', 11966820, 9463020],
+  ['Duy trì VPS', 10908059, 14011985],
+  ['Đăng ký mới Email Dedicated', 5218200, 0],
+  ['Duy trì Website Zozo', 2545620, 3474220],
+];
+document.getElementById('tbl-aff-cost').innerHTML = affCost.map(r => buildRow(r[0], r[1], r[2])).join('') +
+  `<tr class="total"><td>TỔNG</td><td class="num">${fmt(828755631)}</td><td class="num">${fmt(858278139)}</td>${pctCell(828755631, 858278139)}</tr>`;
+
+// 14. Summary — Doanh thu → Tỷ lệ → Các yếu tố khác
+const summaryData = [
+  // ==== NHÓM 1: DOANH THU (sort desc theo H1/2026) ====
+  ['__group', 'A. DOANH THU'],
+  ['Doanh thu iNET tổng', '24,10 tỷ', '22,51 tỷ', '↑ +7,0% YoY', 'green'],
+  ['Hosting DT', '7,81 tỷ', '8,60 tỷ', '↓ -9,2%', 'red'],
+  ['AFF Doanh thu', '6,18 tỷ', '5,58 tỷ', '↑ +10,8%', 'green'],
+  ['Cloud Server DT', '5,53 tỷ', '3,58 tỷ', '↑ +54,6% — ngôi sao ★', 'green'],
+  ['Tên miền DT (tổng)', '4,07 tỷ', '3,58 tỷ', '↑ +13,8%', 'green'],
+  ['Email DT', '3,45 tỷ', '2,94 tỷ', '↑ +17,8%', 'green'],
+  ['Website DT', '2,08 tỷ', '2,03 tỷ', '~ +2,3%', 'amber'],
+  ['AFF Chi phí hoa hồng', '828,76 tr', '858,28 tr', '↓ -3,4% ✅ tiết kiệm', 'green'],
+  ['Cloud VPS DT', '800 tr', '1,24 tỷ', '↓ -35,3%', 'red'],
+  ['Doanh nghiệp DT', '159 tr', '365 tr', '↓ -56,5% 🔴', 'red'],
+
+  // ==== NHÓM 2: TỶ LỆ ====
+  ['__group', 'B. TỶ LỆ (%)'],
+  ['KPI VNNIC H1 (hoàn thành)', '95,3%', '—', '⚠️ 4 tháng <100%', 'red'],
+  ['Cloud Server tỷ lệ hủy', '48,3%', '84%', '↓ -35,7pp ✅', 'green'],
+  ['Email tỷ lệ hủy', '20,9%', '26,4%', '↓ -5,5pp ✅', 'green'],
+  ['Tỷ lệ CP/DT AFF', '13,4%', '15,4%', '↓ -2,0pp ✅', 'green'],
+  ['Hosting tỷ lệ hủy', '11,8%', '43,8%', '↓ -32,0pp ✅', 'green'],
+  ['Tỷ lệ chuyển đổi KH mới → có GD', '11,6%', '13,2%', '↓ -1,6pp', 'red'],
+  ['Email chuyển đổi Trial', '0,8%', '55,6%', '↓ -54,8pp 🔴', 'red'],
+
+  // ==== NHÓM 3: CÁC YẾU TỐ KHÁC (số lượng, sort desc) ====
+  ['__group', 'C. CÁC YẾU TỐ KHÁC'],
+  ['Chat', '255.732', '326.290', '↓ -21,6%', 'amber'],
+  ['KH tạo mới', '64.557', '67.594', '↓ -4,5%', 'amber'],
+  ['Dịch vụ tạo mới', '49.701', '56.221', '↓ -11,6%', 'amber'],
+  ['Workflow CSKH', '39.719', '48.206', '↓ -17,6%', 'amber'],
+  ['Tên miền quốc tế ĐK', '19.532', '23.117', '↓ -15,5%', 'red'],
+  ['Tên miền .vn ĐK có phí', '14.468', '13.518', '↑ +7,0%', 'green'],
+  ['Ticket', '13.503', '13.344', '~ +1,2%', 'amber'],
+  ['KH mới có GD', '7.510', '8.946', '↓ -16,1% 🔴', 'red'],
+  ['Hosting Active', '3.954', '2.008', '↑ +96,9% ✅', 'green'],
+  ['Cloud Server Active', '1.775', '387', '↑ +358,7% YoY 🚀', 'green'],
+];
+document.getElementById('tbl-summary').innerHTML = summaryData.map(row => {
+  if (row[0] === '__group') {
+    return `<tr style="background:#1F4E79;color:#fff;"><td colspan="4" style="padding:8px 12px;font-weight:700;font-size:13px;">${row[1]}</td></tr>`;
+  }
+  const [n, v1, v2, note, cls] = row;
+  return `<tr><td>${n}</td><td class="num">${v1}</td><td class="num">${v2}</td><td><span class="pill ${cls}">${note}</span></td></tr>`;
+}).join('');
+
+// ============ CHARTS ============
+Chart.defaults.font.family = '-apple-system, "Segoe UI", Arial, sans-serif';
+const PRI = '#1F4E79', PRI2 = '#2E75B6', GRN = '#00B050', RED = '#C00000', AMB = '#ED7D31', GLD = '#F2B100';
+
+const services = ['Hosting', 'Cloud Server', 'Tên miền', 'Email', 'Website', 'Cloud VPS'];
+new Chart(document.getElementById('chartServiceRev'), {
+  type: 'bar',
+  data: { labels: services, datasets: [
+    {label: 'H1/2025', data: [8602, 3576, 3576, 2938, 2032, 1237], backgroundColor: '#A5C8E1'},
+    {label: 'H1/2026', data: [7812, 5531, 4070, 3453, 2078, 800], backgroundColor: PRI},
+  ]},
+  options: { responsive: true, maintainAspectRatio: false, scales: { y: { ticks: { callback: v => v + ' tr' } } } }
+});
+
+new Chart(document.getElementById('chartServiceShare'), {
+  type: 'doughnut',
+  data: { labels: services, datasets: [{data: [7812, 5531, 4070, 3453, 2078, 800],
+    backgroundColor: [PRI, GRN, GLD, '#7B68A6', AMB, '#A5A5A5']}]},
+  options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right' } } }
+});
+
+new Chart(document.getElementById('chartNewService'), {
+  type: 'bar',
+  data: { labels: ['Tên miền', 'Hosting', 'Cloud Server', 'Email', 'SSL', 'Website', 'Cloud VPS'],
+    datasets: [
+      {label: 'H1/2025', data: [39342, 9307, 2596, 2086, 904, 1568, 135], backgroundColor: '#A5C8E1'},
+      {label: 'H1/2026', data: [33119, 9061, 4250, 2085, 856, 209, 47], backgroundColor: PRI},
+    ]},
+  options: { responsive: true, maintainAspectRatio: false }
+});
+
+// Domain VN chart
+new Chart(document.getElementById('chartDomainVn'), {
+  type: 'bar',
+  data: { labels: ['Tổng ĐK', 'ĐK có phí', 'ĐK miễn phí', 'Tổng gia hạn', 'Gia hạn có phí'],
+    datasets: [
+      {label: 'H1/2025', data: [16215, 13518, 2697, 19700, 19647], backgroundColor: '#A5C8E1'},
+      {label: 'H1/2026', data: [16082, 14468, 1614, 19847, 19803], backgroundColor: PRI},
+    ]},
+  options: { responsive: true, maintainAspectRatio: false }
+});
+
+new Chart(document.getElementById('chartVNNIC'), {
+  type: 'bar',
+  data: { labels: vnnicData.map(d => d[0]),
+    datasets: [
+      {label: 'Duy trì tối thiểu (65%)', data: vnnicData.map(d => d[2]),
+        type: 'line', borderColor: RED, backgroundColor: '#E5A2A2', borderWidth: 2, pointRadius: 5},
+      {label: 'Thực tế gia hạn', data: vnnicData.map(d => d[3]),
+        backgroundColor: vnnicData.map(d => d[4] >= 100 ? GRN : (d[4] >= 95 ? AMB : RED))},
+    ]},
+  options: { responsive: true, maintainAspectRatio: false }
+});
+
+new Chart(document.getElementById('chartDomainG'), {
+  type: 'bar',
+  data: { labels: ['ĐK mới', 'Gia hạn', 'DT ĐK (tr)', 'DT GH (tr)'],
+    datasets: [
+      {label: 'H1/2025', data: [23117, 11148, 4106, 4582], backgroundColor: '#A5C8E1'},
+      {label: 'H1/2026', data: [19532, 11365, 3557, 5199], backgroundColor: PRI},
+    ]},
+  options: { responsive: true, maintainAspectRatio: false }
+});
+
+new Chart(document.getElementById('chartHosting'), {
+  type: 'bar',
+  data: { labels: ['Tổng', 'Active', 'Trial', 'Deleted', 'Suspended'],
+    datasets: [
+      {label: 'H1/2025', data: [9383, 2008, 1044, 4112, 366], backgroundColor: '#A5C8E1'},
+      {label: 'H1/2026', data: [9749, 3954, 1891, 1154, 13], backgroundColor: PRI},
+    ]},
+  options: { responsive: true, maintainAspectRatio: false }
+});
+
+new Chart(document.getElementById('chartEmail'), {
+  type: 'bar',
+  data: { labels: ['Tổng', 'Active', 'Trial', 'Deleted', 'Suspended'],
+    datasets: [
+      {label: 'H1/2025', data: [2086, 1411, 55, 551, 52], backgroundColor: '#A5C8E1'},
+      {label: 'H1/2026', data: [2174, 1176, 534, 455, 9], backgroundColor: PRI},
+    ]},
+  options: { responsive: true, maintainAspectRatio: false }
+});
+
+new Chart(document.getElementById('chartCS'), {
+  type: 'bar',
+  data: { labels: ['Tổng', 'Active', 'Trial', 'Deleted', 'Suspended'],
+    datasets: [
+      {label: 'H1/2025', data: [2577, 387, 0, 2164, 26], backgroundColor: '#A5C8E1'},
+      {label: 'H1/2026', data: [4389, 1775, 310, 2121, 183], backgroundColor: PRI},
+    ]},
+  options: { responsive: true, maintainAspectRatio: false }
+});
+
+new Chart(document.getElementById('chartCSChurn'), {
+  type: 'line',
+  data: { labels: ['H1/2025', 'H1/2026'],
+    datasets: [{label: 'Tỷ lệ hủy (%)', data: [84, 48.3],
+      borderColor: GRN, backgroundColor: GRN, tension: 0.3, fill: false, pointRadius: 10, lineWidth: 3}]},
+  options: { responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: { y: { min: 0, max: 100, ticks: { callback: v => v + '%' } } }
+  }
+});
+
+// AFF
+new Chart(document.getElementById('chartAFFOverview'), {
+  type: 'bar',
+  data: { labels: ['H1/2025', 'H1/2026'],
+    datasets: [
+      {label: 'Doanh thu (triệu đ)', data: [5580, 6180], backgroundColor: PRI},
+      {label: 'Chi phí HH (triệu đ)', data: [858, 829], backgroundColor: AMB},
+    ]},
+  options: { responsive: true, maintainAspectRatio: false, scales: { y: { ticks: { callback: v => v + ' tr' } } } }
+});
+
+new Chart(document.getElementById('chartAFFRatio'), {
+  type: 'line',
+  data: { labels: ['H1/2025', 'H1/2026'],
+    datasets: [{label: 'Tỷ lệ CP/DT (%)', data: [15.4, 13.4],
+      borderColor: GRN, backgroundColor: GRN, tension: 0.3, fill: false, pointRadius: 10, lineWidth: 3}]},
+  options: { responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: { y: { min: 10, max: 20, ticks: { callback: v => v + '%' } } }
+  }
+});
+
+// OnePanel vs cPanel chart
+new Chart(document.getElementById('chartOnePanel'), {
+  type: 'bar',
+  data: { labels: ['Số ĐK OnePanel', 'Số ĐK cPanel', 'DT OnePanel (tr)', 'DT cPanel (tr)'],
+    datasets: [
+      {label: 'H1/2025', data: [3039, 2182, 1850, 1986], backgroundColor: '#A5C8E1'},
+      {label: 'H1/2026', data: [3212, 860, 1972, 958], backgroundColor: PRI},
+    ]},
+  options: { responsive: true, maintainAspectRatio: false }
+});
+
+// AFF cost bar chart
+new Chart(document.getElementById('chartAFFCost'), {
+  type: 'bar',
+  data: { labels: affCost.slice(0,8).map(c => c[0]),
+    datasets: [
+      {label: 'H1/2025', data: affCost.slice(0,8).map(c => c[2]/1e6), backgroundColor: '#A5C8E1'},
+      {label: 'H1/2026', data: affCost.slice(0,8).map(c => c[1]/1e6), backgroundColor: PRI},
+    ]},
+  options: { responsive: true, maintainAspectRatio: false,
+    scales: { y: { title: {display: true, text: 'Triệu đ'} } }
+  }
+});
+
+// NAV
+document.querySelectorAll('nav.toc button.nav-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const target = document.getElementById(btn.dataset.target);
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+const buttons = document.querySelectorAll('nav.toc button.nav-btn');
+const sections = Array.from(document.querySelectorAll('section.dash'));
+const setActive = () => {
+  let current = '';
+  const scrollY = window.scrollY;
+  sections.forEach(s => { if (scrollY >= s.offsetTop - 120) current = s.id; });
+  buttons.forEach(b => b.classList.toggle('active', b.dataset.target === current));
+};
+window.addEventListener('scroll', setActive);
+setActive();
+</script>
+</body>
+</html>
