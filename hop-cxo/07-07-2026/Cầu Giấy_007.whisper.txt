@@ -1,0 +1,264 @@
+Các thầy cô của các trường đại học, đa phần là các tùy tìm sang tới các trường viên như em cũng có chia sẻ,
+thì chính các thầy cô chính là người tào tạo sinh viên, người ta giới thiệu sản phẩm hoặc dịch vụ của mình cho công ty sinh viên của họ,
+hoặc là cho những dịch vụ doanh nghiệp, cho những tổ số, và chính họ cũng là những người đi làm sản phẩm luôn cho những doanh nghiệp,
+để đem tốt tới 3 cái tùy kinh hàng này.
+Em xin hết.
+Các bạn có thể chia sẻ
+Em cảm ơn những khách hàng, đối với khách hàng cá nhân hiện tại
+Bây giờ phần lớn cho sự phát triển của AI
+Các bạn, các khách hàng bây giờ có thể chủ động tự view, tự deploy, tự triển khai
+Các khách hàng của mình hướng tới sau này sẽ cần cân dụng Microsoft
+Tức là họ chỉ deploy ở đây để chạy thôi
+Không, họ lại mua công ty dân thương nhiều hơn
+Từ đây xu hướng phần Microsoft Cloud sẽ thay thế dần cho cái
+tính đo sẵn của các nhà cung cấp, các hợp tinh
+thì mình đã phân tích số điểm trước đấy rồi
+còn về đối tượng 2, đối tượng khách hàng doanh nghiệp
+thì mình nhìn vào Inet của mình thôi
+phần 4 các hàng bây giờ là doanh nghiệp bây giờ là một chủ đề số
+và từ đấy mình có xúc mỹ hàng của Trúc
+họ là một khách hàng làm du lịch rất bình thường thôi
+nhưng họ sẵn sàng đầu tư một con AI để họ tự truyền hình AI cho khách hàng của họ
+thì mình sẽ đầu tư một cái hàng về AI về sau như cuối năm muốn
+thì mình sẽ trở thành một loại người sâu hướng gần như là
+sẽ tăng ngày càng, phần đến.
+Thế thì trường sinh vụ em nghĩ từ tuổi tới là sẽ,
+một chiều sẽ là mạnh,
+đặc biệt như doanh nghiệp cũng đỡ vốn đổi số cả.
+Ngay cả những doanh nghiệp mình cũng muốn thử con gấu
+luôn về đấy chạy thử,
+hết là bản thân mình hãng thế thôi.
+Gì đó?
+Hết.
+Chính.
+Thế thì em nghĩ tầm 3, tầm 4 là khách hàng.
+Thứ nhất là doanh nghiệp vừa và nhỏ.
+Doanh nghiệp vừa và nhỏ là cái đẹp đối với khách hàng.
+Nó nghĩ là nhiều và phù hợp nhất với mình.
+doanh nghiệp kinh doanh ở mức tầm trôn
+tầm cao thì chắc chắn họ sẽ
+tìm những nhà cung cấp
+khác hơn. Tầm khách hàng
+thứ nhất em nghĩ là doanh nghiệp
+vừa tải nhập Việt Nam
+số lượng nhiều, phổ biến
+và phù hợp với các doanh nghiệp
+cung cấp sản phẩm
+hạ tầng, tầm trôn. Thứ hai là
+cá nhân kinh doanh. Cá nhân kinh doanh thì
+ngày càng phát triển bởi vì xu hướng
+doanh nghiệp một người
+ngày càng nhiều. Một người vận hành
+dựa vào các nền tảng AI
+thì chắc chắn các cá nhân kinh doanh sẽ phát triển rất mạnh.
+Đây là đối tượng mà em nghĩ sẽ rất nhiều trong thời gian tới.
+Đối tượng thứ 3 là đối tượng Dev và những người phát triển hệ thống.
+Đây là đối tượng quyết định mua dịch vụ gì trong doanh nghiệp.
+Thường thì chủ doanh nghiệp họ sẽ giao cho các đối tượng Dev này là người quyết định mua,
+chứ không phải chủ doanh nghiệp tự đứng ra đi mua.
+Đối tượng đép này là đối tượng thứ 3.
+Đối tượng khách hàng tiếp theo là có thể dài hơn là AI.
+AI sẽ tự mua hàng, đặc biệt là lĩnh vực của mình.
+AI sẽ tự mua hàng, tự lên kịch bản để đép hệ thống mà con người giao.
+Đối tượng khách hàng này.
+nếu dùng VM Cloud, sản phẩm nó có thể nhìn được trực tiếp vào Cloud Service
+Với nhìn về sản phẩm của em thì em thấy có một số thứ có thể thay đổi trong tương lai
+Thực ra là ở nước ngoài có rồi, nhưng ở Việt Nam thì chưa, có thể sắp tới nó sẽ là dư thế của mình
+Cái đầu tiên thì anh Hải cũng nói rồi, em nhắc lại một tí thôi về phần khai Microsoft ETH
+Đấy thì thực ra nó sẽ, nó đang có rồi
+Khi mà các hệ thống nước ngoài hoặc là một số tư viện Việt Nam đang triển khai các dịch vụ
+như Kubernetes các thứ
+thì bây giờ đã có rồi
+nhưng mà bên cạnh cái đấy ra thì nó sẽ triển khai một số các dạng dịch vụ như
+Vercel, những cái dịch vụ mà sẽ kết hợp với AI để automation luôn
+việc triển khai các cái idea, ý tưởng của web bán hàng cho khách hàng
+Đấy sẽ là những cái, chứ nó không phải thuần túy như cái web AI hiện tại chúng ta đang làm đâu
+Nó sẽ khác với vấn đề đầu tiên
+Vấn đề thứ hai là
+Vấn đề về mặt với các khách hàng non-tech
+Khi mà đặc thù ngành dịch vụ chúng ta sử dụng là
+tên miền đúng không
+thì chúng ta lại phải nghĩ đến bài toán tư động hóa
+việc khách hàng giao
+Khi chúng ta xây dựng bài toán chatbot
+thì chúng ta giao gương công việc hỗ trợ khách hàng
+cho chatbot này cho chúng ta luôn
+Tại vì việc khách hàng phải gọi kỹ thuật
+hoặc sale để tác động vào dịch vụ khách hàng
+Ví dụ như sự việc hôm nay, mỗi việc đơn giản phải trỏ ghi thôi đúng không?
+Nếu chúng ta có đủ dữ liệu, đủ mô hình dữ liệu để chúng ta change cho model chúng ta thôi
+để khách hàng thực hiện đúng việc đấy thì nó lại là bài toán khác
+Tức là khách hàng sẽ nhằm hơn trong việc khách hàng phải nhớ khách hàng làm gì
+Đơn giản là khách hàng vào hệ sinh thái chúng ta làm, khách hàng chỉ cần giao việc cho chatbot thôi
+sẽ tự động thực hiện việc đấy cho khách hàng, không phải hĩ ngợi vấn đề gì cả
+Nếu mà đứng với một người dùng thì sẽ mong muốn sự tiện lợi đấy hơn
+so với việc người ta phải vào người ta outtack
+Bởi vì đôi khi, như anh bảo là non-tech
+thì mình sẽ không thể nào bây giờ mình nhớ là
+tôi có cái này tôi có thể cập nhật cái này, cập nhật cái kia
+Tôi dùng dịch vụ không, tôi có chatbot, tôi giao việc cho nó
+Nó tự thực hiện những việc đấy thay tôi, tôi ủy quyền cho nó
+Nghĩa là cái xu hướng tự động hóa của việc vũ trụ, khách hàng là cái thứ hai.
+Cái thứ ba về sản phẩm liên quan đến AI, GPU thì thực ra là cái đấy thì nó khá có vấn đề là hiện tại cái việc training cho các cái model AI thực sự ở Việt Nam nó đang gặp rất nhiều khó khăn.
+Kể cả về hạ tầng, kể cả về chất liệu thực ra chỉ có các ông lớn người ta đầu tư thôi.
+Cho nên việc sử dụng GPU thì mình vẫn có thể đầu tư nhưng mình sẽ sử dụng nó trong việc mình sẽ thiết kế bài toán service nào
+Nó mới là vấn đề để chúng ta lựa chọn ngắt
+Ví dụ như chúng ta sẽ kết hợp với việc chúng ta triển khai các ứng dụng triển khai rất nhanh thông qua AI, thông qua model của chúng ta chẳng hạn
+thì lúc đấy nó mới giải quyết được bài toán ra tại sao tỷ lệ hóa tinh giảm bây giờ hóa tinh giảm
+thì khi chúng tôi sản phẩm đấy nó tăng hay không
+đấy là bài toán chúng ta cần đặt ra để chúng ta có một sản phẩm tương lai thay thế cho dịch vụ hóa tinh của mình
+và bên dưới GPU đấy thì giờ nó có một khái niệm liên quan đến AI-Auth
+tức là AI triển khai vận hành tự động hóa các hạ tầng dịch vụ cloud
+Chúng ta vẫn cần có các model đấy và em cũng có trao đổi với anh Đạt để sau chính on-tap chính là phần triển thai các AIOPS cho khách hàng
+Trước mắt mình có thể chỉ là template thôi nhưng mà sau khách hàng có thể tự nhúng AI của khách hàng vào, khách hàng tự triển thai AIOPS cho mình
+cho chính bản thân khách hàng thì đấy cũng sẽ là một lợi thế của sản phẩm của mình khi mà khách hàng không cần phải biết về kỹ thuật
+Ngoài ra, ngoài 3 ý tế về sản phẩm của mình, mọi người nói khá nhiều về việc chúng ta xoay quanh dịch vụ của mình thôi
+Nhưng mà chúng ta chưa nhắc đến những dịch vụ và liệu tương lai chúng ta có thể làm được hay không
+Ví dụ như thị trường bây giờ đang thay đổi khá nhiều về việc các khách hàng doanh nghiệp
+Bây giờ người ta đang phải hạn chế việc sử dụng các hệ thống service từ bên ngoài
+Và thay họ đấy họ chuyển về on-prem, từ ngày làm cloud em cũng đã trao đổi với mọi người rồi
+xu hướng On-Ramp bây giờ đang là 2 bước
+tức là vượt cloud của On-Ramp
+nhưng mà khoảng thời gian gần đây khi mà bắt đầu luật nó siết chặt
+đặc biệt là năm nay luật an ninh mạng từ mùa 1 tháng 7 ra nó siết chặt hơn rất là nhiều
+thì xu hướng người ta triển khai On-Ramp có thể sẽ là lại quay trở lại
+đấy và liệu chúng ta có cung cấp những giải pháp hỗ trợ triển khai On-Ramp cho khách hàng hay không
+dựa trên những kinh nghiệm chúng ta đang có thẳng hạn
+hoặc là hỗ trợ tư vấn đào tạo thì thứ hai chúng ta có thể chúng ta sẽ không tôi kia chúng ta không
+cần trực tiếp là người đầu tư với khách hàng nhưng mà chúng ta đứng vai trò sẽ là người cố vấn và người
+đào tạo cho khách hàng ạ hoặc là kể cả sau chúng ta có thể cung cấp cho khách hàng những cái dịch
+vụ để kỹ thuật của chúng ta hỗ trợ trực tiếp họ thì em nghĩa đấy mới là một cái để chúng ta bước
+Chúng ta chỉ bán sản phẩm thuần in-file của chúng ta thôi
+Còn chúng ta sẵn sàng đi liên kết hợp tác với tất cả các đơn vị ngoài để chúng ta mở rộng để tìm khách hàng của mình ra nhiều hơn
+Đấy là một số ý mà em chia sẻ
+Các em có ghi âm này không không?
+Ghi âm không
+À không ạ
+Thời tiết nhà thưởng là ghi âm này thì để bảo ai đó tổng hợp lại xem là có những cái ý kiến nào nào nó xúc đột cho không?
+Có
+Có không?
+Dạ
+Có ghi âm không?
+Em có
+À thế à
+Tại vì em không có láp
+Trên này của em Google Meet cũng có được
+Ờ anh Lưu đi xong đẩy cái file đấy cho màn tinh ấy để màn tinh phân tích xem là có những cái ý kiến nào nó xúc đột cho không?
+Sau đó thì tổng hợp lại cái ý kiến đấy đúng không?
+Sau đó thì chờ sau hệ thống phân tích dữ liệu ra khoảng tầm tháng nữa
+sau khi ra chúng ta sẽ ngồi lại lần nữa
+để xem lần sau trình bày nó có khác hay không
+Đô có muốn kết luận gì không?
+Em chỉ muốn xin chúc trước
+đôi khi chatbot mình cũng tính hết rồi
+còn việc một trò ghi từ đầu thì cũng ra
+không phải mình chưa làm được mà chưa muốn làm
+còn việc của bộ y sĩ thì cũng dễ dàng
+Như anh em bảo chát bot đăng ký tên miền từ đầu đến khâu nhé, nó làm được hết.
+Mình chỉ cấp API, móc chạp 3 lần là xong, nhưng nó đang, mình đang chưa muốn đẩy vào cái tool nữa.
+Còn lần tới sau này, mình đẩy hết tất cả cái tool của khách hàng từ đầu tới là đảo MCP luôn để cái chatbot nó tự động.
+Và thứ hai là kết nối cả những cái kênh, Telegram, Zalo, Zalobot để cho.
+Nhưng mà tất nhiên cái chi phí mình cũng trả rất là cao, mình mất cái chi phí nữa.
+Nhưng mà chắc chắn là có khi cái chi phí AI nó rẻ hơn chi phí người dùng.
+thì cái việc tư vấn gì đó được AI làm được hết, trò bản nghị làm được hết
+tất cả theo quy định, quy chế của AI làm được luôn
+nhưng nếu mình không chuyển đổi người thì mình cũng căng đấy
+cái chi phí của AI sẽ rẻ hơn chi phí nhân sự nhiều
+do vậy hôm nay có một ý kiến là thực ra bây giờ mình làm được nhiều thứ lắm
+ý kiến liên quan đến cái virtual và cái container ở thị trấn này cũng rất là đẹp
+Với số bây giờ khách hàng không muốn đến đó.
+Mà sau thời điểm AI, AI-Code bùng nổ thì sau sẽ rút dọn dần.
+Có một số cái thì cũng hơi...
+cũng sẽ nhìn thấy một số tiêu cực ở tương lai.
+Đội học sinh, sinh viên bây giờ cũng khó phết đấy.
+Đội ấy bây giờ không phải kiếm được tiền, không phải đi thực tập.
+Gần như là rất khó.
+Tỷ lệ khách hàng ở đội ấy bây giờ hơn cả.
+Và tỷ lệ khách hàng trung lưu của quán nhỏ mọi người đều thấy tình hình xã hội
+ra phần tập trung của những tập đoàn lớn, khách hàng nhỏ lẻ cũng biết cái gì nhiều.
+Có một ý mấy bạn nói rất hay là mình đã tập trung quá một cái của mình,
+mình hình dung ra xem là đồ số ký đấy, nối ý của kia,
+có thể một thời gian nữa cái gì biến đi, cái gì biến mất, cái gì nó xuất hiện.
+Hiện nay tại sao mình cứ đang dí các bạn đấy, nhiều khi các bạn không hiểu vấn đề
+được dí được may, chạy vào một vài cái kia thì thôi, hết việc.
+Thế thì mình sẽ có lộ trình, nhưng mà sau một vài tháng nữa, có cái kia mình sẽ nhìn lại cái này lần nữa nhé.
+Em đẩy file cho Martin tẩu hợp lại nhé. Martin chủ trì trong các vấn đề phân tích cái tàu cây hàm của Kiệt.
+cho bạn tổng hợp này trong tháng sau nữa mình sẽ so sánh lại xem nhận nó như thế nào
+Nếu mà hết rồi thì có một vài ý nó vụt vặt thôi nhưng anh nói thêm để cho nó rõ hơn
+Thứ nhất là cái PO nhé, đăng ký thành công 396 tên miền, thất bại 161 nhé
+Dây số thì thành công cao nhiều
+Cái tình trạng PO đó là tình trạng chung đấy Quân ạ
+Nhưng anh cũng không chú trọng đẩy cái này nữa đâu
+Nhiều khi mình phải dồn mình vào cái thế Quân
+Cái mảng này bây giờ nó khá là nhạy cảm, tất nhiên mình chẳng làm gì sai, mình làm đúng luận
+Kể cả hôm trước anh nói với Đô, cái phần VO mình cũng phải làm cái hồ sơ tuyên bố
+Ví dụ dữ liệu của tôi là dữ liệu do mình dùng nhập, dữ liệu từ hệ thống của tôi là dữ liệu WHOIS
+Và trong các cái phần khách hàng dùng WHOIS, có những khách hàng đồng ý với các điều khoản mà tôi sẽ khai phát cái dữ liệu đấy
+Nói chung là những cái mảng này là mình chẳng sai gì, nó cũng chẳng có gì xấu cả nhưng mà nó nói chung là nó không hay lắm
+Nên là mình đang chủ trương như thế là chuẩn thôi, nhé
+Quân nhé, đô nhé, đây là cái thứ nhất.
+Cái thứ hai, lúc nãy mọi người có một cái ý là cái quy trình đàn ý,
+ý của quân là chuẩn, có tiền rồi mới tặng.
+Trừ khi nếu mà mọi người thích thì mọi người sẽ phải làm môi trường theo kiểu sát bóc hay đồ.
+Bởi vì có nhiều khách hàng người ta muốn thử nghiệm, trải nghiệm đã mà.
+Thì môi trường sát bóc môi trường là chẳng có gì thật cả.
+Thật mà không phải là thật.
+cũng là trải nghiệm thử nghiệm của thư viên quân và nó giống như cái việc hôm trước anh nói với đội
+của người vụ bây giờ nó có mấy cái việc của bên chỗ nghiệp vụ là sêu không có quyền sửa trên các
+tài khoản OB hay là cái phần mà liên quan đến các cái cái ta thích kíp mà sửa tên chủ thể mà hay là
+sửa các thông tin mà khi nó có trên nhiều xe quá đấy thì bình thường là phải các siêu phải thực hiện
+thao tác thì nó chuyển hết về nhưng mà muốn xử lý đồng lạc phát được luôn thì nghiệp vụ vào làm
+Đấy thì theo quan điểm của anh ấy bây giờ hệ thống có ghi vết hết rồi và có quyền để trách nhiệm hết
+Do vậy cái chỗ này tư duy lại có nghĩa là cho SEO làm
+Cho SEO làm nó ghi vết hết rồi mà tự nhiên có gì đâu
+Đúng không? Đấy là cái ý thứ nhất
+Cái ý thứ hai là quay trở lại cái trực ấy
+Cho SEO trực được kích hoạt hơn và được ăn chi đó
+Đỡ phải có thêm quyền lợi và đỡ lặng nhảm
+Có được không?
+Hiện giờ đang tự động rồi chỉ có mỗi duy trì thì mình sẽ update một cái duy trì thôi
+Nhưng mà ghi chỉ của CO khác thì đúng với thời điểm trực thì đang không được
+Ghi cho hết luôn, nó có ghi bếp rồi, nó có quyền lợi luôn
+À không, nghĩa là hệ thống tự động luôn
+Ờ rồi ok, rồi rồi thôi rồi, chuyển sang bên đây
+Trước qua có theo đuổi cái này
+Ừ
+Cái mảng liên quan đến đào tạo ấy
+Hồ Chí Minh làm tốt thế mà Hà Nội làm
+Có mặt mài nhỉ
+Anh Nam trước dẫn quân đến ấy
+Bây giờ lên phóng đốc rồi, phóng đốc hệ thống FID.
+Quân ạ, chú này CPT bán theo hồi ý nhé, ngoài mối quan hệ như thế này thì bán thêm chú này nữa, nhiều khi cũng quan tâm lên thí. Quân nhé.
+Dạ.
+Khi lấy một số các cái dịch vụ Cloud, anh nói cho nó phải có những cái bổ sung thêm những tính năng kết nối.
+Kết nối lên Git thì rồi đúng không? Anh kết nối ra cái hệ thống bên ngoài, cân nhắc cái đấy cho em.
+Bởi vì kể cả sau này mình có hệ thống SPI hay là có LOCK hay gì gì đó, nhưng mà cân nhắc được xem việc có cho cái đó bên ngoài.
+Hay là mình cân nhắc cái việc mà xem ví dụ như là một số các sản phẩm One của mình ấy có cho cài trên các cái bí mét độc lập hay không?
+Trên phía OneDart đã hỗ trợ hết.
+Ok.
+Thế còn có một cái nhận định của mọi người là khi đăng ký giảm giá là đúng đấy.
+Bây giờ mọi người đều nhìn nhận thấy đấy là cái phếu duy nhất.
+Mà về cơ bản là nó chạy vòng vo với ông này sao cũng khác.
+Thế còn bây giờ muốn phát triển mới thì phải tìm ra các hướng mới
+Chứ còn trong hiện tại là thị trường đỏ mà
+Mình phải tìm ra các cái cách mới, các cái hướng mới
+Nếu không thì nó chỉ là cái giảm giá để cầu hôm nay không khác gì
+Về cái chỗ này, chỗ Lê Hậu nhé, bây giờ tập trung về quảng cáo một chỗ rồi thì
+Lê Hậu cũng phải có cái chỉ liệu K.I. phải thối ưu được em nhé
+Nó không tạo ra đúng không?
+Đây là anh đang nghi ngờ là cái phế hữu mình có vấn đề này
+Do vậy tỷ lệ nó so với năm ngoái, đấy chính là chỉ tiêu ý chí
+Không phải nghiêm nhiên mà được nhận lương thưởng theo cái quy chế đâu
+Quy chế trước anh nói rồi sẽ bổ sung thêm cái chỉ tiêu này
+Mọi người phải có những quyền trách nhiệm cụ thể như thế để mọi người có thể phát đạo
+Thế thôi có mấy điểm thế thôi nhé
+hi vọng nhưng mà nói chung về cơ bản lại thì anh thấy là là là là hay cho 25 nói
+nói chung và 2026 nói riêng thì mình thực sự là nếu mà nhìn lại mình làm quá nhiều việc
+anh nghĩ là một năm trong năm gần đây phải làm bằng hai ba lần hai ba năm những năm trước
+còn có một cái điểm nữa này tháng 123456 tháng 6 là cũng đạt đúng không 98,1 đúng không
+thì anh sẽ bàn với cả trong ban lãnh đạo công ty xem, rồi cái tán trưởng xem
+xem cái nguồn ngân sách để thưởng quý nó như thế nào hình như cả quý thì đạt đúng không
+Nhưng mà thực sự anh, cái quyết định của anh nó hơi lăn tăn một chút đấy
+Bởi vì anh thấy có một số các chỉ số nó khô lắm
+Thôi được rồi để anh trao đổi với cả trong lãnh đạo, với cả văn trưởng xem cái nguồn bức sách của mình
+Thấy không? Có gì nữa không?

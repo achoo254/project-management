@@ -1,0 +1,311 @@
+Trong nhiều nhóm và nhiều tip-ip, nhiều chat, khách hàng lên chỉ yêu cầu trò hoàn ghi thôi.
+Mình nói rất nhiều việc không hỗ trợ trò hoàn ghi nhưng mình chưa quy định chính thức rõ ràng.
+Rất nhiều khách hàng chỉ yêu cầu trò hoàn ghi, không nhanh, nhanh cả, đôi khi thành pháp tốt nhưng đôi khi thành hư khách hàng,
+đôi khi chúng ta rất là bận, khách hàng cần đớt, sale, cứ để trò đi trở lại.
+Và thứ hai liên quan đến cả việc bảo vệ, bảo mật, giữ liệu.
+Mình sẽ update luôn quy định luôn, không hỗ trợ trong những trường hợp này, những trường hợp khách hàng tự xử lý.
+và chúng ta chấp nhận hành động này
+Cái này cũng là một cuốn trao đổi với tất cả mọi người để nắm được thông tin đấy
+Chứ ngày xưa làm gì có hỗ trợ khách hàng tất cả từ nhỏ đến lớn nhất
+Tốt nhưng mà chưa chắc là tốt
+Thì mình sẽ hướng theo mô hình tự động như vừa tên
+Ngoài ra phần liên quan đến sản phẩm thì cũng sau sẽ update luôn
+là cái phần hỗ trợ, cái issue của khách hàng thì anh em tư thật tự động xử lý luôn
+Cái này thì cũng đang cho rõ là phần liên quan đến lớp rồi
+để kiểm tra, hoặc là để cho hiệu quả tất cả những cái lốc để cho rõ
+nhưng mà kỹ thuật cũng phải tự xem cái lốc
+không phải là chờ khi hàng report nó nhìn được lộ
+thì cái này anh em kỹ thuật đang làm như thế này
+chỉ đấy, cái em muốn là chia sẻ với mọi người về cái trực
+thì đấy là mọi người xem có ý kiến nào không thì em sẽ bàn thêm ý kiến
+và một số đầu phần để đốt cái này luôn
+cho SEO thường dựng là yên tâm ra ngoài
+một SEO chỉ là 1, 2 SEO thì thường là trực thôi
+Cái việc của sale trực nhiều, stress
+Em muốn hỏi thêm một chút là trên hệ thống mình thì hiện nay có thể đo lường được cái khối lượng
+trong thời gian trực giữa sale và kỹ thuật không?
+Có
+Bởi vì là ví dụ theo ý kiến của sale, cái này chỉ là nói thôi chứ nó không phải là dựa trên số liệu
+thì sale lại nói là cái khối lượng công việc của sale hiện nay đang nhiều hơn kỹ thuật
+Theo như quy chế đang đề xuất thì sẽ giúp lại chỉ còn một sale và một kỹ thuật trực cùng với nhau
+Thì khối lượng liệu có cân bằng giữa sale và kỹ thuật không?
+Bởi vì nó lại liên quan đến cả phần quy chế mà bên sale sẽ đề xuất mới
+Thứ nhất là chế độ trực thì như nhau nhưng mà chế độ nghỉ thì hiện nay đang khác nhau
+Bởi vì bên kỹ thuật thì đã bỏ chế độ giờ bù nghỉ bù giờ rồi đúng không anh Hải?
+Bên sale thì lại đang đề xuất là có thêm cái đấy thì nó sẽ mất cân bằng về chế độ giữa hai bộ phận
+thì liệu cái khối lượng công việc giữa sale và kỹ thuật nó có đang cân bằng không?
+Anh cũng có gửi vào cái sale của cái nhóm về cái số hiệu trực và thậm chí kể là các phần theo dõi từng buổi trực của mọi người
+như một buổi trực mọi người phải phản hồi bao nhiêu phiên trực bao nhiêu phiên trăm tích kích
+đơn hàng nào thì mọi người thấy đơn hàng thì gần như 100% chạy tự động
+Hôm qua con Phơ cũng cho các bạn xem nó không vấn đề gì cả
+Nếu là chát, tích kích, tầm đạt thì đều sâu lên
+như là 1 buổi tối bạn này trực khoảng bao nhiêu phiên, bao nhiêu dòng
+đều có sâu hết, cũng đã sâu tới các bạn xem gì đó
+Thứ nhất là phải 1 phần liên quan tâm lý các bạn
+Đôi khi là trực, đôi khi tâm lý là cách làm việc
+làm việc, đôi nhiên bạn nghĩ là thế này là rất bận rồi nhưng mà đôi khi chúng ta chưa tối ưu
+cái này sẽ phải review lại cụ thể, đôi nhiên là trực chắc hỗ trợ nhiều cái sách bán tốt
+mà khi là làm thông minh thì là tốt hơn, đôi khi kỹ thuật chỉ nhìn đúng một điểm
+là họ hỏi ai một cái chả luôn có thể kế hạ, đôi khi SEO không hiểu kỹ thuật này
+phản hồi đi phản hồi lại nó gây ra rất nhiều vấn đề đúng không
+thì cái này chúng ta đều hiểu là không phải SEO nào kỹ năng tốt về kỹ thuật
+cái này phải thừa nhận là thế, đấy thì tất cả cái này đều có số liệu đó
+và đôi khi mình quyết định, có thể trong tháng 7 mình quyết định
+thì mình sẽ đo luôn trong một buổi tối các bạn trực
+nhằm có bao nhiêu lượt khách hàng phản hồi
+và thậm chí sau buổi trực ấy
+thì thậm chí mình gửi mail cho khách hàng xem việc chăm sóc khách hàng có tốt không
+để hôm sau chăm sóc khách hàng lại
+ví dụ như ngày xưa mọi người thấy là online của mình 5-6 người trực vẫn ok
+nhưng mà bây giờ còn rút còn 3, thậm chí hôm nào mình nghỉ thì còn 2
+hôm qua link 3T thì vẫn còn 2
+Thể thống vẫn chạy, gây thu, bắt tăng.
+Đôi khi có phải là do mọi người quá lắm công việc không?
+Tất nhiên, mình nhìn cả hai hướng.
+Đôi khi CEO nói thế, mình cũng nhìn, ngắn nghe để có chính xác.
+Thực ra là công ty không muốn CEO trực nhiều đâu.
+Nhiều người trực không tốt, thật.
+Mình đang muốn giảm rối tinh cộng.
+Mọi người thực ra có sức khỏe, đúng với văn hóa.
+Làm phải có sức khỏe, tinh thần tốt thì trực mới tốt.
+Hôm qua xem em chụp chép chả mối đi ra ngoài, xem chết sản thật, thì em chia sẻ thêm để tất cả mọi người nói được.
+Thế thì xem ai có ý kiến, muốn trao đổi gì thì cùng trao đổi thỏa khán.
+Cái buổi này toàn lý đơn.
+Còn chút người trực tiếp cũng kêu thứ này thôi.
+Quân em, anh chia sẻ.
+dạ em nghe không Các phòng mà chụp đúng đó không ạ
+anh bớt chia sẻ thêm cái gì cấp về cái cái dữ liệu và những thông tin mà em nhận được của các bạn
+xe quá cũng như là cả Hà Nội Hồ Chí Minh thì đó là Hà Nội thì em cũng có hợp với các bạn rồi còn
+Hồ Chí Minh thì em chỉ hỏi một vài bạn thôi chứ em sẽ không mở nó có thể được triển khai để chia
+Thật ra, việc mô hình chừng 1 bạn thì các bạn quan tâm nhất là
+nếu mà còn 1 bạn kinh doanh thì chất lượng chăm sóc khách hàng còn tốt hay không
+thì em nghĩ là vẫn dài thôi, vẫn tốt bình thường, không có vấn đề gì cả
+nhưng mà riêng các bạn thì em nghĩ là khi các bạn la lắm thì mình sẽ chia sẻ với các bạn như thế nào
+Thay vì việc 1 tuần các bạn phải dựng khoảng 2-3 buổi thì nó chiếm nhiều vào thời gian nghỉ ngơi của các bạn
+Thì thay vì vậy là cho mô hành phạm phạm 1 người thôi
+Thì khi đó các bạn cũng sẽ được nhìn lại hơn
+Nó chính là việc các bạn tốt hơn thời gian
+Bây giờ tôi sẽ tập trung tôi làm hết 100-150 cái năng lượng của tôi luôn cho vào 1 buổi tối
+Khi đó, những buổi tập hội khác tôi sẽ có một thời gian để nghỉ ngơi, tốt hơn.
+Nhưng khi ngược lại thì các bạn làm hiệu đăng của các bạn.
+Không dữ là khi các bạn phải làm nhiều hơn thì mình cũng sẽ cân nhắc
+cái chế độ của các bạn sẽ tăng lên trên đó.
+Khi một xíu thì các bạn cảm giác là các bạn sẽ mạnh mẽ, các bạn sẽ thực hiện.
+Riêng về các Hà Nội và trong Hồ Chí Minh, cũng có so sánh rồi.
+Như Hồ Chí Minh cũng có 5 bạn, nhưng mà cái khó cho Hà Nội
+Hầu hết là các bạn có gia đình, tất cả các bạn muốn dành thời gian của buổi tối là
+thứ nhất là mình nói cụ thể ra các bạn nhé
+Tại vì buổi tối dành cho con cá
+Và thời gian của các bạn sẽ rất khó, nguyện nguồn được các bạn phái tạo tựa
+làm sao để các bạn làm việc tốt hơn
+Các bạn trong Hồ Chí Minh thì chỉ có những bạn
+thực sự là các bạn chỉ có lần ame để kiếm khách hàng, để trả tiền trên số điểm
+Đang làm ở KDA thì các bạn khó đi, đứng công nhận, các bạn tốt
+Các bạn sẽ không bị áp lực về vấn đề của KDA
+Các bạn sẽ sống tâm, các bạn tỉnh tối thì các bạn là hạnh
+Trong đó là phòng giới, các bạn luôn chăm chỉ đối chung, ghi chăm cũng có thể chăm chăm.
+Thay vì đó, các bạn phải phân bổ thời gian của các bạn, mất thời gian.
+Nếu như rơi lại các bạn chụp 1 hà cho cả 2 người luôn để tránh vấn đề xung đột.
+Lâu lâu thì khi mình chụp 1 người luôn, đó là kết thúc cho các bạn, có thể chụp rất nhiều để các bạn thấy được.
+Mình vẫn còn những quy chế của các bạn bây giờ có trong dự trữ.
+thì bình thầy 3 phút tôi mới được chat, hoặc là 5 phút tôi mới được chat
+có bao nhiêu người không biết, lâu lâu tôi sẽ trảy ra những cái trường hợp
+mà các bạn bị giành khách hàng với nhau
+có bản phẩm khói những cái trường hợp đó
+khi mà mình tác dụng cụ hành hệ
+thì mình sẽ bớt được rất nhiều điều bị quy chế
+cũng như là cho việc trách nhiệm
+không cho ông này, ông kia, còn mình sẽ không còn có việc phu được cùng mình nữa
+thì em nghĩ là chốt lại, một nhiệm vụ thì nó sẽ ổn hơn
+Còn các bạn đang nghĩ nào là chỗ ticket hơn?
+Như mình đã chia sẻ, 2 biên ong kỹ thuật không vô, chỉ cần ABCN1KB1KB1KB nhắn
+nó sẽ giải quyết được vấn đề này.
+Còn các bạn SEO cũng tùy cho bạn, các bạn có kiến thức lớn hoặc là có kiến thức cần hoặc là không hấp tiên
+thì các bạn cứ trả lời các bạn sau 1 hồi ticket và đáng lý do là chỉ cần xử lý 3 phút cho đến 10 phút là xong.
+Có những cái tiêu thật là các bạn xử lý sáng mai, xong rồi các bạn điện thoại kỹ thuật,
+hoặc là các bạn có tam cảo AI thì sẽ xảy ra mạng loạt
+ví dụ kỹ thuật, kỹ thuật phần xử lý ticket thì em nghĩ phần này cũng nhờ hãi, nhờ kiếm
+để cho các bạn xử lý tốt hơn, cho ví dụ các bạn kinh doanh, như sinh vật
+Trúc ơi, phát điểm nhanh nhé
+Cùng cơ phim có gì thì không nói lại nhé
+Trúc nghe được không?
+Dạ, em nghe được ạ
+Nói đi
+Dạ, cái phần trực thì thực ra như em cũng có một số lần trực trực tiếp rồi
+thì em thấy là đúng như phía hướng nhìn của anh Quân với anh Đô là thôi
+là tủ yếu là tủ phận Excel có cái kỹ nào để xử lý thì không thôi
+Nên nếu mà công việc đang xử lý thì thực ra một cái trực
+thì các bạn cũng xử lý bị chậm thử dõi kiến thức của các bạn thôi
+Thì thế không Trúc?
+Dạ không ạ, nhưng mà mình cũng thấy
+nên mình cũng phải cân nhắc cái việc này bởi vì nó ảnh hưởng đến việc chăm sóc mất hạn
+đôi khi một số hợp nó có những rủi ro đột biến
+mình lại không có nhân sự ở sân khố, mình không có nhân sự để buôn bỏ việc hoặc là
+nó sẽ thực sự ảnh hưởng rất nhiều đến việc chăm sóc mất hạn
+Nhiều quan nội dung này, thực ra trong đầu anh nó có kích bản từ ngày xưa
+nhưng hôm nay anh mới nói lại với bọn em
+anh nghe câu mà các bạn phải trực thì anh có cái bản anh nghe thì các bạn nói phải trực thì anh
+sẽ bàn với với chút với quân khiên với Hải luôn anh nói đến dân kỹ thuật biết ngay đấy có giải pháp
+khác và nếu anh thực hiện giải pháp đấy thì các bạn còn buồn luôn bạn biết biết vì sao bản chất
+thì các bạn có nếu theo lộ trình hoan các bạn có 21 đến 3 năm nữa các bạn cài cái hải vừa
+Quân nói, có một số bạn ấy, quân cái ý của quân đi quân
+vừa nói các bạn xúc phong trực để cành hàng đúng không
+đến khi các bạn có một cái tập hàng đủ rồi các bạn phải tự mình phát triển
+thế còn anh nghe, anh hơi suy nghĩ một chút khi các bạn nói các bạn phải trực
+tại sao nhân sự, tại sao mạng, nhân sự nhé
+chỉ trong đó là các bạn phải hiểu công ty, hiểu dịch vụ
+hiểu đường lối chiến được như thế, tại sao các bạn ngồi đây họp thì các bạn sẽ nghe thấy
+Từ trước nay các bạn đều đang có thể, các bạn nói mình rất là đồng cảm với SEO
+Cái đấy đúng, chúng ta phải đồng cảm với SEO
+Vì chúng ta cũng luôn muốn cho SEO tốt lên
+Nhưng chúng ta phải nhìn cả góc độ khác
+Thế còn nếu chúng ta chỉ không hiểu cái đều chúng ta đồng cảm với SEO
+Là chúng ta rủi ro, rủi ro cả hệ thống này
+Nếu công ty đẩy nhanh, đẩy nhanh cái việc tự động hóa là một
+Đẩy nhanh cái quan điểm giống tay
+có nghĩa là sao? Chúng ta sẽ chấp nhận mất đi một số hay hai.
+Tây mọi người có chắc được không? Đúng không? Đều phải xử lý tích kít hết đúng không Đô?
+Thì anh hỏi Đô nha, nếu chúng ta đi theo hướng Tây hoàn toàn như vậy thì SEO có cửa gì không SEO Đô?
+SEO còn cửa không?
+Quân, anh chấp nhận sẽ mất đi khoảng 2% nhân dân tu và anh cắt 50% nhân sự luôn.
+Công ty có lợi nhận hơn không hả Quân?
+Nhiều cộng.
+Thế đúng không?
+Hôm nay vì cái câu các bạn nói là các bạn phải trực cho anh chia sẻ cái này chẳng có gì mới với anh
+Có những cái hoạch nghĩa suy nghĩ trở qua mình đang nghĩ về nhân sự cho nên mình làm nó có lộ trình có lực bước
+Do vậy thì theo quan điểm của anh đó là cái hướng của công ty mình mới phải đi theo hướng đó đúng không ạ
+Nghe một câu nó hơi bị ghê là huấn luyện khách hàng ấy, nghe nó hơi kinh nhưng thực ra là như thế
+người ta cắt dần cắt dần cái việc không ông ông gì nhỉ ông ép chát à kỹ thuật như thế mà mẹ cũng
+khai cái tên miền cũng hà cũng kì cạch vào khai hộ kia đấy mẹ đấy đâu kỹ thuật này ông ơi trỏ bẩn đi
+chứ vì sao người ta đã có cái thói quen rồi mày làm đi mày phục vụ ta đi nếu bộ phận 3 team phân
+tích nha kiên lô nha là khách hàng IDET lại như thế kia nạ nếu mình không làm thì mình vất hết đúng
+không thì ok khi đó mình lại phải một kiểu khác thì khi đó thì lúc đấy anh này bảo kiên với Hải
+chúng tôi xây một nội vũ kỹ thuật tám hôn được, trực 3 hạng, 3 cao hôn kỹ kia
+không cần kinh doanh những kỹ thuật nào hết, tự hàn thế
+coi là dùng, dùng, đổ hôi, giáo hôi thì hết tiền rồi, lại chơi theo bài đấy
+đấy, cái câu chuyện đó như thế
+tức là có rất nhiều cách thức nhé, kể cả cách thức mà tập khách hàng của chúng ta rất lâu tích
+mà CEO mà phải bảo phải trực thì mình có cách khác kia
+mình sẽ build một nội support chuyên, và thậm chí bây giờ chẳng cần build thuê luôn đi
+em có tất cả các, đúng không, tôi đẩy hết cái template thôi
+Và ông xử lý tôi đếm tiền thuê được không?
+Thuê được à? Đúng không?
+Đấy, một ngày ông xử lý cho tôi một ticket, một nghìn một ticket
+Đúng theo thèm hết, đúng như vậy
+Đếm đi, đúng không?
+Quân, quân, quân hiểu cái ý đấy không?
+Dạ, hiểu lắm rồi ạ
+Nó còn rẻ hơn nhiều luôn đấy các em ạ
+Ngày xưa thì có, nhưng bây giờ không có đâu
+Bây giờ anh có thể tiêu chuẩn nó hết
+Anh lựa ra một ngày bao nhiêu ticket
+Thuê hoài luôn ạ, không khỏi làm
+Thật đấy
+Nói như vậy thôi, nhưng nếu bọn em mà mang ý nguyên cái của anh, bọn em nói với nhân viên là phản án rộng đấy
+Biết vì sao không? Bởi vì cái suy nghĩ của nhân viên nó khác các em
+Nếu người ta mà hiểu những cái thứ như anh nói được thì người ta đã đẩy các em xuống rồi, người ta ngồi theo anh
+Do vậy đừng mang cái thứ như hôm nay anh nói này đi nói y chang nhân viên nhé
+Đấy, em nói ra để bọn em hiểu thôi, thì bây giờ chúng ta sẽ làm như thế này
+Chúng ta hãy làm công tác tư tưởng tinh thần với sales để người ta hiểu được là công ty đang đồng hành với các bạn đấy
+Nhưng nó có lộ trình 1-3 năm, nhưng đừng nói theo cách của anh nhé
+Nói theo cách của anh là các bạn nhẹ nhất là buồn, còn nếu không các bạn tự ái và thậm chí các bạn còn nghĩ là bị động trạng
+Bị xúc phạm, anh hiểu đấy, nên đừng nói theo cách của anh
+Nhưng hãy làm công tác tư tưởng để các bạn hiểu được
+là chúng ta tranh thủ thời gian này để chúng ta xây tập khách hàng. Đấy là ý thứ nhất.
+Ý thứ hai là anh sẽ đồng ý thay đổi chế độ. Một người trực thì chế độ các bạn sẽ cao hơn.
+Giờ dấp như thế nào cho hợp lý để làm sao để nó hài hòa. Bây giờ ông Đô nắm được hết về khối lượng công việc rồi mà các ông này không xem được hết.
+xem nó hết thì để hài hòa giữa cái việc đấy với nhau để về thời gian sẽ bàn sau sẽ có được trường
+linh đấy là cái thứ hai cái thứ ba là trong cái cơ chế đâu ạ trong những cái trường hợp mà cần cấp
+ấy thì em phải bàn được với các trưởng của bạn kinh doanh với Hải với Yên để có thậm chí đạt
+đó để có cái cơ chế Yên thậm chí có những cái tình huống ấy không phải trường phòng thân thân
+thậm chí kể cả giám đốc cũng phải phải online đấy đấy là những cái tình huống đó rồi hướng ngoại
+Cái thứ 4, chúng ta vẫn có chủ trương, lộ trình, chúng ta sẽ phải tối ưu tự động hóa
+Và việc thử nghiệm từng bước như xe nói chúng ta không sợ sai
+Để thử từng bước hạn chế dần dần việc bảo vệ khách hàng
+Để đảm bảo các nguyên tắc bảo mật hơn, rồi giảm thời gian mà chúng ta phải xử lý đi
+trừ phi ông Quân, ông Trí, ông Hải bảo khách hàng không phải đâu anh ạ
+nếu chúng ta làm thì chúng ta mất hết khách hàng
+khách hàng thì chúng ta phải làm hết khách hàng
+thì câu chuyện lại khác thôi nhé, lúc đấy mô hình chúng ta lại khác
+một là chúng ta sẽ có một đội chuyên viện
+hai là đội support
+hai là mô hình chúng ta thuê ngoài
+câu chuyện của chúng ta lại khác
+cái phần này và quan trọng nhất là cái đầu tiên kìa
+là làm công tác tư tưởng để các bạn hiểu
+Và anh sẽ nói xa hơn thêm một chút nhé
+Vừa xong anh nói với các em rồi đúng không
+Là
+Cả hệ thống công ty nó sẽ là một cái cỗ máy
+Cổ máy thông minh
+Có nạp trí tuệ nhân dạng
+Do vậy nếu mà bản thân
+Ông chỉ là một cốt đơ
+Bản thân ông chỉ là một người conflict
+Bản thân ông chỉ là một người sửa xeo
+Đó cũng đi là cái chắc
+Đầu tiên phải có kiến thức
+Làm trong cái mạng nào
+Phải rõ về mặt đấy
+Ví dụ rõ về các luật ái mặt đấy
+làm phần kỹ thuật có vẻ ngoài là chỉ rõ về khách hàng mình rõ về các thông số chỉ tiêu đó kia để
+biến chúng ta thành cái người chịu trách nhiệm chúng ta là cái người chịu trách nhiệm và hướng
+đến hướng đến cái cấp độ là chúng ta có hai phần trăm thời gian để tập trung vào những cái phần
+mà làm cái thứ chúng ta thích nghiên cứu phát triển đấy là chứ không phải làm nhiều nhưng mà
+cho em chia sẻ với các bạn.
+Còn đi vào cụ thể chi tiết nhé,
+vẫn cái sáng anh có nhắn,
+với mảng giao tin này,
+bây giờ những việc phân tích các số liệu chuyên sâu hơn,
+đấy là những ông chí gắn với dự án mà chí đang làm,
+ông chí hình chung không,
+và ông Đô phải có cái deadline cho ông chí,
+khi nào xong, đương nhiên là để deadline cho ông chí,
+ông Đô phải cung cấp cho ông chí cái gì,
+đấy là cái thứ nhất.
+Cái thứ hai, bây giờ chúng ta cải tiến lại mô hình,
+tối ưu lại mình để chúng ta có sự dư thừa đại chố để chúng ta phát triển
+thì trong trường hợp như thế thì ngọc đúng không
+cái chỉ tiêu của ngọc là gì, cây bai cụ thể của ngọc là gì
+có thể không phải trong tháng 7, tháng 7 anh đang nói thuốc rồi đúng không 50 50
+nhưng ít nhất là phải bắt tay vào rồi tháng 8 tháng 9 là gì
+phải có một cái chỉ tiêu cụ thể
+tương tự như vậy các cây mới đúng không
+hiện nay cây mới của Phương chỉ tiêu cụ thể là gì
+của Trà chỉ tiêu cụ thể là gì phải có hết
+bởi vì như các em nói đúng không
+là hiện nay các vị trí khác thì cái B3 nó đã đọng rồi cho B2 gần như cốt đấy
+nó phải chạy hết
+đấy
+phải có cái trị tiêu cụ thể
+tương tự vậy thôi, mấy ông kinh doanh như vậy thôi
+ông có giỏi đúng không?
+rất siêu
+nhưng nếu ông không chịu lộn bạc ra để tiếp xúc, để ủng hộ anh hàng
+ông không có các cái kĩ năng
+đừng có nói mấy ông kỹ thuật nhé
+làm mấy ông không có kĩ năng nhé, hơi bị nhầm đấy
+xem ông Duy xem đúng không?
+ông quá là sông sáo nhiệt tình
+rất chịu khó, anh Trúc thì thôi không nói đâu
+đấy
+thì
+Chứ nếu mà ông chỉ có năng lực mà ông không chịu, không chịu đúng không?
+Tăng cái kĩ năng lên để cho hàng, không chịu tiếp xúc hàng, không chịu đi tìm những khách hàng mới
+Và nó nhìn luôn vào chỉ tiêu ấy đúng không? Nhìn vào chỉ tiêu luôn là có số điệu hết mà
+Ông sẽ nói, ui tôi ra ngoài, tôi giao tiếp quan hệ sẽ năng mạo lý ghê lắm
+Nhưng mà chỉ tiêu không quay đâu, nhìn vào số điệu
+Như hôm nay anh nói anh đúng không? Anh không chỉ nghe mà anh muốn nhìn vào kết quả
+Nói như vậy thì bọn em biết đúng không? Là chúng ta sẽ có 3 tháng cuối
+Các bạn có thể nhớ đăng ký kênh để ủng hộ kênh của mình nhé.
+chụp lên cái thế hết, làm ở đâu, làm cái gì, ra làm sao, đọc kia
+Những số điệu có thì ý của kiên cũng giải quyết được
+Tất nhiên bài toán kia hơi khó, phải làm thêm một số động tác nữa
+Chứ không phải bài toán như anh nói nó dễ hơn kìa
+Bài toán kia là phân tích chi tiết, hành vi, thói quen, nhu cầu, mục đích của hàng
+Về cơ bản thì đầu năm anh có nói những việc khóa đúng không?
+Năm nay chưa làm được những sáng tạo kiểu gì, anh sẽ quyết tâm làm kiểu gì anh cũng làm.
+Đã nói rồi, tốc nào năm nay anh sẽ làm khác.
+Nhưng mà là bây giờ mình sẽ không phải bám theo kiểu những giao về mặt định tính nữa,
+mà mình giao về mặt định tưởng luôn, cụ thể luôn.
+Thế còn cụ thể từng các bộ phận như thế nào đấy thì...

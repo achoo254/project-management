@@ -1,0 +1,204 @@
+Tính đơn khi có bảng phía dưới chúng ta thấy tỷ lệ hosting đang giảm rất là mạnh cho nên là cái chuyển độ của khách hàng cũng giảm khá là nhiều.
+Trong khi đó thì khách hàng liên quan đến cloud cũng tăng nhưng mà chưa thể bằng được số lượng giảm của hosting.
+Đây là cái trí tiết thôi.
+ở đây thì ta thấy là giảm từ 8.000 gần 9.000 xuống khoảng 7.500
+ở đây là cái sách thu từng dịch vụ thì chúng ta thấy trong các dịch vụ thì có
+cái Cloud Service Cloud Banking và cái doanh nghiệp này là bao gồm cái phần
+PIX Server Limited và cho về chỗ đặt, đật chỗ đặt, mấy chỗ thì hai cái phần này giảm
+hai cái phần này thì cái tỉ lệ giảm so với năm ngoái cũng khá là nhiều
+ở đây thì cái VPS nó chuyển sang Cloud Server
+thế này thì theo định hướng của mình chuyển sang Cloud Server rồi
+còn cái phần liên quan đến PIX Server Limited thì năm vừa rồi mình cũng tăng giá
+và về quan hệ năm ngoái khách hàng của chị Thanh đến khách hàng Trung Quốc thì khá nhiều nên hôm nay cũng sôi giảm khá nhiều
+Ngoài ra trọng tâm là phần giảm của hotting, hotting chiếm tỷ lệ hơn 40% và tỷ lệ giảm 9,2% thì sôi giảm rất nhiều
+rất là nhiều. Thì cái phần của hotting nó giảm khá nhiều cho nên là cái tỷ lệ nó kéo lùi các cái
+tăng của các cái phần khác. Mặc dù trong đó thì cloud server cũng tăng khá là mạnh. Tuy nhiên thì
+là cái tỷ lệ của hotting nó đang kéo lùi khá nhiều. Đây là cái phần cơ cấu, cái tỷ trọng doanh
+thu thì thấy hotting cái tỷ lệ của cloud server đang tăng lên từ thứ hai cho hotting và nó đang
+có số tăng tiếp nó tình đang có xuống ở đây sẽ là cái động lực tăng trưởng chủ yếu thời gian tới và
+vì khi mà họ tên trẻ thì cái phần động lực tăng trưởng mạnh nhất cho tới thì sẽ là cơ sở vợ
+nhờ trên đã trao đổi thì cái phần điện thoại đến năm kỳ mới ta đang dạng rất mạnh nhưng doanh thu
+phần lớn được tăng 7 phần trong phần lớn chủ yếu là từ gia hạn thu từ gia hạn trên phần lớn
+ở phần tạo mới dịch vụ đây là cái phần tạo mới những cái phần đăng ký mới để nói là đăng ký mới
+thì phần lớn là giảm thì có Cloud Server tăng phần lớn các dịch vụ bao gồm cả tên miền cũng
+tạo mới, tên nguyên thì đây bao gồm các tên nguyên quốc tế, các tên nguyên giảm giá, các tên nguyên VN nguyên phí cho nên là tên nguyên nó đạt rất nhiều
+nhưng mà về cơ bản tất cả phần tạo mới của các dịch vụ là đang chẳng, cloud server là tăng mạnh
+Về tên nguyên.vn thì số lượng tổng đăng ký giảm không phải trăm trăm
+Trong đó thì giảm chủ yếu là cái nguyên phí
+Bởi vì năm ngoái mình chạy các chương trình nguyên phí tên nguyên.vn cho các trường học rất nhiều
+Thì năm nay nó xuất giảm khá nhiều
+Các cái tên nguyên có phí vẫn đang tăng trưởng
+Tuy nhiên nó vẫn chưa là mục tiêu như trong các bảng hành đô
+mục tiêu là 3,5% thiết phần
+các đuôi tên miền mở rộng khác của đuôi tên miền quốc tế
+ở đây có các bạn chi tiết về cơ bản thì nó cũng tập trung vào các nhóm
+đuôi tên miền .vn khác thì tập trung vào các nhóm tên miền có phí
+Trong đó, tên miền .vn và .com, .vn theo kinh tức báo cáo thẳng của VNIC,
+thì mình vẫn chủ yếu tập trung vào 2 cái này.
+Trong đó thì có một cái tên miền .io và .vn cũng là điểm sáng tăng trưởng.
+Cái này thì tỷ lệ đăng ký và tỷ lệ quỹ cũng khá là ổn.
+Thì .io và .vn cũng đang có xu hướng khá là tốt.
+về các chỉ tiêu .vn thì so với Vinix, so với chỉ tiêu mà Vinix để ra cho mình trong 3 năm thì sẽ là một riêng năm 2026
+trong 6 tháng đầu năm thì mình chỉ đạt 2 tháng đầu năm thôi, còn các tháng từ tháng 3 đến tháng 6 mình chưa đạt
+và kéo tổng chỉ tiêu chung nó được 95%
+về tiền miền quốc tế thì như đã nói là
+phần liên quan đến các đuôi tiền miền mở rộng
+trong 6 tháng đầu năm mình cũng giảm khá nhiều
+xu hướng năm ngoái mình sẽ đăng ký tất cả các loại đuôi
+và mình mở rộng rất nhiều đuôi
+nhưng năm nay thì ngay từ đầu năm
+mình đã khẳng định là mình sẽ tập trung vào một số đuôi thôi vì các cái đuôi khác tỷ lệ nó không cao
+tỷ lệ chuyển đổi tỷ lệ upsell không cao và nó kéo theo và giữ cái số tiền renew hàng tháng của mình rất là cao
+cho nên là từ đó năm mình đã kế hoạch lại cái phần liên quan đến tên miệng quốc tế đuôi tên miệng quốc tế mở rộng
+và các phần hoàn thành quốc tế, các đuôi mở rộng mình đã giảm bớt số lượng các đuôi đăng ký hệ thống
+thì tỷ lệ đăng ký cũng giảm một ít
+liên quan đến sử dụng hotting thì tỷ lệ hủy chúng ta thấy giảm
+tuy nhiên ở phần đăng ký mới cũng giảm khá là nhiều
+Tổng hóa tin so với năm 2025 tăng, tuy nhiên tỉ lượng hủy tăng rất nhiều
+Doanh thu rụt xuống 9,2% so với năm ngoái, trung bình đăng ký hàng tháng cũng rụt xuống
+Mặc dù tỷ lệ dùng thử rất nhiều nhưng tỷ lệ chuyển đổi dùng thử, hoa tinh, email đều rất thấp, tỷ lệ chuyển đổi chỉ 1%
+Vấn đề liên quan đến dùng thử, mình có thể xem lại chương trình dùng thử
+Đầu năm mình cũng dự kiến đẩy chương trình dùng thử cho dịch vụ hóa tin và email dễ dàng hơn
+và hỗ trợ khách hàng dùng thử dễ dàng hơn
+Tuy nhiên trong thời gian đẩy phần dùng thử thì chúng ta có thể thấy tỉ lệ dùng thử của email và hóa tin đều rất là thấp
+Vấn đề là tại sao số lượng khách hàng mới nhưng có giao dịch giảm rất nhiều
+Vì tự thử của mình rất nhiều, kéo khách hàng mới rất nhiều nhưng tỷ lệ truyền đổi rất thấp
+Đây có thể là một vấn đề, một là liên quan đến đối tượng khách hàng chưa đúng
+Hai là dịch vụ chưa đáp ứng được khách hàng
+Cái dịch vụ ngôi sao, dịch vụ Cloud Server, đây là cái dịch vụ mà đang gọi là ngôi sao và được đốc lực tăng trực chính của 6 tháng vừa qua
+Và có thể trong thời gian dài sắp tới, đây sẽ là dịch vụ tăng trực chính của mình
+Thì tăng khá là mạnh, tăng đến 70%, tỉ lệ tăng khá là nhiều
+Doanh thu cũng tăng đến hơn 50%, 55,3% hoặc là cùng kỳ năm ngoái
+Vì vậy, dịch vụ này mình tiếp tục đẩy mạnh và khi có thêm cái on-data nữa thì sẽ hỗ trợ khách hàng các dịch vụ trên đó, các service ở trên, cloud.
+Khi đấy mình bổ sung thêm các môi trường hay là các công cụ kinh tích, các tool để khách hàng sử dụng theo cách nền độ, trọ độ, click, pull-in, info.
+khách hàng sẽ sử dụng dễ dàng hơn để chuyển đổi khách hàng từ từ từ hóa tinh sang bởi vì số lượng
+khách hàng hóa tinh của mình rất lớn tuy nhiên đang giảm cũng rất là mạnh phần thứ hai là những
+quan hệ khách hàng chúng ta đang thấy là khách hàng mới đang giảm khoảng 4,5% so với cùng kỳ
+năm ngoái và khách hàng có giao dịch thì giảm rất là mạnh giảm đến 16% đây là cái vấn đề lớn
+có thể trong cái sau tháng cuối năm mình tập trung vào cái phần này cái phần chăm sóc khách hàng và
+lợi trưởng độ. Lên quả đến TICX thì số lượng TICX trong thời gian qua tăng khá là nhiều bởi vì
+phần lên quả đến các cái dịch vụ mình chuyển sang TICX thay đổi email, các trang email xong chuyển
+sang TICX, các trang đưa cái phần chat AI ra để hỗ trợ các trang chuyển sang TICX, số lượng TICX
+tăng được cũng khá là nhiều. Thì cái phần này cũng đúng theo cái định hướng chuyển mọi thứ sang TICX
+để đưa sang tác công việc
+thay vì chat quá nhiều
+thì tỷ lệ chat thì
+cái chấm điểm
+chấm điểm chat
+ở đây thì có phần chấm điểm
+mình mới đưa vào phần chấm điểm này
+qua số liệu
+của năm 2026
+thì số năm 2025 mình chưa có để soánh
+nên đưa vào
+phần chat này
+ở trên phần handle cũng đưa ra
+phần chatbot A2
+đưa vào để hỗ trợ khách hàng thì chúng ta có thể thấy là tỷ lệ hỗ trợ từ chatbot là khá là nhiều
+thì số lượng cuộc thoại sử dụng chatbot mới đưa vào cũng là khá là nhiều, đã hỗ trợ được khá là nhiều cho khách hàng
+tiếp theo là phần work follow, chủ yếu liên quan đến phần chuyển đổi khách hàng từ dùng thử
+và chuyển sang đặc đi thật, liên quan chăm sóc khách hàng
+chúng ta có thể thấy là tổng số lượng chăm sóc khách hàng, hỗ trợ dùng thử, chăm sóc khách hàng đang giảm
+số lượng hoàn tất cũng trả
+số lượng đang xử lý rất nhiều
+có thể là một số sales xử lý chưa đóng follow-up
+thì tỷ lệ này tăng lên thật cao
+phần này phải xem lại phần xử lý và quy trình xử lý
+có thể là anh em chưa đóng follow-up
+chưa chốt hoàn tất thì tăng lại lại
+Phần tiếp theo là KPI theo dịch vụ
+So với năm ngoái thì phần lớn cũng đang giảm
+Bởi vì phần Follow này như anh nói ở trên có thể là một số cái chưa xử lý đúng theo quy trình
+Một số cái chưa đóng theo quy trình
+thì lại hoàn tất quy trình follow đoàn giảm
+có thể một số work flow đã xong nhưng chưa đắm flow
+về chương trình Affiliate thì doanh thu từ Affiliate tăng
+và chi phí hoa hồng khó giảm
+Phần giảm này chủ yếu là do mình thay đổi chính sách cho hoa hồng Tây Nguyên từ tháng 6
+Khi thay đổi chính sách cho hoa hồng thì chi phí trả cho adept cũng giảm khá nhiều
+và nó không nhìn chúng ta có thể thấy gần như không ảnh hưởng đến chính sách, số lượng thai đất của chúng ta
+Tiếp theo là bộ sản phẩm One của chúng ta
+Đầu tiên là One Panel
+Chúng ta so sánh với cPanel thì số lượng đăng ký của OnePanel và cPanel
+so với cùng kỳ năm ngoái thì chúng ta thấy OnePanel năm nay tăng 5,7%
+so với cPanel thì nó đang sụn giảm 60%
+tức là số lượng đăng ký các mệnh tảng hosting sử dụng OnePanel đang chiếm phần lớn
+bởi vì mình có một số loại horting sử dụng cpanel mình đã nổ nửa đầu nặng
+đặc biệt là web horting
+thế thì số lượng cpanel mình đang tăng bằng hướng tăng cpanel mình lên
+bộ 1works space gồm 1mail, ansui, dae
+tính khác ra thì con gốc xoay nó không đúng như tách ra từng từng cái phần loại này nó chính xác
+hơn thì ở đây chúng ta cũng xem chi tiết số liệu ở đây thì số lượng mà sử dụng đặc biệt là cái phần
+dung lượng thì đang trống rất là nhiều cái cái cái cái tổng cái số lượng tổng ký cái dung lượng cho
+Thế thống Drive của mình là hơn 8.6T, nên mới sử dụng được 1.1T, số lượng rất là nhiều.
+Tóm tắt thì ở đây đã có phần tóm tắt các y chính dựa trên số điểm chính của tên.
+Một số điểm sáng cơ bản liên quan đến Cloud Server
+Ví dụ Cloud Server bùng mộ và nó kéo được doanh thu
+Còn nếu không có Cloud Server thì khả năng doanh thu của mình sẽ bị âm hoặc ám ngoài
+Cho thấy xu hướng chuyển đổi sang Cloud Server là xu hướng không thể thay đổi được
+Và trong biểu đồ về cơ cấu doanh thu chúng ta thấy là Cloud Server đang tăng lên
+đứng sau hotting và nó đang chiếm 22,9% và bây giờ đã vượt qua cái tỷ lệ thị phần, tỷ lệ cơ cấu doanh thu của email rồi
+cái thứ 2 là doanh thu tổng tăng được 7% so với công ty năm ngoái
+Một số cái khác thì tên mình phí giảm đi, dịch vụ hóa tin email cũng tăng số lượng active.
+Tuy nhiên thì cái phần điểm cần xem xét cũng khá là nhiều.
+Thứ nhất là cái vấn đề tận tận nhất mà mình cần giải quyết là khách hàng mới có thác dịch.
+Khách hàng mới thì nó chỉ giảm 4% thôi, nhưng khách hàng mới có thác dịch thì giảm 16%.
+Đây là vấn đề về phếu chuyển đổi của mình
+Một là cách hành của mình chưa chính xác
+Hai là dịch vụ mình chưa đáp ứng được khách hàng mà mình hướng tới
+Thứ ba là nhân hướng sai tập khách hàng cho dịch vụ mới
+Vấn đề thứ hai là vấn đề về dịch vụ hosting
+Dịch vụ hosting mình cũng xác định ngay từ đầu năm là dịch vụ này sẽ rẻ
+Do sự chuyển dịch sang các dịch vụ cloud
+và nó cũng đang giảm rất là mạnh
+Tất nhiên là một số cái dịch vụ thì mình có định hướng giảm webhotting
+nó chiếm qua những cái gói dung lượng quá lớn
+hay là nó ảnh hưởng đến cái FOA của mình
+chúng ta chủ động cắt bớt các cái dịch vụ mà nó có thể được
+thì nó kéo theo cũng giảm khá nhiều cho hotting
+Thế còn các dịch vụ khác thì là những cloud VPS hay là các dịch vụ email server liên kết
+có xu hướng giảm phần cloud khá là mạnh
+Một vấn đề thứ hai là vấn đề truyền đổi từ dùng thử
+Ở trên có phần số liệu về truyền đổi của hosting
+Trước đây có số liệu về truyền đổi của email
+Cả hai phần truyền đổi của các dịch vụ này từ dùng thử
+chỉ chiếm chưa đến 1% tức là tỉ lệ truyền đổi rất là thấp
+Có thể là quy trình của mình chăm sóc từ dùng thử sang dùng thật
+hoặc là các kỷ dụ của mình chưa đáp ứng được
+cái khách hàng đang dùng thử
+hoặc là khách hàng chỉ thấy dùng thử thì dùng thử
+nhưng chưa có nhu cầu thật
+Đây là một số khuyến nghị
+anh Đô đưa ra phần liên quan kế hoạch
+không trao đổi lại nữa
+trên này là toàn bộ phần liên quan báo cáo
+và phần kế hoạch cụ thể của bộ phận bán hàng
+và marketing và kinh doanh
+anh Đô sẽ trao đổi tổng thể hơn
+em mở lên đây luôn anh quên nhá là anh em tắt xe anh mở
+à à à à à à à à à à à à à à à à à à à à à à à à à à à à à à à à à à à à à à à à à à à à à à à à à à à
+Các bạn có thể nhận thêm bài hát của mình trong phần bài hát này.
+kinh doanh ở Hồ Chí Minh và chính kinh doanh ở Hà Nội
+chỉ trong đó, cái vai trò của các bạn là có 3 chức sách khách hàng và 17 sales
+thì tính tới thời điểm từ đầu năm tới hiện tại thì có tổng cộng là những tác viên nhân sự, kinh doanh, nghỉ việc
+do cái việc mà mình cũng có thay đổi của những người coi ưu một số cái công việc về các bạn
+nên là các bạn không mất kiệp hoặc là theo một cái lộ trình của công ty nên các bạn chọn một cái rạng, một cái nhánh khác
+trong đó tổng cộng là 4 nhân sự Hà Nội và 1 nhân sự Trung Quốc Hồ Chí Minh
+kế hoạch từ nay đến cuối năm thì em cũng chứng kiến là sẽ không tuyệt mở nhân viên chính thức
+và cái vấn đề về tiền phòng cáo viên thì em cũng sẽ cho nhắc lại về chỗ này
+tiếp theo nữa là cái vấn đề mình đang làm và cũng đang làm tốt rồi
+nhưng mà em vẫn muốn phối hợp thêm những cái vấn đề về những cái tự động hóa
+như là tên bán hàng thì hiện tại cái việc mà các bạn giám sát khách hàng
+cũng như các bạn trực ngoài giờ cũng đang bị quá tải trong cái biên mạng sự tin chắc và ticket
+Trong vấn đề xử lý chatbot thì của mình cũng vừa ra mắt thì nó vẫn còn nhiều cái sai sót
+và còn nhiều cái tấu hưu nó chưa được hoàn thiện thì cũng có cho đổi cái undo
+cũng như là cái bộ phận xử lý cái chatbot này thì nó sẽ xây dựng cho các bạn sell
+cũng như là các bạn kỹ thuật nó có thể là tự chế biến được cái con
+Còn cái con chatbot AI này, nhiều khi các bạn dùng cái chatbot AI thì các bạn sẽ không nắm được nhiều cái thực bản
+cũng như là cái hướng xử lý làm như thế nào để cho nó tốt cho khách hàng và nó đơn giản lắm
+thì sẽ xây dựng một cái công cụ này để cho các bạn SEO cũng như là các bạn kỹ thuật có thể chên in
+thì nó giảm chữ được
+Ở đây thì có một số cái loại mà cần thiết, ví dụ như là những dịch vụ của mình đã tạo được rồi
+Ví dụ mình gọi là hot từ tình huống web
+hoặc hot từ Windows
+hoặc là tạm biệt là

@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Biên bản cuộc họp CXO – Sơ kết 6 tháng đầu năm 2026</title>
+<style>
+  :root{
+    --navy:#1f3864; --navy2:#2a4a7f; --blue:#2e75b6; --blue-soft:#eaf1fa;
+    --ink:#1f2733; --muted:#6b7686; --line:#e3e8ef; --bg:#eef1f6;
+    --green:#1a7f4b; --green-bg:#e7f6ee; --red:#c0392b; --red-bg:#fdecea;
+    --amber:#b9770e; --amber-bg:#fdf3e2;
+    --radius:16px; --shadow:0 10px 34px rgba(31,56,100,.10);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:"Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,"Noto Sans",sans-serif;
+    line-height:1.68; font-size:16px;
+  }
+  .page{max-width:920px; margin:32px auto; background:#fff; border-radius:var(--radius);
+    box-shadow:var(--shadow); overflow:hidden;}
+
+  /* Cover */
+  .cover{background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 55%,var(--blue) 130%);
+    color:#fff; padding:46px 54px 40px; position:relative;}
+  .cover::after{content:""; position:absolute; inset:0; opacity:.08;
+    background:radial-gradient(circle at 82% 18%,#fff 0 2px,transparent 3px) 0 0/26px 26px;}
+  .brand{display:flex; align-items:center; gap:12px; font-weight:700; letter-spacing:.5px;
+    text-transform:uppercase; font-size:14px; opacity:.92; position:relative; z-index:1}
+  .brand .dot{width:11px;height:11px;border-radius:50%;background:#7fb3e8;box-shadow:0 0 0 4px rgba(127,179,232,.28)}
+  .cover h1{margin:20px 0 6px; font-size:33px; line-height:1.18; font-weight:800; position:relative; z-index:1}
+  .cover .sub{font-size:16px; opacity:.9; font-style:italic; position:relative; z-index:1}
+  .cover .rule{height:3px;width:74px;background:#7fb3e8;border-radius:3px;margin:18px 0 0;position:relative;z-index:1}
+
+  /* Meta */
+  .meta{padding:26px 54px 6px}
+  .meta-grid{display:grid; grid-template-columns:170px 1fr; gap:0; border:1px solid var(--line);
+    border-radius:12px; overflow:hidden}
+  .meta-grid .k,.meta-grid .v{padding:12px 16px; border-bottom:1px solid var(--line)}
+  .meta-grid .k{background:#f6f8fb; font-weight:700; color:var(--navy)}
+  .meta-grid .row:last-child .k,.meta-grid .row:last-child .v{border-bottom:none}
+  .meta-grid .row{display:contents}
+  .note{margin:16px 0 0; font-size:13.5px; color:var(--muted); font-style:italic;
+    background:var(--blue-soft); border-left:3px solid var(--blue); padding:11px 15px; border-radius:0 8px 8px 0}
+
+  /* Body */
+  .content{padding:14px 54px 48px}
+  h2.sec{display:flex; align-items:center; gap:14px; margin:38px 0 14px; font-size:20px; color:var(--navy);
+    padding-bottom:10px; border-bottom:2px solid var(--blue-soft); scroll-margin-top:20px}
+  h2.sec .num{flex:none; display:grid; place-items:center; width:34px; height:34px; border-radius:9px;
+    background:var(--navy); color:#fff; font-size:14px; font-weight:800; letter-spacing:.3px}
+  h3.sub{font-size:16px; color:var(--blue); margin:22px 0 8px; font-weight:700}
+  p{margin:10px 0}
+  ul{margin:10px 0; padding-left:4px; list-style:none}
+  ul li{position:relative; padding:4px 0 4px 24px}
+  ul li::before{content:""; position:absolute; left:6px; top:14px; width:7px; height:7px;
+    border-radius:50%; background:var(--blue)}
+  ul ul li::before{background:transparent; border:1.5px solid var(--blue); top:13px}
+  ul.check li{padding-left:30px}
+  ul.check li::before{content:"✓"; left:2px; top:3px; width:auto; height:auto; background:transparent;
+    color:var(--green); font-weight:900; font-size:15px}
+  ol.deci{margin:10px 0; padding-left:22px}
+  ol.deci li{padding:4px 0 4px 6px}
+  b,strong{color:#132a52}
+
+  /* Metric table */
+  table.metrics{width:100%; border-collapse:collapse; margin:14px 0; font-size:15px;
+    border:1px solid var(--line); border-radius:12px; overflow:hidden}
+  table.metrics th{background:var(--navy); color:#fff; text-align:left; padding:12px 16px; font-weight:700}
+  table.metrics th:last-child{text-align:center}
+  table.metrics td{padding:11px 16px; border-top:1px solid var(--line)}
+  table.metrics td:last-child{text-align:center; white-space:nowrap; font-weight:600}
+  table.metrics tr:nth-child(even) td{background:#f8fafc}
+  .pill{display:inline-block; padding:3px 12px; border-radius:999px; font-size:13.5px; font-weight:700}
+  .up{background:var(--green-bg); color:var(--green)}
+  .down{background:var(--red-bg); color:var(--red)}
+  .flat{background:#eef1f6; color:var(--muted)}
+  .hi td{background:var(--red-bg)!important}
+
+  .caption{font-size:13.5px; color:var(--muted); font-style:italic; margin:6px 2px 0}
+
+  /* Callouts */
+  .callout{border-radius:12px; padding:14px 18px; margin:14px 0; border:1px solid transparent}
+  .callout .t{font-weight:800; margin-bottom:3px; display:flex; align-items:center; gap:8px}
+  .callout.good{background:var(--green-bg); border-color:#bfe6ce}
+  .callout.good .t{color:var(--green)}
+  .callout.warn{background:var(--red-bg); border-color:#f3c7c1}
+  .callout.warn .t{color:var(--red)}
+  .callout.info{background:var(--blue-soft); border-color:#cfe0f4}
+  .callout.info .t{color:var(--blue)}
+
+  /* Speaker */
+  .spk{background:#f6f8fb; border:1px solid var(--line); border-left:4px solid var(--blue);
+    border-radius:0 10px 10px 0; padding:10px 16px; margin:9px 0}
+  .spk .who{font-weight:800; color:var(--navy)}
+
+  /* Signatures */
+  .signs{display:grid; grid-template-columns:1fr 1fr; gap:20px; margin:40px 0 6px; text-align:center}
+  .signs .b{font-weight:800; color:var(--navy); letter-spacing:.4px}
+  .signs .s{font-size:13px; color:var(--muted); font-style:italic; margin-top:4px}
+  .endnote{margin-top:26px; font-style:italic; color:var(--muted)}
+
+  footer.pf{padding:20px 54px 30px; color:var(--muted); font-size:12.5px; text-align:center;
+    border-top:1px solid var(--line)}
+
+  @media(max-width:640px){
+    .cover{padding:32px 24px} .meta,.content{padding-left:24px;padding-right:24px}
+    footer.pf{padding-left:24px;padding-right:24px}
+    .cover h1{font-size:26px} .meta-grid{grid-template-columns:120px 1fr}
+    .signs{grid-template-columns:1fr}
+  }
+  @media print{
+    body{background:#fff} .page{box-shadow:none;margin:0;max-width:none;border-radius:0}
+    h2.sec{break-after:avoid} .callout,.spk,table.metrics{break-inside:avoid}
+    .cover{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="cover">
+    <h1>BIÊN BẢN CUỘC HỌP CXO</h1>
+    <div class="sub">Sơ kết hoạt động 6 tháng đầu năm 2026 và định hướng 6 tháng cuối năm</div>
+    <div class="rule"></div>
+  </header>
+
+  <section class="meta">
+    <div class="meta-grid">
+      <div class="row"><div class="k">Thời gian</div><div class="v">Ngày 07/07/2026</div></div>
+      <div class="row"><div class="k">Hình thức</div><div class="v">Họp trực tuyến qua Google Meet; kết nối điểm cầu Hà Nội và Hồ Chí Minh</div></div>
+      <div class="row"><div class="k">Chủ trì</div><div class="v">Giám đốc điều hành (ông Đô)</div></div>
+      <div class="row"><div class="k">Nội dung chính</div><div class="v">Sơ kết kết quả kinh doanh – dịch vụ 6 tháng đầu năm 2026; định hướng và chỉ tiêu 6 tháng cuối năm</div></div>
+    </div>
+    <p class="note">Ghi chú: Biên bản được tổng hợp trung thực từ file ghi âm và bản gỡ băng cuộc họp. Chức danh của người tham dự được ghi nhận theo nội dung trao đổi.</p>
+  </section>
+
+  <main class="content">
+
+    <h2 class="sec"><span class="num">I</span> Mục tiêu và định hướng tổng quan 6 tháng cuối năm</h2>
+    <p>Giám đốc điều hành (ông Đô) trình bày định hướng trọng tâm từ nay đến cuối năm 2026. Một số nội dung đã triển khai từ cuối năm trước cho tín hiệu khá tích cực, đặc biệt liên quan đến hàng mua mới và hàng nâng cấp; từ giờ đến cuối năm sẽ đẩy mạnh. Thị phần tên miền gần như không sụt giảm; dịch vụ Cloud là điểm sáng, tăng trưởng tốt và cần tiếp tục đẩy mạnh.</p>
+    <p>Các trọng tâm được xác định:</p>
+    <ol class="deci">
+      <li><b>Kích hoạt và chuyển đổi khách hàng (vận hành thật):</b> kích hoạt khách hàng mua, chăm khách chưa mua và giảm tỷ lệ khách rời bỏ (churn/risk); thực hiện trực tiếp trên hệ thống.</li>
+      <li><b>Review và làm sạch dữ liệu khách hàng:</b> xử lý khách hàng lạm dụng, lừa đảo, vi phạm bản quyền – thương hiệu; phù hợp chính sách chung (ICANN); dự kiến hoàn tất review trong tháng. Chấp nhận mất khách hàng không chân chính.</li>
+      <li><b>Thiết lập nền tảng công nghệ:</b> hoàn thiện nền tảng Developer (D-Loper, ra mắt tháng 4–5) cung cấp API và nền tảng cho doanh nghiệp và cá nhân; đưa các sản phẩm OneDart, OneMail, OneShield… lên nền tảng này; công cụ VMI (landing page) cho khách hàng.</li>
+      <li><b>Phát triển OneShield:</b> tốc độ, an toàn, hỗ trợ – công cụ quan trọng để giữ chân khách hàng tên miền trước cạnh tranh của các nhà cung cấp lớn (Cloudflare). Tăng Cloud, tăng tiện ích, hỗ trợ click-to-restore.</li>
+      <li><b>Nội lực và đo lường:</b> mở 3P toàn công ty kèm roadmap từng nhân sự; đo lường chỉ số chính xác cho người thực sự làm việc; khen thưởng tương xứng theo kết quả.</li>
+      <li><b>Số hóa và văn hóa – sức khỏe:</b> hoàn tất số hóa tài liệu; đẩy mạnh chương trình văn hóa, hoạt động thể thao, công đoàn để tăng cường sức khỏe thể chất và tinh thần cho nhân sự.</li>
+      <li><b>Hạ tầng và an toàn bảo mật:</b> nâng SLA, giám sát (monitor, log), chống spam mail, đo lường toàn bộ hệ thống; dùng AI scan toàn bộ project – sự cố bảo mật gần như không còn (một số sự cố lỗi trong giai đoạn đầu năm đã được xử lý).</li>
+      <li><b>Ra quyết định dựa trên số liệu:</b> mọi bộ phận đều dùng AI để lấy và phân tích số liệu; các dự án như One Dash, One Mail đều đưa vào báo cáo để đánh giá mức độ sử dụng của khách hàng và làm căn cứ quyết định.</li>
+    </ol>
+    <p>Chatbot AI được xác định là công cụ trọng tâm để giảm tải hỗ trợ; hiện mới đạt khoảng 50% kế hoạch, số hóa tài liệu đạt khoảng 50%. Định hướng tối ưu tối đa vào chatbot để tiết kiệm công sức hỗ trợ.</p>
+
+    <h2 class="sec"><span class="num">II</span> Báo cáo kết quả kinh doanh – dịch vụ 6 tháng đầu năm 2026</h2>
+    <p>Bộ phận Marketing trình bày báo cáo tình hình kinh doanh – dịch vụ – khách hàng 6 tháng đầu năm 2026, so sánh với cùng kỳ năm 2025.</p>
+
+    <h3 class="sub">1. Chỉ số tổng quan</h3>
+    <table class="metrics">
+      <thead><tr><th>Chỉ số</th><th>Biến động so với cùng kỳ 2025</th></tr></thead>
+      <tbody>
+        <tr><td>Tổng doanh thu</td><td><span class="pill up">Tăng 7%</span></td></tr>
+        <tr><td>Khách hàng tạo mới</td><td><span class="pill down">Giảm ~4–4,5%</span></td></tr>
+        <tr class="hi"><td><b>Khách hàng mới có giao dịch</b></td><td><span class="pill down">Giảm 16,1%</span></td></tr>
+        <tr><td>Dịch vụ tạo mới</td><td><span class="pill flat">Giảm</span></td></tr>
+        <tr><td>Kết quả tháng 6</td><td><span class="pill up">Đạt 98,1%</span></td></tr>
+      </tbody>
+    </table>
+    <p class="caption">Doanh thu tăng chủ yếu đến từ gia hạn; phần tạo mới của phần lớn dịch vụ đang giảm. Vấn đề nổi bật nhất là khách hàng mới có giao dịch giảm mạnh (16,1%) trong khi khách hàng mới chỉ giảm ~4% – cho thấy phễu chuyển đổi đang có vấn đề.</p>
+
+    <h3 class="sub">2. Doanh thu theo dịch vụ và cơ cấu</h3>
+    <ul>
+      <li><b>Hosting:</b> chiếm hơn 40% doanh thu nhưng doanh thu giảm 9,2%; tỷ lệ hủy tăng, đăng ký mới giảm; kéo lùi mức tăng của các mảng khác. Số lượng active hosting giảm (từ gần 9.000 xuống khoảng 7.500).</li>
+      <li>Định hướng không bỏ hosting mà tiếp tục tối ưu; một phần hosting giảm là do chủ động cắt các gói web hosting dung lượng lớn ảnh hưởng SLA.</li>
+      <li><b>Cloud Server (dịch vụ "ngôi sao"):</b> số lượng tăng ~70%, doanh thu tăng 55,3%; cơ cấu doanh thu đạt 22,9% – đã vượt tỷ trọng của email và đứng sau hosting. Là động lực tăng trưởng chính; nếu không có Cloud Server, doanh thu tổng có khả năng tăng trưởng âm.</li>
+      <li><b>Rủi ro chuyển đổi:</b> khách hàng non-tech/low-tech khó dùng Cloud Server (chủ yếu khách biết kỹ thuật/biết code sử dụng) → cần bổ sung dịch vụ Web AI, landing page, "click-to-use/click-to-store" cho nhóm này.</li>
+      <li>VPS chuyển dịch sang Cloud Server theo đúng định hướng; server dedicated và cho thuê chỗ đặt máy chủ (colocation) giảm – một phần do tăng giá và mất khách hàng Trung Quốc năm trước.</li>
+      <li><b>Email:</b> số lượng active tăng so với 2025 nhưng tỷ lệ hủy cũng tăng mạnh; trung bình đăng ký hàng tháng giảm.</li>
+      <li>Tỷ lệ chuyển đổi từ dùng thử của hosting và email đều rất thấp – <b>chưa đến 1%</b>, dù lượng dùng thử được kéo về rất nhiều. Nguyên nhân có thể do sai đối tượng khách hàng hoặc dịch vụ chưa đáp ứng nhu cầu.</li>
+      <li>Chi tiết tỷ lệ chuyển đổi dùng thử: hosting ~0,1%, email ~0,8%.</li>
+    </ul>
+
+    <h3 class="sub">3. Tên miền</h3>
+    <ul>
+      <li><b>Tên miền .vn:</b> tổng đăng ký giảm, chủ yếu do giảm nhóm miễn phí (năm trước chạy nhiều chương trình miễn phí cho trường học); nhóm có phí vẫn tăng trưởng nhưng chưa đạt mục tiêu 13,5% thị phần.</li>
+      <li>Tổng đăng ký .vn giảm khoảng 0,8%; thị phần tên miền có phí hiện đạt khoảng 13,1% (mục tiêu 13,5%).</li>
+      <li>Tỷ lệ gia hạn .vn giảm do siết chính sách với khách hàng lạm dụng (nhóm khách xấu chuyển sang nhà đăng ký khác như Nhân Hòa, Tenten); chấp nhận ảnh hưởng và bù bằng đăng ký mới.</li>
+      <li>So với chỉ tiêu VNNIC: chỉ đạt trong 2 tháng đầu năm, các tháng 3–6 chưa đạt; tổng chỉ tiêu chung đạt khoảng 95%.</li>
+      <li><b>.io.vn</b> là 1 điểm sáng mới, tỷ lệ đăng ký và tỷ lệ duy trì (renew) khá ổn.</li>
+      <li><b>Tên miền quốc tế mở rộng:</b> giảm do chủ động thu hẹp số lượng đuôi đăng ký (các đuôi khác có tỷ lệ chuyển đổi/upsell thấp và chi phí duy trì cao). Tập trung vào các đuôi chính (.com, .net, .store…).</li>
+    </ul>
+
+    <h3 class="sub">4. Chăm sóc khách hàng, Ticket và Workflow</h3>
+    <ul>
+      <li>Số lượng ticket tăng khá nhiều do chuyển các kênh (email, chat AI) sang ticket – đúng định hướng chuyển sang giao task công việc thay vì email, chat quá nhiều.</li>
+      <li><b>Workflow chuyển đổi từ dùng thử sang dùng thật:</b> tổng số lượng chăm sóc/hỗ trợ đang giảm; số đang xử lý còn nhiều, có thể do một số sale chưa đóng follow-up đúng quy trình. Cần rà soát lại quy trình xử lý.</li>
+    </ul>
+
+    <h3 class="sub">5. Affiliate và bộ sản phẩm One</h3>
+    <ul>
+      <li><b>Affiliate:</b> doanh thu tăng, chi phí hoa hồng giảm (do thay đổi chính sách hoa hồng tên miền từ tháng 6); thay đổi chính sách gần như không ảnh hưởng đến doanh thu affiliate.</li>
+      <li><b>OnePanel so với cPanel:</b> OnePanel tăng <b>5,7%</b>, cPanel giảm <b>60%</b> – phần lớn hosting mới dùng OnePanel; định hướng tiếp tục tăng OnePanel.</li>
+      <li><b>One Workspace (OneMail, Drive):</b> dung lượng còn trống rất nhiều – tổng dung lượng hệ thống Drive hơn 86TB nhưng mới sử dụng khoảng 1,1TB.</li>
+    </ul>
+
+    <h3 class="sub">6. Tóm tắt điểm sáng và điểm cần xem xét</h3>
+    <div class="callout good">
+      <div class="t">▲ Điểm sáng</div>
+      Cloud Server bứt phá, kéo doanh thu; tổng doanh thu tăng 7%; email tăng số lượng active; xu hướng chuyển đổi sang Cloud Server là tất yếu.
+    </div>
+    <div class="callout warn">
+      <div class="t">▼ Điểm cần xem xét</div>
+      (1) Khách hàng mới có giao dịch giảm 16% – vấn đề phễu chuyển đổi (sai cách/hành vi, dịch vụ chưa đáp ứng, hoặc hướng sai tập khách hàng cho dịch vụ mới); (2) Hosting giảm mạnh; (3) Tỷ lệ chuyển đổi từ dùng thử của hosting và email dưới 1%.
+    </div>
+
+    <h2 class="sec"><span class="num">III</span> Báo cáo và đề xuất bộ phận Kinh doanh – Chăm sóc khách hàng</h2>
+    <p>Ông Quân trình bày các nội dung về nhân sự, mô hình trực, tự động hóa hỗ trợ, đào tạo, sản phẩm – công cụ và quảng cáo.</p>
+
+    <h3 class="sub">1. Nhân sự và mô hình trực</h3>
+    <ul>
+      <li>Hiện trạng nhân sự kinh doanh: 3 chăm sóc khách hàng và 17 sales; từ đầu năm đến nay có 5 nhân sự nghỉ việc (4 Hà Nội, 1 Hồ Chí Minh) do thay đổi công việc/lộ trình. Kế hoạch từ nay đến cuối năm không tuyển mới nhân viên chính thức.</li>
+      <li>Cơ cấu nhân sự kinh doanh khoảng 20 người (≈11 Hồ Chí Minh, ≈9 Hà Nội); cân nhắc lại việc tuyển cộng tác viên.</li>
+      <li><b>Đề xuất mô hình trực:</b> giảm từ 2 kinh doanh + 1 kỹ thuật xuống còn 1 kinh doanh + 1 kỹ thuật; sáng thứ 7 vẫn duy trì 2 nhân sự; ticket giữ lại cho các bộ phận kinh doanh để giảm tải. Dự kiến triển khai từ 15/7.</li>
+      <li>Đề xuất về chế độ: phụ cấp trực hiện 180.000đ/người/buổi – đề nghị tăng khi mô hình còn 1 người trực; điều chỉnh giờ vào làm (đề xuất 9h30 tại thời điểm giờ cao điểm) để nhân sự thoải mái, hiệu quả hơn.</li>
+    </ul>
+
+    <h3 class="sub">2. Tự động hóa hỗ trợ (Chatbot AI, Ticket)</h3>
+    <ul>
+      <li>Chatbot AI mới ra mắt còn nhiều sai sót: đôi khi tự gia hạn dịch vụ đại lý (đã chặn), trả lời sai số tổng đài, chưa nắm hết nghiệp vụ. Cần công cụ để đội sale và kỹ thuật can thiệp (correct/undo).</li>
+      <li>Ticket chưa xử lý tự động hoàn toàn, đa phần mới hướng dẫn khách tự thao tác; cần tối ưu tự động, tự lọc phản hồi trùng lặp, tự trả lời trong các đợt sự cố (thông báo thời gian dự kiến hoàn thành để khách yên tâm và giảm tải cho nhân sự trực ngoài giờ).</li>
+      <li>Xây công cụ để sale/kỹ thuật tự training chatbot; hướng tự động trả lời ticket theo kịch bản (tham khảo mô hình thông báo sự cố tự động của điện lực).</li>
+      <li><b>Đề xuất phân luồng:</b> ticket giao cho bộ phận kỹ thuật xử lý để giảm tải cho kinh doanh; sale tập trung tổng đài, chat iNET và xử lý đơn hàng.</li>
+    </ul>
+
+    <h3 class="sub">3. Đào tạo và kết nối</h3>
+    <ul>
+      <li>Đã chốt linh vật iNET và bộ nhận diện thương hiệu One (đã có logo từng thương hiệu).</li>
+      <li>Kết nối, đào tạo AI cho sinh viên tại các trường (FPT Cần Thơ; FPT Hồ Chí Minh đã kết nối ~80–90%, có đại lý mới; FPT Hà Nội đang ở mức cơ bản); tham gia sự kiện chuyển đổi số địa phương (Đà Nẵng, Hồ Chí Minh); tài trợ cuộc thi tại HUTECH (10 triệu) và thu lại đăng ký dịch vụ trị giá hơn 20 triệu.</li>
+      <li>Đưa nhân sự (Loan, Ngọc) đi đào tạo tại các trường (mới ở mức workshop/talkshow, chưa vào sâu chương trình bộ môn). So sánh kênh đào tạo Unica và Tel4VN để tối ưu chương trình dùng thử.</li>
+      <li><b>Truyền thông/sự kiện:</b> tham dự sự kiện VNNIC (Đà Nẵng làm bài bản hơn Hồ Chí Minh); bài trình bày về OneShield được đánh giá tốt; đã lên báo (các báo do bộ quản lý), mục tiêu tiếp cận báo lớn (VnExpress, Báo Mới).</li>
+      <li>SPT vừa ký hợp tác chuyển đổi số cho quỹ/ban của TP.HCM; tiếp cận cơ quan nhà nước gắn với sản phẩm (OneShield); triển khai từ tháng 7 đến cuối năm.</li>
+    </ul>
+
+    <h3 class="sub">4. Sản phẩm và công cụ</h3>
+    <ul>
+      <li>Đưa các công cụ Whois AI, làm mới giao diện, bổ sung công cụ học tập; ghi nhận sáng kiến và hiệu quả cải tiến của nhân sự làm căn cứ đánh giá.</li>
+      <li><b>cross-sale/up-sale:</b> đã hoàn thiện, gợi ý sản phẩm khuyến mại và ưu tiên trong giỏ hàng theo mô hình cửa hàng tiện lợi; dự kiến triển khai.</li>
+      <li><b>Phát triển đại lý:</b> xây quy trình tặng/xét đại lý, xử lý đại lý ảo; chuyển việc chủ động cập nhật đại lý cho sale (thay vì kế toán/nghiệp vụ); xây tool cào dữ liệu đại lý tiềm năng theo nhóm (quét theo nhóm A/B/C), chia đều cho các sale kèm cơ chế hoa hồng khuyến khích.</li>
+      <li><b>Điều kiện đại lý:</b> sale chủ động tạo, bộ phận nghiệp vụ kiểm duyệt; bắt buộc phải có hợp đồng và đã nạp tiền mới được tạo (siết đại lý ảo); có thể lập môi trường sandbox cho khách trải nghiệm.</li>
+      <li><b>Đề xuất bổ sung dịch vụ GPU:</b> đã có 10–20 khách hàng có nhu cầu (một khách đã chuyển sang VinaHost, giá trị ~18 triệu).</li>
+      <li><b>Kênh đào tạo Tel4VN:</b> rút thời gian dùng thử từ 3 tháng xuống 1 tháng (theo mô hình giảng viên của Dân) để thúc đẩy chuyển đổi.</li>
+      <li><b>BO (backorder):</b> hệ thống hay lỗi, xác suất thành công thấp, khiếu nại nhiều → cân nhắc dừng đẩy mạnh.</li>
+    </ul>
+
+    <h3 class="sub">5. Khuyến mại, quảng cáo và bảo hành</h3>
+    <ul>
+      <li><b>Khuyến mại:</b> cần điều tiết lại; ghi nhận đối thủ (PA…) cũng đã giảm giá sâu, thị trường tên miền cạnh tranh mạnh về giá.</li>
+      <li><b>Quảng cáo:</b> tập trung nguồn lực; quảng cáo giao về 1 người Hậu phụ trách; Ngọc và Phương khai thác khách hàng mới trên các kênh, ghi nhận điểm chạm đầu – cuối; nghiên cứu triển khai bot Zalo (95–98% khách hàng dùng Zalo).</li>
+      <li><b>Xử lý sự cố:</b> rà soát tỷ lệ thành công và tỷ lệ gia hạn giảm ở một số mảng; nhìn nhận ảnh hưởng khi làm sạch/loại bỏ khách hàng không tốt.</li>
+    </ul>
+
+    <h2 class="sec"><span class="num">IV</span> Ý kiến phản biện và đề xuất từ Kỹ thuật – Công nghệ</h2>
+    <p>Ông Kiên nêu ý kiến phản biện được đánh giá là trọng tâm của cuộc họp: cần nhìn sâu xuống bản chất số liệu thay vì dừng ở bề mặt. Báo cáo hiện mới tập trung số liệu nội bộ và mặt phát triển, còn thiếu nhiều góc nhìn:</p>
+    <ul>
+      <li>Biến động thị trường và cạnh tranh của đối thủ (nội dung này thuộc Marketing phụ trách).</li>
+      <li>Nguyên nhân thực chất khiến hosting sụt giảm: chưa có số liệu chứng minh khách hàng chuyển sang Cloud Server, sang OnePanel (giá rẻ hơn cPanel nên kéo doanh thu), sang nhà cung cấp khác hay không.</li>
+      <li>Dự báo nguy cơ: thị trường Cloud Server đang bão hòa với nhiều nhà cung cấp nhỏ; báo cáo chưa có dự báo về mối đe dọa từ đối thủ trực tiếp.</li>
+      <li>Thiếu chi tiết theo từng loại dịch vụ hosting giống như từng đuôi tên miền, lý do khách hủy (cancel), nguồn ticket (bao nhiêu chuyển từ chat sang) và phân loại vấn đề ticket để xác định trách nhiệm tối ưu.</li>
+    </ul>
+    <div class="callout info">
+      <div class="t">Đề xuất giải pháp</div>
+      Đào sâu dữ liệu để hiểu bản chất; phân loại khách hàng dựa trên IP/bản ghi/WHOIS để xác định khách rời đi sang dịch vụ nào (của iNET hay nhà cung cấp khác). Gắn với dự án CRM của ông Trí – cào và tổng hợp dữ liệu khách hàng để phục vụ cross-sale/up-sale.
+    </div>
+    <p><b>Chốt:</b> Xây hệ thống thống kê khách hàng chuyển đổi từ nhóm nào; người làm sản phẩm tham gia sâu vào việc lấy dữ liệu và cung cấp ngược lại cho Marketing; ông Trí chia sẻ dự án CRM ra các bộ phận để tiếp thu góp ý và cập nhật (ông Đô giao deadline và cung cấp dữ liệu đầu vào cho ông Trí).</p>
+
+    <h2 class="sec"><span class="num">V</span> Chỉ đạo định hướng của Chủ tọa</h2>
+    <ul>
+      <li><b>Hệ thống công ty là một "cỗ máy thông minh" tích hợp AI:</b> mỗi nhân sự là chủ và người chịu trách nhiệm của từng mắt xích; quyền và trách nhiệm phải thay đổi theo. Người lao động cần bổ sung kỹ năng, kiến thức pháp lý/chuyên ngành, hiểu số liệu khách hàng – không thể chỉ thuần chuyên môn kỹ thuật.</li>
+      <li><b>Số hóa hoàn toàn, AI là công cụ chính thức:</b> cấp license/tài khoản công ty, yêu cầu sử dụng AI như trước đây dùng Excel, Word; không còn ở giai đoạn dùng thử. Chi phí AI rẻ hơn nhiều so với chi phí nhân sự.</li>
+      <li><b>Đổi tư duy nhân sự:</b> mỗi người phải nắm pháp lý, số liệu, nghiệp vụ của mảng mình để trở thành người chịu trách nhiệm; hướng tới dành khoảng 20% thời gian cho nghiên cứu phát triển.</li>
+      <li><b>Giao chỉ tiêu định lượng, cụ thể:</b> thay vì giao định tính, giao chỉ tiêu cụ thể xuống từng bộ phận và cá nhân, đặc biệt với các chỉ số đang suy giảm; đánh giá và khen thưởng dựa trên kết quả ("có kết quả, có số liệu").</li>
+      <li><b>Lộ trình KPI:</b> dự kiến áp chỉ tiêu định lượng cho các bộ phận từ cuối tháng 7/đầu tháng 8; định hướng tiến tới cơ chế khoán trong năm sau.</li>
+      <li><b>Kết hợp tư duy dài hạn và ngắn hạn:</b> không ép chín ngay nhưng phải có lộ trình và kết quả cụ thể; mạnh dạn thử nghiệm nhanh, chấp nhận sai để điều chỉnh (ví dụ đã thử với chính sách Affiliate).</li>
+      <li><b>Tử tế, tuân thủ pháp luật và trách nhiệm xã hội:</b> bổ sung khái niệm bảo đảm sản phẩm/dịch vụ cung cấp ra không gây hại cho xã hội; chủ động phát hiện và xử lý các trường hợp lạm dụng, vi phạm pháp luật, vi phạm bản quyền, kể cả khi phải bỏ chi phí. Nhấn mạnh rủi ro pháp lý ngày càng cao.</li>
+    </ul>
+
+    <h2 class="sec"><span class="num">VI</span> Quyết định về chế độ trực (Sale và Kỹ thuật)</h2>
+    <p>Xuất phát từ đề xuất của sale (khối lượng trực gây quá tải), Chủ tọa trao đổi và thống nhất hướng xử lý:</p>
+    <ol class="deci">
+      <li>Làm công tác tư tưởng với sale để hiểu công ty đang đồng hành theo lộ trình 1–3 năm nhằm xây tập khách hàng; tuyệt đối không truyền đạt theo cách gay gắt.</li>
+      <li>Đồng ý điều chỉnh chế độ: khi còn 1 người trực, chế độ sẽ cao hơn; ông Đô và bà Linh bàn mức phù hợp, hài hòa với bộ phận kỹ thuật.</li>
+      <li>Xây cơ chế cho tình huống khẩn cấp: bàn với ông Hải, ông Kiên và các trưởng bộ phận; trường hợp đặc biệt kể cả giám đốc cũng phải online.</li>
+      <li>Tiếp tục lộ trình tự động hóa, thử nghiệm từng bước, tăng bảo mật và giảm thời gian xử lý. Nếu tự động hóa làm mất khách thì chuyển sang mô hình khác (đội chuyên trách, đội support, hoặc thuê ngoài xử lý ticket theo định mức).</li>
+    </ol>
+    <p><b>Bổ sung:</b> hệ thống đã ghi vết, phân quyền đầy đủ, để giảm tải và tăng quyền lợi khi trực; cập nhật quy định không hỗ trợ trỏ bản ghi (khách tự xử lý) vì lý do bảo mật dữ liệu; duy trì dịch vụ tự động hóa. Nếu nhân sự vẫn thấy "phải trực", giám đốc sẽ quyết định phương án mới. Nhân sự bố trí buổi đối thoại trực tiếp giữa giám đốc và toàn thể nhân viên.</p>
+
+    <h2 class="sec"><span class="num">VII</span> Thảo luận: chân dung tập khách hàng tương lai</h2>
+    <p>Chủ tọa đề nghị mỗi người chia sẻ nhận định về tập khách hàng trọng tâm cần ưu tiên trong tương lai:</p>
+    <div class="spk"><span class="who">Bà Trang:</span> xu hướng giới trẻ (cá nhân), số lượng lớn, tiếp cận nhanh; khai thác qua các trường đại học.</div>
+    <div class="spk"><span class="who">Ông Trúc:</span> hộ kinh doanh và cá nhân tự tạo website/tool bằng AI; tài khoản của khách hàng có thể tích hợp AI riêng.</div>
+    <div class="spk"><span class="who">Ông Quân:</span> (1) sinh viên hai ngành – kỹ thuật và marketing; (2) chủ doanh nghiệp một người (tự vận hành nhờ AI); (3) giảng viên/thầy cô – vừa giới thiệu sản phẩm cho sinh viên, doanh nghiệp, vừa trực tiếp làm sản phẩm.</div>
+    <div class="spk"><span class="who">Ông Hải:</span> khách cá nhân tự deploy/triển khai, xu hướng multi-cloud/Microsoft.</div>
+    <div class="spk"><span class="who">Ông Trí:</span> (1) doanh nghiệp vừa và nhỏ – phổ biến và phù hợp nhất với hạ tầng tầm trung; (2) cá nhân kinh doanh – đối tượng ngày càng nhiều theo xu hướng "doanh nghiệp một người" đang ngày càng phát triển mạnh với sự hỗ trợ của AI Agent; (3) Dev/người phát triển hệ thống – họ là người quyết định mua dịch vụ và có tiếng nói trong doanh nghiệp về các dịch vụ hạ tầng; (4) dài hạn: có thể đối tượng mua hàng là AI tự mua hàng, tự lên kịch bản triển khai và mua các hệ thống hạ tầng để deploy theo điều khiển của Agent.</div>
+    <div class="spk"><span class="who">Ông Kiên:</span> hướng sản phẩm tương lai: (1) triển khai dịch vụ kiểu Vercel kết hợp AI để tự động hóa triển khai web/ý tưởng (khác web AI hiện tại); (2) tự động hóa cho khách non-tech qua chatbot (khách giao việc, chatbot tự thực hiện, ví dụ trỏ bản ghi); (3) sản phẩm AI/GPU – training tại Việt Nam còn khó, nên dùng GPU để thiết kế service phù hợp, phát triển AIOps (template cho khách tự nhúng AI); (4) On-prem – luật an ninh mạng siết chặt từ 01/7, xu hướng có thể quay lại on-prem; cân nhắc cung cấp giải pháp tư vấn/đào tạo/hỗ trợ triển khai on-prem và liên kết với đơn vị ngoài.</div>
+    <p>Chủ tọa nhấn mạnh cần trả lời chính xác: tập khách hàng trọng tâm ưu tiên trong tương lai là gì và có khớp với tập khách hàng hiện tại không; đây là câu hỏi ông Quân chủ trì trả lời (phối hợp Kỹ thuật, Công nghệ và Giám đốc điều hành).</p>
+    <p>Về đầu tư sản phẩm hạ tầng: Chủ tọa cho rằng ưu tiên bổ sung thêm service cho hạ tầng Cloud (trong 6 tháng) còn quan trọng hơn việc chạy theo trend GPU; có thể thận trọng lùi lại 3–6 tháng để nghiên cứu. Nếu ban lãnh đạo đồng thuận, sẵn sàng đầu tư thêm khoảng 1–2 tỷ cho GPU.</p>
+
+    <h2 class="sec"><span class="num">VIII</span> Khen thưởng</h2>
+    <p>Chủ tọa thống nhất trao khen thưởng tháng dựa trên số liệu và có cân nhắc:</p>
+    <ul>
+      <li>Kinh doanh Hà Nội: Hòa (kết quả tốt); Hồ Chí Minh: Trâm (hoặc Hòa).</li>
+      <li>Kỹ thuật: Hải, Đạt; đề xuất thêm cho Trúc và Dân (Dân có lưu ý riêng).</li>
+      <li>Định hướng từ tháng 7: có thể chỉ trao 1 người xuất sắc, không phân biệt miền, theo tiêu chí/quy định rõ ràng để tránh so bì.</li>
+      <li>Ban lãnh đạo sẽ bàn nguồn ngân sách thưởng quý (Quý II đạt khoảng 98,1%); quyết định còn cân nhắc do một số chỉ số chưa tốt.</li>
+    </ul>
+
+    <h2 class="sec"><span class="num">IX</span> Kết luận và phân công công việc</h2>
+    <p>Chủ tọa kết luận: khối lượng công việc đã làm được trong năm 2026 là rất lớn; định hướng chuyển đổi mạnh sang mô hình vận hành tích hợp AI, giao chỉ tiêu định lượng và gắn trách nhiệm cụ thể. Sau khoảng một tháng, khi hệ thống phân tích dữ liệu hoàn tất, ban lãnh đạo sẽ họp lại để đối chiếu và so sánh kết quả.</p>
+
+    <h3 class="sub">Các nội dung đã chốt</h3>
+    <ul class="check">
+      <li><b>Mô hình trực:</b> giảm còn 1 kinh doanh + 1 kỹ thuật/ca; tăng chế độ cho người trực; có cơ chế ngoại lệ cho tình huống khẩn cấp; làm công tác tư tưởng với sale.</li>
+      <li><b>Ticket</b> giao cho bộ phận kỹ thuật xử lý; toàn bộ đơn hàng đã tự động; hệ thống tự động duy trì (kể cả phần của sale khác).</li>
+      <li><b>Quy trình đại lý:</b> sale tự tạo, có kiểm duyệt; bắt buộc có hợp đồng + nạp tiền; có thể lập môi trường sandbox cho khách trải nghiệm.</li>
+      <li>Cho phép sale tự thao tác các nghiệp vụ đã có ghi vết trên hệ thống (thay vì chờ bộ phận nghiệp vụ).</li>
+      <li><b>GPU:</b> thận trọng, có thể lùi 3–6 tháng để chuẩn bị đủ 3 mục tiêu (bán thô, có service, huấn luyện model riêng); nếu tập thể đồng thuận, lãnh đạo duyệt chi hơn 1 tỷ.</li>
+      <li>Ghi âm/biên bản cuộc họp được đẩy cho Marketing tổng hợp, phân tích các ý kiến xung đột về tệp khách hàng; khoảng 1 tháng sau (khi có hệ thống phân tích dữ liệu) sẽ họp lại để so sánh.</li>
+      <li><b>Giải thưởng tháng:</b> kinh doanh & kỹ thuật theo chấm điểm (Hà Nội: Hòa; Hồ Chí Minh: 1 vị trí; kỹ thuật: Hải, Đạt); lập thêm 1 giải riêng (đột phá/tiên phong) cho Trúc & Dân. Từ tháng 7, giải nhân viên xuất sắc gộp chung 1 người, không phân miền.</li>
+      <li><b>Thưởng quý:</b> lãnh đạo sẽ bàn với Kế toán trưởng về ngân sách (tháng 6 đạt ~98,1%, một số chỉ số chưa ổn).</li>
+    </ul>
+
+    <h2 class="sec"><span class="num">X</span> Vấn đề còn tồn đọng</h2>
+    <div class="callout warn">
+      <div class="t">Chưa giải quyết dứt điểm (do thiếu số liệu phân tích)</div>
+      (1) Vì sao khách hàng mới có giao dịch giảm mạnh; (2) bản chất và nguyên nhân hosting giảm; (3) tỷ lệ chuyển đổi dùng thử dưới 1%.
+    </div>
+    <ul>
+      <li>Chưa có hệ thống theo dõi đối thủ và dự báo nguy cơ thị trường Cloud bão hòa.</li>
+      <li>Chân dung tệp khách hàng mục tiêu so với tệp hiện tại cần được phân tích và thống nhất (sẽ chốt ở buổi họp sau khi có dữ liệu).</li>
+    </ul>
+
+    <div class="signs">
+      <div><div class="b">THƯ KÝ CUỘC HỌP</div><div class="s">(Ký, ghi rõ họ tên)</div></div>
+      <div><div class="b">CHỦ TỌA</div><div class="s">(Ký, ghi rõ họ tên)</div></div>
+    </div>
+    <p class="endnote">Biên bản kết thúc cùng ngày.</p>
+
+  </main>
+
+  <footer class="pf">Công ty iNET · Biên bản cuộc họp CXO – Sơ kết 6 tháng đầu năm 2026</footer>
+</div>
+</body>
+</html>
