@@ -1,4 +1,6 @@
-# Browser Automation Guide — agent-browser
+# Browser Automation Guide — agent-browser (LEGACY fallback)
+
+> **LEGACY** — KPI create/update (gồm field bắt buộc `difficulty`) hiện dùng **direct API** (`references/api-direct-guide.md`, curl `/accountkpi/create`|`/update`). Chỉ dùng browser khi direct API không khả dụng. Field `difficulty` **KHÔNG** set qua browser scope — luôn qua API payload.
 
 Install if needed: `npm install -g agent-browser && agent-browser install`
 
@@ -38,6 +40,7 @@ Fields:
 - **Mục tiêu** (Objective): Regular textbox
 - **Kết quả** (Result): Regular textbox
 - **Ghi chú** (Notes): Regular textbox
+- **Độ khó/phức tạp** (Difficulty): field **BẮT BUỘC** (`S`/`M`/`L`/`XL` — S: Đơn giản · M: Trung bình · L: Phức tạp · XL: Rất phức tạp). Set qua **direct API payload** field `difficulty`, KHÔNG qua browser scope (xem `api-direct-guide.md`). Ước lượng khách quan từ code footprint, KHÔNG tự khai.
 - **Đề xuất thưởng**: Checkbox (usually unchecked)
 
 ### Fill rich text editor via iframe:
@@ -63,7 +66,7 @@ agent-browser fill @e37 "Notes text"
 agent-browser eval "(function() { var el = document.querySelector('.modal-content'); var scope = angular.element(el).scope(); while (scope && !scope.save) { scope = scope.$parent; } scope.kpi.description = '<p><strong>Title</strong></p><p>Description</p>'; scope.save(); scope.$apply(); return 'saved'; })()"
 ```
 
-**CRITICAL:** `scope.kpi.description` MUST be set before `save()`. Iframe innerHTML does NOT sync to Angular model.
+**CRITICAL:** `scope.kpi.description` MUST be set before `save()` (iframe innerHTML does NOT sync to Angular model). **Field `difficulty` (bắt buộc) set qua direct API payload — KHÔNG qua browser scope** (xem `api-direct-guide.md`); browser save không phải path xử lý độ khó.
 
 ## Step 6: Verify save
 
@@ -87,3 +90,4 @@ Modal auto-closes after save. For next:
 4. Click "Lưu lại" button unreliable → always `scope.save()` + `scope.$apply()`
 5. Element refs expire after navigation → always re-snapshot
 6. `agent-browser wait --idle` unreliable → use screenshot to verify
+7. **Độ khó/phức tạp bắt buộc** — field mới (verified 2026-07-09), set qua **direct API payload** `difficulty` (S/M/L/XL), KHÔNG qua browser scope. Update độ khó = gọi API `/accountkpi/update`.

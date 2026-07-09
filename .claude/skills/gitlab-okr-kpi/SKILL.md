@@ -55,9 +55,9 @@ For GitLab API tasks (pipelines, MRs, repos, CI/CD). See `references/gitlab-api-
 3. Execute API operations via curl
 4. Report results concisely, tokens masked
 
-## Mode 2: OKR/KPI Automation
+## Mode 2: OKR/KPI via Direct API
 
-Automate reading/writing OKR/KPI on https://my.inet.vn. See `references/browser-automation-guide.md` for browser details.
+Automate KPI on https://my.inet.vn bằng cách gọi HTTP API trực tiếp (curl/fetch) — **primary method**. Endpoint + payload schema (gồm field `difficulty`) trong `references/api-direct-guide.md`. Browser automation (`references/browser-automation-guide.md`) chỉ là **legacy fallback** — field `difficulty` (bắt buộc) set qua **API payload**, KHÔNG qua browser scope.
 
 ### Phase 0: Pre-flight Validation
 
@@ -76,18 +76,27 @@ Display summary table after all checks pass, then proceed.
 2. Present summary table for user confirmation
 3. Ask which entries to create
 4. **All Vietnamese text must use diacritics (có dấu)**
+5. Xác định `difficulty` (**S**: Đơn giản · **M**: Trung bình · **L**: Phức tạp · **XL**: Rất phức tạp) khách quan từ code footprint (files/LOC/commits) — UI form **bắt buộc chọn** field này khi tạo VÀ khi sửa; KHÔNG tự khai.
 
-### Phase 2: Browser Automation
+### Phase 2: API Execution
 
-Use `agent-browser` (npm). See `references/browser-automation-guide.md` for exact commands.
+**Chỉ dùng `curl`/`Bash` tool.** Không cần browser/Angular DOM.
 
-**Summary:** Set cookies → navigate to KPI page → click "Thêm KPI" → fill form fields → save via Angular scope → verify → repeat.
+Per entry:
+1. `POST /api/client/v1/accountkpi/create` với payload JSON theo schema (xem `api-direct-guide.md` mục "CREATE")
+2. Capture `_id` từ response để track + verify
+3. Nếu update (gồm **sửa độ khó**): `POST /api/client/v1/accountkpi/update` với **payload đầy đủ** (read-modify-write). ⚠️ FULL REPLACE — field không truyền bị wipe null; fetch qua `/search`, merge (giữ cả `difficulty`), mới gửi UPDATE.
+4. Nếu xoá: `POST /api/client/v1/accountkpi/delete` với `_id` + `monthStr` + `account` (hard delete — confirm trước).
 
-### Phase 3: Verification & Cleanup
+**Mandatory fields**: `description`, `target`, `result`, `difficulty` (`"S"|"M"|"L"|"XL"` = Đơn giản/Trung bình/Phức tạp/Rất phức tạp — UI bắt buộc, set qua payload khi **tạo VÀ sửa**), `api`, `monthStr` (`MMYYYY`), `account`.
 
-1. Final screenshot showing all KPI entries
-2. Report: total entries, statuses
-3. Close browser: `agent-browser close`
+### Phase 3: Verification
+
+1. Gọi `/accountkpi/search` với `monthStr` + `account` → đếm `totalElements`
+2. Verify số entry tăng đúng (= N entries vừa tạo)
+3. Report: list `_id` mới + status từng request
+
+KHÔNG cần screenshot/browser — verify bằng API response là đủ.
 
 ## Mode 3: P2+ Evaluation (Đánh giá P2+)
 
@@ -127,18 +136,19 @@ Draft monthly P2+ performance evaluations on my.inet.vn via JSON API (curl-first
 
 Always confirm via `AskUserQuestion`:
 1. Before starting: show planned entries, ask which to create
-2. Before first save: show filled form screenshot
+2. Before first create: show 1 entry payload mẫu hoàn chỉnh (gồm `difficulty`) để user verify — KHÔNG cần screenshot, verify bằng API response
 3. Vietnamese text: diacritics required
 4. Ambiguous matching: list candidates for user to pick
 5. P2+ (Mode 3): if scores not provided → ask for each item; show compute result + final `scores` before `save` (draft)
 
 ## Error Handling
 
-- Cookie auth fails → notify user to update `.env`
-- Save button unreliable → use Angular scope method
-- Iframe content not syncing → set `scope.kpi.description` explicitly
-- Refs expired → re-run `snapshot -i`
-- Modal doesn't appear → wait 2s, retry once, then report
+- **Cookie auth fails (302/401)** → notify user re-login SSO + update `.env` (cookie `sid` sống ~1 ngày)
+- **Request timeout** → retry 1 lần với same payload, log + báo user nếu fail tiếp
+- **Validation 400 từ BE** → show response body; không retry tự động (có thể thiếu field required như `difficulty`)
+- **Update KPI sai `_id`** → check lại qua `/accountkpi/search`, KHÔNG đoán
+- **Non-200 từ search** → check `monthStr` format (`MMYYYY` 6 chữ số) trước retry
+- **Browser fallback (legacy)** → save button unreliable dùng `scope.save()`; refs expired re-snapshot
 
 ## Security
 
