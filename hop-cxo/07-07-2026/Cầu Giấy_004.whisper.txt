@@ -1,0 +1,313 @@
+Thực ra em thấy là mọi người đang tập trung về các số liệu active và chuyển đổi.
+Nhưng mà thực sự cái số liệu mà, cái dữ liệu cần để mà cho độ sản phẩm làm, hoặc là độ kỹ thuật nhìn vào ấy,
+thì là những cái, khi mà những cái tỷ lệ đăng ký dùng thử hoặc quỷ, hoặc như thế nào đấy, thì mình đang thực sự là mình chưa có một cái cái thống kê vào trong này, những cái dữ liệu đấy.
+Chúng ta mới chỉ đang nói về chúng ta dự đoán hoặc là kỷ lệ khách hàng khi mà từ nãy giờ chúng ta trao đổi thôi
+Còn em chưa thấy là chúng ta ngay ở trong những phần thông tin này chúng ta chưa có là khách hàng pass order
+là tại sao khách hàng lại cancel
+Chúng ta vẫn chưa có một cái dữ liệu đấy thì chúng ta cũng chưa biết là chúng ta cần cải thiện cái gì
+Tiếp phần số 6 là về Cloud Server
+Cloud Server thì cái tăng trưởng mình sẽ không nhắc đến nữa
+nhưng mà có một cái dự báo mà em thấy chúng ta chưa có là cái dự báo nguy hiểm tiềm năng
+bởi vì hiện tại là cái thị trường Cloud Server của chúng ta bây giờ đang khá là bão hỏa
+Hotping có thể không bão hỏa, tên miền có thể không bão hỏa
+nhưng mà riêng mảng Cloud Server bây giờ bão hỏa
+khi mà rất nhiều các nhà cung cấp nhỏ lệch
+người ta đang thay đổi rất là nhiều và người ta cũng đang cung cấp sản phẩm này
+thì em thấy chúng ta chưa có trong phần thống kê của Cloud Server này
+chúng ta mới chỉ đang tập trung về chúng ta thôi
+Nhưng mà chúng ta không có cái dự báo về cái nguy hiểm, đe dọa của chúng ta trong cái thời gian tới
+Ví dụ như các cái sản phẩm của các cái đối thủ trực tiếp của những nhà cung cấp như mình
+Thì em thấy chúng ta chưa có cái dự báo đấy
+Tại vì sao em nói ra cái câu chuyện này?
+Vì tại sao em có theo dõi họ và em có theo dõi cái việc mà các cái sản phẩm của họ ra trong từng thời gian hàng tháng
+Họ có ra mắt cái gì không, sản phẩm ra như nào
+Và nó có là cái mối đe dọa tương lai của mình hay không
+nhưng mà thực sự nếu mà đứng ở vai trò mà chúng ta theo dõi ở bộ phận meeting thì em lại chưa thấy chúng ta có cái đấy
+thì chúng ta thông kê vào đây
+ngoài chúng ta mới chỉ đang tập trung vào chúng ta về cái mặt phát triển thôi
+còn về mặt dự báo chúng ta chưa có
+đấy em thấy cũng sẽ là một cái rủi ro cho mình
+về tiếp thì đến phần liên quan đến pick each chart
+em sẽ tạm gục chung hai cái này vào làm một
+Vì nó sẽ có vấn đề là các cái TechKits của chúng ta thì chúng ta hiện tại cũng đang cố gắng đánh dấu cái task đúng không anh Đức?
+Để phân loạn, phân loạn, phân loạn TechKits.
+Sale đang kích nhận.
+Sale đúng không? Mình chưa có cái phần đấy.
+Tí nữa anh sẽ trao đổi cụ thể tại sao ngày xưa là sale nhiều, bây giờ là tối ưu thôi.
+Thực sự số lượng dịch vụ mình tăng nhưng tại sao lại tích kít đồng thời tăng hàng loại
+Có bao nhiêu tích kít chuyển từ chat sang
+Ví dụ như trong các số liệu chúng ta chưa có số lượng tích kít chuyển từ chat sang chẳng hạn
+Chúng ta không biết được nguồn tích kít từ đâu
+Và những tích kít khách hàng gửi vào trong kỹ thuật hay là SEO phải xử lý sẽ tập trung vào những vấn đề gì
+thì chúng ta phải có dữ liệu đấy thì từ đấy chúng ta mới đưa ra được cái phần tối ưu được cái phần tích kích này của mình
+Nếu mà vấn đề liên quan đến các cái dịch vụ hệ thống sật nó chiếm tỷ lệ nhiều chẳng hạn
+thì rõ ràng cơ phật kỹ thuật phải xem lại
+Ví dụ như khách hàng hay gặp lỗi nhiều và trực tiếp trên dịch vụ khách hàng
+thì chúng ta tìm cái giải pháp để tối ưu cái vấn đề đó
+thì ở đây em thấy là mình đang chưa có cho nên là mình chưa thống kê được
+Còn nếu mà bây giờ quét thì chắc là chỉ quét được là bao nhiêu phần trăm là tỷ lệ kỹ thuật xử lý thôi đúng không?
+Là kỹ thuật tích kít là xử lý bao nhiêu?
+Trở qua là cái báo cáo này là không sâu, toàn nhau tất cả phần
+Không em nghĩ là nếu mà với báo cáo này cần phải có để các bộ phận nhìn vào được
+Không ý, ok
+Tức là mà tên có thể bổ sung nhưng mà cái này thì bây giờ con phân lại cho Quyền với Ngã
+Chúng ta là phần liên quan tích kít theo cái nhãn nào thì anh em có biết đấy không?
+Ở trên có
+Đúng không?
+không để anh không được cái này hàng tháng cái này thậm chí phải nắm hàng ngày luôn không là cái này
+mình đang làm bảo pháo sau khi anh em có nắm được cái này không Cái phần quét ở trên mai nhé
+tôi cái cái cái cái cái cái cái cái cái cái cái cái cái cái cái cái cái cái cái cái cái cái
+không nói được cái thông tin này thì anh có thể review lại xem là anh em là như thế nào
+tại vì cái này nó sẽ liên quan đến việc từ đầu đến bây giờ mình là như thế nào
+cái tổng tỷ lệ mình sẽ bao nhiêu
+có một số cái thì anh cũng bảo là thôi báo tin không cần báo quá chi tiết
+vì nó đi rất là loãng á, chỉ nhìn vào những cái chính đó
+thế thì bây giờ mình chỉ đi cứ báo tin cho anh review ra
+thì có một số cái đánh giá nó khách quan hơn, cái ưu độ tiền cho đủ
+Đôi khi có nhiều cái, đôi khi báo cáo giao tin lấy hết tất cả các phần report, thì nó dài chắc là đến văn sớ
+Anh em mới bảo mình cần một cái tổng hợp, ít nhất có cái thông tin để mình nhìn vào
+Đây anh có một cái, tôi thật sự thích hiểu, tôi thật sự thích hiểu liên quan đến việc mà bây giờ chúng ta đo lượng cái việc khách hàng chuyển đi
+Khách hàng chuyển sang trung cấp, khách hàng chuyển từ góc tinh đến cloud
+Anh em, ngoài kia, anh em có ý tưởng nào? Rồi cái này mình nói rất nhiều rồi, nhưng mà bây giờ có ý tưởng nào để đo được không?
+Đúng không? Tại vì đương nhiên mình khảo sát một phần, khảo sát không bao giờ chính xác cả
+Lấy tự động thì không đủ thông tin, vậy bây giờ mình xem có lý hướng nào để build cái phần này liên quan đến lấy dữ liệu khách hàng
+Nếu như khách hàng out đi, họ chuyển sang nhà nó có tên miền thì mình chọn bản ghi, mình chọn hóa tin, hóa tin ở cloud ấy, rất khó
+Vì bây giờ có khách hàng, em gợi ý chút
+Cái đấy mình cứ phân loại trước thôi, khách hàng nào có tên miền của IMS, họ có từng sử dụng dịch vụ hóa tin của IMS này
+sau khi chuyển sang như thế nào thì mình sẽ phân loại được mà dựa trên cái IP của mình mà
+dựa trên IP mình phân loại được mà
+có lốc
+không cần, người ta sẽ đổi cho người ta
+có lốc đổi là cái gì
+đúng rồi thì mình quét ra được là người ta chuyển sang dịch vụ nào của mình hay là của nhà cung cấp khác
+trước tiên là những cái ngang đấy trước
+tại vì ngày trước mình sẽ, mình có một cái là cái hosting gateway đúng không
+Mình có cái antics và mình có quét cái dữ liệu là domain của khách đúng không?
+Thực ra cái này là đúng cái bài toán Insight mà anh Chí lề xuất ấy
+Nó liên quan đến việc mà mình cào tất cả mọi thứ vào khách hàng đúng không ạ?
+Đấy thì bây giờ mình cần thêm thông tin gì?
+Anh nghĩ là cái này là cái này là ok
+Em cũng do sâu vào cái này cho anh
+Thế Rui, ạ. Bây giờ mình có mà
+Theo anh nhé
+Theo anh thì chúng ta nắm cái nội dung chính ở cái buổi hôm nay
+bây giờ bọn em không có đủ thời gian tất cả những nội dung chi tiết này làm như thế nào
+thì bọn em phải đến với buổi họp chuyên môn.
+Thì hôm nay ý này rất là hay,
+thứ nhất là khiến chúng ta mang tinh tông bệnh nhìn dựa trên bề mặt số liệu
+mà nhìn sâu xuống bên dưới, hiểu được bản chất là các khách hàng có tinh của mình.
+Chưa chắc nó giảm đâu theo ý ưu kiên,
+có thể là nó giảm là vì sao?
+Bởi vì nó chuyển sang sử dụng One Panel, One Panel nó giảm hơn đúng không?
+Thì doanh số giảm kiểu như thế.
+Nhưng nhìn xem bản chất xem là họ chuyển sang One Panel
+hay họ chuyển sang Classroom, hay họ chuyển sang thư ký khác.
+Hay là cái phần ticket mà tình cũng nhìn sâu xem,
+xem là không phải chỉ thấy nó tăng lắm, tăng là do cái gì.
+Và trong cái vấn đề đó, dù bao nhiêu phần trăm nó tập trung gì,
+giống như Kiên Đô nói, thì khi đó đó là cái vấn đề trách nhiệm.
+Anh nghĩ cái đấy là cái quan trọng.
+Tức là chỉ hiểu ý của Kiên thôi.
+Làm được như thế thì rất tuyệt vời.
+Nhưng mà anh nghĩ là ở trong cái giai đoạn mà xây dựng này thì chắc là
+Nó hơi đi ngược lại với một trong những thứ anh đã nói với Kiên là phải tập trung chính vào các cái việc chính, việc phát triển của em.
+Nhưng cũng rất có thể là như anh Đô nói đúng, có thể là vẫn phải dành một chút thời gian để quan tâm vào cái nhóm liên quan marketing.
+Đứng ra không nhìn kỹ thuật được không đấy, thì design lại cái công việc mình để sắp xếp thời gian đấy.
+Anh em hiểu nhau được, đứng vào góc độ các vấn đề này.
+Chỉ còn chi tiết thì đâu ạ, bọn em không đủ thời gian bàn.
+Em trao đổi thế là mình cũng không đi xa rời cả thực tế.
+Những phòng công nghệ, tất cả phối hiệu đạt khả năng hết.
+Hiện giờ thì tựa đạt tựa build, phần liên quan đến tấu kê.
+xem khách hàng chỉ cần dùng OneDart chuyển đổi bao nhiêu, từ nhóm cấp nào chuyển sang
+người làm sản phẩm cũng sẽ tham gia sâu trong việc lấy dữ liệu khách hàng
+và cung cấp ngược lại cho Martin
+cái này để mọi người đồng ý với cái quan điểm này
+tại vì tất cả bây giờ phần OneDart đưa nhu cầu đạt
+bao nhiêu khách hàng từ nhóm cấp khác chuyển về là phải đủ số liệu đấy
+chứ không phải là Martin nhu cầu
+anh bổ sung thêm một ý như này nó rộng hơn nhé
+để cho một em nắm được cái tinh thần khỏi phản phán.
+Thứ nhất là giai đoạn trước kia, sự chuyên ngôn hóa rất rõ,
+ông kỹ thuật, biết ông kỹ thuật, ông lập trình,
+ông lập trình, ông mang tinh, ông mang trình, ông xê, ông xê.
+Nhưng mà giai đoạn hiện nay nó khác rồi.
+Giống như hôm qua anh nói với đội tổng hợp,
+bản thân các bạn làm bằng gì các bạn phải nắm rõ pháp chế, pháp luật,
+quy định chuyên ngành về việc lấy tế phối hợp với các vị trí khác.
+Tức là thay đổi rồi đó.
+Nếu ông chỉ viễn cốt thuần thì ai nghĩ là tôi là cái chắc
+làm sao mà loại được AI
+ông phải có những kỹ năng khác
+chứ không thể nói là tôi hơn AI, tôi có trách nhiệm, AI không phải chỉ nhiệm
+nhưng trách nhiệm nó càng cao nếu ông nắm được các vấn đề
+ví dụ như là vấn đề về pháp lý, các vấn đề về các số liệu khách hàng
+thậm chí kể cả những vấn đề biết khu vực mà ECU nó hay nằm ở đâu
+Để tập trung giải quyết nó để giảm cái thứ đó, giảm cái thứ trơn.
+Tốn lại là cái tư duy, cái định hình, cái cách làm của cái hệ thống nó sẽ thay đổi luôn.
+Và cái hướng của mình ấy, nó sẽ biến cái hệ thống của mình này là thành một cái hệ thống AI.
+Bây giờ nó gọi là cái gì đấy, nó thích gì đấy đúng không? AI đúng không?
+Và chúng ta là những người mà đúng không, chủ của nó,
+chủ của cả hệ thống đấy và chủ trong từng cái mắt xích đấy.
+là người chịu trách nhiệm và người điều chỉnh nó
+thế còn hệ thống đó nó sẽ vận hành
+và thực ra bây giờ đang làm như thế thôi
+do vậy cái quyền và trách nhiệm của chúng ta nó phải thay đổi theo cái đấy
+đương nhiên chúng ta phải bắt buộc chúng ta phải vận động theo một cái
+cái đó là một cái logic tự nhiên đấy chứ không phải là một cái
+mà mình tự mình nghĩ ra thôi
+chứ ấy là không bàn về cái tư tưởng, quan điểm, chi tiết gì đấy nữa
+thưa Thầy Thế Những Chốt, em hứa với em để nói rõ cho cả Martin và Kinh Thuật làm được
+kẻ gạt tổng hợp, kẻ nhân sự, kẻ thỏa án thứ mọi người sẽ nắm được cái tinh thần ra sao ra bảo họp
+cái thứ 2 đó, cái này Chí sau lúc nào chia sẻ thêm vào CL
+hỏi trong kia nghe được không?
+con nghe được
+dạ nghe được các anh
+ok, thì thỉnh thoảng Chí chia sẻ vào CL group liên quan tới CM
+cái này là cái sống cỏ của anh, anh nói cho cái mục tiêu cuối năm
+cái cm là cái sống còn ngoài này
+tức là đúng cái phần kia đó là số liệu
+tại sao khách hàng chỉ lý
+tại sao khách hàng hỏi
+tại sao khách hàng hủy tài khoản
+khách hàng gì đó
+thì bây giờ chưa có số liệu đâu
+bởi vì mọi người hiểu là
+anh chồng mọi người hiểu là
+khi mà có cái số liệu đấy
+thì mình phải có data
+có nhiều cái data mình chưa cào được
+nhưng chí còn đưa ra một đống cái data
+liên quan cào đúng các tứ loại
+thậm chí là cả mua data
+nhưng mà nghĩ là bây giờ mình lấy cái data của mình
+liên quan cào bản ghi
+Cảm ơn các bạn đã theo dõi.
+Bottle và Bottle Insight là một trong ý kiến của Chí
+Nhất là nâng việc cào dữ liệu khách hàng lên để cích khách hàng mua thêm, cích khách hàng mua thức
+Và trong tháng 7 này sẽ làm chặt chẽn, màu tinh, cả trong ngọc liên quan đến cross-sale, up-sale
+Làm sao để chúng ta bán được hàng và tăng dịch vụ khách hàng
+Đấy là cái muốn chia sẻ cho mọi người cả tiền với nhà Phúc và Đà Phước
+Hiện nay là chưa chia sẻ đúng không?
+Tức là cái này thì đưa cái tài số ra
+cái dự án mà của chí là chưa chia sẻ ra đúng không?
+Chưa, chưa, chưa.
+Anh cũng đồng ý thôi.
+Thứ nhất nhé, mà...
+Thứ anh biết thôi đúng không?
+Anh đồng ý thôi.
+Chia sẻ cái đấy chí này, chia sẻ cái đấy ra anh,
+thì để các anh em công nghệ kỹ thuật, thậm chí các bộ phận khác,
+thậm chí kể cả các vị trí sự trọng yếu, sale những chút,
+thì có thêm mấy con nhìn sẽ đóng góp cho.
+Và anh nghĩ là các nội dung mà người kỹ thuật, công nghệ mới trao đổi thì
+bản thân chí có thể tiếp thu một vài thứ để tiếp tục update,
+tương cấp cái bản của mình nhé chị.
+Vâng, cái là cái điều hôm trước em...
+Tất cả trong này thì đúng không?
+Trong này thì tất cả toàn bộ của anh em tin cạnh đúng không?
+Chất tực cao nên là không...
+Mình có thể chia sẻ được, không vấn đề gì cả.
+Hôm trước em có chia sẻ trong cái buổi họp đấy luôn rồi.
+Không biết mọi người có xem không?
+Nhưng mà cái buổi họp là trao đổi tại cái đấy
+em có chia sẻ trong nó luôn rồi, trong cái link đấy rồi.
+Nhưng mà...
+Tôi có cái buổi trình bày, tôi có chia sẻ với mọi người.
+Trình bày thì cơ bản cũng nằm trong đấy hết rồi.
+không có gì là tình bày
+thì mọi người có thể xem lại
+Lát em ấp lại trong link này cho mọi người ước lắng
+Ơ đúng không, hôm nay anh bảo là chị...
+Ấp lên trên đấy rồi
+Đấy, đôi khi là một người xem có vấn đề gì
+thì vấn đề nhất là có lý do là cần lấy data
+Vậy như thế nó như một cái data lake
+Data lake
+Và các phần thống kê bây giờ có hết được không ạ?
+Tất cả các số thống kê trên mạng có hết được
+Ngày xưa thì làm thống kê rất mẻ
+bây giờ có AI cũng làm thống kê rất nhanh
+Thôi đi tiếp đi
+Đi tiếp đi
+Có một số vấn đề mà Thiên muốn chia sẻ là gì để phòng thần nào nhiễm hạnh?
+Các sản phẩm bên dưới sẽ tương tự, người gì cũng ra đâu đấy.
+Đặc biệt là đối thủ, đối thủ quan trọng với tài chính.
+Bây giờ mình chỉ tập trung vào mức đội bộ, không biết thị trường ở ngoài là gì.
+Mình thấy tỷ lệ của mình rất cao nhưng chưa biết lý do là gì.
+do hàng, như em nói dùng thử rất cao nhưng tỉ lệ chưa được 1%
+do mình, do sản phẩm của mình
+thường marketing
+anh nghĩ marketing không hay cái việc tỉ lệ của khách hàng duy trì ở lại
+tại sao bây giờ khách hàng duy trì ở lại lại cao hơn
+có vẻ là chất lượng hệ thống của mình nó được cải thiện hay không
+chưa có
+thì anh nghĩ là bây giờ marketing không đặt câu hỏi thế nữa
+mà đôi khi cụ thể với như Chí bảo em không biết tại sao
+tỷ lệ chốt dùng thử thấp thế, mình sẽ không bỏ câu đấy nữa mà mình sẽ đi tìm cụ thể.
+Đấy, đấy đó. Đấy là một trong cái thứ mà lúc sáng anh có lúc vội bấy ý đấy.
+Tức là xác định các chỉ điêu sản xuất kinh doanh, đặc biệt là chỉ điêu đăng suy giảm thời gian.
+Tức là giao nhuận cụ thể xuống. Thay vì cái việc marketing đi hỏi đúng không?
+Thì như bây giờ đấy chính là cái marketing phải là cái nơi chậu.
+Thế mà Martin có thể sẽ cần sự hỗ trợ về kỹ thuật của mình, thậm chí cả chỗ Indo nữa
+Thì bây giờ đang làm như thế rồi, đang view rồi đúng không?
+Chị ạ, xác định cái nhiệm vụ như vậy
+Hay là ví dụ như các bạn cứ nói với anh, ui bạn này ngon lắm, bạn này giỏi lắm, bạn này nhiệt huyết lắm đúng không?
+Cứ ghi nhận, thứ nhất là công ty vào đủ kinh tạng chúng ta đầu tiên là phải ghi nhận, đúng không?
+Đầu tiên phải vỗ tay ra
+Nhưng kết quả đâu?
+Một loạt các chỉ số
+Một đoạn chỉ số như thế này, chưa bao giờ chúng ta có được các hệ số báo cáo đầy đủ như thế này.
+Cái đó là cái mà liên quan đến. Giống như ông Diệu nói, tiến sĩ giỏi rồi nhưng nếu không kiếm ra tiền thì cũng chỉ là giấy, thậm chí giác.
+Do vậy thì quan điểm của anh là chúng ta kết hợp cả tư duy dài hạn và ngắn hạn nhưng nó vẫn phải quan trọng là có kết quả.
+Nhưng chúng ta sẽ không ép chín, không phải là ngay 1 tháng, ngay 8-9 tháng, thậm chí chúng ta có một cái nội trình, nhưng cụ thể có kết quả chỉ tiêu.
+Em chắc đối chia sẻ thêm một số cái về cách thức triển khai, bây giờ là không ngại mình làm sao,
+có thể những cái chính sách hay gì đó quy định thì bây giờ phải làm nhanh, có một số cái là phải thử.
+Như những số liệu về Affiliate, chúng ta thử 1 tháng tăng lên, giảm số tiền,
+khi đó nó cũng tăng kiểu người ta thương ngại, người xưa cứ sợ, sợ là nếu giảm cái này đi thì số lượng khách hàng kém đi.
+Nhưng chúng ta đứng lại bây giờ để làm nhanh, giống như các bên khác, họ cứ đo thử, thời gian ngắn,
+mà đo cái thấy ổn không ổn, đấy là đổi chỉnh, mình nên thử.
+Thì đi tiếp đi, đi tiếp vào nội dung chuyên môn, còn gì đâu?
+Thì về nội dung thì thấy ở Martin có gì không?
+Em không.
+Khải?
+Em không.
+Dạ sao?
+Em không.
+Nhưng họ có không nội dung gì à?
+Đấy là, Trang có gì không? Nội dung gì không?
+Tôi chỉ thấy cái hình tím của Kim ạ.
+Linh, thôi Trang nói đi.
+Tức là anh như kiến thức của marketing mới chỉ đưa ra cái đấy còn chưa tìm ra cụ thể giải quyết những vấn đề của anh ra thôi
+Thực ra marketing là làm rõ hơn đấy nhưng mà nó chưa sâu ra đây
+Nguyên, bổ sung gì ạ?
+Dạ không bổ sung ạ nhưng mà em muốn hỏi liên quan đến đề xuất trực của anh Quân
+Em thấy có dự kiến là từ 15 tháng 7 sẽ triển khai luôn
+thì cái nội dung này có chốt không hay là mình có cần phải làm rõ vấn đề gì thế chứ không?
+Cái này sẽ bàn được, đây nhé, bây giờ sẽ bàn luôn anh ạ
+Thứ nhất chúng ta đều hiểu là khi mà các hệ thống của chúng ta bớt trong gian
+Bớt trong gian, cái kia thì chúng ta đều gặp nghìn cái phần số liệu của cái kia được nhìn thành vấn đề
+Ngày xưa mọi người cái portal để cái ticket lên xã mít thì đến 67% là kỹ thuật
+Ngày xưa thì sale rất là đông, đông đảo, mình đào tạo sale, đào tạo sale để sale hiểu sâu thật.
+Thì mình đã qua giai đoạn đấy rồi.
+Thì bây giờ qua một thời gian thì cũng có nhiều sale rớt mà nhiều người biết rồi.
+Chúng ta phải chấp nhận sự thật, nên sale không học được những nguyên liệu thật.
+Bây giờ số nguyên liệu sale cũng không còn đông nữa.
+Và anh em hôm qua có một buổi chia sẻ thẳng thắn, có sale Hà Nội và sale vào Hồ Chí Minh.
+Với sale một tuần hoặc trực hai buổi cũng khá là stress
+Mình cũng đang muốn đẩy sale ra ngoài
+Vừa bắt sale trực vừa bắt sale ra ngoài nó hơi khó
+Thực ra đấy là quan điểm của sale em nghĩ là hợp lý rất là vãi
+Mô hình mình cũng làm sao tính bỏ
+Thì bây giờ vấn đề liên quan đến trực
+Mình nghĩ là mình sẽ hướng đến trực tố lượng ít thôi
+Mà trực là trực thật sự và tối ưu là làm sao
+Bây giờ chỗ kế toán tham gia vào các việc liên quan sử dụng ticket
+Kế toán không phải kiểm tra nhưng việc sử dụng ticket là bây giờ mình không phải sale chuyển qua ticket
+Và đấy là những cái mà tất cả phòng bán đều có thể tham gia
+Cái thứ hai liên quan hệ thống là cái tối ưu
+Hệ thống tối ưu đó là tất cả những cái lỗi khi mà lặp lỗi lần đầu thứ hai là không lặp lỗi lần thứ hai nữa
+Cơ bản là thế
+Tức là khi mà có issue lỗi thì xử lý luôn và không được add lại đúng issue đấy
+Nếu mà nó có thể fix luôn được
+Cái thứ ba là các quy trình sử lý, à quy trình, à có gọi là cái quy định, quy định để sử lý.
+Tại vì em theo dõi.
