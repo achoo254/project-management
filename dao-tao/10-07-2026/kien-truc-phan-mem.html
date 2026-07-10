@@ -484,6 +484,15 @@ table.data td strong { color: var(--ink); }
   .hero__meta { gap: var(--sp-2); }
 }
 
+
+/* ---------- iNET real-world section ---------- */
+.src-repo { display: block; font-family: var(--font-mono); font-size: .72rem; font-weight: 400; color: var(--ink-faint); margin-top: 3px; }
+.case-desc { color: var(--ink-soft); font-size: .95rem; margin: 6px 0 0; }
+.case-badges { margin: 12px 0; }
+.case-badges a { text-decoration: none; }
+.case-badges a:hover { filter: brightness(1.08); }
+.case-ev { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 7px; }
+.case-ev li { color: var(--ink-soft); font-size: .92rem; }
 </style>
 </head>
 <body id="top">
@@ -496,6 +505,7 @@ table.data td strong { color: var(--ink); }
       <a href="#to-chuc">Tổ chức mã nguồn</a>
       <a href="#du-lieu">Dữ liệu phân tán</a>
       <a href="#bang-tong-hop">Bảng tổng hợp</a>
+      <a href="#thuc-te-inet">Thực tế iNET</a>
     </nav>
   </div>
 </header>
@@ -666,6 +676,139 @@ table.data td strong { color: var(--ink); }
   </section>
 
   <!-- ============ CÁCH CHỌN ============ -->
+    <!-- ============ THỰC TẾ iNET ============ -->
+  <section class="section container" id="thuc-te-inet">
+    <span class="eyebrow" data-reveal>Đối chiếu thực tế</span>
+    <h2 data-reveal>Kiến trúc thực tế tại iNET</h2>
+    <p class="lead" data-reveal>Soi 7 sản phẩm/repo thật của iNET qua lăng kính 11 mẫu (kết quả dựa trên đọc code &amp; tài liệu từng repo). Badge mẫu bấm được để tới phần chi tiết. Điểm chung phản ánh đúng tinh thần tài liệu: thực dụng, chọn kiến trúc theo nhu cầu.</p>
+
+    <div class="table-wrap" data-reveal>
+      <table class="data">
+        <thead><tr><th>Sản phẩm</th><th>Loại</th><th>Kiến trúc chính</th><th>Mẫu trong 11</th><th>Ngoài 11 mẫu</th></tr></thead>
+        <tbody>
+          <tr><td><strong>OneDash</strong><br><span class="src-repo">cloud-panel-application</span></td><td>Web app · quản lý server</td><td>Modular Monolith + Layered</td><td>Modular Monolith, Layered, API Gateway (nhẹ)</td><td>agent-based; Vue SPA</td></tr>
+          <tr><td><strong>OneDash S3</strong><br><span class="src-repo">onedash-s3</span></td><td>Frontend tĩnh</td><td>MPA (UI thuần, mock data)</td><td>— (chưa có backend)</td><td>MPA static vanilla-JS</td></tr>
+          <tr><td><strong>OneMail</strong><br><span class="src-repo">workspace-application</span></td><td>Web platform · mail + drive</td><td>Monorepo multi-app; mỗi BE Layered</td><td>Layered, API Gateway (một phần), Event-Driven (nhẹ)</td><td>micro-frontend; adapter Zimbra (SOAP)</td></tr>
+          <tr><td><strong>OnePanel</strong><br><span class="src-repo">onepanel-web-ui + webpanelbe</span></td><td>Web app · hosting panel</td><td>Go: Layered + Modular Monolith</td><td>Layered, Modular Monolith, Hexagonal &amp; Clean (một phần), API Gateway</td><td>agent-based; multi-binary</td></tr>
+          <tr><td><strong>Portal</strong><br><span class="src-repo">portal-client + portal-server</span></td><td>Web app · cổng dịch vụ</td><td>Monolith → Modular Monolith + Layered</td><td>Monolith/Modular Monolith, Layered, Event-Driven (nhẹ)</td><td>BFF/aggregator; Vue SPA</td></tr>
+          <tr><td><strong>Design System</strong><br><span class="src-repo">design-sys-fe (viui)</span></td><td>Thư viện UI dùng chung</td><td>Monorepo packages (publish npm)</td><td>Layered (chỉ apps/backend)</td><td>Design System / Component Library</td></tr>
+          <tr><td><strong>developers.inet.vn</strong><br><span class="src-repo">inet-dev-portal</span></td><td>Web app · developer portal</td><td>Next.js SSR: Modular Monolith + Layered</td><td>Modular Monolith, Layered, API Gateway, Event-Driven</td><td>SSR full-stack</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout callout--tip" data-reveal>
+      <span class="callout__ic">💡</span>
+      <p><b>Nhận xét cho buổi đào tạo:</b> hầu hết sản phẩm iNET là <b>Modular Monolith + Layered/N-tier</b>, theo mô hình client-server (SPA + REST), chỉ tách service/agent khi thật sự cần. <b>Không sản phẩm nào dùng Microservices / CQRS / Event Sourcing / Saga "thật"</b>; các phần "event-driven" mới ở mức <i>in-process queue</i> (BullMQ, pg-boss) hoặc server-push (SSE) — chưa cần message broker (Kafka/RabbitMQ). Đây là minh chứng sống cho <b>"MonolithFirst"</b> và nguyên tắc chọn kiến trúc theo nhu cầu, tránh over-engineering.</p>
+    </div>
+
+    <div class="grid-2" style="margin-top:var(--sp-3)">
+
+      <div class="box" data-reveal>
+        <h3>OneDash <span class="badge">cloud-panel-application</span></h3>
+        <p class="case-desc">Nền tảng quản lý server Zero Trust, API-first (SSH/RDP session, monitoring real-time). Vue 3 SPA + Node/Express + Go agent, MongoDB.</p>
+        <div class="badge-row case-badges">
+          <a class="badge badge--system" href="#modular-monolith">Modular Monolith</a>
+          <a class="badge badge--organize" href="#layered">Layered/N-tier</a>
+          <a class="badge badge--data" href="#api-gateway">API Gateway (nhẹ)</a>
+          <span class="badge">+ agent-based</span>
+        </div>
+        <ul class="case-ev">
+          <li>Backend 1 process + 1 MongoDB, module theo domain (user/admin/external), Controller → Service → Repository (docs ghi rõ "3-layer").</li>
+          <li>Go agent cài trên mỗi host được quản lý (outbound-only, long-poll); Server public làm reverse-proxy ingress.</li>
+        </ul>
+      </div>
+
+      <div class="box" data-reveal data-delay="1">
+        <h3>OneDash S3 <span class="badge">onedash-s3</span></h3>
+        <p class="case-desc">Console quản lý CEPH S3 Object Storage (bucket browser, billing, account). Frontend tĩnh, hiện chạy mock data.</p>
+        <div class="badge-row case-badges">
+          <span class="badge">Ngoài 11 mẫu — MPA static (vanilla JS)</span>
+        </div>
+        <ul class="case-ev">
+          <li>Vanilla HTML/CSS/JS, không framework/bundler/package.json; mỗi route = 1 file HTML (MPA), state qua <code>window.App</code> toàn cục.</li>
+          <li>Chưa nối backend thật; sơ đồ Layered + RGW gateway trong README là hệ thống <i>đích</i>, chưa implement trong repo.</li>
+        </ul>
+      </div>
+
+      <div class="box" data-reveal>
+        <h3>OneMail <span class="badge">workspace-application</span></h3>
+        <p class="case-desc">Enterprise Email + File platform (webmail trên Zimbra + cloud drive). Monorepo 2 SPA Vue 3 + 2 API Express, MongoDB.</p>
+        <div class="badge-row case-badges">
+          <a class="badge badge--organize" href="#layered">Layered/N-tier</a>
+          <a class="badge badge--data" href="#api-gateway">API Gateway (một phần)</a>
+          <a class="badge badge--organize" href="#event-driven">Event-Driven (nhẹ)</a>
+          <span class="badge">+ micro-frontend · adapter Zimbra</span>
+        </div>
+        <ul class="case-ev">
+          <li>Mỗi backend theo Layered (controller → service → model) + <code>soap/</code> adapter tới Zimbra; Nginx reverse-proxy route <code>/api</code> tới từng service.</li>
+          <li>Real-time Socket.io đang chuyển sang SSE (server-push); không có message broker.</li>
+        </ul>
+      </div>
+
+      <div class="box" data-reveal data-delay="1">
+        <h3>OnePanel <span class="badge">onepanel-web-ui + webpanelbe</span></h3>
+        <p class="case-desc">Control panel hosting kiểu cPanel/Plesk. Vue 3 SPA + Go/Gin backend, MySQL + PostgreSQL.</p>
+        <div class="badge-row case-badges">
+          <a class="badge badge--organize" href="#layered">Layered/N-tier</a>
+          <a class="badge badge--system" href="#modular-monolith">Modular Monolith</a>
+          <a class="badge badge--organize" href="#hexagonal">Hexagonal &amp; Clean (một phần)</a>
+          <a class="badge badge--data" href="#api-gateway">API Gateway</a>
+          <span class="badge">+ agent-based</span>
+        </div>
+        <ul class="case-ev">
+          <li>BE: <code>transports(http/grpc/cli)</code> → <code>services</code> (30+ domain) → <code>repositories</code> → <code>models</code> + <code>infra/</code> adapters, Wire DI → nét Clean/Hexagonal rõ nhất trong các repo.</li>
+          <li>Central Panel điều phối nhiều OnePanel agent từ xa qua HTTPS (API Gateway + phân tán multi-tier); multi-binary cùng codebase (không phải microservices).</li>
+        </ul>
+      </div>
+
+      <div class="box" data-reveal>
+        <h3>Portal <span class="badge">portal-client + portal-server</span></h3>
+        <p class="case-desc">OneShield Portal — cổng quản lý dịch vụ iNET. Vue 3 SPA + Node/Express, MongoDB + Redis/BullMQ.</p>
+        <div class="badge-row case-badges">
+          <a class="badge badge--system" href="#modular-monolith">Modular Monolith</a>
+          <a class="badge badge--organize" href="#layered">Layered/N-tier</a>
+          <a class="badge badge--organize" href="#event-driven">Event-Driven (nhẹ)</a>
+          <span class="badge">+ BFF/aggregator</span>
+        </div>
+        <ul class="case-ev">
+          <li>Server 1 process + 1 MongoDB, Route → Middleware → Controller → Service → Model; feature mới đóng gói trong <code>src/modules/*</code> → đang dịch sang Modular Monolith.</li>
+          <li>Đóng vai BFF/aggregator tích hợp SSO, iERP, OneMail, DNS, VietQR…; BullMQ + Redis chạy job nền in-process.</li>
+        </ul>
+      </div>
+
+      <div class="box" data-reveal data-delay="1">
+        <h3>Design System <span class="badge">design-sys-fe · viui</span></h3>
+        <p class="case-desc">Thư viện UI dùng chung (Vue 3): design tokens + 6 theme + ~30 Vi* components. Publish thành npm packages.</p>
+        <div class="badge-row case-badges">
+          <span class="badge">Ngoài 11 mẫu — Design System / Component Library</span>
+          <a class="badge badge--organize" href="#layered">Layered (apps/backend)</a>
+        </div>
+        <ul class="case-ev">
+          <li>Monorepo pnpm + Turborepo; packages tokens → themes → components publish npm độc lập (<code>@hobui/*</code>) — mô hình tổ chức thư viện, không phải kiến trúc runtime.</li>
+          <li>Phần <code>apps/backend</code> (Fastify + Drizzle + PostgreSQL) mới theo Layered/N-tier.</li>
+        </ul>
+      </div>
+
+      <div class="box" data-reveal>
+        <h3>developers.inet.vn <span class="badge">inet-dev-portal</span></h3>
+        <p class="case-desc">Developer portal quản lý API (API key, analytics, docs, webhook). Next.js 16 SSR full-stack, PostgreSQL + MongoDB.</p>
+        <div class="badge-row case-badges">
+          <a class="badge badge--system" href="#modular-monolith">Modular Monolith</a>
+          <a class="badge badge--organize" href="#layered">Layered/N-tier</a>
+          <a class="badge badge--data" href="#api-gateway">API Gateway</a>
+          <a class="badge badge--organize" href="#event-driven">Event-Driven</a>
+        </div>
+        <ul class="case-ev">
+          <li>1 app Next.js (SSR) + 1 worker cùng image; service layer <code>src/lib/{business,services}</code> → Prisma/Mongo (Layered).</li>
+          <li><b>Ví dụ đầy đủ nhất</b>: <code>/api/gateway/[...path]</code> proxy tới upstream (Java iNET, my.inet, DMS, WHOIS) = API Gateway thực thụ; notification hub qua pg-boss queue + dispatchers = Event-Driven.</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+
   <section class="section container" id="lo-trinh">
     <span class="eyebrow" data-reveal>Gợi ý</span>
     <h2 data-reveal>Lộ trình chọn kiến trúc</h2>
