@@ -1,0 +1,2612 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Đào tạo Kiến trúc phần mềm — 11 Architecture Patterns</title>
+<meta name="description" content="Tài liệu đào tạo kiến trúc phần mềm (single-file): Monolith, Modular Monolith, Microservices, Serverless, Layered, Hexagonal/Clean, Event-Driven, CQRS, Event Sourcing, Saga, API Gateway — có dẫn nguồn.">
+<style>
+/* ===== Prism theme (tomorrow) — inlined ===== */
+code[class*=language-],pre[class*=language-]{color:#ccc;background:0 0;font-family:Consolas,Monaco,'Andale Mono','Ubuntu Mono',monospace;font-size:1em;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.5;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none}pre[class*=language-]{padding:1em;margin:.5em 0;overflow:auto}:not(pre)>code[class*=language-],pre[class*=language-]{background:#2d2d2d}:not(pre)>code[class*=language-]{padding:.1em;border-radius:.3em;white-space:normal}.token.block-comment,.token.cdata,.token.comment,.token.doctype,.token.prolog{color:#999}.token.punctuation{color:#ccc}.token.attr-name,.token.deleted,.token.namespace,.token.tag{color:#e2777a}.token.function-name{color:#6196cc}.token.boolean,.token.function,.token.number{color:#f08d49}.token.class-name,.token.constant,.token.property,.token.symbol{color:#f8c555}.token.atrule,.token.builtin,.token.important,.token.keyword,.token.selector{color:#cc99cd}.token.attr-value,.token.char,.token.regex,.token.string,.token.variable{color:#7ec699}.token.entity,.token.operator,.token.url{color:#67cdcc}.token.bold,.token.important{font-weight:700}.token.italic{font-style:italic}.token.entity{cursor:help}.token.inserted{color:green}
+/* ===== Site styles — inlined ===== */
+/* ============================================================
+   Design Patterns — Training Site
+   Aesthetic: "Engineering Blueprint" — drafting paper, schematic
+   diagrams, functional category color-coding.
+   Fonts: Bricolage Grotesque (display) · Be Vietnam Pro (body) ·
+          JetBrains Mono (code)
+   ============================================================ */
+
+/* ---------- Design Tokens ---------- */
+:root {
+  /* neutrals — light "drafting paper" */
+  --bg:        #ECEFF3;
+  --bg-grid:   rgba(20, 32, 54, 0.045);
+  --surface:   #FFFFFF;
+  --surface-2: #F5F7FA;
+  --ink:       #141A24;
+  --ink-soft:  #4C5A6E;
+  --ink-faint: #7C8AA0;
+  --line:      #DBE1EA;
+  --line-soft: #E9EDF3;
+
+  /* global interactive accent — muted blueprint navy */
+  --accent:      #2E4C8A;
+  --accent-ink:  #21386A;
+  --accent-wash: #E8EDF7;
+
+  /* functional category colors (encode the 3 groups) */
+  --c-create:      #C67C00;   /* Creational — amber/forge   */
+  --c-create-wash: #FBEFD6;
+  --c-struct:      #0E8C7F;   /* Structural — teal/assembly */
+  --c-struct-wash: #D6F1ED;
+  --c-behave:      #D64541;   /* Behavioral — coral/motion  */
+  --c-behave-wash: #FBE0DF;
+
+  /* semantic (callouts) */
+  --ok:      #0E8C7F;
+  --ok-wash: #DDF3EF;
+  --warn:    #B4690E;
+  --warn-wash:#FBEBD4;
+  --danger:  #C2352F;
+  --danger-wash:#FBE2E0;
+  --info:    #2E4C8A;
+  --info-wash:#E8EDF7;
+
+  /* type — system stack only (self-contained, no external font) */
+  --font-display: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  --font-body:    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  --font-mono:    ui-monospace, 'SF Mono', 'SFMono-Regular', 'Menlo', 'Consolas', 'Liberation Mono', monospace;
+
+  /* geometry (8pt) */
+  --r-sm: 8px;  --r-md: 12px;  --r-lg: 16px;  --r-xl: 22px;
+  --sp-1: 8px; --sp-2: 16px; --sp-3: 24px; --sp-4: 32px; --sp-5: 48px; --sp-6: 72px;
+  --shadow-sm: 0 1px 2px rgba(20,26,36,.06), 0 1px 3px rgba(20,26,36,.05);
+  --shadow-md: 0 6px 18px -6px rgba(20,26,36,.16), 0 2px 6px rgba(20,26,36,.06);
+  --shadow-lg: 0 24px 60px -18px rgba(20,26,36,.28);
+  --maxw: 1240px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+  --bg:        #0C111C;
+  --bg-grid:   rgba(120, 170, 235, 0.06);
+  --surface:   #141C2B;
+  --surface-2: #1B2536;
+  --ink:       #E7ECF5;
+  --ink-soft:  #A2B0C7;
+  --ink-faint: #6E7D96;
+  --line:      #26324A;
+  --line-soft: #1E2941;
+
+  --accent:      #7CA0F0;
+  --accent-ink:  #A9C1F7;
+  --accent-wash: #1B2A4A;
+
+  --c-create:      #F0B44A;  --c-create-wash: #3A2E12;
+  --c-struct:      #3EC9B6;  --c-struct-wash: #0F332F;
+  --c-behave:      #FF7B76;  --c-behave-wash: #3A1E1D;
+
+  --ok:      #3EC9B6;  --ok-wash: #0F332F;
+  --warn:    #F0B44A;  --warn-wash:#3A2E12;
+  --danger:  #FF7B76;  --danger-wash:#3A1E1D;
+  --info:    #7CA0F0;  --info-wash:#1B2A4A;
+
+  --shadow-sm: 0 1px 2px rgba(0,0,0,.4);
+  --shadow-md: 0 8px 22px -8px rgba(0,0,0,.6);
+  --shadow-lg: 0 28px 70px -18px rgba(0,0,0,.7);
+  }
+}
+
+/* ---------- Reset / Base ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 92px; -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.68;
+  color: var(--ink);
+  background-color: var(--bg);
+  background-image:
+    linear-gradient(var(--bg-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--bg-grid) 1px, transparent 1px);
+  background-size: 28px 28px;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
+img, svg { max-width: 100%; display: block; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 700; line-height: 1.12; letter-spacing: -.02em; color: var(--ink); }
+h1 { font-size: clamp(2.2rem, 6vw, 4rem); }
+h2 { font-size: clamp(1.7rem, 3.6vw, 2.5rem); margin: 0 0 var(--sp-2); }
+h3 { font-size: 1.35rem; margin: 0 0 var(--sp-1); }
+h4 { font-size: 1.05rem; }
+p  { margin: 0 0 var(--sp-2); }
+strong { font-weight: 600; }
+code { font-family: var(--font-mono); font-size: .9em; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+
+/* ---------- Layout ---------- */
+.container { width: 100%; max-width: var(--maxw); margin: 0 auto; padding-inline: clamp(16px, 4vw, 40px); }
+.section { padding-block: var(--sp-6); }
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--font-mono); font-size: .74rem; font-weight: 600;
+  letter-spacing: .18em; text-transform: uppercase; color: var(--ink-faint);
+  margin-bottom: var(--sp-2);
+}
+.eyebrow::before { content: ""; width: 26px; height: 2px; background: currentColor; opacity: .6; }
+.lead { font-size: 1.18rem; color: var(--ink-soft); max-width: 68ch; }
+
+/* ---------- Header ---------- */
+.site-header {
+  position: sticky; top: 0; z-index: 100;
+  background: color-mix(in srgb, var(--surface) 82%, transparent);
+  backdrop-filter: saturate(1.4) blur(12px);
+  border-bottom: 1px solid var(--line);
+}
+.site-header__inner { display: flex; align-items: center; gap: var(--sp-3); height: 64px; }
+.brand { display: flex; align-items: center; gap: 12px; font-family: var(--font-display); font-weight: 800; font-size: 1.05rem; letter-spacing: -.01em; color: var(--ink); }
+.brand:hover { text-decoration: none; }
+.brand__mark {
+  width: 34px; height: 34px; border-radius: 9px; flex: none;
+  display: grid; place-items: center; color: #fff; font-size: 1rem;
+  background: linear-gradient(135deg, var(--c-create), var(--c-behave));
+  box-shadow: var(--shadow-sm);
+}
+.nav { display: flex; gap: 4px; margin-left: auto; align-items: center; }
+.nav a {
+  font-size: .95rem; font-weight: 500; color: var(--ink-soft);
+  padding: 8px 12px; border-radius: 8px; transition: background .15s, color .15s;
+}
+.nav a:hover, .nav a.is-active { background: var(--surface-2); color: var(--ink); text-decoration: none; }
+.nav a.is-active { box-shadow: inset 0 -2px 0 var(--accent); }
+.nav a.is-active { background: var(--surface-2); color: var(--ink); }
+.icon-btn {
+  width: 40px; height: 40px; border: 1px solid var(--line); background: var(--surface);
+  border-radius: 10px; color: var(--ink-soft); cursor: pointer; display: grid; place-items: center;
+  font-size: 1.1rem; transition: transform .15s, border-color .15s, color .15s;
+}
+.icon-btn:hover { transform: translateY(-1px); border-color: var(--accent); color: var(--ink); }
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex; align-items: center; gap: 9px;
+  font-family: var(--font-body); font-weight: 600; font-size: .98rem;
+  padding: 12px 20px; border-radius: 10px; cursor: pointer; border: 1px solid transparent;
+  transition: transform .15s ease, box-shadow .15s ease, background .15s;
+}
+.btn:hover { text-decoration: none; transform: translateY(-2px); }
+.btn--primary { background: var(--ink); color: var(--bg); box-shadow: var(--shadow-md); }
+.btn--primary:hover { box-shadow: var(--shadow-lg); }
+.btn--ghost { background: transparent; border-color: var(--line); color: var(--ink); }
+.btn--ghost:hover { border-color: var(--accent); background: var(--surface); }
+
+/* ---------- Hero ---------- */
+.hero { position: relative; padding-block: clamp(56px, 9vw, 120px) var(--sp-6); overflow: hidden; }
+.hero::after {
+  content: ""; position: absolute; right: -8%; top: -12%; width: 46vw; height: 46vw; max-width: 620px; max-height: 620px;
+  background: radial-gradient(circle at 30% 30%, var(--c-struct-wash), transparent 62%),
+              radial-gradient(circle at 70% 70%, var(--c-create-wash), transparent 60%);
+  filter: blur(8px); opacity: .8; z-index: -1; border-radius: 50%;
+}
+.hero__grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: var(--sp-5); align-items: center; }
+.hero h1 .accent {
+  background: linear-gradient(120deg, var(--c-create), var(--c-behave));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.hero__meta { display: flex; flex-wrap: wrap; gap: var(--sp-3); margin-top: var(--sp-3); }
+.hero__stat { display: flex; flex-direction: column; }
+.hero__stat b { font-family: var(--font-display); font-size: 2rem; line-height: 1; }
+.hero__stat span { font-size: .82rem; color: var(--ink-faint); font-family: var(--font-mono); letter-spacing: .04em; }
+.hero__cta { display: flex; gap: 14px; flex-wrap: wrap; margin-top: var(--sp-4); }
+
+/* blueprint card in hero */
+.blueprint-card {
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg);
+  padding: var(--sp-3); box-shadow: var(--shadow-lg); position: relative;
+}
+.blueprint-card::before {
+  content: "SCHEMATIC"; position: absolute; top: 14px; right: 16px;
+  font-family: var(--font-mono); font-size: .62rem; letter-spacing: .22em; color: var(--ink-faint);
+}
+
+/* ---------- Group cards (index) ---------- */
+.groups { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-3); }
+.group-card {
+  position: relative; display: flex; flex-direction: column; gap: 12px;
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg);
+  padding: var(--sp-3); overflow: hidden; transition: transform .2s ease, box-shadow .2s ease, border-color .2s;
+}
+.group-card::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 5px; background: var(--gc); }
+.group-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); border-color: color-mix(in srgb, var(--gc) 45%, var(--line)); text-decoration: none; }
+.group-card__num { font-family: var(--font-mono); font-size: .8rem; color: var(--gc); font-weight: 600; }
+.group-card__icon { width: 52px; height: 52px; border-radius: 13px; display: grid; place-items: center; font-size: 1.5rem; background: var(--gcw); color: var(--gc); }
+.group-card h3 { color: var(--ink); }
+.group-card p { color: var(--ink-soft); font-size: .96rem; margin: 0; }
+.group-card__list { list-style: none; padding: 0; margin: 6px 0 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.group-card__list li { font-size: .78rem; font-family: var(--font-mono); color: var(--ink-soft); background: var(--surface-2); border: 1px solid var(--line); padding: 3px 9px; border-radius: 999px; }
+.group-card--create { --gc: var(--c-create); --gcw: var(--c-create-wash); }
+.group-card--struct { --gc: var(--c-struct); --gcw: var(--c-struct-wash); }
+.group-card--behave { --gc: var(--c-behave); --gcw: var(--c-behave-wash); }
+
+/* ---------- Chapter layout (sidebar + content) ---------- */
+.chapter { display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: var(--sp-5); align-items: start; }
+.toc {
+  position: sticky; top: 88px; align-self: start; max-height: calc(100vh - 110px); overflow-y: auto;
+  padding-right: 8px;
+}
+.toc__title { font-family: var(--font-mono); font-size: .72rem; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 12px; }
+.toc ol { list-style: none; margin: 0; padding: 0; counter-reset: toc; }
+.toc li { counter-increment: toc; }
+.toc a {
+  display: flex; gap: 10px; align-items: baseline; padding: 7px 10px; border-radius: 8px;
+  color: var(--ink-soft); font-size: .92rem; font-weight: 500; border-left: 2px solid transparent;
+  transition: background .15s, color .15s;
+}
+.toc a::before { content: counter(toc, decimal-leading-zero); font-family: var(--font-mono); font-size: .72rem; color: var(--ink-faint); }
+.toc a:hover { background: var(--surface-2); color: var(--ink); text-decoration: none; }
+.toc a.is-active { background: var(--chapter-wash); color: var(--ink); border-left-color: var(--chapter-color); font-weight: 600; }
+.toc a.is-active::before { color: var(--chapter-color); }
+
+/* chapter theme hook — set on <body data-chapter> */
+[data-chapter="system"]   { --chapter-color: var(--c-create); --chapter-wash: var(--c-create-wash); }
+[data-chapter="organize"] { --chapter-color: var(--c-struct); --chapter-wash: var(--c-struct-wash); }
+[data-chapter="data"]     { --chapter-color: var(--c-behave); --chapter-wash: var(--c-behave-wash); }
+
+.chapter-hero { border-left: 5px solid var(--chapter-color); padding-left: var(--sp-3); margin-bottom: var(--sp-5); }
+.chapter-hero .eyebrow { color: var(--chapter-color); }
+
+/* ---------- Pattern section ---------- */
+.pattern { scroll-margin-top: 90px; padding-block: var(--sp-5); border-top: 1px dashed var(--line); }
+.pattern:first-of-type { border-top: none; }
+@keyframes target-flash { from { background: var(--chapter-wash); } to { background: transparent; } }
+.pattern:target { animation: target-flash 1.8s ease; border-radius: var(--r-md); }
+.pattern__head { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-bottom: var(--sp-2); }
+.pattern__index { font-family: var(--font-mono); font-size: .95rem; font-weight: 700; color: var(--chapter-color); }
+.pattern__title { margin: 0; font-size: clamp(1.6rem, 3vw, 2.15rem); }
+.pattern__aka { font-size: .9rem; color: var(--ink-faint); font-style: italic; width: 100%; }
+
+/* generic sub-block heading inside a pattern */
+.block { margin-block: var(--sp-3); }
+.block__label {
+  display: inline-flex; align-items: center; gap: 8px; margin: 0 0 10px;
+  font-family: var(--font-mono); font-size: .74rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.block__label .ic { font-size: 1rem; color: var(--chapter-color); }
+
+/* ---------- Badges & chips ---------- */
+.badge {
+  display: inline-flex; align-items: center; gap: 6px; font-size: .74rem; font-weight: 600;
+  font-family: var(--font-mono); letter-spacing: .03em; padding: 4px 10px; border-radius: 999px;
+  background: var(--surface-2); color: var(--ink-soft); border: 1px solid var(--line);
+}
+.badge--system   { background: var(--c-create-wash); color: var(--c-create); border-color: transparent; }
+.badge--organize { background: var(--c-struct-wash); color: var(--c-struct); border-color: transparent; }
+.badge--data     { background: var(--c-behave-wash); color: var(--c-behave); border-color: transparent; }
+.badge--ok { background: var(--ok-wash); color: var(--ok); border-color: transparent; }
+.badge--warn { background: var(--warn-wash); color: var(--warn); border-color: transparent; }
+.badge-row { display: flex; flex-wrap: wrap; gap: 8px; }
+
+/* difficulty meter */
+.meter { display: inline-flex; gap: 3px; vertical-align: middle; }
+.meter i { width: 8px; height: 8px; border-radius: 2px; background: var(--line); }
+.meter i.on { background: var(--chapter-color, var(--accent)); }
+
+/* ---------- Callouts ---------- */
+.callout {
+  display: grid; grid-template-columns: auto 1fr; gap: 14px; align-items: start;
+  padding: var(--sp-2) var(--sp-3); border-radius: var(--r-md); margin-block: var(--sp-2);
+  border: 1px solid var(--line); border-left-width: 4px; background: var(--surface);
+}
+.callout__ic { font-size: 1.2rem; line-height: 1.4; }
+.callout p:last-child { margin-bottom: 0; }
+.callout--info   { border-left-color: var(--info);   background: var(--info-wash); }
+.callout--tip    { border-left-color: var(--ok);     background: var(--ok-wash); }
+.callout--warn   { border-left-color: var(--warn);   background: var(--warn-wash); }
+.callout--danger { border-left-color: var(--danger); background: var(--danger-wash); }
+.callout b { color: var(--ink); }
+
+/* ---------- Pros / Cons ---------- */
+.proscons { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-2); margin-block: var(--sp-2); }
+.pc { border: 1px solid var(--line); border-radius: var(--r-md); padding: var(--sp-2) var(--sp-3); background: var(--surface); }
+.pc h4 { display: flex; align-items: center; gap: 8px; margin: 0 0 10px; font-family: var(--font-body); font-size: 1rem; }
+.pc ul { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.pc li { position: relative; padding-left: 26px; font-size: .95rem; color: var(--ink-soft); }
+.pc li::before { position: absolute; left: 0; top: 1px; font-weight: 700; }
+.pc--pros { border-top: 3px solid var(--ok); }
+.pc--pros h4 { color: var(--ok); }
+.pc--pros li::before { content: "✓"; color: var(--ok); }
+.pc--cons { border-top: 3px solid var(--danger); }
+.pc--cons h4 { color: var(--danger); }
+.pc--cons li::before { content: "✕"; color: var(--danger); }
+
+/* ---------- When / When-not ---------- */
+.usecase { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-2); margin-block: var(--sp-2); }
+.usecase__col { border-radius: var(--r-md); padding: var(--sp-2) var(--sp-3); border: 1px dashed var(--line); }
+.usecase__col--do { background: var(--ok-wash); border-color: color-mix(in srgb, var(--ok) 40%, transparent); }
+.usecase__col--dont { background: var(--danger-wash); border-color: color-mix(in srgb, var(--danger) 40%, transparent); }
+.usecase__col h4 { display: flex; gap: 8px; align-items: center; margin: 0 0 8px; font-family: var(--font-body); font-size: .98rem; }
+.usecase__col ul { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 6px; }
+.usecase__col li { font-size: .93rem; color: var(--ink-soft); }
+
+/* ---------- UML / schematic diagram ---------- */
+.uml {
+  margin: var(--sp-2) 0; padding: var(--sp-3); border-radius: var(--r-md);
+  background:
+    linear-gradient(color-mix(in srgb, var(--chapter-color) 8%, var(--surface)), color-mix(in srgb, var(--chapter-color) 8%, var(--surface))),
+    repeating-linear-gradient(0deg, transparent, transparent 21px, var(--line-soft) 21px, var(--line-soft) 22px);
+  border: 1px solid var(--line); overflow-x: auto;
+}
+.uml__stage { display: flex; flex-wrap: wrap; gap: var(--sp-3) var(--sp-4); align-items: flex-start; justify-content: center; min-width: min-content; }
+.uml-class { min-width: 190px; background: var(--surface); border: 1.5px solid var(--ink-soft); border-radius: 6px; box-shadow: var(--shadow-sm); overflow: hidden; }
+.uml-class__name { padding: 8px 12px; text-align: center; font-family: var(--font-display); font-weight: 700; font-size: .95rem; background: var(--surface-2); border-bottom: 1.5px solid var(--ink-soft); }
+.uml-class__name small { display: block; font-family: var(--font-mono); font-weight: 500; font-size: .68rem; color: var(--ink-faint); letter-spacing: .04em; }
+.uml-class__section { padding: 8px 12px; display: flex; flex-direction: column; gap: 4px; border-bottom: 1px solid var(--line); }
+.uml-class__section:last-child { border-bottom: none; }
+.uml-class__section .m { font-family: var(--font-mono); font-size: .78rem; color: var(--ink-soft); white-space: nowrap; }
+.uml-class--abstract .uml-class__name { font-style: italic; color: var(--chapter-color); border-color: var(--chapter-color); }
+.uml-class--abstract { border-color: var(--chapter-color); border-style: dashed; }
+.uml-class--client { background: var(--surface-2); }
+/* relationship connectors */
+.uml-rel { display: inline-flex; align-items: center; align-self: center; font-family: var(--font-mono); font-size: .72rem; color: var(--ink-faint); }
+.uml-rel span { padding: 2px 8px; border: 1px dashed var(--ink-faint); border-radius: 999px; }
+.uml__legend { display: flex; flex-wrap: wrap; gap: 12px 20px; margin-top: var(--sp-2); padding-top: var(--sp-2); border-top: 1px dashed var(--line); font-family: var(--font-mono); font-size: .72rem; color: var(--ink-faint); }
+.uml figcaption, .uml__caption { margin-top: var(--sp-2); font-size: .86rem; color: var(--ink-faint); text-align: center; }
+
+/* ---------- Code blocks ---------- */
+.code-wrap { margin: var(--sp-2) 0; border-radius: var(--r-md); overflow: hidden; border: 1px solid var(--line); box-shadow: var(--shadow-sm); }
+.code-wrap__bar { display: flex; align-items: center; gap: 8px; padding: 9px 14px; background: var(--surface-2); border-bottom: 1px solid var(--line); }
+.code-wrap__dots { display: flex; gap: 6px; }
+.code-wrap__dots i { width: 11px; height: 11px; border-radius: 50%; }
+.code-wrap__dots i:nth-child(1){ background:#ff5f56; } .code-wrap__dots i:nth-child(2){ background:#ffbd2e; } .code-wrap__dots i:nth-child(3){ background:#27c93f; }
+.code-wrap__lang { margin-left: auto; font-family: var(--font-mono); font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-faint); }
+.code-wrap pre { margin: 0; }
+pre[class*="language-"] { margin: 0; padding: var(--sp-2) var(--sp-3); font-size: .86rem; line-height: 1.6; background: #0d1524 !important; }
+@media (prefers-color-scheme: dark) { pre[class*="language-"] { background: #0a101c !important; } }
+code[class*="language-"], pre[class*="language-"] { font-family: var(--font-mono); text-shadow: none !important; }
+
+/* ---------- Tables ---------- */
+.table-wrap { overflow-x: auto; margin: var(--sp-2) 0; border: 1px solid var(--line); border-radius: var(--r-md); }
+table.data { width: 100%; border-collapse: collapse; font-size: .92rem; min-width: 560px; }
+table.data th, table.data td { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+table.data thead th { background: var(--surface-2); font-family: var(--font-mono); font-size: .74rem; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-soft); position: sticky; top: 0; }
+table.data tbody tr:hover { background: var(--surface-2); }
+table.data tbody tr:last-child td { border-bottom: none; }
+table.data td strong { color: var(--ink); }
+
+/* ---------- Timeline ---------- */
+.timeline { list-style: none; margin: var(--sp-2) 0; padding: 0; position: relative; }
+.timeline::before { content: ""; position: absolute; left: 15px; top: 6px; bottom: 6px; width: 2px; background: var(--line); }
+.timeline li { position: relative; padding: 0 0 var(--sp-3) 48px; }
+.timeline li:last-child { padding-bottom: 0; }
+.timeline li::before { content: ""; position: absolute; left: 8px; top: 4px; width: 16px; height: 16px; border-radius: 50%; background: var(--surface); border: 3px solid var(--chapter-color, var(--accent)); }
+.timeline h4 { margin: 0 0 4px; }
+.timeline p { margin: 0; color: var(--ink-soft); font-size: .95rem; }
+
+/* ---------- Accordion (details) ---------- */
+.accordion { border: 1px solid var(--line); border-radius: var(--r-md); overflow: hidden; margin: var(--sp-2) 0; background: var(--surface); }
+.accordion + .accordion { margin-top: -8px; border-top: none; }
+.accordion > summary {
+  cursor: pointer; list-style: none; padding: 14px 18px; display: flex; align-items: center; gap: 12px;
+  font-weight: 600; color: var(--ink); user-select: none;
+}
+.accordion > summary::-webkit-details-marker { display: none; }
+.accordion > summary::after { content: "＋"; margin-left: auto; font-family: var(--font-mono); color: var(--ink-faint); transition: transform .2s; }
+.accordion[open] > summary::after { content: "－"; }
+.accordion[open] > summary { border-bottom: 1px solid var(--line); background: var(--surface-2); }
+.accordion__body { padding: var(--sp-2) var(--sp-3); }
+.accordion__body p:last-child { margin-bottom: 0; }
+.accordion__ic { color: var(--danger); }
+
+/* ---------- Related patterns links ---------- */
+.related { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+.related a {
+  display: inline-flex; align-items: center; gap: 7px; padding: 8px 14px; border-radius: 10px;
+  border: 1px solid var(--line); background: var(--surface); color: var(--ink-soft); font-size: .88rem; font-weight: 500;
+  transition: border-color .15s, transform .15s, color .15s;
+}
+.related a:hover { border-color: var(--chapter-color); color: var(--ink); transform: translateY(-2px); text-decoration: none; }
+.related a::before { content: "↔"; color: var(--chapter-color); }
+
+/* ---------- References / sources ---------- */
+.refs { list-style: none; margin: 10px 0 0; padding: var(--sp-2) var(--sp-3); background: var(--surface-2); border: 1px solid var(--line); border-left: 3px solid var(--chapter-color, var(--accent)); border-radius: var(--r-md); display: flex; flex-direction: column; gap: 10px; }
+.refs li { display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: baseline; font-size: .92rem; }
+.refs li::before { content: "🔗"; font-size: .85rem; }
+.refs a { font-weight: 500; word-break: break-word; }
+.refs .src { display: block; font-family: var(--font-mono); font-size: .74rem; color: var(--ink-faint); margin-top: 2px; }
+
+/* ---------- Chapter summary block ---------- */
+.summary-block {
+  margin-top: var(--sp-5); padding: var(--sp-4); border-radius: var(--r-lg);
+  background: linear-gradient(135deg, var(--chapter-wash), var(--surface));
+  border: 1px solid color-mix(in srgb, var(--chapter-color) 35%, var(--line));
+}
+.summary-block .eyebrow { color: var(--chapter-color); }
+.key-takeaways { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.key-takeaways li { position: relative; padding-left: 28px; }
+.key-takeaways li::before { content: "◆"; position: absolute; left: 0; top: 0; color: var(--chapter-color); font-size: 1rem; line-height: 1.65; }
+
+/* ---------- Concept grid (2-col info) ---------- */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-3); }
+.grid-2 .box { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-md); padding: var(--sp-2) var(--sp-3); }
+
+/* ---------- Footer ---------- */
+.site-footer { border-top: 1px solid var(--line); background: var(--surface); margin-top: var(--sp-6); padding-block: var(--sp-4); }
+.site-footer .container { display: flex; flex-wrap: wrap; gap: var(--sp-3); justify-content: space-between; align-items: center; color: var(--ink-faint); font-size: .9rem; }
+.site-footer a { color: var(--ink-soft); }
+
+/* ---------- Back to top ---------- */
+.to-top {
+  position: fixed; right: 24px; bottom: 24px; z-index: 90; width: 46px; height: 46px; border-radius: 50%;
+  border: 1px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer; box-shadow: var(--shadow-md);
+  display: grid; place-items: center; font-size: 1.2rem;
+  transition: transform .15s, border-color .15s, color .15s;
+}
+.to-top:hover { transform: translateY(-2px); border-color: var(--accent); color: var(--accent); }
+
+/* ---------- Entrance animation (CSS-only, runs on load) ---------- */
+@keyframes reveal-up { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
+[data-reveal] { animation: reveal-up .6s cubic-bezier(.22,1,.36,1) both; }
+[data-reveal][data-delay="1"] { animation-delay: .08s; }
+[data-reveal][data-delay="2"] { animation-delay: .16s; }
+[data-reveal][data-delay="3"] { animation-delay: .24s; }
+@media (prefers-reduced-motion: reduce) { [data-reveal] { animation: none; } }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1024px) {
+  .chapter { grid-template-columns: 1fr; }
+  .toc { position: static; max-height: none; margin-bottom: var(--sp-3); padding: var(--sp-2); border: 1px solid var(--line); border-radius: var(--r-md); background: var(--surface); }
+  .toc ol { columns: 2; }
+  .hero__grid { grid-template-columns: 1fr; }
+  .hero .blueprint-card { display: none; }
+}
+@media (max-width: 720px) {
+  body { font-size: 16px; }
+  .nav { gap: 2px; overflow-x: auto; -webkit-overflow-scrolling: touch; max-width: 100%; scrollbar-width: none; }
+  .nav::-webkit-scrollbar { display: none; }
+  .nav a { white-space: nowrap; padding: 8px 10px; }
+  .groups { grid-template-columns: 1fr; }
+  .grid-2, .proscons, .usecase, .hero__cta { grid-template-columns: 1fr; }
+  .toc ol { columns: 1; }
+  .section { padding-block: var(--sp-5); }
+}
+@media (max-width: 420px) {
+  .hero__meta { gap: var(--sp-2); }
+}
+
+</style>
+</head>
+<body id="top">
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="brand" href="#top"><span class="brand__mark">◈</span><span>Kiến trúc phần mềm<span style="color:var(--ink-faint);font-weight:500">/ Patterns</span></span></a>
+    <nav class="nav" aria-label="Điều hướng chính">
+      <a href="#top">Trang chủ</a>
+      <a href="#he-thong">Kiểu ứng dụng</a>
+      <a href="#to-chuc">Tổ chức mã nguồn</a>
+      <a href="#du-lieu">Dữ liệu phân tán</a>
+      <a href="#bang-tong-hop">Bảng tổng hợp</a>
+    </nav>
+  </div>
+</header>
+
+
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <div class="container hero__grid">
+      <div>
+        <span class="eyebrow" data-reveal>Architecture Patterns · Cấp ứng dụng · Có dẫn nguồn</span>
+        <h1 data-reveal data-delay="1">Chọn đúng <span class="accent">kiến trúc</span><br>trước khi viết dòng code đầu tiên.</h1>
+        <p class="lead" data-reveal data-delay="2">
+          Cẩm nang 11 mẫu <b>kiến trúc phần mềm</b> ở cấp ứng dụng — từ <b>Monolith</b> tới
+          <b>Microservices</b>, <b>Event-Driven</b>, <b>CQRS</b>, <b>Saga</b>… Mỗi mẫu phân tích
+          vấn đề, sơ đồ kiến trúc, trade-off, hệ thống thật đang dùng, ví dụ code, và
+          <b>nguồn tham khảo có thật</b> để bạn kiểm chứng.
+        </p>
+        <div class="hero__meta" data-reveal data-delay="2">
+          <div class="hero__stat"><b>11</b><span>MẪU KIẾN TRÚC</span></div>
+          <div class="hero__stat"><b>3</b><span>NHÓM</span></div>
+          <div class="hero__stat"><b>100%</b><span>DẪN NGUỒN</span></div>
+        </div>
+        <div class="hero__cta" data-reveal data-delay="3">
+          <a class="btn btn--primary" href="#he-thong">Bắt đầu: Kiểu ứng dụng →</a>
+          <a class="btn btn--ghost" href="#bang-tong-hop">Xem bảng tổng hợp 11 mẫu</a>
+        </div>
+      </div>
+
+      <!-- signature: mini schematic — microservices phía sau API Gateway -->
+      <div class="blueprint-card" data-reveal data-delay="2" aria-hidden="true">
+        <div class="uml" style="--chapter-color: var(--c-create); background:none; border:none; padding:0;">
+          <div class="uml__stage">
+            <div class="uml-class uml-class--client">
+              <div class="uml-class__name">Client</div>
+            </div>
+            <div class="uml-rel"><span>▶</span></div>
+            <div class="uml-class uml-class--abstract">
+              <div class="uml-class__name">API Gateway<small>điểm vào</small></div>
+            </div>
+          </div>
+          <div class="uml__stage" style="margin-top:18px">
+            <div class="uml-class"><div class="uml-class__name">Service A</div><div class="uml-class__section"><span class="m">DB A</span></div></div>
+            <div class="uml-class"><div class="uml-class__name">Service B</div><div class="uml-class__section"><span class="m">DB B</span></div></div>
+            <div class="uml-class"><div class="uml-class__name">Service C</div><div class="uml-class__section"><span class="m">DB C</span></div></div>
+          </div>
+          <div class="uml__legend"><span>▶ định tuyến request</span><span>mỗi service một database riêng</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ KHÁI NIỆM ============ -->
+  <section class="section container" id="khai-niem">
+    <span class="eyebrow" data-reveal>Nền tảng</span>
+    <h2 data-reveal>Mẫu kiến trúc là gì? Khác gì Design Pattern?</h2>
+    <p class="lead" data-reveal>
+      <b>Mẫu kiến trúc (architecture pattern)</b> là cách tổ chức <i>tổng thể</i> một hệ thống phần mềm:
+      chia thành khối/dịch vụ nào, triển khai ra sao, các thành phần giao tiếp thế nào, dữ liệu nằm ở đâu.
+      Nó ở <b>cấp hệ thống phần mềm</b> — cao hơn hẳn Design Pattern (GoF) vốn chỉ nói về cách tổ chức <i>lớp và đối tượng</i>.
+    </p>
+
+    <div class="callout callout--info" data-reveal>
+      <span class="callout__ic">📌</span>
+      <p><b>Lưu ý thuật ngữ:</b> trong tài liệu này, <b>"hệ thống" = hệ thống phần mềm / ứng dụng</b> (application) — nói về cách tổ chức &amp; triển khai <i>code/phần mềm</i>. KHÔNG phải "hệ thống" theo nghĩa <b>hạ tầng &amp; vận hành</b> (máy chủ vật lý, VM, mạng, storage). Ví dụ: "Microservices" nói về cách chia <i>ứng dụng</i>, không phải cách quản trị <i>máy chủ</i>.</p>
+    </div>
+
+    <div class="grid-2" style="margin-top:var(--sp-3)">
+      <div class="box" data-reveal>
+        <h3>Kiến trúc quyết định điều gì?</h3>
+        <ul>
+          <li><b>Khả năng mở rộng (scalability):</b> co giãn theo tải được không, co giãn phần nào.</li>
+          <li><b>Tốc độ phát triển:</b> nhiều đội làm song song hay dẫm chân nhau.</li>
+          <li><b>Độ phức tạp vận hành:</b> deploy, giám sát, gỡ lỗi khó hay dễ.</li>
+          <li><b>Chi phí thay đổi:</b> sửa một tính năng ảnh hưởng rộng tới đâu.</li>
+        </ul>
+      </div>
+      <div class="box" data-reveal data-delay="1">
+        <h3>Không có kiến trúc "tốt nhất"</h3>
+        <p>
+          Mỗi mẫu là một bộ <b>đánh đổi (trade-off)</b>. Microservices cho co giãn &amp; độc lập
+          nhưng thêm rất nhiều độ phức tạp phân tán. Monolith đơn giản nhưng khó co giãn từng phần.
+          Chọn kiến trúc là chọn <i>đánh đổi phù hợp với bài toán &amp; quy mô đội</i>, không phải chạy theo hype.
+        </p>
+      </div>
+    </div>
+
+    <div class="callout callout--tip" data-reveal>
+      <span class="callout__ic">🧭</span>
+      <p><b>Kim chỉ nam (Martin Fowler — "MonolithFirst"):</b> hầu hết hệ thống microservices thành công
+      đều <i>khởi đầu từ một monolith</i> rồi tách dần khi đã hiểu rõ ranh giới nghiệp vụ. Bắt đầu bằng
+      microservices từ con số 0 thường dẫn tới rắc rối nghiêm trọng.</p>
+    </div>
+
+    <div class="callout callout--warn" data-reveal>
+      <span class="callout__ic">⚠️</span>
+      <p><b>Đừng over-engineering:</b> đội nhỏ, sản phẩm chưa rõ product-market-fit mà nhảy thẳng vào
+      microservices + event sourcing + saga là tự bơm độ phức tạp không cần thiết. Kiến trúc nên
+      <b>tiến hóa theo nhu cầu thực</b>, không phải theo mong muốn "cho hoành tráng".</p>
+    </div>
+  </section>
+
+  <!-- ============ 3 NHÓM ============ -->
+  <section class="section container" id="ba-nhom">
+    <span class="eyebrow" data-reveal>Phân loại</span>
+    <h2 data-reveal>Ba nhóm trong tài liệu</h2>
+    <p class="lead" data-reveal>Chia theo <b>tầng quyết định</b>: kiểu triển khai ứng dụng, cách tổ chức mã nguồn, và mẫu dữ liệu/giao tiếp phân tán.</p>
+
+    <div class="groups" style="margin-top:var(--sp-3)">
+      <a class="group-card group-card--create" href="#he-thong" data-reveal>
+        <span class="group-card__num">01 — 4 mẫu</span>
+        <span class="group-card__icon">🏛️</span>
+        <h3>Kiểu ứng dụng</h3>
+        <p>Đóng gói &amp; triển khai toàn bộ ứng dụng ra sao: một khối hay nhiều dịch vụ độc lập.</p>
+        <ul class="group-card__list">
+          <li>Monolith</li><li>Modular Monolith</li><li>Microservices</li><li>Serverless</li>
+        </ul>
+      </a>
+      <a class="group-card group-card--struct" href="#to-chuc" data-reveal data-delay="1">
+        <span class="group-card__num">02 — 3 mẫu</span>
+        <span class="group-card__icon">🧱</span>
+        <h3>Tổ chức mã nguồn</h3>
+        <p>Sắp xếp lớp/thành phần bên trong: tách tầng, cô lập nghiệp vụ, giao tiếp qua sự kiện.</p>
+        <ul class="group-card__list">
+          <li>Layered / N-tier</li><li>Hexagonal &amp; Clean</li><li>Event-Driven</li>
+        </ul>
+      </a>
+      <a class="group-card group-card--behave" href="#du-lieu" data-reveal data-delay="2">
+        <span class="group-card__num">03 — 4 mẫu</span>
+        <span class="group-card__icon">🗄️</span>
+        <h3>Dữ liệu phân tán</h3>
+        <p>Xử lý dữ liệu &amp; giao dịch khi hệ thống bị chia nhỏ: đọc/ghi tách biệt, nhất quán, định tuyến.</p>
+        <ul class="group-card__list">
+          <li>CQRS</li><li>Event Sourcing</li><li>Saga</li><li>API Gateway</li>
+        </ul>
+      </a>
+    </div>
+  </section>
+
+  <!-- ============ BẢNG TỔNG HỢP ============ -->
+  <section class="section container" id="bang-tong-hop">
+    <span class="eyebrow" data-reveal>Tra cứu nhanh</span>
+    <h2 data-reveal>Bảng tổng hợp 11 mẫu kiến trúc</h2>
+    <p class="lead" data-reveal>Một câu tóm tắt mục đích và độ phức tạp cho từng mẫu. Bấm tên mẫu để tới phần chi tiết.</p>
+
+    <div class="table-wrap" data-reveal>
+      <table class="data">
+        <thead>
+          <tr><th>#</th><th>Mẫu</th><th>Nhóm</th><th>Mục đích (một câu)</th><th>Độ phức tạp</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td><strong><a href="#monolith">Monolith</a></strong></td><td><span class="badge badge--system">Ứng dụng</span></td><td>Toàn bộ ứng dụng là một khối triển khai duy nhất, một codebase, một tiến trình.</td><td><span class="meter" style="--chapter-color:var(--c-create)"><i class="on"></i><i></i><i></i></span></td></tr>
+          <tr><td>2</td><td><strong><a href="#modular-monolith">Modular Monolith</a></strong></td><td><span class="badge badge--system">Ứng dụng</span></td><td>Một khối triển khai nhưng chia module ranh giới rõ, ít phụ thuộc chéo.</td><td><span class="meter" style="--chapter-color:var(--c-create)"><i class="on"></i><i class="on"></i><i></i></span></td></tr>
+          <tr><td>3</td><td><strong><a href="#microservices">Microservices</a></strong></td><td><span class="badge badge--system">Ứng dụng</span></td><td>Tách hệ thống thành nhiều dịch vụ nhỏ triển khai độc lập, mỗi dịch vụ một nghiệp vụ.</td><td><span class="meter" style="--chapter-color:var(--c-create)"><i class="on"></i><i class="on"></i><i class="on"></i></span></td></tr>
+          <tr><td>4</td><td><strong><a href="#serverless">Serverless</a></strong></td><td><span class="badge badge--system">Ứng dụng</span></td><td>Chạy code theo hàm (FaaS), nhà cung cấp cloud lo hạ tầng, tự co giãn, trả theo dùng.</td><td><span class="meter" style="--chapter-color:var(--c-create)"><i class="on"></i><i class="on"></i><i></i></span></td></tr>
+
+          <tr><td>5</td><td><strong><a href="#layered">Layered / N-tier</a></strong></td><td><span class="badge badge--organize">Tổ chức</span></td><td>Chia hệ thống thành các tầng ngang: presentation → business → data.</td><td><span class="meter" style="--chapter-color:var(--c-struct)"><i class="on"></i><i></i><i></i></span></td></tr>
+          <tr><td>6</td><td><strong><a href="#hexagonal">Hexagonal &amp; Clean</a></strong></td><td><span class="badge badge--organize">Tổ chức</span></td><td>Đặt nghiệp vụ ở lõi, cô lập khỏi UI/DB/framework qua ports &amp; adapters.</td><td><span class="meter" style="--chapter-color:var(--c-struct)"><i class="on"></i><i class="on"></i><i class="on"></i></span></td></tr>
+          <tr><td>7</td><td><strong><a href="#event-driven">Event-Driven</a></strong></td><td><span class="badge badge--organize">Tổ chức</span></td><td>Các thành phần giao tiếp bất đồng bộ qua sự kiện (produce/consume).</td><td><span class="meter" style="--chapter-color:var(--c-struct)"><i class="on"></i><i class="on"></i><i class="on"></i></span></td></tr>
+
+          <tr><td>8</td><td><strong><a href="#cqrs">CQRS</a></strong></td><td><span class="badge badge--data">Dữ liệu</span></td><td>Tách mô hình ghi (command) khỏi mô hình đọc (query).</td><td><span class="meter" style="--chapter-color:var(--c-behave)"><i class="on"></i><i class="on"></i><i></i></span></td></tr>
+          <tr><td>9</td><td><strong><a href="#event-sourcing">Event Sourcing</a></strong></td><td><span class="badge badge--data">Dữ liệu</span></td><td>Lưu trạng thái dưới dạng chuỗi sự kiện thay vì chỉ trạng thái hiện tại.</td><td><span class="meter" style="--chapter-color:var(--c-behave)"><i class="on"></i><i class="on"></i><i class="on"></i></span></td></tr>
+          <tr><td>10</td><td><strong><a href="#saga">Saga</a></strong></td><td><span class="badge badge--data">Dữ liệu</span></td><td>Quản lý giao dịch phân tán qua chuỗi bước cục bộ + bù trừ (compensation).</td><td><span class="meter" style="--chapter-color:var(--c-behave)"><i class="on"></i><i class="on"></i><i class="on"></i></span></td></tr>
+          <tr><td>11</td><td><strong><a href="#api-gateway">API Gateway</a></strong></td><td><span class="badge badge--data">Dữ liệu</span></td><td>Một điểm vào duy nhất định tuyến/tổng hợp request tới các dịch vụ backend.</td><td><span class="meter" style="--chapter-color:var(--c-behave)"><i class="on"></i><i class="on"></i><i></i></span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="color:var(--ink-faint);font-size:.86rem;font-family:var(--font-mono)">Độ phức tạp: ◼ Thấp · ◼◼ Trung bình · ◼◼◼ Cao (chi phí vận hành &amp; nhận thức, tương đối).</p>
+  </section>
+
+  <!-- ============ CÁCH CHỌN ============ -->
+  <section class="section container" id="lo-trinh">
+    <span class="eyebrow" data-reveal>Gợi ý</span>
+    <h2 data-reveal>Lộ trình chọn kiến trúc</h2>
+    <ol class="timeline" data-reveal>
+      <li>
+        <h4>1 · Bắt đầu đơn giản</h4>
+        <p>Sản phẩm mới / đội nhỏ → <b>Monolith</b> (hoặc <b>Modular Monolith</b> nếu đã lường trước tăng trưởng). Đừng phân tán sớm.</p>
+      </li>
+      <li>
+        <h4>2 · Giữ nghiệp vụ sạch từ đầu</h4>
+        <p>Áp <b>Layered</b> hoặc <b>Hexagonal/Clean</b> để tách nghiệp vụ khỏi hạ tầng — dễ test, dễ đổi công nghệ về sau.</p>
+      </li>
+      <li>
+        <h4>3 · Tách khi thật sự đau</h4>
+        <p>Khi một phần cần co giãn riêng hoặc đội đông dẫm chân nhau → tách <b>Microservices</b> theo ranh giới nghiệp vụ (dùng Strangler Fig để tách dần).</p>
+      </li>
+      <li>
+        <h4>4 · Phân tán sinh ra bài toán dữ liệu</h4>
+        <p>Nhiều dịch vụ → cần <b>API Gateway</b> (điểm vào), <b>Saga</b> (giao dịch xuyên dịch vụ), <b>Event-Driven</b> + <b>CQRS</b>/<b>Event Sourcing</b> cho đọc-ghi &amp; nhất quán.</p>
+      </li>
+      <li>
+        <h4>5 · Tối ưu chi phí/co giãn theo sự kiện</h4>
+        <p>Workload rời rạc, bùng nổ theo sự kiện → cân nhắc <b>Serverless</b> để trả theo dùng và tự co giãn.</p>
+      </li>
+    </ol>
+
+    <div class="callout callout--info" data-reveal>
+      <span class="callout__ic">📚</span>
+      <p><b>Về nguồn:</b> mỗi mẫu trong tài liệu có mục <b>"Nguồn tham khảo"</b> dẫn link tới tài liệu gốc có thẩm quyền
+      (Martin Fowler, microservices.io của Chris Richardson, Microsoft Azure Architecture Center, AWS, Alistair Cockburn,
+      Robert C. Martin, Kamil Grzybek, Shopify Engineering) để bạn tự kiểm chứng và đọc sâu.</p>
+    </div>
+  </section>
+
+  
+<!-- ===== CHƯƠNG: he-thong ===== -->
+
+
+  <section class="section container" id="he-thong" data-chapter="system">
+
+    <div class="chapter">
+      <aside class="toc" aria-label="Mục lục chương">
+        <p class="toc__title">Trong chương này</p>
+        <ol>
+          <li><a href="#monolith">Monolith</a></li>
+          <li><a href="#modular-monolith">Modular Monolith</a></li>
+          <li><a href="#microservices">Microservices</a></li>
+          <li><a href="#serverless">Serverless</a></li>
+          <li><a href="#tom-tat-he-thong">Tóm tắt chương</a></li>
+        </ol>
+      </aside>
+
+      <main>
+        <div class="chapter-hero" data-reveal>
+      <span class="eyebrow">Nhóm 01 · 4 mẫu</span>
+      <h1>Kiểu ứng dụng</h1>
+      <p class="lead">Quyết định lớn nhất và khó đảo ngược nhất: <b>đóng gói và triển khai toàn bộ ứng dụng ra sao</b> — một khối duy nhất, một khối có module, nhiều dịch vụ độc lập, hay các hàm không máy chủ. Đây là trục đánh đổi giữa <i>đơn giản</i> và <i>khả năng co giãn/độc lập</i>.</p>
+    </div>
+
+        <!-- ==================== MONOLITH ==================== -->
+        <section class="pattern" id="monolith">
+          <div class="pattern__head">
+            <span class="pattern__index">01</span>
+            <h2 class="pattern__title">Monolith</h2>
+            <span class="badge badge--system">Ứng dụng</span>
+            <span class="meter" title="Độ phức tạp: Thấp"><i class="on"></i><i></i><i></i></span>
+            <span class="pattern__aka">Còn gọi là: Monolithic architecture</span>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">📘</span> Khái niệm</p>
+            <p><b>Monolith</b> là kiến trúc trong đó toàn bộ ứng dụng được xây dựng và triển khai như <b>một khối duy nhất</b>: một codebase, một tiến trình (process), thường dùng chung một cơ sở dữ liệu. Mọi tính năng (giao diện, nghiệp vụ, truy cập dữ liệu) nằm trong cùng một đơn vị deploy.</p>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">🎯</span> Mục đích &amp; vấn đề giải quyết</p>
+            <p>Đây là điểm khởi đầu tự nhiên cho hầu hết dự án: cần <b>đưa sản phẩm ra thị trường nhanh</b>, đội nhỏ, nghiệp vụ chưa ổn định. Monolith loại bỏ hoàn toàn độ phức tạp của hệ phân tán (mạng, nhất quán dữ liệu, triển khai nhiều dịch vụ), giúp tập trung vào nghiệp vụ.</p>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">⚙️</span> Nguyên lý hoạt động</p>
+            <p>Tất cả module được biên dịch/đóng gói chung, gọi nhau bằng <b>lời gọi hàm trong tiến trình (in-process)</b> — nhanh, không qua mạng. Chỉ có một artifact để deploy, một pipeline CI/CD, một database để quản lý transaction bằng ACID thông thường.</p>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">📐</span> Sơ đồ kiến trúc</p>
+            <figure class="uml">
+              <div class="uml__stage">
+                <div class="uml-class" style="min-width:280px">
+                  <div class="uml-class__name">Monolithic Application<small>1 process · 1 deploy</small></div>
+                  <div class="uml-class__section"><span class="m">▸ UI / Controllers</span><span class="m">▸ Order · Payment · User (modules)</span><span class="m">▸ Data Access</span></div>
+                </div>
+                <div class="uml-rel"><span>▼</span></div>
+                <div class="uml-class"><div class="uml-class__name">Database<small>dùng chung</small></div></div>
+              </div>
+              <figcaption>Mọi module nằm trong một khối; gọi nhau in-process; chung một database.</figcaption>
+            </figure>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">⚖️</span> Ưu điểm &amp; nhược điểm</p>
+            <div class="proscons">
+              <div class="pc pc--pros">
+                <h4>Ưu điểm</h4>
+                <ul>
+                  <li>Đơn giản để phát triển, test end-to-end, deploy (một artifact).</li>
+                  <li>Gọi in-process nhanh; transaction ACID dễ dàng.</li>
+                  <li>Không có độ phức tạp phân tán (mạng, service discovery...).</li>
+                </ul>
+              </div>
+              <div class="pc pc--cons">
+                <h4>Nhược điểm</h4>
+                <ul>
+                  <li>Codebase phình to → khó hiểu, build/test chậm ("big ball of mud").</li>
+                  <li>Không co giãn từng phần — phải scale cả khối.</li>
+                  <li>Một lỗi/đổi nhỏ buộc deploy lại toàn bộ; kẹt vào một stack công nghệ.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">🧭</span> Khi nào nên &amp; không nên dùng</p>
+            <div class="usecase">
+              <div class="usecase__col usecase__col--do">
+                <h4>✔ Nên dùng khi</h4>
+                <ul>
+                  <li>Sản phẩm mới, MVP, đội nhỏ, cần ra mắt nhanh.</li>
+                  <li>Nghiệp vụ chưa rõ ranh giới (chưa biết chỗ nào cần tách).</li>
+                </ul>
+              </div>
+              <div class="usecase__col usecase__col--dont">
+                <h4>✕ Không nên khi</h4>
+                <ul>
+                  <li>Nhiều đội lớn dẫm chân nhau trên cùng codebase.</li>
+                  <li>Các phần có nhu cầu co giãn rất khác nhau.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">🌍</span> Ví dụ hệ thống thật</p>
+            <p>Gần như <b>mọi startup</b> bắt đầu bằng monolith. <b>Netflix</b> vận hành monolith tới sự cố hỏng database năm 2008 mới bắt đầu tách. <b>Shopify</b> đến nay vẫn là một trong những monolith Ruby on Rails lớn nhất thế giới (được module hóa dần — xem Modular Monolith).</p>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">💻</span> Ví dụ code (TypeScript)</p>
+            <div class="code-wrap">
+              <div class="code-wrap__bar"><span class="code-wrap__dots"><i></i><i></i><i></i></span><span class="code-wrap__lang">TypeScript</span></div>
+<pre><code class="language-typescript">// Một tiến trình duy nhất khởi động toàn bộ ứng dụng
+import express from 'express';
+import { orderRouter } from './modules/order';
+import { paymentRouter } from './modules/payment';
+import { userRouter } from './modules/user';
+
+const app = express();
+
+// Mọi module chạy chung 1 process, gọi nhau trực tiếp (in-process)
+app.use('/orders', orderRouter);
+app.use('/payments', paymentRouter);
+app.use('/users', userRouter);
+
+// Chung 1 database, chỉ 1 lần deploy cho cả hệ thống
+app.listen(3000, () =&gt; console.log('Monolith listening on :3000'));</code></pre>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">🐞</span> Lỗi thường gặp</p>
+            <details class="accordion">
+              <summary><span class="accordion__ic">▸</span> Để codebase trở thành "big ball of mud"</summary>
+              <div class="accordion__body"><p>Monolith không đồng nghĩa với hỗn độn. Không đặt ranh giới module rõ ràng từ sớm khiến mọi thứ phụ thuộc chéo, sau này rất khó tách. Giải pháp: đi thẳng tới <b>Modular Monolith</b>.</p></div>
+            </details>
+            <details class="accordion">
+              <summary><span class="accordion__ic">▸</span> Tách microservices quá sớm vì sợ monolith</summary>
+              <div class="accordion__body"><p>Ngược lại cũng sai: bỏ monolith khi chưa cần chỉ để "hiện đại" là tự chuốc độ phức tạp phân tán. Martin Fowler khuyến nghị "Monolith First".</p></div>
+            </details>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">🔀</span> So sánh với mẫu liên quan</p>
+            <p><b>Modular Monolith</b> là monolith có ranh giới module rõ — bước tiến hóa tự nhiên. <b>Microservices</b> là thái cực đối lập (phân tán). Chuyển từ Monolith sang Microservices thường dùng mẫu <b>Strangler Fig</b> (tách dần).</p>
+            <div class="related">
+              <a href="#modular-monolith">Modular Monolith</a>
+              <a href="#microservices">Microservices</a>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">📎</span> Nguồn tham khảo</p>
+            <ul class="refs">
+              <li><div><a href="https://martinfowler.com/bliki/MonolithFirst.html" target="_blank" rel="noopener">Martin Fowler — MonolithFirst</a><span class="src">martinfowler.com</span></div></li>
+              <li><div><a href="https://martinfowler.com/articles/break-monolith-into-microservices.html" target="_blank" rel="noopener">How to break a Monolith into Microservices</a><span class="src">martinfowler.com — Zhamak Dehghani</span></div></li>
+              <li><div><a href="https://aws.amazon.com/compare/the-difference-between-monolithic-and-microservices-architecture/" target="_blank" rel="noopener">Monolithic vs. Microservices Architecture</a><span class="src">aws.amazon.com</span></div></li>
+              <li><div><a href="https://www.atlassian.com/microservices/microservices-architecture/microservices-vs-monolith" target="_blank" rel="noopener">Microservices vs. monolithic architecture</a><span class="src">atlassian.com</span></div></li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- ==================== MODULAR MONOLITH ==================== -->
+        <section class="pattern" id="modular-monolith">
+          <div class="pattern__head">
+            <span class="pattern__index">02</span>
+            <h2 class="pattern__title">Modular Monolith</h2>
+            <span class="badge badge--system">Ứng dụng</span>
+            <span class="meter" title="Độ phức tạp: Trung bình"><i class="on"></i><i class="on"></i><i></i></span>
+            <span class="pattern__aka">Còn gọi là: Modulith</span>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">📘</span> Khái niệm</p>
+            <p><b>Modular Monolith</b> vẫn là <b>một đơn vị triển khai duy nhất</b> như monolith, nhưng bên trong được chia thành các <b>module có ranh giới rõ ràng</b>, độc lập cao, chỉ giao tiếp qua giao diện công khai (public API) đã định nghĩa — không chọc thẳng vào ruột nhau.</p>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">🎯</span> Mục đích &amp; vấn đề giải quyết</p>
+            <p>Giữ <b>sự đơn giản khi triển khai của monolith</b> nhưng tránh "big ball of mud" và có được tính module hóa của microservices <i>mà không phải trả giá phân tán</i>. Đây thường là lựa chọn tốt hơn microservices cho đa số hệ thống, và là bước đệm lý tưởng trước khi tách dịch vụ.</p>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">⚙️</span> Nguyên lý hoạt động</p>
+            <p>Mỗi module đóng gói nghiệp vụ của mình (entity, repository, use-case) và chỉ <b>export một public API hẹp</b>. Module khác gọi qua API đó (in-process), không import sâu vào chi tiết nội bộ. Ranh giới được <b>ép buộc</b> bằng cấu trúc thư mục, quy ước, hoặc công cụ kiểm tra phụ thuộc.</p>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">📐</span> Sơ đồ kiến trúc</p>
+            <figure class="uml">
+              <div class="uml__stage">
+                <div class="uml-class" style="min-width:300px">
+                  <div class="uml-class__name">Modular Monolith<small>1 deploy · nhiều module</small></div>
+                  <div class="uml-class__section"><span class="m">[Order] → public API</span><span class="m">[Payment] → public API</span><span class="m">[Shipping] → public API</span></div>
+                  <div class="uml-class__section"><span class="m">giao tiếp qua API module (in-process)</span></div>
+                </div>
+                <div class="uml-rel"><span>▼</span></div>
+                <div class="uml-class"><div class="uml-class__name">Database<small>tách schema/bảng theo module</small></div></div>
+              </div>
+              <figcaption>Ranh giới rõ giữa các module; chỉ gọi nhau qua public API; vẫn một lần deploy.</figcaption>
+            </figure>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">⚖️</span> Ưu điểm &amp; nhược điểm</p>
+            <div class="proscons">
+              <div class="pc pc--pros">
+                <h4>Ưu điểm</h4>
+                <ul>
+                  <li>Ranh giới rõ ràng, dễ bảo trì, đội làm song song ít va chạm.</li>
+                  <li>Vẫn deploy đơn giản, transaction ACID, gọi in-process nhanh.</li>
+                  <li>Dễ tách thành microservices sau này (ranh giới đã sẵn).</li>
+                </ul>
+              </div>
+              <div class="pc pc--cons">
+                <h4>Nhược điểm</h4>
+                <ul>
+                  <li>Vẫn scale theo khối; vẫn một điểm hỏng (single process).</li>
+                  <li>Ranh giới dễ bị phá vỡ nếu không có kỷ luật/công cụ ép buộc.</li>
+                  <li>Chung stack công nghệ cho mọi module.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">🧭</span> Khi nào nên &amp; không nên dùng</p>
+            <div class="usecase">
+              <div class="usecase__col usecase__col--do">
+                <h4>✔ Nên dùng khi</h4>
+                <ul>
+                  <li>Muốn tổ chức tốt ngay từ đầu và lường trước tăng trưởng.</li>
+                  <li>Đội vừa, cần module hóa nhưng chưa muốn gánh phân tán.</li>
+                </ul>
+              </div>
+              <div class="usecase__col usecase__col--dont">
+                <h4>✕ Không nên khi</h4>
+                <ul>
+                  <li>Từng module cần co giãn/độc lập triển khai thật sự khác nhau.</li>
+                  <li>Prototype siêu nhỏ, dùng một lần (monolith thuần là đủ).</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">🌍</span> Ví dụ hệ thống thật</p>
+            <p><b>Shopify</b> là ví dụ nổi tiếng: chuyển codebase Rails khổng lồ (hơn 1.000 lập trình viên trong hơn một thập kỷ) từ monolith sang <b>modular monolith</b> thay vì microservices. <b>Kamil Grzybek</b> có dự án mẫu <i>modular-monolith-with-ddd</i> minh họa đầy đủ.</p>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">💻</span> Ví dụ code (TypeScript)</p>
+            <div class="code-wrap">
+              <div class="code-wrap__bar"><span class="code-wrap__dots"><i></i><i></i><i></i></span><span class="code-wrap__lang">TypeScript</span></div>
+<pre><code class="language-typescript">// modules/order/index.ts — CHỈ export public API của module Order
+export { placeOrder } from './application/place-order';
+export type { OrderDto } from './contracts';
+// KHÔNG export repository/entity nội bộ → module khác không chọc vào ruột
+
+// modules/payment/application/charge.ts
+import { placeOrder } from '../../order';   // gọi qua PUBLIC API, không import sâu
+
+export async function charge(orderId: string): Promise&lt;void&gt; {
+  // Giao tiếp in-process nhưng tôn trọng ranh giới module.
+  // Ép buộc ranh giới bằng ESLint rule / dependency-cruiser để cấm import chéo sâu.
+}</code></pre>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">🐞</span> Lỗi thường gặp</p>
+            <details class="accordion">
+              <summary><span class="accordion__ic">▸</span> Ranh giới chỉ tồn tại "trên giấy"</summary>
+              <div class="accordion__body"><p>Không có công cụ ép buộc (ArchUnit, dependency-cruiser, ESLint boundaries), lập trình viên sẽ import xuyên module cho tiện → module hóa sụp đổ. Phải kiểm tra phụ thuộc tự động trong CI.</p></div>
+            </details>
+            <details class="accordion">
+              <summary><span class="accordion__ic">▸</span> Chia sẻ database bừa bãi giữa module</summary>
+              <div class="accordion__body"><p>Nếu module này truy vấn thẳng bảng của module kia, coupling quay lại. Tối thiểu nên tách schema/bảng theo module và chỉ truy cập qua API module sở hữu.</p></div>
+            </details>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">🔀</span> So sánh với mẫu liên quan</p>
+            <p>So với <b>Monolith</b> thuần: thêm kỷ luật ranh giới. So với <b>Microservices</b>: giữ nguyên lợi ích module hóa nhưng bỏ được chi phí phân tán (mạng, nhất quán, vận hành nhiều dịch vụ). Ranh giới module = ứng viên dịch vụ khi tách sau này.</p>
+            <div class="related">
+              <a href="#monolith">Monolith</a>
+              <a href="#microservices">Microservices</a>
+              <a href="#hexagonal">Hexagonal &amp; Clean</a>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">📎</span> Nguồn tham khảo</p>
+            <ul class="refs">
+              <li><div><a href="https://www.kamilgrzybek.com/blog/posts/modular-monolith-primer" target="_blank" rel="noopener">Modular Monolith: A Primer</a><span class="src">kamilgrzybek.com</span></div></li>
+              <li><div><a href="https://github.com/kgrzybek/modular-monolith-with-ddd" target="_blank" rel="noopener">kgrzybek/modular-monolith-with-ddd (dự án mẫu)</a><span class="src">github.com</span></div></li>
+              <li><div><a href="https://shopify.engineering/deconstructing-monolith-designing-software-maximizes-developer-productivity" target="_blank" rel="noopener">Deconstructing the Monolith</a><span class="src">shopify.engineering</span></div></li>
+              <li><div><a href="https://shopify.engineering/shopify-monolith" target="_blank" rel="noopener">Under Deconstruction: The State of Shopify's Monolith</a><span class="src">shopify.engineering</span></div></li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- ==================== MICROSERVICES ==================== -->
+        <section class="pattern" id="microservices">
+          <div class="pattern__head">
+            <span class="pattern__index">03</span>
+            <h2 class="pattern__title">Microservices</h2>
+            <span class="badge badge--system">Ứng dụng</span>
+            <span class="meter" title="Độ phức tạp: Cao"><i class="on"></i><i class="on"></i><i class="on"></i></span>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">📘</span> Khái niệm</p>
+            <p><b>Microservices</b> là cách xây dựng ứng dụng thành <b>một tập các dịch vụ nhỏ</b>, mỗi dịch vụ chạy trong tiến trình riêng, <b>triển khai độc lập</b>, tổ chức quanh một năng lực nghiệp vụ (business capability), và giao tiếp qua cơ chế nhẹ (HTTP/REST, gRPC, message).</p>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">🎯</span> Mục đích &amp; vấn đề giải quyết</p>
+            <p>Giải quyết vấn đề của <b>monolith quá lớn</b>: nhiều đội không thể phát triển/deploy độc lập, không thể co giãn từng phần, một lỗi kéo sập cả hệ. Microservices cho phép <b>mỗi đội sở hữu &amp; deploy dịch vụ của mình</b>, co giãn riêng, chọn công nghệ phù hợp từng dịch vụ.</p>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">⚙️</span> Nguyên lý hoạt động</p>
+            <p>Mỗi dịch vụ có <b>database riêng</b> (database-per-service) để không chia sẻ trạng thái trực tiếp. Giao tiếp <b>đồng bộ</b> (REST/gRPC qua API Gateway) hoặc <b>bất đồng bộ</b> (event/message). Cần thêm hạ tầng: service discovery, API gateway, giám sát tập trung, xử lý lỗi (circuit breaker).</p>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">📐</span> Sơ đồ kiến trúc</p>
+            <figure class="uml">
+              <div class="uml__stage">
+                <div class="uml-class uml-class--client"><div class="uml-class__name">Client</div></div>
+                <div class="uml-rel"><span>▶</span></div>
+                <div class="uml-class uml-class--abstract"><div class="uml-class__name">API Gateway</div></div>
+              </div>
+              <div class="uml__stage" style="margin-top:16px">
+                <div class="uml-class"><div class="uml-class__name">Order Service</div><div class="uml-class__section"><span class="m">DB riêng</span></div></div>
+                <div class="uml-class"><div class="uml-class__name">Payment Service</div><div class="uml-class__section"><span class="m">DB riêng</span></div></div>
+                <div class="uml-class"><div class="uml-class__name">Shipping Service</div><div class="uml-class__section"><span class="m">DB riêng</span></div></div>
+              </div>
+              <div class="uml__legend"><span>▶ Gateway định tuyến</span><span>dịch vụ giao tiếp qua REST/gRPC hoặc event</span><span>mỗi dịch vụ một database</span></div>
+            </figure>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">⚖️</span> Ưu điểm &amp; nhược điểm</p>
+            <div class="proscons">
+              <div class="pc pc--pros">
+                <h4>Ưu điểm</h4>
+                <ul>
+                  <li>Triển khai &amp; co giãn độc lập từng dịch vụ.</li>
+                  <li>Đội tự chủ, chọn công nghệ theo nhu cầu; cô lập lỗi tốt hơn.</li>
+                  <li>Phù hợp tổ chức lớn, nhiều đội song song.</li>
+                </ul>
+              </div>
+              <div class="pc pc--cons">
+                <h4>Nhược điểm</h4>
+                <ul>
+                  <li>Độ phức tạp phân tán: mạng, độ trễ, lỗi từng phần.</li>
+                  <li>Nhất quán dữ liệu khó (không transaction ACID xuyên dịch vụ).</li>
+                  <li>Chi phí vận hành lớn: CI/CD, giám sát, tracing, hạ tầng.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">🧭</span> Khi nào nên &amp; không nên dùng</p>
+            <div class="usecase">
+              <div class="usecase__col usecase__col--do">
+                <h4>✔ Nên dùng khi</h4>
+                <ul>
+                  <li>Hệ thống lớn, nhiều đội cần deploy độc lập.</li>
+                  <li>Các phần có nhu cầu co giãn rất khác nhau; đã có văn hóa DevOps.</li>
+                </ul>
+              </div>
+              <div class="usecase__col usecase__col--dont">
+                <h4>✕ Không nên khi</h4>
+                <ul>
+                  <li>Đội nhỏ, sản phẩm mới, ranh giới nghiệp vụ chưa rõ.</li>
+                  <li>Chưa có hạ tầng CI/CD, giám sát, tự động hóa vận hành.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">🌍</span> Ví dụ hệ thống thật</p>
+            <p><b>Netflix</b> — sau sự cố database 2008, di cư lên AWS; tới 2012 chạy hơn 500 microservices, hơn 1 tỷ lượt gọi API/ngày, và mã nguồn mở bộ công cụ nền tảng (Eureka, Hystrix, <b>Zuul</b> — API gateway, Chaos Monkey). <b>Amazon</b>, <b>Uber</b>, <b>Etsy</b> cũng tách monolith thành hàng trăm dịch vụ.</p>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">💻</span> Ví dụ code (TypeScript)</p>
+            <div class="code-wrap">
+              <div class="code-wrap__bar"><span class="code-wrap__dots"><i></i><i></i><i></i></span><span class="code-wrap__lang">TypeScript</span></div>
+<pre><code class="language-typescript">// order-service — tiến trình &amp; database RIÊNG, deploy độc lập
+import express from 'express';
+import { db } from './order-db';            // database chỉ của Order Service
+import { publish } from './event-bus';
+
+const app = express();
+
+app.post('/orders', async (req, res) =&gt; {
+  const order = await db.orders.insert(req.body);
+  // KHÔNG ghi thẳng vào DB service khác — phát sự kiện để service khác tự xử lý
+  await publish('OrderPlaced', { orderId: order.id, amount: order.amount });
+  res.status(201).json(order);
+});
+
+app.listen(8081, () =&gt; console.log('order-service on :8081'));</code></pre>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">🐞</span> Lỗi thường gặp</p>
+            <details class="accordion">
+              <summary><span class="accordion__ic">▸</span> "Distributed monolith" — phân tán nhưng vẫn dính chặt</summary>
+              <div class="accordion__body"><p>Các dịch vụ gọi đồng bộ chằng chịt và phải deploy cùng nhau → có đủ nhược điểm phân tán mà không có lợi ích độc lập. Nguyên nhân thường do ranh giới nghiệp vụ sai.</p></div>
+            </details>
+            <details class="accordion">
+              <summary><span class="accordion__ic">▸</span> Chia sẻ một database dùng chung</summary>
+              <div class="accordion__body"><p>Nhiều dịch vụ dùng chung một DB phá vỡ tính độc lập. Phải theo <b>database-per-service</b>; đồng bộ dữ liệu qua event.</p></div>
+            </details>
+            <details class="accordion">
+              <summary><span class="accordion__ic">▸</span> Bắt đầu bằng microservices từ con số 0</summary>
+              <div class="accordion__body"><p>Chia dịch vụ khi chưa hiểu nghiệp vụ dẫn tới ranh giới sai, sửa rất tốn kém. Ưu tiên Monolith/Modular Monolith trước, tách dần bằng Strangler Fig.</p></div>
+            </details>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">🔀</span> So sánh với mẫu liên quan</p>
+            <p>Đối lập <b>Monolith</b>. Đi kèm gần như bắt buộc với <b>API Gateway</b> (điểm vào), <b>Saga</b> (giao dịch xuyên dịch vụ), <b>Event-Driven</b> + <b>CQRS</b> (giao tiếp &amp; đọc dữ liệu). <b>Serverless</b> là một cách hiện thực dịch vụ nhỏ ở mức hàm.</p>
+            <div class="related">
+              <a href="#monolith">Monolith</a>
+              <a href="#api-gateway">API Gateway</a>
+              <a href="#saga">Saga</a>
+              <a href="#event-driven">Event-Driven</a>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">📎</span> Nguồn tham khảo</p>
+            <ul class="refs">
+              <li><div><a href="https://martinfowler.com/articles/microservices.html" target="_blank" rel="noopener">Microservices — James Lewis &amp; Martin Fowler</a><span class="src">martinfowler.com</span></div></li>
+              <li><div><a href="https://microservices.io/patterns/microservices.html" target="_blank" rel="noopener">Microservice architecture pattern</a><span class="src">microservices.io — Chris Richardson</span></div></li>
+              <li><div><a href="https://learn.microsoft.com/en-us/azure/architecture/guide/architecture-styles/microservices" target="_blank" rel="noopener">Microservices architecture style</a><span class="src">learn.microsoft.com — Azure Architecture Center</span></div></li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- ==================== SERVERLESS ==================== -->
+        <section class="pattern" id="serverless">
+          <div class="pattern__head">
+            <span class="pattern__index">04</span>
+            <h2 class="pattern__title">Serverless</h2>
+            <span class="badge badge--system">Ứng dụng</span>
+            <span class="meter" title="Độ phức tạp: Trung bình"><i class="on"></i><i class="on"></i><i></i></span>
+            <span class="pattern__aka">Còn gọi là: FaaS — Functions as a Service</span>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">📘</span> Khái niệm</p>
+            <p><b>Serverless</b> là mô hình chạy code dưới dạng <b>các hàm nhỏ (FaaS)</b> mà <b>nhà cung cấp cloud quản lý toàn bộ hạ tầng</b>: cấp phát, co giãn, vá lỗi máy chủ. Bạn chỉ viết hàm phản ứng với sự kiện; hạ tầng tự co giãn về 0 khi không dùng và trả tiền theo lượng thực thi.</p>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">🎯</span> Mục đích &amp; vấn đề giải quyết</p>
+            <p>Loại bỏ gánh nặng <b>quản lý &amp; trả tiền cho máy chủ nhàn rỗi</b>. Phù hợp workload <b>rời rạc, bùng nổ theo sự kiện</b> (webhook, xử lý file upload, cron, API lưu lượng thất thường). Tối ưu chi phí (trả theo dùng) và tự co giãn không cần cấu hình.</p>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">⚙️</span> Nguyên lý hoạt động</p>
+            <p>Hàm là <b>stateless</b>, được kích hoạt bởi sự kiện (HTTP qua API Gateway, message queue, thay đổi file/DB). Nền tảng khởi tạo instance theo nhu cầu (có <i>cold start</i>), chạy xong thì thu hồi. Trạng thái phải đẩy ra dịch vụ ngoài (DB, object storage, queue) do nhà cung cấp quản lý.</p>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">📐</span> Sơ đồ kiến trúc</p>
+            <figure class="uml">
+              <div class="uml__stage">
+                <div class="uml-class uml-class--client"><div class="uml-class__name">Sự kiện<small>HTTP · queue · file</small></div></div>
+                <div class="uml-rel"><span>kích hoạt ▶</span></div>
+                <div class="uml-class uml-class--abstract"><div class="uml-class__name">Function (FaaS)<small>stateless · tự co giãn</small></div></div>
+                <div class="uml-rel"><span>▶</span></div>
+                <div class="uml-class"><div class="uml-class__name">Dịch vụ quản lý<small>DB · storage · queue</small></div></div>
+              </div>
+              <div class="uml__legend"><span>không có server để quản lý; trả tiền theo số lần chạy</span></div>
+            </figure>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">⚖️</span> Ưu điểm &amp; nhược điểm</p>
+            <div class="proscons">
+              <div class="pc pc--pros">
+                <h4>Ưu điểm</h4>
+                <ul>
+                  <li>Không quản lý máy chủ; tự co giãn tới 0.</li>
+                  <li>Trả tiền theo lượng dùng — rẻ với workload thất thường.</li>
+                  <li>Ra tính năng nhanh, hợp kiến trúc hướng sự kiện.</li>
+                </ul>
+              </div>
+              <div class="pc pc--cons">
+                <h4>Nhược điểm</h4>
+                <ul>
+                  <li><b>Cold start</b> gây trễ; giới hạn thời gian/bộ nhớ mỗi hàm.</li>
+                  <li>Bị khóa nhà cung cấp (vendor lock-in); khó gỡ lỗi/giám sát.</li>
+                  <li>Không hợp tác vụ chạy dài, cần trạng thái liên tục.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">🧭</span> Khi nào nên &amp; không nên dùng</p>
+            <div class="usecase">
+              <div class="usecase__col usecase__col--do">
+                <h4>✔ Nên dùng khi</h4>
+                <ul>
+                  <li>Workload rời rạc, theo sự kiện, lưu lượng thất thường.</li>
+                  <li>Xử lý nền: webhook, ETL nhẹ, ảnh/upload, cron, thông báo.</li>
+                </ul>
+              </div>
+              <div class="usecase__col usecase__col--dont">
+                <h4>✕ Không nên khi</h4>
+                <ul>
+                  <li>Tác vụ chạy dài, tải cao ổn định (VM/container rẻ hơn).</li>
+                  <li>Yêu cầu độ trễ cực thấp, ổn định (nhạy với cold start).</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">🌍</span> Ví dụ hệ thống thật</p>
+            <p><b>AWS Lambda</b> (cùng Azure Functions, Google Cloud Functions) là nền tảng FaaS phổ biến. Thường ghép <b>API Gateway + Lambda + DynamoDB</b> cho backend co giãn; hoặc xử lý sự kiện S3/queue. AWS xuất bản "Serverless Applications Lens" trong Well-Architected Framework.</p>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">💻</span> Ví dụ code (TypeScript)</p>
+            <div class="code-wrap">
+              <div class="code-wrap__bar"><span class="code-wrap__dots"><i></i><i></i><i></i></span><span class="code-wrap__lang">TypeScript</span></div>
+<pre><code class="language-typescript">// AWS Lambda: 1 hàm stateless, không quản server, tự co giãn theo request
+import type { APIGatewayEvent, APIGatewayProxyResult } from 'aws-lambda';
+
+export const handler = async (
+  event: APIGatewayEvent,
+): Promise&lt;APIGatewayProxyResult&gt; =&gt; {
+  const body = JSON.parse(event.body ?? '{}');
+
+  // Xử lý ngắn gọn, trạng thái đẩy ra dịch vụ ngoài (DynamoDB, S3...)
+  return {
+    statusCode: 200,
+    body: JSON.stringify({ message: `Xin chào ${body.name ?? 'khách'}` }),
+  };
+};</code></pre>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">🐞</span> Lỗi thường gặp</p>
+            <details class="accordion">
+              <summary><span class="accordion__ic">▸</span> Bỏ qua cold start &amp; giới hạn thời gian chạy</summary>
+              <div class="accordion__body"><p>Hàm ít được gọi sẽ "nguội" và khởi động lại chậm; mỗi hàm có timeout (vài phút). Tác vụ dài phải chuyển sang container/queue, hoặc dùng provisioned concurrency.</p></div>
+            </details>
+            <details class="accordion">
+              <summary><span class="accordion__ic">▸</span> Giữ trạng thái trong hàm</summary>
+              <div class="accordion__body"><p>Instance có thể bị thu hồi bất cứ lúc nào; không lưu trạng thái trong bộ nhớ hàm. Đẩy trạng thái ra DB/cache/queue do nhà cung cấp quản lý.</p></div>
+            </details>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">🔀</span> So sánh với mẫu liên quan</p>
+            <p>Là một cách hiện thực <b>Microservices</b> ở mức hàm, và bản chất <b>hướng sự kiện</b> (thiên về choreography). Thường ghép với <b>API Gateway</b> (điểm vào HTTP) và <b>Event-Driven</b> (nguồn kích hoạt).</p>
+            <div class="related">
+              <a href="#microservices">Microservices</a>
+              <a href="#api-gateway">API Gateway</a>
+              <a href="#event-driven">Event-Driven</a>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">📎</span> Nguồn tham khảo</p>
+            <ul class="refs">
+              <li><div><a href="https://martinfowler.com/articles/serverless.html" target="_blank" rel="noopener">Serverless Architectures — Mike Roberts</a><span class="src">martinfowler.com</span></div></li>
+              <li><div><a href="https://aws.amazon.com/blogs/architecture/serverless-architectures-with-aws-lambda-overview-and-best-practices/" target="_blank" rel="noopener">Serverless Architectures with AWS Lambda — Overview &amp; Best Practices</a><span class="src">aws.amazon.com</span></div></li>
+              <li><div><a href="https://aws.amazon.com/lambda/serverless-architectures-learn-more/" target="_blank" rel="noopener">Building Applications with Serverless Architectures</a><span class="src">aws.amazon.com</span></div></li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- ==================== TÓM TẮT CHƯƠNG ==================== -->
+        <section class="summary-block" id="tom-tat-he-thong" data-reveal>
+          <span class="eyebrow">Tóm tắt chương</span>
+          <h2>Chốt lại nhóm Kiểu ứng dụng</h2>
+          <ul class="key-takeaways">
+            <li>Trục chính là đánh đổi <b>đơn giản ↔ khả năng co giãn/độc lập</b>: Monolith → Modular Monolith → Microservices là mức độ tách tăng dần, kèm chi phí phân tán tăng dần.</li>
+            <li><b>Bắt đầu từ Monolith/Modular Monolith</b>, tách Microservices khi thật sự đau (đội đông, cần co giãn riêng) — theo "Monolith First".</li>
+            <li><b>Modular Monolith</b> thường là điểm ngọt cho đa số hệ thống: lợi ích module hóa mà không gánh phân tán.</li>
+            <li><b>Microservices</b> mạnh về độc lập &amp; co giãn nhưng kéo theo hạ tầng &amp; bài toán dữ liệu phân tán (xem chương Dữ liệu phân tán).</li>
+            <li><b>Serverless</b> tối ưu chi phí/co giãn cho workload rời rạc theo sự kiện, đổi lại cold start &amp; vendor lock-in.</li>
+          </ul>
+
+          <div class="table-wrap" style="margin-top:var(--sp-3)">
+            <table class="data">
+              <thead><tr><th>Mẫu</th><th>Đơn vị deploy</th><th>Co giãn</th><th>Độ phức tạp</th><th>Hợp khi</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Monolith</strong></td><td>Một khối</td><td>Cả khối</td><td>Thấp</td><td>MVP, đội nhỏ</td></tr>
+                <tr><td><strong>Modular Monolith</strong></td><td>Một khối, nhiều module</td><td>Cả khối</td><td>Trung bình</td><td>Đa số hệ thống muốn tổ chức tốt</td></tr>
+                <tr><td><strong>Microservices</strong></td><td>Nhiều dịch vụ độc lập</td><td>Từng dịch vụ</td><td>Cao</td><td>Tổ chức lớn, nhiều đội</td></tr>
+                <tr><td><strong>Serverless</strong></td><td>Từng hàm (FaaS)</td><td>Tự động, tới 0</td><td>Trung bình</td><td>Workload rời rạc theo sự kiện</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="hero__cta" style="margin-top:var(--sp-3)">
+            <a class="btn btn--primary" href="#to-chuc">Tiếp tục: Tổ chức mã nguồn →</a>
+            <a class="btn btn--ghost" href="#bang-tong-hop">Bảng tổng hợp 11 mẫu</a>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </section>
+
+  
+<!-- ===== CHƯƠNG: to-chuc ===== -->
+
+
+  <section class="section container" id="to-chuc" data-chapter="organize">
+
+    <div class="chapter">
+      <aside class="toc" aria-label="Mục lục chương">
+        <p class="toc__title">Trong chương này</p>
+        <ol>
+          <li><a href="#layered">Layered</a></li>
+          <li><a href="#hexagonal">Hexagonal</a></li>
+          <li><a href="#event-driven">Event-Driven</a></li>
+          <li><a href="#tom-tat-to-chuc">Tóm tắt chương</a></li>
+        </ol>
+      </aside>
+
+      <main>
+        <div class="chapter-hero" data-reveal>
+      <span class="eyebrow">Nhóm 02 · 3 mẫu</span>
+      <h1>Tổ chức mã nguồn</h1>
+      <p class="lead">Sau khi đã chọn kiểu triển khai (chương trước), câu hỏi tiếp theo là: <b>sắp xếp lớp và thành phần BÊN TRONG một đơn vị (module/service) ra sao</b> — tách tầng theo chiều ngang, cô lập nghiệp vụ khỏi hạ tầng, hay giao tiếp qua sự kiện thay vì gọi trực tiếp. Đây là trục đánh đổi giữa <i>đơn giản, dễ hiểu</i> và <i>khả năng cô lập/thay thế từng phần</i>.</p>
+    </div>
+
+        <!-- ==================== LAYERED ==================== -->
+        <section class="pattern" id="layered">
+          <div class="pattern__head">
+            <span class="pattern__index">01</span>
+            <h2 class="pattern__title">Layered</h2>
+            <span class="badge badge--organize">Tổ chức</span>
+            <span class="meter" title="Độ phức tạp: Thấp"><i class="on"></i><i></i><i></i></span>
+            <span class="pattern__aka">Còn gọi là: N-tier</span>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">📘</span> Khái niệm</p>
+            <p><b>Layered</b> chia hệ thống thành các <b>tầng ngang</b> xếp chồng lên nhau: Presentation (giao diện) → Business/Application (nghiệp vụ) → Data Access (truy cập dữ liệu) → Database. Mỗi tầng chỉ được phép gọi xuống tầng ngay bên dưới nó, không nhảy tầng, không gọi ngược lên.</p>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">🎯</span> Mục đích &amp; vấn đề giải quyết</p>
+            <p>Giải quyết bài toán <b>tổ chức code lẫn lộn</b>: giao diện, nghiệp vụ và truy vấn dữ liệu viết chung một chỗ khiến khó đọc, khó test, khó thay đổi. Layered tách trách nhiệm rõ ràng theo chiều ngang, giúp <b>đội mới dễ tiếp cận</b> vì cấu trúc quen thuộc, dễ đoán.</p>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">⚙️</span> Nguyên lý hoạt động</p>
+            <p>Mỗi tầng expose một giao diện (API/interface) cho tầng trên dùng, và <b>chỉ phụ thuộc tầng ngay dưới</b> (strict layering) hoặc được phép bỏ qua vài tầng (relaxed layering). Presentation gọi Business, Business gọi Data Access, Data Access thao tác Database — dữ liệu và lệnh gọi đi <b>xuyên qua từng tầng theo thứ tự</b>.</p>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">📐</span> Sơ đồ kiến trúc</p>
+            <figure class="uml">
+              <div class="uml__stage">
+                <div class="uml-class uml-class--client"><div class="uml-class__name">Presentation<small>Controller / UI</small></div></div>
+              </div>
+              <div class="uml__stage" style="margin-top:16px">
+                <div class="uml-rel"><span>▼</span></div>
+              </div>
+              <div class="uml__stage" style="margin-top:16px">
+                <div class="uml-class"><div class="uml-class__name">Business / Application<small>Service</small></div></div>
+              </div>
+              <div class="uml__stage" style="margin-top:16px">
+                <div class="uml-rel"><span>▼</span></div>
+              </div>
+              <div class="uml__stage" style="margin-top:16px">
+                <div class="uml-class"><div class="uml-class__name">Data Access<small>Repository</small></div></div>
+              </div>
+              <div class="uml__stage" style="margin-top:16px">
+                <div class="uml-rel"><span>▼</span></div>
+              </div>
+              <div class="uml__stage" style="margin-top:16px">
+                <div class="uml-class"><div class="uml-class__name">Database</div></div>
+              </div>
+              <figcaption>Mỗi tầng chỉ gọi xuống tầng ngay dưới; không nhảy tầng, không gọi ngược lên.</figcaption>
+            </figure>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">⚖️</span> Ưu điểm &amp; nhược điểm</p>
+            <div class="proscons">
+              <div class="pc pc--pros">
+                <h4>Ưu điểm</h4>
+                <ul>
+                  <li>Tách trách nhiệm rõ, dễ hiểu, cấu trúc quen thuộc với đa số lập trình viên.</li>
+                  <li>Dễ thay thế một tầng (đổi UI, đổi ORM) mà không đụng tầng khác nếu tuân thủ ranh giới.</li>
+                  <li>Dễ áp dụng ngay cho cả team mới, ít quyết định kiến trúc phải cân nhắc.</li>
+                </ul>
+              </div>
+              <div class="pc pc--cons">
+                <h4>Nhược điểm</h4>
+                <ul>
+                  <li>Dễ sinh tầng thừa/pass-through (chỉ chuyển tiếp lời gọi mà không thêm giá trị).</li>
+                  <li>Một thay đổi nghiệp vụ nhỏ có thể phải sửa xuyên nhiều tầng.</li>
+                  <li>Đi qua nhiều lớp có thể chậm hơn; nghiệp vụ dễ bị coupling xuống tận cấu trúc Database.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">🧭</span> Khi nào nên &amp; không nên dùng</p>
+            <div class="usecase">
+              <div class="usecase__col usecase__col--do">
+                <h4>✔ Nên dùng khi</h4>
+                <ul>
+                  <li>Ứng dụng doanh nghiệp truyền thống, web MVC, CRUD là chủ đạo.</li>
+                  <li>Đội cần cấu trúc dễ đoán, dễ onboard người mới.</li>
+                </ul>
+              </div>
+              <div class="usecase__col usecase__col--dont">
+                <h4>✕ Không nên khi</h4>
+                <ul>
+                  <li>Nghiệp vụ phức tạp cần cô lập hoàn toàn khỏi framework/DB (nên xem Hexagonal).</li>
+                  <li>Hệ thống cần thay đổi hạ tầng (DB, message broker) thường xuyên mà không muốn sửa nghiệp vụ.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">🌍</span> Ví dụ hệ thống thật</p>
+            <p>Layered là kiểu tổ chức <b>cực phổ biến</b> trong các ứng dụng doanh nghiệp truyền thống và web MVC (ASP.NET MVC, Spring MVC, Rails): Controller nhận request, Service xử lý nghiệp vụ, Repository/DAO truy cập dữ liệu. Đây thường là cấu trúc mặc định của mọi framework web phổ biến.</p>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">💻</span> Ví dụ code (TypeScript)</p>
+            <div class="code-wrap">
+              <div class="code-wrap__bar"><span class="code-wrap__dots"><i></i><i></i><i></i></span><span class="code-wrap__lang">TypeScript</span></div>
+<pre><code class="language-typescript">// presentation/order.controller.ts — Tầng Presentation
+import { OrderService } from '../business/order.service';
+
+export class OrderController {
+  constructor(private readonly orderService: OrderService) {}
+
+  // Chỉ gọi xuống tầng Business, không đụng trực tiếp Database
+  async create(req: { customerId: string; items: unknown[] }): Promise&lt;void&gt; {
+    await this.orderService.placeOrder(req.customerId, req.items);
+  }
+}
+
+// business/order.service.ts — Tầng Business/Application
+import { OrderRepository } from '../data-access/order.repository';
+
+export class OrderService {
+  constructor(private readonly orderRepo: OrderRepository) {}
+
+  async placeOrder(customerId: string, items: unknown[]): Promise&lt;void&gt; {
+    // Nghiệp vụ xử lý ở đây, chỉ gọi xuống tầng Data Access
+    await this.orderRepo.save({ customerId, items });
+  }
+}
+
+// data-access/order.repository.ts — Tầng Data Access
+export class OrderRepository {
+  async save(order: { customerId: string; items: unknown[] }): Promise&lt;void&gt; {
+    // Thao tác trực tiếp với Database ở đây
+  }
+}</code></pre>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">🐞</span> Lỗi thường gặp</p>
+            <details class="accordion">
+              <summary><span class="accordion__ic">▸</span> Tầng Service chỉ gọi thẳng xuống Repository (pass-through vô nghĩa)</summary>
+              <div class="accordion__body"><p>Khi tầng Business không thêm logic gì, chỉ chuyển tiếp lời gọi, đó là dấu hiệu tầng thừa. Cân nhắc gộp lại hoặc chỉ tách khi thật sự có nghiệp vụ cần xử lý.</p></div>
+            </details>
+            <details class="accordion">
+              <summary><span class="accordion__ic">▸</span> Nghiệp vụ rò rỉ xuống tầng Data Access</summary>
+              <div class="accordion__body"><p>Đặt logic tính toán/điều kiện nghiệp vụ trong Repository/SQL khiến nghiệp vụ phân mảnh, khó test độc lập với database. Giữ nghiệp vụ ở tầng Business.</p></div>
+            </details>
+            <details class="accordion">
+              <summary><span class="accordion__ic">▸</span> Controller truy cập thẳng Database, bỏ qua tầng Service</summary>
+              <div class="accordion__body"><p>Nhảy tầng để "tiện" phá vỡ nguyên tắc mỗi tầng chỉ phụ thuộc tầng ngay dưới, khiến ranh giới trở nên vô nghĩa và khó tách sau này.</p></div>
+            </details>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">🔀</span> So sánh với mẫu liên quan</p>
+            <p><b>Hexagonal</b> đảo ngược hướng phụ thuộc so với Layered: thay vì nghiệp vụ phụ thuộc xuống Data Access, nghiệp vụ trở thành lõi và Data Access chỉ là adapter cắm vào qua interface. Layered vẫn có thể tồn tại bên trong một <b>Monolith</b> (xem chương Kiểu ứng dụng).</p>
+            <div class="related">
+              <a href="#hexagonal">Hexagonal</a>
+              <a href="#monolith">Monolith</a>
+              <a href="#event-driven">Event-Driven</a>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">📎</span> Nguồn tham khảo</p>
+            <ul class="refs">
+              <li><div><a href="https://learn.microsoft.com/en-us/azure/architecture/guide/architecture-styles/n-tier" target="_blank" rel="noopener">N-tier architecture style</a><span class="src">learn.microsoft.com — Azure Architecture Center</span></div></li>
+              <li><div><a href="https://learn.microsoft.com/en-us/azure/architecture/guide/architecture-styles/" target="_blank" rel="noopener">Architecture styles</a><span class="src">learn.microsoft.com — Azure Architecture Center</span></div></li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- ==================== HEXAGONAL ==================== -->
+        <section class="pattern" id="hexagonal">
+          <div class="pattern__head">
+            <span class="pattern__index">02</span>
+            <h2 class="pattern__title">Hexagonal</h2>
+            <span class="badge badge--organize">Tổ chức</span>
+            <span class="meter" title="Độ phức tạp: Cao"><i class="on"></i><i class="on"></i><i class="on"></i></span>
+            <span class="pattern__aka">Còn gọi là: Ports &amp; Adapters / Clean Architecture / Onion Architecture</span>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">📘</span> Khái niệm</p>
+            <p><b>Hexagonal</b> đặt <b>nghiệp vụ (domain)</b> ở <b>lõi</b> của ứng dụng, hoàn toàn cô lập khỏi hạ tầng. UI, database, API bên ngoài chỉ là các <b>adapter</b> cắm vào lõi thông qua <b>port</b> — interface do chính lõi định nghĩa. Clean Architecture và Onion Architecture là các biến thể cùng chung một ý tưởng nền tảng.</p>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">🎯</span> Mục đích &amp; vấn đề giải quyết</p>
+            <p>Giải quyết vấn đề <b>nghiệp vụ bị khóa chặt vào framework/DB cụ thể</b> ở kiểu Layered truyền thống. Bằng cách cô lập domain khỏi UI/DB/API, hệ thống <b>dễ test</b> (test nghiệp vụ không cần DB thật) và <b>dễ đổi công nghệ hạ tầng</b> mà không đụng vào logic nghiệp vụ.</p>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">⚙️</span> Nguyên lý hoạt động</p>
+            <p>Đây là <b>Dependency Rule</b> của Clean Architecture: mọi phụ thuộc mã nguồn luôn hướng <b>vào trong</b>, về phía domain — không bao giờ ngược lại. Domain định nghĩa các <b>port</b> (interface) nó cần, ví dụ <code>OrderRepository</code>; các <b>adapter</b> cụ thể (VD <code>PostgresOrderRepository</code>) hiện thực interface đó và được "cắm" vào lõi qua dependency injection.</p>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">📐</span> Sơ đồ kiến trúc</p>
+            <figure class="uml">
+              <div class="uml__stage">
+                <div class="uml-class uml-class--client"><div class="uml-class__name">HTTP Adapter<small>REST controller</small></div></div>
+                <div class="uml-rel"><span>▶ implements port</span></div>
+                <div class="uml-class uml-class--abstract"><div class="uml-class__name">Domain (lõi)<small>Order · nghiệp vụ thuần</small></div><div class="uml-class__section"><span class="m">Port: OrderRepository</span></div></div>
+                <div class="uml-rel"><span>port ◀</span></div>
+                <div class="uml-class"><div class="uml-class__name">Postgres Adapter<small>implements OrderRepository</small></div></div>
+              </div>
+              <div class="uml__legend"><span>dependency luôn hướng VÀO TRONG lõi</span><span>adapter cắm vào port do domain định nghĩa</span></div>
+              <figcaption>Domain không phụ thuộc adapter nào; mọi adapter (UI, DB, API) phụ thuộc ngược vào port của domain.</figcaption>
+            </figure>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">⚖️</span> Ưu điểm &amp; nhược điểm</p>
+            <div class="proscons">
+              <div class="pc pc--pros">
+                <h4>Ưu điểm</h4>
+                <ul>
+                  <li>Cô lập nghiệp vụ khỏi framework/DB/UI → test nghiệp vụ cực dễ, không cần hạ tầng thật.</li>
+                  <li>Dễ đổi công nghệ hạ tầng (đổi DB, đổi UI) mà không sửa domain.</li>
+                  <li>Ranh giới rõ ràng, hợp với hệ thống nghiệp vụ phức tạp (DDD).</li>
+                </ul>
+              </div>
+              <div class="pc pc--cons">
+                <h4>Nhược điểm</h4>
+                <ul>
+                  <li>Nhiều interface/boilerplate hơn so với gọi trực tiếp.</li>
+                  <li>Learning curve cao hơn Layered, dễ gây khó hiểu cho người mới.</li>
+                  <li>Dễ <b>over-engineer</b> nếu áp dụng cho ứng dụng nhỏ, nghiệp vụ đơn giản.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">🧭</span> Khi nào nên &amp; không nên dùng</p>
+            <div class="usecase">
+              <div class="usecase__col usecase__col--do">
+                <h4>✔ Nên dùng khi</h4>
+                <ul>
+                  <li>Nghiệp vụ phức tạp, cần tuổi thọ lâu dài, độc lập với hạ tầng.</li>
+                  <li>Dự kiến đổi/đa dạng hóa hạ tầng (nhiều DB, nhiều kênh vào).</li>
+                </ul>
+              </div>
+              <div class="usecase__col usecase__col--dont">
+                <h4>✕ Không nên khi</h4>
+                <ul>
+                  <li>Ứng dụng nhỏ, CRUD đơn giản — chi phí trừu tượng không đáng.</li>
+                  <li>Đội chưa quen dependency inversion, cần ra sản phẩm nhanh.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">🌍</span> Ví dụ hệ thống thật</p>
+            <p><b>Shopify</b> cô lập nghiệp vụ lõi (đơn hàng, thanh toán) khỏi hàng chục payment gateway và shipping provider khác nhau thông qua adapter — cho phép thêm/đổi nhà cung cấp mà không đụng vào logic nghiệp vụ trung tâm. Mẫu này phổ biến trong các hệ thống áp dụng <b>Domain-Driven Design (DDD)</b>.</p>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">💻</span> Ví dụ code (TypeScript)</p>
+            <div class="code-wrap">
+              <div class="code-wrap__bar"><span class="code-wrap__dots"><i></i><i></i><i></i></span><span class="code-wrap__lang">TypeScript</span></div>
+<pre><code class="language-typescript">// domain/order.port.ts — PORT: interface do domain định nghĩa
+export interface OrderRepository {
+  save(order: Order): Promise&lt;void&gt;;
+  findById(id: string): Promise&lt;Order | null&gt;;
+}
+
+// domain/order.service.ts — LÕI nghiệp vụ, chỉ phụ thuộc PORT (interface)
+export class OrderService {
+  constructor(private readonly orderRepo: OrderRepository) {} // không biết Postgres/Mongo
+
+  async placeOrder(order: Order): Promise&lt;void&gt; {
+    // Logic nghiệp vụ thuần, test được mà không cần database thật
+    await this.orderRepo.save(order);
+  }
+}
+
+// adapters/postgres-order.repository.ts — ADAPTER cắm vào PORT
+import { OrderRepository } from '../domain/order.port';
+
+export class PostgresOrderRepository implements OrderRepository {
+  async save(order: Order): Promise&lt;void&gt; {
+    // Chi tiết Postgres nằm hết ở đây, domain không hề biết
+  }
+  async findById(id: string): Promise&lt;Order | null&gt; {
+    return null; // truy vấn Postgres thực tế
+  }
+}</code></pre>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">🐞</span> Lỗi thường gặp</p>
+            <details class="accordion">
+              <summary><span class="accordion__ic">▸</span> Domain import trực tiếp thư viện ORM/DB</summary>
+              <div class="accordion__body"><p>Chỉ cần một import kiểu <code>TypeORM Entity</code> lọt vào domain là phá vỡ Dependency Rule — domain lại phụ thuộc hạ tầng. Domain chỉ được biết đến port (interface) do chính nó định nghĩa.</p></div>
+            </details>
+            <details class="accordion">
+              <summary><span class="accordion__ic">▸</span> Áp dụng Hexagonal cho ứng dụng CRUD đơn giản</summary>
+              <div class="accordion__body"><p>Nhiều interface + adapter cho một ứng dụng chỉ có vài màn hình CRUD tạo ra boilerplate không cần thiết. Robert C. Martin cũng nhấn mạnh áp dụng đúng mức độ phức tạp thực tế của nghiệp vụ.</p></div>
+            </details>
+            <details class="accordion">
+              <summary><span class="accordion__ic">▸</span> Port quá rộng, ôm luôn chi tiết hạ tầng</summary>
+              <div class="accordion__body"><p>Thiết kế interface theo cách adapter cụ thể muốn (VD lộ ra tham số connection string) khiến port không còn trung lập, domain vẫn gián tiếp phụ thuộc công nghệ. Port phải được thiết kế từ góc nhìn domain cần gì, không phải adapter có gì.</p></div>
+            </details>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">🔀</span> So sánh với mẫu liên quan</p>
+            <p>So với <b>Layered</b>: Hexagonal đảo ngược hướng phụ thuộc — nghiệp vụ không còn phụ thuộc xuống Data Access mà Data Access phụ thuộc vào port do nghiệp vụ định nghĩa. Thường kết hợp với <b>Event-Driven</b> để domain phát sự kiện ra ngoài qua port, và là kiến trúc nội bộ phổ biến của <b>Modular Monolith</b> (xem chương Kiểu ứng dụng).</p>
+            <div class="related">
+              <a href="#layered">Layered</a>
+              <a href="#event-driven">Event-Driven</a>
+              <a href="#modular-monolith">Modular Monolith</a>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">📎</span> Nguồn tham khảo</p>
+            <ul class="refs">
+              <li><div><a href="https://alistair.cockburn.us/hexagonal-architecture" target="_blank" rel="noopener">Hexagonal Architecture (Ports &amp; Adapters)</a><span class="src">alistair.cockburn.us — Alistair Cockburn</span></div></li>
+              <li><div><a href="https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html" target="_blank" rel="noopener">The Clean Architecture</a><span class="src">blog.cleancoder.com — Robert C. Martin</span></div></li>
+              <li><div><a href="https://en.wikipedia.org/wiki/Hexagonal_architecture_(software)" target="_blank" rel="noopener">Hexagonal architecture (software)</a><span class="src">en.wikipedia.org</span></div></li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- ==================== EVENT-DRIVEN ==================== -->
+        <section class="pattern" id="event-driven">
+          <div class="pattern__head">
+            <span class="pattern__index">03</span>
+            <h2 class="pattern__title">Event-Driven</h2>
+            <span class="badge badge--organize">Tổ chức</span>
+            <span class="meter" title="Độ phức tạp: Cao"><i class="on"></i><i class="on"></i><i class="on"></i></span>
+            <span class="pattern__aka">Còn gọi là: EDA — Event-Driven Architecture</span>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">📘</span> Khái niệm</p>
+            <p><b>Event-Driven</b> tổ chức giao tiếp giữa các thành phần theo cách <b>bất đồng bộ qua sự kiện (event)</b>: một producer phát ra sự kiện khi có điều gì đó xảy ra, các consumer đăng ký và tự phản ứng — không ai gọi trực tiếp ai. Có hai kiểu chính: <b>pub/sub</b> (qua message broker) và <b>event streaming</b> (qua log bền vững như Kafka).</p>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">🎯</span> Mục đích &amp; vấn đề giải quyết</p>
+            <p>Giải quyết vấn đề <b>coupling chặt khi gọi trực tiếp (đồng bộ)</b> giữa các thành phần: producer phải biết consumer là ai, consumer lỗi kéo theo producer lỗi. Event-Driven tách rời hoàn toàn producer/consumer, cho phép hệ thống <b>co giãn</b>, <b>phản ứng gần thời gian thực</b>, và dễ tích hợp thêm hệ thống mới chỉ bằng cách đăng ký lắng nghe sự kiện có sẵn.</p>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">⚙️</span> Nguyên lý hoạt động</p>
+            <p>Producer publish một event (dữ liệu mô tả việc đã xảy ra, VD <code>OrderPlaced</code>) lên broker/event bus. Một hoặc nhiều consumer đã subscribe sẽ nhận và xử lý độc lập, không đồng bộ với producer. Với event streaming, sự kiện còn được lưu lại thành log bất biến để consumer mới có thể đọc lại lịch sử.</p>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">📐</span> Sơ đồ kiến trúc</p>
+            <figure class="uml">
+              <div class="uml__stage">
+                <div class="uml-class uml-class--client"><div class="uml-class__name">Producer<small>phát event</small></div></div>
+                <div class="uml-rel"><span>publish ▶</span></div>
+                <div class="uml-class uml-class--abstract"><div class="uml-class__name">Event Bus<small>broker / stream</small></div></div>
+              </div>
+              <div class="uml__stage" style="margin-top:16px">
+                <div class="uml-class"><div class="uml-class__name">Consumer A<small>subscribe</small></div></div>
+                <div class="uml-class"><div class="uml-class__name">Consumer B<small>subscribe</small></div></div>
+                <div class="uml-class"><div class="uml-class__name">Consumer C<small>subscribe</small></div></div>
+              </div>
+              <div class="uml__legend"><span>producer không biết consumer nào tồn tại</span><span>consumer tự đăng ký &amp; xử lý bất đồng bộ</span></div>
+              <figcaption>Producer chỉ phát event; nhiều consumer độc lập tự lắng nghe và phản ứng — loose coupling.</figcaption>
+            </figure>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">⚖️</span> Ưu điểm &amp; nhược điểm</p>
+            <div class="proscons">
+              <div class="pc pc--pros">
+                <h4>Ưu điểm</h4>
+                <ul>
+                  <li>Tách rời hoàn toàn producer/consumer — thêm consumer mới không sửa producer.</li>
+                  <li>Co giãn tốt, phản ứng gần thời gian thực; dễ tích hợp nhiều hệ thống.</li>
+                  <li>Event streaming (Kafka) cho phép replay lịch sử, phù hợp phân tích/audit.</li>
+                </ul>
+              </div>
+              <div class="pc pc--cons">
+                <h4>Nhược điểm</h4>
+                <ul>
+                  <li>Khó theo dõi luồng xử lý end-to-end (mất tính "gọi hàm tuần tự" trực quan).</li>
+                  <li>Chỉ đạt <b>eventual consistency</b>, không có transaction ACID xuyên hệ thống.</li>
+                  <li>Phải tự xử lý event trùng lặp, sai thứ tự; gỡ lỗi (debug) phức tạp hơn nhiều.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">🧭</span> Khi nào nên &amp; không nên dùng</p>
+            <div class="usecase">
+              <div class="usecase__col usecase__col--do">
+                <h4>✔ Nên dùng khi</h4>
+                <ul>
+                  <li>Cần tích hợp nhiều hệ thống/microservices mà không muốn coupling chặt.</li>
+                  <li>Xử lý dữ liệu dạng luồng, phân tích thời gian thực, trigger tự động.</li>
+                </ul>
+              </div>
+              <div class="usecase__col usecase__col--dont">
+                <h4>✕ Không nên khi</h4>
+                <ul>
+                  <li>Nghiệp vụ cần phản hồi đồng bộ ngay lập tức và nhất quán mạnh (strong consistency).</li>
+                  <li>Đội chưa có kinh nghiệm vận hành/debug hệ phân tán bất đồng bộ.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">🌍</span> Ví dụ hệ thống thật</p>
+            <p><b>Kafka</b> là nền tảng event streaming phổ biến cho pipeline dữ liệu lớn và hệ thống phân tích thời gian thực. Event-Driven cũng là cách <b>microservices</b> giao tiếp với nhau để tránh gọi đồng bộ chằng chịt, đồng thời là cơ chế phổ biến để <b>trigger hàm serverless</b> (VD upload file kích hoạt xử lý ảnh).</p>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">💻</span> Ví dụ code (TypeScript)</p>
+            <div class="code-wrap">
+              <div class="code-wrap__bar"><span class="code-wrap__dots"><i></i><i></i><i></i></span><span class="code-wrap__lang">TypeScript</span></div>
+<pre><code class="language-typescript">// event-bus.ts — Bus tối giản cho pub/sub
+type Handler&lt;T&gt; = (payload: T) =&gt; Promise&lt;void&gt;;
+
+class EventBus {
+  private handlers = new Map&lt;string, Handler&lt;unknown&gt;[]&gt;();
+
+  subscribe&lt;T&gt;(event: string, handler: Handler&lt;T&gt;): void {
+    const list = this.handlers.get(event) ?? [];
+    list.push(handler as Handler&lt;unknown&gt;);
+    this.handlers.set(event, list);
+  }
+
+  async publish&lt;T&gt;(event: string, payload: T): Promise&lt;void&gt; {
+    const list = this.handlers.get(event) ?? [];
+    // Producer không biết và không quan tâm có bao nhiêu consumer đang lắng nghe
+    await Promise.all(list.map((h) =&gt; h(payload)));
+  }
+}
+
+export const bus = new EventBus();
+
+// order-service.ts — Producer: chỉ phát sự kiện, không gọi ai trực tiếp
+await bus.publish('OrderPlaced', { orderId: 'o-1', amount: 250000 });
+
+// notification-service.ts — Consumer: tự đăng ký, xử lý độc lập
+bus.subscribe&lt;{ orderId: string; amount: number }&gt;('OrderPlaced', async (order) =&gt; {
+  // Gửi email xác nhận, hoàn toàn tách biệt khỏi order-service
+});</code></pre>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">🐞</span> Lỗi thường gặp</p>
+            <details class="accordion">
+              <summary><span class="accordion__ic">▸</span> Không xử lý event trùng lặp (idempotency)</summary>
+              <div class="accordion__body"><p>Broker/network có thể gửi lại cùng một event nhiều lần. Nếu consumer không kiểm tra idempotency (VD đã xử lý order này chưa), dữ liệu sẽ bị nhân đôi — VD gửi email xác nhận hai lần, trừ tiền hai lần.</p></div>
+            </details>
+            <details class="accordion">
+              <summary><span class="accordion__ic">▸</span> Coi event như lệnh gọi hàm đồng bộ, mong chờ phản hồi ngay</summary>
+              <div class="accordion__body"><p>Event-Driven vốn bất đồng bộ và eventual consistency — thiết kế nghiệp vụ đòi hỏi phản hồi tức thì, nhất quán mạnh sẽ liên tục gặp race condition và trải nghiệm không nhất quán.</p></div>
+            </details>
+            <details class="accordion">
+              <summary><span class="accordion__ic">▸</span> Không có cách theo dõi (tracing) luồng event xuyên hệ thống</summary>
+              <div class="accordion__body"><p>Khi một event kéo theo chuỗi event khác qua nhiều consumer, thiếu correlation ID/tracing khiến việc debug lỗi production gần như bất khả thi. Cần gắn ID theo dõi xuyên suốt ngay từ đầu.</p></div>
+            </details>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">🔀</span> So sánh với mẫu liên quan</p>
+            <p>Event-Driven là cơ chế giao tiếp phổ biến giữa các <b>microservices</b> (thay cho gọi đồng bộ trực tiếp) và là nguồn kích hoạt tự nhiên cho <b>serverless</b>. Trong nội bộ một service, domain theo <b>Hexagonal</b> thường phát event qua port để tách domain khỏi cơ chế truyền tin cụ thể. Liên quan chặt với <b>CQRS</b> và <b>Event Sourcing</b> ở chương Dữ liệu phân tán.</p>
+            <div class="related">
+              <a href="#microservices">Microservices</a>
+              <a href="#serverless">Serverless</a>
+              <a href="#hexagonal">Hexagonal</a>
+              <a href="#cqrs">CQRS</a>
+              <a href="#event-sourcing">Event Sourcing</a>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">📎</span> Nguồn tham khảo</p>
+            <ul class="refs">
+              <li><div><a href="https://martinfowler.com/articles/201701-event-driven.html" target="_blank" rel="noopener">What do you mean by "Event-Driven"?</a><span class="src">martinfowler.com</span></div></li>
+              <li><div><a href="https://learn.microsoft.com/en-us/azure/architecture/guide/architecture-styles/event-driven" target="_blank" rel="noopener">Event-driven architecture style</a><span class="src">learn.microsoft.com — Azure Architecture Center</span></div></li>
+              <li><div><a href="https://microservices.io/patterns/data/event-driven-architecture.html" target="_blank" rel="noopener">Pattern: Event-driven architecture</a><span class="src">microservices.io — Chris Richardson</span></div></li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- ==================== TÓM TẮT CHƯƠNG ==================== -->
+        <section class="summary-block" id="tom-tat-to-chuc" data-reveal>
+          <span class="eyebrow">Tóm tắt chương</span>
+          <h2>Chốt lại nhóm Tổ chức mã nguồn</h2>
+          <ul class="key-takeaways">
+            <li><b>Layered</b> dễ hiểu, dễ áp dụng ngay, nhưng dễ sinh tầng thừa và dễ khiến nghiệp vụ coupling xuống tận cấu trúc Database.</li>
+            <li><b>Hexagonal/Clean/Onion</b> đảo ngược hướng phụ thuộc — domain là lõi, hạ tầng chỉ là adapter cắm vào qua port — để bảo vệ nghiệp vụ khỏi thay đổi công nghệ.</li>
+            <li><b>Event-Driven</b> tách rời producer/consumer qua sự kiện bất đồng bộ, đổi lại phải chấp nhận eventual consistency và chi phí debug/tracing cao hơn.</li>
+            <li>Ba mẫu này giải quyết <b>tổ chức bên trong</b>, tách biệt với quyết định <b>kiểu triển khai</b> ở chương trước — áp dụng được cả bên trong một <b>Monolith</b> lẫn từng service của <b>Microservices</b>.</li>
+            <li>Có thể kết hợp: VD một Modular Monolith tổ chức nội bộ theo Hexagonal, các module giao tiếp chéo qua Event-Driven.</li>
+          </ul>
+
+          <div class="table-wrap" style="margin-top:var(--sp-3)">
+            <table class="data">
+              <thead><tr><th>Mẫu</th><th>Ý tưởng</th><th>Hướng phụ thuộc/giao tiếp</th><th>Trade-off chính</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Layered</strong></td><td>Chia tầng ngang: Presentation → Business → Data Access → DB</td><td>Tầng trên gọi xuống tầng dưới</td><td>Dễ sinh tầng thừa; nghiệp vụ dễ coupling xuống DB</td></tr>
+                <tr><td><strong>Hexagonal</strong></td><td>Domain ở lõi, hạ tầng là adapter cắm qua port</td><td>Mọi phụ thuộc hướng VÀO TRONG lõi</td><td>Nhiều interface/boilerplate; dễ over-engineer app nhỏ</td></tr>
+                <tr><td><strong>Event-Driven</strong></td><td>Producer phát event, consumer tự đăng ký xử lý</td><td>Giao tiếp bất đồng bộ qua event bus/broker</td><td>Eventual consistency; khó theo dõi luồng &amp; debug</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="hero__cta" style="margin-top:var(--sp-3)">
+            <a class="btn btn--primary" href="#du-lieu">Tiếp tục: Dữ liệu phân tán →</a>
+            <a class="btn btn--ghost" href="#bang-tong-hop">Bảng tổng hợp 11 mẫu</a>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </section>
+
+  
+<!-- ===== CHƯƠNG: du-lieu ===== -->
+
+
+  <section class="section container" id="du-lieu" data-chapter="data">
+
+    <div class="chapter">
+      <aside class="toc" aria-label="Mục lục chương">
+        <p class="toc__title">Trong chương này</p>
+        <ol>
+          <li><a href="#cqrs">CQRS</a></li>
+          <li><a href="#event-sourcing">Event Sourcing</a></li>
+          <li><a href="#saga">Saga</a></li>
+          <li><a href="#api-gateway">API Gateway</a></li>
+          <li><a href="#tom-tat-du-lieu">Tóm tắt chương</a></li>
+        </ol>
+      </aside>
+
+      <main>
+        <div class="chapter-hero" data-reveal>
+      <span class="eyebrow">Nhóm 03 · 4 mẫu</span>
+      <h1>Dữ liệu phân tán</h1>
+      <p class="lead">Khi hệ thống bị chia nhỏ thành nhiều dịch vụ, câu hỏi lớn tiếp theo là: <b>dữ liệu &amp; giao dịch được xử lý ra sao</b> khi không còn một database, một transaction ACID duy nhất? Bốn mẫu ở đây trả lời bốn góc: tách <i>đọc/ghi</i>, lưu theo <i>chuỗi sự kiện</i>, thay transaction phân tán bằng <i>eventual consistency</i>, và định tuyến/tổng hợp qua <i>một điểm vào</i>.</p>
+    </div>
+
+        <!-- ==================== CQRS ==================== -->
+        <section class="pattern" id="cqrs">
+          <div class="pattern__head">
+            <span class="pattern__index">01</span>
+            <h2 class="pattern__title">CQRS</h2>
+            <span class="badge badge--data">Dữ liệu</span>
+            <span class="meter" title="Độ phức tạp: Trung bình"><i class="on"></i><i class="on"></i><i></i></span>
+            <span class="pattern__aka">Còn gọi là: Command Query Responsibility Segregation</span>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">📘</span> Khái niệm</p>
+            <p><b>CQRS</b> tách mô hình xử lý <b>GHI (Command)</b> khỏi mô hình xử lý <b>ĐỌC (Query)</b> thành hai đường xử lý riêng biệt, thay vì dùng chung một model cho cả đọc lẫn ghi. Command làm thay đổi trạng thái nhưng không trả dữ liệu chi tiết; Query trả dữ liệu nhưng không được phép thay đổi trạng thái. Ở dạng đầy đủ, có thể tách luôn cả kho dữ liệu: một <b>write store</b> chuẩn hóa cho ghi, một <b>read model</b> (view) phi chuẩn hóa tối ưu cho truy vấn.</p>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">🎯</span> Mục đích &amp; vấn đề giải quyết</p>
+            <p>Đọc và ghi thường có yêu cầu rất khác nhau: ghi cần validate nghiệp vụ chặt chẽ và nhất quán, đọc cần nhanh, phục vụ nhiều hình dạng dữ liệu khác nhau (danh sách, dashboard, báo cáo) với lưu lượng thường lớn hơn ghi rất nhiều lần. Dùng chung một model cho cả hai buộc phải thỏa hiệp cả hai phía; CQRS cho phép <b>tối ưu độc lập</b> từng bên.</p>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">⚙️</span> Nguyên lý hoạt động</p>
+            <p>Command đi qua <b>CommandHandler</b> → validate nghiệp vụ → ghi vào write model/store. Query đi qua <b>QueryHandler</b> → đọc thẳng từ read model đã được "chiếu" (project) sẵn cho mục đích hiển thị, không cần join hay tính toán lại. Read model được đồng bộ từ write store qua event/projection, nên thường là <b>eventually consistent</b> (có độ trễ nhỏ).</p>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">📐</span> Sơ đồ kiến trúc</p>
+            <figure class="uml">
+              <div class="uml__stage">
+                <div class="uml-class uml-class--client"><div class="uml-class__name">Client</div></div>
+                <div class="uml-rel"><span>Command ▶</span></div>
+                <div class="uml-class"><div class="uml-class__name">Command Handler<small>ghi</small></div></div>
+                <div class="uml-rel"><span>▶</span></div>
+                <div class="uml-class"><div class="uml-class__name">Write Store<small>chuẩn hóa</small></div></div>
+              </div>
+              <div class="uml__stage" style="margin-top:16px">
+                <div class="uml-class uml-class--client"><div class="uml-class__name">Client</div></div>
+                <div class="uml-rel"><span>Query ▶</span></div>
+                <div class="uml-class uml-class--abstract"><div class="uml-class__name">Query Handler<small>đọc</small></div></div>
+                <div class="uml-rel"><span>▶</span></div>
+                <div class="uml-class"><div class="uml-class__name">Read Model<small>view phi chuẩn hóa</small></div></div>
+              </div>
+              <div class="uml__legend"><span>Write Store đồng bộ sang Read Model qua projection/event — thường có độ trễ nhỏ</span></div>
+              <figcaption>Hai đường xử lý tách biệt: ghi qua Command Handler vào write store; đọc qua Query Handler từ read model tối ưu truy vấn.</figcaption>
+            </figure>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">⚖️</span> Ưu điểm &amp; nhược điểm</p>
+            <div class="proscons">
+              <div class="pc pc--pros">
+                <h4>Ưu điểm</h4>
+                <ul>
+                  <li>Tối ưu độc lập hiệu năng/khả năng scale cho đọc và ghi.</li>
+                  <li>Read model có thể denormalized, nhiều view khác nhau cho nhiều nhu cầu hiển thị.</li>
+                  <li>Command side giữ nghiệp vụ &amp; validate tập trung, rõ ràng.</li>
+                </ul>
+              </div>
+              <div class="pc pc--cons">
+                <h4>Nhược điểm</h4>
+                <ul>
+                  <li>Thêm độ phức tạp: hai model, có thể hai kho dữ liệu.</li>
+                  <li>Eventual consistency giữa write &amp; read gây độ trễ hiển thị.</li>
+                  <li>Dễ over-engineer nếu ứng dụng chỉ là CRUD đơn giản.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">🧭</span> Khi nào nên &amp; không nên dùng</p>
+            <div class="usecase">
+              <div class="usecase__col usecase__col--do">
+                <h4>✔ Nên dùng khi</h4>
+                <ul>
+                  <li>Hệ đọc nhiều - ghi ít, cần dashboard/báo cáo phức tạp.</li>
+                  <li>Nghiệp vụ ghi có logic khác hẳn nhu cầu hiển thị; cần scale đọc/ghi độc lập.</li>
+                </ul>
+              </div>
+              <div class="usecase__col usecase__col--dont">
+                <h4>✕ Không nên khi</h4>
+                <ul>
+                  <li>CRUD đơn giản, đọc/ghi cùng hình dạng dữ liệu.</li>
+                  <li>Đội nhỏ, chưa cần tối ưu riêng từng phía.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">🌍</span> Ví dụ hệ thống thật</p>
+            <p>Hệ thương mại điện tử lớn thường tách write model đơn hàng (chuẩn hóa, transactional) khỏi read model hiển thị (denormalized, cache để trang sản phẩm/tìm kiếm load nhanh). Thường thấy trong hệ ngân hàng/kế toán, sàn giao dịch — nơi ghi giao dịch phải chặt chẽ còn truy vấn lịch sử/dashboard cần nhanh. Microsoft giới thiệu CQRS như một Cloud Design Pattern chuẩn trong Azure Architecture Center.</p>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">💻</span> Ví dụ code (TypeScript)</p>
+            <div class="code-wrap">
+              <div class="code-wrap__bar"><span class="code-wrap__dots"><i></i><i></i><i></i></span><span class="code-wrap__lang">TypeScript</span></div>
+<pre><code class="language-typescript">// Command: chỉ ghi, không trả dữ liệu chi tiết (trả về id)
+interface PlaceOrderCommand {
+  customerId: string;
+  items: { sku: string; qty: number }[];
+}
+
+class OrderCommandHandler {
+  constructor(private writeStore: OrderWriteRepository) {}
+
+  async handle(cmd: PlaceOrderCommand): Promise&lt;string&gt; {
+    const order = Order.create(cmd.customerId, cmd.items);
+    await this.writeStore.save(order);       // ghi vào write model
+    return order.id;
+  }
+}
+
+// Query: chỉ đọc, từ read model đã tối ưu sẵn cho hiển thị (denormalized)
+interface OrderSummaryView {
+  orderId: string;
+  customerName: string;
+  totalAmount: number;
+  status: string;
+}
+
+class OrderQueryHandler {
+  constructor(private readModel: OrderReadModel) {}
+
+  async getSummary(orderId: string): Promise&lt;OrderSummaryView | null&gt; {
+    return this.readModel.findSummaryById(orderId); // đọc thẳng view đã build sẵn
+  }
+}</code></pre>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">🐞</span> Lỗi thường gặp</p>
+            <details class="accordion">
+              <summary><span class="accordion__ic">▸</span> Áp dụng CQRS cho toàn bộ hệ thống</summary>
+              <div class="accordion__body"><p>Dùng CQRS cho cả những phần CRUD đơn giản làm tăng phức tạp không cần thiết. Chỉ áp dụng ở bounded context có bất đối xứng đọc/ghi thật sự rõ rệt.</p></div>
+            </details>
+            <details class="accordion">
+              <summary><span class="accordion__ic">▸</span> Bỏ qua eventual consistency</summary>
+              <div class="accordion__body"><p>Giả định read model luôn mới nhất khiến UI hiển thị dữ liệu cũ ngay sau khi ghi, gây bug khó hiểu. Cần thiết kế UX chấp nhận độ trễ (optimistic UI, thông báo "đang xử lý"...).</p></div>
+            </details>
+            <details class="accordion">
+              <summary><span class="accordion__ic">▸</span> Không đồng bộ đúng khi write model đổi schema</summary>
+              <div class="accordion__body"><p>Thay đổi schema ở write model mà quên cập nhật logic projection khiến read model lệch dữ liệu. Cần cơ chế rebuild/replay projection khi cần.</p></div>
+            </details>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">🔀</span> So sánh với mẫu liên quan</p>
+            <p>CQRS thường đi kèm <b>Event Sourcing</b> (event là nguồn ghi command, projection xây read model từ event) nhưng không bắt buộc dùng chung. Trong kiến trúc <b>hướng sự kiện</b>, projection thường được cập nhật bất đồng bộ qua event. CQRS cũng hay xuất hiện trong <b>Microservices</b> để mỗi service tự quản lý read model riêng.</p>
+            <div class="related">
+              <a href="#event-sourcing">Event Sourcing</a>
+              <a href="#event-driven">Event-Driven</a>
+              <a href="#microservices">Microservices</a>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">📎</span> Nguồn tham khảo</p>
+            <ul class="refs">
+              <li><div><a href="https://martinfowler.com/bliki/CQRS.html" target="_blank" rel="noopener">CQRS</a><span class="src">martinfowler.com</span></div></li>
+              <li><div><a href="https://learn.microsoft.com/en-us/azure/architecture/patterns/cqrs" target="_blank" rel="noopener">CQRS pattern</a><span class="src">learn.microsoft.com — Azure Architecture Center</span></div></li>
+              <li><div><a href="https://microservices.io/patterns/data/cqrs.html" target="_blank" rel="noopener">Pattern: CQRS</a><span class="src">microservices.io — Chris Richardson</span></div></li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- ==================== EVENT SOURCING ==================== -->
+        <section class="pattern" id="event-sourcing">
+          <div class="pattern__head">
+            <span class="pattern__index">02</span>
+            <h2 class="pattern__title">Event Sourcing</h2>
+            <span class="badge badge--data">Dữ liệu</span>
+            <span class="meter" title="Độ phức tạp: Cao"><i class="on"></i><i class="on"></i><i class="on"></i></span>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">📘</span> Khái niệm</p>
+            <p><b>Event Sourcing</b> lưu <b>mọi thay đổi trạng thái</b> của một entity/aggregate dưới dạng chuỗi <b>sự kiện bất biến (immutable)</b>, nối tiếp nhau trong một <b>append-only log</b> (event store) — thay vì chỉ lưu trạng thái hiện tại. Trạng thái tại bất kỳ thời điểm nào được suy ra bằng cách <b>phát lại (replay)</b> toàn bộ, hoặc từ một snapshot, các sự kiện của aggregate đó.</p>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">🎯</span> Mục đích &amp; vấn đề giải quyết</p>
+            <p>Nhiều nghiệp vụ (tài chính, kế toán, giỏ hàng, workflow phê duyệt) cần <b>lịch sử đầy đủ</b> — ai làm gì, khi nào (audit trail) — khả năng khôi phục trạng thái tại một thời điểm bất kỳ trong quá khứ, và tích hợp với hệ thống khác qua chính các sự kiện đã xảy ra. Lưu trạng thái hiện tại theo kiểu CRUD ghi đè sẽ làm mất hoàn toàn lịch sử này.</p>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">⚙️</span> Nguyên lý hoạt động</p>
+            <p>Command tạo ra một hoặc nhiều event mô tả <b>chuyện gì đã xảy ra</b> (thì quá khứ: <i>OrderCreated, ItemAdded...</i>). Event được append vào log gắn với một stream (thường = 1 aggregate id), không bao giờ sửa/xóa. Đọc lại aggregate = load toàn bộ event của stream rồi reduce tuần tự. Khi log quá dài, hệ thống chụp <b>snapshot</b> định kỳ để tránh phải replay lại từ đầu.</p>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">📐</span> Sơ đồ kiến trúc</p>
+            <figure class="uml">
+              <div class="uml__stage">
+                <div class="uml-class uml-class--client"><div class="uml-class__name">Command</div></div>
+                <div class="uml-rel"><span>▶</span></div>
+                <div class="uml-class"><div class="uml-class__name">Aggregate<small>xử lý nghiệp vụ</small></div></div>
+                <div class="uml-rel"><span>append ▶</span></div>
+                <div class="uml-class uml-class--abstract">
+                  <div class="uml-class__name">Event Store<small>append-only log</small></div>
+                  <div class="uml-class__section"><span class="m">e1: OrderCreated</span><span class="m">e2: ItemAdded</span><span class="m">e3: OrderPaid</span></div>
+                </div>
+              </div>
+              <div class="uml__stage" style="margin-top:16px">
+                <div class="uml-class"><div class="uml-class__name">Event Store</div></div>
+                <div class="uml-rel"><span>replay ▶</span></div>
+                <div class="uml-class"><div class="uml-class__name">Trạng thái hiện tại<small>reduce(events)</small></div></div>
+              </div>
+              <div class="uml__legend"><span>log dài → cần snapshot định kỳ</span><span>thường ghép CQRS để tạo read model từ event</span></div>
+              <figcaption>Mọi thay đổi lưu thành sự kiện bất biến; trạng thái hiện tại = phát lại (replay) toàn bộ sự kiện.</figcaption>
+            </figure>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">⚖️</span> Ưu điểm &amp; nhược điểm</p>
+            <div class="proscons">
+              <div class="pc pc--pros">
+                <h4>Ưu điểm</h4>
+                <ul>
+                  <li>Lịch sử đầy đủ, audit trail tự nhiên.</li>
+                  <li>Có thể "time travel" — tái tạo trạng thái tại bất kỳ thời điểm.</li>
+                  <li>Event là nguồn tích hợp tốt cho hệ thống khác (event-driven).</li>
+                </ul>
+              </div>
+              <div class="pc pc--cons">
+                <h4>Nhược điểm</h4>
+                <ul>
+                  <li>Độ phức tạp cao hơn hẳn CRUD thông thường.</li>
+                  <li>Versioning schema event theo thời gian là bài toán khó.</li>
+                  <li>Khó truy vấn trực tiếp trên log → gần như bắt buộc kèm CQRS/projection.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">🧭</span> Khi nào nên &amp; không nên dùng</p>
+            <div class="usecase">
+              <div class="usecase__col usecase__col--do">
+                <h4>✔ Nên dùng khi</h4>
+                <ul>
+                  <li>Nghiệp vụ bắt buộc audit/tuân thủ (tài chính, kế toán, y tế).</li>
+                  <li>Cần debug/replay lại chuỗi hành vi; "lịch sử" là giá trị cốt lõi của domain.</li>
+                </ul>
+              </div>
+              <div class="usecase__col usecase__col--dont">
+                <h4>✕ Không nên khi</h4>
+                <ul>
+                  <li>Domain đơn giản, không cần lịch sử chi tiết.</li>
+                  <li>Đội chưa quen xử lý schema versioning &amp; eventual consistency.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">🌍</span> Ví dụ hệ thống thật</p>
+            <p>Hệ thống kế toán/sổ cái (ledger) dùng event sourcing để đảm bảo mọi bút toán là bất biến và có thể truy vết. Giỏ hàng thương mại điện tử — ví dụ kinh điển của Martin Fowler — lưu <i>AddedToCart/RemovedFromCart</i> để tái dựng giỏ hàng tại bất kỳ thời điểm nào. Microsoft liệt kê Event Sourcing như một Cloud Design Pattern, thường ghép cùng CQRS.</p>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">💻</span> Ví dụ code (TypeScript)</p>
+            <div class="code-wrap">
+              <div class="code-wrap__bar"><span class="code-wrap__dots"><i></i><i></i><i></i></span><span class="code-wrap__lang">TypeScript</span></div>
+<pre><code class="language-typescript">// Sự kiện bất biến — mô tả CHUYỆN GÌ ĐÃ XẢY RA, không phải trạng thái hiện tại
+type OrderEvent =
+  | { type: 'OrderCreated'; orderId: string; customerId: string }
+  | { type: 'ItemAdded'; orderId: string; sku: string; qty: number }
+  | { type: 'OrderPaid'; orderId: string; amount: number };
+
+// Append-only event store: chỉ ghi thêm, không update/xóa
+async function appendEvent(streamId: string, event: OrderEvent): Promise&lt;void&gt; {
+  await eventStore.append(streamId, event);
+}
+
+// Trạng thái hiện tại = reduce (phát lại) toàn bộ sự kiện trong stream
+function rebuildOrder(events: OrderEvent[]): OrderState {
+  return events.reduce((state, e) =&gt; {
+    switch (e.type) {
+      case 'OrderCreated': return { ...state, id: e.orderId, items: [] };
+      case 'ItemAdded':    return { ...state, items: [...state.items, { sku: e.sku, qty: e.qty }] };
+      case 'OrderPaid':    return { ...state, paid: true, amount: e.amount };
+      default: return state;
+    }
+  }, {} as OrderState);
+}</code></pre>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">🐞</span> Lỗi thường gặp</p>
+            <details class="accordion">
+              <summary><span class="accordion__ic">▸</span> Không xử lý versioning khi schema event đổi</summary>
+              <div class="accordion__body"><p>Thêm/xóa field trong event khiến replay event cũ bị lỗi hoặc sai. Cần có upcaster/migration để chuyển đổi event cũ sang định dạng mới khi replay.</p></div>
+            </details>
+            <details class="accordion">
+              <summary><span class="accordion__ic">▸</span> Không snapshot khi stream quá dài</summary>
+              <div class="accordion__body"><p>Mỗi lần load aggregate phải replay hàng nghìn event, hiệu năng giảm dần theo thời gian. Cần chụp snapshot định kỳ và chỉ replay event sau snapshot.</p></div>
+            </details>
+            <details class="accordion">
+              <summary><span class="accordion__ic">▸</span> Query trực tiếp trên event store</summary>
+              <div class="accordion__body"><p>Coi event store như nơi để truy vấn tùy ý thay vì qua projection/CQRS khiến hiệu năng đọc rất tệ. Luôn xây read model riêng cho truy vấn.</p></div>
+            </details>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">🔀</span> So sánh với mẫu liên quan</p>
+            <p>Event Sourcing gần như luôn đi kèm <b>CQRS</b>: event là nguồn ghi (command side), projection xây read model để đọc nhanh. <b>Saga</b> có thể dùng chính event do Event Sourcing phát ra để kích hoạt bước tiếp theo (choreography). Đây là một cách hiện thực cụ thể của kiến trúc <b>hướng sự kiện</b> ở tầng persistence.</p>
+            <div class="related">
+              <a href="#cqrs">CQRS</a>
+              <a href="#saga">Saga</a>
+              <a href="#event-driven">Event-Driven</a>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">📎</span> Nguồn tham khảo</p>
+            <ul class="refs">
+              <li><div><a href="https://martinfowler.com/eaaDev/EventSourcing.html" target="_blank" rel="noopener">Event Sourcing</a><span class="src">martinfowler.com</span></div></li>
+              <li><div><a href="https://learn.microsoft.com/en-us/azure/architecture/patterns/event-sourcing" target="_blank" rel="noopener">Event Sourcing pattern</a><span class="src">learn.microsoft.com — Azure Architecture Center</span></div></li>
+              <li><div><a href="https://microservices.io/patterns/data/event-sourcing.html" target="_blank" rel="noopener">Pattern: Event sourcing</a><span class="src">microservices.io — Chris Richardson</span></div></li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- ==================== SAGA ==================== -->
+        <section class="pattern" id="saga">
+          <div class="pattern__head">
+            <span class="pattern__index">03</span>
+            <h2 class="pattern__title">Saga</h2>
+            <span class="badge badge--data">Dữ liệu</span>
+            <span class="meter" title="Độ phức tạp: Cao"><i class="on"></i><i class="on"></i><i class="on"></i></span>
+            <span class="pattern__aka">Còn gọi là: Distributed Saga</span>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">📘</span> Khái niệm</p>
+            <p><b>Saga</b> quản lý một giao dịch nghiệp vụ trải dài qua <b>nhiều service/database độc lập</b> bằng một <b>chuỗi transaction cục bộ (local transaction)</b>, mỗi transaction chỉ ACID trong phạm vi service của nó. Nếu một bước thất bại, saga chạy các <b>compensating transaction</b> để hoàn tác — một cách nghiệp vụ, không phải rollback kỹ thuật — các bước đã hoàn thành trước đó. Có hai kiểu hiện thực: <b>choreography</b> (các service tự phát/nghe event, không có nhạc trưởng) và <b>orchestration</b> (một orchestrator trung tâm điều phối từng bước).</p>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">🎯</span> Mục đích &amp; vấn đề giải quyết</p>
+            <p>Trong <b>Microservices</b>, mỗi service có database riêng nên không thể dùng một transaction ACID xuyên nhiều service như trong monolith. Saga giải quyết bài toán "đặt hàng thành công phải trừ kho + trừ tiền + tạo vận đơn" khi các bước này nằm ở service khác nhau — chấp nhận <b>eventual consistency</b> đổi lấy khả năng scale/độc lập của microservices.</p>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">⚙️</span> Nguyên lý hoạt động</p>
+            <p>Với <b>orchestration</b>: orchestrator gọi tuần tự Order → Payment → Inventory → Shipping, mỗi bước là một transaction cục bộ commit ngay tại service đó. Nếu bước N lỗi, orchestrator gọi compensating transaction cho các bước 1..N-1 theo thứ tự ngược (ví dụ: refund thay vì rollback charge). Với <b>choreography</b>, mỗi service tự phát event khi xong việc, service tiếp theo tự lắng nghe và xử lý, không ai điều phối tập trung.</p>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">📐</span> Sơ đồ kiến trúc</p>
+            <figure class="uml">
+              <div class="uml__stage">
+                <div class="uml-class uml-class--abstract"><div class="uml-class__name">Saga Orchestrator</div></div>
+              </div>
+              <div class="uml__stage" style="margin-top:16px">
+                <div class="uml-class"><div class="uml-class__name">Order Service</div></div>
+                <div class="uml-class"><div class="uml-class__name">Payment Service</div></div>
+                <div class="uml-class"><div class="uml-class__name">Inventory Service</div></div>
+                <div class="uml-class"><div class="uml-class__name">Shipping Service</div></div>
+              </div>
+              <div class="uml__legend"><span>▶ thực thi tuần tự từng bước, mỗi bước 1 transaction cục bộ</span><span>lỗi giữa chừng → chạy compensating transaction hoàn tác các bước trước, theo thứ tự ngược</span></div>
+              <figcaption>Orchestrator điều phối chuỗi transaction cục bộ; lỗi giữa chừng kích hoạt các bước bù trừ thay vì rollback ACID.</figcaption>
+            </figure>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">⚖️</span> Ưu điểm &amp; nhược điểm</p>
+            <div class="proscons">
+              <div class="pc pc--pros">
+                <h4>Ưu điểm</h4>
+                <ul>
+                  <li>Cho phép giao dịch xuyên nhiều service/database mà không cần 2PC tập trung.</li>
+                  <li>Phù hợp tự nhiên với kiến trúc microservices, database-per-service.</li>
+                  <li>Orchestration cho khả năng quan sát/điều phối rõ ràng, dễ theo dõi tiến trình.</li>
+                </ul>
+              </div>
+              <div class="pc pc--cons">
+                <h4>Nhược điểm</h4>
+                <ul>
+                  <li>Phức tạp hơn nhiều so với một transaction ACID.</li>
+                  <li>Không có isolation như ACID — trạng thái trung gian có thể "lộ" ra ngoài.</li>
+                  <li>Phải tự thiết kế &amp; test kỹ logic compensating; debug khó vì lỗi trải dài nhiều service.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">🧭</span> Khi nào nên &amp; không nên dùng</p>
+            <div class="usecase">
+              <div class="usecase__col usecase__col--do">
+                <h4>✔ Nên dùng khi</h4>
+                <ul>
+                  <li>Giao dịch nghiệp vụ trải dài nhiều microservice/database riêng biệt.</li>
+                  <li>Ví dụ: đặt hàng, đặt vé, chuyển khoản liên hệ thống.</li>
+                </ul>
+              </div>
+              <div class="usecase__col usecase__col--dont">
+                <h4>✕ Không nên khi</h4>
+                <ul>
+                  <li>Mọi thứ vẫn nằm trong một database/monolith — dùng transaction ACID đơn giản hơn nhiều.</li>
+                  <li>Nghiệp vụ không thể compensate hợp lý (vd: email đã gửi không thể "un-send").</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">🌍</span> Ví dụ hệ thống thật</p>
+            <p>Luồng xử lý đơn hàng kinh điển <b>Order → Payment → Inventory → Shipping</b> mà Chris Richardson dùng làm ví dụ chuẩn trên microservices.io: nếu Payment thất bại, saga hủy Order (compensating) thay vì để hệ thống ở trạng thái nửa vời.</p>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">💻</span> Ví dụ code (TypeScript)</p>
+            <div class="code-wrap">
+              <div class="code-wrap__bar"><span class="code-wrap__dots"><i></i><i></i><i></i></span><span class="code-wrap__lang">TypeScript</span></div>
+<pre><code class="language-typescript">// Saga orchestrator: điều phối các bước + rollback bằng compensating transaction
+type SagaStep = { execute: () =&gt; Promise&lt;void&gt;; compensate: () =&gt; Promise&lt;void&gt; };
+
+class OrderSagaOrchestrator {
+  private completed: SagaStep[] = [];
+
+  async run(steps: SagaStep[]): Promise&lt;void&gt; {
+    for (const step of steps) {
+      try {
+        await step.execute();
+        this.completed.push(step);
+      } catch (err) {
+        await this.rollback();        // bước lỗi → hoàn tác các bước đã hoàn thành
+        throw err;
+      }
+    }
+  }
+
+  private async rollback(): Promise&lt;void&gt; {
+    for (const step of this.completed.reverse()) {
+      await step.compensate();        // compensating transaction, không phải ACID rollback
+    }
+  }
+}
+
+// Sử dụng: Order → Payment → Inventory
+const orchestrator = new OrderSagaOrchestrator();
+await orchestrator.run([
+  { execute: () =&gt; orderService.create(order), compensate: () =&gt; orderService.cancel(order.id) },
+  { execute: () =&gt; paymentService.charge(order), compensate: () =&gt; paymentService.refund(order.id) },
+  { execute: () =&gt; inventoryService.reserve(order), compensate: () =&gt; inventoryService.release(order.id) },
+]);</code></pre>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">🐞</span> Lỗi thường gặp</p>
+            <details class="accordion">
+              <summary><span class="accordion__ic">▸</span> Coi compensating transaction như rollback ACID hoàn hảo</summary>
+              <div class="accordion__body"><p>Nhiều hành động không thể hoàn tác chính xác 100% (email đã gửi, tiền đã chuyển ra ngoài hệ thống). Phải thiết kế nghiệp vụ chấp nhận và xử lý các trường hợp không thể "undo" tuyệt đối.</p></div>
+            </details>
+            <details class="accordion">
+              <summary><span class="accordion__ic">▸</span> Orchestrator trở thành "god object"</summary>
+              <div class="accordion__body"><p>Nhồi hết business logic của mọi service vào orchestrator khiến mất đi tính tự chủ của từng service, khó bảo trì. Orchestrator chỉ nên điều phối bước, không chứa logic nghiệp vụ chi tiết.</p></div>
+            </details>
+            <details class="accordion">
+              <summary><span class="accordion__ic">▸</span> Không xử lý idempotency</summary>
+              <div class="accordion__body"><p>Retry sau lỗi mạng có thể chạy trùng một bước hoặc compensation, gây sai lệch dữ liệu (double refund...). Mỗi bước và compensation phải idempotent.</p></div>
+            </details>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">🔀</span> So sánh với mẫu liên quan</p>
+            <p>Saga giải quyết bài toán consistency phát sinh khi tách <b>Microservices</b> (database-per-service). <b>CQRS</b>/<b>Event Sourcing</b> thường cung cấp hạ tầng event để hiện thực saga kiểu choreography. <b>API Gateway</b> là điểm vào gọi khởi động saga nhưng không tham gia điều phối transaction.</p>
+            <div class="related">
+              <a href="#microservices">Microservices</a>
+              <a href="#event-driven">Event-Driven</a>
+              <a href="#cqrs">CQRS</a>
+              <a href="#api-gateway">API Gateway</a>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">📎</span> Nguồn tham khảo</p>
+            <ul class="refs">
+              <li><div><a href="https://microservices.io/patterns/data/saga.html" target="_blank" rel="noopener">Pattern: Saga</a><span class="src">microservices.io — Chris Richardson</span></div></li>
+              <li><div><a href="https://microservices.io/microservices/2019/12/02/sagas-part-4.html" target="_blank" rel="noopener">Implementing orchestration-based sagas</a><span class="src">microservices.io — Chris Richardson</span></div></li>
+              <li><div><a href="https://learn.microsoft.com/en-us/azure/architecture/patterns/" target="_blank" rel="noopener">Cloud Design Patterns (mục Saga / Compensating Transaction)</a><span class="src">learn.microsoft.com — Azure Architecture Center</span></div></li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- ==================== API GATEWAY ==================== -->
+        <section class="pattern" id="api-gateway">
+          <div class="pattern__head">
+            <span class="pattern__index">04</span>
+            <h2 class="pattern__title">API Gateway</h2>
+            <span class="badge badge--data">Dữ liệu</span>
+            <span class="meter" title="Độ phức tạp: Trung bình"><i class="on"></i><i class="on"></i><i></i></span>
+            <span class="pattern__aka">Còn gọi là: Gateway Aggregation, BFF (Backend for Frontend)</span>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">📘</span> Khái niệm</p>
+            <p><b>API Gateway</b> là một <b>điểm vào (single entry point)</b> duy nhất đứng trước tập hợp microservices phía sau: nhận request từ client, <b>định tuyến (routing)</b> tới service phù hợp, có thể <b>tổng hợp (aggregation)</b> kết quả từ nhiều service thành một response, và xử lý các mối quan tâm xuyên suốt (cross-cutting concern) như xác thực, rate limiting, TLS termination, logging.</p>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">🎯</span> Mục đích &amp; vấn đề giải quyết</p>
+            <p>Nếu để client (web/mobile) gọi trực tiếp hàng chục microservice, sẽ phát sinh: quá nhiều round-trip (chattiness) nhất là trên mobile, lộ cấu trúc nội bộ hệ thống ra ngoài, và khó thay đổi/tách nhập service về sau vì client đã gắn chặt vào topology cũ. API Gateway <b>che giấu cấu trúc nội bộ</b>, cho client một API ổn định, gọn.</p>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">⚙️</span> Nguyên lý hoạt động</p>
+            <p>Gateway nhận request, tra bảng định tuyến để biết chuyển tới service nào; với endpoint cần dữ liệu tổng hợp, gateway gọi <b>song song</b> nhiều service rồi gộp kết quả trước khi trả về client. Đồng thời chèn middleware xử lý auth/token, giới hạn tần suất, TLS, ghi log/metrics tập trung tại một chỗ thay vì lặp lại ở từng service. Biến thể <b>BFF</b> triển khai một gateway riêng cho từng loại client (web, mobile).</p>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">📐</span> Sơ đồ kiến trúc</p>
+            <figure class="uml">
+              <div class="uml__stage">
+                <div class="uml-class uml-class--client"><div class="uml-class__name">Client</div></div>
+                <div class="uml-rel"><span>▶</span></div>
+                <div class="uml-class uml-class--abstract"><div class="uml-class__name">API Gateway<small>routing · aggregation · auth</small></div></div>
+              </div>
+              <div class="uml__stage" style="margin-top:16px">
+                <div class="uml-class"><div class="uml-class__name">Order Service</div></div>
+                <div class="uml-class"><div class="uml-class__name">Payment Service</div></div>
+                <div class="uml-class"><div class="uml-class__name">Shipping Service</div></div>
+              </div>
+              <div class="uml__legend"><span>gateway gọi song song nhiều service, tổng hợp thành 1 response cho client</span><span>cross-cutting: auth, rate limit, TLS, logging xử lý tập trung tại gateway</span></div>
+              <figcaption>Một điểm vào duy nhất cho client; gateway định tuyến &amp; tổng hợp nhiều microservice phía sau.</figcaption>
+            </figure>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">⚖️</span> Ưu điểm &amp; nhược điểm</p>
+            <div class="proscons">
+              <div class="pc pc--pros">
+                <h4>Ưu điểm</h4>
+                <ul>
+                  <li>Client chỉ cần gọi một điểm — đơn giản hơn nhiều.</li>
+                  <li>Giấu cấu trúc nội bộ, đổi/tách/nhập service phía sau không ảnh hưởng client.</li>
+                  <li>Tập trung xử lý auth/logging/rate-limit tại một chỗ.</li>
+                </ul>
+              </div>
+              <div class="pc pc--cons">
+                <h4>Nhược điểm</h4>
+                <ul>
+                  <li>Có thể trở thành điểm nghẽn hoặc điểm hỏng (single point of failure).</li>
+                  <li>Thêm một chặng mạng, tăng độ trễ.</li>
+                  <li>Logic aggregation ở gateway dễ phình to nếu không kiểm soát.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">🧭</span> Khi nào nên &amp; không nên dùng</p>
+            <div class="usecase">
+              <div class="usecase__col usecase__col--do">
+                <h4>✔ Nên dùng khi</h4>
+                <ul>
+                  <li>Kiến trúc microservices có nhiều service nhỏ mà client (đặc biệt mobile) cần gọi.</li>
+                  <li>Cần một chỗ tập trung auth/rate-limit/observability.</li>
+                </ul>
+              </div>
+              <div class="usecase__col usecase__col--dont">
+                <h4>✕ Không nên khi</h4>
+                <ul>
+                  <li>Hệ thống chỉ có 1-2 service/monolith — thêm gateway chỉ tăng một chặng mạng không cần thiết.</li>
+                  <li>Định nhồi toàn bộ business logic vào gateway (nên giữ gateway mỏng).</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">🌍</span> Ví dụ hệ thống thật</p>
+            <p><b>Netflix Zuul</b> là gateway nổi tiếng đứng trước hàng trăm microservices của Netflix. <b>Kong</b>, <b>AWS API Gateway</b>, <b>NGINX</b> cũng là các lựa chọn phổ biến để triển khai pattern này trong thực tế; AWS API Gateway thường ghép cùng Lambda cho backend serverless.</p>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">💻</span> Ví dụ code (TypeScript)</p>
+            <div class="code-wrap">
+              <div class="code-wrap__bar"><span class="code-wrap__dots"><i></i><i></i><i></i></span><span class="code-wrap__lang">TypeScript</span></div>
+<pre><code class="language-typescript">// Gateway: một điểm vào, định tuyến + tổng hợp (aggregation) nhiều service
+import express from 'express';
+
+const app = express();
+
+app.get('/api/order-details/:id', async (req, res) =&gt; {
+  // Gọi song song nhiều microservice thay vì bắt client tự gọi từng cái
+  const [order, payment, shipping] = await Promise.all([
+    fetch(`http://order-service/orders/${req.params.id}`).then(r =&gt; r.json()),
+    fetch(`http://payment-service/payments/${req.params.id}`).then(r =&gt; r.json()),
+    fetch(`http://shipping-service/shipments/${req.params.id}`).then(r =&gt; r.json()),
+  ]);
+
+  // Cross-cutting: auth, rate limit, logging xử lý tập trung ở gateway
+  res.json({ order, payment, shipping });
+});
+
+app.listen(8080, () =&gt; console.log('API Gateway on :8080'));</code></pre>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">🐞</span> Lỗi thường gặp</p>
+            <details class="accordion">
+              <summary><span class="accordion__ic">▸</span> Nhồi hết business logic vào gateway</summary>
+              <div class="accordion__body"><p>Gateway phình to thành "god service", vi phạm mục đích ban đầu (chỉ routing/aggregation/cross-cutting). Business logic nên nằm ở service tương ứng.</p></div>
+            </details>
+            <details class="accordion">
+              <summary><span class="accordion__ic">▸</span> Không scale/HA gateway đúng mức</summary>
+              <div class="accordion__body"><p>Gateway sập kéo sập toàn bộ hệ thống dù từng service phía sau vẫn khỏe. Gateway cần được scale ngang &amp; có failover như một dịch vụ hạ tầng quan trọng.</p></div>
+            </details>
+            <details class="accordion">
+              <summary><span class="accordion__ic">▸</span> Gọi tuần tự thay vì song song khi tổng hợp</summary>
+              <div class="accordion__body"><p>Gọi lần lượt (sequential) nhiều service khi aggregate làm tăng latency không cần thiết. Nên gọi song song (Promise.all) khi các lời gọi độc lập nhau.</p></div>
+            </details>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">🔀</span> So sánh với mẫu liên quan</p>
+            <p>API Gateway thường đứng trước kiến trúc <b>Microservices</b>, là nơi khởi động các <b>Saga</b> (nhận request bắt đầu giao dịch phân tán) và có thể route tới hệ thống <b>hướng sự kiện</b> phía sau. Biến thể BFF tách gateway riêng theo loại client.</p>
+            <div class="related">
+              <a href="#microservices">Microservices</a>
+              <a href="#saga">Saga</a>
+              <a href="#event-driven">Event-Driven</a>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block__label"><span class="ic">📎</span> Nguồn tham khảo</p>
+            <ul class="refs">
+              <li><div><a href="https://microservices.io/patterns/" target="_blank" rel="noopener">A pattern language for microservices (mục API Gateway)</a><span class="src">microservices.io — Chris Richardson</span></div></li>
+              <li><div><a href="https://learn.microsoft.com/en-us/azure/architecture/microservices/design/patterns" target="_blank" rel="noopener">Design patterns for microservices</a><span class="src">learn.microsoft.com — Azure Architecture Center</span></div></li>
+              <li><div><a href="https://learn.microsoft.com/en-us/dotnet/architecture/microservices/multi-container-microservice-net-applications/microservice-application-design" target="_blank" rel="noopener">Designing a microservice-oriented application</a><span class="src">learn.microsoft.com — .NET</span></div></li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- ==================== TÓM TẮT CHƯƠNG ==================== -->
+        <section class="summary-block" id="tom-tat-du-lieu" data-reveal>
+          <span class="eyebrow">Tóm tắt chương</span>
+          <h2>Chốt lại nhóm Dữ liệu phân tán</h2>
+          <ul class="key-takeaways">
+            <li>Cả bốn mẫu đều xuất hiện khi hệ thống <b>từ bỏ mô hình một-database-ACID-duy nhất</b> của monolith.</li>
+            <li><b>CQRS</b> tách mô hình đọc khỏi mô hình ghi để tối ưu độc lập từng bên.</li>
+            <li><b>Event Sourcing</b> lưu lịch sử dưới dạng chuỗi sự kiện bất biến, trạng thái = replay events; thường đi cùng CQRS để xây read model.</li>
+            <li><b>Saga</b> thay thế transaction ACID xuyên service bằng chuỗi transaction cục bộ + compensating transaction, chấp nhận eventual consistency.</li>
+            <li><b>API Gateway</b> là điểm vào duy nhất cho client, định tuyến &amp; tổng hợp nhiều microservice phía sau.</li>
+          </ul>
+
+          <div class="table-wrap" style="margin-top:var(--sp-3)">
+            <table class="data">
+              <thead><tr><th>Mẫu</th><th>Giải quyết vấn đề gì</th><th>Cơ chế</th><th>Trade-off chính</th></tr></thead>
+              <tbody>
+                <tr><td><strong>CQRS</strong></td><td>Đọc &amp; ghi có yêu cầu/scale rất khác nhau</td><td>Tách Command/Query, có thể tách cả write store &amp; read model</td><td>Eventual consistency; dễ over-engineer nếu chỉ CRUD</td></tr>
+                <tr><td><strong>Event Sourcing</strong></td><td>Cần lịch sử/audit đầy đủ, khôi phục trạng thái quá khứ</td><td>Append-only event log; trạng thái = replay events</td><td>Versioning schema event; khó query trực tiếp (cần CQRS)</td></tr>
+                <tr><td><strong>Saga</strong></td><td>Không có ACID xuyên nhiều service/database</td><td>Chuỗi local transaction + compensating transaction</td><td>Không isolation như ACID; logic bù trừ khó thiết kế &amp; test</td></tr>
+                <tr><td><strong>API Gateway</strong></td><td>Client không nên gọi trực tiếp nhiều service nội bộ</td><td>Một điểm vào: routing + aggregation + cross-cutting concern</td><td>Có thể thành điểm nghẽn/điểm hỏng; thêm một chặng mạng</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="hero__cta" style="margin-top:var(--sp-3)">
+            <a class="btn btn--primary" href="#bang-tong-hop">Xem bảng tổng hợp 11 mẫu</a>
+            <a class="btn btn--ghost" href="#he-thong">← Xem lại Kiểu ứng dụng</a>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </section>
+
+  
+<footer class="site-footer">
+  <div class="container">
+    <span>Cẩm nang đào tạo <b>Kiến trúc phần mềm</b> · BP Công Nghệ iNET · 10/07/2026</span>
+    <span><a href="#top">↑ Về đầu trang</a></span>
+  </div>
+</footer>
+<a class="to-top" href="#top" aria-label="Về đầu trang">↑</a>
+<script>
+/* ===== Prism.js (core + typescript + java) — inlined ===== */
+var _self="undefined"!=typeof window?window:"undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?self:{},Prism=function(l){var n=/(?:^|\s)lang(?:uage)?-([\w-]+)(?=\s|$)/i,t=0,e={},j={manual:l.Prism&&l.Prism.manual,disableWorkerMessageHandler:l.Prism&&l.Prism.disableWorkerMessageHandler,util:{encode:function e(t){return t instanceof C?new C(t.type,e(t.content),t.alias):Array.isArray(t)?t.map(e):t.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/\u00a0/g," ")},type:function(e){return Object.prototype.toString.call(e).slice(8,-1)},objId:function(e){return e.__id||Object.defineProperty(e,"__id",{value:++t}),e.__id},clone:function n(e,a){var r,t;switch(a=a||{},j.util.type(e)){case"Object":if(t=j.util.objId(e),a[t])return a[t];for(var s in r={},a[t]=r,e)e.hasOwnProperty(s)&&(r[s]=n(e[s],a));return r;case"Array":return(t=j.util.objId(e),a[t])?a[t]:(r=[],a[t]=r,e.forEach(function(e,t){r[t]=n(e,a)}),r);default:return e}},getLanguage:function(e){for(;e;){var t=n.exec(e.className);if(t)return t[1].toLowerCase();e=e.parentElement}return"none"},setLanguage:function(e,t){e.className=e.className.replace(RegExp(n,"gi"),""),e.classList.add("language-"+t)},currentScript:function(){if("undefined"==typeof document)return null;if("currentScript"in document)return document.currentScript;try{throw new Error}catch(e){var t=(/at [^(\r\n]*\((.*):[^:]+:[^:]+\)$/i.exec(e.stack)||[])[1];if(t){var n,a=document.getElementsByTagName("script");for(n in a)if(a[n].src==t)return a[n]}return null}},isActive:function(e,t,n){for(var a="no-"+t;e;){var r=e.classList;if(r.contains(t))return!0;if(r.contains(a))return!1;e=e.parentElement}return!!n}},languages:{plain:e,plaintext:e,text:e,txt:e,extend:function(e,t){var n,a=j.util.clone(j.languages[e]);for(n in t)a[n]=t[n];return a},insertBefore:function(n,e,t,a){var r,s=(a=a||j.languages)[n],i={};for(r in s)if(s.hasOwnProperty(r)){if(r==e)for(var o in t)t.hasOwnProperty(o)&&(i[o]=t[o]);t.hasOwnProperty(r)||(i[r]=s[r])}var l=a[n];return a[n]=i,j.languages.DFS(j.languages,function(e,t){t===l&&e!=n&&(this[e]=i)}),i},DFS:function e(t,n,a,r){r=r||{};var s,i,o,l=j.util.objId;for(s in t)t.hasOwnProperty(s)&&(n.call(t,s,t[s],a||s),i=t[s],"Object"!==(o=j.util.type(i))||r[l(i)]?"Array"!==o||r[l(i)]||(r[l(i)]=!0,e(i,n,s,r)):(r[l(i)]=!0,e(i,n,null,r)))}},plugins:{},highlightAll:function(e,t){j.highlightAllUnder(document,e,t)},highlightAllUnder:function(e,t,n){var a={callback:n,container:e,selector:'code[class*="language-"], [class*="language-"] code, code[class*="lang-"], [class*="lang-"] code'};j.hooks.run("before-highlightall",a),a.elements=Array.prototype.slice.apply(a.container.querySelectorAll(a.selector)),j.hooks.run("before-all-elements-highlight",a);for(var r,s=0;r=a.elements[s++];)j.highlightElement(r,!0===t,a.callback)},highlightElement:function(e,t,n){var a=j.util.getLanguage(e),r=j.languages[a],s=(j.util.setLanguage(e,a),e.parentElement);s&&"pre"===s.nodeName.toLowerCase()&&j.util.setLanguage(s,a);var i={element:e,language:a,grammar:r,code:e.textContent};function o(e){i.highlightedCode=e,j.hooks.run("before-insert",i),i.element.innerHTML=i.highlightedCode,j.hooks.run("after-highlight",i),j.hooks.run("complete",i),n&&n.call(i.element)}if(j.hooks.run("before-sanity-check",i),(s=i.element.parentElement)&&"pre"===s.nodeName.toLowerCase()&&!s.hasAttribute("tabindex")&&s.setAttribute("tabindex","0"),!i.code)return j.hooks.run("complete",i),void(n&&n.call(i.element));j.hooks.run("before-highlight",i),i.grammar?t&&l.Worker?((a=new Worker(j.filename)).onmessage=function(e){o(e.data)},a.postMessage(JSON.stringify({language:i.language,code:i.code,immediateClose:!0}))):o(j.highlight(i.code,i.grammar,i.language)):o(j.util.encode(i.code))},highlight:function(e,t,n){e={code:e,grammar:t,language:n};if(j.hooks.run("before-tokenize",e),e.grammar)return e.tokens=j.tokenize(e.code,e.grammar),j.hooks.run("after-tokenize",e),C.stringify(j.util.encode(e.tokens),e.language);throw new Error('The language "'+e.language+'" has no grammar.')},tokenize:function(e,t){var n=t.rest;if(n){for(var a in n)t[a]=n[a];delete t.rest}for(var r=new u,s=(z(r,r.head,e),!function e(t,n,a,r,s,i){for(var o in a)if(a.hasOwnProperty(o)&&a[o]){var l=a[o];l=Array.isArray(l)?l:[l];for(var u=0;u<l.length;++u){if(i&&i.cause==o+","+u)return;for(var g,c=l[u],d=c.inside,p=!!c.lookbehind,m=!!c.greedy,h=c.alias,f=(m&&!c.pattern.global&&(g=c.pattern.toString().match(/[imsuy]*$/)[0],c.pattern=RegExp(c.pattern.source,g+"g")),c.pattern||c),b=r.next,y=s;b!==n.tail&&!(i&&y>=i.reach);y+=b.value.length,b=b.next){var v=b.value;if(n.length>t.length)return;if(!(v instanceof C)){var F,x=1;if(m){if(!(F=L(f,y,t,p))||F.index>=t.length)break;var k=F.index,w=F.index+F[0].length,A=y;for(A+=b.value.length;A<=k;)b=b.next,A+=b.value.length;if(A-=b.value.length,y=A,b.value instanceof C)continue;for(var P=b;P!==n.tail&&(A<w||"string"==typeof P.value);P=P.next)x++,A+=P.value.length;x--,v=t.slice(y,A),F.index-=y}else if(!(F=L(f,0,v,p)))continue;var k=F.index,$=F[0],S=v.slice(0,k),E=v.slice(k+$.length),v=y+v.length,_=(i&&v>i.reach&&(i.reach=v),b.prev),S=(S&&(_=z(n,_,S),y+=S.length),O(n,_,x),new C(o,d?j.tokenize($,d):$,h,$));b=z(n,_,S),E&&z(n,b,E),1<x&&($={cause:o+","+u,reach:v},e(t,n,a,b.prev,y,$),i&&$.reach>i.reach&&(i.reach=$.reach))}}}}}(e,r,t,r.head,0),r),i=[],o=s.head.next;o!==s.tail;)i.push(o.value),o=o.next;return i},hooks:{all:{},add:function(e,t){var n=j.hooks.all;n[e]=n[e]||[],n[e].push(t)},run:function(e,t){var n=j.hooks.all[e];if(n&&n.length)for(var a,r=0;a=n[r++];)a(t)}},Token:C};function C(e,t,n,a){this.type=e,this.content=t,this.alias=n,this.length=0|(a||"").length}function L(e,t,n,a){e.lastIndex=t;t=e.exec(n);return t&&a&&t[1]&&(e=t[1].length,t.index+=e,t[0]=t[0].slice(e)),t}function u(){var e={value:null,prev:null,next:null},t={value:null,prev:e,next:null};e.next=t,this.head=e,this.tail=t,this.length=0}function z(e,t,n){var a=t.next,n={value:n,prev:t,next:a};return t.next=n,a.prev=n,e.length++,n}function O(e,t,n){for(var a=t.next,r=0;r<n&&a!==e.tail;r++)a=a.next;(t.next=a).prev=t,e.length-=r}if(l.Prism=j,C.stringify=function t(e,n){if("string"==typeof e)return e;var a;if(Array.isArray(e))return a="",e.forEach(function(e){a+=t(e,n)}),a;var r,s={type:e.type,content:t(e.content,n),tag:"span",classes:["token",e.type],attributes:{},language:n},e=e.alias,i=(e&&(Array.isArray(e)?Array.prototype.push.apply(s.classes,e):s.classes.push(e)),j.hooks.run("wrap",s),"");for(r in s.attributes)i+=" "+r+'="'+(s.attributes[r]||"").replace(/"/g,"&quot;")+'"';return"<"+s.tag+' class="'+s.classes.join(" ")+'"'+i+">"+s.content+"</"+s.tag+">"},!l.document)return l.addEventListener&&(j.disableWorkerMessageHandler||l.addEventListener("message",function(e){var e=JSON.parse(e.data),t=e.language,n=e.code,e=e.immediateClose;l.postMessage(j.highlight(n,j.languages[t],t)),e&&l.close()},!1)),j;var a,e=j.util.currentScript();function r(){j.manual||j.highlightAll()}return e&&(j.filename=e.src,e.hasAttribute("data-manual")&&(j.manual=!0)),j.manual||("loading"===(a=document.readyState)||"interactive"===a&&e&&e.defer?document.addEventListener("DOMContentLoaded",r):window.requestAnimationFrame?window.requestAnimationFrame(r):window.setTimeout(r,16)),j}(_self);"undefined"!=typeof module&&module.exports&&(module.exports=Prism),"undefined"!=typeof global&&(global.Prism=Prism),Prism.languages.markup={comment:{pattern:/<!--(?:(?!<!--)[\s\S])*?-->/,greedy:!0},prolog:{pattern:/<\?[\s\S]+?\?>/,greedy:!0},doctype:{pattern:/<!DOCTYPE(?:[^>"'[\]]|"[^"]*"|'[^']*')+(?:\[(?:[^<"'\]]|"[^"]*"|'[^']*'|<(?!!--)|<!--(?:[^-]|-(?!->))*-->)*\]\s*)?>/i,greedy:!0,inside:{"internal-subset":{pattern:/(^[^\[]*\[)[\s\S]+(?=\]>$)/,lookbehind:!0,greedy:!0,inside:null},string:{pattern:/"[^"]*"|'[^']*'/,greedy:!0},punctuation:/^<!|>$|[[\]]/,"doctype-tag":/^DOCTYPE/i,name:/[^\s<>'"]+/}},cdata:{pattern:/<!\[CDATA\[[\s\S]*?\]\]>/i,greedy:!0},tag:{pattern:/<\/?(?!\d)[^\s>\/=$<%]+(?:\s(?:\s*[^\s>\/=]+(?:\s*=\s*(?:"[^"]*"|'[^']*'|[^\s'">=]+(?=[\s>]))|(?=[\s/>])))+)?\s*\/?>/,greedy:!0,inside:{tag:{pattern:/^<\/?[^\s>\/]+/,inside:{punctuation:/^<\/?/,namespace:/^[^\s>\/:]+:/}},"special-attr":[],"attr-value":{pattern:/=\s*(?:"[^"]*"|'[^']*'|[^\s'">=]+)/,inside:{punctuation:[{pattern:/^=/,alias:"attr-equals"},{pattern:/^(\s*)["']|["']$/,lookbehind:!0}]}},punctuation:/\/?>/,"attr-name":{pattern:/[^\s>\/]+/,inside:{namespace:/^[^\s>\/:]+:/}}}},entity:[{pattern:/&[\da-z]{1,8};/i,alias:"named-entity"},/&#x?[\da-f]{1,8};/i]},Prism.languages.markup.tag.inside["attr-value"].inside.entity=Prism.languages.markup.entity,Prism.languages.markup.doctype.inside["internal-subset"].inside=Prism.languages.markup,Prism.hooks.add("wrap",function(e){"entity"===e.type&&(e.attributes.title=e.content.replace(/&amp;/,"&"))}),Object.defineProperty(Prism.languages.markup.tag,"addInlined",{value:function(e,t){var n={},n=(n["language-"+t]={pattern:/(^<!\[CDATA\[)[\s\S]+?(?=\]\]>$)/i,lookbehind:!0,inside:Prism.languages[t]},n.cdata=/^<!\[CDATA\[|\]\]>$/i,{"included-cdata":{pattern:/<!\[CDATA\[[\s\S]*?\]\]>/i,inside:n}}),t=(n["language-"+t]={pattern:/[\s\S]+/,inside:Prism.languages[t]},{});t[e]={pattern:RegExp(/(<__[^>]*>)(?:<!\[CDATA\[(?:[^\]]|\](?!\]>))*\]\]>|(?!<!\[CDATA\[)[\s\S])*?(?=<\/__>)/.source.replace(/__/g,function(){return e}),"i"),lookbehind:!0,greedy:!0,inside:n},Prism.languages.insertBefore("markup","cdata",t)}}),Object.defineProperty(Prism.languages.markup.tag,"addAttribute",{value:function(e,t){Prism.languages.markup.tag.inside["special-attr"].push({pattern:RegExp(/(^|["'\s])/.source+"(?:"+e+")"+/\s*=\s*(?:"[^"]*"|'[^']*'|[^\s'">=]+(?=[\s>]))/.source,"i"),lookbehind:!0,inside:{"attr-name":/^[^\s=]+/,"attr-value":{pattern:/=[\s\S]+/,inside:{value:{pattern:/(^=\s*(["']|(?!["'])))\S[\s\S]*(?=\2$)/,lookbehind:!0,alias:[t,"language-"+t],inside:Prism.languages[t]},punctuation:[{pattern:/^=/,alias:"attr-equals"},/"|'/]}}}})}}),Prism.languages.html=Prism.languages.markup,Prism.languages.mathml=Prism.languages.markup,Prism.languages.svg=Prism.languages.markup,Prism.languages.xml=Prism.languages.extend("markup",{}),Prism.languages.ssml=Prism.languages.xml,Prism.languages.atom=Prism.languages.xml,Prism.languages.rss=Prism.languages.xml,function(e){var t=/(?:"(?:\\(?:\r\n|[\s\S])|[^"\\\r\n])*"|'(?:\\(?:\r\n|[\s\S])|[^'\\\r\n])*')/,t=(e.languages.css={comment:/\/\*[\s\S]*?\*\//,atrule:{pattern:RegExp("@[\\w-](?:"+/[^;{\s"']|\s+(?!\s)/.source+"|"+t.source+")*?"+/(?:;|(?=\s*\{))/.source),inside:{rule:/^@[\w-]+/,"selector-function-argument":{pattern:/(\bselector\s*\(\s*(?![\s)]))(?:[^()\s]|\s+(?![\s)])|\((?:[^()]|\([^()]*\))*\))+(?=\s*\))/,lookbehind:!0,alias:"selector"},keyword:{pattern:/(^|[^\w-])(?:and|not|only|or)(?![\w-])/,lookbehind:!0}}},url:{pattern:RegExp("\\burl\\((?:"+t.source+"|"+/(?:[^\\\r\n()"']|\\[\s\S])*/.source+")\\)","i"),greedy:!0,inside:{function:/^url/i,punctuation:/^\(|\)$/,string:{pattern:RegExp("^"+t.source+"$"),alias:"url"}}},selector:{pattern:RegExp("(^|[{}\\s])[^{}\\s](?:[^{};\"'\\s]|\\s+(?![\\s{])|"+t.source+")*(?=\\s*\\{)"),lookbehind:!0},string:{pattern:t,greedy:!0},property:{pattern:/(^|[^-\w\xA0-\uFFFF])(?!\s)[-_a-z\xA0-\uFFFF](?:(?!\s)[-\w\xA0-\uFFFF])*(?=\s*:)/i,lookbehind:!0},important:/!important\b/i,function:{pattern:/(^|[^-a-z0-9])[-a-z0-9]+(?=\()/i,lookbehind:!0},punctuation:/[(){};:,]/},e.languages.css.atrule.inside.rest=e.languages.css,e.languages.markup);t&&(t.tag.addInlined("style","css"),t.tag.addAttribute("style","css"))}(Prism),Prism.languages.clike={comment:[{pattern:/(^|[^\\])\/\*[\s\S]*?(?:\*\/|$)/,lookbehind:!0,greedy:!0},{pattern:/(^|[^\\:])\/\/.*/,lookbehind:!0,greedy:!0}],string:{pattern:/(["'])(?:\\(?:\r\n|[\s\S])|(?!\1)[^\\\r\n])*\1/,greedy:!0},"class-name":{pattern:/(\b(?:class|extends|implements|instanceof|interface|new|trait)\s+|\bcatch\s+\()[\w.\\]+/i,lookbehind:!0,inside:{punctuation:/[.\\]/}},keyword:/\b(?:break|catch|continue|do|else|finally|for|function|if|in|instanceof|new|null|return|throw|try|while)\b/,boolean:/\b(?:false|true)\b/,function:/\b\w+(?=\()/,number:/\b0x[\da-f]+\b|(?:\b\d+(?:\.\d*)?|\B\.\d+)(?:e[+-]?\d+)?/i,operator:/[<>]=?|[!=]=?=?|--?|\+\+?|&&?|\|\|?|[?*/~^%]/,punctuation:/[{}[\];(),.:]/},Prism.languages.javascript=Prism.languages.extend("clike",{"class-name":[Prism.languages.clike["class-name"],{pattern:/(^|[^$\w\xA0-\uFFFF])(?!\s)[_$A-Z\xA0-\uFFFF](?:(?!\s)[$\w\xA0-\uFFFF])*(?=\.(?:constructor|prototype))/,lookbehind:!0}],keyword:[{pattern:/((?:^|\})\s*)catch\b/,lookbehind:!0},{pattern:/(^|[^.]|\.\.\.\s*)\b(?:as|assert(?=\s*\{)|async(?=\s*(?:function\b|\(|[$\w\xA0-\uFFFF]|$))|await|break|case|class|const|continue|debugger|default|delete|do|else|enum|export|extends|finally(?=\s*(?:\{|$))|for|from(?=\s*(?:['"]|$))|function|(?:get|set)(?=\s*(?:[#\[$\w\xA0-\uFFFF]|$))|if|implements|import|in|instanceof|interface|let|new|null|of|package|private|protected|public|return|static|super|switch|this|throw|try|typeof|undefined|var|void|while|with|yield)\b/,lookbehind:!0}],function:/#?(?!\s)[_$a-zA-Z\xA0-\uFFFF](?:(?!\s)[$\w\xA0-\uFFFF])*(?=\s*(?:\.\s*(?:apply|bind|call)\s*)?\()/,number:{pattern:RegExp(/(^|[^\w$])/.source+"(?:"+/NaN|Infinity/.source+"|"+/0[bB][01]+(?:_[01]+)*n?/.source+"|"+/0[oO][0-7]+(?:_[0-7]+)*n?/.source+"|"+/0[xX][\dA-Fa-f]+(?:_[\dA-Fa-f]+)*n?/.source+"|"+/\d+(?:_\d+)*n/.source+"|"+/(?:\d+(?:_\d+)*(?:\.(?:\d+(?:_\d+)*)?)?|\.\d+(?:_\d+)*)(?:[Ee][+-]?\d+(?:_\d+)*)?/.source+")"+/(?![\w$])/.source),lookbehind:!0},operator:/--|\+\+|\*\*=?|=>|&&=?|\|\|=?|[!=]==|<<=?|>>>?=?|[-+*/%&|^!=<>]=?|\.{3}|\?\?=?|\?\.?|[~:]/}),Prism.languages.javascript["class-name"][0].pattern=/(\b(?:class|extends|implements|instanceof|interface|new)\s+)[\w.\\]+/,Prism.languages.insertBefore("javascript","keyword",{regex:{pattern:RegExp(/((?:^|[^$\w\xA0-\uFFFF."'\])\s]|\b(?:return|yield))\s*)/.source+/\//.source+"(?:"+/(?:\[(?:[^\]\\\r\n]|\\.)*\]|\\.|[^/\\\[\r\n])+\/[dgimyus]{0,7}/.source+"|"+/(?:\[(?:[^[\]\\\r\n]|\\.|\[(?:[^[\]\\\r\n]|\\.|\[(?:[^[\]\\\r\n]|\\.)*\])*\])*\]|\\.|[^/\\\[\r\n])+\/[dgimyus]{0,7}v[dgimyus]{0,7}/.source+")"+/(?=(?:\s|\/\*(?:[^*]|\*(?!\/))*\*\/)*(?:$|[\r\n,.;:})\]]|\/\/))/.source),lookbehind:!0,greedy:!0,inside:{"regex-source":{pattern:/^(\/)[\s\S]+(?=\/[a-z]*$)/,lookbehind:!0,alias:"language-regex",inside:Prism.languages.regex},"regex-delimiter":/^\/|\/$/,"regex-flags":/^[a-z]+$/}},"function-variable":{pattern:/#?(?!\s)[_$a-zA-Z\xA0-\uFFFF](?:(?!\s)[$\w\xA0-\uFFFF])*(?=\s*[=:]\s*(?:async\s*)?(?:\bfunction\b|(?:\((?:[^()]|\([^()]*\))*\)|(?!\s)[_$a-zA-Z\xA0-\uFFFF](?:(?!\s)[$\w\xA0-\uFFFF])*)\s*=>))/,alias:"function"},parameter:[{pattern:/(function(?:\s+(?!\s)[_$a-zA-Z\xA0-\uFFFF](?:(?!\s)[$\w\xA0-\uFFFF])*)?\s*\(\s*)(?!\s)(?:[^()\s]|\s+(?![\s)])|\([^()]*\))+(?=\s*\))/,lookbehind:!0,inside:Prism.languages.javascript},{pattern:/(^|[^$\w\xA0-\uFFFF])(?!\s)[_$a-z\xA0-\uFFFF](?:(?!\s)[$\w\xA0-\uFFFF])*(?=\s*=>)/i,lookbehind:!0,inside:Prism.languages.javascript},{pattern:/(\(\s*)(?!\s)(?:[^()\s]|\s+(?![\s)])|\([^()]*\))+(?=\s*\)\s*=>)/,lookbehind:!0,inside:Prism.languages.javascript},{pattern:/((?:\b|\s|^)(?!(?:as|async|await|break|case|catch|class|const|continue|debugger|default|delete|do|else|enum|export|extends|finally|for|from|function|get|if|implements|import|in|instanceof|interface|let|new|null|of|package|private|protected|public|return|set|static|super|switch|this|throw|try|typeof|undefined|var|void|while|with|yield)(?![$\w\xA0-\uFFFF]))(?:(?!\s)[_$a-zA-Z\xA0-\uFFFF](?:(?!\s)[$\w\xA0-\uFFFF])*\s*)\(\s*|\]\s*\(\s*)(?!\s)(?:[^()\s]|\s+(?![\s)])|\([^()]*\))+(?=\s*\)\s*\{)/,lookbehind:!0,inside:Prism.languages.javascript}],constant:/\b[A-Z](?:[A-Z_]|\dx?)*\b/}),Prism.languages.insertBefore("javascript","string",{hashbang:{pattern:/^#!.*/,greedy:!0,alias:"comment"},"template-string":{pattern:/`(?:\\[\s\S]|\$\{(?:[^{}]|\{(?:[^{}]|\{[^}]*\})*\})+\}|(?!\$\{)[^\\`])*`/,greedy:!0,inside:{"template-punctuation":{pattern:/^`|`$/,alias:"string"},interpolation:{pattern:/((?:^|[^\\])(?:\\{2})*)\$\{(?:[^{}]|\{(?:[^{}]|\{[^}]*\})*\})+\}/,lookbehind:!0,inside:{"interpolation-punctuation":{pattern:/^\$\{|\}$/,alias:"punctuation"},rest:Prism.languages.javascript}},string:/[\s\S]+/}},"string-property":{pattern:/((?:^|[,{])[ \t]*)(["'])(?:\\(?:\r\n|[\s\S])|(?!\2)[^\\\r\n])*\2(?=\s*:)/m,lookbehind:!0,greedy:!0,alias:"property"}}),Prism.languages.insertBefore("javascript","operator",{"literal-property":{pattern:/((?:^|[,{])[ \t]*)(?!\s)[_$a-zA-Z\xA0-\uFFFF](?:(?!\s)[$\w\xA0-\uFFFF])*(?=\s*:)/m,lookbehind:!0,alias:"property"}}),Prism.languages.markup&&(Prism.languages.markup.tag.addInlined("script","javascript"),Prism.languages.markup.tag.addAttribute(/on(?:abort|blur|change|click|composition(?:end|start|update)|dblclick|error|focus(?:in|out)?|key(?:down|up)|load|mouse(?:down|enter|leave|move|out|over|up)|reset|resize|scroll|select|slotchange|submit|unload|wheel)/.source,"javascript")),Prism.languages.js=Prism.languages.javascript,function(){var l,u,g,c,e;void 0!==Prism&&"undefined"!=typeof document&&(Element.prototype.matches||(Element.prototype.matches=Element.prototype.msMatchesSelector||Element.prototype.webkitMatchesSelector),l={js:"javascript",py:"python",rb:"ruby",ps1:"powershell",psm1:"powershell",sh:"bash",bat:"batch",h:"c",tex:"latex"},c="pre[data-src]:not(["+(u="data-src-status")+'="loaded"]):not(['+u+'="'+(g="loading")+'"])',Prism.hooks.add("before-highlightall",function(e){e.selector+=", "+c}),Prism.hooks.add("before-sanity-check",function(e){var r,t,n,a,s,i,o=e.element;o.matches(c)&&(e.code="",o.setAttribute(u,g),(r=o.appendChild(document.createElement("CODE"))).textContent="Loading…",t=o.getAttribute("data-src"),"none"===(e=e.language)&&(n=(/\.(\w+)$/.exec(t)||[,"none"])[1],e=l[n]||n),Prism.util.setLanguage(r,e),Prism.util.setLanguage(o,e),(n=Prism.plugins.autoloader)&&n.loadLanguages(e),n=t,a=function(e){o.setAttribute(u,"loaded");var t,n,a=function(e){var t,n;if(e=/^\s*(\d+)\s*(?:(,)\s*(?:(\d+)\s*)?)?$/.exec(e||""))return t=Number(e[1]),n=e[2],e=e[3],n?e?[t,Number(e)]:[t,void 0]:[t,t]}(o.getAttribute("data-range"));a&&(t=e.split(/\r\n?|\n/g),n=a[0],a=null==a[1]?t.length:a[1],n<0&&(n+=t.length),n=Math.max(0,Math.min(n-1,t.length)),a<0&&(a+=t.length),a=Math.max(0,Math.min(a,t.length)),e=t.slice(n,a).join("\n"),o.hasAttribute("data-start")||o.setAttribute("data-start",String(n+1))),r.textContent=e,Prism.highlightElement(r)},s=function(e){o.setAttribute(u,"failed"),r.textContent=e},(i=new XMLHttpRequest).open("GET",n,!0),i.onreadystatechange=function(){4==i.readyState&&(i.status<400&&i.responseText?a(i.responseText):400<=i.status?s("✖ Error "+i.status+" while fetching file: "+i.statusText):s("✖ Error: File does not exist or is empty"))},i.send(null))}),e=!(Prism.plugins.fileHighlight={highlight:function(e){for(var t,n=(e||document).querySelectorAll(c),a=0;t=n[a++];)Prism.highlightElement(t)}}),Prism.fileHighlight=function(){e||(console.warn("Prism.fileHighlight is deprecated. Use `Prism.plugins.fileHighlight.highlight` instead."),e=!0),Prism.plugins.fileHighlight.highlight.apply(this,arguments)})}();
+!function(e){e.languages.typescript=e.languages.extend("javascript",{"class-name":{pattern:/(\b(?:class|extends|implements|instanceof|interface|new|type)\s+)(?!keyof\b)(?!\s)[_$a-zA-Z\xA0-\uFFFF](?:(?!\s)[$\w\xA0-\uFFFF])*(?:\s*<(?:[^<>]|<(?:[^<>]|<[^<>]*>)*>)*>)?/,lookbehind:!0,greedy:!0,inside:null},builtin:/\b(?:Array|Function|Promise|any|boolean|console|never|number|string|symbol|unknown)\b/}),e.languages.typescript.keyword.push(/\b(?:abstract|declare|is|keyof|readonly|require)\b/,/\b(?:asserts|infer|interface|module|namespace|type)\b(?=\s*(?:[{_$a-zA-Z\xA0-\uFFFF]|$))/,/\btype\b(?=\s*(?:[\{*]|$))/),delete e.languages.typescript.parameter,delete e.languages.typescript["literal-property"];var s=e.languages.extend("typescript",{});delete s["class-name"],e.languages.typescript["class-name"].inside=s,e.languages.insertBefore("typescript","function",{decorator:{pattern:/@[$\w\xA0-\uFFFF]+/,inside:{at:{pattern:/^@/,alias:"operator"},function:/^[\s\S]+/}},"generic-function":{pattern:/#?(?!\s)[_$a-zA-Z\xA0-\uFFFF](?:(?!\s)[$\w\xA0-\uFFFF])*\s*<(?:[^<>]|<(?:[^<>]|<[^<>]*>)*>)*>(?=\s*\()/,greedy:!0,inside:{function:/^#?(?!\s)[_$a-zA-Z\xA0-\uFFFF](?:(?!\s)[$\w\xA0-\uFFFF])*/,generic:{pattern:/<[\s\S]+/,alias:"class-name",inside:s}}}}),e.languages.ts=e.languages.typescript}(Prism);
+!function(e){var n=/\b(?:abstract|assert|boolean|break|byte|case|catch|char|class|const|continue|default|do|double|else|enum|exports|extends|final|finally|float|for|goto|if|implements|import|instanceof|int|interface|long|module|native|new|non-sealed|null|open|opens|package|permits|private|protected|provides|public|record(?!\s*[(){}[\]<>=%~.:,;?+\-*/&|^])|requires|return|sealed|short|static|strictfp|super|switch|synchronized|this|throw|throws|to|transient|transitive|try|uses|var|void|volatile|while|with|yield)\b/,t="(?:[a-z]\\w*\\s*\\.\\s*)*(?:[A-Z]\\w*\\s*\\.\\s*)*",s={pattern:RegExp("(^|[^\\w.])"+t+"[A-Z](?:[\\d_A-Z]*[a-z]\\w*)?\\b"),lookbehind:!0,inside:{namespace:{pattern:/^[a-z]\w*(?:\s*\.\s*[a-z]\w*)*(?:\s*\.)?/,inside:{punctuation:/\./}},punctuation:/\./}};e.languages.java=e.languages.extend("clike",{string:{pattern:/(^|[^\\])"(?:\\.|[^"\\\r\n])*"/,lookbehind:!0,greedy:!0},"class-name":[s,{pattern:RegExp("(^|[^\\w.])"+t+"[A-Z]\\w*(?=\\s+\\w+\\s*[;,=()]|\\s*(?:\\[[\\s,]*\\]\\s*)?::\\s*new\\b)"),lookbehind:!0,inside:s.inside},{pattern:RegExp("(\\b(?:class|enum|extends|implements|instanceof|interface|new|record|throws)\\s+)"+t+"[A-Z]\\w*\\b"),lookbehind:!0,inside:s.inside}],keyword:n,function:[e.languages.clike.function,{pattern:/(::\s*)[a-z_]\w*/,lookbehind:!0}],number:/\b0b[01][01_]*L?\b|\b0x(?:\.[\da-f_p+-]+|[\da-f_]+(?:\.[\da-f_p+-]+)?)\b|(?:\b\d[\d_]*(?:\.[\d_]*)?|\B\.\d[\d_]*)(?:e[+-]?\d[\d_]*)?[dfl]?/i,operator:{pattern:/(^|[^.])(?:<<=?|>>>?=?|->|--|\+\+|&&|\|\||::|[?:~]|[-+*/%&|^!=<>]=?)/m,lookbehind:!0},constant:/\b[A-Z][A-Z_\d]+\b/}),e.languages.insertBefore("java","string",{"triple-quoted-string":{pattern:/"""[ \t]*[\r\n](?:(?:"|"")?(?:\\.|[^"\\]))*"""/,greedy:!0,alias:"string"},char:{pattern:/'(?:\\.|[^'\\\r\n]){1,6}'/,greedy:!0}}),e.languages.insertBefore("java","class-name",{annotation:{pattern:/(^|[^.])@\w+(?:\s*\.\s*\w+)*/,lookbehind:!0,alias:"punctuation"},generics:{pattern:/<(?:[\w\s,.?]|&(?!&)|<(?:[\w\s,.?]|&(?!&)|<(?:[\w\s,.?]|&(?!&)|<(?:[\w\s,.?]|&(?!&))*>)*>)*>)*>/,inside:{"class-name":s,keyword:n,punctuation:/[<>(),.:]/,operator:/[?&|]/}},import:[{pattern:RegExp("(\\bimport\\s+)"+t+"(?:[A-Z]\\w*|\\*)(?=\\s*;)"),lookbehind:!0,inside:{namespace:s.inside.namespace,punctuation:/\./,operator:/\*/,"class-name":/\w+/}},{pattern:RegExp("(\\bimport\\s+static\\s+)"+t+"(?:\\w+|\\*)(?=\\s*;)"),lookbehind:!0,alias:"static",inside:{namespace:s.inside.namespace,static:/\b\w+$/,punctuation:/\./,operator:/\*/,"class-name":/\w+/}}],namespace:{pattern:RegExp("(\\b(?:exports|import(?:\\s+static)?|module|open|opens|package|provides|requires|to|transitive|uses|with)\\s+)(?!<keyword>)[a-z]\\w*(?:\\.[a-z]\\w*)*\\.?".replace(/<keyword>/g,(function(){return n.source}))),lookbehind:!0,inside:{punctuation:/\./}}})}(Prism);
+</script>
+<script>
+/* Điều hướng cuộn nội trang KHÔNG đổi URL hash — an toàn khi nhúng trong iframe */
+(function () {
+  var HEADER = 78; // bù chiều cao thanh header dính
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var id = a.getAttribute('href').slice(1);
+    if (!id) return;
+    var el = document.getElementById(id);
+    if (!el) return;
+    e.preventDefault(); // chặn thay đổi location.hash (nguyên nhân lỗi iframe)
+    var y = el.getBoundingClientRect().top + window.pageYOffset - HEADER;
+    window.scrollTo({ top: y < 0 ? 0 : y, behavior: 'smooth' });
+  });
+})();
+</script>
+</body>
+</html>
