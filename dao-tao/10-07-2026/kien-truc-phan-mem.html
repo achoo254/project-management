@@ -680,14 +680,13 @@ table.data td strong { color: var(--ink); }
   <section class="section container" id="thuc-te-inet">
     <span class="eyebrow" data-reveal>Đối chiếu thực tế</span>
     <h2 data-reveal>Kiến trúc thực tế tại iNET</h2>
-    <p class="lead" data-reveal>Soi 7 sản phẩm/repo thật của iNET qua lăng kính 11 mẫu (kết quả dựa trên đọc code &amp; tài liệu từng repo). Badge mẫu bấm được để tới phần chi tiết. Điểm chung phản ánh đúng tinh thần tài liệu: thực dụng, chọn kiến trúc theo nhu cầu.</p>
+    <p class="lead" data-reveal>Soi 6 sản phẩm/repo thật của iNET qua lăng kính 11 mẫu (kết quả dựa trên đọc code &amp; tài liệu từng repo). Badge mẫu bấm được để tới phần chi tiết. Điểm chung phản ánh đúng tinh thần tài liệu: thực dụng, chọn kiến trúc theo nhu cầu.</p>
 
     <div class="table-wrap" data-reveal>
       <table class="data">
         <thead><tr><th>Sản phẩm</th><th>Loại</th><th>Kiến trúc chính</th><th>Mẫu trong 11</th><th>Ngoài 11 mẫu</th></tr></thead>
         <tbody>
           <tr><td><strong>OneDash</strong><br><span class="src-repo">cloud-panel-application</span></td><td>Web app · quản lý server</td><td>Modular Monolith + Layered</td><td>Modular Monolith, Layered, API Gateway (nhẹ)</td><td>agent-based; Vue SPA</td></tr>
-          <tr><td><strong>OneDash S3</strong><br><span class="src-repo">onedash-s3</span></td><td>Frontend tĩnh</td><td>MPA (UI thuần, mock data)</td><td>— (chưa có backend)</td><td>MPA static vanilla-JS</td></tr>
           <tr><td><strong>OneMail</strong><br><span class="src-repo">workspace-application</span></td><td>Web platform · mail + drive</td><td>Monorepo multi-app; mỗi BE Layered</td><td>Layered, API Gateway (một phần), Event-Driven (nhẹ)</td><td>micro-frontend; adapter Zimbra (SOAP)</td></tr>
           <tr><td><strong>OnePanel</strong><br><span class="src-repo">onepanel-web-ui + webpanelbe</span></td><td>Web app · hosting panel</td><td>Go: Layered + Modular Monolith</td><td>Layered, Modular Monolith, Hexagonal &amp; Clean (một phần), API Gateway</td><td>agent-based; multi-binary</td></tr>
           <tr><td><strong>Portal</strong><br><span class="src-repo">portal-client + portal-server</span></td><td>Web app · cổng dịch vụ</td><td>Monolith → Modular Monolith + Layered</td><td>Monolith/Modular Monolith, Layered, Event-Driven (nhẹ)</td><td>BFF/aggregator; Vue SPA</td></tr>
@@ -716,18 +715,6 @@ table.data td strong { color: var(--ink); }
         <ul class="case-ev">
           <li>Backend 1 process + 1 MongoDB, module theo domain (user/admin/external), Controller → Service → Repository (docs ghi rõ "3-layer").</li>
           <li>Go agent cài trên mỗi host được quản lý (outbound-only, long-poll); Server public làm reverse-proxy ingress.</li>
-        </ul>
-      </div>
-
-      <div class="box" data-reveal data-delay="1">
-        <h3>OneDash S3 <span class="badge">onedash-s3</span></h3>
-        <p class="case-desc">Console quản lý CEPH S3 Object Storage (bucket browser, billing, account). Frontend tĩnh, hiện chạy mock data.</p>
-        <div class="badge-row case-badges">
-          <span class="badge">Ngoài 11 mẫu — MPA static (vanilla JS)</span>
-        </div>
-        <ul class="case-ev">
-          <li>Vanilla HTML/CSS/JS, không framework/bundler/package.json; mỗi route = 1 file HTML (MPA), state qua <code>window.App</code> toàn cục.</li>
-          <li>Chưa nối backend thật; sơ đồ Layered + RGW gateway trong README là hệ thống <i>đích</i>, chưa implement trong repo.</li>
         </ul>
       </div>
 
