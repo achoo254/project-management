@@ -1,0 +1,1521 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Đào tạo Docker cơ bản — Phần 1: Nền tảng &amp; Vòng đời container</title>
+<meta name="description" content="Tài liệu đào tạo Docker (single-file, Phần 1): vì sao có container, kiến trúc Docker, image/layer, namespace/cgroups, tính bất biến & volume, 6 labs thực hành và bài tập có đáp án. Biên soạn từ buổi giảng nội bộ iNET 18/07/2026.">
+<style>
+/* ===== Prism theme (tomorrow) — inlined ===== */
+code[class*=language-],pre[class*=language-]{color:#ccc;background:0 0;font-family:Consolas,Monaco,'Andale Mono','Ubuntu Mono',monospace;font-size:1em;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.5;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none}pre[class*=language-]{padding:1em;margin:.5em 0;overflow:auto}:not(pre)>code[class*=language-],pre[class*=language-]{background:#2d2d2d}:not(pre)>code[class*=language-]{padding:.1em;border-radius:.3em;white-space:normal}.token.block-comment,.token.cdata,.token.comment,.token.doctype,.token.prolog{color:#999}.token.punctuation{color:#ccc}.token.attr-name,.token.deleted,.token.namespace,.token.tag{color:#e2777a}.token.function-name{color:#6196cc}.token.boolean,.token.function,.token.number{color:#f08d49}.token.class-name,.token.constant,.token.property,.token.symbol{color:#f8c555}.token.atrule,.token.builtin,.token.important,.token.keyword,.token.selector{color:#cc99cd}.token.attr-value,.token.char,.token.regex,.token.string,.token.variable{color:#7ec699}.token.entity,.token.operator,.token.url{color:#67cdcc}.token.bold,.token.important{font-weight:700}.token.italic{font-style:italic}.token.entity{cursor:help}.token.inserted{color:green}
+/* ===== Site styles — inlined ===== */
+/* ============================================================
+   Design Patterns — Training Site
+   Aesthetic: "Engineering Blueprint" — drafting paper, schematic
+   diagrams, functional category color-coding.
+   Fonts: Bricolage Grotesque (display) · Be Vietnam Pro (body) ·
+          JetBrains Mono (code)
+   ============================================================ */
+
+/* ---------- Design Tokens ---------- */
+:root {
+  /* neutrals — light "drafting paper" */
+  --bg:        #ECEFF3;
+  --bg-grid:   rgba(20, 32, 54, 0.045);
+  --surface:   #FFFFFF;
+  --surface-2: #F5F7FA;
+  --ink:       #141A24;
+  --ink-soft:  #4C5A6E;
+  --ink-faint: #7C8AA0;
+  --line:      #DBE1EA;
+  --line-soft: #E9EDF3;
+
+  /* global interactive accent — muted blueprint navy */
+  --accent:      #2E4C8A;
+  --accent-ink:  #21386A;
+  --accent-wash: #E8EDF7;
+
+  /* functional category colors (encode the 3 groups) */
+  --c-create:      #C67C00;   /* Creational — amber/forge   */
+  --c-create-wash: #FBEFD6;
+  --c-struct:      #0E8C7F;   /* Structural — teal/assembly */
+  --c-struct-wash: #D6F1ED;
+  --c-behave:      #D64541;   /* Behavioral — coral/motion  */
+  --c-behave-wash: #FBE0DF;
+
+  /* semantic (callouts) */
+  --ok:      #0E8C7F;
+  --ok-wash: #DDF3EF;
+  --warn:    #B4690E;
+  --warn-wash:#FBEBD4;
+  --danger:  #C2352F;
+  --danger-wash:#FBE2E0;
+  --info:    #2E4C8A;
+  --info-wash:#E8EDF7;
+
+  /* type — system stack only (self-contained, no external font) */
+  --font-display: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  --font-body:    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  --font-mono:    ui-monospace, 'SF Mono', 'SFMono-Regular', 'Menlo', 'Consolas', 'Liberation Mono', monospace;
+
+  /* geometry (8pt) */
+  --r-sm: 8px;  --r-md: 12px;  --r-lg: 16px;  --r-xl: 22px;
+  --sp-1: 8px; --sp-2: 16px; --sp-3: 24px; --sp-4: 32px; --sp-5: 48px; --sp-6: 72px;
+  --shadow-sm: 0 1px 2px rgba(20,26,36,.06), 0 1px 3px rgba(20,26,36,.05);
+  --shadow-md: 0 6px 18px -6px rgba(20,26,36,.16), 0 2px 6px rgba(20,26,36,.06);
+  --shadow-lg: 0 24px 60px -18px rgba(20,26,36,.28);
+  --maxw: 1240px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+  --bg:        #0C111C;
+  --bg-grid:   rgba(120, 170, 235, 0.06);
+  --surface:   #141C2B;
+  --surface-2: #1B2536;
+  --ink:       #E7ECF5;
+  --ink-soft:  #A2B0C7;
+  --ink-faint: #6E7D96;
+  --line:      #26324A;
+  --line-soft: #1E2941;
+
+  --accent:      #7CA0F0;
+  --accent-ink:  #A9C1F7;
+  --accent-wash: #1B2A4A;
+
+  --c-create:      #F0B44A;  --c-create-wash: #3A2E12;
+  --c-struct:      #3EC9B6;  --c-struct-wash: #0F332F;
+  --c-behave:      #FF7B76;  --c-behave-wash: #3A1E1D;
+
+  --ok:      #3EC9B6;  --ok-wash: #0F332F;
+  --warn:    #F0B44A;  --warn-wash:#3A2E12;
+  --danger:  #FF7B76;  --danger-wash:#3A1E1D;
+  --info:    #7CA0F0;  --info-wash:#1B2A4A;
+
+  --shadow-sm: 0 1px 2px rgba(0,0,0,.4);
+  --shadow-md: 0 8px 22px -8px rgba(0,0,0,.6);
+  --shadow-lg: 0 28px 70px -18px rgba(0,0,0,.7);
+  }
+}
+
+/* ---------- Reset / Base ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 92px; -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.68;
+  color: var(--ink);
+  background-color: var(--bg);
+  background-image:
+    linear-gradient(var(--bg-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--bg-grid) 1px, transparent 1px);
+  background-size: 28px 28px;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
+img, svg { max-width: 100%; display: block; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 700; line-height: 1.12; letter-spacing: -.02em; color: var(--ink); }
+h1 { font-size: clamp(2.2rem, 6vw, 4rem); }
+h2 { font-size: clamp(1.7rem, 3.6vw, 2.5rem); margin: 0 0 var(--sp-2); }
+h3 { font-size: 1.35rem; margin: 0 0 var(--sp-1); }
+h4 { font-size: 1.05rem; }
+p  { margin: 0 0 var(--sp-2); }
+strong { font-weight: 600; }
+code { font-family: var(--font-mono); font-size: .9em; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+
+/* ---------- Layout ---------- */
+.container { width: 100%; max-width: var(--maxw); margin: 0 auto; padding-inline: clamp(16px, 4vw, 40px); }
+.section { padding-block: var(--sp-6); }
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--font-mono); font-size: .74rem; font-weight: 600;
+  letter-spacing: .18em; text-transform: uppercase; color: var(--ink-faint);
+  margin-bottom: var(--sp-2);
+}
+.eyebrow::before { content: ""; width: 26px; height: 2px; background: currentColor; opacity: .6; }
+.lead { font-size: 1.18rem; color: var(--ink-soft); max-width: 68ch; }
+
+/* ---------- Header ---------- */
+.site-header {
+  position: sticky; top: 0; z-index: 100;
+  background: color-mix(in srgb, var(--surface) 82%, transparent);
+  backdrop-filter: saturate(1.4) blur(12px);
+  border-bottom: 1px solid var(--line);
+}
+.site-header__inner { display: flex; align-items: center; gap: var(--sp-3); height: 64px; }
+.brand { display: flex; align-items: center; gap: 12px; font-family: var(--font-display); font-weight: 800; font-size: 1.05rem; letter-spacing: -.01em; color: var(--ink); }
+.brand:hover { text-decoration: none; }
+.brand__mark {
+  width: 34px; height: 34px; border-radius: 9px; flex: none;
+  display: grid; place-items: center; color: #fff; font-size: 1rem;
+  background: linear-gradient(135deg, var(--c-create), var(--c-behave));
+  box-shadow: var(--shadow-sm);
+}
+.nav { display: flex; gap: 4px; margin-left: auto; align-items: center; }
+.nav a {
+  font-size: .95rem; font-weight: 500; color: var(--ink-soft);
+  padding: 8px 12px; border-radius: 8px; transition: background .15s, color .15s;
+}
+.nav a:hover, .nav a.is-active { background: var(--surface-2); color: var(--ink); text-decoration: none; }
+.nav a.is-active { box-shadow: inset 0 -2px 0 var(--accent); }
+.nav a.is-active { background: var(--surface-2); color: var(--ink); }
+.icon-btn {
+  width: 40px; height: 40px; border: 1px solid var(--line); background: var(--surface);
+  border-radius: 10px; color: var(--ink-soft); cursor: pointer; display: grid; place-items: center;
+  font-size: 1.1rem; transition: transform .15s, border-color .15s, color .15s;
+}
+.icon-btn:hover { transform: translateY(-1px); border-color: var(--accent); color: var(--ink); }
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex; align-items: center; gap: 9px;
+  font-family: var(--font-body); font-weight: 600; font-size: .98rem;
+  padding: 12px 20px; border-radius: 10px; cursor: pointer; border: 1px solid transparent;
+  transition: transform .15s ease, box-shadow .15s ease, background .15s;
+}
+.btn:hover { text-decoration: none; transform: translateY(-2px); }
+.btn--primary { background: var(--ink); color: var(--bg); box-shadow: var(--shadow-md); }
+.btn--primary:hover { box-shadow: var(--shadow-lg); }
+.btn--ghost { background: transparent; border-color: var(--line); color: var(--ink); }
+.btn--ghost:hover { border-color: var(--accent); background: var(--surface); }
+
+/* ---------- Hero ---------- */
+.hero { position: relative; padding-block: clamp(56px, 9vw, 120px) var(--sp-6); overflow: hidden; }
+.hero::after {
+  content: ""; position: absolute; right: -8%; top: -12%; width: 46vw; height: 46vw; max-width: 620px; max-height: 620px;
+  background: radial-gradient(circle at 30% 30%, var(--c-struct-wash), transparent 62%),
+              radial-gradient(circle at 70% 70%, var(--c-create-wash), transparent 60%);
+  filter: blur(8px); opacity: .8; z-index: -1; border-radius: 50%;
+}
+.hero__grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: var(--sp-5); align-items: center; }
+.hero h1 .accent {
+  background: linear-gradient(120deg, var(--c-create), var(--c-behave));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.hero__meta { display: flex; flex-wrap: wrap; gap: var(--sp-3); margin-top: var(--sp-3); }
+.hero__stat { display: flex; flex-direction: column; }
+.hero__stat b { font-family: var(--font-display); font-size: 2rem; line-height: 1; }
+.hero__stat span { font-size: .82rem; color: var(--ink-faint); font-family: var(--font-mono); letter-spacing: .04em; }
+.hero__cta { display: flex; gap: 14px; flex-wrap: wrap; margin-top: var(--sp-4); }
+
+/* blueprint card in hero */
+.blueprint-card {
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg);
+  padding: var(--sp-3); box-shadow: var(--shadow-lg); position: relative;
+}
+.blueprint-card::before {
+  content: "SCHEMATIC"; position: absolute; top: 14px; right: 16px;
+  font-family: var(--font-mono); font-size: .62rem; letter-spacing: .22em; color: var(--ink-faint);
+}
+
+/* ---------- Group cards (index) ---------- */
+.groups { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-3); }
+.group-card {
+  position: relative; display: flex; flex-direction: column; gap: 12px;
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg);
+  padding: var(--sp-3); overflow: hidden; transition: transform .2s ease, box-shadow .2s ease, border-color .2s;
+}
+.group-card::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 5px; background: var(--gc); }
+.group-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); border-color: color-mix(in srgb, var(--gc) 45%, var(--line)); text-decoration: none; }
+.group-card__num { font-family: var(--font-mono); font-size: .8rem; color: var(--gc); font-weight: 600; }
+.group-card__icon { width: 52px; height: 52px; border-radius: 13px; display: grid; place-items: center; font-size: 1.5rem; background: var(--gcw); color: var(--gc); }
+.group-card h3 { color: var(--ink); }
+.group-card p { color: var(--ink-soft); font-size: .96rem; margin: 0; }
+.group-card__list { list-style: none; padding: 0; margin: 6px 0 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.group-card__list li { font-size: .78rem; font-family: var(--font-mono); color: var(--ink-soft); background: var(--surface-2); border: 1px solid var(--line); padding: 3px 9px; border-radius: 999px; }
+.group-card--create { --gc: var(--c-create); --gcw: var(--c-create-wash); }
+.group-card--struct { --gc: var(--c-struct); --gcw: var(--c-struct-wash); }
+.group-card--behave { --gc: var(--c-behave); --gcw: var(--c-behave-wash); }
+
+/* ---------- Chapter layout (sidebar + content) ---------- */
+.chapter { display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: var(--sp-5); align-items: start; }
+.toc {
+  position: sticky; top: 88px; align-self: start; max-height: calc(100vh - 110px); overflow-y: auto;
+  padding-right: 8px;
+}
+.toc__title { font-family: var(--font-mono); font-size: .72rem; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 12px; }
+.toc ol { list-style: none; margin: 0; padding: 0; counter-reset: toc; }
+.toc li { counter-increment: toc; }
+.toc a {
+  display: flex; gap: 10px; align-items: baseline; padding: 7px 10px; border-radius: 8px;
+  color: var(--ink-soft); font-size: .92rem; font-weight: 500; border-left: 2px solid transparent;
+  transition: background .15s, color .15s;
+}
+.toc a::before { content: counter(toc, decimal-leading-zero); font-family: var(--font-mono); font-size: .72rem; color: var(--ink-faint); }
+.toc a:hover { background: var(--surface-2); color: var(--ink); text-decoration: none; }
+.toc a.is-active { background: var(--chapter-wash); color: var(--ink); border-left-color: var(--chapter-color); font-weight: 600; }
+.toc a.is-active::before { color: var(--chapter-color); }
+
+/* chapter theme hook — set on <body data-chapter> */
+[data-chapter="system"]   { --chapter-color: var(--c-create); --chapter-wash: var(--c-create-wash); }
+[data-chapter="organize"] { --chapter-color: var(--c-struct); --chapter-wash: var(--c-struct-wash); }
+[data-chapter="data"]     { --chapter-color: var(--c-behave); --chapter-wash: var(--c-behave-wash); }
+
+.chapter-hero { border-left: 5px solid var(--chapter-color); padding-left: var(--sp-3); margin-bottom: var(--sp-5); }
+.chapter-hero .eyebrow { color: var(--chapter-color); }
+
+/* ---------- Pattern section ---------- */
+.pattern { scroll-margin-top: 90px; padding-block: var(--sp-5); border-top: 1px dashed var(--line); }
+.pattern:first-of-type { border-top: none; }
+@keyframes target-flash { from { background: var(--chapter-wash); } to { background: transparent; } }
+.pattern:target { animation: target-flash 1.8s ease; border-radius: var(--r-md); }
+.pattern__head { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-bottom: var(--sp-2); }
+.pattern__index { font-family: var(--font-mono); font-size: .95rem; font-weight: 700; color: var(--chapter-color); }
+.pattern__title { margin: 0; font-size: clamp(1.6rem, 3vw, 2.15rem); }
+.pattern__aka { font-size: .9rem; color: var(--ink-faint); font-style: italic; width: 100%; }
+
+/* generic sub-block heading inside a pattern */
+.block { margin-block: var(--sp-3); }
+.block__label {
+  display: inline-flex; align-items: center; gap: 8px; margin: 0 0 10px;
+  font-family: var(--font-mono); font-size: .74rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.block__label .ic { font-size: 1rem; color: var(--chapter-color); }
+
+/* ---------- Badges & chips ---------- */
+.badge {
+  display: inline-flex; align-items: center; gap: 6px; font-size: .74rem; font-weight: 600;
+  font-family: var(--font-mono); letter-spacing: .03em; padding: 4px 10px; border-radius: 999px;
+  background: var(--surface-2); color: var(--ink-soft); border: 1px solid var(--line);
+}
+.badge--system   { background: var(--c-create-wash); color: var(--c-create); border-color: transparent; }
+.badge--organize { background: var(--c-struct-wash); color: var(--c-struct); border-color: transparent; }
+.badge--data     { background: var(--c-behave-wash); color: var(--c-behave); border-color: transparent; }
+.badge--ok { background: var(--ok-wash); color: var(--ok); border-color: transparent; }
+.badge--warn { background: var(--warn-wash); color: var(--warn); border-color: transparent; }
+.badge-row { display: flex; flex-wrap: wrap; gap: 8px; }
+
+/* difficulty meter */
+.meter { display: inline-flex; gap: 3px; vertical-align: middle; }
+.meter i { width: 8px; height: 8px; border-radius: 2px; background: var(--line); }
+.meter i.on { background: var(--chapter-color, var(--accent)); }
+
+/* ---------- Callouts ---------- */
+.callout {
+  display: grid; grid-template-columns: auto 1fr; gap: 14px; align-items: start;
+  padding: var(--sp-2) var(--sp-3); border-radius: var(--r-md); margin-block: var(--sp-2);
+  border: 1px solid var(--line); border-left-width: 4px; background: var(--surface);
+}
+.callout__ic { font-size: 1.2rem; line-height: 1.4; }
+.callout p:last-child { margin-bottom: 0; }
+.callout--info   { border-left-color: var(--info);   background: var(--info-wash); }
+.callout--tip    { border-left-color: var(--ok);     background: var(--ok-wash); }
+.callout--warn   { border-left-color: var(--warn);   background: var(--warn-wash); }
+.callout--danger { border-left-color: var(--danger); background: var(--danger-wash); }
+.callout b { color: var(--ink); }
+
+/* ---------- Pros / Cons ---------- */
+.proscons { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-2); margin-block: var(--sp-2); }
+.pc { border: 1px solid var(--line); border-radius: var(--r-md); padding: var(--sp-2) var(--sp-3); background: var(--surface); }
+.pc h4 { display: flex; align-items: center; gap: 8px; margin: 0 0 10px; font-family: var(--font-body); font-size: 1rem; }
+.pc ul { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.pc li { position: relative; padding-left: 26px; font-size: .95rem; color: var(--ink-soft); }
+.pc li::before { position: absolute; left: 0; top: 1px; font-weight: 700; }
+.pc--pros { border-top: 3px solid var(--ok); }
+.pc--pros h4 { color: var(--ok); }
+.pc--pros li::before { content: "✓"; color: var(--ok); }
+.pc--cons { border-top: 3px solid var(--danger); }
+.pc--cons h4 { color: var(--danger); }
+.pc--cons li::before { content: "✕"; color: var(--danger); }
+
+/* ---------- When / When-not ---------- */
+.usecase { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-2); margin-block: var(--sp-2); }
+.usecase__col { border-radius: var(--r-md); padding: var(--sp-2) var(--sp-3); border: 1px dashed var(--line); }
+.usecase__col--do { background: var(--ok-wash); border-color: color-mix(in srgb, var(--ok) 40%, transparent); }
+.usecase__col--dont { background: var(--danger-wash); border-color: color-mix(in srgb, var(--danger) 40%, transparent); }
+.usecase__col h4 { display: flex; gap: 8px; align-items: center; margin: 0 0 8px; font-family: var(--font-body); font-size: .98rem; }
+.usecase__col ul { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 6px; }
+.usecase__col li { font-size: .93rem; color: var(--ink-soft); }
+
+/* ---------- UML / schematic diagram ---------- */
+.uml {
+  margin: var(--sp-2) 0; padding: var(--sp-3); border-radius: var(--r-md);
+  background:
+    linear-gradient(color-mix(in srgb, var(--chapter-color) 8%, var(--surface)), color-mix(in srgb, var(--chapter-color) 8%, var(--surface))),
+    repeating-linear-gradient(0deg, transparent, transparent 21px, var(--line-soft) 21px, var(--line-soft) 22px);
+  border: 1px solid var(--line); overflow-x: auto;
+}
+.uml__stage { display: flex; flex-wrap: wrap; gap: var(--sp-3) var(--sp-4); align-items: flex-start; justify-content: center; min-width: min-content; }
+.uml-class { min-width: 190px; background: var(--surface); border: 1.5px solid var(--ink-soft); border-radius: 6px; box-shadow: var(--shadow-sm); overflow: hidden; }
+.uml-class__name { padding: 8px 12px; text-align: center; font-family: var(--font-display); font-weight: 700; font-size: .95rem; background: var(--surface-2); border-bottom: 1.5px solid var(--ink-soft); }
+.uml-class__name small { display: block; font-family: var(--font-mono); font-weight: 500; font-size: .68rem; color: var(--ink-faint); letter-spacing: .04em; }
+.uml-class__section { padding: 8px 12px; display: flex; flex-direction: column; gap: 4px; border-bottom: 1px solid var(--line); }
+.uml-class__section:last-child { border-bottom: none; }
+.uml-class__section .m { font-family: var(--font-mono); font-size: .78rem; color: var(--ink-soft); white-space: nowrap; }
+.uml-class--abstract .uml-class__name { font-style: italic; color: var(--chapter-color); border-color: var(--chapter-color); }
+.uml-class--abstract { border-color: var(--chapter-color); border-style: dashed; }
+.uml-class--client { background: var(--surface-2); }
+/* relationship connectors */
+.uml-rel { display: inline-flex; align-items: center; align-self: center; font-family: var(--font-mono); font-size: .72rem; color: var(--ink-faint); }
+.uml-rel span { padding: 2px 8px; border: 1px dashed var(--ink-faint); border-radius: 999px; }
+.uml__legend { display: flex; flex-wrap: wrap; gap: 12px 20px; margin-top: var(--sp-2); padding-top: var(--sp-2); border-top: 1px dashed var(--line); font-family: var(--font-mono); font-size: .72rem; color: var(--ink-faint); }
+.uml figcaption, .uml__caption { margin-top: var(--sp-2); font-size: .86rem; color: var(--ink-faint); text-align: center; }
+
+/* ---------- Code blocks ---------- */
+.code-wrap { margin: var(--sp-2) 0; border-radius: var(--r-md); overflow: hidden; border: 1px solid var(--line); box-shadow: var(--shadow-sm); }
+.code-wrap__bar { display: flex; align-items: center; gap: 8px; padding: 9px 14px; background: var(--surface-2); border-bottom: 1px solid var(--line); }
+.code-wrap__dots { display: flex; gap: 6px; }
+.code-wrap__dots i { width: 11px; height: 11px; border-radius: 50%; }
+.code-wrap__dots i:nth-child(1){ background:#ff5f56; } .code-wrap__dots i:nth-child(2){ background:#ffbd2e; } .code-wrap__dots i:nth-child(3){ background:#27c93f; }
+.code-wrap__lang { margin-left: auto; font-family: var(--font-mono); font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-faint); }
+.code-wrap pre { margin: 0; }
+pre[class*="language-"] { margin: 0; padding: var(--sp-2) var(--sp-3); font-size: .86rem; line-height: 1.6; background: #0d1524 !important; }
+@media (prefers-color-scheme: dark) { pre[class*="language-"] { background: #0a101c !important; } }
+code[class*="language-"], pre[class*="language-"] { font-family: var(--font-mono); text-shadow: none !important; }
+
+/* ---------- Tables ---------- */
+.table-wrap { overflow-x: auto; margin: var(--sp-2) 0; border: 1px solid var(--line); border-radius: var(--r-md); }
+table.data { width: 100%; border-collapse: collapse; font-size: .92rem; min-width: 560px; }
+table.data th, table.data td { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+table.data thead th { background: var(--surface-2); font-family: var(--font-mono); font-size: .74rem; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-soft); position: sticky; top: 0; }
+table.data tbody tr:hover { background: var(--surface-2); }
+table.data tbody tr:last-child td { border-bottom: none; }
+table.data td strong { color: var(--ink); }
+
+/* ---------- Timeline ---------- */
+.timeline { list-style: none; margin: var(--sp-2) 0; padding: 0; position: relative; }
+.timeline::before { content: ""; position: absolute; left: 15px; top: 6px; bottom: 6px; width: 2px; background: var(--line); }
+.timeline li { position: relative; padding: 0 0 var(--sp-3) 48px; }
+.timeline li:last-child { padding-bottom: 0; }
+.timeline li::before { content: ""; position: absolute; left: 8px; top: 4px; width: 16px; height: 16px; border-radius: 50%; background: var(--surface); border: 3px solid var(--chapter-color, var(--accent)); }
+.timeline h4 { margin: 0 0 4px; }
+.timeline p { margin: 0; color: var(--ink-soft); font-size: .95rem; }
+
+/* ---------- Accordion (details) ---------- */
+.accordion { border: 1px solid var(--line); border-radius: var(--r-md); overflow: hidden; margin: var(--sp-2) 0; background: var(--surface); }
+.accordion + .accordion { margin-top: -8px; border-top: none; }
+.accordion > summary {
+  cursor: pointer; list-style: none; padding: 14px 18px; display: flex; align-items: center; gap: 12px;
+  font-weight: 600; color: var(--ink); user-select: none;
+}
+.accordion > summary::-webkit-details-marker { display: none; }
+.accordion > summary::after { content: "＋"; margin-left: auto; font-family: var(--font-mono); color: var(--ink-faint); transition: transform .2s; }
+.accordion[open] > summary::after { content: "－"; }
+.accordion[open] > summary { border-bottom: 1px solid var(--line); background: var(--surface-2); }
+.accordion__body { padding: var(--sp-2) var(--sp-3); }
+.accordion__body p:last-child { margin-bottom: 0; }
+.accordion__ic { color: var(--danger); }
+
+/* ---------- Related patterns links ---------- */
+.related { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+.related a {
+  display: inline-flex; align-items: center; gap: 7px; padding: 8px 14px; border-radius: 10px;
+  border: 1px solid var(--line); background: var(--surface); color: var(--ink-soft); font-size: .88rem; font-weight: 500;
+  transition: border-color .15s, transform .15s, color .15s;
+}
+.related a:hover { border-color: var(--chapter-color); color: var(--ink); transform: translateY(-2px); text-decoration: none; }
+.related a::before { content: "↔"; color: var(--chapter-color); }
+
+/* ---------- References / sources ---------- */
+.refs { list-style: none; margin: 10px 0 0; padding: var(--sp-2) var(--sp-3); background: var(--surface-2); border: 1px solid var(--line); border-left: 3px solid var(--chapter-color, var(--accent)); border-radius: var(--r-md); display: flex; flex-direction: column; gap: 10px; }
+.refs li { display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: baseline; font-size: .92rem; }
+.refs li::before { content: "🔗"; font-size: .85rem; }
+.refs a { font-weight: 500; word-break: break-word; }
+.refs .src { display: block; font-family: var(--font-mono); font-size: .74rem; color: var(--ink-faint); margin-top: 2px; }
+
+/* ---------- Chapter summary block ---------- */
+.summary-block {
+  margin-top: var(--sp-5); padding: var(--sp-4); border-radius: var(--r-lg);
+  background: linear-gradient(135deg, var(--chapter-wash), var(--surface));
+  border: 1px solid color-mix(in srgb, var(--chapter-color) 35%, var(--line));
+}
+.summary-block .eyebrow { color: var(--chapter-color); }
+.key-takeaways { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.key-takeaways li { position: relative; padding-left: 28px; }
+.key-takeaways li::before { content: "◆"; position: absolute; left: 0; top: 0; color: var(--chapter-color); font-size: 1rem; line-height: 1.65; }
+
+/* ---------- Concept grid (2-col info) ---------- */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-3); }
+.grid-2 .box { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-md); padding: var(--sp-2) var(--sp-3); }
+
+/* ---------- Footer ---------- */
+.site-footer { border-top: 1px solid var(--line); background: var(--surface); margin-top: var(--sp-6); padding-block: var(--sp-4); }
+.site-footer .container { display: flex; flex-wrap: wrap; gap: var(--sp-3); justify-content: space-between; align-items: center; color: var(--ink-faint); font-size: .9rem; }
+.site-footer a { color: var(--ink-soft); }
+
+/* ---------- Back to top ---------- */
+.to-top {
+  position: fixed; right: 24px; bottom: 24px; z-index: 90; width: 46px; height: 46px; border-radius: 50%;
+  border: 1px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer; box-shadow: var(--shadow-md);
+  display: grid; place-items: center; font-size: 1.2rem;
+  transition: transform .15s, border-color .15s, color .15s;
+}
+.to-top:hover { transform: translateY(-2px); border-color: var(--accent); color: var(--accent); }
+
+/* ---------- Entrance animation (CSS-only, runs on load) ---------- */
+@keyframes reveal-up { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
+[data-reveal] { animation: reveal-up .6s cubic-bezier(.22,1,.36,1) both; }
+[data-reveal][data-delay="1"] { animation-delay: .08s; }
+[data-reveal][data-delay="2"] { animation-delay: .16s; }
+[data-reveal][data-delay="3"] { animation-delay: .24s; }
+@media (prefers-reduced-motion: reduce) { [data-reveal] { animation: none; } }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1024px) {
+  .chapter { grid-template-columns: 1fr; }
+  .toc { position: static; max-height: none; margin-bottom: var(--sp-3); padding: var(--sp-2); border: 1px solid var(--line); border-radius: var(--r-md); background: var(--surface); }
+  .toc ol { columns: 2; }
+  .hero__grid { grid-template-columns: 1fr; }
+  .hero .blueprint-card { display: none; }
+}
+@media (max-width: 720px) {
+  body { font-size: 16px; }
+  .nav { gap: 2px; overflow-x: auto; -webkit-overflow-scrolling: touch; max-width: 100%; scrollbar-width: none; }
+  .nav::-webkit-scrollbar { display: none; }
+  .nav a { white-space: nowrap; padding: 8px 10px; }
+  .groups { grid-template-columns: 1fr; }
+  .grid-2, .proscons, .usecase, .hero__cta { grid-template-columns: 1fr; }
+  .toc ol { columns: 1; }
+  .section { padding-block: var(--sp-5); }
+}
+@media (max-width: 420px) {
+  .hero__meta { gap: var(--sp-2); }
+}
+
+
+/* ---------- iNET real-world section ---------- */
+.src-repo { display: block; font-family: var(--font-mono); font-size: .72rem; font-weight: 400; color: var(--ink-faint); margin-top: 3px; }
+.case-desc { color: var(--ink-soft); font-size: .95rem; margin: 6px 0 0; }
+.case-badges { margin: 12px 0; }
+.case-badges a { text-decoration: none; }
+.case-badges a:hover { filter: brightness(1.08); }
+.case-ev { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 7px; }
+.case-ev li { color: var(--ink-soft); font-size: .92rem; }
+
+/* ============================================================
+   Docker training — supplementary styles (Phần 1)
+   Kế thừa design system "Engineering Blueprint"; chỉ bổ sung
+   các thành phần đặc thù: series tag, lab track, lab card,
+   step list, verify box, exercise.
+   ============================================================ */
+
+/* series tag in hero */
+.series-tag {
+  display: inline-flex; align-items: center; gap: 8px; margin-bottom: var(--sp-2);
+  font-family: var(--font-mono); font-size: .72rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--c-struct); background: var(--c-struct-wash); padding: 6px 12px; border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--c-struct) 30%, transparent);
+}
+.series-tag i { width: 7px; height: 7px; border-radius: 50%; background: var(--c-struct); }
+
+/* hero container-stack schematic */
+.stackdiag { display: grid; gap: 8px; font-family: var(--font-mono); font-size: .8rem; }
+.stackdiag__row { display: flex; gap: 8px; }
+.stackdiag__box {
+  flex: 1; text-align: center; padding: 9px 8px; border-radius: 8px; border: 1px solid var(--line);
+  background: var(--surface-2); color: var(--ink-soft);
+}
+.stackdiag__box--app { background: var(--c-behave-wash); color: var(--c-behave); border-color: transparent; font-weight: 600; }
+.stackdiag__box--engine { background: var(--c-struct-wash); color: var(--c-struct); border-color: transparent; font-weight: 600; }
+.stackdiag__box--kernel { background: var(--c-create-wash); color: var(--c-create); border-color: transparent; font-weight: 600; }
+
+/* ---- Lab roadmap track ---- */
+.track { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--sp-2); margin: var(--sp-3) 0; }
+.track__item {
+  position: relative; border: 1px solid var(--line); border-radius: var(--r-md); padding: var(--sp-2) var(--sp-3);
+  background: var(--surface); display: flex; flex-direction: column; gap: 6px; min-height: 128px;
+}
+.track__item--active { border-color: var(--c-struct); box-shadow: var(--shadow-sm); background: linear-gradient(180deg, var(--c-struct-wash), var(--surface)); }
+.track__item--soon { opacity: .78; border-style: dashed; }
+.track__phase { font-family: var(--font-mono); font-size: .72rem; letter-spacing: .08em; color: var(--ink-faint); }
+.track__item--active .track__phase { color: var(--c-struct); }
+.track__title { font-family: var(--font-display); font-weight: 700; font-size: 1rem; line-height: 1.2; }
+.track__status { margin-top: auto; font-size: .74rem; font-family: var(--font-mono); }
+.track__status.is-now { color: var(--c-struct); font-weight: 700; }
+.track__status.is-soon { color: var(--ink-faint); }
+
+/* ---- Lab group ---- */
+.lab-group { margin-top: var(--sp-4); }
+.lab-group__bar {
+  display: flex; align-items: center; gap: 12px; flex-wrap: wrap; padding: 12px 18px; border-radius: var(--r-md);
+  background: var(--c-struct-wash); border: 1px solid color-mix(in srgb, var(--c-struct) 30%, var(--line));
+}
+.lab-group__bar h3 { margin: 0; color: var(--c-struct); font-size: 1.15rem; }
+.lab-group__bar .lab-group__meta { margin-left: auto; font-family: var(--font-mono); font-size: .74rem; color: var(--ink-soft); }
+.lab-group--soon .lab-group__bar { background: var(--surface-2); border-style: dashed; }
+.lab-group--soon .lab-group__bar h3 { color: var(--ink-faint); }
+
+/* ---- Lab card ---- */
+.lab { border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--surface); margin-top: var(--sp-3); overflow: hidden; box-shadow: var(--shadow-sm); scroll-margin-top: 90px; }
+.lab__head { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: var(--sp-2) var(--sp-3); border-bottom: 1px solid var(--line); background: var(--surface-2); }
+.lab__num { font-family: var(--font-mono); font-weight: 700; color: var(--c-struct); font-size: .95rem; }
+.lab__title { margin: 0; font-size: 1.15rem; }
+.lab__meta { margin-left: auto; display: flex; gap: 16px; align-items: center; flex-wrap: wrap; font-family: var(--font-mono); font-size: .74rem; color: var(--ink-faint); }
+.lab__meta .meter i.on { background: var(--c-struct); }
+.lab__body { padding: var(--sp-3); }
+.lab__goal { margin: 0 0 var(--sp-2); color: var(--ink-soft); }
+
+/* ordered lab steps */
+.steps { counter-reset: step; list-style: none; margin: var(--sp-2) 0; padding: 0; display: flex; flex-direction: column; gap: var(--sp-3); }
+.steps > li { counter-increment: step; position: relative; padding-left: 46px; }
+.steps > li::before {
+  content: counter(step); position: absolute; left: 0; top: 0; width: 30px; height: 30px; border-radius: 8px;
+  display: grid; place-items: center; font-family: var(--font-mono); font-weight: 700; font-size: .85rem;
+  background: var(--c-struct-wash); color: var(--c-struct); border: 1px solid color-mix(in srgb, var(--c-struct) 30%, transparent);
+}
+.steps > li > strong { display: block; margin-bottom: 6px; color: var(--ink); }
+.steps .code-wrap { margin-top: 8px; margin-bottom: 8px; }
+
+/* verify box (Human-in-the-loop) */
+.verify { display: grid; grid-template-columns: auto 1fr; gap: 12px; padding: 11px 16px; border-radius: var(--r-md); background: var(--ok-wash); border: 1px solid color-mix(in srgb, var(--ok) 35%, transparent); margin: 10px 0; font-size: .93rem; }
+.verify__ic { color: var(--ok); font-size: 1.05rem; }
+.verify b { color: var(--ok); }
+.verify p { margin: 0; }
+
+/* ---- Exercises ---- */
+.ex-list { display: flex; flex-direction: column; gap: var(--sp-2); margin: var(--sp-2) 0; }
+.ex { border: 1px solid var(--line); border-radius: var(--r-md); background: var(--surface); overflow: hidden; }
+.ex__q { padding: 14px 18px; display: flex; gap: 12px; align-items: baseline; }
+.ex__tag { font-family: var(--font-mono); font-size: .7rem; font-weight: 700; color: var(--c-behave); background: var(--c-behave-wash); padding: 4px 9px; border-radius: 6px; flex: none; white-space: nowrap; }
+.ex__q > div { flex: 1; }
+.ex__q p { margin: 0; }
+.ex .accordion { margin: 0 14px 14px; }
+.ex .accordion > summary::after { color: var(--c-behave); }
+
+/* responsive */
+@media (max-width: 900px) { .track { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 600px) {
+  .track { grid-template-columns: 1fr; }
+  .lab__meta { margin-left: 0; width: 100%; }
+  .lab-group__bar .lab-group__meta { margin-left: 0; width: 100%; }
+}
+</style>
+<body id="top" style="--chapter-color: var(--accent); --chapter-wash: var(--accent-wash);">
+
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="brand" href="#top">
+      <span class="brand__mark">🐳</span>
+      <span>Docker cơ bản · <span style="color:var(--ink-faint); font-weight:600;">Đào tạo iNET</span></span>
+    </a>
+    <nav class="nav" aria-label="Điều hướng chính">
+      <a href="#tong-quan">Tổng quan</a>
+      <a href="#vi-sao">Vì sao có Docker</a>
+      <a href="#kien-truc">Kiến trúc</a>
+      <a href="#bat-bien">Bất biến &amp; Volume</a>
+      <a href="#lenh">Lệnh</a>
+      <a href="#labs">Labs</a>
+      <a href="#bai-tap">Bài tập</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="container hero__grid">
+    <div>
+      <span class="series-tag" data-reveal><i></i> Series nhiều buổi · Đây là Phần 1</span>
+      <h1 data-reveal data-delay="1">Docker <span class="accent">cơ bản</span><br>Nền tảng &amp; Vòng đời container</h1>
+      <p class="lead" data-reveal data-delay="2">
+        Tài liệu đào tạo nội bộ Bộ phận Công nghệ iNET — biên soạn từ buổi giảng ngày 18/07/2026.
+        Đi từ <b>vì sao container ra đời</b> → kiến trúc Docker → tính bất biến của image →
+        thực hành tay đầy đủ vòng đời container. Đây là <b>Phần 1</b> trong chuỗi Docker (Dockerfile,
+        Compose, Volume/Registry &amp; Kubernetes ở các phần sau).
+      </p>
+      <div class="hero__meta" data-reveal data-delay="2">
+        <div class="hero__stat"><b>6</b><span>LABS THỰC HÀNH</span></div>
+        <div class="hero__stat"><b>25+</b><span>LỆNH DOCKER</span></div>
+        <div class="hero__stat"><b>10</b><span>KHÁI NIỆM CỐT LÕI</span></div>
+        <div class="hero__stat"><b>~2h36</b><span>THỜI LƯỢNG BUỔI</span></div>
+      </div>
+      <div class="hero__cta" data-reveal data-delay="3">
+        <a class="btn btn--primary" href="#labs">Bắt đầu với Labs →</a>
+        <a class="btn btn--ghost" href="#lenh">Xem bảng lệnh</a>
+      </div>
+    </div>
+
+    <div class="blueprint-card" data-reveal data-delay="2" aria-hidden="true">
+      <div class="stackdiag">
+        <div class="stackdiag__row">
+          <div class="stackdiag__box stackdiag__box--app">App A</div>
+          <div class="stackdiag__box stackdiag__box--app">App B</div>
+          <div class="stackdiag__box stackdiag__box--app">App C</div>
+        </div>
+        <div class="stackdiag__box stackdiag__box--engine">Docker Engine · Container runtime</div>
+        <div class="stackdiag__box stackdiag__box--kernel">Host OS · Kernel (namespace + cgroups)</div>
+        <div class="stackdiag__box">Hạ tầng vật lý / Máy ảo</div>
+        <p class="uml__caption" style="margin-top:10px">Container <b>dùng chung kernel</b> với host — bỏ được một lớp OS so với máy ảo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TỔNG QUAN ================= -->
+<section class="section container" id="tong-quan">
+  <p class="eyebrow" data-reveal>Tóm tắt buổi học</p>
+  <h2 data-reveal>Buổi 1 dạy gì?</h2>
+  <p class="lead" data-reveal>
+    Buổi học đi từ <b>nguyên lý</b> (vì sao container ra đời, ưu điểm so với ảo hóa) đến <b>thực hành tay</b>
+    trên một máy chủ Linux đã cài Docker — trọng tâm là vòng đời container và cách chứng minh
+    "image là bất biến".
+  </p>
+
+  <div class="callout callout--info" data-reveal>
+    <span class="callout__ic">🎯</span>
+    <div>
+      <b>Mục tiêu Phần 1.</b> Xây nền khái niệm + kỹ năng thao tác cơ bản: cài đặt Docker, quản lý image,
+      chạy &amp; điều khiển vòng đời container, đọc log/sự kiện/tài nguyên. Chuẩn bị cho các buổi sau về
+      <b>Dockerfile</b>, <b>Docker Compose</b> và <b>Kubernetes</b>.
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top:var(--sp-3)">
+    <div class="box" data-reveal>
+      <h3>✅ Sau buổi này bạn sẽ</h3>
+      <ul class="case-ev">
+        <li>Giải thích được container khác máy ảo ở đâu, vì sao nhẹ/nhanh hơn.</li>
+        <li>Cài Docker theo quy trình chuẩn có <b>bước xác minh</b> từng bước.</li>
+        <li>Pull/inspect/tag image, hiểu cơ chế <b>chia sẻ layer</b>.</li>
+        <li>Chạy container Nginx, điều khiển đủ vòng đời (stop/start/rename/exec/rm).</li>
+        <li>Tự chứng minh tính bất biến của image bằng thực nghiệm "sửa nóng".</li>
+        <li>Đọc log container vs log ứng dụng, theo dõi <code>docker stats</code>/<code>docker events</code>.</li>
+      </ul>
+    </div>
+    <div class="box" data-reveal data-delay="1">
+      <h3>👥 Đối tượng &amp; yêu cầu</h3>
+      <p class="case-desc">Kỹ sư/DevOps Bộ phận Công nghệ. Một số đã dùng Docker cơ bản (mở port, chạy container có sẵn) nhưng chưa thực hành sâu vòng đời, log, registry.</p>
+      <div class="badge-row" style="margin-top:12px">
+        <span class="badge">Biết dòng lệnh Linux cơ bản</span>
+        <span class="badge">Quyền sudo trên máy lab</span>
+        <span class="badge badge--ok">Kernel Linux ≥ 3.10</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= VÌ SAO CÓ DOCKER ================= -->
+<section class="section container" id="vi-sao" style="--chapter-color: var(--c-create); --chapter-wash: var(--c-create-wash);">
+  <p class="eyebrow" data-reveal style="color:var(--c-create)">Nguyên lý · Phần 1</p>
+  <h2 data-reveal>Vì sao container ra đời?</h2>
+
+  <h3 data-reveal style="margin-top:var(--sp-3)">Dòng tiến hóa hạ tầng CNTT</h3>
+  <p data-reveal>Giảng viên dẫn dắt ngược dòng lịch sử: "Trước Cloud là gì? — Ảo hóa. Trước ảo hóa? — Vật lý." Mỗi bước tiến giúp <b>khai thác tài nguyên phần cứng</b> tốt hơn.</p>
+  <ul class="timeline" data-reveal>
+    <li>
+      <h4>① Máy chủ vật lý</h4>
+      <p>Một máy = một mục đích. Hiệu suất khai thác CPU/RAM thấp, tốn điện, khó co giãn.</p>
+    </li>
+    <li>
+      <h4>② Ảo hóa <small style="color:var(--ink-faint)">(VMware, KVM, Hyper-V, Citrix)</small></h4>
+      <p>Chia một máy vật lý thành nhiều máy ảo → khai thác được <b>80–95%</b> năng lực phần cứng, tiết kiệm điện.</p>
+    </li>
+    <li>
+      <h4>③ Cloud <small style="color:var(--ink-faint)">(OpenStack, CloudStack)</small></h4>
+      <p>Tự phục vụ, cấp phát tài nguyên theo yêu cầu, co giãn nhanh trên nền ảo hóa.</p>
+    </li>
+    <li>
+      <h4>④ Container <small style="color:var(--ink-faint)">(Docker, Kubernetes)</small></h4>
+      <p>Đóng gói ứng dụng ở mức nhẹ hơn máy ảo. Giảng viên gọi vui là <b>"IaaS 1.5"</b> — nằm giữa hạ tầng và nền tảng ứng dụng. Mật độ phục vụ cao hơn hẳn.</p>
+    </li>
+  </ul>
+
+  <div class="callout callout--tip" data-reveal>
+    <span class="callout__ic">🚢</span>
+    <div>
+      <b>Ví von "container vận tải" (giảng viên nhấn mạnh).</b> Thập niên 1960, hàng hóa quốc tế đóng gói tùy tiện
+      (thùng, vải bọc…), không tiêu chuẩn → lãng phí diện tích trên ô tô/tàu thủy/tàu hỏa. Người ta phát minh
+      <b>container hàng hải (conex)</b> — hộp tiêu chuẩn để đóng gói &amp; vận chuyển thống nhất trên mọi phương tiện.
+      Docker áp dụng đúng ý tưởng đó cho phần mềm: <b>đóng gói ứng dụng theo chuẩn</b> để chạy nhất quán từ máy dev →
+      staging → production → cloud → tại chỗ khách hàng.
+    </div>
+  </div>
+
+  <h3 data-reveal style="margin-top:var(--sp-4)">Bài toán cụ thể</h3>
+  <div class="usecase" data-reveal>
+    <div class="usecase__col usecase__col--dont">
+      <h4>😖 Không có container</h4>
+      <ul>
+        <li>Một máy vật lý khó chạy đồng thời nhiều môi trường (cài Java rồi khó cài PHP song song).</li>
+        <li>Chuyển ứng dụng giữa dev/staging/production phải setup lại từ đầu → "máy tôi chạy được mà".</li>
+        <li>70–80% hệ điều hành cài đặt là phần dư thừa không dùng đến.</li>
+      </ul>
+    </div>
+    <div class="usecase__col usecase__col--do">
+      <h4>🙂 Có container</h4>
+      <ul>
+        <li>Đóng ứng dụng + thư viện vào "một thùng", chạy nhiều container trên cùng hạ tầng.</li>
+        <li>Mang "thùng" đi bất kỳ đâu, chạy nhất quán không lo nền tảng bên dưới.</li>
+        <li>Image tối giản — ví dụ image WordPress chạy được chỉ ~60MB (bỏ SSH server, phần dư…).</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================= KIẾN TRÚC ================= -->
+<section class="section container" id="kien-truc" style="--chapter-color: var(--c-create); --chapter-wash: var(--c-create-wash);">
+  <p class="eyebrow" data-reveal style="color:var(--c-create)">Nguyên lý · Phần 1</p>
+  <h2 data-reveal>Kiến trúc: Container vs Ảo hóa</h2>
+
+  <div class="grid-2" data-reveal>
+    <div class="box">
+      <h3>🖥️ Ảo hóa truyền thống</h3>
+      <div class="stackdiag" style="margin-top:10px">
+        <div class="stackdiag__row">
+          <div class="stackdiag__box stackdiag__box--app">App + Guest OS</div>
+          <div class="stackdiag__box stackdiag__box--app">App + Guest OS</div>
+        </div>
+        <div class="stackdiag__box" style="background:var(--info-wash);color:var(--info);font-weight:600;border-color:transparent">Hypervisor</div>
+        <div class="stackdiag__box">Host OS</div>
+        <div class="stackdiag__box">Phần cứng</div>
+      </div>
+      <p class="case-desc">Mỗi máy ảo mang <b>hệ điều hành khách (guest OS) riêng</b> → nặng, khởi động chậm.</p>
+    </div>
+    <div class="box">
+      <h3>📦 Container</h3>
+      <div class="stackdiag" style="margin-top:10px">
+        <div class="stackdiag__row">
+          <div class="stackdiag__box stackdiag__box--app">App A</div>
+          <div class="stackdiag__box stackdiag__box--app">App B</div>
+        </div>
+        <div class="stackdiag__box stackdiag__box--engine">Container runtime (Docker Engine)</div>
+        <div class="stackdiag__box stackdiag__box--kernel">Host OS · Kernel (dùng chung)</div>
+        <div class="stackdiag__box">Phần cứng</div>
+      </div>
+      <p class="case-desc">Container <b>dùng chung kernel</b> của host, bỏ được lớp guest OS → nhẹ, nhanh, nhỏ.</p>
+    </div>
+  </div>
+
+  <div class="callout callout--info" data-reveal>
+    <span class="callout__ic">💡</span>
+    <div>
+      <b>Định nghĩa cốt lõi.</b> Container về bản chất là <b>một tiến trình (process) của host</b>, không phải một máy ảo đầy đủ.
+      Vì dùng chung kernel với host nên nó khởi động chỉ trong vài giây (không phải boot cả một OS) và chiếm rất ít tài nguyên.
+    </div>
+  </div>
+
+  <h3 data-reveal style="margin-top:var(--sp-4)">Ba thành phần của Docker</h3>
+  <div class="grid-2" data-reveal style="grid-template-columns:1fr 1fr 1fr">
+    <div class="box">
+      <h3 style="font-size:1.1rem">🧠 Docker daemon <small style="font-family:var(--font-mono);color:var(--ink-faint)">(dockerd)</small></h3>
+      <p class="case-desc">Tiến trình chạy nền trên Docker Host — quản lý image và chạy container.</p>
+    </div>
+    <div class="box">
+      <h3 style="font-size:1.1rem">🗄️ Registry</h3>
+      <p class="case-desc">Nơi chứa image: public (Docker Hub, quay.io…) hoặc <b>registry riêng</b> tự dựng (Harbor, Nexus, <code>registry:2</code>).</p>
+    </div>
+    <div class="box">
+      <h3 style="font-size:1.1rem">⌨️ Docker CLI</h3>
+      <p class="case-desc"><code>docker build</code>, <code>docker pull</code>, <code>docker run</code>… — công cụ ra lệnh cho daemon.</p>
+    </div>
+  </div>
+
+  <div class="callout callout--warn" data-reveal style="margin-top:var(--sp-3)">
+    <span class="callout__ic">🔀</span>
+    <div>
+      <b>Đọc sơ đồ kiến trúc phải để ý nét vẽ.</b> Đường <b>liền nét</b> = luồng <code>docker pull</code> (kéo image có sẵn về);
+      đường <b>nét đứt</b> = luồng <code>docker build</code> (build image từ Dockerfile). Thực tế đa số là <b>pull</b>,
+      chỉ khi cần tùy biến mới build.
+    </div>
+  </div>
+
+  <h3 data-reveal style="margin-top:var(--sp-4)">Image, Layer &amp; cơ chế lõi Linux</h3>
+  <details class="accordion" data-reveal>
+    <summary><span class="accordion__ic">🧱</span> Image &amp; Layer — vì sao dung lượng nhỏ bất ngờ</summary>
+    <div class="accordion__body">
+      <p>Mỗi lần đóng gói lại ứng dụng (thêm tính năng/sửa code) tạo ra một <b>layer mới</b> kế thừa layer trước — giống quản lý version.
+      Các image khác nhau <b>chia sẻ chung layer</b> giống nhau. Ví dụ kéo Python 3.11 + 3.12: tưởng phải ~4.5GB nhưng thực tế chỉ ~1.7GB
+      vì dùng chung phần lớn layer nền.</p>
+    </div>
+  </details>
+  <details class="accordion" data-reveal>
+    <summary><span class="accordion__ic">🧩</span> Namespace + cgroups — công nghệ "không hề mới"</summary>
+    <div class="accordion__body">
+      <p><b>Namespace</b> cô lập không gian tài nguyên (network, PID, mount…). <b>cgroups</b> (control groups) giới hạn/chia CPU, RAM cho từng nhóm tiến trình.
+      <b>Union filesystem</b> hiện thực cơ chế layer.</p>
+      <p>Các cơ chế này đã có trong Linux kernel <b>hàng chục năm</b>. Câu chuyện giảng viên kể: cgroup ra đời từ bài toán một máy 64 core nhưng phần mềm cũ chỉ
+      xài được 8 core → lãng phí đầu tư → kỹ sư nghĩ ra cách "chia nhỏ CPU" cho nhiều tiến trình. Docker chỉ <b>đóng gói các cơ chế này thành CLI dễ dùng</b>,
+      không phát minh ra khái niệm cô lập tiến trình.</p>
+    </div>
+  </details>
+  <details class="accordion" data-reveal>
+    <summary><span class="accordion__ic">🧭</span> Compose · Swarm · Kubernetes (giới thiệu, học sau)</summary>
+    <div class="accordion__body">
+      <ul class="case-ev">
+        <li><b>Docker Compose</b> — gộp nhiều container (web + DB + cache…) vào một file <code>docker-compose.yml</code>, chạy một lệnh khởi động cả hệ.</li>
+        <li><b>Docker Swarm</b> — điều phối container trên nhiều máy; nay ít dùng, xu hướng chuyển sang K8s.</li>
+        <li><b>Kubernetes (K8s)</b> — lớp trừu tượng điều phối container quy mô lớn. Học ở buổi sau.</li>
+      </ul>
+    </div>
+  </details>
+
+  <div class="callout callout--info" data-reveal>
+    <span class="callout__ic">📐</span>
+    <div>
+      <b>Chuẩn mở giúp tương thích.</b> Docker, Podman, containerd… tuân theo một chuẩn chung
+      (<b>OCI — Open Container Initiative</b>) nên image/registry của các nhà cung cấp khác nhau vẫn dùng qua lại được.
+      Container chỉ phụ thuộc <b>kernel</b> bên dưới, không phụ thuộc distro cụ thể (khác package Linux: Ubuntu repo ≠ RedHat repo).
+      <br><small style="color:var(--ink-faint)">Ghi chú biên soạn: transcript nghe không rõ tên chuẩn; suy luận theo ngữ cảnh là OCI.</small>
+    </div>
+  </div>
+</section>
+
+<!-- ================= BẤT BIẾN & VOLUME ================= -->
+<section class="section container" id="bat-bien" style="--chapter-color: var(--c-create); --chapter-wash: var(--c-create-wash);">
+  <p class="eyebrow" data-reveal style="color:var(--c-create)">Khái niệm quan trọng nhất buổi</p>
+  <h2 data-reveal>Tính bất biến &amp; dữ liệu</h2>
+
+  <div class="proscons" data-reveal style="grid-template-columns:1fr">
+    <div class="pc pc--pros">
+      <h4>◆ Hai định nghĩa phải nhớ</h4>
+      <ul>
+        <li><b>Image là bất biến (immutable).</b> Mỗi lần chạy là chạy đúng phiên bản image tại thời điểm tạo. Muốn thay đổi lâu dài phải <b>thay thế</b> bằng image mới (sửa nguồn → build lại), không sửa tại chỗ.</li>
+        <li><b>Container không lưu state.</b> Docker chỉ là môi trường chạy. Dữ liệu phải ghi ra ngoài host qua <b>volume</b> — nếu không, xóa container là mất dữ liệu.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout callout--danger" data-reveal>
+    <span class="callout__ic">🔥</span>
+    <div>
+      <b>"Sửa nóng" chỉ là phích tạm — KHÔNG phải cách làm đúng.</b> Bạn có thể <code>exec</code> vào container sửa trực tiếp file
+      (ví dụ trang <code>index.html</code> của Nginx) và thấy web đổi ngay. Nhưng khi <b>xóa container rồi tạo lại từ cùng image</b>,
+      mọi thay đổi biến mất — web trở về mặc định. Đây là bằng chứng trực quan cho tính bất biến. Xem <a href="#lab-4">Lab 4</a> để tự làm.
+    </div>
+  </div>
+
+  <div class="callout callout--tip" data-reveal>
+    <span class="callout__ic">🗂️</span>
+    <div>
+      <b>Đừng nhồi mọi thứ vào container.</b> Quan điểm "cho hết code + data vào trong container" là <b>sai lầm thiết kế</b>.
+      Container chỉ nên chứa <b>runtime</b>; code/data nên <b>mount ra ngoài</b> qua volume để dễ cập nhật, sao lưu mà không đụng tới container.
+      <br><small style="color:var(--ink-faint)">Lab về volume sẽ có ở Phần sau — xem lộ trình trong mục Labs.</small>
+    </div>
+  </div>
+</section>
+
+<!-- ================= BẢNG LỆNH ================= -->
+<section class="section container" id="lenh">
+  <p class="eyebrow" data-reveal>Tra cứu nhanh</p>
+  <h2 data-reveal>Bảng lệnh Docker — Phần 1</h2>
+  <p class="lead" data-reveal>Toàn bộ lệnh xuất hiện trong buổi học, đã chuẩn hóa cú pháp. Đây là "cheat-sheet" đi kèm các Lab bên dưới.</p>
+
+  <p class="cmd-cat" data-reveal style="margin-top:var(--sp-3)">// Cài đặt &amp; thông tin môi trường</p>
+  <div class="table-wrap" data-reveal>
+    <table class="data">
+      <thead><tr><th>Lệnh</th><th>Mục đích</th></tr></thead>
+      <tbody>
+        <tr><td><strong>docker version</strong></td><td>Xem phiên bản Docker client/server</td></tr>
+        <tr><td><strong>docker compose version</strong></td><td>Xem phiên bản Docker Compose</td></tr>
+        <tr><td><strong>docker info</strong></td><td>Thông tin tổng quan: số container, network, storage driver, thư mục gốc (<code>/var/lib/docker</code>)</td></tr>
+        <tr><td><strong>docker run --rm hello-world</strong></td><td>Chạy container test xác nhận Docker hoạt động (<code>--rm</code>: tự xóa sau khi chạy)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="cmd-cat" data-reveal style="margin-top:var(--sp-3)">// Quản lý image</p>
+  <div class="table-wrap" data-reveal>
+    <table class="data">
+      <thead><tr><th>Lệnh</th><th>Mục đích</th></tr></thead>
+      <tbody>
+        <tr><td><strong>docker image ls</strong></td><td>Liệt kê image trên máy</td></tr>
+        <tr><td><strong>docker pull &lt;image&gt;[:tag]</strong></td><td>Tải image từ registry (mặc định Docker Hub, tag mặc định <code>latest</code>)</td></tr>
+        <tr><td><strong>docker image inspect &lt;image&gt;</strong></td><td>Xem metadata JSON của image (OS, kiến trúc, layer…)</td></tr>
+        <tr><td><strong>docker image inspect --format '{{.Os}} {{.Architecture}}' &lt;image&gt;</strong></td><td>Lọc field cụ thể bằng Go template</td></tr>
+        <tr><td><strong>docker image history &lt;image&gt;</strong></td><td>Lịch sử build theo từng layer (hữu ích khi tự build)</td></tr>
+        <tr><td><strong>docker image tag &lt;cũ&gt; &lt;mới&gt;</strong></td><td>Gán tag/tên mới cho image</td></tr>
+        <tr><td><strong>docker image rm &lt;image&gt;</strong></td><td>Xóa image</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="cmd-cat" data-reveal style="margin-top:var(--sp-3)">// Vòng đời container</p>
+  <div class="table-wrap" data-reveal>
+    <table class="data">
+      <thead><tr><th>Lệnh</th><th>Mục đích</th></tr></thead>
+      <tbody>
+        <tr><td><strong>docker run -d --name &lt;tên&gt; -p 8080:80 nginx</strong></td><td>Chạy container nền, đặt tên, map port host:container</td></tr>
+        <tr><td><strong>docker container ls</strong> / <strong>ls -a</strong></td><td>Liệt kê container đang chạy / kể cả đã dừng</td></tr>
+        <tr><td><strong>docker container port &lt;tên&gt;</strong></td><td>Xem port mapping</td></tr>
+        <tr><td><strong>docker container stop / start &lt;tên&gt;</strong></td><td>Dừng / khởi động lại container</td></tr>
+        <tr><td><strong>docker container pause / unpause &lt;tên&gt;</strong></td><td>Tạm dừng / tiếp tục tiến trình bên trong</td></tr>
+        <tr><td><strong>docker container rename &lt;cũ&gt; &lt;mới&gt;</strong></td><td>Đổi tên container</td></tr>
+        <tr><td><strong>docker container rm &lt;tên&gt;</strong></td><td>Xóa container (phải stop trước)</td></tr>
+        <tr><td><strong>docker container top &lt;tên&gt;</strong></td><td>Xem tiến trình bên trong (từ ngoài host)</td></tr>
+        <tr><td><strong>docker container exec -it &lt;tên&gt; /bin/sh</strong></td><td>Vào bên trong container tương tác</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="cmd-cat" data-reveal style="margin-top:var(--sp-3)">// Quan sát: inspect · log · tài nguyên · sự kiện</p>
+  <div class="table-wrap" data-reveal>
+    <table class="data">
+      <thead><tr><th>Lệnh</th><th>Mục đích</th></tr></thead>
+      <tbody>
+        <tr><td><strong>docker container inspect &lt;tên&gt;</strong></td><td>Toàn bộ metadata container (State, IP, storage, RestartPolicy…)</td></tr>
+        <tr><td><strong>docker container logs &lt;tên&gt;</strong></td><td>Xem log container (stdout/stderr)</td></tr>
+        <tr><td><strong>docker container logs -f &lt;tên&gt;</strong></td><td>Theo dõi log real-time (như <code>tail -f</code>)</td></tr>
+        <tr><td><strong>docker container logs --tail 20 &lt;tên&gt;</strong></td><td>Xem 20 dòng log cuối</td></tr>
+        <tr><td><strong>docker stats</strong></td><td>Xem CPU/RAM container dùng theo thời gian thực</td></tr>
+        <tr><td><strong>docker events --filter container=&lt;id&gt;</strong></td><td>Theo dõi sự kiện real-time (start/stop/restart/kill)</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ================= LABS ================= -->
+<section class="section container" id="labs" style="--chapter-color: var(--c-struct); --chapter-wash: var(--c-struct-wash);">
+  <p class="eyebrow" data-reveal style="color:var(--c-struct)">Thực hành · Lộ trình nhiều phần</p>
+  <h2 data-reveal>Docker Labs</h2>
+  <p class="lead" data-reveal>
+    Labs được tổ chức theo <b>nhóm/lộ trình</b> khớp với chuỗi buổi học. Phần 1 (dưới đây) đầy đủ 6 lab.
+    Các Phần sau sẽ <b>bổ sung nhóm lab mới</b> vào đúng lộ trình này — không phá cấu trúc hiện có.
+  </p>
+
+  <!-- ROADMAP TRACK -->
+  <div class="track" data-reveal>
+    <div class="track__item track__item--active">
+      <span class="track__phase">PHẦN 1</span>
+      <span class="track__title">Nền tảng &amp; Vòng đời</span>
+      <span class="track__status is-now">● Đang học · 6 labs</span>
+    </div>
+    <div class="track__item track__item--soon">
+      <span class="track__phase">PHẦN 2</span>
+      <span class="track__title">Dockerfile &amp; Build image</span>
+      <span class="track__status is-soon">○ Sắp ra mắt</span>
+    </div>
+    <div class="track__item track__item--soon">
+      <span class="track__phase">PHẦN 3</span>
+      <span class="track__title">Docker Compose · Multi-service</span>
+      <span class="track__status is-soon">○ Sắp ra mắt</span>
+    </div>
+    <div class="track__item track__item--soon">
+      <span class="track__phase">PHẦN 4</span>
+      <span class="track__title">Volume · Registry riêng · K8s</span>
+      <span class="track__status is-soon">○ Sắp ra mắt</span>
+    </div>
+  </div>
+
+  <div class="callout callout--tip" data-reveal>
+    <span class="callout__ic">🧪</span>
+    <div>
+      <b>Quy ước làm Lab.</b> Mỗi bước có ô <span style="color:var(--ok)"><b>✔ Kiểm chứng</b></span> — làm xong <b>phải xác minh</b> rồi mới sang bước sau
+      (nguyên tắc <i>Human in the Loop</i> của giảng viên). Thay <code>&lt;ip-server&gt;</code> bằng IP máy lab của bạn; các lệnh giả định dùng user thuộc group <code>docker</code> (nếu không, thêm <code>sudo</code>).
+    </div>
+  </div>
+
+  <!-- ===== LAB GROUP: PHẦN 1 ===== -->
+  <div class="lab-group">
+    <div class="lab-group__bar" data-reveal>
+      <span class="badge badge--organize">NHÓM PHẦN 1</span>
+      <h3>Nền tảng &amp; Vòng đời container</h3>
+      <span class="lab-group__meta">6 labs · ~90–120 phút</span>
+    </div>
+
+    <!-- LAB 1 -->
+    <article class="lab" id="lab-1" data-reveal>
+      <div class="lab__head">
+        <span class="lab__num">LAB 01</span>
+        <h3 class="lab__title">Cài đặt Docker &amp; kiểm tra môi trường</h3>
+        <div class="lab__meta">
+          <span>⏱ 20–25′</span>
+          <span>Độ khó <span class="meter"><i class="on"></i><i></i><i></i></span></span>
+        </div>
+      </div>
+      <div class="lab__body">
+        <p class="lab__goal"><b>Mục tiêu:</b> cài Docker Engine trên Linux theo quy trình có xác minh, và đọc được thông tin môi trường trước/sau khi cài.</p>
+        <ol class="steps">
+          <li>
+            <strong>Kiểm tra thông tin máy trước khi cài</strong>
+            <div class="code-wrap"><div class="code-wrap__bar"><div class="code-wrap__dots"><i></i><i></i><i></i></div><span class="code-wrap__lang">bash</span></div><pre class="language-bash"><code>ip a                 # IP của máy
+hostnamectl          # hostname, OS, kernel
+cat /etc/os-release  # distro &amp; version</code></pre></div>
+            <div class="verify"><span class="verify__ic">✔</span><p><b>Kiểm chứng:</b> xác định đúng distro (Ubuntu/Debian/RHEL…) và kernel ≥ 3.10 để chọn đúng lệnh cài.</p></div>
+          </li>
+          <li>
+            <strong>Cài Docker Engine từ repo chính thức</strong> <small style="color:var(--ink-faint)">(ví dụ Ubuntu/Debian — quy trình 8 bước rút gọn)</small>
+            <div class="code-wrap"><div class="code-wrap__bar"><div class="code-wrap__dots"><i></i><i></i><i></i></div><span class="code-wrap__lang">bash</span></div><pre class="language-bash"><code>sudo apt update
+# cài script tiện lợi (lab); production nên cài theo repo + GPG key thủ công
+curl -fsSL https://get.docker.com | sudo sh</code></pre></div>
+            <div class="verify"><span class="verify__ic">✔</span><p><b>Kiểm chứng:</b> lệnh chạy xong không báo lỗi; chuyển bước xác minh version.</p></div>
+          </li>
+          <li>
+            <strong>Kiểm tra version &amp; dịch vụ</strong>
+            <div class="code-wrap"><div class="code-wrap__bar"><div class="code-wrap__dots"><i></i><i></i><i></i></div><span class="code-wrap__lang">bash</span></div><pre class="language-bash"><code>docker version
+docker compose version
+sudo systemctl enable --now docker   # start + bật khi reboot
+systemctl status docker --no-pager</code></pre></div>
+            <div class="verify"><span class="verify__ic">✔</span><p><b>Kiểm chứng:</b> thấy cả Client và Server version; service <code>active (running)</code>.</p></div>
+          </li>
+          <li>
+            <strong>Chạy Docker không cần sudo (thêm user vào group docker)</strong>
+            <div class="code-wrap"><div class="code-wrap__bar"><div class="code-wrap__dots"><i></i><i></i><i></i></div><span class="code-wrap__lang">bash</span></div><pre class="language-bash"><code>sudo usermod -aG docker $USER
+# đăng xuất/đăng nhập lại (hoặc: newgrp docker) để áp dụng
+docker info</code></pre></div>
+            <div class="verify"><span class="verify__ic">✔</span><p><b>Kiểm chứng:</b> <code>docker info</code> chạy được <b>không cần sudo</b>. Quan sát: Docker đã tạo network <code>bridge</code> mặc định; ghi nhớ <b>Docker Root Dir</b> = <code>/var/lib/docker</code>.</p></div>
+          </li>
+        </ol>
+        <div class="callout callout--warn">
+          <span class="callout__ic">💾</span>
+          <div><b>Lưu ý vận hành:</b> <code>/var/lib/docker</code> sẽ phình to theo thời gian (image/layer/log). Nên đặt nó trên phân vùng/đĩa dung lượng lớn ngay từ đầu.</div>
+        </div>
+      </div>
+    </article>
+
+    <!-- LAB 2 -->
+    <article class="lab" id="lab-2" data-reveal>
+      <div class="lab__head">
+        <span class="lab__num">LAB 02</span>
+        <h3 class="lab__title">Quản lý image: pull · inspect · tag · layer sharing</h3>
+        <div class="lab__meta">
+          <span>⏱ 15–20′</span>
+          <span>Độ khó <span class="meter"><i class="on"></i><i class="on"></i><i></i></span></span>
+        </div>
+      </div>
+      <div class="lab__body">
+        <p class="lab__goal"><b>Mục tiêu:</b> làm chủ vòng đời image và <b>quan sát cơ chế chia sẻ layer</b> giữa các version.</p>
+        <ol class="steps">
+          <li>
+            <strong>Container test đầu tiên</strong>
+            <div class="code-wrap"><div class="code-wrap__bar"><div class="code-wrap__dots"><i></i><i></i><i></i></div><span class="code-wrap__lang">bash</span></div><pre class="language-bash"><code>docker run --rm hello-world
+docker image ls</code></pre></div>
+            <div class="verify"><span class="verify__ic">✔</span><p><b>Kiểm chứng:</b> thấy thông báo "Hello from Docker!"; image <code>hello-world</code> &lt; 1MB. Docker tự <b>pull</b> vì local chưa có.</p></div>
+          </li>
+          <li>
+            <strong>Pull nhiều version &amp; quan sát chia sẻ layer</strong>
+            <div class="code-wrap"><div class="code-wrap__bar"><div class="code-wrap__dots"><i></i><i></i><i></i></div><span class="code-wrap__lang">bash</span></div><pre class="language-bash"><code>docker pull python:3.11
+docker pull python:3.12
+docker image ls | grep python</code></pre></div>
+            <div class="verify"><span class="verify__ic">✔</span><p><b>Kiểm chứng:</b> tổng dung lượng đĩa thực tế <b>nhỏ hơn</b> tổng SIZE của từng image cộng lại — vì các layer nền được dùng chung.</p></div>
+          </li>
+          <li>
+            <strong>Inspect có lọc field + xem lịch sử layer</strong>
+            <div class="code-wrap"><div class="code-wrap__bar"><div class="code-wrap__dots"><i></i><i></i><i></i></div><span class="code-wrap__lang">bash</span></div><pre class="language-bash"><code>docker image inspect --format '{{.Os}} {{.Architecture}}' python:3.11
+docker image history python:3.11</code></pre></div>
+            <div class="verify"><span class="verify__ic">✔</span><p><b>Kiểm chứng:</b> lệnh format in ra đúng 1 dòng (vd <code>linux amd64</code>) thay vì cả khối JSON.</p></div>
+          </li>
+          <li>
+            <strong>Tag theo naming nội bộ &amp; dọn dẹp</strong>
+            <div class="code-wrap"><div class="code-wrap__bar"><div class="code-wrap__dots"><i></i><i></i><i></i></div><span class="code-wrap__lang">bash</span></div><pre class="language-bash"><code>docker image tag python:3.11 lab.inet/python:3.11
+docker image ls | grep lab.inet
+docker image rm lab.inet/python:3.11   # xóa tag vừa tạo</code></pre></div>
+            <div class="verify"><span class="verify__ic">✔</span><p><b>Kiểm chứng:</b> tag mới xuất hiện rồi biến mất sau khi <code>rm</code>; image gốc <code>python:3.11</code> vẫn còn (tag chỉ là "tên gọi").</p></div>
+          </li>
+        </ol>
+      </div>
+    </article>
+
+    <!-- LAB 3 -->
+    <article class="lab" id="lab-3" data-reveal>
+      <div class="lab__head">
+        <span class="lab__num">LAB 03</span>
+        <h3 class="lab__title">Chạy Nginx &amp; điều khiển vòng đời container</h3>
+        <div class="lab__meta">
+          <span>⏱ 25–30′</span>
+          <span>Độ khó <span class="meter"><i class="on"></i><i class="on"></i><i></i></span></span>
+        </div>
+      </div>
+      <div class="lab__body">
+        <p class="lab__goal"><b>Mục tiêu:</b> chạy một web server thật và đi hết vòng đời "sinh ra → chạy → mất đi" của container.</p>
+        <ol class="steps">
+          <li>
+            <strong>Chạy container Nginx</strong>
+            <div class="code-wrap"><div class="code-wrap__bar"><div class="code-wrap__dots"><i></i><i></i><i></i></div><span class="code-wrap__lang">bash</span></div><pre class="language-bash"><code>docker run -d --name web --hostname web --restart always -p 8080:80 nginx
+docker container ls
+docker container port web</code></pre></div>
+            <div class="verify"><span class="verify__ic">✔</span><p><b>Kiểm chứng:</b> mở <code>http://&lt;ip-server&gt;:8080</code> trên trình duyệt máy khác → thấy trang "Welcome to nginx!".</p></div>
+          </li>
+          <li>
+            <strong>Hiểu binding port</strong>
+            <div class="code-wrap"><div class="code-wrap__bar"><div class="code-wrap__dots"><i></i><i></i><i></i></div><span class="code-wrap__lang">bash</span></div><pre class="language-bash"><code># -p 8080:80         -> public ra mọi interface (0.0.0.0), máy khác truy cập được
+# -p 127.0.0.1:8080:80 -> chỉ truy cập được từ chính máy host (localhost)
+curl -s http://localhost:8080 | head -n 5</code></pre></div>
+            <div class="verify"><span class="verify__ic">✔</span><p><b>Kiểm chứng:</b> giải thích được vì sao bỏ IP thì truy cập được từ ngoài, còn gắn <code>127.0.0.1</code> thì không.</p></div>
+          </li>
+          <li>
+            <strong>Vòng đời: stop → start → pause → rename</strong>
+            <div class="code-wrap"><div class="code-wrap__bar"><div class="code-wrap__dots"><i></i><i></i><i></i></div><span class="code-wrap__lang">bash</span></div><pre class="language-bash"><code>docker container stop web
+docker container ls -a          # trạng thái Exited
+docker container start web
+docker container pause web      # web "sống" nhưng không phản hồi request
+docker container unpause web
+docker container rename web web-1</code></pre></div>
+            <div class="verify"><span class="verify__ic">✔</span><p><b>Kiểm chứng:</b> sau <code>stop</code> web không truy cập được; sau <code>start</code> truy cập lại được; lúc <code>pause</code> trình duyệt bị treo chờ; sau <code>rename</code> container vẫn chạy với tên mới.</p></div>
+          </li>
+          <li>
+            <strong>Nhìn vào bên trong container</strong>
+            <div class="code-wrap"><div class="code-wrap__bar"><div class="code-wrap__dots"><i></i><i></i><i></i></div><span class="code-wrap__lang">bash</span></div><pre class="language-bash"><code>docker container top web-1                 # tiến trình bên trong (nhìn từ host)
+docker container exec -it web-1 /bin/sh    # chui vào trong
+# --- bên trong container ---
+hostname
+ip a
+ls /
+exit</code></pre></div>
+            <div class="verify"><span class="verify__ic">✔</span><p><b>Kiểm chứng:</b> <code>top</code> chỉ thấy tiến trình nginx (không thấy systemd của host → cô lập namespace); bên trong <code>hostname</code>/<code>ip a</code> khác host; <code>ls /</code> thấy filesystem tối giản.</p></div>
+          </li>
+        </ol>
+      </div>
+    </article>
+
+    <!-- LAB 4 -->
+    <article class="lab" id="lab-4" data-reveal>
+      <div class="lab__head">
+        <span class="lab__num">LAB 04</span>
+        <h3 class="lab__title">Sửa nóng &amp; minh chứng "image là bất biến" ⭐</h3>
+        <div class="lab__meta">
+          <span>⏱ 15–20′</span>
+          <span>Độ khó <span class="meter"><i class="on"></i><i class="on"></i><i></i></span></span>
+        </div>
+      </div>
+      <div class="lab__body">
+        <p class="lab__goal"><b>Mục tiêu:</b> lab "aha!" của buổi học — tự tay chứng minh container không lưu state và image bất biến.</p>
+        <ol class="steps">
+          <li>
+            <strong>Sửa nóng trang chủ Nginx</strong>
+            <div class="code-wrap"><div class="code-wrap__bar"><div class="code-wrap__dots"><i></i><i></i><i></i></div><span class="code-wrap__lang">bash</span></div><pre class="language-bash"><code>docker container exec -it web-1 /bin/sh
+# --- bên trong container ---
+cd /usr/share/nginx/html
+echo "&lt;h1&gt;Xin chao tu iNET - da sua nong&lt;/h1&gt;" &gt; index.html
+exit</code></pre></div>
+            <div class="verify"><span class="verify__ic">✔</span><p><b>Kiểm chứng:</b> reload <code>http://&lt;ip-server&gt;:8080</code> → thấy nội dung mới ngay lập tức.</p></div>
+          </li>
+          <li>
+            <strong>Xóa hẳn container vừa sửa</strong>
+            <div class="code-wrap"><div class="code-wrap__bar"><div class="code-wrap__dots"><i></i><i></i><i></i></div><span class="code-wrap__lang">bash</span></div><pre class="language-bash"><code>docker container stop web-1
+docker container rm web-1</code></pre></div>
+            <div class="verify"><span class="verify__ic">✔</span><p><b>Kiểm chứng:</b> <code>docker container ls -a</code> không còn <code>web-1</code>.</p></div>
+          </li>
+          <li>
+            <strong>Tạo lại từ CÙNG image gốc (không build lại)</strong>
+            <div class="code-wrap"><div class="code-wrap__bar"><div class="code-wrap__dots"><i></i><i></i><i></i></div><span class="code-wrap__lang">bash</span></div><pre class="language-bash"><code>docker run -d --name web --hostname web --restart always -p 8080:80 nginx</code></pre></div>
+            <div class="verify"><span class="verify__ic">✔</span><p><b>Kiểm chứng:</b> reload trình duyệt → nội dung <b>trở về "Welcome to nginx!"</b> mặc định. Thay đổi "sửa nóng" đã biến mất hoàn toàn.</p></div>
+          </li>
+        </ol>
+        <div class="callout callout--danger">
+          <span class="callout__ic">🧠</span>
+          <div><b>Rút ra:</b> image <b>bất biến</b>; container <b>không lưu state</b>. Muốn đổi nội dung lâu dài phải sửa từ nguồn (Dockerfile — Phần 2) và build image mới, hoặc mount volume ra ngoài (Phần 4).</div>
+        </div>
+      </div>
+    </article>
+
+    <!-- LAB 5 -->
+    <article class="lab" id="lab-5" data-reveal>
+      <div class="lab__head">
+        <span class="lab__num">LAB 05</span>
+        <h3 class="lab__title">Inspect &amp; log: container vs ứng dụng</h3>
+        <div class="lab__meta">
+          <span>⏱ 20–25′</span>
+          <span>Độ khó <span class="meter"><i class="on"></i><i class="on"></i><i class="on"></i></span></span>
+        </div>
+      </div>
+      <div class="lab__body">
+        <p class="lab__goal"><b>Mục tiêu:</b> đọc metadata container, phân biệt 2 loại log, và theo dõi log real-time dưới tải.</p>
+        <ol class="steps">
+          <li>
+            <strong>Inspect có lọc field</strong>
+            <div class="code-wrap"><div class="code-wrap__bar"><div class="code-wrap__dots"><i></i><i></i><i></i></div><span class="code-wrap__lang">bash</span></div><pre class="language-bash"><code>docker container inspect web
+docker container inspect --format '{{.State.Status}}' web
+docker container inspect --format '{{.HostConfig.RestartPolicy.Name}}' web</code></pre></div>
+            <div class="verify"><span class="verify__ic">✔</span><p><b>Kiểm chứng:</b> lấy được đúng <code>running</code> và <code>always</code> mà không phải đọc cả JSON.</p></div>
+          </li>
+          <li>
+            <strong>Hai loại log</strong>
+            <div class="code-wrap"><div class="code-wrap__bar"><div class="code-wrap__dots"><i></i><i></i><i></i></div><span class="code-wrap__lang">bash</span></div><pre class="language-bash"><code># 1) Log CONTAINER (Docker capture stdout/stderr)
+docker container logs --tail 20 web
+
+# 2) Log ỨNG DỤNG (Nginx tự ghi, bên trong container)
+docker container exec web ls -l /var/log/nginx</code></pre></div>
+            <div class="verify"><span class="verify__ic">✔</span><p><b>Kiểm chứng:</b> phân biệt được: <code>docker logs</code> đọc stdout/stderr; còn <code>/var/log/nginx/</code> là file log riêng của ứng dụng.</p></div>
+          </li>
+          <li>
+            <strong>Theo dõi log real-time dưới tải (2 terminal)</strong>
+            <div class="code-wrap"><div class="code-wrap__bar"><div class="code-wrap__dots"><i></i><i></i><i></i></div><span class="code-wrap__lang">bash</span></div><pre class="language-bash"><code># Terminal A — theo dõi
+docker container logs -f web
+
+# Terminal B — tạo 50 request có đánh số
+for i in $(seq 1 50); do curl -s "http://&lt;ip-server&gt;:8080/?req=$i" &gt; /dev/null; done</code></pre></div>
+            <div class="verify"><span class="verify__ic">✔</span><p><b>Kiểm chứng:</b> Terminal A hiện đủ 50 dòng log tăng dần theo thời gian thực (đối chiếu tham số <code>?req=</code>).</p></div>
+          </li>
+        </ol>
+        <div class="callout callout--info">
+          <span class="callout__ic">📡</span>
+          <div><b>Thực tế:</b> đường dẫn log thô nằm ở <code>/var/lib/docker/containers/&lt;id&gt;/&lt;id&gt;-json.log</code>. Công cụ như <b>Vector</b> / <b>VictoriaLogs</b> tự nhận cấu trúc log Docker và thu thập tập trung — không cần mount thủ công.</div>
+        </div>
+      </div>
+    </article>
+
+    <!-- LAB 6 -->
+    <article class="lab" id="lab-6" data-reveal>
+      <div class="lab__head">
+        <span class="lab__num">LAB 06</span>
+        <h3 class="lab__title">Theo dõi tài nguyên &amp; sự kiện</h3>
+        <div class="lab__meta">
+          <span>⏱ 15′</span>
+          <span>Độ khó <span class="meter"><i class="on"></i><i class="on"></i><i></i></span></span>
+        </div>
+      </div>
+      <div class="lab__body">
+        <p class="lab__goal"><b>Mục tiêu:</b> quan sát tài nguyên container và bắt sự kiện vòng đời real-time.</p>
+        <ol class="steps">
+          <li>
+            <strong>Xem tài nguyên</strong>
+            <div class="code-wrap"><div class="code-wrap__bar"><div class="code-wrap__dots"><i></i><i></i><i></i></div><span class="code-wrap__lang">bash</span></div><pre class="language-bash"><code>docker stats            # nhấn Ctrl+C để thoát
+docker stats --no-stream # in một lần rồi thoát</code></pre></div>
+            <div class="verify"><span class="verify__ic">✔</span><p><b>Kiểm chứng:</b> thấy cột CPU %, MEM USAGE / LIMIT của container <code>web</code>.</p></div>
+          </li>
+          <li>
+            <strong>Bắt sự kiện vòng đời (2 terminal)</strong>
+            <div class="code-wrap"><div class="code-wrap__bar"><div class="code-wrap__dots"><i></i><i></i><i></i></div><span class="code-wrap__lang">bash</span></div><pre class="language-bash"><code># Terminal A — theo dõi sự kiện của container web
+docker events --filter container=web
+
+# Terminal B — sinh sự kiện
+docker container restart web
+docker container stop web
+docker container start web</code></pre></div>
+            <div class="verify"><span class="verify__ic">✔</span><p><b>Kiểm chứng:</b> Terminal A lần lượt hiện <code>restart</code>, <code>kill</code>, <code>stop</code>, <code>start</code> đúng trình tự.</p></div>
+          </li>
+        </ol>
+        <div class="callout callout--warn">
+          <span class="callout__ic">⚠️</span>
+          <div><b>Lưu ý:</b> <code>docker events</code> <b>không lưu lâu dài</b> (chỉ giữ số sự kiện gần đây trong bộ nhớ). Container tự restart/stop bất thường là <b>dấu hiệu ứng dụng có vấn đề</b> — nên có giám sát (Vector/VictoriaLogs) để cảnh báo.</div>
+        </div>
+      </div>
+    </article>
+  </div>
+
+  <!-- ===== LAB GROUP: PHẦN 2+ (SẮP RA MẮT) ===== -->
+  <div class="lab-group lab-group--soon">
+    <div class="lab-group__bar" data-reveal>
+      <span class="badge">NHÓM PHẦN 2</span>
+      <h3>Dockerfile &amp; Build image — Sắp ra mắt</h3>
+      <span class="lab-group__meta">Bổ sung sau buổi 2</span>
+    </div>
+    <div class="callout callout--info" data-reveal style="margin-top:var(--sp-2)">
+      <span class="callout__ic">🧭</span>
+      <div>
+        Nhóm lab tiếp theo dự kiến: <b>viết Dockerfile</b> thêm file HTML riêng vào image Nginx (thay cho "sửa nóng" ở Lab 4);
+        <b>build &amp; tag</b> image; tối ưu layer; <b>multi-stage build</b>. Cấu trúc lab-group này giữ nguyên để chèn thêm các
+        <code>&lt;article class="lab"&gt;</code> mới khi có nội dung buổi 2.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= BÀI TẬP ================= -->
+<section class="section container" id="bai-tap" style="--chapter-color: var(--c-behave); --chapter-wash: var(--c-behave-wash);">
+  <p class="eyebrow" data-reveal style="color:var(--c-behave)">Củng cố · Có đáp án ẩn</p>
+  <h2 data-reveal>Bài tập</h2>
+  <p class="lead" data-reveal>Bài tập gom nhóm theo phần. Bấm vào mỗi câu để mở <b>đáp án gợi ý</b>. Tự làm trước khi xem đáp án.</p>
+
+  <div class="lab-group">
+    <div class="lab-group__bar" data-reveal style="background:var(--c-behave-wash); border-color:color-mix(in srgb, var(--c-behave) 30%, var(--line))">
+      <span class="badge badge--data">NHÓM PHẦN 1</span>
+      <h3 style="color:var(--c-behave)">Nền tảng &amp; Vòng đời</h3>
+      <span class="lab-group__meta">10 bài</span>
+    </div>
+
+    <div class="ex-list">
+
+      <!-- Lý thuyết -->
+      <div class="ex" data-reveal>
+        <div class="ex__q"><span class="ex__tag">LÝ THUYẾT</span><div><p><b>1.</b> Container khác máy ảo ở điểm cốt lõi nào khiến nó nhẹ và nhanh hơn?</p></div></div>
+        <details class="accordion"><summary>Đáp án gợi ý</summary><div class="accordion__body"><p>Container <b>dùng chung kernel/OS với host</b>, không cần guest OS riêng như máy ảo. Nó thực chất là một <b>tiến trình của host</b> được cô lập bằng namespace/cgroups → khởi động trong vài giây, tốn ít tài nguyên. Máy ảo phải qua Hypervisor và boot cả một guest OS đầy đủ.</p></div></details>
+      </div>
+
+      <div class="ex" data-reveal>
+        <div class="ex__q"><span class="ex__tag">LÝ THUYẾT</span><div><p><b>2.</b> "Image là bất biến" nghĩa là gì? Nếu cần đổi nội dung ứng dụng lâu dài thì làm đúng cách như thế nào?</p></div></div>
+        <details class="accordion"><summary>Đáp án gợi ý</summary><div class="accordion__body"><p>Mỗi lần chạy là chạy đúng phiên bản image tại thời điểm tạo; không sửa nội dung bên trong theo cách bền vững. Cách đúng: sửa từ <b>nguồn (Dockerfile/mã nguồn)</b> rồi <b>build image mới</b> và thay thế container — chứ không <code>exec</code> vào sửa tay. Dữ liệu cần giữ thì đưa ra <b>volume</b>.</p></div></details>
+      </div>
+
+      <div class="ex" data-reveal>
+        <div class="ex__q"><span class="ex__tag">LÝ THUYẾT</span><div><p><b>3.</b> namespace và cgroups khác nhau ra sao? Vì sao nói "container không phải công nghệ mới"?</p></div></div>
+        <details class="accordion"><summary>Đáp án gợi ý</summary><div class="accordion__body"><p><b>namespace</b> = cô lập <i>không gian nhìn thấy</i> (PID, network, mount…); <b>cgroups</b> = <i>giới hạn/chia tài nguyên</i> (CPU, RAM). Cả hai đã có trong Linux kernel hàng chục năm (cgroup ra đời từ bài toán tận dụng CPU nhiều core). Docker chỉ <b>đóng gói các cơ chế này thành CLI dễ dùng</b>.</p></div></details>
+      </div>
+
+      <div class="ex" data-reveal>
+        <div class="ex__q"><span class="ex__tag">LÝ THUYẾT</span><div><p><b>4.</b> Phân biệt "log container" và "log ứng dụng". Cho ví dụ với Nginx.</p></div></div>
+        <details class="accordion"><summary>Đáp án gợi ý</summary><div class="accordion__body"><p><b>Log container</b> = stdout/stderr của tiến trình chính, xem bằng <code>docker container logs</code>. <b>Log ứng dụng</b> = file do chính app ghi, ví dụ Nginx ghi <code>/var/log/nginx/access.log</code> &amp; <code>error.log</code> bên trong container. Hai nguồn độc lập, phục vụ mục đích khác nhau.</p></div></details>
+      </div>
+
+      <!-- Thực hành -->
+      <div class="ex" data-reveal>
+        <div class="ex__q"><span class="ex__tag">THỰC HÀNH</span><div><p><b>5.</b> Chạy một container Redis tên <code>cache</code> ở chế độ nền, chỉ cho truy cập từ localhost qua port 6380, rồi kiểm tra nó đang chạy.</p></div></div>
+        <details class="accordion"><summary>Đáp án gợi ý</summary><div class="accordion__body">
+          <div class="code-wrap"><div class="code-wrap__bar"><div class="code-wrap__dots"><i></i><i></i><i></i></div><span class="code-wrap__lang">bash</span></div><pre class="language-bash"><code>docker run -d --name cache -p 127.0.0.1:6380:6379 redis
+docker container ls
+docker container port cache</code></pre></div>
+          <p>Gắn <code>127.0.0.1</code> để chỉ bind vào loopback → máy ngoài không truy cập được.</p>
+        </div></details>
+      </div>
+
+      <div class="ex" data-reveal>
+        <div class="ex__q"><span class="ex__tag">THỰC HÀNH</span><div><p><b>6.</b> Chỉ dùng <code>--format</code>, lấy ra địa chỉ IP nội bộ của container <code>web</code> (không đọc cả JSON).</p></div></div>
+        <details class="accordion"><summary>Đáp án gợi ý</summary><div class="accordion__body">
+          <div class="code-wrap"><div class="code-wrap__bar"><div class="code-wrap__dots"><i></i><i></i><i></i></div><span class="code-wrap__lang">bash</span></div><pre class="language-bash"><code>docker container inspect \
+  --format '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' web</code></pre></div>
+        </div></details>
+      </div>
+
+      <div class="ex" data-reveal>
+        <div class="ex__q"><span class="ex__tag">THỰC HÀNH</span><div><p><b>7.</b> Vào bên trong container <code>web</code> và xác nhận hostname bên trong khác với hostname của host.</p></div></div>
+        <details class="accordion"><summary>Đáp án gợi ý</summary><div class="accordion__body">
+          <div class="code-wrap"><div class="code-wrap__bar"><div class="code-wrap__dots"><i></i><i></i><i></i></div><span class="code-wrap__lang">bash</span></div><pre class="language-bash"><code>hostname                         # trên host
+docker container exec web hostname   # bên trong container</code></pre></div>
+          <p>Hai giá trị khác nhau vì container có <b>UTS namespace</b> riêng.</p>
+        </div></details>
+      </div>
+
+      <div class="ex" data-reveal>
+        <div class="ex__q"><span class="ex__tag">THỰC HÀNH</span><div><p><b>8.</b> Dọn sạch: dừng &amp; xóa container <code>web</code> và <code>cache</code>, sau đó xóa image <code>redis</code>.</p></div></div>
+        <details class="accordion"><summary>Đáp án gợi ý</summary><div class="accordion__body">
+          <div class="code-wrap"><div class="code-wrap__bar"><div class="code-wrap__dots"><i></i><i></i><i></i></div><span class="code-wrap__lang">bash</span></div><pre class="language-bash"><code>docker container stop web cache
+docker container rm web cache
+docker image rm redis</code></pre></div>
+          <p>Phải <code>stop</code> trước khi <code>rm</code> (hoặc dùng <code>rm -f</code>). Không xóa được image nếu còn container tham chiếu.</p>
+        </div></details>
+      </div>
+
+      <!-- Thử thách -->
+      <div class="ex" data-reveal>
+        <div class="ex__q"><span class="ex__tag">THỬ THÁCH</span><div><p><b>9.</b> Tự tái hiện thí nghiệm "bất biến": sửa nóng trang Nginx, xóa container, tạo lại từ cùng image và <b>giải thích</b> vì sao nội dung trở về mặc định. Nếu muốn nội dung <b>được giữ lại</b> sau khi xóa container thì hướng giải quyết là gì?</p></div></div>
+        <details class="accordion"><summary>Đáp án gợi ý</summary><div class="accordion__body"><p>Nội dung trở về mặc định vì thay đổi chỉ nằm ở <b>lớp ghi (writable layer) của container</b>, bị xóa cùng container; image nền không đổi. Muốn giữ lại: <b>mount volume</b> (vd <code>-v /duong/dan/host:/usr/share/nginx/html</code>) hoặc <b>build image mới</b> chứa nội dung đó qua Dockerfile. (Volume &amp; Dockerfile là nội dung các Phần sau.)</p></div></details>
+      </div>
+
+      <div class="ex" data-reveal>
+        <div class="ex__q"><span class="ex__tag">THỬ THÁCH</span><div><p><b>10.</b> Viết một vòng lặp bắn 100 request vào <code>web</code>, đồng thời quan sát <code>docker stats</code> và <code>docker container logs -f</code>. Mô tả bạn kỳ vọng thấy gì.</p></div></div>
+        <details class="accordion"><summary>Đáp án gợi ý</summary><div class="accordion__body">
+          <div class="code-wrap"><div class="code-wrap__bar"><div class="code-wrap__dots"><i></i><i></i><i></i></div><span class="code-wrap__lang">bash</span></div><pre class="language-bash"><code>for i in $(seq 1 100); do curl -s "http://&lt;ip-server&gt;:8080/?n=$i" &gt; /dev/null; done</code></pre></div>
+          <p>Kỳ vọng: <code>logs -f</code> hiện thêm ~100 dòng access; <code>docker stats</code> thấy CPU%/MEM của <code>web</code> nhích lên trong lúc chạy tải rồi hạ về mức nghỉ. Gợi ý: có thể nhờ AI viết nhanh script tải nặng hơn (song song), nhưng luôn tự kiểm chứng kết quả.</p>
+        </div></details>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="lab-group lab-group--soon">
+    <div class="lab-group__bar" data-reveal>
+      <span class="badge">NHÓM PHẦN 2</span>
+      <h3>Bài tập Dockerfile — Sắp ra mắt</h3>
+      <span class="lab-group__meta">Bổ sung sau buổi 2</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TÓM TẮT / TAKEAWAYS ================= -->
+<section class="section container" id="tham-khao">
+  <div class="summary-block" data-reveal style="--chapter-color: var(--accent); --chapter-wash: var(--accent-wash);">
+    <p class="eyebrow">Ghi nhớ Phần 1</p>
+    <h2>10 điều cốt lõi</h2>
+    <ul class="key-takeaways">
+      <li><b>Container ra đời để tận dụng tài nguyên</b> và chạy nhất quán trên mọi môi trường (ví von "container vận tải").</li>
+      <li><b>Container dùng chung kernel với host</b> → nhẹ, nhanh, nhỏ hơn máy ảo; bản chất là một tiến trình được cô lập.</li>
+      <li><b>Kiến trúc Docker</b> = daemon + registry + CLI; đường liền = <code>pull</code>, nét đứt = <code>build</code>.</li>
+      <li><b>Image gồm nhiều layer</b> và các image <b>chia sẻ layer</b> → tiết kiệm dung lượng.</li>
+      <li><b>namespace + cgroups</b> là nền tảng có sẵn trong Linux; Docker chỉ đóng gói dễ dùng.</li>
+      <li><b>Image là bất biến</b>; muốn đổi lâu dài phải build image mới, không sửa nóng.</li>
+      <li><b>Container không lưu state</b> — dữ liệu phải đưa ra volume, đừng nhồi hết vào container.</li>
+      <li><b>Phân biệt log container vs log ứng dụng</b>; dùng <code>logs -f</code>, <code>--tail</code> để theo dõi.</li>
+      <li><b><code>docker stats</code> / <code>docker events</code></b> để giám sát tài nguyên &amp; sự kiện vòng đời.</li>
+      <li><b>Human in the Loop</b>: mỗi bước phải có xác minh, kể cả khi dùng AI hỗ trợ.</li>
+    </ul>
+  </div>
+
+  <h2 data-reveal style="margin-top:var(--sp-5)">Nguồn &amp; ghi chú biên soạn</h2>
+  <ul class="refs" data-reveal style="--chapter-color: var(--accent)">
+    <li><div>Buổi giảng nội bộ iNET — Docker cơ bản (Phần 1), ghi hình 18/07/2026.<span class="src">Transcript: dao-tao/22-07-2026/inet_2026-07-18_105914.srt (~2h36)</span></div></li>
+    <li><div>Docker Docs — Get started &amp; CLI reference.<span class="src">docs.docker.com</span></div></li>
+    <li><div>Open Container Initiative (OCI) — chuẩn image &amp; runtime.<span class="src">opencontainers.org</span></div></li>
+    <li><div>Vector (vector.dev) · VictoriaLogs — thu thập log tập trung cho container.<span class="src">vector.dev · victoriametrics.com</span></div></li>
+  </ul>
+
+  <div class="callout callout--warn" data-reveal>
+    <span class="callout__ic">📝</span>
+    <div>
+      <b>Ghi chú độ chính xác.</b> Tài liệu biên soạn lại từ transcript speech-to-text nên một số tên nghe không rõ đã được <b>suy luận theo ngữ cảnh</b>
+      và chuẩn hóa: "Docker Star" → <code>docker stats</code>; tên chuẩn mở → <b>OCI</b> (suy luận); công cụ scan bảo mật registry → nhóm Trivy/Clair quét <b>CVE</b> (suy luận).
+      Cơ chế lưu trữ của <code>docker events</code> chính giảng viên cũng lưu ý cần tìm hiểu thêm.
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <span>🐳 Docker cơ bản — Phần 1 · Đào tạo Bộ phận Công nghệ iNET</span>
+    <span>Biên soạn từ buổi giảng 18/07/2026 · Series còn tiếp tục</span>
+  </div>
+</footer>
+
+<button class="to-top" id="toTop" aria-label="Lên đầu trang" title="Lên đầu trang">↑</button>
+<script>
+/* ===== Prism.js (core + typescript + java) — inlined ===== */
+var _self="undefined"!=typeof window?window:"undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?self:{},Prism=function(l){var n=/(?:^|\s)lang(?:uage)?-([\w-]+)(?=\s|$)/i,t=0,e={},j={manual:l.Prism&&l.Prism.manual,disableWorkerMessageHandler:l.Prism&&l.Prism.disableWorkerMessageHandler,util:{encode:function e(t){return t instanceof C?new C(t.type,e(t.content),t.alias):Array.isArray(t)?t.map(e):t.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/\u00a0/g," ")},type:function(e){return Object.prototype.toString.call(e).slice(8,-1)},objId:function(e){return e.__id||Object.defineProperty(e,"__id",{value:++t}),e.__id},clone:function n(e,a){var r,t;switch(a=a||{},j.util.type(e)){case"Object":if(t=j.util.objId(e),a[t])return a[t];for(var s in r={},a[t]=r,e)e.hasOwnProperty(s)&&(r[s]=n(e[s],a));return r;case"Array":return(t=j.util.objId(e),a[t])?a[t]:(r=[],a[t]=r,e.forEach(function(e,t){r[t]=n(e,a)}),r);default:return e}},getLanguage:function(e){for(;e;){var t=n.exec(e.className);if(t)return t[1].toLowerCase();e=e.parentElement}return"none"},setLanguage:function(e,t){e.className=e.className.replace(RegExp(n,"gi"),""),e.classList.add("language-"+t)},currentScript:function(){if("undefined"==typeof document)return null;if("currentScript"in document)return document.currentScript;try{throw new Error}catch(e){var t=(/at [^(\r\n]*\((.*):[^:]+:[^:]+\)$/i.exec(e.stack)||[])[1];if(t){var n,a=document.getElementsByTagName("script");for(n in a)if(a[n].src==t)return a[n]}return null}},isActive:function(e,t,n){for(var a="no-"+t;e;){var r=e.classList;if(r.contains(t))return!0;if(r.contains(a))return!1;e=e.parentElement}return!!n}},languages:{plain:e,plaintext:e,text:e,txt:e,extend:function(e,t){var n,a=j.util.clone(j.languages[e]);for(n in t)a[n]=t[n];return a},insertBefore:function(n,e,t,a){var r,s=(a=a||j.languages)[n],i={};for(r in s)if(s.hasOwnProperty(r)){if(r==e)for(var o in t)t.hasOwnProperty(o)&&(i[o]=t[o]);t.hasOwnProperty(r)||(i[r]=s[r])}var l=a[n];return a[n]=i,j.languages.DFS(j.languages,function(e,t){t===l&&e!=n&&(this[e]=i)}),i},DFS:function e(t,n,a,r){r=r||{};var s,i,o,l=j.util.objId;for(s in t)t.hasOwnProperty(s)&&(n.call(t,s,t[s],a||s),i=t[s],"Object"!==(o=j.util.type(i))||r[l(i)]?"Array"!==o||r[l(i)]||(r[l(i)]=!0,e(i,n,s,r)):(r[l(i)]=!0,e(i,n,null,r)))}},plugins:{},highlightAll:function(e,t){j.highlightAllUnder(document,e,t)},highlightAllUnder:function(e,t,n){var a={callback:n,container:e,selector:'code[class*="language-"], [class*="language-"] code, code[class*="lang-"], [class*="lang-"] code'};j.hooks.run("before-highlightall",a),a.elements=Array.prototype.slice.apply(a.container.querySelectorAll(a.selector)),j.hooks.run("before-all-elements-highlight",a);for(var r,s=0;r=a.elements[s++];)j.highlightElement(r,!0===t,a.callback)},highlightElement:function(e,t,n){var a=j.util.getLanguage(e),r=j.languages[a],s=(j.util.setLanguage(e,a),e.parentElement);s&&"pre"===s.nodeName.toLowerCase()&&j.util.setLanguage(s,a);var i={element:e,language:a,grammar:r,code:e.textContent};function o(e){i.highlightedCode=e,j.hooks.run("before-insert",i),i.element.innerHTML=i.highlightedCode,j.hooks.run("after-highlight",i),j.hooks.run("complete",i),n&&n.call(i.element)}if(j.hooks.run("before-sanity-check",i),(s=i.element.parentElement)&&"pre"===s.nodeName.toLowerCase()&&!s.hasAttribute("tabindex")&&s.setAttribute("tabindex","0"),!i.code)return j.hooks.run("complete",i),void(n&&n.call(i.element));j.hooks.run("before-highlight",i),i.grammar?t&&l.Worker?((a=new Worker(j.filename)).onmessage=function(e){o(e.data)},a.postMessage(JSON.stringify({language:i.language,code:i.code,immediateClose:!0}))):o(j.highlight(i.code,i.grammar,i.language)):o(j.util.encode(i.code))},highlight:function(e,t,n){e={code:e,grammar:t,language:n};if(j.hooks.run("before-tokenize",e),e.grammar)return e.tokens=j.tokenize(e.code,e.grammar),j.hooks.run("after-tokenize",e),C.stringify(j.util.encode(e.tokens),e.language);throw new Error('The language "'+e.language+'" has no grammar.')},tokenize:function(e,t){var n=t.rest;if(n){for(var a in n)t[a]=n[a];delete t.rest}for(var r=new u,s=(z(r,r.head,e),!function e(t,n,a,r,s,i){for(var o in a)if(a.hasOwnProperty(o)&&a[o]){var l=a[o];l=Array.isArray(l)?l:[l];for(var u=0;u<l.length;++u){if(i&&i.cause==o+","+u)return;for(var g,c=l[u],d=c.inside,p=!!c.lookbehind,m=!!c.greedy,h=c.alias,f=(m&&!c.pattern.global&&(g=c.pattern.toString().match(/[imsuy]*$/)[0],c.pattern=RegExp(c.pattern.source,g+"g")),c.pattern||c),b=r.next,y=s;b!==n.tail&&!(i&&y>=i.reach);y+=b.value.length,b=b.next){var v=b.value;if(n.length>t.length)return;if(!(v instanceof C)){var F,x=1;if(m){if(!(F=L(f,y,t,p))||F.index>=t.length)break;var k=F.index,w=F.index+F[0].length,A=y;for(A+=b.value.length;A<=k;)b=b.next,A+=b.value.length;if(A-=b.value.length,y=A,b.value instanceof C)continue;for(var P=b;P!==n.tail&&(A<w||"string"==typeof P.value);P=P.next)x++,A+=P.value.length;x--,v=t.slice(y,A),F.index-=y}else if(!(F=L(f,0,v,p)))continue;var k=F.index,$=F[0],S=v.slice(0,k),E=v.slice(k+$.length),v=y+v.length,_=(i&&v>i.reach&&(i.reach=v),b.prev),S=(S&&(_=z(n,_,S),y+=S.length),O(n,_,x),new C(o,d?j.tokenize($,d):$,h,$));b=z(n,_,S),E&&z(n,b,E),1<x&&($={cause:o+","+u,reach:v},e(t,n,a,b.prev,y,$),i&&$.reach>i.reach&&(i.reach=$.reach))}}}}}(e,r,t,r.head,0),r),i=[],o=s.head.next;o!==s.tail;)i.push(o.value),o=o.next;return i},hooks:{all:{},add:function(e,t){var n=j.hooks.all;n[e]=n[e]||[],n[e].push(t)},run:function(e,t){var n=j.hooks.all[e];if(n&&n.length)for(var a,r=0;a=n[r++];)a(t)}},Token:C};function C(e,t,n,a){this.type=e,this.content=t,this.alias=n,this.length=0|(a||"").length}function L(e,t,n,a){e.lastIndex=t;t=e.exec(n);return t&&a&&t[1]&&(e=t[1].length,t.index+=e,t[0]=t[0].slice(e)),t}function u(){var e={value:null,prev:null,next:null},t={value:null,prev:e,next:null};e.next=t,this.head=e,this.tail=t,this.length=0}function z(e,t,n){var a=t.next,n={value:n,prev:t,next:a};return t.next=n,a.prev=n,e.length++,n}function O(e,t,n){for(var a=t.next,r=0;r<n&&a!==e.tail;r++)a=a.next;(t.next=a).prev=t,e.length-=r}if(l.Prism=j,C.stringify=function t(e,n){if("string"==typeof e)return e;var a;if(Array.isArray(e))return a="",e.forEach(function(e){a+=t(e,n)}),a;var r,s={type:e.type,content:t(e.content,n),tag:"span",classes:["token",e.type],attributes:{},language:n},e=e.alias,i=(e&&(Array.isArray(e)?Array.prototype.push.apply(s.classes,e):s.classes.push(e)),j.hooks.run("wrap",s),"");for(r in s.attributes)i+=" "+r+'="'+(s.attributes[r]||"").replace(/"/g,"&quot;")+'"';return"<"+s.tag+' class="'+s.classes.join(" ")+'"'+i+">"+s.content+"</"+s.tag+">"},!l.document)return l.addEventListener&&(j.disableWorkerMessageHandler||l.addEventListener("message",function(e){var e=JSON.parse(e.data),t=e.language,n=e.code,e=e.immediateClose;l.postMessage(j.highlight(n,j.languages[t],t)),e&&l.close()},!1)),j;var a,e=j.util.currentScript();function r(){j.manual||j.highlightAll()}return e&&(j.filename=e.src,e.hasAttribute("data-manual")&&(j.manual=!0)),j.manual||("loading"===(a=document.readyState)||"interactive"===a&&e&&e.defer?document.addEventListener("DOMContentLoaded",r):window.requestAnimationFrame?window.requestAnimationFrame(r):window.setTimeout(r,16)),j}(_self);"undefined"!=typeof module&&module.exports&&(module.exports=Prism),"undefined"!=typeof global&&(global.Prism=Prism),Prism.languages.markup={comment:{pattern:/<!--(?:(?!<!--)[\s\S])*?-->/,greedy:!0},prolog:{pattern:/<\?[\s\S]+?\?>/,greedy:!0},doctype:{pattern:/<!DOCTYPE(?:[^>"'[\]]|"[^"]*"|'[^']*')+(?:\[(?:[^<"'\]]|"[^"]*"|'[^']*'|<(?!!--)|<!--(?:[^-]|-(?!->))*-->)*\]\s*)?>/i,greedy:!0,inside:{"internal-subset":{pattern:/(^[^\[]*\[)[\s\S]+(?=\]>$)/,lookbehind:!0,greedy:!0,inside:null},string:{pattern:/"[^"]*"|'[^']*'/,greedy:!0},punctuation:/^<!|>$|[[\]]/,"doctype-tag":/^DOCTYPE/i,name:/[^\s<>'"]+/}},cdata:{pattern:/<!\[CDATA\[[\s\S]*?\]\]>/i,greedy:!0},tag:{pattern:/<\/?(?!\d)[^\s>\/=$<%]+(?:\s(?:\s*[^\s>\/=]+(?:\s*=\s*(?:"[^"]*"|'[^']*'|[^\s'">=]+(?=[\s>]))|(?=[\s/>])))+)?\s*\/?>/,greedy:!0,inside:{tag:{pattern:/^<\/?[^\s>\/]+/,inside:{punctuation:/^<\/?/,namespace:/^[^\s>\/:]+:/}},"special-attr":[],"attr-value":{pattern:/=\s*(?:"[^"]*"|'[^']*'|[^\s'">=]+)/,inside:{punctuation:[{pattern:/^=/,alias:"attr-equals"},{pattern:/^(\s*)["']|["']$/,lookbehind:!0}]}},punctuation:/\/?>/,"attr-name":{pattern:/[^\s>\/]+/,inside:{namespace:/^[^\s>\/:]+:/}}}},entity:[{pattern:/&[\da-z]{1,8};/i,alias:"named-entity"},/&#x?[\da-f]{1,8};/i]},Prism.languages.markup.tag.inside["attr-value"].inside.entity=Prism.languages.markup.entity,Prism.languages.markup.doctype.inside["internal-subset"].inside=Prism.languages.markup,Prism.hooks.add("wrap",function(e){"entity"===e.type&&(e.attributes.title=e.content.replace(/&amp;/,"&"))}),Object.defineProperty(Prism.languages.markup.tag,"addInlined",{value:function(e,t){var n={},n=(n["language-"+t]={pattern:/(^<!\[CDATA\[)[\s\S]+?(?=\]\]>$)/i,lookbehind:!0,inside:Prism.languages[t]},n.cdata=/^<!\[CDATA\[|\]\]>$/i,{"included-cdata":{pattern:/<!\[CDATA\[[\s\S]*?\]\]>/i,inside:n}}),t=(n["language-"+t]={pattern:/[\s\S]+/,inside:Prism.languages[t]},{});t[e]={pattern:RegExp(/(<__[^>]*>)(?:<!\[CDATA\[(?:[^\]]|\](?!\]>))*\]\]>|(?!<!\[CDATA\[)[\s\S])*?(?=<\/__>)/.source.replace(/__/g,function(){return e}),"i"),lookbehind:!0,greedy:!0,inside:n},Prism.languages.insertBefore("markup","cdata",t)}}),Object.defineProperty(Prism.languages.markup.tag,"addAttribute",{value:function(e,t){Prism.languages.markup.tag.inside["special-attr"].push({pattern:RegExp(/(^|["'\s])/.source+"(?:"+e+")"+/\s*=\s*(?:"[^"]*"|'[^']*'|[^\s'">=]+(?=[\s>]))/.source,"i"),lookbehind:!0,inside:{"attr-name":/^[^\s=]+/,"attr-value":{pattern:/=[\s\S]+/,inside:{value:{pattern:/(^=\s*(["']|(?!["'])))\S[\s\S]*(?=\2$)/,lookbehind:!0,alias:[t,"language-"+t],inside:Prism.languages[t]},punctuation:[{pattern:/^=/,alias:"attr-equals"},/"|'/]}}}})}}),Prism.languages.html=Prism.languages.markup,Prism.languages.mathml=Prism.languages.markup,Prism.languages.svg=Prism.languages.markup,Prism.languages.xml=Prism.languages.extend("markup",{}),Prism.languages.ssml=Prism.languages.xml,Prism.languages.atom=Prism.languages.xml,Prism.languages.rss=Prism.languages.xml,function(e){var t=/(?:"(?:\\(?:\r\n|[\s\S])|[^"\\\r\n])*"|'(?:\\(?:\r\n|[\s\S])|[^'\\\r\n])*')/,t=(e.languages.css={comment:/\/\*[\s\S]*?\*\//,atrule:{pattern:RegExp("@[\\w-](?:"+/[^;{\s"']|\s+(?!\s)/.source+"|"+t.source+")*?"+/(?:;|(?=\s*\{))/.source),inside:{rule:/^@[\w-]+/,"selector-function-argument":{pattern:/(\bselector\s*\(\s*(?![\s)]))(?:[^()\s]|\s+(?![\s)])|\((?:[^()]|\([^()]*\))*\))+(?=\s*\))/,lookbehind:!0,alias:"selector"},keyword:{pattern:/(^|[^\w-])(?:and|not|only|or)(?![\w-])/,lookbehind:!0}}},url:{pattern:RegExp("\\burl\\((?:"+t.source+"|"+/(?:[^\\\r\n()"']|\\[\s\S])*/.source+")\\)","i"),greedy:!0,inside:{function:/^url/i,punctuation:/^\(|\)$/,string:{pattern:RegExp("^"+t.source+"$"),alias:"url"}}},selector:{pattern:RegExp("(^|[{}\\s])[^{}\\s](?:[^{};\"'\\s]|\\s+(?![\\s{])|"+t.source+")*(?=\\s*\\{)"),lookbehind:!0},string:{pattern:t,greedy:!0},property:{pattern:/(^|[^-\w\xA0-\uFFFF])(?!\s)[-_a-z\xA0-\uFFFF](?:(?!\s)[-\w\xA0-\uFFFF])*(?=\s*:)/i,lookbehind:!0},important:/!important\b/i,function:{pattern:/(^|[^-a-z0-9])[-a-z0-9]+(?=\()/i,lookbehind:!0},punctuation:/[(){};:,]/},e.languages.css.atrule.inside.rest=e.languages.css,e.languages.markup);t&&(t.tag.addInlined("style","css"),t.tag.addAttribute("style","css"))}(Prism),Prism.languages.clike={comment:[{pattern:/(^|[^\\])\/\*[\s\S]*?(?:\*\/|$)/,lookbehind:!0,greedy:!0},{pattern:/(^|[^\\:])\/\/.*/,lookbehind:!0,greedy:!0}],string:{pattern:/(["'])(?:\\(?:\r\n|[\s\S])|(?!\1)[^\\\r\n])*\1/,greedy:!0},"class-name":{pattern:/(\b(?:class|extends|implements|instanceof|interface|new|trait)\s+|\bcatch\s+\()[\w.\\]+/i,lookbehind:!0,inside:{punctuation:/[.\\]/}},keyword:/\b(?:break|catch|continue|do|else|finally|for|function|if|in|instanceof|new|null|return|throw|try|while)\b/,boolean:/\b(?:false|true)\b/,function:/\b\w+(?=\()/,number:/\b0x[\da-f]+\b|(?:\b\d+(?:\.\d*)?|\B\.\d+)(?:e[+-]?\d+)?/i,operator:/[<>]=?|[!=]=?=?|--?|\+\+?|&&?|\|\|?|[?*/~^%]/,punctuation:/[{}[\];(),.:]/},Prism.languages.javascript=Prism.languages.extend("clike",{"class-name":[Prism.languages.clike["class-name"],{pattern:/(^|[^$\w\xA0-\uFFFF])(?!\s)[_$A-Z\xA0-\uFFFF](?:(?!\s)[$\w\xA0-\uFFFF])*(?=\.(?:constructor|prototype))/,lookbehind:!0}],keyword:[{pattern:/((?:^|\})\s*)catch\b/,lookbehind:!0},{pattern:/(^|[^.]|\.\.\.\s*)\b(?:as|assert(?=\s*\{)|async(?=\s*(?:function\b|\(|[$\w\xA0-\uFFFF]|$))|await|break|case|class|const|continue|debugger|default|delete|do|else|enum|export|extends|finally(?=\s*(?:\{|$))|for|from(?=\s*(?:['"]|$))|function|(?:get|set)(?=\s*(?:[#\[$\w\xA0-\uFFFF]|$))|if|implements|import|in|instanceof|interface|let|new|null|of|package|private|protected|public|return|static|super|switch|this|throw|try|typeof|undefined|var|void|while|with|yield)\b/,lookbehind:!0}],function:/#?(?!\s)[_$a-zA-Z\xA0-\uFFFF](?:(?!\s)[$\w\xA0-\uFFFF])*(?=\s*(?:\.\s*(?:apply|bind|call)\s*)?\()/,number:{pattern:RegExp(/(^|[^\w$])/.source+"(?:"+/NaN|Infinity/.source+"|"+/0[bB][01]+(?:_[01]+)*n?/.source+"|"+/0[oO][0-7]+(?:_[0-7]+)*n?/.source+"|"+/0[xX][\dA-Fa-f]+(?:_[\dA-Fa-f]+)*n?/.source+"|"+/\d+(?:_\d+)*n/.source+"|"+/(?:\d+(?:_\d+)*(?:\.(?:\d+(?:_\d+)*)?)?|\.\d+(?:_\d+)*)(?:[Ee][+-]?\d+(?:_\d+)*)?/.source+")"+/(?![\w$])/.source),lookbehind:!0},operator:/--|\+\+|\*\*=?|=>|&&=?|\|\|=?|[!=]==|<<=?|>>>?=?|[-+*/%&|^!=<>]=?|\.{3}|\?\?=?|\?\.?|[~:]/}),Prism.languages.javascript["class-name"][0].pattern=/(\b(?:class|extends|implements|instanceof|interface|new)\s+)[\w.\\]+/,Prism.languages.insertBefore("javascript","keyword",{regex:{pattern:RegExp(/((?:^|[^$\w\xA0-\uFFFF."'\])\s]|\b(?:return|yield))\s*)/.source+/\//.source+"(?:"+/(?:\[(?:[^\]\\\r\n]|\\.)*\]|\\.|[^/\\\[\r\n])+\/[dgimyus]{0,7}/.source+"|"+/(?:\[(?:[^[\]\\\r\n]|\\.|\[(?:[^[\]\\\r\n]|\\.|\[(?:[^[\]\\\r\n]|\\.)*\])*\])*\]|\\.|[^/\\\[\r\n])+\/[dgimyus]{0,7}v[dgimyus]{0,7}/.source+")"+/(?=(?:\s|\/\*(?:[^*]|\*(?!\/))*\*\/)*(?:$|[\r\n,.;:})\]]|\/\/))/.source),lookbehind:!0,greedy:!0,inside:{"regex-source":{pattern:/^(\/)[\s\S]+(?=\/[a-z]*$)/,lookbehind:!0,alias:"language-regex",inside:Prism.languages.regex},"regex-delimiter":/^\/|\/$/,"regex-flags":/^[a-z]+$/}},"function-variable":{pattern:/#?(?!\s)[_$a-zA-Z\xA0-\uFFFF](?:(?!\s)[$\w\xA0-\uFFFF])*(?=\s*[=:]\s*(?:async\s*)?(?:\bfunction\b|(?:\((?:[^()]|\([^()]*\))*\)|(?!\s)[_$a-zA-Z\xA0-\uFFFF](?:(?!\s)[$\w\xA0-\uFFFF])*)\s*=>))/,alias:"function"},parameter:[{pattern:/(function(?:\s+(?!\s)[_$a-zA-Z\xA0-\uFFFF](?:(?!\s)[$\w\xA0-\uFFFF])*)?\s*\(\s*)(?!\s)(?:[^()\s]|\s+(?![\s)])|\([^()]*\))+(?=\s*\))/,lookbehind:!0,inside:Prism.languages.javascript},{pattern:/(^|[^$\w\xA0-\uFFFF])(?!\s)[_$a-z\xA0-\uFFFF](?:(?!\s)[$\w\xA0-\uFFFF])*(?=\s*=>)/i,lookbehind:!0,inside:Prism.languages.javascript},{pattern:/(\(\s*)(?!\s)(?:[^()\s]|\s+(?![\s)])|\([^()]*\))+(?=\s*\)\s*=>)/,lookbehind:!0,inside:Prism.languages.javascript},{pattern:/((?:\b|\s|^)(?!(?:as|async|await|break|case|catch|class|const|continue|debugger|default|delete|do|else|enum|export|extends|finally|for|from|function|get|if|implements|import|in|instanceof|interface|let|new|null|of|package|private|protected|public|return|set|static|super|switch|this|throw|try|typeof|undefined|var|void|while|with|yield)(?![$\w\xA0-\uFFFF]))(?:(?!\s)[_$a-zA-Z\xA0-\uFFFF](?:(?!\s)[$\w\xA0-\uFFFF])*\s*)\(\s*|\]\s*\(\s*)(?!\s)(?:[^()\s]|\s+(?![\s)])|\([^()]*\))+(?=\s*\)\s*\{)/,lookbehind:!0,inside:Prism.languages.javascript}],constant:/\b[A-Z](?:[A-Z_]|\dx?)*\b/}),Prism.languages.insertBefore("javascript","string",{hashbang:{pattern:/^#!.*/,greedy:!0,alias:"comment"},"template-string":{pattern:/`(?:\\[\s\S]|\$\{(?:[^{}]|\{(?:[^{}]|\{[^}]*\})*\})+\}|(?!\$\{)[^\\`])*`/,greedy:!0,inside:{"template-punctuation":{pattern:/^`|`$/,alias:"string"},interpolation:{pattern:/((?:^|[^\\])(?:\\{2})*)\$\{(?:[^{}]|\{(?:[^{}]|\{[^}]*\})*\})+\}/,lookbehind:!0,inside:{"interpolation-punctuation":{pattern:/^\$\{|\}$/,alias:"punctuation"},rest:Prism.languages.javascript}},string:/[\s\S]+/}},"string-property":{pattern:/((?:^|[,{])[ \t]*)(["'])(?:\\(?:\r\n|[\s\S])|(?!\2)[^\\\r\n])*\2(?=\s*:)/m,lookbehind:!0,greedy:!0,alias:"property"}}),Prism.languages.insertBefore("javascript","operator",{"literal-property":{pattern:/((?:^|[,{])[ \t]*)(?!\s)[_$a-zA-Z\xA0-\uFFFF](?:(?!\s)[$\w\xA0-\uFFFF])*(?=\s*:)/m,lookbehind:!0,alias:"property"}}),Prism.languages.markup&&(Prism.languages.markup.tag.addInlined("script","javascript"),Prism.languages.markup.tag.addAttribute(/on(?:abort|blur|change|click|composition(?:end|start|update)|dblclick|error|focus(?:in|out)?|key(?:down|up)|load|mouse(?:down|enter|leave|move|out|over|up)|reset|resize|scroll|select|slotchange|submit|unload|wheel)/.source,"javascript")),Prism.languages.js=Prism.languages.javascript,function(){var l,u,g,c,e;void 0!==Prism&&"undefined"!=typeof document&&(Element.prototype.matches||(Element.prototype.matches=Element.prototype.msMatchesSelector||Element.prototype.webkitMatchesSelector),l={js:"javascript",py:"python",rb:"ruby",ps1:"powershell",psm1:"powershell",sh:"bash",bat:"batch",h:"c",tex:"latex"},c="pre[data-src]:not(["+(u="data-src-status")+'="loaded"]):not(['+u+'="'+(g="loading")+'"])',Prism.hooks.add("before-highlightall",function(e){e.selector+=", "+c}),Prism.hooks.add("before-sanity-check",function(e){var r,t,n,a,s,i,o=e.element;o.matches(c)&&(e.code="",o.setAttribute(u,g),(r=o.appendChild(document.createElement("CODE"))).textContent="Loading…",t=o.getAttribute("data-src"),"none"===(e=e.language)&&(n=(/\.(\w+)$/.exec(t)||[,"none"])[1],e=l[n]||n),Prism.util.setLanguage(r,e),Prism.util.setLanguage(o,e),(n=Prism.plugins.autoloader)&&n.loadLanguages(e),n=t,a=function(e){o.setAttribute(u,"loaded");var t,n,a=function(e){var t,n;if(e=/^\s*(\d+)\s*(?:(,)\s*(?:(\d+)\s*)?)?$/.exec(e||""))return t=Number(e[1]),n=e[2],e=e[3],n?e?[t,Number(e)]:[t,void 0]:[t,t]}(o.getAttribute("data-range"));a&&(t=e.split(/\r\n?|\n/g),n=a[0],a=null==a[1]?t.length:a[1],n<0&&(n+=t.length),n=Math.max(0,Math.min(n-1,t.length)),a<0&&(a+=t.length),a=Math.max(0,Math.min(a,t.length)),e=t.slice(n,a).join("\n"),o.hasAttribute("data-start")||o.setAttribute("data-start",String(n+1))),r.textContent=e,Prism.highlightElement(r)},s=function(e){o.setAttribute(u,"failed"),r.textContent=e},(i=new XMLHttpRequest).open("GET",n,!0),i.onreadystatechange=function(){4==i.readyState&&(i.status<400&&i.responseText?a(i.responseText):400<=i.status?s("✖ Error "+i.status+" while fetching file: "+i.statusText):s("✖ Error: File does not exist or is empty"))},i.send(null))}),e=!(Prism.plugins.fileHighlight={highlight:function(e){for(var t,n=(e||document).querySelectorAll(c),a=0;t=n[a++];)Prism.highlightElement(t)}}),Prism.fileHighlight=function(){e||(console.warn("Prism.fileHighlight is deprecated. Use `Prism.plugins.fileHighlight.highlight` instead."),e=!0),Prism.plugins.fileHighlight.highlight.apply(this,arguments)})}();
+!function(e){e.languages.typescript=e.languages.extend("javascript",{"class-name":{pattern:/(\b(?:class|extends|implements|instanceof|interface|new|type)\s+)(?!keyof\b)(?!\s)[_$a-zA-Z\xA0-\uFFFF](?:(?!\s)[$\w\xA0-\uFFFF])*(?:\s*<(?:[^<>]|<(?:[^<>]|<[^<>]*>)*>)*>)?/,lookbehind:!0,greedy:!0,inside:null},builtin:/\b(?:Array|Function|Promise|any|boolean|console|never|number|string|symbol|unknown)\b/}),e.languages.typescript.keyword.push(/\b(?:abstract|declare|is|keyof|readonly|require)\b/,/\b(?:asserts|infer|interface|module|namespace|type)\b(?=\s*(?:[{_$a-zA-Z\xA0-\uFFFF]|$))/,/\btype\b(?=\s*(?:[\{*]|$))/),delete e.languages.typescript.parameter,delete e.languages.typescript["literal-property"];var s=e.languages.extend("typescript",{});delete s["class-name"],e.languages.typescript["class-name"].inside=s,e.languages.insertBefore("typescript","function",{decorator:{pattern:/@[$\w\xA0-\uFFFF]+/,inside:{at:{pattern:/^@/,alias:"operator"},function:/^[\s\S]+/}},"generic-function":{pattern:/#?(?!\s)[_$a-zA-Z\xA0-\uFFFF](?:(?!\s)[$\w\xA0-\uFFFF])*\s*<(?:[^<>]|<(?:[^<>]|<[^<>]*>)*>)*>(?=\s*\()/,greedy:!0,inside:{function:/^#?(?!\s)[_$a-zA-Z\xA0-\uFFFF](?:(?!\s)[$\w\xA0-\uFFFF])*/,generic:{pattern:/<[\s\S]+/,alias:"class-name",inside:s}}}}),e.languages.ts=e.languages.typescript}(Prism);
+!function(e){var n=/\b(?:abstract|assert|boolean|break|byte|case|catch|char|class|const|continue|default|do|double|else|enum|exports|extends|final|finally|float|for|goto|if|implements|import|instanceof|int|interface|long|module|native|new|non-sealed|null|open|opens|package|permits|private|protected|provides|public|record(?!\s*[(){}[\]<>=%~.:,;?+\-*/&|^])|requires|return|sealed|short|static|strictfp|super|switch|synchronized|this|throw|throws|to|transient|transitive|try|uses|var|void|volatile|while|with|yield)\b/,t="(?:[a-z]\\w*\\s*\\.\\s*)*(?:[A-Z]\\w*\\s*\\.\\s*)*",s={pattern:RegExp("(^|[^\\w.])"+t+"[A-Z](?:[\\d_A-Z]*[a-z]\\w*)?\\b"),lookbehind:!0,inside:{namespace:{pattern:/^[a-z]\w*(?:\s*\.\s*[a-z]\w*)*(?:\s*\.)?/,inside:{punctuation:/\./}},punctuation:/\./}};e.languages.java=e.languages.extend("clike",{string:{pattern:/(^|[^\\])"(?:\\.|[^"\\\r\n])*"/,lookbehind:!0,greedy:!0},"class-name":[s,{pattern:RegExp("(^|[^\\w.])"+t+"[A-Z]\\w*(?=\\s+\\w+\\s*[;,=()]|\\s*(?:\\[[\\s,]*\\]\\s*)?::\\s*new\\b)"),lookbehind:!0,inside:s.inside},{pattern:RegExp("(\\b(?:class|enum|extends|implements|instanceof|interface|new|record|throws)\\s+)"+t+"[A-Z]\\w*\\b"),lookbehind:!0,inside:s.inside}],keyword:n,function:[e.languages.clike.function,{pattern:/(::\s*)[a-z_]\w*/,lookbehind:!0}],number:/\b0b[01][01_]*L?\b|\b0x(?:\.[\da-f_p+-]+|[\da-f_]+(?:\.[\da-f_p+-]+)?)\b|(?:\b\d[\d_]*(?:\.[\d_]*)?|\B\.\d[\d_]*)(?:e[+-]?\d[\d_]*)?[dfl]?/i,operator:{pattern:/(^|[^.])(?:<<=?|>>>?=?|->|--|\+\+|&&|\|\||::|[?:~]|[-+*/%&|^!=<>]=?)/m,lookbehind:!0},constant:/\b[A-Z][A-Z_\d]+\b/}),e.languages.insertBefore("java","string",{"triple-quoted-string":{pattern:/"""[ \t]*[\r\n](?:(?:"|"")?(?:\\.|[^"\\]))*"""/,greedy:!0,alias:"string"},char:{pattern:/'(?:\\.|[^'\\\r\n]){1,6}'/,greedy:!0}}),e.languages.insertBefore("java","class-name",{annotation:{pattern:/(^|[^.])@\w+(?:\s*\.\s*\w+)*/,lookbehind:!0,alias:"punctuation"},generics:{pattern:/<(?:[\w\s,.?]|&(?!&)|<(?:[\w\s,.?]|&(?!&)|<(?:[\w\s,.?]|&(?!&)|<(?:[\w\s,.?]|&(?!&))*>)*>)*>)*>/,inside:{"class-name":s,keyword:n,punctuation:/[<>(),.:]/,operator:/[?&|]/}},import:[{pattern:RegExp("(\\bimport\\s+)"+t+"(?:[A-Z]\\w*|\\*)(?=\\s*;)"),lookbehind:!0,inside:{namespace:s.inside.namespace,punctuation:/\./,operator:/\*/,"class-name":/\w+/}},{pattern:RegExp("(\\bimport\\s+static\\s+)"+t+"(?:\\w+|\\*)(?=\\s*;)"),lookbehind:!0,alias:"static",inside:{namespace:s.inside.namespace,static:/\b\w+$/,punctuation:/\./,operator:/\*/,"class-name":/\w+/}}],namespace:{pattern:RegExp("(\\b(?:exports|import(?:\\s+static)?|module|open|opens|package|provides|requires|to|transitive|uses|with)\\s+)(?!<keyword>)[a-z]\\w*(?:\\.[a-z]\\w*)*\\.?".replace(/<keyword>/g,(function(){return n.source}))),lookbehind:!0,inside:{punctuation:/\./}}})}(Prism);
+</script>
+<script>
+/* ===== Prism languages: bash + yaml + docker/dockerfile — inlined ===== */
+!function(e){var t="\\b(?:BASH|BASHOPTS|BASH_ALIASES|BASH_ARGC|BASH_ARGV|BASH_CMDS|BASH_COMPLETION_COMPAT_DIR|BASH_LINENO|BASH_REMATCH|BASH_SOURCE|BASH_VERSINFO|BASH_VERSION|COLORTERM|COLUMNS|COMP_WORDBREAKS|DBUS_SESSION_BUS_ADDRESS|DEFAULTS_PATH|DESKTOP_SESSION|DIRSTACK|DISPLAY|EUID|GDMSESSION|GDM_LANG|GNOME_KEYRING_CONTROL|GNOME_KEYRING_PID|GPG_AGENT_INFO|GROUPS|HISTCONTROL|HISTFILE|HISTFILESIZE|HISTSIZE|HOME|HOSTNAME|HOSTTYPE|IFS|INSTANCE|JOB|LANG|LANGUAGE|LC_ADDRESS|LC_ALL|LC_IDENTIFICATION|LC_MEASUREMENT|LC_MONETARY|LC_NAME|LC_NUMERIC|LC_PAPER|LC_TELEPHONE|LC_TIME|LESSCLOSE|LESSOPEN|LINES|LOGNAME|LS_COLORS|MACHTYPE|MAILCHECK|MANDATORY_PATH|NO_AT_BRIDGE|OLDPWD|OPTERR|OPTIND|ORBIT_SOCKETDIR|OSTYPE|PAPERSIZE|PATH|PIPESTATUS|PPID|PS1|PS2|PS3|PS4|PWD|RANDOM|REPLY|SECONDS|SELINUX_INIT|SESSION|SESSIONTYPE|SESSION_MANAGER|SHELL|SHELLOPTS|SHLVL|SSH_AUTH_SOCK|TERM|UID|UPSTART_EVENTS|UPSTART_INSTANCE|UPSTART_JOB|UPSTART_SESSION|USER|WINDOWID|XAUTHORITY|XDG_CONFIG_DIRS|XDG_CURRENT_DESKTOP|XDG_DATA_DIRS|XDG_GREETER_DATA_DIR|XDG_MENU_PREFIX|XDG_RUNTIME_DIR|XDG_SEAT|XDG_SEAT_PATH|XDG_SESSION_DESKTOP|XDG_SESSION_ID|XDG_SESSION_PATH|XDG_SESSION_TYPE|XDG_VTNR|XMODIFIERS)\\b",a={pattern:/(^(["']?)\w+\2)[ \t]+\S.*/,lookbehind:!0,alias:"punctuation",inside:null},n={bash:a,environment:{pattern:RegExp("\\$"+t),alias:"constant"},variable:[{pattern:/\$?\(\([\s\S]+?\)\)/,greedy:!0,inside:{variable:[{pattern:/(^\$\(\([\s\S]+)\)\)/,lookbehind:!0},/^\$\(\(/],number:/\b0x[\dA-Fa-f]+\b|(?:\b\d+(?:\.\d*)?|\B\.\d+)(?:[Ee]-?\d+)?/,operator:/--|\+\+|\*\*=?|<<=?|>>=?|&&|\|\||[=!+\-*/%<>^&|]=?|[?~:]/,punctuation:/\(\(?|\)\)?|,|;/}},{pattern:/\$\((?:\([^)]+\)|[^()])+\)|`[^`]+`/,greedy:!0,inside:{variable:/^\$\(|^`|\)$|`$/}},{pattern:/\$\{[^}]+\}/,greedy:!0,inside:{operator:/:[-=?+]?|[!\/]|##?|%%?|\^\^?|,,?/,punctuation:/[\[\]]/,environment:{pattern:RegExp("(\\{)"+t),lookbehind:!0,alias:"constant"}}},/\$(?:\w+|[#?*!@$])/],entity:/\\(?:[abceEfnrtv\\"]|O?[0-7]{1,3}|U[0-9a-fA-F]{8}|u[0-9a-fA-F]{4}|x[0-9a-fA-F]{1,2})/};e.languages.bash={shebang:{pattern:/^#!\s*\/.*/,alias:"important"},comment:{pattern:/(^|[^"{\\$])#.*/,lookbehind:!0},"function-name":[{pattern:/(\bfunction\s+)[\w-]+(?=(?:\s*\(?:\s*\))?\s*\{)/,lookbehind:!0,alias:"function"},{pattern:/\b[\w-]+(?=\s*\(\s*\)\s*\{)/,alias:"function"}],"for-or-select":{pattern:/(\b(?:for|select)\s+)\w+(?=\s+in\s)/,alias:"variable",lookbehind:!0},"assign-left":{pattern:/(^|[\s;|&]|[<>]\()\w+(?:\.\w+)*(?=\+?=)/,inside:{environment:{pattern:RegExp("(^|[\\s;|&]|[<>]\\()"+t),lookbehind:!0,alias:"constant"}},alias:"variable",lookbehind:!0},parameter:{pattern:/(^|\s)-{1,2}(?:\w+:[+-]?)?\w+(?:\.\w+)*(?=[=\s]|$)/,alias:"variable",lookbehind:!0},string:[{pattern:/((?:^|[^<])<<-?\s*)(\w+)\s[\s\S]*?(?:\r?\n|\r)\2/,lookbehind:!0,greedy:!0,inside:n},{pattern:/((?:^|[^<])<<-?\s*)(["'])(\w+)\2\s[\s\S]*?(?:\r?\n|\r)\3/,lookbehind:!0,greedy:!0,inside:{bash:a}},{pattern:/(^|[^\\](?:\\\\)*)"(?:\\[\s\S]|\$\([^)]+\)|\$(?!\()|`[^`]+`|[^"\\`$])*"/,lookbehind:!0,greedy:!0,inside:n},{pattern:/(^|[^$\\])'[^']*'/,lookbehind:!0,greedy:!0},{pattern:/\$'(?:[^'\\]|\\[\s\S])*'/,greedy:!0,inside:{entity:n.entity}}],environment:{pattern:RegExp("\\$?"+t),alias:"constant"},variable:n.variable,function:{pattern:/(^|[\s;|&]|[<>]\()(?:add|apropos|apt|apt-cache|apt-get|aptitude|aspell|automysqlbackup|awk|basename|bash|bc|bconsole|bg|bzip2|cal|cargo|cat|cfdisk|chgrp|chkconfig|chmod|chown|chroot|cksum|clear|cmp|column|comm|composer|cp|cron|crontab|csplit|curl|cut|date|dc|dd|ddrescue|debootstrap|df|diff|diff3|dig|dir|dircolors|dirname|dirs|dmesg|docker|docker-compose|du|egrep|eject|env|ethtool|expand|expect|expr|fdformat|fdisk|fg|fgrep|file|find|fmt|fold|format|free|fsck|ftp|fuser|gawk|git|gparted|grep|groupadd|groupdel|groupmod|groups|grub-mkconfig|gzip|halt|head|hg|history|host|hostname|htop|iconv|id|ifconfig|ifdown|ifup|import|install|ip|java|jobs|join|kill|killall|less|link|ln|locate|logname|logrotate|look|lpc|lpr|lprint|lprintd|lprintq|lprm|ls|lsof|lynx|make|man|mc|mdadm|mkconfig|mkdir|mke2fs|mkfifo|mkfs|mkisofs|mknod|mkswap|mmv|more|most|mount|mtools|mtr|mutt|mv|nano|nc|netstat|nice|nl|node|nohup|notify-send|npm|nslookup|op|open|parted|passwd|paste|pathchk|ping|pkill|pnpm|podman|podman-compose|popd|pr|printcap|printenv|ps|pushd|pv|quota|quotacheck|quotactl|ram|rar|rcp|reboot|remsync|rename|renice|rev|rm|rmdir|rpm|rsync|scp|screen|sdiff|sed|sendmail|seq|service|sftp|sh|shellcheck|shuf|shutdown|sleep|slocate|sort|split|ssh|stat|strace|su|sudo|sum|suspend|swapon|sync|sysctl|tac|tail|tar|tee|time|timeout|top|touch|tr|traceroute|tsort|tty|umount|uname|unexpand|uniq|units|unrar|unshar|unzip|update-grub|uptime|useradd|userdel|usermod|users|uudecode|uuencode|v|vcpkg|vdir|vi|vim|virsh|vmstat|wait|watch|wc|wget|whereis|which|who|whoami|write|xargs|xdg-open|yarn|yes|zenity|zip|zsh|zypper)(?=$|[)\s;|&])/,lookbehind:!0},keyword:{pattern:/(^|[\s;|&]|[<>]\()(?:case|do|done|elif|else|esac|fi|for|function|if|in|select|then|until|while)(?=$|[)\s;|&])/,lookbehind:!0},builtin:{pattern:/(^|[\s;|&]|[<>]\()(?:\.|:|alias|bind|break|builtin|caller|cd|command|continue|declare|echo|enable|eval|exec|exit|export|getopts|hash|help|let|local|logout|mapfile|printf|pwd|read|readarray|readonly|return|set|shift|shopt|source|test|times|trap|type|typeset|ulimit|umask|unalias|unset)(?=$|[)\s;|&])/,lookbehind:!0,alias:"class-name"},boolean:{pattern:/(^|[\s;|&]|[<>]\()(?:false|true)(?=$|[)\s;|&])/,lookbehind:!0},"file-descriptor":{pattern:/\B&\d\b/,alias:"important"},operator:{pattern:/\d?<>|>\||\+=|=[=~]?|!=?|<<[<-]?|[&\d]?>>|\d[<>]&?|[<>][&=]?|&[>&]?|\|[&|]?/,inside:{"file-descriptor":{pattern:/^\d/,alias:"important"}}},punctuation:/\$?\(\(?|\)\)?|\.\.|[{}[\];\\]/,number:{pattern:/(^|\s)(?:[1-9]\d*|0)(?:[.,]\d+)?\b/,lookbehind:!0}},a.inside=e.languages.bash;for(var s=["comment","function-name","for-or-select","assign-left","parameter","string","environment","function","keyword","builtin","boolean","file-descriptor","operator","punctuation","number"],o=n.variable[1].inside,i=0;i<s.length;i++)o[s[i]]=e.languages.bash[s[i]];e.languages.sh=e.languages.bash,e.languages.shell=e.languages.bash}(Prism);
+!function(e){var n=/[*&][^\s[\]{},]+/,r=/!(?:<[\w\-%#;/?:@&=+$,.!~*'()[\]]+>|(?:[a-zA-Z\d-]*!)?[\w\-%#;/?:@&=+$.~*'()]+)?/,t="(?:"+r.source+"(?:[ \t]+"+n.source+")?|"+n.source+"(?:[ \t]+"+r.source+")?)",a="(?:[^\\s\\x00-\\x08\\x0e-\\x1f!\"#%&'*,\\-:>?@[\\]`{|}\\x7f-\\x84\\x86-\\x9f\\ud800-\\udfff\\ufffe\\uffff]|[?:-]<PLAIN>)(?:[ \t]*(?:(?![#:])<PLAIN>|:<PLAIN>))*".replace(/<PLAIN>/g,(function(){return"[^\\s\\x00-\\x08\\x0e-\\x1f,[\\]{}\\x7f-\\x84\\x86-\\x9f\\ud800-\\udfff\\ufffe\\uffff]"})),d="\"(?:[^\"\\\\\r\n]|\\\\.)*\"|'(?:[^'\\\\\r\n]|\\\\.)*'";function o(e,n){n=(n||"").replace(/m/g,"")+"m";var r="([:\\-,[{]\\s*(?:\\s<<prop>>[ \t]+)?)(?:<<value>>)(?=[ \t]*(?:$|,|\\]|\\}|(?:[\r\n]\\s*)?#))".replace(/<<prop>>/g,(function(){return t})).replace(/<<value>>/g,(function(){return e}));return RegExp(r,n)}e.languages.yaml={scalar:{pattern:RegExp("([\\-:]\\s*(?:\\s<<prop>>[ \t]+)?[|>])[ \t]*(?:((?:\r?\n|\r)[ \t]+)\\S[^\r\n]*(?:\\2[^\r\n]+)*)".replace(/<<prop>>/g,(function(){return t}))),lookbehind:!0,alias:"string"},comment:/#.*/,key:{pattern:RegExp("((?:^|[:\\-,[{\r\n?])[ \t]*(?:<<prop>>[ \t]+)?)<<key>>(?=\\s*:\\s)".replace(/<<prop>>/g,(function(){return t})).replace(/<<key>>/g,(function(){return"(?:"+a+"|"+d+")"}))),lookbehind:!0,greedy:!0,alias:"atrule"},directive:{pattern:/(^[ \t]*)%.+/m,lookbehind:!0,alias:"important"},datetime:{pattern:o("\\d{4}-\\d\\d?-\\d\\d?(?:[tT]|[ \t]+)\\d\\d?:\\d{2}:\\d{2}(?:\\.\\d*)?(?:[ \t]*(?:Z|[-+]\\d\\d?(?::\\d{2})?))?|\\d{4}-\\d{2}-\\d{2}|\\d\\d?:\\d{2}(?::\\d{2}(?:\\.\\d*)?)?"),lookbehind:!0,alias:"number"},boolean:{pattern:o("false|true","i"),lookbehind:!0,alias:"important"},null:{pattern:o("null|~","i"),lookbehind:!0,alias:"important"},string:{pattern:o(d),lookbehind:!0,greedy:!0},number:{pattern:o("[+-]?(?:0x[\\da-f]+|0o[0-7]+|(?:\\d+(?:\\.\\d*)?|\\.\\d+)(?:e[+-]?\\d+)?|\\.inf|\\.nan)","i"),lookbehind:!0},tag:r,important:n,punctuation:/---|[:[\]{}\-,|>?]|\.\.\./},e.languages.yml=e.languages.yaml}(Prism);
+!function(e){var n="(?:[ \t]+(?![ \t])(?:<SP_BS>)?|<SP_BS>)".replace(/<SP_BS>/g,(function(){return"\\\\[\r\n](?:\\s|\\\\[\r\n]|#.*(?!.))*(?![\\s#]|\\\\[\r\n])"})),r="\"(?:[^\"\\\\\r\n]|\\\\(?:\r\n|[^]))*\"|'(?:[^'\\\\\r\n]|\\\\(?:\r\n|[^]))*'",t="--[\\w-]+=(?:<STR>|(?![\"'])(?:[^\\s\\\\]|\\\\.)+)".replace(/<STR>/g,(function(){return r})),o={pattern:RegExp(r),greedy:!0},i={pattern:/(^[ \t]*)#.*/m,lookbehind:!0,greedy:!0};function a(e,r){return e=e.replace(/<OPT>/g,(function(){return t})).replace(/<SP>/g,(function(){return n})),RegExp(e,r)}e.languages.docker={instruction:{pattern:/(^[ \t]*)(?:ADD|ARG|CMD|COPY|ENTRYPOINT|ENV|EXPOSE|FROM|HEALTHCHECK|LABEL|MAINTAINER|ONBUILD|RUN|SHELL|STOPSIGNAL|USER|VOLUME|WORKDIR)(?=\s)(?:\\.|[^\r\n\\])*(?:\\$(?:\s|#.*$)*(?![\s#])(?:\\.|[^\r\n\\])*)*/im,lookbehind:!0,greedy:!0,inside:{options:{pattern:a("(^(?:ONBUILD<SP>)?\\w+<SP>)<OPT>(?:<SP><OPT>)*","i"),lookbehind:!0,greedy:!0,inside:{property:{pattern:/(^|\s)--[\w-]+/,lookbehind:!0},string:[o,{pattern:/(=)(?!["'])(?:[^\s\\]|\\.)+/,lookbehind:!0}],operator:/\\$/m,punctuation:/=/}},keyword:[{pattern:a("(^(?:ONBUILD<SP>)?HEALTHCHECK<SP>(?:<OPT><SP>)*)(?:CMD|NONE)\\b","i"),lookbehind:!0,greedy:!0},{pattern:a("(^(?:ONBUILD<SP>)?FROM<SP>(?:<OPT><SP>)*(?!--)[^ \t\\\\]+<SP>)AS","i"),lookbehind:!0,greedy:!0},{pattern:a("(^ONBUILD<SP>)\\w+","i"),lookbehind:!0,greedy:!0},{pattern:/^\w+/,greedy:!0}],comment:i,string:o,variable:/\$(?:\w+|\{[^{}"'\\]*\})/,operator:/\\$/m}},comment:i},e.languages.dockerfile=e.languages.docker}(Prism);
+</script>
+<script>
+/* Nút lên đầu trang + highlight mục đang xem trên nav */
+(function () {
+  var toTop = document.getElementById('toTop');
+  if (toTop) {
+    toTop.style.opacity = '0';
+    toTop.style.pointerEvents = 'none';
+    toTop.style.transition = 'opacity .2s';
+    toTop.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    window.addEventListener('scroll', function () {
+      var show = window.pageYOffset > 400;
+      toTop.style.opacity = show ? '1' : '0';
+      toTop.style.pointerEvents = show ? 'auto' : 'none';
+    }, { passive: true });
+  }
+
+  var links = Array.prototype.slice.call(document.querySelectorAll('.nav a[href^="#"]'));
+  var map = {};
+  links.forEach(function (a) {
+    var id = a.getAttribute('href').slice(1);
+    var sec = document.getElementById(id);
+    if (sec) map[id] = a;
+  });
+  if ('IntersectionObserver' in window) {
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          links.forEach(function (a) { a.classList.remove('is-active'); });
+          var a = map[e.target.id];
+          if (a) a.classList.add('is-active');
+        }
+      });
+    }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+    Object.keys(map).forEach(function (id) {
+      obs.observe(document.getElementById(id));
+    });
+  }
+})();
+</script>
+<script>
+/* Điều hướng cuộn nội trang KHÔNG đổi URL hash — an toàn khi nhúng trong iframe */
+(function () {
+  var HEADER = 78; // bù chiều cao thanh header dính
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var id = a.getAttribute('href').slice(1);
+    if (!id) return;
+    var el = document.getElementById(id);
+    if (!el) return;
+    e.preventDefault(); // chặn thay đổi location.hash (nguyên nhân lỗi iframe)
+    var y = el.getBoundingClientRect().top + window.pageYOffset - HEADER;
+    window.scrollTo({ top: y < 0 ? 0 : y, behavior: 'smooth' });
+  });
+})();
+</script>
+</body>
+</html>
