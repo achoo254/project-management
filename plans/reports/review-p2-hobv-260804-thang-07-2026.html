@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Review P2+ tự đánh giá — hobv — Tháng 07/2026</title>
+<style>
+:root{
+  --primary:#0582D4; --primary-dark:#024799; --accent:#619ee9; --logo:#E8353C; --tech:#22D3EE;
+  --ok:#0E9F6E; --ok-bg:#ECFDF5; --ok-bd:#A7F3D0; --ok-tx:#065F46;
+  --warn:#D47B0A; --warn-bg:#FFFBEB; --warn-bd:#FDE68A; --warn-tx:#92400E;
+  --err:#B91C1C; --err-bg:#FEF2F2; --err-bd:#FECACA; --err-tx:#991B1B;
+  --info:#1E40AF; --info-bg:#EFF6FF; --info-bd:#BFDBFE;
+  --bg:#F4F7FA; --card:#FFFFFF; --n100:#E8EEF4; --bd:#D0DAE6; --tx:#0F1E2D; --tx2:#516175;
+  --r4:4px; --r8:8px; --r12:12px; --r16:16px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:'Be Vietnam Pro',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  background:var(--bg); color:var(--tx); line-height:1.6; padding:24px 16px 64px;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1080px;margin:0 auto}
+code,.mono{font-family:'JetBrains Mono',ui-monospace,'SF Mono',Menlo,monospace;font-size:.86em}
+code{background:var(--n100);padding:1px 5px;border-radius:var(--r4);color:var(--primary-dark)}
+
+/* header */
+header{
+  background:linear-gradient(135deg,#0582D4 0%,#619ee9 100%);
+  color:#fff;border-radius:var(--r16);padding:28px 32px;margin-bottom:24px;
+  box-shadow:0 8px 24px rgba(5,130,212,.22);
+}
+header .eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;opacity:.85;font-weight:600}
+header h1{font-size:26px;font-weight:700;margin:6px 0 4px;letter-spacing:-.01em}
+header .sub{font-size:14px;opacity:.92}
+header .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+header .meta span{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.28);
+  padding:4px 11px;border-radius:999px;font-size:12.5px;font-weight:500}
+
+/* verdict banner */
+.verdict{
+  display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:center;
+  background:var(--ok-bg);border:1px solid var(--ok-bd);border-left:5px solid var(--ok);
+  border-radius:var(--r12);padding:20px 24px;margin-bottom:24px;
+}
+.verdict .score{text-align:center;padding-right:20px;border-right:1px dashed var(--ok-bd)}
+.verdict .score b{display:block;font-size:38px;line-height:1;color:var(--ok-tx);font-weight:700}
+.verdict .score small{display:block;font-size:11px;color:var(--ok);text-transform:uppercase;
+  letter-spacing:.1em;margin-top:6px;font-weight:600}
+.verdict h2{font-size:19px;color:var(--ok-tx);margin-bottom:4px}
+.verdict p{font-size:14px;color:var(--ok-tx);opacity:.9}
+
+/* generic card */
+.card{background:var(--card);border:1px solid var(--bd);border-radius:var(--r12);
+  padding:22px 24px;margin-bottom:20px;box-shadow:0 1px 3px rgba(15,30,45,.05)}
+.card > h3{font-size:16px;font-weight:700;margin-bottom:4px;display:flex;align-items:center;gap:9px}
+.card > h3::before{content:'';width:4px;height:17px;background:var(--primary);border-radius:2px}
+.card > .hint{font-size:13px;color:var(--tx2);margin-bottom:16px}
+
+/* score grid */
+.sgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
+.stile{background:var(--bg);border:1px solid var(--bd);border-radius:var(--r8);padding:14px 16px}
+.stile .lbl{font-size:11.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--tx2);font-weight:600}
+.stile .val{font-size:24px;font-weight:700;color:var(--primary-dark);margin:4px 0 2px}
+.stile .note{font-size:12px;color:var(--tx2)}
+.stile.pos{background:var(--ok-bg);border-color:var(--ok-bd)}
+.stile.pos .val{color:var(--ok-tx)}
+.stile.neg{background:var(--err-bg);border-color:var(--err-bd)}
+.stile.neg .val{color:var(--err-tx)}
+
+/* math */
+.math{background:#0F1E2D;color:#DCE6F0;border-radius:var(--r8);padding:14px 18px;margin-top:14px;
+  font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;overflow-x:auto;line-height:1.9}
+.math .k{color:var(--tech)} .math .v{color:#A7F3D0} .math .c{color:#7A8CA0}
+
+/* pills */
+.pill{display:inline-flex;align-items:center;gap:5px;padding:2px 10px;border-radius:999px;
+  font-size:11.5px;font-weight:600;white-space:nowrap;border:1px solid}
+.p-ok{background:var(--ok-bg);color:var(--ok-tx);border-color:var(--ok-bd)}
+.p-warn{background:var(--warn-bg);color:var(--warn-tx);border-color:var(--warn-bd)}
+.p-err{background:var(--err-bg);color:var(--err-tx);border-color:var(--err-bd)}
+.p-info{background:var(--info-bg);color:var(--info);border-color:var(--info-bd)}
+.p-xl{background:#F3E8FF;color:#6B21A8;border-color:#E9D5FF}
+.p-l{background:#EFF6FF;color:#1E40AF;border-color:#BFDBFE}
+.p-m{background:var(--n100);color:var(--tx2);border-color:var(--bd)}
+
+/* evidence table */
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+.tw{overflow-x:auto;border:1px solid var(--bd);border-radius:var(--r8)}
+thead th{background:var(--n100);text-align:left;padding:10px 12px;font-size:11.5px;
+  text-transform:uppercase;letter-spacing:.06em;color:var(--tx2);font-weight:700;white-space:nowrap}
+tbody td{padding:10px 12px;border-top:1px solid var(--bd);vertical-align:top}
+tbody tr:hover{background:#FAFCFE}
+td.num{font-family:'JetBrains Mono',monospace;font-size:12.5px;white-space:nowrap}
+
+/* OKR items */
+.okr{border:1px solid var(--bd);border-radius:var(--r8);margin-bottom:12px;overflow:hidden}
+.okr > .head{background:var(--bg);padding:12px 16px;display:flex;flex-wrap:wrap;
+  align-items:center;gap:10px;border-bottom:1px solid var(--bd)}
+.okr > .head .t{font-weight:600;font-size:14.5px;flex:1;min-width:220px}
+.okr > .body{padding:14px 16px}
+.okr ul{list-style:none;margin:0}
+.okr li{padding:5px 0 5px 22px;position:relative;font-size:13.5px;color:var(--tx)}
+.okr li::before{position:absolute;left:0;top:5px;font-size:13px}
+.okr li.y::before{content:'✓';color:var(--ok);font-weight:700}
+.okr li.n::before{content:'✗';color:var(--err);font-weight:700}
+.okr li.w::before{content:'!';color:var(--warn);font-weight:700}
+.okr li.q::before{content:'?';color:var(--tx2);font-weight:700}
+.okr li b{font-weight:600}
+
+/* timeline */
+.tl{position:relative;padding-left:26px;margin-top:6px}
+.tl::before{content:'';position:absolute;left:6px;top:6px;bottom:6px;width:2px;background:var(--bd)}
+.tl .ev{position:relative;padding-bottom:16px}
+.tl .ev:last-child{padding-bottom:0}
+.tl .ev::before{content:'';position:absolute;left:-25px;top:5px;width:11px;height:11px;
+  border-radius:50%;background:var(--card);border:2.5px solid var(--primary)}
+.tl .ev.bad::before{border-color:var(--err)}
+.tl .ev.good::before{border-color:var(--ok)}
+.tl .d{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--tx2);font-weight:600}
+.tl .x{font-size:13.5px;margin-top:1px}
+
+/* callouts */
+.co{border-radius:var(--r8);padding:14px 18px;margin:14px 0;font-size:13.5px;border-left:4px solid}
+.co b{display:block;margin-bottom:4px;font-size:13.5px}
+.co-warn{background:var(--warn-bg);border-color:var(--warn);color:var(--warn-tx)}
+.co-info{background:var(--info-bg);border-color:var(--primary);color:var(--info)}
+.co-err{background:var(--err-bg);border-color:var(--err);color:var(--err-tx)}
+.co-ok{background:var(--ok-bg);border-color:var(--ok);color:var(--ok-tx)}
+
+/* recommendation */
+.rec{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin-top:6px}
+.rbox{border:1px solid var(--bd);border-radius:var(--r8);padding:14px 16px;background:var(--bg)}
+.rbox .rl{font-size:11.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--tx2);font-weight:600}
+.rbox .rv{font-size:15px;font-weight:700;margin:5px 0;color:var(--tx)}
+.rbox .rr{font-size:12.5px;color:var(--tx2);line-height:1.5}
+.rbox.keep{background:var(--ok-bg);border-color:var(--ok-bd)}
+
+footer{margin-top:32px;padding-top:18px;border-top:1px solid var(--bd);
+  font-size:12px;color:var(--tx2);text-align:center;line-height:1.8}
+@media (max-width:640px){
+  body{padding:14px 10px 44px}
+  header{padding:20px}
+  header h1{font-size:21px}
+  .verdict{grid-template-columns:1fr;gap:14px}
+  .verdict .score{border-right:none;border-bottom:1px dashed var(--ok-bd);padding:0 0 12px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="eyebrow">BP Công Nghệ · iNET · Review P2+ hằng tháng</div>
+  <h1>Bùi Văn Hồ — Kết quả tự đánh giá tháng 07/2026</h1>
+  <div class="sub">Đối chiếu tự đánh giá trên my.inet.vn với bằng chứng git · GitLab API · HTTP production</div>
+  <div class="meta">
+    <span>Kỳ: 2026-07</span>
+    <span>Role P2: Design System</span>
+    <span>Tự đánh giá: submitted 31/07 10:04</span>
+    <span>Audit: 04/08/2026</span>
+    <span>Chỉ-đọc — không sửa/khoá điểm</span>
+  </div>
+</header>
+
+<div class="verdict">
+  <div class="score">
+    <b>1.025</b>
+    <small>Tốt</small>
+  </div>
+  <div>
+    <h2>Kết quả tự đánh giá CHÍNH XÁC — không phát hiện thổi phồng</h2>
+    <p>Toán học đúng, và <b>17/18 claim kiểm chứng được đều khớp bằng chứng độc lập</b> — nhiều chỗ chính xác đến từng byte, từng phút, từng violation. Ba sai lệch tìm được đều lệch theo hướng <b>hạ thấp</b> thành tích thực tế. Đề xuất: <b>giữ nguyên self-scores làm điểm chính thức</b>.</p>
+  </div>
+</div>
+
+<!-- ============ SELF SCORES ============ -->
+<div class="card">
+  <h3>Điểm tự đánh giá &amp; kiểm chứng công thức</h3>
+  <p class="hint">Nguồn: <code>POST /api/client/v1/p2evaluation/get</code> · <code>{account:"hobv@inet.vn", period:"2026-07"}</code></p>
+  <div class="sgrid">
+    <div class="stile pos"><div class="lbl">P2-Core (Design System)</div><div class="val">1.00</div>
+      <div class="note">A/B/C/D = Đạt · Đạt · Đạt · Đạt</div></div>
+    <div class="stile pos"><div class="lbl">P2-Delivery</div><div class="val">1.05</div>
+      <div class="note">OKR Đạt · Quality Đạt · Commitment <b>Tốt</b></div></div>
+    <div class="stile pos"><div class="lbl">P2+ Tổng (tự đánh giá)</div><div class="val">1.025</div>
+      <div class="note">grade <b>Tốt</b> · khớp ảnh chụp màn hình</div></div>
+    <div class="stile neg"><div class="lbl">Đánh giá chính thức</div><div class="val">0</div>
+      <div class="note">scores rỗng · status <code>draft</code> — <b>quản lý chưa chấm</b></div></div>
+  </div>
+  <div class="math">
+<span class="c">// P2-Delivery — trọng số OKR .40 / Quality .35 / Commitment .25</span>
+<span class="k">delivery</span> = 1.0×0.40 + 1.0×0.35 + <span class="v">1.2</span>×0.25 = 0.40 + 0.35 + 0.30 = <span class="v">1.05</span>   <span class="c">✓ server: 1.05</span>
+<span class="c">// P2-Core — A .30 / B .25 / C .15 / D .30 (theo role Design System)</span>
+<span class="k">core</span>     = 1.0×0.30 + 1.0×0.25 + 1.0×0.15 + 1.0×0.30 = <span class="v">1.00</span>   <span class="c">✓ server: 1.00</span>
+<span class="c">// Tổng — coreWeight .5 / deliveryWeight .5</span>
+<span class="k">total</span>    = 1.00×0.5 + 1.05×0.5 = <span class="v">1.025</span> → grade <span class="v">"Tốt"</span>       <span class="c">✓ server: 1.025 / Tốt</span>
+  </div>
+  <div class="co co-warn">
+    <b>Lưu ý vận hành cho quản lý</b>
+    Khối vàng "ĐÁNH GIÁ CHÍNH THỨC = 0 / Chưa đạt" trong ảnh <b>không phải kết quả xấu</b> — đó là trạng thái chưa ai chấm (<code>scores.core = {}</code>, <code>scores.delivery = {}</code>, <code>status:"draft"</code>). Cần dattqh vào chọn mức ở cột "Đánh giá chính thức" rồi lưu, nếu không tháng 7 của hobv sẽ nằm mãi ở 0.
+  </div>
+</div>
+
+<!-- ============ EVIDENCE MATRIX ============ -->
+<div class="card">
+  <h3>Ma trận kiểm chứng — 18 claim đối chiếu bằng chứng độc lập</h3>
+  <p class="hint">Mỗi dòng = một số liệu hobv tự khai, đối chiếu bằng nguồn KHÔNG do hobv viết (git object, GitLab API, HTTP live, npm registry).</p>
+  <div class="tw">
+  <table>
+    <thead><tr><th>#</th><th>Claim của hobv</th><th>Nguồn kiểm chứng độc lập</th><th>Đo được</th><th>Kết luận</th></tr></thead>
+    <tbody>
+      <tr><td class="num">1</td><td>Landing <code>/lp/ssl</code> HTTP 200, <b>104.726 bytes</b></td><td>HTTP GET live 04/08</td><td class="num">200 · 104726 B</td><td><span class="pill p-ok">KHỚP TỪNG BYTE</span></td></tr>
+      <tr><td class="num">2</td><td>MCP production trả <b>5 template</b> landing</td><td><code>services/mcp-server/src/providers/presets/</code> · commit <code>dfa1a26e</code> 10/07</td><td class="num">5 file preset</td><td><span class="pill p-ok">KHỚP</span></td></tr>
+      <tr><td class="num">3</td><td>npm <code>@hobui/viui-icons</code> latest <b>1.4.0</b></td><td>registry.npmjs.org dist-tags</td><td class="num">latest = <b>1.4.1</b> (31/07)</td><td><span class="pill p-info">KHAI THẤP HƠN THỰC</span></td></tr>
+      <tr><td class="num">4</td><td>Dual-publish <code>@inet/icons</code> lên GitLab Registry</td><td>commit <code>ed34f6c6</code> · <code>a2d9fdd7</code> 30/07</td><td class="num">2 commit CI</td><td><span class="pill p-ok">KHỚP</span></td></tr>
+      <tr><td class="num">5</td><td>a11y baseline <b>94 P0</b> = 57 color-contrast + 26 aria-required-attr + 11 aria-progressbar-name</td><td>GitLab CI job <b>42074</b> trace (project 256)</td><td class="num">94 = 57+26+11<br>997 node · 326 story</td><td><span class="pill p-ok">KHỚP TUYỆT ĐỐI</span></td></tr>
+      <tr><td class="num">6</td><td>Hack <code>channel:'chrome'</code> kèm comment "MUST revert before session ends" lọt vào <code>fa23a10e</code></td><td><code>git show fa23a10e -- playwright-a11y.config.ts</code></td><td class="num">comment nguyên văn<br>14/07 09:45</td><td><span class="pill p-ok">KHỚP</span></td></tr>
+      <tr><td class="num">7</td><td>Sửa bằng <code>0511a248</code>, scan chết <b>14–30/07</b></td><td>git log + diff 2 commit</td><td class="num">30/07 11:43 → 16 ngày</td><td><span class="pill p-ok">KHỚP</span></td></tr>
+      <tr><td class="num">8</td><td><code>allow_failure:true</code> nuốt cả lỗi runtime</td><td>GitLab job 42074 metadata</td><td class="num">allow_failure=true<br>status=failed</td><td><span class="pill p-ok">KHỚP</span></td></tr>
+      <tr><td class="num">9</td><td>DS-R5: <b>2/3 Objective</b> đạt, O3 không đạt</td><td>GitLab issues milestone DS-R5</td><td class="num">#47 closed 30/07<br>#48 closed 30/07<br>#49 <b>opened</b></td><td><span class="pill p-ok">KHỚP</span></td></tr>
+      <tr><td class="num">10</td><td>10 issue triage <b>#50–#59</b> chưa gán milestone</td><td>GitLab issues author_id=17</td><td class="num">10 issue opened<br>milestone = null</td><td><span class="pill p-ok">KHỚP</span></td></tr>
+      <tr><td class="num">11</td><td>KR3.3 security <b>7/7 finding FIXED</b>, 0 CRITICAL mở</td><td><code>docs/okr-kpi-072026.md</code> + <code>plans/reports/review-260618-mcp-security-fixes-status.md</code></td><td class="num">7/7 verified</td><td><span class="pill p-warn">KHỚP — nguồn tự viết</span></td></tr>
+      <tr><td class="num">12</td><td>assets.inet.vn: <b>242 commit</b> tháng 7 (tự đính chính từ 227)</td><td><code>git log --since=2026-07-01 --until=2026-08-01</code></td><td class="num">242 (có merge)<br>240 (no-merge)</td><td><span class="pill p-ok">KHỚP</span></td></tr>
+      <tr><td class="num">13</td><td>Tag <b>v1.0.0 lúc 31/07 17:35 (+07)</b> — trong kỳ</td><td><code>git for-each-ref refs/tags/v1.0.0</code></td><td class="num">2026-07-31 17:35:29 +0700</td><td><span class="pill p-ok">KHỚP TỪNG PHÚT</span></td></tr>
+      <tr><td class="num">14</td><td><b>7 hạng mục security</b> đóng trong kỳ (HMAC audit chain, IDOR share-link, helmet+CORS, throttler, SVG sanitize, drizzle GHSA, visibility filter)</td><td>git log <code>security(*)</code> 16/07</td><td class="num">7 commit khớp 1-1<br>+ ClamAV 23–24/07<br>+ 4 lỗ trục quyền 31/07</td><td><span class="pill p-info">KHAI THẤP HƠN THỰC</span></td></tr>
+      <tr><td class="num">15</td><td>Thư viện icon công khai <b>2.097 entry</b></td><td>HTTP <code>assets.inet.vn/icons-data.txt</code></td><td class="num">2097</td><td><span class="pill p-ok">KHỚP</span></td></tr>
+      <tr><td class="num">16</td><td><b>3 trang chạy thật</b> (chính / icons / brand-center)</td><td>HTTP GET live 04/08</td><td class="num">200 · 200 · 200</td><td><span class="pill p-ok">KHỚP</span></td></tr>
+      <tr><td class="num">17</td><td>Prod deploy dùng cơ chế <b>ngoài repo</b> — đổi hướng, không phải bỏ</td><td><code>.gitlab-ci.yml</code>: chỉ 2 job <code>verify</code> + <code>release:check</code></td><td class="num">đúng như mô tả</td><td><span class="pill p-ok">KHỚP</span></td></tr>
+      <tr><td class="num">18</td><td>inet.vn: <b>#81 closed</b>; <b>#82</b> fix push 27/07, cố ý giữ mở chờ phản hồi sale</td><td>GitLab API — repo website inet.vn <b>không nằm trong scope token dattqh</b></td><td class="num">404 / không truy cập</td><td><span class="pill p-warn">KHÔNG KIỂM CHỨNG ĐƯỢC</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="co co-ok">
+    <b>Điểm đáng ghi nhận về kỷ luật báo cáo</b>
+    Cả 3 sai lệch tìm được (#3, #14, và commit count 227→242) đều <b>lệch theo hướng hạ thấp</b> thành tích của chính hobv. Không có claim nào cao hơn thực tế. Ngoài ra hobv tự gắn nhãn <code>[ĐÃ KIỂM CHỨNG]</code> / <code>[SUY RA TỪ BẰNG CHỨNG]</code> / <code>[KHÔNG KIỂM CHỨNG ĐƯỢC]</code> cho từng mốc — kể cả tự khai "protected tags pattern v*: API 403, không kết luận".
+  </div>
+</div>
+
+<!-- ============ OKR BREAKDOWN ============ -->
+<div class="card">
+  <h3>3 hạng mục OKR/KPI tháng 7 — effort gán từ code footprint</h3>
+  <p class="hint">Effort S/M/L/XL ước lượng khách quan từ số tầng hệ thống · commit · phạm vi, KHÔNG lấy theo tự khai. Cả 3 entry trạng thái <code>approved</code>.</p>
+
+  <div class="okr">
+    <div class="head">
+      <span class="t">DS-R5: MKT Enablement &amp; Ecosystem <span class="mono" style="color:var(--tx2)">(design-sys-fe)</span></span>
+      <span class="pill p-l">Effort L</span>
+      <span class="pill p-warn">2/3 Objective</span>
+    </div>
+    <div class="body">
+      <ul>
+        <li class="y"><b>O1 Landing page marketing qua MCP — ĐẠT 4/4 KR.</b> 5 template vượt target ≥4 (<code>mcp-product</code>, <code>product-launch</code>, <code>service-campaign</code>, <code>service-promo</code>, <code>event</code>), landed 10/07. Landing thật <code>viui.inet.vn/lp/ssl</code> HTTP 200.</li>
+        <li class="w"><b>Nhưng North Star chỉ đạt một nửa</b> — phần "MKT tự tạo 1 landing không cần dev &lt; 30 phút" chưa có số đo; trang <code>/lp/ssl</code> do dev tạo → chứng minh <i>capability</i>, không chứng minh <i>adoption</i>. <b>hobv tự khai điểm này</b>, không che.</li>
+        <li class="y"><b>O2 Icon Ecosystem — ĐẠT 4/4 KR, KR2.4 vượt xa.</b> Target v1.0.0 → thực tế npm 1.4.1 (6 bản phát hành trong tháng), thêm dual-publish <code>@inet/icons</code>, 759 icon 2-tông.</li>
+        <li class="n"><b>O3 Governance — KHÔNG ĐẠT, 1/3 KR.</b> KR3.1 đạt muộn 30/07; KR3.2 còn 94 P0 (giảm từ 125 nhưng có phần chỉ là <i>chuyển</i> <code>aria-allowed-attr</code>→<code>aria-required-attr</code>, không phải sửa xong); issue #49 vẫn mở.</li>
+        <li class="y">KR3.3 security verify đạt — 7/7 finding FIXED, 0 CRITICAL mở, không escalate.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="okr">
+    <div class="head">
+      <span class="t">Assets iNET — nền tảng DAM, dựng mới từ 0 <span class="mono" style="color:var(--tx2)">(assets.inet.vn)</span></span>
+      <span class="pill p-xl">Effort XL</span>
+      <span class="pill p-ok">v1.0.0 in-period</span>
+      <span class="pill p-info">PHÁT SINH ngoài kế hoạch</span>
+    </div>
+    <div class="body">
+      <ul>
+        <li class="y"><b>Dựng mới hoàn toàn trong 1 tháng</b> — Initial commit 01/07 → 242 commit → tag v1.0.0 lúc 31/07 17:35, tức <b>trước hạn kỳ vài giờ</b>.</li>
+        <li class="y">Monorepo pnpm 4 tầng: Nuxt 3 web + NestJS api + 4 package dùng chung (contract-first, storage trung tính, authz-on-GET). 3 trang public live, console quản trị + luồng review/duyệt + RBAC.</li>
+        <li class="y">Security: 7 hạng mục đóng 16/07 + ClamAV INSTREAM 23–24/07 + 4 lỗ trục quyền 31/07 → <b>nhiều hơn con số tự khai</b>.</li>
+        <li class="y">2.097 icon entry public, search bỏ dấu tiếng Việt, redirect 301 khi asset chuyển brand, edge cache.</li>
+        <li class="w">Prod deploy đổi hướng sang cơ chế kéo ngoài repo (không phải bỏ) — vận hành đã bàn giao CTO 20/07.</li>
+        <li class="q">Đây là <b>deliverable stretch</b> duy nhất và rõ ràng nhất của tháng — quyết định ngưỡng "Tốt" cho tiêu chí Cam kết.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="okr">
+    <div class="head">
+      <span class="t">Cập nhật nội dung &amp; tài liệu website iNET <span class="mono" style="color:var(--tx2)">(inet.vn)</span></span>
+      <span class="pill p-l">Effort L</span>
+      <span class="pill p-warn">1/2 issue closed</span>
+    </div>
+    <div class="body">
+      <ul>
+        <li class="y"><b>#81 mẫu HỢP ĐỒNG CUNG CẤP DỊCH VỤ</b> — issue đã closed.</li>
+        <li class="q"><b>#82 nội dung web sau rà soát</b> — hobv khai: fix + push cùng ngày 27/07 khi sale/kế toán báo lỗi căn chỉnh, issue <b>cố ý giữ mở</b> để theo dõi phản hồi; khâu update lên inet.vn thuộc @donv. <b>Không kiểm chứng được</b> — repo website không nằm trong scope token.</li>
+        <li class="w">Theo runbook, <code>status="waiting"</code> hay issue mở <b>không đồng nghĩa chưa làm</b>. Nhưng vì thiếu quyền đọc repo, phần này phải tin lời khai. Đề xuất: xin quyền reporter cho dattqh trên repo inet.vn để tháng sau audit được.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ============ INCIDENT ============ -->
+<div class="card">
+  <h3>Sự cố chất lượng đáng kể — a11y gate mù 16 ngày</h3>
+  <p class="hint">Đây là điểm trừ thật duy nhất trong tháng. Đưa vào đây vì nó là căn cứ chính để cân tiêu chí "Chất lượng kết quả".</p>
+  <div class="tl">
+    <div class="ev bad">
+      <div class="d">14/07 09:45 · commit fa23a10e</div>
+      <div class="x">Hack tạm <code>channel:'chrome'</code> vào <code>playwright-a11y.config.ts</code>, kèm chính comment <b>"MUST revert before session ends"</b> — nhưng không revert, lọt vào main.</div>
+    </div>
+    <div class="ev bad">
+      <div class="d">14/07 → 30/07 · 16 ngày</div>
+      <div class="x">Image CI chỉ có chromium bundled, không có Google Chrome ở <code>/opt/google/chrome</code> → mọi story lỗi launch, job log <code>Stories scanned: 0</code>. Con số 0 đó là <b>scan KHÔNG CHẠY</b>, không phải sạch violation. <code>allow_failure:true</code> nuốt luôn lỗi runtime nên không ai thấy.</div>
+    </div>
+    <div class="ev good">
+      <div class="d">30/07 11:43 · commit 0511a248</div>
+      <div class="x">Bỏ <code>channel:'chrome'</code>, thêm <code>playwright-a11y.config.ts</code> vào rule changes nhánh default. Job 42074 chạy lại: <b>326 story, 94 P0 thật, 997 node</b>.</div>
+    </div>
+    <div class="ev good">
+      <div class="d">04/08 · job 44434</div>
+      <div class="x">Job mới <code>a11y_scan_ran</code> với <b>allow_failure = false</b> — nợ DS-R6 "gate phải fail khi <code>stories_scanned == 0</code>" đã được xử lý sang tháng 8.</div>
+    </div>
+  </div>
+  <div class="co co-info">
+    <b>Cách cân sự cố này</b>
+    Tiêu chí Chất lượng ghi "ít lỗi nghiêm trọng; hạn chế làm lại; không gây rủi ro hệ thống". Sự cố nằm ở <b>tầng CI gate, không phải production</b>; hobv <b>tự phát hiện, tự khai chi tiết trong record OKR, tự fix trong kỳ</b>, và đã đóng luôn nguyên nhân gốc (allow_failure) sang tháng 8. → đủ để giữ <b>"Đạt"</b>; không đủ để lên <b>"Tốt"</b>. Self-score đang là "Đạt" — hợp lý.
+  </div>
+</div>
+
+<!-- ============ RECOMMENDATION ============ -->
+<div class="card">
+  <h3>Điều chỉnh đề xuất cho đánh giá chính thức</h3>
+  <p class="hint">Ngưỡng "Tốt" theo runbook: hoàn thành cao <b>VÀ</b> ≥1 deliverable stretch (L–XL). Điểm cuối do quản lý khoá trên my.inet.vn.</p>
+  <div class="rec">
+    <div class="rbox keep">
+      <div class="rl">Mức độ hoàn thành OKR · 40%</div>
+      <div class="rv">Giữ "Đạt" (1.0)</div>
+      <div class="rr">DS-R5 chỉ 2/3 Objective, North Star nửa vời → chưa đủ "Tốt" trên OKR đầu kỳ. Đổi lại có XL phát sinh hoàn thành. Self-score đã đúng, thậm chí hơi thận trọng.</div>
+    </div>
+    <div class="rbox keep">
+      <div class="rl">Chất lượng kết quả · 35%</div>
+      <div class="rv">Giữ "Đạt" (1.0)</div>
+      <div class="rr">Sự cố a11y gate mù 16 ngày là điểm trừ thật, nhưng ở tầng CI, tự khai + tự fix trong kỳ, không có lỗi production. "Đạt" là mức đúng.</div>
+    </div>
+    <div class="rbox keep">
+      <div class="rl">Cam kết &amp; tiến độ · 25%</div>
+      <div class="rv">Giữ "Tốt" (1.2)</div>
+      <div class="rr">Đây là tiêu chí chính đáng nhất: nhận việc XL phát sinh và ship v1.0.0 <b>trong kỳ</b> (31/07 17:35); DS-R5 #47/#48 closed 30/07 đúng hạn; chủ động báo rủi ro ở mức xuất sắc; bàn giao ops CTO 20/07.</div>
+    </div>
+    <div class="rbox keep">
+      <div class="rl">P2-Core A/B/C/D</div>
+      <div class="rv">Giữ toàn "Đạt" (1.0)</div>
+      <div class="rr">Không có bằng chứng nào phản đối. hobv không tự khai "Tốt" ở bất kỳ hạng mục Core nào dù khối lượng tháng 7 rất lớn.</div>
+    </div>
+  </div>
+  <div class="co co-ok" style="margin-bottom:0">
+    <b>Kết luận: chốt điểm chính thức = 1.025 · "Tốt" (bằng đúng self-assessment)</b>
+    Việc cần làm trên my.inet.vn: vào cột "Đánh giá chính thức", chọn OKR = <b>Đạt</b>, Chất lượng = <b>Đạt</b>, Cam kết = <b>Tốt</b>, Core A/B/C/D = <b>Đạt</b> → lưu. Hiện khối chính thức vẫn 0 vì chưa ai chấm.
+  </div>
+</div>
+
+<!-- ============ FOLLOW-UP ============ -->
+<div class="card">
+  <h3>Việc cần theo dõi sang tháng 8</h3>
+  <div class="tw">
+  <table>
+    <thead><tr><th>Hạng mục</th><th>Trạng thái 04/08</th><th>Người</th></tr></thead>
+    <tbody>
+      <tr><td>a11y P0 — fix trọn bộ role + required attr cùng lúc (26 <code>aria-required-attr</code> + 11 <code>aria-progressbar-name</code>)</td><td><span class="pill p-warn">nợ DS-R6</span></td><td>hobv</td></tr>
+      <tr><td>Quyết định nhóm 57 <code>color-contrast</code>: tuân WCAG AA hay giữ bảng màu thương hiệu</td><td><span class="pill p-err">cần quyết định cấp phòng</span></td><td>dattqh + hobv</td></tr>
+      <tr><td>Gate a11y fail khi <code>stories_scanned == 0</code></td><td><span class="pill p-ok">đã có job allow_failure=false 04/08</span></td><td>hobv</td></tr>
+      <tr><td>Validate North Star bằng người MKT thật (tự tạo landing &lt; 30 phút, không cần dev)</td><td><span class="pill p-warn">chưa có số đo</span></td><td>hobv + MKT</td></tr>
+      <tr><td>10 issue triage #50–#59 chưa gán milestone</td><td><span class="pill p-warn">còn mở</span></td><td>hobv</td></tr>
+      <tr><td>#82 inet.vn — chốt với sale/kế toán rồi đóng issue, hoặc chuyển @donv</td><td><span class="pill p-warn">cố ý giữ mở</span></td><td>hobv + donv</td></tr>
+      <tr><td><b>Quyền audit:</b> xin reporter cho dattqh trên repo website inet.vn để tháng sau kiểm chứng được #81/#82</td><td><span class="pill p-err">gap của quy trình audit</span></td><td>dattqh</td></tr>
+    </tbody>
+  </table>
+  </div>
+</div>
+
+<footer>
+  Phương pháp 3 lớp theo <code>docs/monthly-okr-p2-review-guide.md</code>: hoàn thành tự báo × code thật × effort-weighted từ code footprint.<br>
+  Nguồn: my.inet.vn <code>p2evaluation/get</code> + <code>accountkpi/search</code> · GitLab <code>gitlabs.inet.vn/api/v4</code> (projects 256/338, job 42074, issues) · git local <code>design-sys-fe</code> &amp; <code>assets.inet.vn</code> (đã pull 04/08) · HTTP production · registry.npmjs.org.<br>
+  Audit chỉ-đọc — không sửa, không submit, không khoá điểm P2. Điểm cuối do quản lý khoá trên my.inet.vn.<br>
+  <b>Dữ liệu nhân sự nội bộ — chỉ lưu local, không publish.</b> · Lập 04/08/2026 · BP Công Nghệ iNET
+</footer>
+
+</div>
+</body>
+</html>

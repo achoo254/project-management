@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Review P2+ tự đánh giá — dattqh — Tháng 07/2026</title>
+<style>
+:root{
+  --primary:#0582D4; --primary-dark:#024799; --accent:#619ee9; --logo:#E8353C; --tech:#22D3EE;
+  --ok:#0E9F6E; --ok-bg:#ECFDF5; --ok-bd:#A7F3D0; --ok-tx:#065F46;
+  --warn:#D47B0A; --warn-bg:#FFFBEB; --warn-bd:#FDE68A; --warn-tx:#92400E;
+  --err:#B91C1C; --err-bg:#FEF2F2; --err-bd:#FECACA; --err-tx:#991B1B;
+  --info:#1E40AF; --info-bg:#EFF6FF; --info-bd:#BFDBFE;
+  --bg:#F4F7FA; --card:#FFFFFF; --n100:#E8EEF4; --bd:#D0DAE6; --tx:#0F1E2D; --tx2:#516175;
+  --r4:4px; --r8:8px; --r12:12px; --r16:16px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Be Vietnam Pro',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  background:var(--bg);color:var(--tx);line-height:1.6;padding:24px 16px 64px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1120px;margin:0 auto}
+code{font-family:'JetBrains Mono',ui-monospace,'SF Mono',Menlo,monospace;font-size:.86em;
+  background:var(--n100);padding:1px 5px;border-radius:var(--r4);color:var(--primary-dark)}
+.mono{font-family:'JetBrains Mono',ui-monospace,monospace}
+
+header{background:linear-gradient(135deg,#0582D4 0%,#619ee9 100%);color:#fff;border-radius:var(--r16);
+  padding:28px 32px;margin-bottom:24px;box-shadow:0 8px 24px rgba(5,130,212,.22)}
+header .eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;opacity:.85;font-weight:600}
+header h1{font-size:25px;font-weight:700;margin:6px 0 4px;letter-spacing:-.01em}
+header .sub{font-size:14px;opacity:.92}
+header .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+header .meta span{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.28);
+  padding:4px 11px;border-radius:999px;font-size:12.5px;font-weight:500}
+
+.verdict{display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:center;background:var(--ok-bg);
+  border:1px solid var(--ok-bd);border-left:5px solid var(--ok);border-radius:var(--r12);padding:20px 24px;margin-bottom:22px}
+.verdict .score{text-align:center;padding-right:20px;border-right:1px dashed var(--ok-bd)}
+.verdict .score b{display:block;font-size:36px;line-height:1;color:var(--ok-tx);font-weight:700}
+.verdict .score small{display:block;font-size:11px;color:var(--ok);text-transform:uppercase;letter-spacing:.1em;margin-top:6px;font-weight:600}
+.verdict h2{font-size:18px;color:var(--ok-tx);margin-bottom:4px}
+.verdict p{font-size:13.5px;color:var(--ok-tx);opacity:.92}
+
+.card{background:var(--card);border:1px solid var(--bd);border-radius:var(--r12);padding:22px 24px;
+  margin-bottom:20px;box-shadow:0 1px 3px rgba(15,30,45,.05)}
+.card > h3{font-size:16px;font-weight:700;margin-bottom:4px;display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.card > h3::before{content:'';width:4px;height:17px;background:var(--primary);border-radius:2px;flex:none}
+.card > .hint{font-size:13px;color:var(--tx2);margin-bottom:16px}
+
+.sgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+.stile{background:var(--bg);border:1px solid var(--bd);border-radius:var(--r8);padding:14px 16px}
+.stile .lbl{font-size:11.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--tx2);font-weight:600}
+.stile .val{font-size:23px;font-weight:700;color:var(--primary-dark);margin:4px 0 2px}
+.stile .note{font-size:12px;color:var(--tx2)}
+.stile.pos{background:var(--ok-bg);border-color:var(--ok-bd)} .stile.pos .val{color:var(--ok-tx)}
+.stile.neg{background:var(--err-bg);border-color:var(--err-bd)} .stile.neg .val{color:var(--err-tx)}
+.stile.mid{background:var(--warn-bg);border-color:var(--warn-bd)} .stile.mid .val{color:var(--warn-tx)}
+
+.math{background:#0F1E2D;color:#DCE6F0;border-radius:var(--r8);padding:14px 18px;margin-top:14px;
+  font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;overflow-x:auto;line-height:1.85}
+.math .k{color:var(--tech)} .math .v{color:#A7F3D0} .math .c{color:#7A8CA0} .math .r{color:#FCA5A5}
+
+.pill{display:inline-flex;align-items:center;gap:5px;padding:2px 10px;border-radius:999px;
+  font-size:11.5px;font-weight:600;white-space:nowrap;border:1px solid}
+.p-ok{background:var(--ok-bg);color:var(--ok-tx);border-color:var(--ok-bd)}
+.p-warn{background:var(--warn-bg);color:var(--warn-tx);border-color:var(--warn-bd)}
+.p-err{background:var(--err-bg);color:var(--err-tx);border-color:var(--err-bd)}
+.p-info{background:var(--info-bg);color:var(--info);border-color:var(--info-bd)}
+.p-xl{background:#F3E8FF;color:#6B21A8;border-color:#E9D5FF}
+.p-l{background:#EFF6FF;color:#1E40AF;border-color:#BFDBFE}
+.p-m{background:var(--n100);color:var(--tx2);border-color:var(--bd)}
+
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+.tw{overflow-x:auto;border:1px solid var(--bd);border-radius:var(--r8)}
+thead th{background:var(--n100);text-align:left;padding:10px 12px;font-size:11.5px;text-transform:uppercase;
+  letter-spacing:.06em;color:var(--tx2);font-weight:700;white-space:nowrap}
+tbody td{padding:10px 12px;border-top:1px solid var(--bd);vertical-align:top}
+tbody tr:hover{background:#FAFCFE}
+td.num{font-family:'JetBrains Mono',monospace;font-size:12.5px;white-space:nowrap}
+
+.okr{border:1px solid var(--bd);border-radius:var(--r8);margin-bottom:12px;overflow:hidden}
+.okr > .head{background:var(--bg);padding:12px 16px;display:flex;flex-wrap:wrap;align-items:center;gap:9px;border-bottom:1px solid var(--bd)}
+.okr > .head .t{font-weight:600;font-size:14.5px;flex:1;min-width:210px}
+.okr > .body{padding:14px 16px}
+.okr ul{list-style:none;margin:0}
+.okr li{padding:5px 0 5px 22px;position:relative;font-size:13.5px}
+.okr li::before{position:absolute;left:0;top:5px;font-size:13px;font-weight:700}
+.okr li.y::before{content:'✓';color:var(--ok)}
+.okr li.n::before{content:'✗';color:var(--err)}
+.okr li.w::before{content:'!';color:var(--warn)}
+.okr li.q::before{content:'?';color:var(--tx2)}
+
+.co{border-radius:var(--r8);padding:14px 18px;margin:14px 0;font-size:13.5px;border-left:4px solid}
+.co b{display:block;margin-bottom:4px}
+.co-warn{background:var(--warn-bg);border-color:var(--warn);color:var(--warn-tx)}
+.co-info{background:var(--info-bg);border-color:var(--primary);color:var(--info)}
+.co-err{background:var(--err-bg);border-color:var(--err);color:var(--err-tx)}
+.co-ok{background:var(--ok-bg);border-color:var(--ok);color:var(--ok-tx)}
+
+.rec{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:12px;margin-top:6px}
+.rbox{border:1px solid var(--bd);border-radius:var(--r8);padding:14px 16px;background:var(--bg)}
+.rbox.keep{background:var(--ok-bg);border-color:var(--ok-bd)}
+.rbox .rl{font-size:11.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--tx2);font-weight:600}
+.rbox .rv{font-size:15px;font-weight:700;margin:5px 0;color:var(--tx)}
+.rbox .rr{font-size:12.5px;color:var(--tx2);line-height:1.5}
+
+.bars{margin-top:6px}
+.bar{display:grid;grid-template-columns:190px 1fr 62px;gap:10px;align-items:center;padding:4px 0;font-size:13px}
+.bar .n{color:var(--tx2);font-size:12.5px}
+.bar .track{background:var(--n100);border-radius:999px;height:16px;overflow:hidden}
+.bar .fill{height:100%;background:linear-gradient(90deg,#0582D4,#619ee9);border-radius:999px}
+.bar .v{text-align:right;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600}
+
+footer{margin-top:32px;padding-top:18px;border-top:1px solid var(--bd);font-size:12px;color:var(--tx2);
+  text-align:center;line-height:1.8}
+@media (max-width:640px){
+  body{padding:14px 10px 44px} header{padding:20px} header h1{font-size:20px}
+  .verdict{grid-template-columns:1fr;gap:14px}
+  .verdict .score{border-right:none;border-bottom:1px dashed var(--ok-bd);padding:0 0 12px}
+  .bar{grid-template-columns:1fr;gap:2px} .bar .v{text-align:left}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="eyebrow">BP Công Nghệ · iNET · Review P2+ hằng tháng — phần 3</div>
+  <h1>Trịnh Quốc Hoàn Đạt (dattqh) — tự đánh giá tháng 07/2026</h1>
+  <div class="sub">Đối chiếu tự đánh giá trên my.inet.vn với bằng chứng git · GitLab issues · tag release · plan/report nội bộ</div>
+  <div class="meta">
+    <span>Kỳ: 2026-07</span>
+    <span>Role P2: Fullstack</span>
+    <span>Tự đánh giá: submitted 31/07 06:26</span>
+    <span>Audit: 04/08/2026</span>
+    <span>Chỉ-đọc</span>
+  </div>
+</header>
+
+<div class="co co-warn">
+  <b>Giới hạn của bản audit này — đây là tự review chính mình</b>
+  dattqh là người đặt hàng bản audit và cũng là đối tượng được audit. Toàn bộ bằng chứng dưới đây lấy từ nguồn máy đọc được (git object, GitLab API, tag, HTTP) để hạn chế thiên lệch, nhưng <b>phần suy luận verdict vẫn không có đối trọng độc lập</b> như 3 trường hợp còn lại. Người khoá điểm cuối cho TBP nên là cấp trên (CTO / Giám đốc), không phải chính dattqh.
+</div>
+
+<div class="verdict">
+  <div class="score"><b>1.065</b><small>Tốt</small></div>
+  <div>
+    <h2>Kết quả tự đánh giá CHÍNH XÁC — bằng chứng đầy đủ nhất trong 4 người</h2>
+    <p>Toán học đúng. <b>7/7 hạng mục OKR có bằng chứng độc lập</b>, nhiều số liệu khớp đến từng chữ trong commit message (<code>schema dropped, postgres decommissioned both Server C</code>) và từng con số (<code>31 phát hiện → 23 tiếp nhận</code>, <code>phồng chỉ số 9.800 lần</code>, agent <code>v2.3.69</code>). Sai lệch duy nhất tìm được lệch theo hướng <b>hạ thấp</b>. Đề xuất: <b>giữ nguyên self-scores</b>.</p>
+  </div>
+</div>
+
+<!-- ============ SCORES ============ -->
+<div class="card">
+  <h3>Điểm tự đánh giá &amp; kiểm chứng công thức</h3>
+  <p class="hint">Nguồn: <code>POST /api/client/v1/p2evaluation/get</code> · <code>{account:"dattqh@inet.vn", period:"2026-07"}</code></p>
+  <div class="sgrid">
+    <div class="stile pos"><div class="lbl">P2-Core (Fullstack)</div><div class="val">1.00</div>
+      <div class="note">A/B/C/D = Đạt · Đạt · Đạt · Đạt</div></div>
+    <div class="stile pos"><div class="lbl">P2-Delivery</div><div class="val">1.13</div>
+      <div class="note">OKR <b>Tốt</b> · Quality <b>Đạt</b> · Commitment <b>Tốt</b></div></div>
+    <div class="stile pos"><div class="lbl">P2+ Tổng (tự đánh giá)</div><div class="val">1.065</div>
+      <div class="note">grade <b>Tốt</b> · khớp ảnh</div></div>
+    <div class="stile neg"><div class="lbl">Đánh giá chính thức</div><div class="val">0</div>
+      <div class="note">chưa chấm · <code>draft</code></div></div>
+  </div>
+  <div class="math">
+<span class="k">core</span>     = 1.0×0.30 + 1.0×0.30 + 1.0×0.15 + 1.0×0.25 = <span class="v">1.00</span>   <span class="c">// trọng số role Fullstack</span>
+<span class="k">delivery</span> = <span class="v">1.2</span>×0.40 + 1.0×0.35 + <span class="v">1.2</span>×0.25 = 0.48+0.35+0.30 = <span class="v">1.13</span>
+<span class="k">total</span>    = 1.00×0.5 + 1.13×0.5 = <span class="v">1.065</span> → <span class="v">"Tốt"</span>        <span class="c">✓ khớp server</span>
+<span class="c">// selfScores.core có thêm key "Backend": {} rỗng — ĐÚNG contract</span>
+<span class="c">// (giữ tất cả role, role không active để rỗng), không phải lỗi dữ liệu.</span>
+  </div>
+</div>
+
+<!-- ============ SỬA SAI ============ -->
+<div class="card">
+  <h3>Đính chính một phát hiện sai trong quá trình audit</h3>
+  <div class="co co-err" style="margin-top:0">
+    <b>Lần gọi đầu tiên báo "dattqh không có entry KPI nào cho tháng 7" — SAI</b>
+    <code>accountkpi/search</code> phân trang ở <b>30 entry/trang</b> bất kể tham số <code>size</code> gửi lên. dattqh có <code>totalElements = 58</code> nên trang đầu bị cắt mất các entry tháng 7. Gọi lại với <code>{monthStr:"072026"}</code> trả đúng <b>7 entry</b>.
+    <div style="margin-top:10px">Đã kiểm lại 3 người còn lại: hobv 27, chuongdt 21, ducnd 30 entry tổng — đều ≤ 1 trang nên <b>không bị ảnh hưởng</b>, và số entry tháng 7 (3 / 3 / 4) khớp với kết quả gọi trực tiếp theo <code>monthStr</code>. Các report trước vẫn đúng.</div>
+    <div style="margin-top:10px"><b>Bài học cho runbook:</b> luôn gọi <code>accountkpi/search</code> kèm <code>monthStr</code>, đừng lọc client-side từ một trang.</div>
+  </div>
+</div>
+
+<!-- ============ VOLUME ============ -->
+<div class="card">
+  <h3>Khối lượng thực tế tháng 7 — đo từ git &amp; GitLab</h3>
+  <p class="hint">Commit không tính merge, tác giả <code>dattqh</code>, khoảng 01/07 → 31/07.</p>
+  <div class="bars">
+    <div class="bar"><span class="n">cloud-panel-application</span><span class="track"><span class="fill" style="width:100%"></span></span><span class="v">753</span></div>
+    <div class="bar"><span class="n">one-scribe</span><span class="track"><span class="fill" style="width:7.7%"></span></span><span class="v">58</span></div>
+    <div class="bar"><span class="n">tunelo</span><span class="track"><span class="fill" style="width:3.9%"></span></span><span class="v">29</span></div>
+    <div class="bar"><span class="n">workspace-application</span><span class="track"><span class="fill" style="width:2.1%"></span></span><span class="v">16</span></div>
+    <div class="bar"><span class="n">project-management</span><span class="track"><span class="fill" style="width:1.6%"></span></span><span class="v">12</span></div>
+    <div class="bar"><span class="n">hoc-cloud-cho-dev</span><span class="track"><span class="fill" style="width:1.2%"></span></span><span class="v">9</span></div>
+    <div class="bar"><span class="n">domain-auction (client+admin)</span><span class="track"><span class="fill" style="width:0.9%"></span></span><span class="v">7</span></div>
+    <div class="bar"><span class="n">ai-team-management</span><span class="track"><span class="fill" style="width:0.3%"></span></span><span class="v">2</span></div>
+  </div>
+  <div class="sgrid" style="margin-top:16px">
+    <div class="stile"><div class="lbl">Tổng commit tháng 7</div><div class="val">~886</div><div class="note">8 repo · cao nhất phòng</div></div>
+    <div class="stile"><div class="lbl">GitLab issue đóng trong T7</div><div class="val">20</div><div class="note">+ 7 issue còn mở</div></div>
+    <div class="stile"><div class="lbl">Entry OKR/KPI</div><div class="val">7</div><div class="note">4×XL + 3×L · tất cả <code>waiting</code></div></div>
+    <div class="stile"><div class="lbl">Commit <code>docs</code></div><div class="val">248</div><div class="note">feat 189 · fix 135 · refactor 84</div></div>
+  </div>
+  <div class="co co-info">
+    <b>Đặc thù vai trò TBP thể hiện rõ trong dữ liệu</b>
+    Loại commit nhiều nhất là <code>docs</code> (248) — vượt cả <code>feat</code> (189). Phản ánh khối lượng plan / kiến trúc / ADR / runbook / báo cáo, không phải chỉ code tính năng. Cộng thêm phần quản lý không nằm trong commit: <b>2 buổi đào tạo nội bộ</b> (10/07 kiến trúc phần mềm 11 pattern, 22/07 Docker Part 1), <b>2 buổi họp CXO</b> (07/07, 21/07), báo cáo sơ kết H1 2026, audit OKR+P2 tháng 5, audit OKR+P2 cho vietnt, đề xuất chỉ số kỹ thuật cho dashboard MKT.
+  </div>
+</div>
+
+<!-- ============ EVIDENCE MATRIX ============ -->
+<div class="card">
+  <h3>Ma trận kiểm chứng — 7 hạng mục OKR</h3>
+  <p class="hint">Effort trong ngoặc là mức tự khai; cột cuối là kết luận sau khi đối chiếu nguồn độc lập.</p>
+
+  <div class="okr">
+    <div class="head"><span class="t">Triển khai VictoriaMetrics thay thế TimescaleDB cho metrics</span>
+      <span class="pill p-xl">XL</span><span class="pill p-ok">vượt cam kết — xác nhận</span></div>
+    <div class="body"><ul>
+      <li class="y"><b>Cam kết đầu kỳ chỉ là "lên plan + khởi động migration"</b> (deploy VM ingress, dual-write, parity test đầu tiên). Thực tế chạy hết <b>6 phase tới cutover production</b>.</li>
+      <li class="y">Commit <code>e15ffa42a</code> (05/07): "teardown TimescaleDB — VictoriaMetrics/MongoDB become the only metrics/status-events backends" → khớp claim "Teardown 2026-07-05".</li>
+      <li class="y">Commit <code>51b3a2650</code> (06/07): "finalize TimescaleDB teardown — <b>schema dropped, postgres decommissioned both Server C</b>" → <b>khớp claim từng chữ</b>.</li>
+      <li class="y">Kiểm tra code hiện tại: không còn Postgres pool, không còn reference TimescaleDB sống trong backend/agent. Issue <b>#188 đóng 06/07</b> ✓ khớp "plan đóng 2026-07-06".</li>
+    </ul></div>
+  </div>
+
+  <div class="okr">
+    <div class="head"><span class="t">Web Traffic / Scanner-Abuse Detection (hướng VictoriaLogs)</span>
+      <span class="pill p-l">L</span><span class="pill p-ok">vượt cam kết</span><span class="pill p-info">1 chỗ record lạc hậu</span></div>
+    <div class="body"><ul>
+      <li class="y">Cam kết là kickoff; thực tế implement đủ Tier 2 + Tier 3, live-fire trên traffic thật 07/07 (alert bắt đúng IP tấn công), dashboard LogsQL, action loop chặn IP + auto-ban TTL.</li>
+      <li class="y">Đã bỏ hẳn hypertable TimescaleDB — trùng khớp với bằng chứng teardown ở hạng mục trên. Issue <b>#195 đóng 05/07</b> ✓, <b>#188 đóng 06/07</b> ✓.</li>
+      <li class="w"><b>Record ghi "Issue #182 giữ mở cố ý tới khi OSSEC gỡ hẳn" — nhưng GitLab cho thấy #182 đã closed 10/07/2026.</b> Record viết trước mốc đó rồi không cập nhật. Sai lệch này <b>hạ thấp</b> kết quả thật (báo còn mở khi thực tế đã đóng).</li>
+    </ul></div>
+  </div>
+
+  <div class="okr">
+    <div class="head"><span class="t">Command Capture — Audit lệnh shell tập trung (auditd → VictoriaLogs)</span>
+      <span class="pill p-l">L</span><span class="pill p-ok">release trong kỳ</span></div>
+    <div class="body"><ul>
+      <li class="y">Claim "phát hành trong bản v1.7.0" → tag <code>v1.7.0</code> tạo <b>27/07/2026 20:54 (+07)</b>, trong kỳ ✓ (tag trước đó <code>v1.6.0</code> là 22/06).</li>
+      <li class="y">Issue <b>#190 "Command Capture — Audit lệnh shell tập trung (auditd…)" đóng 28/07</b> ✓.</li>
+      <li class="y">Tự khai giới hạn rõ ràng: hoàn thành giai đoạn 1–3 trong 5 giai đoạn; chỉ Linux, hệ điều hành khác <b>ẩn tính năng tương ứng</b> — không tô hồng phạm vi.</li>
+    </ul></div>
+  </div>
+
+  <div class="okr">
+    <div class="head"><span class="t">Object Storage (S3) trên CEPH — Increment 1 (nền tảng + staging)</span>
+      <span class="pill p-xl">XL</span><span class="pill p-ok">số liệu khớp từng con số</span></div>
+    <div class="body"><ul>
+      <li class="y"><b>"red-team 31 phát hiện (xử lý 23)"</b> → <code>infra-report.html</code> ghi nguyên văn: <b>"31 phát hiện thô → 23 tiếp nhận, 0 từ chối"</b> ✓.</li>
+      <li class="y"><b>"CEPH Squid 19.2.3 3 node HEALTH_OK"</b> → xác nhận ở 2 nguồn độc lập nhau: <code>onedash-s3-agent/README.md</code> ("verified on CEPH 19.2.3 staging") và <code>phase-05-real-device-class-2tier.md</code> (<code>ceph 19.2.3 squid</code>, cluster id đầy đủ, realm-less).</li>
+      <li class="y">Plan folder tồn tại đúng mốc: <code>plans/dattqh/260707-2101-onedash-s3-object-storage-increment-1/</code>. Epic <b>#207</b> đang mở (đúng — epic 8 increment).</li>
+      <li class="y">Tự khai rõ phần chưa xong: hạ tầng production bare-metal tách riêng, chờ E2E staging đạt.</li>
+    </ul></div>
+  </div>
+
+  <div class="okr">
+    <div class="head"><span class="t">Thu thập nhật ký tập trung cho máy chủ Windows (parity với Linux)</span>
+      <span class="pill p-l">L</span><span class="pill p-ok">khớp cả version lẫn nội dung</span></div>
+    <div class="body"><ul>
+      <li class="y">Claim "phát hành bản agent <b>v2.3.69</b>" → commit <code>79356d82e</code> (09/07): "chore(agent): release <b>v2.3.69 — Windows log collector parity</b>" — <b>khớp cả số hiệu lẫn mô tả</b> ✓.</li>
+      <li class="y">Issue <b>#205 "[Log Management] Windows Vector collector parity" đóng 09/07</b> ✓ khớp claim "đã đóng issue #205".</li>
+      <li class="y">4 tiêu chí E2E staging tự khai (collector chạy dạng service, log về hệ thống tập trung tra cứu được, an toàn khi cài lại, không ảnh hưởng fleet Linux) — nhất quán với thiết kế kill-switch theo OS mô tả trong DESC.</li>
+    </ul></div>
+  </div>
+
+  <div class="okr">
+    <div class="head"><span class="t">Nền tảng theo dõi hiệu năng ứng dụng (APM) đa khách hàng</span>
+      <span class="pill p-xl">XL</span><span class="pill p-ok">khối lớn nhất tháng</span></div>
+    <div class="body"><ul>
+      <li class="y">Issue <b>#217 "[Observability] Epic — Nền tảng APM: traces đa tenant, Service Map, bộ telemetry chuẩn OTel" đóng 28/07</b> ✓.</li>
+      <li class="y"><b>"sửa lỗi phình dữ liệu 9.800 lần"</b> → <code>platform-phase-07-spanmetrics-prod-rollout.md</code>: "Đã sửa lỗi phồng chỉ số <b>9.800 lần</b> bằng <code>service.instance.id</code> + <code>metrics_expiration=10m</code>" ✓ khớp con số.</li>
+      <li class="y">Claim "114 lượt thay đổi mã nguồn". Đếm độc lập <code>*(observability|traces)</code> trong tháng 7 = <b>154 commit</b> — nhưng con số đó bao gồm cả hạng mục khác (SSHWatch rollup, infrastructure-tracing). <b>114 là tập con → không thổi phồng.</b></li>
+      <li class="y">Tự khai một quyết định đắt: <b>làm xong bộ SDK riêng 8 giai đoạn rồi gỡ bỏ hoàn toàn</b> để chuyển sang gói OTel chuẩn mở. Đây là thừa nhận công sức bỏ đi — không phải điều một record tô hồng sẽ ghi.</li>
+      <li class="w">Còn tồn: bật telemetry của chính hệ thống ở bản khách + chốt hạn mức lưu trữ — tự khai.</li>
+    </ul></div>
+  </div>
+
+  <div class="okr">
+    <div class="head"><span class="t">Object Storage (S3) — mở rộng giai đoạn 2→8 thành dịch vụ đầy đủ</span>
+      <span class="pill p-xl">XL</span><span class="pill p-ok">test count xác nhận</span></div>
+    <div class="body"><ul>
+      <li class="y">Các con số kiểm thử <b>35/35 · 46/46 · 18/18</b> đều tìm thấy trong <code>plan.md</code> và <code>increments/inc6-2tier-storage/plan.md</code> ✓.</li>
+      <li class="y">Claim "107 tệp mã nguồn / 67 lượt thay đổi": nguồn là <code>plans/dattqh/reports/gitlab-okr-kpi-reconciliation-260727-report.md</code>. Đếm độc lập commit scope <code>(s3|object-storage|rgw|ceph)</code> tháng 7 = <b>100 commit</b> — cao hơn 67 vì bao trùm cả Increment 1. Không thổi phồng.</li>
+      <li class="y">Tự khai "<b>chặn một lỗ hổng leo quyền mức nghiêm trọng giữa các tài khoản</b>" — chủ động ghi nhận lỗ hổng do chính mình phát hiện trong kỳ.</li>
+      <li class="w">Trạng thái tự khai đúng mức: chạy thử nội bộ, <b>với khách vẫn ẩn</b>, chờ cụm lưu trữ chuyên dụng.</li>
+    </ul></div>
+  </div>
+</div>
+
+<!-- ============ QUALITY BASIS ============ -->
+<div class="card">
+  <h3>Cơ sở cho Chất lượng = "Đạt" (không phải "Tốt")</h3>
+  <p class="hint">dattqh tự chấm Chất lượng thấp hơn OKR và Cam kết. Đây là bằng chứng lý giải mức đó — và nó đứng vững.</p>
+  <ul style="list-style:none">
+    <li style="padding:6px 0 6px 22px;position:relative;font-size:13.5px"><span style="position:absolute;left:0;color:var(--err);font-weight:700">✗</span>
+      <b>Backend production bị pm2 giết vì xung đột ngưỡng bộ nhớ.</b> V8 mặc định tin nó được dùng <b>2.006 MB</b> nên chỉ dọn rác gấp khi tiến gần mốc đó, còn pm2 cắt ở <b>1.024 MB</b> → tiến trình bị kill trước khi V8 kịp GC. Đếm được <code>restarts 37</code>. Fix ngày 27/07 (áp trần heap V8 trên cả hai máy) — issue <b>#218 "Ổn định bộ nhớ + vòng đời tiến trình backend" đóng 27/07</b>.</li>
+    <li style="padding:6px 0 6px 22px;position:relative;font-size:13.5px"><span style="position:absolute;left:0;color:var(--err);font-weight:700">✗</span>
+      <b>Production khách chạy bundle cũ 22 ngày.</b> Theo handoff report 27/07: bundle BE trên <code>onedash.inet.vn</code> "trước đó là bản <b>05.07</b>", chỉ được deploy lại 27/07 lúc 16:36. Tức các fix trong khoảng 05→27/07 không tới khách suốt gần 1 tháng.</li>
+    <li style="padding:6px 0 6px 22px;position:relative;font-size:13.5px"><span style="position:absolute;left:0;color:var(--warn);font-weight:700">!</span>
+      <b>Traces TẮT hoàn toàn ở production khách</b> (0 biến <code>OTEL_*</code>) trong khi hạ tầng đã sẵn — hạng mục APM chỉ chạy thật ở bản nội bộ.</li>
+    <li style="padding:6px 0 6px 22px;position:relative;font-size:13.5px"><span style="position:absolute;left:0;color:var(--ok);font-weight:700">✓</span>
+      Đối trọng: rất ít phải làm lại — toàn repo tháng 7 chỉ có <b>4 commit</b> loại revert/rollback/hotfix, dattqh 2 (một là revert layout UI, một là hardening có chủ đích). Không có mất dữ liệu, không có outage kéo dài.</li>
+    <li style="padding:6px 0 6px 22px;position:relative;font-size:13.5px"><span style="position:absolute;left:0;color:var(--ok);font-weight:700">✓</span>
+      Handoff report 27/07 ghi số liệu đo trực tiếp trên máy chủ, kèm danh sách file backup để rollback — chuẩn vận hành tốt.</li>
+  </ul>
+  <div class="co co-info" style="margin-bottom:0">
+    <b>Kết luận</b>
+    Có sự cố production thật (pm2 kill, restarts 37) và một khoảng deploy chậm 22 ngày cho khách → <b>đủ để chặn "Tốt"</b>. Nhưng đã tự phát hiện, xác định đúng nguyên nhân gốc và fix trong kỳ, không mất dữ liệu → <b>"Đạt" là mức chính xác</b>. Self-score đúng.
+  </div>
+</div>
+
+<!-- ============ ISSUE: WAITING ============ -->
+<div class="card">
+  <h3>Vấn đề quy trình: 7/7 entry OKR của TBP đang <code>waiting</code></h3>
+  <div class="tw">
+  <table>
+    <thead><tr><th>Người</th><th>Entry T7</th><th>Trạng thái duyệt</th><th>Ai duyệt</th></tr></thead>
+    <tbody>
+      <tr><td>hobv</td><td class="num">3</td><td><span class="pill p-ok">approved</span></td><td>dattqh</td></tr>
+      <tr><td>ducnd</td><td class="num">4</td><td><span class="pill p-ok">approved</span></td><td>dattqh</td></tr>
+      <tr><td>chuongdt</td><td class="num">3</td><td><span class="pill p-ok">approved</span></td><td>dattqh</td></tr>
+      <tr><td><b>dattqh</b></td><td class="num">7</td><td><span class="pill p-err">waiting × 7</span></td><td><b>chưa xác định</b></td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="co co-warn" style="margin-bottom:0">
+    <b>Chuỗi duyệt bị hở ở cấp TBP</b>
+    dattqh duyệt OKR cho cả 3 thành viên, nhưng 7 entry của chính dattqh không có ai duyệt — nằm <code>waiting</code> từ khi tạo. Theo runbook, <code>waiting</code> <b>không có nghĩa là chưa làm</b> (7/7 đều đã verify có bằng chứng), nhưng để nguyên thì OKR của TBP <b>không bao giờ được xác nhận độc lập</b>. Cần chỉ định người duyệt cấp trên (CTO hoặc Giám đốc) — đây là gap quy trình, không phải lỗi của bản tự đánh giá.
+  </div>
+</div>
+
+<!-- ============ RECOMMENDATION ============ -->
+<div class="card">
+  <h3>Điều chỉnh đề xuất — dattqh</h3>
+  <p class="hint">Ngưỡng "Tốt" theo runbook: hoàn thành cao <b>VÀ</b> ≥1 deliverable stretch (L–XL).</p>
+  <div class="rec">
+    <div class="rbox keep"><div class="rl">Hoàn thành OKR · 40%</div><div class="rv">Giữ "Tốt" (1.2)</div>
+      <div class="rr">7/7 hạng mục hoàn thành với bằng chứng độc lập, <b>4 hạng mục XL</b>, và 2 hạng mục <b>vượt hẳn cam kết đầu kỳ</b>: VictoriaMetrics cam kết "plan + kickoff" nhưng chạy tới cutover production; Web Traffic cam kết kickoff nhưng ship đủ Tier 2+3 live-fire. Thoả ngưỡng "Tốt" dư sức.</div></div>
+    <div class="rbox keep"><div class="rl">Chất lượng kết quả · 35%</div><div class="rv">Giữ "Đạt" (1.0)</div>
+      <div class="rr">Có sự cố production thật (pm2 kill do xung đột ngưỡng bộ nhớ, <code>restarts 37</code>) và prod khách chạy bundle cũ 22 ngày → chặn "Tốt". Nhưng tự phát hiện, đúng nguyên nhân gốc, fix trong kỳ, chỉ 2 commit revert/hotfix cả tháng → "Đạt" đúng.</div></div>
+    <div class="rbox keep"><div class="rl">Cam kết &amp; tiến độ · 25%</div><div class="rv">Giữ "Tốt" (1.2)</div>
+      <div class="rr">20 issue đóng trong kỳ; tag <code>v1.7.0</code> 27/07 và agent <code>v2.3.69</code> 09/07 đều trong hạn; handoff report đo số liệu thật kèm đường rollback; 2 buổi đào tạo + 2 họp CXO; ~886 commit trên 8 repo — khối lượng cao nhất phòng.</div></div>
+    <div class="rbox keep"><div class="rl">P2-Core A/B/C/D</div><div class="rv">Giữ toàn "Đạt" (1.0)</div>
+      <div class="rr">Role Fullstack khớp công việc (Go agent + NestJS + Vue + hạ tầng CEPH/Victoria + plan kiến trúc). Không tự khai "Tốt" ở bất kỳ hạng mục Core nào dù khối lượng lớn nhất phòng — nhất quán với 3 người còn lại.</div></div>
+  </div>
+  <div class="co co-ok" style="margin-bottom:0">
+    <b>Chốt: 1.065 · "Tốt" — giữ nguyên self-scores</b>
+    Trên my.inet.vn: chọn OKR = <b>Tốt</b>, Chất lượng = <b>Đạt</b>, Cam kết = <b>Tốt</b>, Core A/B/C/D = <b>Đạt</b>. <b>Nhưng người khoá điểm nên là cấp trên</b>, không phải chính dattqh — cùng lý do 7 entry OKR cần người duyệt cấp trên.
+  </div>
+</div>
+
+<!-- ============ 4-PERSON ============ -->
+<div class="card">
+  <h3>Tổng kết cả phòng — tháng 07/2026</h3>
+  <p class="hint">Cùng phương pháp, cùng ngưỡng. ⛔ anhtct ngoài phạm vi (quản lý khác phụ trách).</p>
+  <div class="tw">
+  <table>
+    <thead><tr><th>Người</th><th>Role P2</th><th>Self</th><th>Entry</th><th>Effort cao nhất</th><th>Chất lượng record</th><th>Sai lệch phát hiện</th><th>Đề xuất</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><b>ducnd</b></td><td>Fullstack</td><td class="num">1.1 <span class="pill p-ok">Tốt</span></td><td class="num">4</td>
+        <td><span class="pill p-xl">XL</span> 116 tool MCP</td>
+        <td><span class="pill p-ok">tốt</span></td>
+        <td>4 deliverable <b>lệch kỳ</b> (báo thiếu T7)</td><td>Giữ + submit</td>
+      </tr>
+      <tr>
+        <td><b>dattqh</b></td><td>Fullstack</td><td class="num">1.065 <span class="pill p-ok">Tốt</span></td><td class="num">7</td>
+        <td><span class="pill p-xl">XL×4</span> APM, S3, VM</td>
+        <td><span class="pill p-ok">xuất sắc</span></td>
+        <td>1 chỗ record lạc hậu (#182)</td><td>Giữ — cấp trên khoá</td>
+      </tr>
+      <tr>
+        <td><b>hobv</b></td><td>Design System</td><td class="num">1.025 <span class="pill p-ok">Tốt</span></td><td class="num">3</td>
+        <td><span class="pill p-xl">XL</span> DAM dựng mới</td>
+        <td><span class="pill p-ok">xuất sắc</span></td>
+        <td>3 sai lệch, <b>đều hạ thấp</b></td><td>Giữ nguyên</td>
+      </tr>
+      <tr>
+        <td><b>chuongdt</b></td><td><span class="pill p-warn">Backend (lệch)</span></td><td class="num">1.0 <span class="pill p-info">Đạt</span></td><td class="num">3</td>
+        <td><span class="pill p-xl">XL</span> ViUI base kit</td>
+        <td><span class="pill p-err">yếu</span></td>
+        <td>khai thấp effort; 2 claim "production" chưa vững</td><td>Giữ + giải trình</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="co co-ok">
+    <b>Kết luận toàn phòng: 4/4 tự đánh giá đều CHÍNH XÁC — không ai thổi phồng</b>
+    Bốn người, bốn mức điểm (1.1 / 1.065 / 1.025 / 1.0) và tất cả đều đúng với bằng chứng độc lập. <b>Mọi sai lệch tìm được đều theo hướng hạ thấp thành tích hoặc dời kỳ</b>, không có một trường hợp nào khai cao hơn thực tế. Đề xuất chốt điểm chính thức bằng đúng self-scores cho cả 4 người.
+  </div>
+  <div class="co co-warn" style="margin-bottom:0">
+    <b>Việc còn tồn của kỳ T7</b>
+    (1) Cả 4 người có đánh giá chính thức = <b>0</b> vì <code>scores</code> rỗng, <code>status:"draft"</code> — cần chấm. (2) <b>ducnd chưa Trình duyệt</b> tự đánh giá. (3) <b>7 entry OKR của dattqh chưa ai duyệt</b> — cần người duyệt cấp trên. (4) chuongdt cần giải trình mốc deploy production và đổi role P2. (5) ducnd cần chốt lại kỳ cho #215/#236/#237 và bổ sung #210.
+  </div>
+</div>
+
+<footer>
+  Phương pháp 3 lớp theo <code>docs/monthly-okr-p2-review-guide.md</code>: hoàn thành tự báo × code thật × effort-weighted từ code footprint.<br>
+  Nguồn: my.inet.vn <code>p2evaluation/get</code> + <code>accountkpi/search</code> (gọi kèm <code>monthStr</code>) · GitLab <code>gitlabs.inet.vn/api/v4</code> project 300 (issues, tags) · git local 8 repo · <code>plans/dattqh/</code> (25 plan folder).<br>
+  Audit chỉ-đọc — không sửa, không submit, không khoá điểm P2.<br>
+  Report liên quan: <code>review-p2-hobv-260804-thang-07-2026.html</code> · <code>review-p2-chuongdt-ducnd-260804-thang-07-2026.html</code><br>
+  <b>Dữ liệu nhân sự nội bộ — chỉ lưu local, không publish.</b> · Lập 04/08/2026 · BP Công Nghệ iNET
+</footer>
+
+</div>
+</body>
+</html>
