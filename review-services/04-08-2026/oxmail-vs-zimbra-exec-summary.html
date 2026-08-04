@@ -1,0 +1,2672 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OxMail - Báo cáo kỹ thuật & so sánh Zimbra</title>
+<style>
+  :root {
+    --radius-card: 14px;
+    --radius-bar: 6px;
+    --radius-code: 10px;
+    --ink: #16211d;
+    --ink-soft: #4a5752;
+    --ink-faint: #5c6a63;
+    --paper: #f7f8f6;
+    --surface: #ffffff;
+    --surface-alt: #eef1ee;
+    --hairline: #e3e7e3;
+    --accent: #0e7c5b;
+    --accent-ink: #0a5f45;
+    --accent-soft: #e3f2eb;
+    --zebra: #6b7280;
+    --zebra-soft: #eef0f2;
+    --good: #0e7c5b;
+    --warn: #a16207;
+    --bad: #b91c1c;
+    --code-bg: #101a16;
+    --code-ink: #d8e4de;
+    --mono: ui-monospace, "SF Mono", "Cascadia Mono", Consolas, "Liberation Mono", Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ink: #e8edeb;
+      --ink-soft: #a9b5b0;
+      --ink-faint: #85928c;
+      --paper: #0e1412;
+      --surface: #141c19;
+      --surface-alt: #1a241f;
+      --hairline: #28332e;
+      --accent: #38c493;
+      --accent-ink: #5fd9ac;
+      --accent-soft: #123427;
+      --zebra: #9aa3ab;
+      --zebra-soft: #1d232b;
+      --good: #38c493;
+      --warn: #f5b74e;
+      --bad: #f87171;
+      --code-bg: #0a100d;
+      --code-ink: #c9d8d1;
+    }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { overflow-x: clip; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.6;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .page { max-width: 1080px; margin: 0 auto; padding: 0 28px 80px; }
+  .num { font-variant-numeric: tabular-nums; }
+  code, .mono { font-family: var(--mono); }
+  a { color: var(--accent-ink); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* ---------- Masthead ---------- */
+  .masthead {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    gap: 24px; padding: 40px 0 28px; border-bottom: 1px solid var(--hairline);
+    flex-wrap: wrap;
+  }
+  .brand { display: flex; align-items: center; gap: 12px; }
+  .brand-mark {
+    width: 34px; height: 34px; border-radius: 10px;
+    background: var(--accent); color: #fff;
+    display: grid; place-items: center;
+    font-weight: 800; font-size: 17px;
+  }
+  .brand-name { font-weight: 700; font-size: 18px; letter-spacing: -0.01em; }
+  .brand-tag { font-size: 12.5px; color: var(--ink-faint); font-weight: 500; }
+  .meta { text-align: right; font-size: 13px; color: var(--ink-faint); line-height: 1.7; }
+  .meta b { color: var(--ink-soft); font-weight: 600; }
+  @media (max-width: 900px) { .masthead { flex-direction: column; } .meta { text-align: left; } }
+
+  /* ---------- Hero ---------- */
+  .hero { padding: 56px 0 24px; }
+  .hero .kicker {
+    display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--accent-ink);
+  }
+  .hero h1 {
+    font-size: clamp(30px, 4.6vw, 48px); line-height: 1.08; letter-spacing: -0.03em;
+    font-weight: 800; margin: 14px 0 18px; max-width: 24ch;
+  }
+  .hero p.lede { font-size: 17px; color: var(--ink-soft); max-width: 66ch; }
+  .factline { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 10px; }
+  .chip {
+    font-size: 13px; font-weight: 600; color: var(--ink-soft);
+    border: 1px solid var(--hairline); border-radius: 999px;
+    padding: 6px 14px; background: var(--surface);
+  }
+  .chip em { font-style: normal; color: var(--accent-ink); font-weight: 700; }
+
+  /* ---------- Stats ---------- */
+  .stats { display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; margin: 36px 0 8px; }
+  .stat { background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--radius-card); padding: 20px 18px 16px; }
+  .stat .v { font-size: 28px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.1; }
+  .stat .v small { font-size: 15px; font-weight: 700; color: var(--ink-soft); }
+  .stat .l { margin-top: 8px; font-size: 12.5px; color: var(--ink-faint); line-height: 1.45; }
+  .stat .l b { color: var(--ink-soft); font-weight: 600; }
+
+  /* ---------- TOC ---------- */
+  .toc { background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--radius-card); padding: 22px 26px; margin: 40px 0 8px; }
+  .toc h3 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-faint); font-weight: 700; margin-bottom: 14px; }
+  .toc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px 26px; }
+  .toc a { display: flex; gap: 10px; font-size: 13.5px; color: var(--ink-soft); font-weight: 600; padding: 5px 0; }
+  .toc a i { font-style: normal; color: var(--accent-ink); font-weight: 700; flex: none; width: 34px; }
+  .toc a:hover { color: var(--accent-ink); text-decoration: none; }
+
+  /* ---------- Sections ---------- */
+  section.block { padding: 54px 0 8px; }
+  .block-head { max-width: 760px; margin-bottom: 26px; }
+  .block-head .secnum { font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-ink); }
+  .block-head h2 { font-size: 26px; letter-spacing: -0.02em; font-weight: 800; line-height: 1.2; margin-top: 6px; }
+  .block-head p { margin-top: 10px; color: var(--ink-soft); font-size: 15.5px; }
+  .srcnote { font-size: 12.5px; color: var(--ink-faint); margin-top: 16px; border-left: 3px solid var(--hairline); padding-left: 12px; }
+
+  /* ---------- Generic layout helpers ---------- */
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .grid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .grid2 > *, .grid3 > *, .grid4 > * { min-width: 0; } /* cho phép co khi nội dung dài */
+  code { overflow-wrap: break-word; } /* chỉ đứt khi token thực sự tràn — không vỡ code bình thường */
+  .panel li { min-width: 0; }
+  .panel { background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--radius-card); padding: 24px; }
+  .panel h3 { font-size: 15px; font-weight: 800; margin-bottom: 12px; letter-spacing: -0.01em; }
+  .panel h3 .n { color: var(--accent-ink); }
+  .panel p { font-size: 13.5px; color: var(--ink-soft); }
+  .panel ul, .panel ol { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+  .panel li { font-size: 13.5px; color: var(--ink-soft); display: flex; gap: 9px; align-items: baseline; flex-wrap: wrap; }
+  .panel li::before { content: "›"; color: var(--accent); font-weight: 800; flex: none; }
+  .panel li b { color: var(--ink); font-weight: 600; }
+
+  /* ---------- Tables ---------- */
+  .tblwrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  thead th {
+    text-align: left; font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--ink-faint); font-weight: 700; padding: 10px 14px;
+    border-bottom: 1px solid var(--ink); white-space: nowrap;
+  }
+  tbody td { padding: 12px 14px; border-bottom: 1px solid var(--hairline); vertical-align: top; }
+  tbody tr:last-child td { border-bottom: none; }
+  td.nm { font-weight: 600; color: var(--ink-soft); white-space: nowrap; }
+  td .big { font-size: 15px; font-weight: 700; }
+  .tag-ox { color: var(--accent-ink); font-weight: 700; }
+  .tag-zb { color: var(--zebra); font-weight: 600; }
+  .col-ox, .col-zb { min-width: 210px; }
+  .status { font-weight: 700; white-space: nowrap; }
+  .status.y { color: var(--good); }
+  .status.p { color: var(--warn); }
+  .status.n { color: var(--bad); }
+  .dense td { padding: 8px 12px; font-size: 12.5px; }
+  .dense code { font-size: 12px; }
+
+  /* ---------- Bars ---------- */
+  .bars { display: flex; flex-direction: column; gap: 14px; }
+  .bar-row { display: grid; grid-template-columns: 170px 1fr 96px; gap: 14px; align-items: center; }
+  .bar-row .lab { font-size: 13.5px; font-weight: 600; color: var(--ink-soft); }
+  .bar-wrap { display: flex; flex-direction: column; gap: 5px; }
+  .bar-line { position: relative; height: 14px; }
+  .bar-line .name { position: absolute; left: 0; top: 50%; transform: translateY(-50%); font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-faint); }
+  .bar-line .bar {
+    position: absolute; left: 0; top: 50%; transform: translateY(-50%);
+    height: 8px; border-radius: var(--radius-bar); min-width: 4px;
+  }
+  .bar-line .bar.ox { background: var(--accent); }
+  .bar-line .bar.zb { background: var(--zebra); }
+  .bar-val { font-size: 14px; font-weight: 700; text-align: right; white-space: nowrap; }
+  .bar-val small { display: block; font-size: 11px; font-weight: 600; color: var(--ink-faint); }
+  .legend { display: flex; gap: 22px; font-size: 12.5px; color: var(--ink-soft); font-weight: 600; margin-top: 6px; }
+  .legend i { display: inline-block; width: 14px; height: 8px; border-radius: 3px; margin-right: 7px; vertical-align: middle; }
+  .legend i.ox { background: var(--accent); }
+  .legend i.zb { background: var(--zebra); }
+
+  /* ---------- Tier cards ---------- */
+  .tiers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .tier { background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--radius-card); padding: 24px 22px; display: flex; flex-direction: column; }
+  .tier .t-name { font-size: 13px; font-weight: 700; color: var(--accent-ink); }
+  .tier .t-users { font-size: 26px; font-weight: 800; letter-spacing: -0.02em; margin: 4px 0 16px; }
+  .tier .t-users small { font-size: 14px; color: var(--ink-faint); font-weight: 600; }
+  .tier .t-note { font-size: 12.5px; color: var(--accent-ink); background: var(--accent-soft); border-radius: 8px; padding: 8px 12px; margin-bottom: 16px; line-height: 1.5; font-weight: 600; }
+  .tier h4 { font-size: 12px; text-transform: uppercase; letter-spacing: 0.09em; color: var(--ink-faint); font-weight: 700; margin: 14px 0 8px; }
+  .tier h4:first-of-type { margin-top: 0; }
+  .tier ul { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+  .tier li { font-size: 13.5px; color: var(--ink-soft); display: flex; gap: 8px; align-items: baseline; }
+  .tier li::before { content: ""; flex: none; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); transform: translateY(-2px); }
+  .tier li.zb::before { background: var(--zebra); }
+  .tier li b { color: var(--ink); font-weight: 600; }
+  .tier .ram-total { margin-top: auto; padding-top: 18px; border-top: 1px solid var(--hairline); }
+  .tier .ram-total .row { display: flex; justify-content: space-between; font-size: 14px; padding: 3px 0; }
+  .tier .ram-total .row.ox b { color: var(--accent-ink); }
+  .tier .ram-total .row.zb b { color: var(--zebra); }
+
+  /* ---------- Feature groups ---------- */
+  .feat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .feat-col { background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--radius-card); padding: 22px; }
+  .feat-col h3 { font-size: 15px; font-weight: 800; letter-spacing: -0.01em; margin-bottom: 4px; }
+  .feat-col > p { font-size: 12.5px; color: var(--ink-faint); margin-bottom: 14px; }
+  .feat-row { padding: 11px 0; border-bottom: 1px solid var(--hairline); }
+  .feat-row:last-child { border-bottom: none; }
+  .feat-row .f-name { font-size: 13.5px; font-weight: 600; }
+  .feat-row .f-comp { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 6px; }
+  .feat-row .f-comp .side { font-size: 12.5px; line-height: 1.45; }
+  .feat-row .f-comp .side b { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700; margin-bottom: 2px; }
+  .side.ox b { color: var(--accent-ink); }
+  .side.zb b { color: var(--zebra); }
+  .y { color: var(--good); font-weight: 700; }
+  .n { color: var(--bad); font-weight: 700; }
+  .p { color: var(--warn); font-weight: 700; }
+  .live { font-size: 11px; color: var(--accent-ink); font-weight: 700; }
+
+  /* ---------- TCO ---------- */
+  .tco { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .tco .col { background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--radius-card); padding: 24px; }
+  .tco .col h3 { font-size: 15px; font-weight: 800; letter-spacing: -0.01em; display: flex; align-items: center; gap: 10px; }
+  .tco .mark { width: 12px; height: 12px; border-radius: 4px; display: inline-block; }
+  .tco .mark.ox { background: var(--accent); }
+  .tco .mark.zb { background: var(--zebra); }
+  .tco table { margin-top: 12px; }
+  .tco td .big { font-size: 15px; }
+  .tco .save { font-size: 12.5px; color: var(--accent-ink); font-weight: 700; }
+
+  /* ---------- Pipeline stages ---------- */
+  .stages { display: flex; flex-wrap: wrap; gap: 8px; }
+  .stage {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--surface); border: 1px solid var(--hairline);
+    border-radius: 8px; padding: 8px 12px; font-size: 12.5px; color: var(--ink-soft); font-weight: 600;
+  }
+  .stage .sn { color: var(--accent-ink); font-weight: 800; font-size: 11px; }
+  .stage-arrow { color: var(--ink-faint); font-weight: 800; font-size: 13px; align-self: center; }
+  .score3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 22px; }
+  .score { border-radius: var(--radius-card); padding: 18px 20px; }
+  .score.g { background: var(--accent-soft); border: 1px solid var(--accent); }
+  .score.w { background: var(--zebra-soft); border: 1px solid var(--zebra); }
+  .score.r { background: #fdecec; border: 1px solid var(--bad); }
+  .score .sv { font-size: 22px; font-weight: 800; }
+  .score .sl { font-size: 13px; font-weight: 600; margin-top: 4px; }
+  .score .sd { font-size: 12.5px; color: var(--ink-soft); margin-top: 4px; }
+  @media (prefers-color-scheme: dark) { .score.r { background: #3a1518; border-color: var(--bad); } }
+
+  /* ---------- Code / pre ---------- */
+  .prewrap { overflow-x: auto; border-radius: var(--radius-code); border: 1px solid var(--hairline); background: var(--code-bg); }
+  pre {
+    font-family: var(--mono); font-size: 12.5px; line-height: 1.55;
+    color: var(--code-ink); padding: 20px 22px; white-space: pre; min-width: max-content;
+  }
+  .prewrap .plabel {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: #6d8a7c; padding: 10px 22px 0; display: block;
+  }
+
+  /* ---------- Component diagram ---------- */
+  .arch { display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--radius-card); padding: 22px; }
+  .arch-band { display: grid; grid-template-columns: 128px 1fr; gap: 16px; align-items: center; padding: 9px 0; }
+  .arch-role { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; color: var(--ink-faint); text-align: right; }
+  .arch-boxes { display: flex; flex-wrap: wrap; gap: 10px; }
+  .arch-box { border: 1px solid var(--hairline); border-radius: 12px; padding: 11px 13px; min-width: 148px; background: var(--paper); }
+  .arch-box .n { font-weight: 800; font-size: 13.5px; letter-spacing: -0.01em; display: flex; align-items: center; gap: 7px; }
+  .arch-box .r { font-size: 11.5px; color: var(--ink-faint); margin-top: 2px; line-height: 1.4; }
+  .arch-box .n .count { font-size: 10px; font-weight: 800; color: var(--accent-ink); background: var(--accent-soft); border-radius: 999px; padding: 1px 8px; }
+  .arch-box.shared { background: var(--accent-soft); border-color: var(--accent); }
+  .arch-box.shared .n { color: var(--accent-ink); }
+  .arch-box.shared .n .tag { font-size: 10px; font-weight: 700; color: var(--accent-ink); background: var(--surface); border: 1px solid var(--accent); border-radius: 999px; padding: 1px 8px; }
+  .arch-box.external .n .tag { font-size: 10px; font-weight: 700; color: var(--zebra); border: 1px solid var(--zebra); border-radius: 999px; padding: 1px 8px; }
+  .arch-box.wide { min-width: 240px; }
+  .arch-arrow { text-align: center; color: var(--ink-faint); font-size: 12px; line-height: 1; padding: 1px 0; }
+  .arch-note { margin-top: 14px; font-size: 13px; color: var(--ink-soft); }
+  .arch-note b { color: var(--accent-ink); }
+  @media (max-width: 720px) {
+    .arch-band { grid-template-columns: 1fr; gap: 6px; }
+    .arch-role { text-align: left; }
+    .arch-box { min-width: 0; width: 100%; }
+  }
+
+  /* ---------- Architectural Overview icon diagram (Zimbra-style, side-by-side) ---------- */
+  .ov-wrap { --ov-blue: #1e7fc2; --ov-blue-soft: #eaf4fc; --ov-orange: #ef8b3f; --ov-line: #aab4bd; }
+  @media (prefers-color-scheme: dark) { .ov-wrap { --ov-blue: #4fa8e0; --ov-blue-soft: #16232c; --ov-orange: #f5a35f; --ov-line: #566068; } }
+  .ov2 { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  @media (max-width: 960px) { .ov2 { grid-template-columns: 1fr; } }
+  .ov-col { background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--radius-card); padding: 26px 20px 22px; overflow-x: auto; }
+  .ov-col-title { text-align: center; font-size: 15px; font-weight: 800; letter-spacing: -0.01em; margin-bottom: 22px; }
+  .ov-col-title.zb { color: var(--zebra); }
+  .ov-col-title.ox { color: var(--ov-blue); }
+  .ov-row { display: flex; justify-content: center; align-items: flex-start; gap: 26px; margin-bottom: 4px; flex-wrap: wrap; }
+  .ov-cloudrow { display: flex; justify-content: center; gap: 60px; margin-bottom: 4px; }
+  .ov-item { display: flex; flex-direction: column; align-items: center; text-align: center; width: 92px; flex: none; }
+  .ov-item.wide { width: 150px; }
+  .ov-label { margin-top: 6px; font-size: 11.5px; font-weight: 700; color: var(--ink); line-height: 1.3; }
+  .ov-sub { font-size: 9.5px; color: var(--ink-faint); font-weight: 600; margin-top: 1px; }
+  .ic-cloud svg, .ic-server svg, .ic-db svg, .ic-ui svg { display: block; }
+  .ic-server { position: relative; }
+  .ic-badge {
+    position: absolute; width: 20px; height: 20px; border-radius: 50%;
+    background: var(--ov-orange); color: #fff; font-size: 10px; font-weight: 800;
+    display: grid; place-items: center; box-shadow: 0 0 0 2px var(--surface);
+  }
+  .ic-badge.tl { top: -6px; left: -8px; }
+  .ic-badge.br { bottom: -6px; right: -8px; }
+  .ic-tag {
+    font-size: 8.5px; font-weight: 800; color: var(--ink-soft); background: var(--surface);
+    border: 1px solid var(--hairline); border-radius: 5px; padding: 1px 5px; margin-bottom: 3px; white-space: nowrap;
+  }
+  .ov-arrow-v { display: flex; flex-direction: column; align-items: center; margin: 2px 0; }
+  .ov-arrow-v svg { display: block; }
+  .ov-arrow-v .al { font-size: 9px; font-weight: 700; color: var(--ink-soft); white-space: nowrap; margin: 1px 0; text-align: center; }
+  .ov-cluster { display: flex; gap: 22px; align-items: flex-start; justify-content: center; }
+  .ov-mid { display: flex; align-items: center; gap: 8px; justify-content: center; margin: 6px 0; }
+  .ov-mid .ov-arrow-h { display: flex; flex-direction: column; align-items: center; }
+  .ov-mid .ov-arrow-h .al { font-size: 8.5px; font-weight: 700; color: var(--ink-soft); }
+  .ov-core-box {
+    border: 1.5px solid var(--ov-blue); background: var(--ov-blue-soft); border-radius: 10px;
+    padding: 10px 12px; display: flex; flex-direction: column; align-items: center; gap: 6px; min-width: 210px;
+  }
+  .ov-core-box .cn { font-size: 12px; font-weight: 800; color: var(--ov-blue); }
+  .ov-core-icons { display: flex; gap: 8px; }
+  .ov-core-icons .ic-db { width: 22px; }
+  .ov-foot { margin-top: 20px; font-size: 12px; color: var(--ink-soft); text-align: center; line-height: 1.6; }
+
+  /* ---------- Flow diagram (Zimbra vs OxMail side-by-side) ---------- */
+  .flow-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .flow { border-radius: var(--radius-card); border: 1px solid var(--hairline); background: var(--surface); padding: 18px; display: flex; flex-direction: column; gap: 10px; }
+  .flow .f-head { display: flex; align-items: center; gap: 10px; padding-bottom: 10px; border-bottom: 1px solid var(--hairline); }
+  .flow .f-head .f-badge { font-size: 11px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; border-radius: 6px; padding: 3px 10px; }
+  .flow.ox .f-badge { background: var(--accent); color: #fff; }
+  .flow.zb .f-badge { background: var(--zebra); color: #fff; }
+  .flow .f-head .f-name { font-weight: 800; font-size: 15px; }
+  .flow .f-head .f-sub { font-size: 11.5px; color: var(--ink-faint); }
+  .flow-lane { display: flex; flex-direction: column; }
+  .flow-lane .lane-label { font-size: 10.5px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-faint); margin: 6px 0 8px; }
+  .flow-lane .lane-label b { color: var(--ink-soft); }
+  .flow-node { border: 1px solid var(--hairline); border-radius: 10px; padding: 9px 12px; background: var(--paper); }
+  .flow.ox .flow-node.core { border-color: var(--accent); background: var(--accent-soft); }
+  .flow.zb .flow-node.core { border-color: var(--zebra); background: var(--zebra-soft); }
+  .flow-node .n { font-weight: 700; font-size: 13px; }
+  .flow-node .r { font-size: 11.5px; color: var(--ink-faint); line-height: 1.4; margin-top: 1px; }
+  .flow-node .sub { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 6px; }
+  .flow-node .sub span { font-size: 10.5px; font-weight: 600; color: var(--ink-soft); border: 1px solid var(--hairline); background: var(--surface); border-radius: 6px; padding: 2px 7px; }
+  .flow-arrow { text-align: center; font-size: 11px; color: var(--ink-faint); line-height: 1; padding: 4px 0 2px; }
+  .flow-arrow .dir { display: block; font-weight: 700; }
+  .flow-arrow.in .dir { color: var(--good); }
+  .flow-arrow.out .dir { color: var(--warn); }
+  .flow-note { font-size: 12px; color: var(--ink-soft); background: var(--paper); border: 1px dashed var(--hairline); border-radius: 8px; padding: 8px 10px; line-height: 1.5; }
+  .flow-note b { color: var(--accent-ink); }
+  .flow.zb .flow-note b { color: var(--zebra); }
+  @media (max-width: 960px) { .flow-grid { grid-template-columns: 1fr; } }
+
+  /* ---------- Appendix ---------- */
+  .appendix { border-top: 1px solid var(--hairline); padding-top: 40px; margin-top: 20px; }
+  .warnbox {
+    background: var(--warn); color: #1a1206; border-radius: 8px; padding: 10px 14px;
+    font-size: 13px; font-weight: 600; margin-top: 14px; line-height: 1.5;
+  }
+  @media (prefers-color-scheme: dark) { .warnbox { color: #fdeeda; } }
+
+  /* ---------- Footer ---------- */
+  footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid var(--hairline); }
+  footer p { font-size: 12.5px; color: var(--ink-faint); max-width: 95ch; line-height: 1.7; }
+  footer .row { display: flex; flex-wrap: wrap; gap: 8px 26px; margin-top: 12px; }
+
+  /* ---------- Print ---------- */
+  @media print {
+    body { background: #fff; color: #111; font-size: 12px; }
+    .page { max-width: 100%; padding: 0; }
+    .stat, .tier, .feat-col, .tco .col, .panel, .score { break-inside: avoid; }
+    .stats { grid-template-columns: repeat(3, 1fr); }
+    .tiers, .feat-grid { grid-template-columns: repeat(3, 1fr); }
+    .grid3, .grid4 { grid-template-columns: repeat(3, 1fr); }
+    .hero { padding: 24px 0; }
+    a { color: #111; }
+  }
+  @media (max-width: 960px) {
+    .stats { grid-template-columns: repeat(3, 1fr); }
+    .tiers, .feat-grid, .grid3 { grid-template-columns: 1fr; }
+    .grid2, .tco, .grid4 { grid-template-columns: 1fr; }
+    .toc-grid { grid-template-columns: repeat(2, 1fr); }
+    .score3 { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 560px) {
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .bar-row { grid-template-columns: 110px 1fr 72px; gap: 8px; }
+    .page { padding: 0 18px 60px; }
+    .hero h1 { font-size: 28px; }
+    .toc-grid { grid-template-columns: 1fr; }
+    .toc a i { width: 28px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ============ MASTHEAD ============ -->
+  <header class="masthead">
+    <div class="brand">
+      <div class="brand-mark">O</div>
+      <div>
+        <div class="brand-name">OxMail</div>
+        <div class="brand-tag">Rust-native mail infrastructure</div>
+      </div>
+    </div>
+    <div class="meta">
+      <div>Báo cáo kỹ thuật và so sánh hạ tầng thư điện tử</div>
+      <div><b>OxMail</b> so với <b>Zimbra</b></div>
+      <div>Ngày đo số liệu: 02/08/2026 - 2 node production</div>
+    </div>
+  </header>
+
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <span class="kicker">Tóm tắt điều hành</span>
+    <h1>Một application binary thống nhất, thay cho hàng chục service của Zimbra</h1>
+    <p class="lede">
+      OxMail là mail server Rust đơn binary: mọi giao thức SMTP, IMAP, JMAP, CalDAV, CardDAV
+      chạy trong một tiến trình, dùng ~90-140 MB app processes (toàn node ~2.4-3.3 GB kèm AV/DB/observability), không cần JVM, không GC pause.
+      Báo cáo này gồm toàn bộ nội dung kỹ thuật và phần so sánh với Zimbra, kèm số liệu
+      đo trực tiếp trên 2 node production.
+    </p>
+    <div class="factline">
+      <span class="chip">Ngưỡng <em>2 vCPU / 4 GB</em> đã xác nhận khởi chạy; khuyến nghị <em>6-8 GB</em> cho production</span>
+      <span class="chip">Cả 2 node đang chạy <em>features gateway</em></span>
+      <span class="chip">Gateway submit qua <em>103.72.96.181</em></span>
+    </div>
+  </section>
+
+  <!-- ============ STATS ============ -->
+  <div class="stats">
+    <div class="stat">
+      <div class="v num">1</div>
+      <div class="l">binary thay <b>~90-100 tiến trình</b> của Zimbra trên mỗi node</div>
+    </div>
+    <div class="stat">
+      <div class="v num">~100<span class="num"> MB</span></div>
+      <div class="l">RAM app processes; toàn node ~2.4-3.3 GB, so với cấu hình Zimbra single-server thường từ <b>8 GB trở lên</b></div>
+    </div>
+    <div class="stat">
+      <div class="v num">3</div>
+      <div class="l">OS threads, <b>zero-GC</b> (Rust + jemalloc + tokio async)</div>
+    </div>
+    <div class="stat">
+      <div class="v num">592<span class="num"> msg/s</span></div>
+      <div class="l">SMTP inbound (kết nối tái sử dụng); không đại diện throughput full security pipeline nếu AV/DNS/storage ngoài critical path</div>
+    </div>
+    <div class="stat">
+      <div class="v num">$0</div>
+      <div class="l">license fee; ngưỡng <b>4 GB</b> đã xác nhận khởi chạy, <b>6-8 GB</b> khuyến nghị cho production nhỏ</div>
+    </div>
+    <div class="stat">
+      <div class="v num">0.4%</div>
+      <div class="l">CPU core tiêu thụ khi idle, không GC pause như JVM</div>
+    </div>
+  </div>
+
+  <!-- ============ TOC ============ -->
+  <nav class="toc" id="toc">
+    <h3>Mục lục</h3>
+    <div class="toc-grid">
+      <a href="#vande"><i>§0</i>Vấn đề cần giải quyết</a>
+      <a href="#tongquan"><i>§1</i>Tổng quan dự án và codebase</a>
+      <a href="#kientruc"><i>§2</i>Kiến trúc hệ thống</a>
+      <a href="#overview-icons"><i>2.4</i>Architectural Overview (Zimbra vs OxMail)</a>
+      <a href="#components"><i>2.5</i>Sơ đồ components &amp; scale ngang</a>
+      <a href="#gw"><i>2.6</i>Gateway GW - gRPC + rkyv</a>
+      <a href="#flow"><i>2.7</i>Architecture &amp; mail flow</a>
+      <a href="#flow-mermaid"><i>2.7.5</i>Sơ đồ đường đi — Inbound &amp; Outbound (Mermaid)</a>
+      <a href="#components-map"><i>2.8</i>Component mapping</a>
+      <a href="#observability-flow"><i>2.9</i>Observability flow - log &amp; metrics</a>
+      <a href="#worker-flow"><i>2.10</i>Async worker flow - ZAP/DLP/Gray</a>
+      <a href="#deepdive-ai"><i>2.10.5</i>Deep dive - DLP / ZAP / Gray-zone (lợi thế AI)</a>
+      <a href="#migration-flow"><i>2.11</i>Migration flow - import từ Zimbra</a>
+      <a href="#protocol"><i>§3</i>Protocol layer</a>
+      <a href="#pipeline"><i>§4</i>SMTP pipeline</a>
+      <a href="#infra"><i>§5</i>Infrastructure</a>
+      <a href="#baomat"><i>§6</i>Kiến trúc bảo mật</a>
+      <a href="#hieunang"><i>§7</i>Kiến trúc hiệu năng</a>
+      <a href="#hiendive"><i>7.1–7.3</i>TLS pool / jemalloc / Bumpalo deep dive</a>
+      <a href="#congnghe"><i>§8</i>Lựa chọn công nghệ</a>
+      <a href="#tinhnang"><i>§9</i>So sánh tính năng với Zimbra</a>
+      <a href="#tco"><i>9.5</i>Mô hình chi phí sơ bộ</a>
+      <a href="#sodu"><i>9.6</i>Số liệu đo live production</a>
+      <a href="#sizing"><i>9.7</i>Cấu hình theo quy mô user</a>
+      <a href="#hanche"><i>§10</i>Hạn chế đã biết</a>
+      <a href="#roadmap"><i>§11</i>Roadmap</a>
+      <a href="#phuluc"><i>PL</i>Phụ lục: timeline + CLI</a>
+    </div>
+  </nav>
+
+  <!-- ============ §0 VẤN ĐỀ ============ -->
+  <section class="block" id="vande">
+    <div class="block-head">
+      <div class="secnum">§0 Mở đầu</div>
+      <h2>Vấn đề cần giải quyết: tại sao xây lại hạ tầng mail năm 2026?</h2>
+      <p>Stack legacy gánh quá nhiều lớp từ thuở email còn là giao thức thuần văn bản. Mỗi lớp là một rủi ro vận hành, một nợ bảo mật, một khoản chi phí.</p>
+    </div>
+    <div class="grid2">
+      <div class="panel">
+        <h3>Đau đớn từ stack cũ</h3>
+        <ul>
+          <li><b>Zimbra ~80+ tiến trình</b>, Postfix + Dovecot + Amavis + SpamAssassin = 6+ services, nhiều runtime và mô hình quản lý bộ nhớ khác nhau (Python, Perl, C, Lua) làm tăng độ phức tạp vận hành và debug, upgrade path phức tạp</li>
+          <li><b>Gánh nặng vận hành:</b> schema migrations qua 3 DB, LDAP replication, shared storage (NFS/GlusterFS), đội ops 24/7 cho failover</li>
+          <li><b>Nợ kỹ thuật bảo mật:</b> DKIM/ARC/MTA-STS không phải first-class, tích hợp WebAuthn/FIDO2 cần code glue</li>
+          <li><b>Không phù hợp cloud-native:</b> stateful workloads, không container-native design, secrets management phải ghép thêm</li>
+          <li><b>Chi phí TCO ẩn:</b> license + hardware + ops + upgrades + security patches</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3>Luận điểm của OxMail</h3>
+        <ul>
+          <li>Một mail server <b>native Rust, single binary</b> loại bỏ các layer này trong khi duy trì hoặc vượt qua capability parity</li>
+          <li>Một application binary, một domain model thống nhất, một event bus chính và <b>một cấu hình ứng dụng trung tâm</b></li>
+          <li>Runtime <b>zero-GC</b> loại bỏ GC pause như một production concern (khác với JVM/Zimbra)</li>
+          <li><b>Memory safety</b> không cần garbage collector: safe Rust giảm mạnh lớp lỗi memory corruption trong code ứng dụng, ngoại trừ vùng unsafe/FFI/dependency native</li>
+          <li>Đo trên production: app processes ~90-140 MB, 3 OS threads; toàn node stack ~2.4-3.3 GB (§9.6)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ §1 TỔNG QUAN ============ -->
+  <section class="block" id="tongquan">
+    <div class="block-head">
+      <div class="secnum">§1 Tổng quan dự án</div>
+      <h2>OxMail là gì và bức tranh codebase</h2>
+    </div>
+
+    <div class="tblwrap">
+      <table>
+        <thead><tr><th style="width:22%">Thuộc tính</th><th>Giá trị</th></tr></thead>
+        <tbody>
+          <tr><td class="nm">Ngôn ngữ</td><td>Rust (~128K dòng, 33 crates)</td></tr>
+          <tr><td class="nm">Protocols</td><td>SMTP, IMAP4rev2, POP3, JMAP, CalDAV, CardDAV, ManageSieve</td></tr>
+          <tr><td class="nm">Runtime</td><td>Tokio async, jemalloc (zero-GC)</td></tr>
+          <tr><td class="nm">Deployment</td><td>Single <code>oxmail-server</code> binary per node</td></tr>
+          <tr><td class="nm">Frontend</td><td>3× SolidJS apps (Bun monorepo): webmail, tenant admin, ops dashboard</td></tr>
+          <tr><td class="nm">Production frontend</td><td>Nginx (TLS, PROXYv2, rate limiting) → <code>oxmail-server</code></td></tr>
+          <tr><td class="nm">Infrastructure</td><td>PostgreSQL 16, MinIO/Ceph (S3), NATS JetStream, DragonflyDB, Tantivy, Rspamd, ClamAV</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="panel" style="margin-top:18px">
+      <h3>Tại sao tự viết các giao thức (không dùng thư viện sẵn có)</h3>
+      <ul>
+        <li><b>Tự chủ mã nguồn:</b> toàn quyền kiểm soát code, không phụ thuộc bên thứ ba</li>
+        <li><b>Tùy biến sâu:</b> tinh chỉnh protocol behavior theo nhu cầu production cụ thể</li>
+        <li><b>Thêm/bớt protocol:</b> dễ bổ sung protocol mới hoặc loại bỏ protocol lỗi thời</li>
+        <li><b>Debug không giới hạn:</b> khi client gặp connection issue, trace trực tiếp vào protocol layer</li>
+        <li><b>Cam kết tinh chỉnh:</b> không thể cam kết sửa lỗi thư viện bên thứ ba, nhưng cam kết được khả năng tinh chỉnh của chính mình</li>
+      </ul>
+      <p style="margin-top:10px">Ví dụ thực tế: khi Outlook/Apple Mail có quirks về IMAP IDLE timeout hoặc SMTP pipeline behavior, đội phát triển điều chỉnh trực tiếp trong <code>oxmail-imap</code> hoặc <code>oxmail-smtp</code> mà không phải chờ vendor fix.</p>
+    </div>
+
+    <h3 style="font-size:16px;font-weight:800;margin:26px 0 14px">Bức tranh codebase (dòng code mỗi crate)</h3>
+    <div class="tblwrap">
+      <table class="dense">
+        <thead><tr><th>Crate</th><th>Dòng</th><th>Vai trò</th></tr></thead>
+        <tbody>
+          <tr><td><code>oxmail-server</code></td><td class="num">6K</td><td>bootstrap, listeners, worker spawn</td></tr>
+          <tr><td><code>oxmail-zap-worker</code></td><td class="num">0.9K</td><td>Zero-Auto-Purge (ClamAV retroactive scan)</td></tr>
+          <tr><td><code>oxmail-dlp-worker</code></td><td class="num">2.1K</td><td>DLP content scanning</td></tr>
+          <tr><td><code>oxmail-gray-worker</code></td><td class="num">1.8K</td><td>AI gray-zone spam tribunal</td></tr>
+          <tr><td><code>oxmail-http</code></td><td class="num">22K</td><td>Axum router, 200+ routes, JMAP + Admin REST</td></tr>
+          <tr><td><code>oxmail-smtp-pipeline</code></td><td class="num">7.7K</td><td>Inbound pipeline (20+ stages)</td></tr>
+          <tr><td><code>oxmail-smtp</code></td><td class="num">3.5K</td><td>SMTP state machine + <b>PROXY protocol</b> (layer-1 DNSBL, trusted-IP skip)</td></tr>
+          <tr><td><code>oxmail-smtp-outbound</code></td><td class="num">5K</td><td>Outbound queue, DKIM/ARC signing, TLS pool</td></tr>
+          <tr><td><code>oxmail-sasl</code></td><td class="num">506</td><td>SASL PLAIN, LOGIN, OAUTHBEARER, XOAUTH2</td></tr>
+          <tr><td><code>oxmail-smtp-milter</code></td><td class="num">920</td><td>Async Sendmail Milter client (TCP/Unix)</td></tr>
+          <tr><td><code>oxmail-imap</code></td><td class="num">10K</td><td>IMAP4rev2 full implementation</td></tr>
+          <tr><td><code>oxmail-pop3</code></td><td class="num">1.5K</td><td>POP3 + STLS</td></tr>
+          <tr><td><code>oxmail-jmap-core</code></td><td class="num">2.9K</td><td>JMAP protocol (RFC 8620)</td></tr>
+          <tr><td><code>oxmail-jmap-mail</code></td><td class="num">8.3K</td><td>JMAP Email/Mailbox/Thread (RFC 8621)</td></tr>
+          <tr><td><code>oxmail-jmap-calendar</code></td><td class="num">4.6K</td><td>JMAP Calendar</td></tr>
+          <tr><td><code>oxmail-jmap-contact</code></td><td class="num">2.2K</td><td>JMAP Contact</td></tr>
+          <tr><td><code>oxmail-jmap-settings</code></td><td class="num">1.8K</td><td>JMAP Settings</td></tr>
+          <tr><td><code>oxmail-caldav</code></td><td class="num">3.4K</td><td>CalDAV (RFC 4791) + iTIP scheduling</td></tr>
+          <tr><td><code>oxmail-carddav</code></td><td class="num">1.8K</td><td>CardDAV (RFC 6352)</td></tr>
+          <tr><td><code>oxmail-cal-scheduling</code></td><td class="num">1.4K</td><td>iTIP engine (RFC 5546)</td></tr>
+          <tr><td><code>oxmail-calcard</code></td><td class="num">1.6K</td><td>iCal/vCard shared models</td></tr>
+          <tr><td><code>oxmail-sieve</code></td><td class="num">3.2K</td><td>ManageSieve (RFC 5804)</td></tr>
+          <tr><td><code>oxmail-common</code></td><td class="num">18.7K</td><td>traits.rs (11 sub-traits), PgMetadataStore</td></tr>
+          <tr><td><code>oxmail-store</code></td><td class="num">2K</td><td>S3BlobStore (AES-256-GCM, Zstd, SHA-256 dedup)</td></tr>
+          <tr><td><code>oxmail-search</code></td><td class="num">0.8K</td><td>TantivyEngine (per-account full-text)</td></tr>
+          <tr><td><code>oxmail-rpc</code></td><td class="num">1.8K</td><td>gRPC cluster communication</td></tr>
+          <tr><td><code>oxmail-gateway</code></td><td class="num">1.6K</td><td>GW gRPC Forward/Submit integration (gateway feature, egress)</td></tr>
+          <tr><td><code>oxmail-ai</code></td><td class="num">2.1K</td><td>AI provider abstraction (registry, API format detect)</td></tr>
+          <tr><td><code>oxmail-mcp</code></td><td class="num">5.4K</td><td>Multi-provider LLM (Claude/OpenAI/Gemini/Ollama) — xem srcnote</td></tr>
+          <tr><td><code>oxmail-dmarc-ingest</code></td><td class="num">1K</td><td>DMARC report ingest</td></tr>
+          <tr><td><code>oxmail-migration</code></td><td class="num">2.4K</td><td>Migration engine (IMAP sync, Zimbra TGZ/LDAP)</td></tr>
+          <tr><td><code>oxmail-mime-cache</code></td><td class="num">0.75K</td><td>MIME tree cache (rkyv zero-copy)</td></tr>
+          <tr><td><code>oxmail-smime</code></td><td class="num">1K</td><td>S/MIME</td></tr>
+          <tr><td><code>oxmail-pgp</code></td><td class="num">0.8K</td><td>PGP/OpenPGP</td></tr>
+          <tr><td><code>oxmail-dav</code></td><td class="num">0.7K</td><td>Shared WebDAV types</td></tr>
+          <tr><td><code>oxmail-smtp-auth</code></td><td class="num">0.15K</td><td>SMTP AUTH (Argon2 + WebAuthn) — stub</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="srcnote">Lưu ý: <code>oxmail-mcp</code> là standalone MCP server — không compile trong build production; workers gọi LLM trực tiếp qua <code>oxmail-ai</code>/provider crate. Dòng code đo 03/08/2026; <code>oxmail-smtp</code> gồm <code>proxy.rs</code> (PROXY protocol cho DNSBL layer-1) + <code>dnsbl.rs</code> (authoritative NS checker).</p>
+  </section>
+
+  <!-- ============ §2 KIẾN TRÚC ============ -->
+  <section class="block" id="kientruc">
+    <div class="block-head">
+      <div class="secnum">§2 Kiến trúc hệ thống</div>
+      <h2>Topology, JMAP-first, trait-based abstraction</h2>
+    </div>
+
+    <div class="prewrap">
+      <span class="plabel">Topology tổng quan</span>
+<pre>
+                     Internet
+                        |
+                        v
+            Nginx (TLS + PROXYv2 + rate limiting)
+                        |
+                        v
+   --------------------------------------------------
+   |            oxmail-server (single binary)       |
+   |                                                |
+   |  SMTP :2525 --> Inbound Pipeline               |
+   |  IMAP :1143 --> Session Mgr                    |
+   |  POP3 :1110 --> Session Mgr                    |
+   |  HTTP :8080 --> JMAP + Admin REST API          |
+   |  Sieve:14190 --> ManageSieve                   |
+   |  gRPC :50051 --> Cluster Inter-node            |
+   |  gRPC :50053 --> Gateway Submit (features gw)  |
+   --------------------------------------------------
+                        |
+    -------------------------------------------------
+    |               |                 |              |
+    v               v                 v              v
+ PostgreSQL 16  NATS JetStream   DragonflyDB      S3 (MinIO/Ceph)
+ (metadata)     (event bus)     (cache/sessions)  (blob storage)
+    |               |                 |
+    v               v                 v
+ ZAP worker    Gray worker       DLP worker
+ (rescan)      (AI review)       (outbound scan)
+</pre>
+    </div>
+
+    <div class="grid2" style="margin-top:18px">
+      <div class="panel">
+        <h3><span class="n">JMAP-first</span> - webmail dùng một giao thức</h3>
+        <ul>
+          <li>Tất cả tác vụ webmail (đọc/soạn/tìm kiếm/sync) dùng <b>JMAP</b> (RFC 8620/8621); Admin REST cho vận hành</li>
+          <li>Endpoints: <code>POST /jmap/</code>, <code>GET /jmap/session</code>, <code>GET /jmap/eventsource</code> (SSE push), <code>WS /jmap/websocket</code></li>
+          <li><b>Single endpoint:</b> một HTTP POST batch thay vì N× REST calls</li>
+          <li><b>State sync:</b> <code>hasChanges</code> / state tokens tích hợp sẵn</li>
+          <li><b>Optimistic updates:</b> references (<code>#/id</code>) cho frontend cache</li>
+          <li><b>Server push:</b> SSE/WebSocket qua JMAP push subscription</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3><span class="n">Trait-based</span> - MetadataStore chia 11 sub-traits</h3>
+        <ul>
+          <li>DomainStore, UserStore, MailboxStore, MessageStore, SecurityStore, CalCardStore, SharedStore, EnterpriseStore, PushSubscriptionStore, ShareNotificationStore + các trait độc lập: BlobStore, SearchEngine, EventBus</li>
+          <li>Unit testing với mock stores, sẵn sàng thay backend tương lai</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 style="font-size:16px;font-weight:800;margin:26px 0 14px">Single-binary deployment - sẵn sàng scale ngang</h3>
+    <div class="tblwrap">
+      <table>
+        <thead><tr><th>Chiều</th><th>OxMail</th><th>Zimbra</th><th>Postfix/Dovecot</th></tr></thead>
+        <tbody>
+          <tr><td class="nm">Tiến trình per node</td><td><span class="big num">1</span></td><td>80+</td><td>6+</td></tr>
+          <tr><td class="nm">Memory application layer</td><td class="tag-ox">~90-140 MB (đo live, §9.6)</td><td>Chưa đo tương đương (JVM RSS)</td><td>~500 MB-2 GB</td></tr>
+          <tr><td class="nm">Memory toàn node</td><td class="tag-ox">~2.4-3.3 GB (đo live, §9.6)</td><td>8-16 GB deployment footprint/configuration</td><td>-</td></tr>
+          <tr><td class="nm">Config</td><td>1 TOML</td><td>100+ LDAP attrs</td><td>20+ files</td></tr>
+          <tr><td class="nm">Binary size</td><td>Compact (feature-gated)</td><td>N/A (multi-service)</td><td>Per-daemon</td></tr>
+          <tr><td class="nm">Scale model</td><td>Stateless horizontal</td><td>Stateful multi-server</td><td>Proxy + mail servers</td></tr>
+          <tr><td class="nm">Crash domain</td><td>Single process</td><td>Cross-service leakage</td><td>Per-daemon</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============ §2.4 ARCHITECTURAL OVERVIEW (ICON DIAGRAM) ============ -->
+  <section class="block ov-wrap" id="overview-icons">
+    <div class="block-head">
+      <div class="secnum">§2.4 Architectural Overview</div>
+      <h2>Zimbra vs OxMail - So sánh kiến trúc theo cùng một mô hình trực quan</h2>
+      <p>Cùng ngôn ngữ hình vẽ (cloud entry, server tower, badge phụ trợ) với sơ đồ "Architectural Overview" gốc của Zimbra, đặt cạnh nhau để thấy trực tiếp: Zimbra cần 5 tháp server (Proxy, License Daemon, LDAP, MTA, Mailboxd) nói chuyện qua nhiều giao thức nội bộ; <b>application entry path của OxMail chỉ còn hai lớp chính: Nginx và oxmail-server</b> — shared infrastructure (PostgreSQL, NATS, DragonflyDB, S3, antivirus, workers) được biểu diễn riêng ở data/service plane bên dưới.</p>
+    </div>
+
+    <div class="ov2">
+      <!-- ===== ZIMBRA ===== -->
+      <div class="ov-col">
+        <div class="ov-col-title zb">Zimbra Collaboration</div>
+
+        <svg viewBox="0 0 860 660" style="width:100%;height:auto;font-family:inherit">
+          <defs>
+            <marker id="zArrGray" markerWidth="9" markerHeight="9" refX="4.5" refY="4.5" orient="auto">
+              <path d="M0,0 L9,4.5 L0,9 z" fill="#8fa0ad"/>
+            </marker>
+            <marker id="zArrOrange" markerWidth="9" markerHeight="9" refX="4.5" refY="4.5" orient="auto">
+              <path d="M0,0 L9,4.5 L0,9 z" fill="#e8843c"/>
+            </marker>
+            <g id="zCloud"><path d="M-42,4c-16,0-29-11-29-25c0-12,9-22,21-25C-46-58-30-70-12-70c17,0,32,10,37,25c15,1,26,12,26,25c0,15-13,25-29,25z" fill="#1f83c6"/></g>
+            <g id="zTower4"><rect x="0" y="0" width="80" height="94" rx="10" fill="#1f83c6"/><rect x="15" y="17" width="50" height="6" rx="3" fill="#fff" opacity=".95"/><rect x="15" y="31" width="50" height="6" rx="3" fill="#fff" opacity=".95"/><rect x="15" y="45" width="50" height="6" rx="3" fill="#fff" opacity=".95"/><rect x="15" y="59" width="50" height="6" rx="3" fill="#fff" opacity=".95"/></g>
+            <g id="zTower2"><rect x="0" y="0" width="66" height="76" rx="9" fill="#1f83c6"/><rect x="12" y="16" width="42" height="5.5" rx="2.7" fill="#fff" opacity=".95"/><rect x="12" y="29" width="42" height="5.5" rx="2.7" fill="#fff" opacity=".95"/></g>
+            <g id="zCylinder"><ellipse cx="0" cy="10" rx="26" ry="10" fill="#1f83c6"/><path d="M-26,10v34c0,5.5,11.6,10,26,10s26-4.5,26-10V10" fill="#1f83c6" opacity=".85"/><ellipse cx="0" cy="54" rx="26" ry="10" fill="#1f83c6" opacity=".55"/></g>
+          </defs>
+
+          <!-- Entry clouds -->
+          <use href="#zCloud" x="250" y="70"/>
+          <text x="250" y="99" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink)">HTTPS IMAPS POP3S</text>
+          <use href="#zCloud" x="700" y="70"/>
+          <text x="700" y="99" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink)">SMTP</text>
+          <line x1="250" y1="108" x2="250" y2="150" stroke="#8fa0ad" stroke-width="6" marker-end="url(#zArrGray)"/>
+          <line x1="700" y1="108" x2="700" y2="150" stroke="#8fa0ad" stroke-width="6" marker-end="url(#zArrGray)"/>
+
+          <!-- Row: Proxy / License Daemon / LDAP / MTA -->
+          <use href="#zTower4" x="210" y="155"/>
+          <text x="250" y="268" text-anchor="middle" font-size="13" font-weight="800" fill="var(--ink)">Proxy</text>
+          <rect x="128" y="163" width="84" height="22" rx="5" fill="#3f6a95"/>
+          <path d="M148,168 l-6,9 h5 l-4,8 l10-10 h-5z" fill="#ffd36b"/>
+          <text x="172" y="178" font-size="10" font-weight="700" fill="#fff">Memcache</text>
+
+          <use href="#zTower2" x="357" y="173"/>
+          <text x="390" y="268" text-anchor="middle" font-size="13" font-weight="800" fill="var(--ink)">License Daemon</text>
+          <text x="390" y="281" text-anchor="middle" font-size="10" fill="var(--ink-faint)">Service</text>
+          <circle cx="418" cy="171" r="14" fill="#e8843c"/>
+          <circle cx="413" cy="167" r="3.2" fill="none" stroke="#fff" stroke-width="2"/>
+          <path d="M416,169 l7,7 m-2,-2 l-3,3 m5,-1 l-2.5,2.5" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/>
+
+          <text x="530" y="140" text-anchor="middle" font-size="10" font-weight="800" fill="var(--ink-soft)">DNS</text>
+          <rect x="508" y="126" width="44" height="17" rx="4" fill="none" stroke="var(--hairline)"/>
+          <text x="530" y="139" text-anchor="middle" font-size="9.5" font-weight="700" fill="var(--ink-soft)">DNS</text>
+          <use href="#zTower4" x="490" y="155"/>
+          <text x="530" y="268" text-anchor="middle" font-size="13" font-weight="800" fill="var(--ink)">LDAP</text>
+          <circle cx="555" cy="245" r="14" fill="#3d5a80"/>
+          <circle cx="549" cy="240" r="3" fill="#fff"/><circle cx="561" cy="240" r="3" fill="#fff"/><circle cx="555" cy="251" r="3" fill="#fff"/>
+          <path d="M549,240 L555,251 M561,240 L555,251" stroke="#fff" stroke-width="1.6"/>
+
+          <rect x="655" y="126" width="50" height="17" rx="4" fill="none" stroke="var(--hairline)"/>
+          <text x="680" y="139" text-anchor="middle" font-size="9.5" font-weight="700" fill="var(--ink-soft)">AS/AV</text>
+          <use href="#zTower4" x="660" y="155"/>
+          <text x="700" y="268" text-anchor="middle" font-size="13" font-weight="800" fill="var(--ink)">MTA</text>
+          <circle cx="725" cy="245" r="14" fill="#c75c2e"/>
+          <path d="M725,238 v6 m0,0 l-6,7 m6,-7 l6,7" stroke="#fff" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+
+          <!-- Converging arrows into Mailboxd -->
+          <line x1="250" y1="249" x2="345" y2="352" stroke="#8fa0ad" stroke-width="5" marker-end="url(#zArrGray)"/>
+          <text x="255" y="320" font-size="9.5" font-weight="700" fill="var(--ink-soft)">HTTPS</text>
+          <text x="255" y="331" font-size="9.5" font-weight="700" fill="var(--ink-soft)">POP3S IMAP</text>
+
+          <line x1="390" y1="249" x2="400" y2="352" stroke="#8fa0ad" stroke-width="5" marker-end="url(#zArrGray)"/>
+          <text x="405" y="310" font-size="9.5" font-weight="700" fill="var(--ink-soft)">HTTPS</text>
+
+          <line x1="470" y1="352" x2="525" y2="252" stroke="#e8843c" stroke-width="5" marker-end="url(#zArrOrange)"/>
+          <text x="475" y="310" font-size="9.5" font-weight="700" fill="#c96a2e">LDAP TLS</text>
+
+          <line x1="700" y1="252" x2="580" y2="392" stroke="#e8843c" stroke-width="6" marker-end="url(#zArrOrange)"/>
+          <text x="600" y="330" font-size="9.5" font-weight="700" fill="#c96a2e">SMTP Out</text>
+          <text x="600" y="342" font-size="9.5" font-weight="700" fill="#c96a2e">LMTP IN</text>
+
+          <!-- Mailboxd UI (offset lower-left) + horizontal arrow to Proxy -->
+          <use href="#zTower2" x="35" y="300"/>
+          <text x="68" y="392" text-anchor="middle" font-size="12" font-weight="800" fill="var(--ink)">Mailboxd UI</text>
+          <circle cx="90" cy="298" r="10" fill="#d8453c"/>
+          <path d="M85,298 h10 M90,293 v10" stroke="#fff" stroke-width="1.6"/>
+          <line x1="210" y1="330" x2="105" y2="330" stroke="#8fa0ad" stroke-width="5" marker-end="url(#zArrGray)"/>
+          <text x="157" y="322" text-anchor="middle" font-size="9.5" font-weight="700" fill="var(--ink-soft)">HTTPS</text>
+
+          <!-- Mailboxd core box -->
+          <rect x="330" y="352" width="240" height="122" rx="12" fill="var(--zebra-soft)" stroke="var(--zebra)" stroke-width="1.4"/>
+          <text x="450" y="493" text-anchor="middle" font-size="14" font-weight="800" fill="var(--ink)">Mailboxd</text>
+          <text x="450" y="507" text-anchor="middle" font-size="10" fill="var(--ink-faint)">(mailboxd/Jetty)</text>
+
+          <g transform="translate(348,368)">
+            <ellipse cx="10" cy="4" rx="10" ry="4" fill="#1f83c6"/><path d="M0,4v13c0,2.2,4.5,4,10,4s10-1.8,10-4V4" fill="#1f83c6" opacity=".85"/>
+            <text x="26" y="12" font-size="10" font-weight="700" fill="var(--ink)">MariaDB</text>
+          </g>
+          <g transform="translate(348,394)">
+            <rect width="7" height="7" fill="#1f83c6"/><rect x="9" width="7" height="7" fill="#1f83c6"/><rect y="9" width="7" height="7" fill="#1f83c6"/><rect x="9" y="9" width="7" height="7" fill="#1f83c6"/>
+            <text x="26" y="12" font-size="10" font-weight="700" fill="var(--ink)">Index</text>
+          </g>
+          <g transform="translate(348,418)">
+            <path d="M0,4h16v12H0z M0,4l3,-4h10l3,4" fill="#1f83c6"/>
+            <text x="26" y="14" font-size="10" font-weight="700" fill="var(--ink)">Store</text>
+          </g>
+          <g transform="translate(478,410)">
+            <rect x="-16" y="-12" width="34" height="24" rx="4" fill="#1f83c6"/>
+            <path d="M-9,-3 l9,7 l9,-7" stroke="#fff" stroke-width="2" fill="none"/>
+            <circle cx="14" cy="10" r="9" fill="#d8453c"/>
+            <path d="M9,10 h10 M14,5 v10" stroke="#fff" stroke-width="1.6"/>
+          </g>
+
+          <!-- SSDB + ephemeral data -->
+          <use href="#zCylinder" x="700" y="386"/>
+          <text x="700" y="465" text-anchor="middle" font-size="12" font-weight="800" fill="var(--ink)">SSDB</text>
+          <line x1="570" y1="415" x2="672" y2="415" stroke="#8fa0ad" stroke-width="5" marker-end="url(#zArrGray)" marker-start="url(#zArrGray)"/>
+          <text x="621" y="405" text-anchor="middle" font-size="9.5" font-weight="700" fill="var(--ink-soft)">Ephemeral Data</text>
+        </svg>
+
+        <div class="ov-foot"><b>5 tháp server</b> - Proxy, License Daemon, LDAP, MTA, Mailboxd - nói chuyện qua HTTPS/LDAP TLS/SMTP Out/LMTP IN. Mailbox gắn cố định 1 store server (stateful).</div>
+      </div>
+
+      <!-- ===== OXMAIL ===== -->
+      <div class="ov-col">
+        <div class="ov-col-title ox">OxMail</div>
+
+        <div class="ov-cloudrow">
+          <div class="ov-item">
+            <div class="ic-cloud"><svg width="66" height="40" viewBox="0 0 90 55"><path d="M22 46c-9 0-16-7-16-15c0-7 5-13 12-15C20 7 29 0 40 0c10 0 18 6 21 15c8 0 15 6 15 14c0 9-7 15-16 15H22z" fill="var(--ov-blue)"/></svg></div>
+            <div class="ov-label">HTTPS IMAPS POP3S JMAP</div>
+          </div>
+          <div class="ov-item">
+            <div class="ic-cloud"><svg width="66" height="40" viewBox="0 0 90 55"><path d="M22 46c-9 0-16-7-16-15c0-7 5-13 12-15C20 7 29 0 40 0c10 0 18 6 21 15c8 0 15 6 15 14c0 9-7 15-16 15H22z" fill="var(--ov-blue)"/></svg></div>
+            <div class="ov-label">SMTP</div>
+          </div>
+        </div>
+
+        <div class="ov-arrow-v"><div class="al">TLS + PROXYv2 + rate limit</div><svg width="14" height="22" viewBox="0 0 20 34"><path d="M8 0h4v20h6l-8 13l-8-13h6z" fill="var(--ov-line)"/></svg></div>
+
+        <div class="ov-row">
+          <div class="ov-item">
+            <div class="ic-server"><svg width="56" height="70" viewBox="0 0 60 76"><rect x="2" y="2" width="56" height="72" rx="9" fill="var(--ov-blue)"/><rect x="13" y="15" width="34" height="5" rx="2.5" fill="#fff" opacity=".95"/><rect x="13" y="26" width="34" height="5" rx="2.5" fill="#fff" opacity=".95"/><rect x="13" y="37" width="34" height="5" rx="2.5" fill="#fff" opacity=".95"/></svg>
+              <span class="ic-badge tl" style="background:var(--ov-orange)" title="Stateless, N instances">N</span>
+            </div>
+            <div class="ov-label">NGINX (Proxy)</div>
+            <div class="ov-sub">stateless, thêm instance tùy ý</div>
+          </div>
+        </div>
+
+        <div class="ov-arrow-v"><div class="al">SMTP · IMAP · POP3 · JMAP · Sieve</div><svg width="14" height="22" viewBox="0 0 20 34"><path d="M8 0h4v20h6l-8 13l-8-13h6z" fill="var(--ov-line)"/></svg></div>
+
+        <div class="ov-row">
+          <div class="ov-item wide">
+            <span class="ic-tag">AS/AV inline</span>
+            <div class="ic-server"><svg width="64" height="80" viewBox="0 0 60 76"><rect x="2" y="2" width="56" height="72" rx="9" fill="var(--ov-blue)"/><rect x="13" y="15" width="34" height="5" rx="2.5" fill="#fff" opacity=".95"/><rect x="13" y="26" width="34" height="5" rx="2.5" fill="#fff" opacity=".95"/><rect x="13" y="37" width="34" height="5" rx="2.5" fill="#fff" opacity=".95"/></svg>
+              <span class="ic-badge br" style="background:var(--ov-orange)" title="Auth + routing built-in">🔐</span>
+            </div>
+            <div class="ov-label">oxmail-server</div>
+            <div class="ov-sub">= Proxy&nbsp;+&nbsp;LDAP&nbsp;+&nbsp;MTA&nbsp;+&nbsp;Mailboxd&nbsp;+&nbsp;License Daemon gộp 1 binary</div>
+          </div>
+        </div>
+
+        <div class="ov-core-box" style="margin:6px auto 0">
+          <div class="cn">Dữ liệu dùng chung</div>
+          <div class="ov-core-icons">
+            <span title="PostgreSQL"><svg class="ic-db" width="22" height="22" viewBox="0 0 60 58"><ellipse cx="30" cy="11" rx="24" ry="9" fill="var(--ov-blue)"/><path d="M6 11v34c0 5 10.7 9 24 9s24-4 24-9V11" fill="var(--ov-blue)" opacity=".85"/><ellipse cx="30" cy="45" rx="24" ry="9" fill="var(--ov-blue)" opacity=".6"/></svg></span>
+            <span class="ic-tag" style="margin:0">S3 blob</span>
+            <span class="ic-tag" style="margin:0">Tantivy</span>
+          </div>
+          <div class="ov-sub">≈ MariaDB + Store + Index của Zimbra, nhưng scale-out độc lập app</div>
+        </div>
+
+        <div class="ov-arrow-v"><div class="al">cache · session · rate limit · ephemeral</div><svg width="14" height="22" viewBox="0 0 20 34"><path d="M8 0h4v20h6l-8 13l-8-13h6zM12 34H8V14H2l8-13l8 13h-6z" fill="var(--ov-line)"/></svg></div>
+
+        <div class="ov-row">
+          <div class="ov-item" style="width:auto;margin:0 auto">
+            <svg width="30" height="30" viewBox="0 0 60 58"><ellipse cx="30" cy="11" rx="24" ry="9" fill="var(--ov-blue)"/><path d="M6 11v34c0 5 10.7 9 24 9s24-4 24-9V11" fill="var(--ov-blue)" opacity=".85"/><ellipse cx="30" cy="45" rx="24" ry="9" fill="var(--ov-blue)" opacity=".6"/></svg>
+            <div class="ov-label">DragonflyDB</div>
+          </div>
+        </div>
+
+        <div class="ov-foot"><b>Application entry path: 2 lớp chính</b> - NGINX, oxmail-server (stateless, account không gắn node). Shared infrastructure (PostgreSQL, NATS, DragonflyDB, S3, antivirus, workers) nằm ở <b>data/service plane</b> phía dưới — được biểu diễn riêng, không phải bỏ qua.</div>
+      </div>
+    </div>
+    <p class="srcnote">Vẽ lại theo đúng bố cục sơ đồ "Architectural Overview" trong Zimbra Collaboration Admin Guide (zimbra.github.io/documentation/zimbra-10/adminguide.html), giữ nguyên tên component/giao thức gốc phía Zimbra.</p>
+  </section>
+
+  <!-- ============ §2.5 COMPONENT DIAGRAM ============ -->
+  <section class="block" id="components">
+    <div class="block-head">
+      <div class="secnum">§2.5 Component diagram</div>
+      <h2>Sơ đồ components đầy đủ và khả năng scale ngang</h2>
+      <p>App nodes không giữ authoritative mailbox state; Tantivy giữ index local rebuildable. Shared state ở lớp hạ tầng: thêm node tăng protocol concurrency, không di chuyển mailbox blob.</p>
+    </div>
+
+    <div class="arch">
+      <div class="arch-band">
+        <div class="arch-role">Entry</div>
+        <div class="arch-boxes">
+          <div class="arch-box wide">
+            <div class="n">Internet / Clients</div>
+            <div class="r">webmail, mobile, SMTP/IMAP clients, DAV clients</div>
+          </div>
+        </div>
+      </div>
+      <div class="arch-arrow">▼</div>
+      <div class="arch-band">
+        <div class="arch-role">Front</div>
+        <div class="arch-boxes">
+          <div class="arch-box wide external">
+            <div class="n">NGINX <span class="tag">stateless</span></div>
+            <div class="r">TLS, PROXYv2, rate limiting, load balancer - thêm instance tùy ý</div>
+          </div>
+        </div>
+      </div>
+      <div class="arch-arrow">▼</div>
+      <div class="arch-band">
+        <div class="arch-role">App</div>
+        <div class="arch-boxes">
+          <div class="arch-box">
+            <div class="n">oxmail-server <span class="count">×N</span></div>
+            <div class="r">1 binary: SMTP, IMAP, POP3, JMAP/HTTP, Sieve, gRPC cluster 50051, gateway 50053</div>
+          </div>
+          <div class="arch-box">
+            <div class="n">Tantivy <span class="tag" style="border-color:var(--accent);color:var(--accent-ink)">per-account</span></div>
+            <div class="r">full-text index nhúng mỗi account, disk local, đồng bộ lại từ NATS events</div>
+          </div>
+        </div>
+      </div>
+      <div class="arch-arrow">▼</div>
+      <div class="arch-band">
+        <div class="arch-role">Events</div>
+        <div class="arch-boxes">
+          <div class="arch-box shared wide">
+            <div class="n">NATS JetStream <span class="tag">shared</span></div>
+            <div class="r">event bus: mail.&gt;, security.&gt; - worker events, indexing, JMAP push, session invalidation</div>
+          </div>
+          <div class="arch-box">
+            <div class="n">Workers <span class="count">×M</span></div>
+            <div class="r">ZAP rescan · DLP outbound · Gray zone AI - NATS consumers, thêm worker cho throughput</div>
+          </div>
+        </div>
+      </div>
+      <div class="arch-arrow">▼</div>
+      <div class="arch-band">
+        <div class="arch-role">State</div>
+        <div class="arch-boxes">
+          <div class="arch-box shared">
+            <div class="n">PostgreSQL <span class="tag">shared</span></div>
+            <div class="r">metadata, outbound_queue, quarantine, gray_zone_review - HA Patroni + read replicas</div>
+          </div>
+          <div class="arch-box shared">
+            <div class="n">DragonflyDB <span class="tag">shared</span></div>
+            <div class="r">sessions, TLS cache, rate limiting, reputation - cluster sharding</div>
+          </div>
+          <div class="arch-box shared">
+            <div class="n">S3 blobs <span class="tag">shared</span></div>
+            <div class="r">MinIO/Ceph, AES-256-GCM + Zstd - object storage scale-out</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="arch-note">
+      <b>Điểm mấu chốt:</b> app nodes không giữ authoritative mailbox state (state ở PostgreSQL, NATS, DragonflyDB, S3); Tantivy giữ index local rebuildable từ NATS events. Thêm app node làm tăng protocol concurrency mà không di chuyển mailbox blob. Khi scale lớn sẽ chạm giới hạn shared services (PostgreSQL write path, S3 request rate, NATS consumers, outbound IP reputation) - không phải capacity thuần túy không giới hạn.
+    </p>
+
+    <h3 style="font-size:16px;font-weight:800;margin:26px 0 14px">Phân vai theo khả năng scale ngang</h3>
+    <div class="tblwrap">
+      <table>
+        <thead><tr><th>Thành phần</th><th>Trạng thái</th><th>Scale ngang thế nào</th></tr></thead>
+        <tbody>
+          <tr><td class="nm">NGINX</td><td>Stateless</td><td>Thêm LB instance / DNS round-robin</td></tr>
+          <tr><td class="nm"><b>oxmail-server</b></td><td class="tag-ox"><b>Stateless</b></td><td><b>Thêm node khi concurrency tăng; state ở PG/NATS/Dragonfly/S3</b></td></tr>
+          <tr><td class="nm">Tantivy</td><td>Per-account, local</td><td>Index riêng mỗi account; đồng bộ lại từ NATS events</td></tr>
+          <tr><td class="nm">ZAP / DLP / Gray workers</td><td>Stateless consumers</td><td>Thêm worker cho throughput; NATS consumer groups</td></tr>
+          <tr><td class="nm">PostgreSQL</td><td>Shared</td><td>HA (Patroni) + read replicas</td></tr>
+          <tr><td class="nm">NATS JetStream</td><td>Shared</td><td>Cluster 3+ node</td></tr>
+          <tr><td class="nm">DragonflyDB</td><td>Shared</td><td>Cluster sharding</td></tr>
+          <tr><td class="nm">S3 (MinIO/Ceph)</td><td>Shared</td><td>Object storage scale-out</td></tr>
+          <tr><td class="nm">Rspamd / ClamAV</td><td>External</td><td>Per-node local hoặc dedicated pool</td></tr>
+          <tr><td class="nm">Observability (VM/VL)</td><td>External</td><td>Mỗi node local-only</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============ §2.6 GATEWAY ============ -->
+  <section class="block" id="gw">
+    <div class="block-head">
+      <div class="secnum">§2.6 Gateway (GW)</div>
+      <h2>OxMail là first-class citizen của GW - kết nối gRPC + rkyv</h2>
+      <p>GW (repo riêng, node 103.72.96.181) là gateway chia sẻ: MX tập trung, IP pool delivery, outbound routing theo domain. <code>gateway.proto</code> là contract chung, thay đổi RPC commit song song cả 2 repo.</p>
+    </div>
+
+    <div class="grid2">
+      <div class="panel">
+        <h3>Kết nối gRPC bidirectional stream</h3>
+        <div class="prewrap" style="margin-top:8px">
+<pre>Stream A (Forward): GW → OxMail   inbound sau security pipeline
+Stream B (Submit):  OxMail → GW   outbound cho IP pool delivery
+
+RPC: Forward · Submit · Ping · ListDomains
+     · GetDeliveryStatuses · RetryDeliveries
+
+Payload: rkyv-serialized (GatewayMessageV1 / OutboundMessageV1)
+         - rkyv::access cho zero-copy payload access sau khi nhận frame
+           (không deserialize object graph mới)</pre>
+        </div>
+        <ul>
+          <li><b>gRPC + rkyv</b>: zero-copy payload access ở tầng payload sau khi nhận frame; nhanh hơn SMTP forwarding truyền thống (vẫn hỗ trợ SMTP làm fallback)</li>
+          <li>Submit endpoint: <code>103.72.96.181:50052</code>; OxMail nhận gateway trên <code>0.0.0.0:50053</code></li>
+          <li>Auth: bearer token (OXMAIL_GATEWAY_SUBMIT_TOKEN)</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3>RTT đo thực tế production (02/08/2026)</h3>
+        <div class="tblwrap">
+          <table>
+            <tbody>
+              <tr><td class="nm">ox.io.vn → GW :50052</td><td><span class="big num">12-17 ms</span> <span class="tag-ox">gRPC Ping</span> (avg ~14.6)</td></tr>
+              <tr><td class="nm">nguyenthehung → GW :50052</td><td><span class="big num">15-19 ms</span> <span class="tag-ox">gRPC Ping</span> (avg ~16.7)</td></tr>
+              <tr><td class="nm">GW ↔ 2 node oxmail</td><td class="num">~23 ms ICMP (thô)</td></tr>
+              <tr><td class="nm">Trạng thái</td><td class="tag-ox">connected</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p style="margin-top:8px; font-size:12.5px; color: var(--ink-faint)">gRPC Ping là con số authoritative (application RTT trên HTTP/2 warm). Health monitor ping mỗi 30s, 2 success → connected, 3 fail → failed.</p>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-top:16px">
+      <h3>Domain routing + tự động fallback SMTP direct khi GW down <span class="live">đã có trên production</span></h3>
+      <div class="tblwrap">
+        <table>
+          <thead><tr><th>Bước</th><th>Cơ chế</th><th>Vị trí code</th></tr></thead>
+          <tbody>
+            <tr><td class="nm">1. Health monitor</td><td>OxMail ping GW mỗi 30s → <code>connection_status</code> (2 success → connected; 3 fail → failed)</td><td><code>oxmail-gateway/src/health.rs</code></td></tr>
+            <tr><td class="nm">2. Routing lookup</td><td><code>outbound_mode</code> direct/gateway/auto + <code>gateway_healthy</code>; GW down → route không sẵn sàng → <b>SMTP direct ngay</b></td><td><code>domain_routing.rs</code></td></tr>
+            <tr><td class="nm">3. Submit thất bại</td><td>TransientError/PermanentError → <code>set_domain_fallback(domain, true)</code> → mail sau đi SMTP direct</td><td><code>deliver.rs</code></td></tr>
+            <tr><td class="nm">4. Tự phục hồi</td><td>GW connected lại → <code>fallback_active</code> tự tắt (reconciler 60s + health SQL)</td><td><code>health.rs</code> / <code>spawn_domain_reconciler</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top:10px; font-size:13px; color: var(--ink-soft)">Production lúc đo: <code>ox.io.vn</code> → auto, endpoint <code>103.72.96.181:50052</code>, <code>fallback_active = false</code> (GW khỏe).</p>
+    </div>
+
+    <div class="grid2" style="margin-top:16px">
+      <div class="panel">
+        <h3>Kế hoạch phát triển GW</h3>
+        <ul>
+          <li><b>Tự viết engine lọc spam/virus cho GW</b> (như kế hoạch với OxMail): hiện GW dựa score từ OxMail, chưa có engine riêng</li>
+          <li><b>SMTP outbound proxy riêng kiểu HAProxy</b>: không tái sử dụng HAProxy vì vấn đề license, cần tự phát triển</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3>Vai trò trong kiến trúc</h3>
+        <ul>
+          <li>IP egress tập trung: mail qua GW ra ngoài với IP pool thống nhất</li>
+          <li>Inbound qua Stream A sau pipeline bảo mật của GW</li>
+          <li>Forwarding dự phòng: vẫn hỗ trợ SMTP forwarding truyền thống</li>
+          <li>Đo lường: gw metrics :9090, admin :8081, PostgreSQL :5433</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ §2.7 MAIL FLOW ============ -->
+  <section class="block" id="flow">
+    <div class="block-head">
+      <div class="secnum">§2.7 Architecture overview &amp; mail flow</div>
+      <h2>Luồng thư đi qua từng component (chuẩn Zimbra Admin Guide)</h2>
+      <p>Tương đương Architectural Overview + Mail Flow (multi-server) + Receiving and Sending Mail của Zimbra 10 Admin Guide.</p>
+    </div>
+
+    <div class="flow-grid">
+      <!-- ZIMBRA -->
+      <div class="flow zb">
+        <div class="f-head">
+          <span class="f-badge">Zimbra</span>
+          <div>
+            <div class="f-name">Mail flow (multi-server)</div>
+            <div class="f-sub">MTA + Amavis + Mailbox Server + LDAP</div>
+          </div>
+        </div>
+
+        <div class="flow-lane">
+          <div class="lane-label"><b>Inbound</b> - nhận thư</div>
+          <div class="flow-node"><div class="n">Internet / Senders</div><div class="r">DNS MX trỏ tới MTA</div></div>
+          <div class="flow-arrow in"><span class="dir">▼</span>SMTP :25</div>
+          <div class="flow-node"><div class="n">Zimbra MTA (Postfix)</div><div class="r">nhận, queue, routing theo LDAP</div></div>
+          <div class="flow-arrow in"><span class="dir">▼</span></div>
+          <div class="flow-node"><div class="n">Amavis</div><div class="r">ClamAV + SpamAssassin (Perl)</div></div>
+          <div class="flow-arrow in"><span class="dir">▼</span>LMTP</div>
+          <div class="flow-node core"><div class="n">Mailbox Server (mailboxd/Jetty)</div><div class="r">store + index + notify; mỗi mailbox gắn cố định 1 server theo LDAP</div>
+            <div class="sub"><span>MySQL</span><span>Blob store</span><span>Solr</span><span>Web UI</span><span>IMAP/POP</span></div>
+          </div>
+        </div>
+
+        <div class="flow-lane">
+          <div class="lane-label"><b>Outbound</b> - gửi thư</div>
+          <div class="flow-node"><div class="n">Webmail / IMAP / SMTP AUTH</div><div class="r">client nói chuyện với mailboxd</div></div>
+          <div class="flow-arrow out"><span class="dir">▼</span>submit :587</div>
+          <div class="flow-node"><div class="n">Postfix (MTA)</div><div class="r">DKIM sign, DNS MX lookup</div></div>
+          <div class="flow-arrow out"><span class="dir">▼</span>gửi từ IP từng mailbox server</div>
+          <div class="flow-node"><div class="n">Internet / Recipients</div><div class="r">cần IP pool riêng hoặc mỗi node 1 IP</div></div>
+        </div>
+
+        <div class="flow-note"><b>Đặc điểm:</b> LDAP định vị mailbox (stateful). Mailbox nằm cố định 1 store server; proxy/MTA routing tới đúng server. 10+ daemon (Postfix, amavis, clamd, spamd, mailboxd, LDAP, memcached, logger...).</div>
+      </div>
+
+      <!-- OXMAIL -->
+      <div class="flow ox">
+        <div class="f-head">
+          <span class="f-badge">OxMail</span>
+          <div>
+            <div class="f-name">Mail flow (multi-server)</div>
+            <div class="f-sub">1 binary + shared state PG/NATS/S3/Dragonfly</div>
+          </div>
+        </div>
+
+        <div class="flow-lane">
+          <div class="lane-label"><b>Inbound</b> - nhận thư</div>
+          <div class="flow-node"><div class="n">Internet / Senders</div><div class="r">DNS MX trỏ tới NGINX / node</div></div>
+          <div class="flow-arrow in"><span class="dir">▼</span>SMTP :25</div>
+          <div class="flow-node"><div class="n">NGINX</div><div class="r">TLS + PROXYv2 + rate limit + LB</div></div>
+          <div class="flow-arrow in"><span class="dir">▼</span></div>
+          <div class="flow-node core"><div class="n">oxmail-server :2525 (bất kỳ node nào)</div><div class="r">pipeline: DNSBL → SPF → DKIM → DMARC → ARC → reputation</div>
+            <div class="sub"><span>Rspamd+ClamAV</span><span>score 0-5/5-15/15+</span><span>Sieve</span></div>
+          </div>
+          <div class="flow-arrow in"><span class="dir">▼</span></div>
+          <div class="flow-node"><div class="n">Delivery</div><div class="r">PostgreSQL metadata + S3 blob (AES-256-GCM) → NATS → Tantivy index + JMAP push</div></div>
+        </div>
+
+        <div class="flow-lane">
+          <div class="lane-label"><b>Outbound</b> - gửi thư</div>
+          <div class="flow-node"><div class="n">Webmail (JMAP) / SMTP AUTH</div><div class="r">client nói chuyện với oxmail-server</div></div>
+          <div class="flow-arrow out"><span class="dir">▼</span>outbound_queue (PostgreSQL)</div>
+          <div class="flow-node"><div class="n">Route theo domain</div><div class="r">gateway/auto → GW Submit gRPC + rkyv (:50052, IP pool); direct → SMTP TLS pool</div></div>
+          <div class="flow-arrow out"><span class="dir">▼</span>DKIM/ARC sign</div>
+          <div class="flow-node"><div class="n">Internet / Recipients</div><div class="r">egress tập trung qua GW IP pool (fallback SMTP direct khi GW down)</div></div>
+        </div>
+
+        <div class="flow-note"><b>Đặc điểm:</b> account KHÔNG gắn node - bất kỳ app node nào cũng phục vụ được (stateless), state ở shared layer. 1 binary gộp MTA + submission + mailbox + IMAP/POP/JMAP/HTTP + queue; shared services: PG, NATS, Dragonfly, S3.</div>
+      </div>
+    </div>
+
+    <div class="grid2">
+      <div class="panel">
+        <h3>Inbound flow - OxMail</h3>
+        <div class="prewrap">
+<pre>Internet → DNS MX → NGINX (TLS + PROXYv2 + rate limit)
+  → oxmail-server :2525 (bất kỳ node nào cũng phục vụ được)
+    → Pipeline: DNSBL → SPF → DKIM → DMARC → ARC
+                → IPREV → reputation
+    → Rspamd + ClamAV (circuit breaker)
+    → score 0-5 deliver / 5-15 gray AI / &gt;15 reject
+    → Sieve → delivery:
+        PostgreSQL (metadata) + S3 (blob AES-256-GCM)
+    → NATS events → Tantivy index (async) + JMAP push
+  (account KHÔNG gắn node - shared state PG/S3/NATS)</pre>
+        </div>
+      </div>
+      <div class="panel">
+        <h3>Inbound flow - Zimbra (multi-server)</h3>
+        <div class="prewrap">
+<pre>Internet → DNS MX → Zimbra MTA (Postfix :25)
+  → Amavis (ClamAV + SpamAssassin)
+  → Postfix → LMTP → Mailbox Server (mailboxd/Jetty)
+    → mailboxd: MySQL metadata + blob store
+                + Solr index + notify
+  (mỗi mailbox gắn cố định 1 mailbox server,
+   LDAP quyết định vị trí)</pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid2" style="margin-top:16px">
+      <div class="panel">
+        <h3>Outbound flow - OxMail</h3>
+        <div class="prewrap">
+<pre>Webmail (JMAP) / SMTP AUTH → oxmail-server
+  → outbound_queue (PostgreSQL)
+  → route theo domain:
+      auto/gateway → GW Submit gRPC + rkyv
+                     (:50052, IP pool egress)
+                     SMTP direct fallback khi GW down
+      direct → SMTP TLS pool (session resume)
+               → DNS MX → Internet
+  → DKIM/ARC sign trước khi gửi</pre>
+        </div>
+      </div>
+      <div class="panel">
+        <h3>Outbound flow - Zimbra</h3>
+        <div class="prewrap">
+<pre>Webmail/IMAP/SMTP AUTH → mailboxd
+  → Postfix (submit :587)
+  → DKIM sign → MTA → DNS MX → Internet
+  (từ IP của từng mailbox server)
+  (cần IP pool riêng hoặc mỗi node 1 IP)</pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-top:16px">
+      <h3>Queue xử lý - tương ứng Zimbra queues</h3>
+      <div class="tblwrap">
+        <table>
+          <thead><tr><th>Zimbra queue</th><th>Vai trò</th><th>OxMail tương đương</th></tr></thead>
+          <tbody>
+            <tr><td class="nm">incoming</td><td>Thư mới nhận, chờ xử lý</td><td>SMTP pipeline (in-memory, async scan)</td></tr>
+            <tr><td class="nm">active</td><td>Thư sẵn sàng gửi</td><td><code>outbound_queue</code> state queued</td></tr>
+            <tr><td class="nm">deferred</td><td>Gửi lỗi, chờ retry</td><td><code>outbound_queue</code> state deferred + retry worker</td></tr>
+            <tr><td class="nm">hold</td><td>Bị giữ do policy</td><td>Quarantine / gray zone</td></tr>
+            <tr><td class="nm">corrupt</td><td>Hỏng không xử lý được</td><td>bounce / error status</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top:10px; font-size:13px; color: var(--ink-soft)"><b>Khác biệt cốt lõi:</b> Zimbra định vị mailbox qua LDAP (stateful, mailbox nằm 1 store server cố định); OxMail phục vụ account từ bất kỳ app node nào (stateless, state ở shared layer). Outbound: Zimbra gửi từ IP từng mailbox server; OxMail gửi tập trung qua GW IP pool (egress thống nhất) hoặc SMTP direct khi GW down.</p>
+    </div>
+  </section>
+
+
+  <!-- ============ §2.7.5 MERMAID FLOW DIAGRAMS ============ -->
+  <section class="block" id="flow-mermaid">
+    <div class="block-head">
+      <div class="secnum">§2.7.5 Security path diagrams</div>
+      <h2>Sơ đồ đường đi thư — Inbound &amp; Outbound (Mermaid)</h2>
+      <p>Đường đi thực tế đã verify trên production (04/08/2026): DNSBL Spamhaus ở layer-1 TCP, blocklist/allowlist layer-1 trước mọi scan, gray-zone giữ mail score lấp lửng cho AI xét, DLP quét outbound. Zimbra không có tầng nào tương đương.</p>
+    </div>
+
+    <div class="mermaid-wrap">
+      <div class="mermaid-cap"><b>Inbound</b> — từ MX tới mailbox: DNSBL chặn tại TCP, whitelist bỏ qua toàn bộ scan, gray-zone là toà án AI giữa "thả" và "chặn cứng".</div>
+      <pre class="mermaid">
+flowchart TD
+    A["Internet / Senders<br/>DNS MX → NGINX (TLS + PROXYv2)"]
+    A --> B{"L1 · DNSBL<br/>Spamhaus + Barracuda<br/><b>tại TCP, trước MAIL FROM</b>"}
+    B -- "IP listed 🔴" --> B1["554 5.7.1 IP blacklisted<br/>delivery trace: rejected 554"]
+    B -- "IP sạch ✅" --> C{"L1 · Blocklist / Allowlist<br/>email + domain + IP<br/><b>trước mọi scan</b>"}
+    C -- "block 🔴" --> C1["550 5.7.1 Sender blocked<br/>(không tốn rspamd/clamav)"]
+    C -- "allowlist / trusted 🟢" --> C2["SKIP toàn bộ security<br/>deliver thẳng → INBOX"]
+    C -- "neutral" --> D["SPF → DKIM → DMARC → ARC → reputation"]
+    D --> E["Rspamd + ClamAV scan<br/>(circuit breaker + timeout)"]
+    E --> F{"Score decision"}
+    F -- "&lt; 5 (thấp)" --> G["Deliver → INBOX<br/>Sieve rules + auto-reply"]
+    F -- "5 – 7 (gray zone ⚠️)" --> H["HOLD · 250 “held for review”<br/>gray_zone_review + blob + NATS"]
+    H --> I["AI Court (DeepSeek/Claude...)<br/>prompt chống prompt-injection"]
+    I -- "DELIVER" --> G
+    I -- "JUNK / HOLD / AI lỗi" --> J["Junk folder<br/>(fallback an toàn)"]
+    F -- "&gt; threshold" --> K["550 rejected as spam<br/>quarantine + delivery trace"]
+      </pre>
+    </div>
+
+    <div class="mermaid-wrap" style="margin-top:16px">
+      <div class="mermaid-cap"><b>Outbound</b> — submission tới egress: DLP quét mọi thư rời hệ thống; nếu bị chặn, delivery trace có nút Retry chủ ý (không quét lại).</div>
+      <pre class="mermaid">
+flowchart TD
+    A["Webmail (JMAP) / SMTP AUTH 587/465<br/>submit bỏ qua DNSBL (PBL user vẫn gửi được)"]
+    A --> B["Enqueue → outbound_queue<br/>publish mail.outbound.dlp_check"]
+    B --> C{"DLP worker<br/>regex patterns + AI judge"}
+    C -- "allow ✅" --> D["GW Submit gRPC (egress pool)<br/>/ direct SMTP TLS"]
+    C -- "block 🔴" --> C1["dlp_status = block · 550 5.7.1<br/>reason: AI flagged (API key/password...)"]
+    C1 --> C2["Delivery trace: nút Retry (chủ ý)<br/>override → KHÔNG quét lại DLP"]
+    C2 --> D
+    C -- "quarantine 🟠" --> C3["DLP quarantine → admin review/release"]
+    D --> E["DKIM/ARC sign → MX → 250 2.0.0<br/>delivery trace: sent + diagnostic"]
+      </pre>
+    </div>
+  </section>
+
+  <section class="block" id="components-map">
+    <div class="block-head">
+      <div class="secnum">§2.8 Component mapping</div>
+      <h2>Bản đồ component: OxMail thay cái gì trong Zimbra</h2>
+      <p>Mỗi hàng là một chức năng vận hành. Zimbra cần 10+ daemon/process; OxMail gộp MTA + submission + mailbox + IMAP/POP/JMAP/HTTP + queue vào 1 binary.</p>
+    </div>
+    <div class="tblwrap">
+      <table class="dense">
+        <thead><tr><th>Zimbra component</th><th>Vai trò trong Zimbra</th><th>OxMail tương đương</th><th>Vị trí flow</th><th>Ghi chú</th></tr></thead>
+        <tbody>
+          <tr><td class="nm">Zimbra MTA (Postfix)</td><td>SMTP nhận/gửi, queue, relay</td><td class="tag-ox">oxmail-server SMTP + outbound_queue</td><td>Ingress / Egress</td><td>1 binary thay cả MTA + submission</td></tr>
+          <tr><td class="nm">Amavis</td><td>Glue AV/AS (Perl)</td><td class="tag-ox">Inbound pipeline stages (Rust, 20+ stage)</td><td>Giữa SMTP và delivery</td><td>Không cần daemon riêng</td></tr>
+          <tr><td class="nm">ClamAV</td><td>Quét virus</td><td>ClamAV (giữ nguyên)</td><td>Pipeline</td><td>Tương lai: engine tự viết (§11)</td></tr>
+          <tr><td class="nm">SpamAssassin</td><td>Chấm điểm spam</td><td class="tag-ox">Rspamd + gray-zone AI</td><td>Pipeline</td><td>3 bậc: 0-5 / 5-15 AI / &gt;15</td></tr>
+          <tr><td class="nm">Mailbox Server (mailboxd/Jetty)</td><td>LMTP delivery, mailbox store, web UI, IMAP/POP</td><td class="tag-ox">oxmail-server (SMTP/IMAP/POP/JMAP/HTTP)</td><td>Delivery / Access</td><td></td></tr>
+          <tr><td class="nm">MySQL (mailbox metadata)</td><td>Metadata mail</td><td class="tag-ox">PostgreSQL 16</td><td>Shared state</td><td>106+ migrations</td></tr>
+          <tr><td class="nm">Blob store (message store)</td><td>Nội dung thư + attachment</td><td class="tag-ox">S3 (MinIO/Ceph, AES-256-GCM + Zstd)</td><td>Shared state</td><td>Envelope encryption</td></tr>
+          <tr><td class="nm">Solr/Lucene (search)</td><td>Full-text search</td><td class="tag-ox">Tantivy (per-account, local rebuildable)</td><td>Index</td><td>Async qua NATS</td></tr>
+          <tr><td class="nm">Zimbra LDAP</td><td>Users, domains, config, routing</td><td class="tag-ox">PostgreSQL (domains/users) + domain_outbound_routing</td><td>Shared state</td><td>Không có LDAP riêng</td></tr>
+          <tr><td class="nm">Zimbra Proxy (nginx)</td><td>TLS, routing, IMAP/POP/HTTP proxy</td><td class="tag-ox">NGINX (TLS + PROXYv2 + LB)</td><td>Edge</td><td></td></tr>
+          <tr><td class="nm">Memcached</td><td>Session cache, GAL cache</td><td class="tag-ox">DragonflyDB (sessions, TLS cache, rate limit, reputation)</td><td>Cache</td><td></td></tr>
+          <tr><td class="nm">Logger + SNMP</td><td>Thống kê, giám sát</td><td class="tag-ox">VictoriaMetrics + VictoriaLogs</td><td>Observability</td><td>Local-only</td></tr>
+          <tr><td class="nm">HSM (tiered storage)</td><td>Chuyển mail cũ xuống storage rẻ</td><td>S3 lifecycle (kế hoạch)</td><td>Storage</td><td></td></tr>
+          <tr><td class="nm">Zimbra Web Client</td><td>Webmail (Angular)</td><td class="tag-ox">OxMail webmail (SolidJS, JMAP)</td><td>Access</td><td></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============ §2.9 OBSERVABILITY FLOW ============ -->
+  <section class="block" id="observability-flow">
+    <div class="block-head">
+      <div class="secnum">§2.9 Observability flow</div>
+      <h2>Luồng log &amp; metrics - đã verify thật trên staging</h2>
+      <p>Thay cho Zimbra Logger + SNMP: OxMail tách 2 luồng quan sát hệ thống - log full-text search được (VictoriaLogs) và metrics dạng số cho alerting (Prometheus). Cả 2 đều local-only, không có auth mặc định nên không public port.</p>
+    </div>
+
+    <div class="flow-grid">
+      <div class="flow ox">
+        <div class="f-head">
+          <span class="f-badge">OxMail</span>
+          <div>
+            <div class="f-name">Log flow</div>
+            <div class="f-sub">rsyslog + VictoriaLogs, đã deploy thật</div>
+          </div>
+        </div>
+        <div class="flow-lane">
+          <div class="flow-node core"><div class="n">oxmail-server</div><div class="r"><code>tracing</code> + <code>OXMAIL_JSON_LOGS=1</code> - JSON structured log ra stdout</div></div>
+          <div class="flow-arrow in"><span class="dir">▼</span>StandardOutput=append</div>
+          <div class="flow-node"><div class="n">/var/log/oxmail/server.log</div><div class="r">1 JSON object/dòng: timestamp, level, target, fields.*</div></div>
+          <div class="flow-arrow in"><span class="dir">▼</span>imfile module</div>
+          <div class="flow-node"><div class="n">rsyslog</div><div class="r">tail file, tag <code>app_name=oxmail-server</code>, wrap RFC5424</div></div>
+          <div class="flow-arrow in"><span class="dir">▼</span>omfwd TCP :10514, queue disk-assisted</div>
+          <div class="flow-node core"><div class="n">VictoriaLogs</div><div class="r">syslog listener + HTTP query API cùng 1 process</div>
+            <div class="sub"><span>LogsQL</span><span>unpack_json</span><span>VMUI :9428</span></div>
+          </div>
+        </div>
+        <div class="flow-note"><b>Đặc điểm:</b> TCP + queue disk-assisted trên rsyslog để không mất log khi VictoriaLogs gián đoạn tạm thời; message body là JSON gốc, field thật (level/target/fields.*) lấy ra lúc query bằng <code>unpack_json</code> chứ không parse lúc ingest.</div>
+      </div>
+
+      <div class="flow zb">
+        <div class="f-head">
+          <span class="f-badge">Zimbra</span>
+          <div>
+            <div class="f-name">Logger + SNMP</div>
+            <div class="f-sub">1 daemon gộp log + giám sát</div>
+          </div>
+        </div>
+        <div class="flow-lane">
+          <div class="flow-node"><div class="n">Mỗi service (MTA, Mailboxd, LDAP...)</div><div class="r">ghi log text riêng, không format thống nhất</div></div>
+          <div class="flow-arrow in"><span class="dir">▼</span>syslog</div>
+          <div class="flow-node core"><div class="n">Zimbra Logger</div><div class="r">gom log + rrd stats cho zmstat; SNMP trap cho alert cơ bản</div></div>
+          <div class="flow-arrow in"><span class="dir">▼</span></div>
+          <div class="flow-node"><div class="n">Zimbra Admin Console</div><div class="r">xem log/thống kê qua UI admin, không có full-text query language</div></div>
+        </div>
+        <div class="flow-note"><b>Khác biệt:</b> log các service Zimbra không thống nhất format (Postfix syslog, Java log4j của mailboxd...), không có ngôn ngữ query như LogsQL - tra cứu chủ yếu bằng <code>grep</code>/<code>zmstat</code>.</div>
+      </div>
+    </div>
+
+    <div class="grid2" style="margin-top:16px">
+      <div class="panel">
+        <h3>Metrics flow (Prometheus)</h3>
+        <div class="prewrap" style="margin-top:8px">
+<pre>oxmail-server GET /metrics (Prometheus text format)
+oxmail-zap-worker :9091 /metrics
+oxmail-dlp-worker :9092 /metrics
+        ↓ scrape 15-30s
+Prometheus (deploy/prometheus/prometheus.yml)
+        ↓ alert_rules.yml
+Alertmanager (Slack/Email/PagerDuty)</pre>
+        </div>
+        <p style="margin-top:8px">Trang <b>Metrics</b> trong Ops Dashboard truy vấn Prometheus qua backend, không expose Prometheus UI trực tiếp ra ngoài.</p>
+      </div>
+      <div class="panel">
+        <h3>Tra cứu log thực tế (đã chạy trên staging)</h3>
+        <div class="prewrap">
+<pre>curl :9428/select/logsql/query \
+  -d 'query={app_name="oxmail-server"}
+       | unpack_json | level:="ERROR"'
+
+curl :9428/select/logsql/tail \
+  -d 'query={app_name="oxmail-server"}'   # live tail qua HTTP</pre>
+        </div>
+        <p style="margin-top:8px">VMUI (web UI) và curl dùng chung 1 API <code>/select/logsql/*</code> - xem chi tiết <code>docs/victorialogs-usage-guide.md</code>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ §2.10 ASYNC WORKER FLOW ============ -->
+  <section class="block" id="worker-flow">
+    <div class="block-head">
+      <div class="secnum">§2.10 Async worker flow</div>
+      <h2>ZAP / DLP / Gray-zone - xử lý nền qua NATS, không chặn đường deliver chính</h2>
+      <p>Không có tương đương trực tiếp ở Zimbra (Amavis chạy đồng bộ inline trong MTA). Cả 3 worker OxMail đều là NATS consumer độc lập, publish/subscribe theo subject riêng, retry tự động khi crash.</p>
+    </div>
+
+    <div class="grid3">
+      <div class="panel">
+        <h3>ZAP - rescan retroactive</h3>
+        <div class="prewrap" style="margin-top:8px">
+<pre>Report spam/malware
+(oxmail-http report_handler)
+        ↓ publish
+NATS "security.zap_scan"
+        ↓ consumer "zap-worker"
+          max_deliver: 5
+oxmail-zap-worker
+  scan_and_purge(blob_hash)
+  → ClamAV rescan
+        ↓ ack chỉ khi thành công
+NATS tự redeliver nếu
+worker crash/lỗi</pre>
+        </div>
+      </div>
+      <div class="panel">
+        <h3>DLP - outbound scan</h3>
+        <div class="prewrap" style="margin-top:8px">
+<pre>Outbound commit
+outbound_queue
+        ↓ publish
+NATS "mail.outbound.dlp_check"
+        ↓ consumer "dlp-worker"
+oxmail-dlp-worker
+  pattern engine + LLM judge
+  (PCI/IBAN/SSN...)
+        ↓ ghi verdict
+outbound_queue.dlp_status
+outbound_queue.dlp_reason
+email_security_logs (nếu block)
+        ↓
+fail-open/fail-closed theo
+config.dlp.fail_open khi timeout</pre>
+        </div>
+      </div>
+      <div class="panel">
+        <h3>Gray-zone - AI Court</h3>
+        <div class="prewrap" style="margin-top:8px">
+<pre>SMTP pipeline: score 5-15
+insert gray_zone_review
+        ↓ publish
+NATS "mail.gray_zone.review"
+        ↓ consumer "oxmail-gray-worker"
+oxmail-gray-worker
+  dedup cache (Dragonfly)
+  → reputation gate (≥3 report
+    = auto-junk)
+  → rate limit → LLM Judge()
+  (HOLD = xử lý như JUNK)
+        ↓ update + deliver
+gray_zone_review.ai_verdict
+INBOX hoặc JUNK mailbox
+        ↓ publish
+NATS "mail.gray_zone.verdict"</pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-top:16px">
+      <h3>Watchdog fallback - khi AI worker down &gt;5 phút <span class="live">xác minh trong code</span></h3>
+      <p>Cơ chế nằm trong <code>oxmail-server</code> (không phải trong gray-worker) - vòng lặp mỗi 30s quét <code>gray_zone_review</code> đang <code>pending</code> quá 300 giây:</p>
+      <div class="prewrap" style="margin-top:8px">
+<pre>SELECT ... FROM gray_zone_review
+WHERE delivery_status = 'pending'
+  AND created_at &lt; NOW() - (300 * INTERVAL '1 second')</pre>
+      </div>
+      <p style="margin-top:8px">Mỗi dòng stale bị force-set <code>ai_verdict = 'junk'</code>, <code>actor = 'system-watchdog'</code>, lý do <i>"Timed out — AI worker unavailable. Auto-junked after 5 minutes."</i>, rồi deliver vào Junk (fallback INBOX nếu tài khoản chưa có mailbox Junk). Đảm bảo mail không kẹt vô thời hạn khi gray-worker chết mà không cần người vận hành can thiệp thủ công.</p>
+    </div>
+  </section>
+
+  <!-- ============ §2.10.5 DEEP DIVE DLP / ZAP / GRAY-ZONE ============ -->
+  <section class="block" id="deepdive-ai">
+    <div class="block-head">
+      <div class="secnum">§2.10.5 Deep dive — DLP / ZAP / Gray-zone</div>
+      <h2>Ba lớp phòng thủ AI — lợi thế duy nhất OxMail đang xử lý</h2>
+      <p>Zimbra dựa vào Amavis (inline, binary, không AI). OxMail có <b>3 worker AI độc lập</b> chạy nền qua NATS — không chặn đường deliver chính, retry tự động, có circuit breaker. Đây là nhóm tính năng khó copy nhất: cần pipeline đúng chỗ, AI provider đúng chuẩn, và dữ liệu vận hành thật.</p>
+    </div>
+
+    <!-- ── Gray-zone first — lợi thế nhất ── -->
+    <div class="panel" style="margin-bottom:16px">
+      <h3 style="display:flex;align-items:center;gap:10px"><span class="status g">Gray-zone — AI Court</span><span style="font-size:12px;color:var(--warn);font-weight:700">lợi thế khó copy nhất</span></h3>
+      <p style="margin-top:8px"><b>Vai trò:</b> toà án AI cho vùng mail lấp lửng (score 5–7) — nơi threshold cứng của Zimbra/Postfix hoặc chặn nhầm (false positive mất thư quan trọng) hoặc thả lọt (spam lừa đảo tinh vi). Gray-zone giữ mail, hỏi AI, rồi mới quyết định — <b>không bao giờ 554</b> ở tầng này.</p>
+      <div class="prewrap" style="margin-top:10px">
+<pre>SMTP pipeline (score trong [5, threshold] và ai.enabled)
+  ├─ hold(): lưu raw vào S3 (blob) + insert gray_zone_review (pending)
+  ├─ publish NATS "mail.gray_zone.review"
+  └─ trả 250 "held for review" (sender thấy đã nhận)
+
+oxmail-gray-worker (consumer max 10 concurrency)
+  ├─ 1. dedup cache (Dragonfly, 24h TTL theo message_id_hash)
+  ├─ 2. reputation gate: ≥3 user report cùng sender → auto-junk, KHÔNG gọi LLM
+  ├─ 3. rate limit (max_calls_per_minute, Dragonfly INCR+EXPIRE)
+  ├─ 4. resolve judge theo tenant (Dragonfly key, system/tenant scope)
+  ├─ 5. LLM Judge — prompt có phòng thủ chống prompt-injection:
+  │     • body trong &lt;email_body&gt; = untrusted input, bỏ qua lệnh nhúng
+  │     • đánh giá: domain drift (display name ≠ envelope domain),
+  │       urgency tone, đối chiếu spam_symbols + điểm rspamd
+  ├─ 6. verdict: DELIVER → INBOX / JUNK → Junk
+  │     HOLD (không chắc) → xử lý như JUNK (fallback an toàn)
+  │     LLM lỗi/timeout/circuit mở → auto-JUNK
+  └─ 7. ghi ai_verdict/ai_reason/ai_model + inject message vào mailbox
+        + publish "mail.gray_zone.verdict" (NATS)
+
+Watchdog (trong oxmail-server, mỗi 30s):
+  pending quá 300s → force ai_verdict='junk', actor='system-watchdog'
+  → mail vào Junk, không bao giờ kẹt vô thời hạn</pre>
+      </div>
+      <ul class="kv" style="margin-top:10px">
+        <li><b>Vì sao lợi thế:</b> (1) Zimbra không có khái niệm "vùng xám + AI xét" — Amavis chỉ phân loại cứng; (2) cần dữ liệu thật để tinh prompt (domain drift, urgency); (3) per-tenant AI provider (domain admin cấu hình riêng, key riêng) — mô hình MSP bán được; (4) watchdog đảm bảo không chết im lặng.</li>
+        <li><b>Chi phí:</b> chỉ gọi LLM cho mail score 5–7 (phần nhỏ traffic) — không quét toàn bộ.</li>
+        <li><b>Verify production:</b> phish (bank + bit.ly) → verdict <code>junk</code> "Generic bank-suspension threat..."; mail sạch → AI HOLD → junk fallback (bảo thủ có chủ đích).</li>
+      </ul>
+    </div>
+
+    <div class="grid2">
+      <div class="panel">
+        <h3><span class="status y">DLP — Data Loss Prevention</span></h3>
+        <p style="margin-top:8px"><b>Vai trò:</b> ngăn rò rỉ dữ liệu outbound — số thẻ, IBAN, SSN, secret/API key, JWT, custom regex/keyword. Quét <b>mọi thư rời hệ thống</b> (JMAP lẫn SMTP AUTH).</p>
+        <div class="prewrap" style="margin-top:10px">
+<pre>Enqueue (JMAP + SMTP submission)
+  → publish "mail.outbound.dlp_check"
+oxmail-dlp-worker:
+  1. pattern engine (regex pre-compiled:
+     PCI_CARD, IBAN, US_SSN, PLAINTEXT_SECRET,
+     JWT_TOKEN, CUSTOM_KEYWORD, VN_*)
+  2. AI judge per-policy (use_llm + provider/model):
+     schema {has_sensitive_data, findings, risk_level}
+     high/critical → block · medium → quarantine
+     false → allow (overrule regex nếu nhầm)
+  3. ghi verdict: dlp_status + dlp_reason + dlp_verdicts
+Verdict: allow → GW/direct deliver
+         block → 550 5.7.1 (delivery trace + nút Retry)
+         quarantine → DLP quarantine, admin review</pre>
+        </div>
+        <ul class="kv" style="margin-top:10px">
+          <li><b>Retry chủ ý:</b> khách hàng biết mình gửi gì → bấm Retry trong delivery trace → override <code>dlp_status='allow'</code> + ghi ai override, <b>không quét lại</b>.</li>
+          <li><b>Role trong log:</b> scan log hiện đầy đủ mọi verdict + <b>AI Role</b> (system = root provider / tenant = domain admin).</li>
+          <li><b>Bug đã vá khi verify:</b> schema LLM sai (parse luôn allow) + SMTP submission bỏ qua DLP — cả 2 đã fix + verify block thật 550.</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3><span class="status b">ZAP — Zero Auto Purge</span></h3>
+        <p style="margin-top:8px"><b>Vai trò:</b> retro-scan attachment sau khi ClamAV cập nhật signature — mail cũ tưởng sạch, giờ mới phát hiện virus. "Bom hẹn giờ" của Zimbra: không có cơ chế này.</p>
+        <div class="prewrap" style="margin-top:10px">
+<pre>Trigger (3 đường):
+  1. Freshclam OnUpdateExecute
+     → POST /internal/zap/trigger (HMAC, chống replay)
+  2. Admin UI 9443 (nút Trigger Scan)
+  3. Crowdsourced: 3 user report cùng sender
+     → scan mail 7 ngày của sender đó
+
+Trigger → query attachment blobs (window 6h)
+  dedup: skip blob đã scan từ lần trigger trước
+  skip blob &lt; 1KB · cap 5000 · concurrency 10
+  → publish "security.zap_scan"
+
+oxmail-zap-worker → ClamAV rescan:
+  clean   → ghi zap_scan_logs (audit)
+  infected → purger xóa message rows (mọi user dùng blob)
+            + ghi zap_events + delivery trace
+  error   → NATS redeliver (max 5)</pre>
+        </div>
+        <ul class="kv" style="margin-top:10px">
+          <li><b>Tối ưu vận hành:</b> window 24h → 6h (mail ít khi mở lại), dedup theo <code>zap_state.last_trigger_at</code>, retention log 30 ngày (infected 365 ngày).</li>
+          <li><b>UI:</b> 9443 /zap-workers — worker fleet heartbeat + Scan Log filter (All/clean/infected/error/skipped) + Load More.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-top:16px">
+      <h3>So sánh với Zimbra — vì sao 3 lớp này là khác biệt</h3>
+      <div class="tblwrap" style="margin-top:10px">
+        <table class="dense">
+          <thead><tr><th>Lớp phòng thủ</th><th>Zimbra (Amavis inline)</th><th>OxMail</th><th>Khác biệt quyết định</th></tr></thead>
+          <tbody>
+            <tr><td class="nm">DNSBL + blocklist</td><td>Postfix reject (IP), không phân tầng theo role</td><td>DNSBL layer-1 TCP + blocklist/allowlist layer-1, whitelist bỏ qua toàn bộ scan</td><td>Whitelist = không tốn scan; block sớm nhất có thể</td></tr>
+            <tr><td class="nm">Gray-zone</td><td>Không có — spam threshold cứng</td><td>Score 5–7 → HOLD → AI Court → deliver/junk, watchdog</td><td><b>Giảm false positive lẫn false negative cùng lúc</b> — chặn nhầm mất khách, thả lọt mất uy tín</td></tr>
+            <tr><td class="nm">DLP</td><td>Không có thực sự (plugin rời rạc)</td><td>Pattern + AI judge, per-tenant provider, retry chủ ý</td><td>Bán được như tính năng MSP: mỗi domain tự cấu hình AI + policy</td></tr>
+            <tr><td class="nm">ZAP</td><td>Không có — clamd chỉ quét lúc nhận</td><td>Retro-scan theo signature update, crowdsourced, dedup</td><td>Khép kín vòng đời virus đã lọt vào hệ thống</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top:10px;font-size:13.5px;color:var(--ink-faint)">Ba worker chạy nền, không chặn đường deliver chính; NATS retry khi crash; circuit breaker bảo vệ khi provider lỗi; log minh bạch cho ops (9443) lẫn tenant (8443).</p>
+    </div>
+  </section>
+
+  <section class="block" id="migration-flow">
+    <div class="block-head">
+      <div class="secnum">§2.11 Migration flow</div>
+      <h2>Import từ Zimbra - hiện trạng thật, không tô hồng</h2>
+      <p>Binary <code>oxmail-migrate</code> (crate <code>oxmail-migration</code>) có 3 nguồn import theo thiết kế, nhưng chỉ 1 đã nối CLI. Ghi rõ trạng thái từng phần để tránh hiểu nhầm khi trình bày.</p>
+    </div>
+
+    <div class="tblwrap">
+      <table class="dense">
+        <thead><tr><th>Nguồn</th><th>Trạng thái CLI</th><th>Trạng thái thật</th><th>Ghi chú</th></tr></thead>
+        <tbody>
+          <tr><td class="nm">IMAP sync (nguồn bất kỳ)</td><td><span class="status y">Đã nối CLI</span></td><td><span class="status p">Đọc được, chưa ghi storage</span></td><td>Enumerate + fetch hoạt động; bước persist vào Postgres/S3 còn là TODO trong code</td></tr>
+          <tr><td class="nm">Zimbra TGZ export</td><td><span class="status n">Chưa nối CLI</span></td><td>Hàm parser có sẵn (<code>tgz_parser.rs</code>)</td><td>Untar + SHA-256 dedup viết sẵn dạng thư viện, chưa có subcommand gọi tới</td></tr>
+          <tr><td class="nm">Zimbra LDAP</td><td><span class="status n">Chưa nối CLI</span></td><td>Hàm export/convert có sẵn (<code>ldap_migrate.rs</code>)</td><td>Bind qua <code>ldap3</code>, map COS→quota; chưa expose CLI subcommand</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="grid2" style="margin-top:16px">
+      <div class="panel">
+        <h3>Luồng IMAP sync (phần đã chạy được)</h3>
+        <div class="prewrap" style="margin-top:8px">
+<pre>oxmail-migrate imap --host ... --username ...
+  --target-user &lt;uuid&gt; [--continuous]
+        ↓ TLS connect (rustls)
+IMAP LIST → enumerate mailbox
+        ↓ mỗi mailbox
+SELECT, so sánh UIDVALIDITY
+UID FETCH (last_uid+1):*
+  (FLAGS INTERNALDATE RFC822.SIZE
+   BODY.PEEK[])
+        ↓ [TODO trong code hiện tại]
+   parse RFC5322, SHA-256 dedup,
+   ghi BlobStore + MetadataStore,
+   map IMAP flags → JMAP keywords
+
+oxmail-migrate verify --target-user &lt;uuid&gt;
+  → SELECT COUNT(*) FROM messages
+    JOIN mailboxes WHERE user_id=$1</pre>
+        </div>
+      </div>
+      <div class="panel">
+        <h3>Resumability - điểm mạnh đã có</h3>
+        <ul>
+          <li><code>UserSyncState</code> lưu <code>MailboxSyncState{uid_validity, last_uid}</code> theo từng mailbox</li>
+          <li>Lần chạy sau resume từ <code>last_uid+1</code> - không fetch lại từ đầu</li>
+          <li>Nếu <code>UIDVALIDITY</code> đổi (server nguồn rebuild mailbox) → tự động full re-sync</li>
+          <li><code>--continuous</code>: poll loop mặc định 60s, dùng được cho đồng bộ dần trước ngày cutover thật</li>
+        </ul>
+        <p style="margin-top:10px; font-size:12.5px; color: var(--ink-faint)">Thiết kế resumability đã đúng hướng cho di chuyển dữ liệu lớn; việc còn lại là nối bước ghi storage (khối lượng công việc vừa phải vì storage layer - BlobStore/MetadataStore - đã có sẵn và đang chạy production cho luồng mail thường).</p>
+      </div>
+    </div>
+
+    <div class="warnbox">Đừng trình bày migration TGZ/LDAP như "đã xong" trước leadership/khách hàng - hiện tại chỉ IMAP sync có CLI, và ngay cả IMAP sync cũng chưa ghi được vào storage. Đây là hạng mục cần ưu tiên trước khi công bố khả năng "migrate từ Zimbra" ra ngoài.</div>
+  </section>
+
+  <!-- ============ §3 PROTOCOL ============ -->
+  <section class="block" id="protocol">
+    <div class="block-head">
+      <div class="secnum">§3 Protocol layer</div>
+      <h2>Ma trận hỗ trợ giao thức</h2>
+      <p>Tất cả giao thức chính tự viết từ đầu trong Rust, không dùng thư viện third-party.</p>
+    </div>
+    <div class="tblwrap">
+      <table class="dense">
+        <thead><tr><th>Protocol</th><th>RFC</th><th>OxMail</th><th>Tính năng chính</th></tr></thead>
+        <tbody>
+          <tr><td><code>SMTP</code></td><td>5321</td><td><span class="status y">Production</span></td><td>AUTH (Argon2+WebAuthn), TLS, DSN, SIZE, 8BITMIME, SMTPUTF8</td></tr>
+          <tr><td><code>SMTPS</code></td><td>8314</td><td><span class="status y">Production</span></td><td>Implicit TLS trên 465</td></tr>
+          <tr><td><code>SMTP Submission</code></td><td>6409</td><td><span class="status y">Production</span></td><td>Port 587 với AUTH + STARTTLS</td></tr>
+          <tr><td><code>IMAP4rev2</code></td><td>9051</td><td><span class="status y">Production</span></td><td>CONDSTORE, QRESYNC, IDLE, ACL (4314), METADATA (5464)</td></tr>
+          <tr><td><code>POP3</code></td><td>1939</td><td><span class="status y">Production</span></td><td>STLS, TOP, UIDL</td></tr>
+          <tr><td><code>JMAP Core</code></td><td>8620</td><td><span class="status y">Production</span></td><td>RequestObject, ResponseObject, capability registry</td></tr>
+          <tr><td><code>JMAP Mail</code></td><td>8621</td><td><span class="status y">Production</span></td><td>37 methods: Email/query, Email/set, Mailbox/set, Thread...</td></tr>
+          <tr><td><code>JMAP Calendar</code></td><td>draft</td><td><span class="status y">Production</span></td><td>CalendarEvent/query, set, changes, copy, parse, export, alarm; Journal, Todo, Principal, ParticipantIdentity, Notification</td></tr>
+          <tr><td><code>JMAP Contacts</code></td><td>draft</td><td><span class="status y">Production</span></td><td>AddressBook/query, set, changes; Contact/query, set, changes, copy, parse; AddressBookGroup; auto-complete, CSV import</td></tr>
+          <tr><td><code>CalDAV</code></td><td>4791</td><td><span class="status y">Production</span></td><td>calendar-query, calendar-multiget, scheduling (iTIP 5546)</td></tr>
+          <tr><td><code>CardDAV</code></td><td>6352</td><td><span class="status y">Production</span></td><td>addressbook-query, addressbook-multiget, contact groups</td></tr>
+          <tr><td><code>ManageSieve</code></td><td>5804</td><td><span class="status y">Production</span></td><td>Sieve script management</td></tr>
+          <tr><td><code>ARC</code></td><td>8617</td><td><span class="status y">Production</span></td><td>Sealing cho forwarded/redirected messages</td></tr>
+          <tr><td><code>DKIM</code></td><td>6376</td><td><span class="status y">Production</span></td><td>Sign + verify</td></tr>
+          <tr><td><code>DMARC</code></td><td>7489</td><td><span class="status y">Production</span></td><td>Policy enforcement + aggregate report ingestion</td></tr>
+          <tr><td><code>SPF</code></td><td>7208</td><td><span class="status y">Production</span></td><td>Verification</td></tr>
+          <tr><td><code>DANE</code></td><td>7672</td><td><span class="status y">Production</span></td><td>Outbound TLS policy qua DNS TLSA</td></tr>
+          <tr><td><code>MTA-STS</code></td><td>8461</td><td><span class="status y">Production</span></td><td>Outbound TLS policy qua HTTPS</td></tr>
+          <tr><td><code>BIMI</code></td><td>draft</td><td><span class="status y">Production</span></td><td>Brand Indicators for Message Identification</td></tr>
+          <tr><td><code>Milter</code></td><td>-</td><td><span class="status y">Production</span></td><td>Async Sendmail Milter client (TCP + Unix)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="grid3" style="margin-top:18px">
+      <div class="panel">
+        <h3>IMAP4rev2 highlights</h3>
+        <ul>
+          <li>CONDSTORE: persistent flags, <code>HIGHESTMODSEQ</code></li>
+          <li>QRESYNC: quick mailbox resync</li>
+          <li>IDLE: real-time push</li>
+          <li>ACL + METADATA + LIST-STATUS + SPECIAL-USE + LANGUAGE</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3>JMAP 37 methods + Calendar/Contacts</h3>
+        <ul>
+          <li>Mailbox, Email, EmailSubmission, Thread, Identity, VacationResponse, Quota, SearchSnippet, Blob, PushSubscription, ShareNotification, CalendarEvent</li>
+          <li><b>JMAP Calendar và Contacts production:</b> capability <code>urn:ietf:params:jmap:calendars</code> / <code>:contacts</code> đăng ký trong session; Calendar.tsx, Contacts.tsx dùng thật ở webmail</li>
+          <li>Calendar: CalendarEvent + Journal, Todo, Principal, ParticipantIdentity, Notification, Alarm</li>
+          <li>Contacts: AddressBook + Contact + AddressBookGroup, auto-complete, CSV import</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3>CalDAV + CardDAV + iTIP</h3>
+        <ul>
+          <li>8.372 dòng across 4 crates: calendar-query, multiget, MKCALENDAR, FreeBusy, vCard 3.0/4.0, groups, CSV import tới 5.000 dòng</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ §4 SMTP PIPELINE ============ -->
+  <section class="block" id="pipeline">
+    <div class="block-head">
+      <div class="secnum">§4 SMTP pipeline</div>
+      <h2>Trung tâm của bảo mật: 20+ stage xử lý inbound</h2>
+      <p>Mỗi mail inbound đi qua chuỗi kiểm tra: reputation, xác thực, quét nội dung, rồi phân loại theo điểm Rspamd.</p>
+    </div>
+
+    <div class="stages">
+      <span class="stage"><span class="sn">1</span>DNSBL check (zen.spamhaus.org)</span><span class="stage-arrow">→</span>
+      <span class="stage"><span class="sn">2</span>Basic validation (size, syntax)</span><span class="stage-arrow">→</span>
+      <span class="stage"><span class="sn">3</span>SPF verify (RFC 7208)</span><span class="stage-arrow">→</span>
+      <span class="stage"><span class="sn">4</span>DKIM verify (RFC 6376)</span><span class="stage-arrow">→</span>
+      <span class="stage"><span class="sn">5</span>DMARC policy (RFC 7489)</span><span class="stage-arrow">→</span>
+      <span class="stage"><span class="sn">6</span>ARC verify (RFC 8617)</span><span class="stage-arrow">→</span>
+      <span class="stage"><span class="sn">7</span>Reverse DNS (IPREV)</span><span class="stage-arrow">→</span>
+      <span class="stage"><span class="sn">8</span>Sender reputation scoring</span><span class="stage-arrow">→</span>
+      <span class="stage"><span class="sn">9</span>Trust bypass / allowlist</span><span class="stage-arrow">→</span>
+      <span class="stage"><span class="sn">10</span>Rspamd scan + ClamAV</span><span class="stage-arrow">→</span>
+      <span class="stage"><span class="sn">11</span>Safe Links rewrite</span><span class="stage-arrow">→</span>
+      <span class="stage"><span class="sn">12</span>Phishing detection</span><span class="stage-arrow">→</span>
+      <span class="stage"><span class="sn">13</span>Header sanitization</span><span class="stage-arrow">→</span>
+      <span class="stage"><span class="sn">14</span>ARC/DKIM signing</span><span class="stage-arrow">→</span>
+      <span class="stage"><span class="sn">15</span>Sieve rule evaluation</span><span class="stage-arrow">→</span>
+      <span class="stage"><span class="sn">16</span>Phase 3 anti-spoof</span><span class="stage-arrow">→</span>
+      <span class="stage"><span class="sn">17</span>Delivery / quarantine</span>
+    </div>
+
+    <div class="score3">
+      <div class="score g">
+        <div class="sv num">0-5</div>
+        <div class="sl">Deliver</div>
+        <div class="sd">Rspamd score thấp, vào INBOX</div>
+      </div>
+      <div class="score w">
+        <div class="sv num">5-15</div>
+        <div class="sl">Gray zone</div>
+        <div class="sd">Chờ AI review; watchdog tự xử lý sau 5 phút nếu worker tắt</div>
+      </div>
+      <div class="score r">
+        <div class="sv num">&gt;15</div>
+        <div class="sl">Reject (554)</div>
+        <div class="sd">Từ chối ngay tại cổng SMTP</div>
+      </div>
+    </div>
+
+    <div class="grid4" style="margin-top:22px">
+      <div class="panel">
+        <h3>Circuit breaker</h3>
+        <ul>
+          <li>Rspamd/ClamAV wrap circuit breaker: mở khi timeout, downstream vẫn chạy, nửa mở sau backoff</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3>Gray zone AI</h3>
+        <ul>
+          <li>Score 5-15 giữ trong quarantine, NATS event → gray worker → LLM verdict; phân tích display-name drift, urgency, sender pattern</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3>DLP outbound</h3>
+        <ul>
+          <li>Scan PCI-DSS, IBAN, SSN trước khi gửi; regex + LLM; fail-open/fail-closed theo policy</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3>ZAP rescan</h3>
+        <ul>
+          <li>ClamAV cập nhật signature → NATS <code>security.zap_scan</code> → rescan toàn bộ blobs, purge nếu malware</li>
+        </ul>
+        <p style="margin-top:10px; font-size:12.5px; color: var(--ink-faint)">Hướng mở rộng: Rspamd + ClamAV hiện là binary external. <b>Đo production: ClamAV (clamd) là kẻ ngốn RAM lớn nhất node - 968 MB (ox.io.vn) và 1.952 MB (nguyenthehung), nhiều hơn cả PostgreSQL + Rspamd cộng lại</b> (§9.6). Đây là một lý do lớn thúc đẩy kế hoạch tự viết engine riêng kết hợp học máy (AI/LLM) ngay trong pipeline (xem §11).</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ §5 INFRASTRUCTURE ============ -->
+  <section class="block" id="infra">
+    <div class="block-head">
+      <div class="secnum">§5 Infrastructure</div>
+      <h2>Hạ tầng dữ liệu: PostgreSQL, S3, Tantivy, NATS, DragonflyDB</h2>
+    </div>
+    <div class="grid2">
+      <div class="panel">
+        <h3>PostgreSQL 16 - nguồn tri thức</h3>
+        <ul>
+          <li>106+ migration files, auto-run khi khởi động</li>
+          <li>Tables chính: domains, users, mailboxes, messages, threads, recipients, outbound_queue, quarantine, blocklist, reputation_history</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3>S3 blob store - bảo mật first</h3>
+        <div class="prewrap" style="margin-top:8px">
+<pre>raw bytes → Zstd compress (~40%) → AES-256-GCM encrypt → S3</pre>
+        </div>
+        <ul>
+          <li>Envelope encryption (SEC-1): per-blob DEK wrapped by master KEK</li>
+          <li>SHA-256 content hashing cho dedup, lazy key rotation</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3>Tantivy - full-text search</h3>
+        <ul>
+          <li>Per-account embedded search, không network hop</li>
+          <li>Indexed: subject, from, to, cc, body_text, attachment_names, mailbox_path, date, size</li>
+          <li>Auto-optimize 6h, giám sát disk 85%</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3>NATS JetStream - event bus</h3>
+        <ul>
+          <li>Producers publish → async consumers không chặn delivery path</li>
+          <li>ZAP <code>security.zap_scan</code>, JMAP push, search indexing, session invalidation</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3>DragonflyDB - cache &amp; sessions</h3>
+        <ul>
+          <li>TLS session cache (configurable TTL)</li>
+          <li>Distributed rate limiting (sliding window, O(1))</li>
+          <li>Reputation history (1h TTL) + worker heartbeats (30s)</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3>Gateway integration</h3>
+        <ul>
+          <li>gRPC :50053 nhận submit từ GW, outbound qua GW endpoint 50052 (routing domain chuyển "auto")</li>
+          <li>Xác minh live: <code>Outbound GW Submit enabled</code> trên cả 2 node</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ §6 BẢO MẬT ============ -->
+  <section class="block" id="baomat">
+    <div class="block-head">
+      <div class="secnum">§6 Kiến trúc bảo mật</div>
+      <h2>Authentication, mã hóa và outbound security</h2>
+    </div>
+    <div class="grid2">
+      <div class="panel">
+        <h3>Authentication stack</h3>
+        <div class="tblwrap">
+          <table>
+            <tbody>
+              <tr><td class="nm">Argon2id</td><td class="tag-ox">Auto-upgrade on login</td></tr>
+              <tr><td class="nm">SCRAM-SHA-256</td><td class="tag-ox">RFC 5802</td></tr>
+              <tr><td class="nm">App passwords</td><td class="tag-ox">Named, revocable, per-device</td></tr>
+              <tr><td class="nm">WebAuthn / FIDO2</td><td class="tag-ox">Full ceremony + counter replay detection</td></tr>
+              <tr><td class="nm">TOTP</td><td class="tag-ox">Encrypted secrets (AES-256-GCM)</td></tr>
+              <tr><td class="nm">Session</td><td class="tag-ox">Per-user limits, revocation</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="panel">
+        <h3>Encryption hierarchy</h3>
+        <div class="prewrap">
+<pre>Master Key (từ file, production)
+  ├── Blob DEKs (per-blob, wrapped) → S3 storage
+  ├── TOTP secrets (PostgreSQL) → AES-256-GCM
+  └── JWT secrets: minimum 32 characters enforced</pre>
+        </div>
+      </div>
+    </div>
+    <div class="tblwrap" style="margin-top:16px">
+      <table class="dense">
+        <thead><tr><th>Tính năng outbound</th><th>RFC</th><th>Implementation</th></tr></thead>
+        <tbody>
+          <tr><td><code>DANE</code></td><td>7672</td><td>TLSA record lookup + TLS enforcement</td></tr>
+          <tr><td><code>MTA-STS</code></td><td>8461</td><td>HTTPS policy fetch + TLS enforcement</td></tr>
+          <tr><td><code>BIMI</code></td><td>draft</td><td>Brand logo trong email clients</td></tr>
+          <tr><td><code>ARC</code></td><td>8617</td><td>Sealing cho forwarded messages</td></tr>
+          <tr><td><code>DSN</code></td><td>3461</td><td>Bounce formatting, tracking</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============ §7 HIỆU NĂNG ============ -->
+  <section class="block" id="hieunang">
+    <div class="block-head">
+      <div class="secnum">§7 Kiến trúc hiệu năng</div>
+      <h2>Zero-GC, TLS pool, async concurrency</h2>
+    </div>
+    <div class="grid2">
+      <div class="panel">
+        <h3>Zero-GC design</h3>
+        <ul>
+          <li><b>jemalloc</b> làm global allocator: arenas chống fragmentation, không GC pause, sub-ms tail latency</li>
+          <li><b>Bumpalo arena</b> (<code>oxmail-common/src/bump_writer.rs</code>): zero-allocation string building, một arena allocation mỗi lệnh IMAP/SMTP, giải phóng một lần</li>
+          <li>Phù hợp long-lived connections (IMAP IDLE kéo dài giờ/ngày)</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3>TLS connection pool (outbound)</h3>
+        <ul>
+          <li>Struct <code>TlsConnectionPool</code> trong <code>oxmail-smtp-outbound</code> (<code>pool.rs</code>)</li>
+          <li>Per-MX connection limit (semaphore) chống thundering herd</li>
+          <li>TLS session ticket cache cho session resumption (giảm handshake cost, không phải TLS 1.3 early data)</li>
+          <li>Health check NOOP trước khi tái sử dụng pooled connection</li>
+          <li>Background cleanup idle TTL, pre-warm MX phổ biến (gmail, outlook)</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3>Async concurrency</h3>
+        <ul>
+          <li>Khởi tạo infra song song bằng <code>tokio::join!</code> (s3, nats, tantivy, dragonfly)</li>
+          <li>Crypto/compression nặng (AES-256-GCM, Zstd) offload sang <code>spawn_blocking</code></li>
+          <li>Batch recipient lookup tránh N+1 trong SMTP pipeline</li>
+          <li>Safe Links bloom filter tránh gọi Google API lặp</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3>Startup performance</h3>
+        <div class="tblwrap">
+          <table>
+            <tbody>
+              <tr><td class="nm">Server binary startup</td><td class="num">~2 s</td></tr>
+              <tr><td class="nm">LDAP sync</td><td class="num">deferred 30 s (tránh thundering herd)</td></tr>
+              <tr><td class="nm">Tantivy auto-optimize</td><td class="num">deferred 1h</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <p class="srcnote">Load test scenarios đã định nghĩa (LT1-LT4: 20 SMTP conn, 10 sequential delivery, 30 JMAP session, 100 healthz) nhưng tất cả đều <code>#[ignore]</code>: chưa có production benchmark chính thức. Đây là việc nằm ở roadmap (§11).</p>
+  </section>
+
+  <!-- ============ §7.1-7.3 HIỆU NĂNG DEEP DIVE ============ -->
+  <section class="block" id="hiendive">
+    <div class="block-head">
+      <div class="secnum">§7.1–7.3 Hiệu năng deep dive</div>
+      <h2>Ba quyết định hiệu năng — cách thường làm, vì sao chọn hướng này, và lợi ích đo được</h2>
+      <p>Đây là những lựa chọn <i>kiến trúc chứ không phải tối ưu vi mô</i>: đổi cách phân bổ tài nguyên của toàn hệ thống. Zimbra (Java/Postfix) không làm được 2/3 số này vì ràng buộc ngôn ngữ/runtime.</p>
+    </div>
+
+    <!-- ============ §7.1 TLS POOL ============ -->
+    <div class="panel" style="margin-bottom:16px">
+      <h3><span class="status g">7.1 · TLS connection pool (outbound SMTP)</span> — <code>oxmail-smtp-outbound/src/pool.rs</code></h3>
+
+      <div class="grid2" style="margin-top:10px">
+        <div class="panel">
+          <h4>Cách làm bình thường (Postfix / Zimbra)</h4>
+          <ul class="kv">
+            <li>Mỗi message (hoặc mỗi đợt) mở <b>kết nối TCP mới</b> → EHLO → STARTTLS → <b>TLS handshake đầy đủ</b>: 2 RTT (ClientHello → ServerHello/KeyShare → Finished) + verify chứng thư + sinh khóa phiên.</li>
+            <li>Zimbra: mỗi delivery worker tạo connection riêng, không tái sử dụng qua message; Postfix có sender_dependent nhưng per-connection TLS state thường reset.</li>
+            <li>Kết quả: với MX lớn (gmail/outlook), phần lớn thời gian delivery là <b>handshake, không phải gửi thư</b>; đồng thời dễ mở quá nhiều kết nối đồng thời tới 1 MX (bị rate-limit/đánh dấu spam).</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h4>Tại sao OxMail chọn pool + session resume</h4>
+          <ul class="kv">
+            <li><code>TlsConnectionPool</code> lưu kết nối đã handshake theo <code>(MX host, port)</code>; <b>NOOP health-check</b> trước khi tái dùng (MX hay đóng kết nối im lặng — dùng lại là hỏng).</li>
+            <li><b>Session ticket cache</b> (<code>TlsSessionCache</code>): sau mỗi handshake lưu ticket → lần sau <b>TLS 1.3 PSK resumption</b> (~1 RTT, bỏ verify chứng thư, dùng khóa phiên cũ).</li>
+            <li><b>Per-MX semaphore</b> (<code>max_per_mx</code>): serialize số kết nối tới 1 MX — chống thundering herd, không bị MX chặn vì quá nhiều conn.</li>
+            <li><b>Background cleanup</b> idle TTL (mỗi <code>idle_ttl/2</code> giây) + <b>pre-warm</b> MX phổ biến (gmail, outlook) ngay khi khởi động.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tblwrap" style="margin-top:12px">
+        <table class="dense">
+          <thead><tr><th>Kịch bản</th><th>Bình thường (1 conn/thư)</th><th>OxMail pool + resume</th><th>Lợi ích</th></tr></thead>
+          <tbody>
+            <tr><td class="nm">Delivery tới cùng MX, thư thứ 2+</td><td>2 RTT handshake + verify cert + tạo khóa</td><td>0-RTT/1-RTT (PSK resume) hoặc NOOP reuse</td><td>Tiết kiệm ~1–2 RTT/thư; bỏ hoàn toàn chi phí crypto handshake</td></tr>
+            <tr><td class="nm">10.000 mail/giờ tới gmail</td><td>~10.000 handshake: hàng chục giây RTT + CPU (X25519, SHA-256, AES) mỗi lần</td><td>Vài chục handshake, còn lại reuse</td><td>CPU crypto giảm ~80–90%; latency delivery giảm tương ứng</td></tr>
+            <tr><td class="nm">Burst 100 mail tới 1 MX</td><td>100 conn đồng thời → MX rate-limit / greylist</td><td>Semaphore giới hạn concurrent (vd 4), xếp hàng</td><td>Không bị MX chặn; reputation egress tốt hơn</td></tr>
+            <tr><td class="nm">MX đóng kết nối âm thầm</td><td>Dùng kết nối hỏng → retry mù</td><td>NOOP trước reuse → phát hiện, mở mới</td><td>Giảm delivery fail ảo / retry lãng phí</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ============ §7.2 JEMALLOC ============ -->
+    <div class="panel" style="margin-bottom:16px">
+      <h3><span class="status g">7.2 · jemalloc — global allocator (zero-GC)</span> — <code>oxmail-server/main.rs</code> (static GLOBAL: Jemalloc)</h3>
+
+      <div class="grid2" style="margin-top:10px">
+        <div class="panel">
+          <h4>Cách làm bình thường (glibc malloc / mimalloc)</h4>
+          <ul class="kv">
+            <li><b>glibc malloc</b> (mặc định): per-thread arenas, nhưng không có chiến lược chunk reuse cho workload <b>long-lived connections</b> — mỗi connection giữ buffer/heap riêng; freed chunk bị fragment nhỏ dần → RSS tăng theo thời gian.</li>
+            <li><b>mimalloc</b>: RAM tốt hơn, nhưng có <i>cleaner thread</i> định kỳ — có thể tạo latency spike ở thời điểm không lường trước.</li>
+            <li>Java (Zimbra): GC pause dưới heap lớn — tail latency nhảy ms → chục ms; phải tinh chỉnh JVM flags.</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h4>Tại sao OxMail chọn jemalloc</h4>
+          <ul class="kv">
+            <li>Triết lý <b>zero-GC</b>: mail server giữ kết nối rất lâu (IMAP IDLE hàng giờ/ngày, SMTP connection reuse). Cần allocator cho tail latency <b>dưới ms, ổn định</b>, không pause.</li>
+            <li>jemalloc: <b>arenas</b> (mỗi thread tốc độ cao có arena riêng — không lock contention) + <b>chunk reuse</b> (freed chunk trả về pool tái dùng cùng kích thước) → fragmentation tối thiểu, RSS ổn định.</li>
+            <li>Không có background thread định kỳ "dọn" — không latency spike ẩn.</li>
+            <li>Số liệu production (node ox.io.vn): uptime 54 ngày, load 0.30, memory ổn định không leo — phù hợp giả định jemalloc chống fragmentation.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tblwrap" style="margin-top:12px">
+        <table class="dense">
+          <thead><tr><th>Tiêu chí</th><th>glibc malloc</th><th>mimalloc</th><th>jemalloc (OxMail)</th></tr></thead>
+          <tbody>
+            <tr><td class="nm">Tail latency</td><td>Ổn nhưng fragmentation tăng</td><td class="tag-z">Cleaner thread → spike ẩn</td><td class="tag-ox">Sub-ms, không pause</td></tr>
+            <tr><td class="nm">Fragmentation (long-lived conn)</td><td>Tăng dần → RSS leo</td><td>Tốt hơn glibc</td><td>Arena + chunk reuse → ổn định</td></tr>
+            <tr><td class="nm">Lock contention (nhiều thread)</td><td>Arena/thread nhưng có nhược điểm cross-size</td><td>Sharded</td><td>Per-thread arena, ít contention</td></tr>
+            <tr><td class="nm">GC pause</td><td>Không (C) nhưng Zimbra = Java có</td><td>Không</td><td>Không</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="srcnote" style="margin-top:8px">Lưu ý trung thực: benchmark allocator chính thức chưa có (roadmap §11). Nhận định dựa trên thiết kế allocator + quan sát production (RSS ổn định 54 ngày).</p>
+    </div>
+
+    <!-- ============ §7.3 BUMPALO ============ -->
+    <div class="panel">
+      <h3><span class="status g">7.3 · Bumpalo arena — zero-alloc protocol response</span> — <code>oxmail-common/src/bump_writer.rs</code></h3>
+
+      <div class="grid2" style="margin-top:10px">
+        <div class="panel">
+          <h4>Cách làm bình thường (String/Vec mỗi response)</h4>
+          <ul class="kv">
+            <li>Mỗi lệnh SMTP/IMAP trả 1 response. Cách thông thường: build bằng <code>String</code>/<code>Vec&lt;u8&gt;</code> — mỗi lần <code>push_str</code>/<code>write!</code> có thể cấp phát lại heap (amortized nhưng vẫn nhiều allocation), mỗi field riêng một allocation, rồi <b>từng cái free riêng</b>.</li>
+            <li>Với hàng nghìn lệnh/phút/connection → <b>allocation churn</b>: syscall + fragmentation nhỏ dần, cache locality kém.</li>
+            <li>IMAP list response lớn (LIST 1000 mailbox) → hàng trăm allocation cho 1 response.</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h4>Tại sao OxMail chọn bumpalo arena</h4>
+          <ul class="kv">
+            <li><code>BumpWriter</code> bọc <code>bumpalo::collections::String</code> trong một <code>bumpalo::Bump</code> arena <b>mỗi lệnh</b>: mọi buffer con được <i>bump</i> (tăng con trỏ — vài instruction, không syscall), không free từng cái.</li>
+            <li>Cuối lệnh: <code>into_string()</code> copy 1 lần ra heap rồi <code>drop(arena)</code> — <b>1 lần free toàn bộ</b>.</li>
+            <li>Arena <code>!Send</code> → phải tiêu thụ xong trong scope connection (đúng mô hình request/response SMTP/IMAP).</li>
+            <li>Đang dùng ở IMAP (auth, extensions, message fetch, LIST) + SMTP response path.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tblwrap" style="margin-top:12px">
+        <table class="dense">
+          <thead><tr><th>Kịch bản</th><th>Bình thường</th><th>Bumpalo arena</th><th>Lợi ích</th></tr></thead>
+          <tbody>
+            <tr><td class="nm">1 lệnh IMAP/SMTP</td><td>N allocation + N free (mỗi field/segment)</td><td>1 arena + 1 free (drop)</td><td>Allocation count giảm N → 1</td></tr>
+            <tr><td class="nm">LIST 1.000 mailbox</td><td>Hàng trăm allocation, cache miss</td><td>Bump liên tiếp — contiguous, cache-hot</td><td>Build response nhanh + locality tốt</td></tr>
+            <tr><td class="nm">1.000 lệnh/phút/conn × hàng nghìn conn</td><td>Allocation churn cao, syscall liên tục</td><td>Bump = vài instruction, không syscall</td><td>CPU alloc giảm ~80–90%, fragmentation không tăng theo tần suất</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="srcnote" style="margin-top:8px">Ví dụ minh hoạ mức thiết kế (tổng allocation giảm theo bậc, chưa có benchmark chính thức — roadmap §11).</p>
+    </div>
+  </section>
+
+  <section class="block" id="congnghe">
+    <div class="block-head">
+      <div class="secnum">§8 Lựa chọn công nghệ</div>
+      <h2>Tại sao chọn jemalloc, rustls và roadmap hạ tầng</h2>
+    </div>
+    <div class="grid2">
+      <div class="panel">
+        <h3>Memory allocator</h3>
+        <div class="tblwrap">
+          <table class="dense">
+            <thead><tr><th>Allocator</th><th>GC</th><th>Nhận định</th></tr></thead>
+            <tbody>
+              <tr><td><b>jemalloc</b></td><td>None</td><td class="tag-ox">Arenas chống fragmentation, không latency spike</td></tr>
+              <tr><td>glibc malloc</td><td>None</td><td>Fragmentation dưới long-lived connections</td></tr>
+              <tr><td>Mimalloc</td><td>None</td><td>RAM tốt nhưng cleaner thread tạo latency spike</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="panel">
+        <h3>TLS library</h3>
+        <div class="tblwrap">
+          <table class="dense">
+            <thead><tr><th>Thư viện</th><th>Nguồn</th><th>Nhận định</th></tr></thead>
+            <tbody>
+              <tr><td><b>rustls</b></td><td>Pure Rust</td><td class="tag-ox">Memory-safe by construction, không C dependency</td></tr>
+              <tr><td>aws-lc-rs</td><td>AWS</td><td>~15-30% throughput trên AES-NI, cần C dependency</td></tr>
+              <tr><td>OpenSSL</td><td>C</td><td>Không memory-safe, build phức tạp</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="tblwrap" style="margin-top:16px">
+      <table class="dense">
+        <thead><tr><th>Component</th><th>Hiện tại</th><th>Tương lai</th><th>Lý do</th></tr></thead>
+        <tbody>
+          <tr><td><b>DragonflyDB runtime</b></td><td>Redis-compatible API</td><td>Glommio (io_uring async)</td><td>Native async, bỏ Tokio-on-Redis overhead</td></tr>
+          <tr><td><b>Database</b></td><td>PostgreSQL 16</td><td>YugabyteDB</td><td>Horizontal scale, geo-replication, wire compatible</td></tr>
+          <tr><td><b>Search</b></td><td>Tantivy (embedded)</td><td>Tantivy (tiếp tục)</td><td>Per-account index scale tốt, tránh Quickwit complexity</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============ §9 TÍNH NĂNG ============ -->
+  <section class="block" id="tinhnang">
+    <div class="block-head">
+      <div class="secnum">§9 So sánh tính năng</div>
+      <h2>OxMail so với Zimbra - trọng tâm</h2>
+      <p>Các dòng đánh dấu "xác minh live" là log/service thấy trực tiếp trên 2 node production ngày đo.</p>
+    </div>
+    <div class="feat-grid">
+      <div class="feat-col">
+        <h3>Vận hành</h3>
+        <p>Chi phí chạy và mở rộng hằng ngày</p>
+        <div class="feat-row">
+          <div class="f-name">Single binary <span class="live">xác minh live</span></div>
+          <div class="f-comp">
+            <div class="side ox"><b>OxMail</b><span class="y">1 tiến trình</span>, ps chỉ thấy 1 process</div>
+            <div class="side zb"><b>Zimbra</b>~90-100 tiến trình, nhiều runtime</div>
+          </div>
+        </div>
+        <div class="feat-row">
+          <div class="f-name">RAM / node <span class="live">xác minh live</span></div>
+          <div class="f-comp">
+            <div class="side ox"><b>OxMail</b>~90-140 MB app processes; toàn node ~2.4-3.3 GB</div>
+            <div class="side zb"><b>Zimbra</b>8-16 GB</div>
+          </div>
+        </div>
+        <div class="feat-row">
+          <div class="f-name">Cấu hình</div>
+          <div class="f-comp">
+            <div class="side ox"><b>OxMail</b>1 file TOML</div>
+            <div class="side zb"><b>Zimbra</b>LDAP + 100+ attributes</div>
+          </div>
+        </div>
+        <div class="feat-row">
+          <div class="f-name">Nâng cấp</div>
+          <div class="f-comp">
+            <div class="side ox"><b>OxMail</b>swap binary, downtime phút</div>
+            <div class="side zb"><b>Zimbra</b>multi-step, lịch bảo trì</div>
+          </div>
+        </div>
+        <div class="feat-row">
+          <div class="f-name">Scale ngang</div>
+          <div class="f-comp">
+            <div class="side ox"><b>OxMail</b>stateless, thêm node tùy ý</div>
+            <div class="side zb"><b>Zimbra</b>stateful, LDAP replication</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="feat-col">
+        <h3>Bảo mật</h3>
+        <p>Từ chống thư rác tới mã hóa dữ liệu lưu trữ</p>
+        <div class="feat-row">
+          <div class="f-name">DKIM / SPF / DMARC <span class="live">xác minh live</span></div>
+          <div class="f-comp">
+            <div class="side ox"><b>OxMail</b><span class="y">đầy đủ</span>, DKIM signer + report ingest</div>
+            <div class="side zb"><b>Zimbra</b>DKIM/SPF đầy đủ, DMARC basic</div>
+          </div>
+        </div>
+        <div class="feat-row">
+          <div class="f-name">ARC seal <span class="live">xác minh live</span></div>
+          <div class="f-comp">
+            <div class="side ox"><b>OxMail</b><span class="y">đầy đủ</span>, log "ARC signer wired"</div>
+            <div class="side zb"><b>Zimbra</b>một phần</div>
+          </div>
+        </div>
+        <div class="feat-row">
+          <div class="f-name">DANE / MTA-STS</div>
+          <div class="f-comp">
+            <div class="side ox"><b>OxMail</b><span class="y">cả hai</span></div>
+            <div class="side zb"><b>Zimbra</b>không DANE</div>
+          </div>
+        </div>
+        <div class="feat-row">
+          <div class="f-name">WebAuthn / FIDO2 + TOTP</div>
+          <div class="f-comp">
+            <div class="side ox"><b>OxMail</b><span class="y">native</span>, TOTP mã hóa AES-256-GCM</div>
+            <div class="side zb"><b>Zimbra</b>qua Zimlet bổ sung</div>
+          </div>
+        </div>
+        <div class="feat-row">
+          <div class="f-name">Mã hóa blob lưu trữ</div>
+          <div class="f-comp">
+            <div class="side ox"><b>OxMail</b><span class="y">AES-256-GCM + Zstd</span>, dedup SHA-256</div>
+            <div class="side zb"><b>Zimbra</b>không có</div>
+          </div>
+        </div>
+        <div class="feat-row">
+          <div class="f-name">Chống mạo danh phase 3</div>
+          <div class="f-comp">
+            <div class="side ox"><b>OxMail</b><span class="y">có</span>, theo domain policy</div>
+            <div class="side zb"><b>Zimbra</b>không có</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="feat-col">
+        <h3>Giao thức và khác biệt</h3>
+        <p>Năng lực client hiện đại và các module độc quyền</p>
+        <div class="feat-row">
+          <div class="f-name">JMAP (RFC 8620/8621) <span class="live">xác minh live</span></div>
+          <div class="f-comp">
+            <div class="side ox"><b>OxMail</b><span class="y">37 methods</span>, push SSE/WebSocket; <b>Calendar + Contacts production</b></div>
+            <div class="side zb"><b>Zimbra</b><span class="n">không có</span></div>
+          </div>
+        </div>
+        <div class="feat-row">
+          <div class="f-name">SMTP / IMAP / POP3 <span class="live">xác minh live</span></div>
+          <div class="f-comp">
+            <div class="side ox"><b>OxMail</b><span class="y">IMAP4rev2</span> CONDSTORE, QRESYNC, IDLE</div>
+            <div class="side zb"><b>Zimbra</b>IMAP4 rev1 compat</div>
+          </div>
+        </div>
+        <div class="feat-row">
+          <div class="f-name">CalDAV / CardDAV</div>
+          <div class="f-comp">
+            <div class="side ox"><b>OxMail</b><span class="y">đầy đủ</span> + iTIP scheduling</div>
+            <div class="side zb"><b>Zimbra</b>một phần</div>
+          </div>
+        </div>
+        <div class="feat-row">
+          <div class="f-name">Gray zone AI triage <span class="live">worker tắt ở prod</span></div>
+          <div class="f-comp">
+            <div class="side ox"><b>OxMail</b>vùng score 5-15 chờ review; watchdog main server tự chuyển spam sau 5 phút khi worker tắt</div>
+            <div class="side zb"><b>Zimbra</b><span class="n">không có</span></div>
+          </div>
+        </div>
+        <div class="feat-row">
+          <div class="f-name">ZAP + DLP workers <span class="live">đang chạy ở prod</span></div>
+          <div class="f-comp">
+            <div class="side ox"><b>OxMail</b>rescan khi ClamAV cập nhật; scan outbound PCI/IBAN/SSN</div>
+            <div class="side zb"><b>Zimbra</b><span class="n">không native</span></div>
+          </div>
+        </div>
+        <div class="feat-row">
+          <div class="f-name">EAS / ActiveSync</div>
+          <div class="f-comp">
+            <div class="side ox"><b>OxMail</b><span class="n">bỏ qua vì vấn đề license</span></div>
+            <div class="side zb"><b>Zimbra</b><span class="y">có native</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ §9.5 TCO ============ -->
+  <section class="block" id="tco">
+    <div class="block-head">
+      <div class="secnum">§9.5 Cost model</div>
+      <h2>Mô hình chi phí sơ bộ (hạ tầng + license)</h2>
+      <p>Ước lượng cho cụm 1.000 user trong 3 năm. Số license Zimbra theo mức công khai $50-200/user/năm.</p>
+    </div>
+    <div class="tco">
+      <div class="col">
+        <h3><span class="mark ox"></span>OxMail</h3>
+        <table>
+          <tbody>
+            <tr><td class="nm">License phần mềm</td><td class="tag-ox"><span class="big">$0</span></td></tr>
+            <tr><td class="nm">Phần cứng (3 node)</td><td>RAM ~24 GB</td></tr>
+            <tr><td class="nm">Vận hành</td><td>1 binary, 1 file TOML</td></tr>
+            <tr><td class="nm">Nâng cấp</td><td>Swap binary</td></tr>
+            <tr><td class="nm">Bảo mật</td><td>Rust memory-safe, ít patch khẩn</td></tr>
+          </tbody>
+        </table>
+        <div class="save" style="margin-top:14px">Tiết kiệm chủ yếu: license $0, RAM phần cứng 4x, nhân lực vận hành.</div>
+      </div>
+      <div class="col">
+        <h3><span class="mark zb"></span>Zimbra</h3>
+        <table>
+          <tbody>
+            <tr><td class="nm">License phần mềm</td><td class="tag-zb"><span class="big">$50-200</span> /user/năm</td></tr>
+            <tr><td class="nm">Phần cứng (5-6 node)</td><td>RAM ~96 GB</td></tr>
+            <tr><td class="nm">Vận hành</td><td>LDAP + MySQL + 90+ process</td></tr>
+            <tr><td class="nm">Nâng cấp</td><td>Multi-week, cần cửa sổ bảo trì</td></tr>
+            <tr><td class="nm">Bảo mật</td><td>Patch JVM/app thường xuyên</td></tr>
+          </tbody>
+        </table>
+        <div class="save" style="margin-top:14px; color: var(--ink-faint)">Ví dụ 1.000 user x 3 năm: $150.000-600.000 chỉ riêng license.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ §9.6 SỐ LIỆU LIVE ============ -->
+  <section class="block" id="sodu">
+    <div class="block-head">
+      <div class="secnum">§9.6 Số liệu đo live production</div>
+      <h2>Footprint toàn node và benchmark mail thật</h2>
+      <p>Đo 02/08/2026 trên 2 node production (ox.io.vn, nguyenthehung.id.vn) đang chạy gateway mode. Con số Zimbra là baseline công khai.</p>
+    </div>
+
+    <div class="panel" style="margin-bottom:16px">
+      <h3>Footprint TOÀN NODE (RSS theo service) - không chỉ riêng binary</h3>
+      <div class="tblwrap">
+        <table>
+          <thead><tr><th>Service</th><th>ox.io.vn</th><th>nguyenthehung</th><th>Ghi chú</th></tr></thead>
+          <tbody>
+            <tr><td class="nm">ClamAV (clamd)</td><td class="num"><b>968 MB</b></td><td class="num"><b>1.952 MB</b></td><td>Kẻ ngốn lớn nhất node</td></tr>
+            <tr><td class="nm">PostgreSQL</td><td class="num">594 MB</td><td class="num">477 MB</td><td>Gồm shared_buffers dùng chung</td></tr>
+            <tr><td class="nm">Rspamd</td><td class="num">264 MB</td><td class="num">373 MB</td><td>Nhiều process</td></tr>
+            <tr><td class="nm">oxmail-server</td><td class="num">138 MB</td><td class="num">89 MB</td><td class="tag-ox">App binary</td></tr>
+            <tr><td class="nm">MinIO/S3</td><td class="num">108 MB</td><td class="num">141 MB</td><td></td></tr>
+            <tr><td class="nm">NGINX</td><td class="num">103 MB</td><td class="num">51 MB</td><td></td></tr>
+            <tr><td class="nm">VictoriaMetrics</td><td class="num">90 MB</td><td class="num">86 MB</td><td></td></tr>
+            <tr><td class="nm">NATS JetStream</td><td class="num">69 MB</td><td class="num">36 MB</td><td></td></tr>
+            <tr><td class="nm">Dragonfly + VL + workers + rsyslog</td><td class="num">~104 MB</td><td class="num">~108 MB</td><td></td></tr>
+            <tr><td class="nm"><b>TỔNG toàn node</b></td><td class="num"><b>~2.4 GB</b></td><td class="num"><b>~3.3 GB</b></td><td></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top:10px; font-size:13px; color: var(--ink-soft)"><b>Trung thực:</b> so sánh công bằng phải tính toàn bộ stack (AV + DB + cache + search), không chỉ RSS binary. ClamAV + PostgreSQL + Rspamd chiếm phần lớn RAM node - tương đương mọi hệ thống mail có AV/DB/scan. Khác biệt thật của OxMail: <b>không JVM heap 8-16 GB</b>.</p>
+      <p style="margin-top:8px; font-size:12.5px; color: var(--ink-faint)"><b>Hệ quả thiết kế:</b> riêng ClamAV đã chiếm 0.97-1.95 GB/node (đo live) - áp lực footprint lớn nhất còn lại sau khi loại bỏ JVM. Chính vì vậy kế hoạch tự viết engine AV/spam (§11) không chỉ bỏ phụ thuộc binary external mà còn thu hồi footprint này.</p>
+    </div>
+
+    <div class="panel" style="margin-bottom:16px">
+      <h3>Benchmark mail thật (không phải healthz) - đo trên ox.io.vn</h3>
+      <div class="tblwrap">
+        <table>
+          <thead><tr><th>Test</th><th>Cách đo</th><th>Kết quả</th></tr></thead>
+          <tbody>
+            <tr><td class="nm">SMTP inbound (cùng kết nối)</td><td>50 msg liên tiếp, STARTTLS + AUTH, body ~200 B; queue ACK trên critical path</td><td class="tag-ox"><b>592 msg/s, p50 1.5 ms, p90 2.9 ms</b></td></tr>
+            <tr><td class="nm">SMTP full cycle (kết nối mới)</td><td>connect + STARTTLS + AUTH + send + quit, 10 lần spaced</td><td class="num">p50 159 ms, p90 166 ms</td></tr>
+            <tr><td class="nm">JMAP login</td><td>POST /auth/login (Argon2id)</td><td class="num">50.9 ms</td></tr>
+            <tr><td class="nm">JMAP Email/query</td><td>50 lần POST /jmap</td><td class="tag-ox"><b>p50 4.6 ms, p90 5.8 ms, p95 6.1 ms</b></td></tr>
+            <tr><td class="nm">JMAP full-text search</td><td>30 lần, filter text</td><td class="num">p50 10.5 ms, p95 13.3 ms</td></tr>
+            <tr><td class="nm">IMAP login / SELECT / FETCH</td><td>imaplib</td><td class="num">39.5 / 1.7 / 1.4 ms</td></tr>
+            <tr><td class="nm">End-to-end delivery</td><td>106 mail qua pipeline đầy đủ (SPF/DKIM/DMARC/Rspamd/ClamAV) vào INBOX</td><td class="tag-ox">✅</td></tr>
+            <tr><td class="nm">Rate limiter</td><td>burst 20 kết nối mới nhanh</td><td class="tag-ox">✅ chặn 421 (sliding window)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top:10px; font-size:12.5px; color: var(--ink-faint)">Diễn giải trung thực: SMTP cùng kết nối (592 msg/s) đo đường accept + queue ACK, pipeline scan chạy async phía sau, không phải end-to-end throughput. SMTP full cycle 159 ms bị chi phối bởi Argon2id AUTH + STARTTLS + TCP setup. Healthz 6-13 ms chỉ là operational check. Chưa có số liệu tải cao (concurrency &gt; 100, nhiều mailbox) - nằm trong roadmap benchmark LT1-LT4.</p>
+    </div>
+
+    <div class="tblwrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:26%">Chỉ số</th>
+            <th class="col-ox">OxMail (đo live)</th>
+            <th class="col-zb">Zimbra (baseline)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="nm">Tiến trình mail trên node</td><td class="col-ox"><span class="big num">1</span> <span class="tag-ox">oxmail-server</span></td><td class="col-zb"><span class="big num">~90-100</span> mailboxd JVM, postfix, dovecot, amavis...</td></tr>
+          <tr><td class="nm">OS threads (server core)</td><td class="col-ox"><span class="big num">3</span> (1 main + 2 tokio)</td><td class="col-zb">hàng trăm JVM threads</td></tr>
+          <tr><td class="nm">RAM server core</td><td class="col-ox"><span class="big num">89 - 138 MB</span> RSS app binary</td><td class="col-zb">khuyến nghị tối thiểu 8 GB/node</td></tr>
+          <tr><td class="nm">RAM toàn node (kèm AV/DB)</td><td class="col-ox"><span class="big num">~2.4 - 3.3 GB</span> ClamAV chiếm lớn nhất (0.97-1.95 GB)</td><td class="col-zb">8-16 GB</td></tr>
+          <tr><td class="nm">Healthz p50 (warm)</td><td class="col-ox"><span class="big num">6.4 ms / 13 ms</span></td><td class="col-zb">không có endpoint tương đương</td></tr>
+          <tr><td class="nm">Burst 100 concurrent healthz</td><td class="col-ox"><span class="big num">0.40 s / 0.80 s</span></td><td class="col-zb">-</td></tr>
+          <tr><td class="nm">SMTP EHLO (localhost)</td><td class="col-ox"><span class="big num">2 - 8 ms</span></td><td class="col-zb">-</td></tr>
+          <tr><td class="nm">CPU khi idle</td><td class="col-ox"><span class="big num">0.4 - 0.75%</span> core</td><td class="col-zb">JVM GC pauses 10-100 ms+</td></tr>
+          <tr><td class="nm">Cấu hình</td><td class="col-ox"><span class="big">1 file TOML</span></td><td class="col-zb">LDAP + 100+ attributes</td></tr>
+          <tr><td class="nm">Nâng cấp phiên bản</td><td class="col-ox"><span class="big">Swap binary</span></td><td class="col-zb">Multi-step migration, lịch bảo trì dài</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="bars" style="margin-top:36px">
+      <div class="legend">
+        <span><i class="ox"></i>OxMail</span>
+        <span><i class="zb"></i>Zimbra</span>
+      </div>
+      <div class="bar-row">
+        <div class="lab">RAM / node (log scale)</div>
+        <div class="bar-wrap">
+          <div class="bar-line"><span class="bar ox" style="width:4%"></span></div>
+          <div class="bar-line"><span class="bar zb" style="width:100%"></span></div>
+        </div>
+        <div class="bar-val">~0.1 GB<small>vs 8-16 GB</small></div>
+      </div>
+      <div class="bar-row">
+        <div class="lab">Tiến trình / node</div>
+        <div class="bar-wrap">
+          <div class="bar-line"><span class="bar ox" style="width:2%"></span></div>
+          <div class="bar-line"><span class="bar zb" style="width:100%"></span></div>
+        </div>
+        <div class="bar-val">1<small>vs 90-100</small></div>
+      </div>
+      <div class="bar-row">
+        <div class="lab">Cấu hình</div>
+        <div class="bar-wrap">
+          <div class="bar-line"><span class="bar ox" style="width:3%"></span></div>
+          <div class="bar-line"><span class="bar zb" style="width:100%"></span></div>
+        </div>
+        <div class="bar-val">1 file<small>vs 20+ config files</small></div>
+      </div>
+    </div>
+
+    <p class="srcnote">
+      Đo không xâm lấn bằng curl localhost, ps, /proc trên 2 node production lúc 11:19 (+07) ngày 02/08/2026.
+      Zimbra: baseline từ tài liệu công khai, không đo cùng hạ tầng.
+    </p>
+  </section>
+
+  <!-- ============ §9.7 SIZING ============ -->
+  <section class="block" id="sizing">
+    <div class="block-head">
+      <div class="secnum">§9.7 Cấu hình khuyến nghị</div>
+      <h2>Cấu hình theo quy mô: 100 / 1.000 / 5.000+ users</h2>
+      <p>
+        OxMail scale ngang: app node theo số kết nối đồng thời, dung lượng mailbox nằm ở S3 nên không kéo theo node.
+        Ngưỡng tối thiểu 2 vCPU / 4 GB đã xác nhận khởi chạy; khuyến nghị 6-8 GB cho production nhỏ (headroom cho ClamAV, page cache, SMTP burst).
+      </p>
+    </div>
+
+    <div class="tiers">
+      <div class="tier">
+        <div class="t-name">Ngưỡng khởi đầu</div>
+        <div class="t-users num">100 <small>users</small></div>
+        <div class="t-note">4 GB đã xác nhận khởi chạy; 6-8 GB khuyến nghị cho production nhỏ</div>
+        <h4>OxMail</h4>
+        <ul>
+          <li><b>1 node</b> 2 vCPU / 6-8 GB RAM (4 GB tối thiểu khởi chạy)</li>
+          <li>PostgreSQL + Dragonfly + NATS + MinIO colocated</li>
+          <li>Storage 0.5-1 TB, backup snapshot/S3</li>
+        </ul>
+        <h4>Zimbra</h4>
+        <ul>
+          <li class="zb"><b>1 node</b> tối thiểu 8 GB, thực tế dựng 16 GB + 4 vCPU</li>
+          <li class="zb">LDAP + MariaDB + memcached + amavis kèm theo</li>
+          <li class="zb">Backup node riêng thường bắt buộc</li>
+        </ul>
+        <div class="ram-total">
+          <div class="row ox"><span>OxMail tổng RAM</span><b class="num">~4 GB</b></div>
+          <div class="row zb"><span>Zimbra tổng RAM</span><b class="num">~16 GB</b></div>
+        </div>
+      </div>
+
+      <div class="tier">
+        <div class="t-name">Ngưỡng trung bình</div>
+        <div class="t-users num">1.000 <small>users</small></div>
+        <div class="t-note">Active-active 2 app node sau nginx load balancer</div>
+        <h4>OxMail</h4>
+        <ul>
+          <li><b>3 node:</b> 2 app (4 vCPU / 8 GB) + 1 infra (PG + NATS + Dragonfly)</li>
+          <li>S3 cluster MinIO, storage ~5 TB</li>
+          <li>Thêm app node khi concurrency tăng, không đụng storage</li>
+        </ul>
+        <h4>Zimbra</h4>
+        <ul>
+          <li class="zb"><b>5-6 node:</b> proxy + 2 mailbox store + LDAP + MySQL + memcached</li>
+          <li class="zb">Thêm mailbox store phải cân lại LDAP, MySQL, backup</li>
+        </ul>
+        <div class="ram-total">
+          <div class="row ox"><span>OxMail tổng RAM</span><b class="num">~24 GB</b></div>
+          <div class="row zb"><span>Zimbra tổng RAM</span><b class="num">~80-96 GB</b></div>
+        </div>
+      </div>
+
+      <div class="tier">
+        <div class="t-name">Ngưỡng lớn</div>
+        <div class="t-users num">5.000+ <small>users</small></div>
+        <div class="t-note">App node stateless, scale theo concurrency không giới hạn lý thuyết</div>
+        <h4>OxMail</h4>
+        <ul>
+          <li><b>10-12 node:</b> 4-6 app (8 vCPU / 16 GB) + HA cluster PG/NATS/Dragonfly + S3 scale-out</li>
+          <li>Thêm node = thêm capacity, không migration dữ liệu</li>
+          <li>Storage 25+ TB trên Ceph / MinIO</li>
+        </ul>
+        <h4>Zimbra</h4>
+        <ul>
+          <li class="zb"><b>15-20+ node:</b> nhiều mailbox stores + proxy + LDAP replica + backup riêng</li>
+          <li class="zb">Upgrade từng mailbox store là quy trình nhiều bước</li>
+        </ul>
+        <div class="ram-total">
+          <div class="row ox"><span>OxMail tổng RAM</span><b class="num">~128-192 GB</b></div>
+          <div class="row zb"><span>Zimbra tổng RAM</span><b class="num">~240-640 GB</b></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bars" style="margin-top:36px">
+      <div class="bar-row">
+        <div class="lab">Tổng RAM 100 users</div>
+        <div class="bar-wrap">
+          <div class="bar-line"><span class="bar ox" style="width:4%"></span><span class="name" style="left:0">Ox</span></div>
+          <div class="bar-line"><span class="bar zb" style="width:16%"></span><span class="name" style="left:0">Zim</span></div>
+        </div>
+        <div class="bar-val">4 GB<small>vs 16 GB (4x)</small></div>
+      </div>
+      <div class="bar-row">
+        <div class="lab">Tổng RAM 1.000 users</div>
+        <div class="bar-wrap">
+          <div class="bar-line"><span class="bar ox" style="width:8%"></span><span class="name" style="left:0">Ox</span></div>
+          <div class="bar-line"><span class="bar zb" style="width:32%"></span><span class="name" style="left:0">Zim</span></div>
+        </div>
+        <div class="bar-val">24 GB<small>vs 96 GB (4x)</small></div>
+      </div>
+      <div class="bar-row">
+        <div class="lab">Tổng RAM 5.000+ users</div>
+        <div class="bar-wrap">
+          <div class="bar-line"><span class="bar ox" style="width:16%"></span><span class="name" style="left:0">Ox</span></div>
+          <div class="bar-line"><span class="bar zb" style="width:40%"></span><span class="name" style="left:0">Zim</span></div>
+        </div>
+        <div class="bar-val">~160 GB<small>vs ~400 GB (2.5x)</small></div>
+      </div>
+      <div class="bar-row">
+        <div class="lab">Số node 5.000+ users</div>
+        <div class="bar-wrap">
+          <div class="bar-line"><span class="bar ox" style="width:12%"></span><span class="name" style="left:0">Ox</span></div>
+          <div class="bar-line"><span class="bar zb" style="width:20%"></span><span class="name" style="left:0">Zim</span></div>
+        </div>
+        <div class="bar-val">10-12<small>vs 15-20+</small></div>
+      </div>
+    </div>
+
+    <div class="grid2" style="margin-top:26px">
+      <div class="panel">
+        <h3>Công thức ước lượng</h3>
+        <ul>
+          <li>RAM OxMail/node ≈ 100 MB base + ~2-4 MB/user active đồng thời</li>
+          <li>App node scale theo <b>concurrency</b>, không theo dung lượng mailbox</li>
+          <li>Storage = users × quota; tăng storage không cần tăng app node</li>
+          <li>Điểm nâng cấp: 1 app node phục vụ cỡ vài nghìn kết nối đồng thời</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3>Giả định</h3>
+        <ul>
+          <li>Quota 5 GB/user, ~10% user active đồng thời</li>
+          <li>S3 tách khỏi app node (nguồn chân lý chung: S3 + PostgreSQL)</li>
+          <li>Số Zimbra từ tài liệu công khai, không đo cùng hạ tầng</li>
+          <li>Benchmark chuẩn đang trong roadmap (Q3-Q4 2026)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ §10 HẠN CHẾ ============ -->
+  <section class="block" id="hanche">
+    <div class="block-head">
+      <div class="secnum">§10 Hạn chế đã biết</div>
+      <h2>Thành thật về giới hạn hiện tại</h2>
+    </div>
+    <div class="panel">
+      <ul>
+        <li><b>Benchmark đầy tải chưa có.</b> §9.6 là số đo production tải thấp; LT1-LT4 vẫn <code>#[ignore]</code>.</li>
+        <li><b>Gray zone AI worker đang tắt</b> ở production. Cụ thể: <b>oxmail-zap-worker và oxmail-dlp-worker đang chạy</b>; riêng <b>oxmail-gray-worker inactive</b>, chưa cấu hình LLM provider (healthz báo ai_providers=none). Mail vùng xám vẫn bị giữ, watchdog main server tự chuyển spam sau 5 phút. Bật lại khi có kế hoạch chi phí LLM.</li>
+        <li><b>Scale hiện tại nhỏ.</b> 2 node, mỗi node 1 tài khoản. Số RAM/threads là điểm khởi đầu, không phải claim capacity đầy tải.</li>
+        <li><b>EAS/ActiveSync bỏ qua vĩnh viễn</b> do vấn đề license, không nằm trong roadmap.</li>
+        <li><b>Giao diện tiếng Việt một phần</b> (en/vi).</li>
+      </ul>
+      <h3 style="margin-top:18px">Kết quả đo đạc, điều tra và sửa lỗi 02/08/2026 (đã fix + verify trên production)</h3>
+      <div class="tblwrap">
+        <table>
+          <thead><tr><th>#</th><th>Vấn đề</th><th>Fix</th><th>Trạng thái</th></tr></thead>
+          <tbody>
+            <tr><td class="nm">1</td><td>JMAP Email/query <code>filter: {}</code> trả <code>total: 0</code> dù INBOX có 116 mail</td><td>Bỏ early-return cho empty filter; giờ trả lỗi rõ ràng <code>serverFail: No mailbox specified for unfiltered list</code></td><td class="tag-ox">✅ verify live: inMailbox → 116, subject=bench → 59</td></tr>
+            <tr><td class="nm">2</td><td>NATS consumer leak: 707 consumer <code>ws-*</code> từ 06/2026 (không purge dù <code>inactive_threshold: 60s</code>), giữ 24.306 pending messages</td><td>Thêm <code>delete_consumer()</code> vào EventBus; WS cleanup khi disconnect; <code>inactive_threshold</code> 60s → 5s; dọn 707 + 61 consumer rác</td><td class="tag-ox">✅ verify live: đóng WS → 0 consumer sau 8s; mỗi node còn 3 consumer chính thức</td></tr>
+            <tr><td class="nm">3</td><td>Indexing chậm dưới burst: mỗi message tạo IndexWriter mới (heap 100 MB) + commit riêng (~1.5s/commit)</td><td><b>Batch indexing</b>: per-account writer pool (mpsc), IndexWriter 1 lần/account, <code>commit_batch_size=100</code>, <code>commit_timeout_secs=5</code></td><td class="tag-ox">✅ verify live: gửi 30 mail trong 0.1s → index 30/30 trong ~35s</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top:10px; font-size:12.5px; color: var(--ink-faint)">Indexing không hư hỏng (tantivy-indexer catch-up đủ, pending 0); "lag" quan sát được chỉ là backlog async. Verify build: cargo build --workspace OK, oxmail-jmap-mail 52 tests, oxmail-search 4 tests, clippy sạch. Rate limiter chặn burst 20 kết nối (421) - hoạt động đúng.</p>
+    </div>
+  </section>
+
+  <!-- ============ §11 ROADMAP ============ -->
+  <section class="block" id="roadmap">
+    <div class="block-head">
+      <div class="secnum">§11 Roadmap</div>
+      <h2>Lộ trình 2026-2027 và dài hạn</h2>
+    </div>
+    <div class="grid3">
+      <div class="panel">
+        <h3>Ngắn hạn (Q3-Q4 2026)</h3>
+        <ul>
+          <li>Production benchmarks (số thật, không lý thuyết)</li>
+          <li>Full SMTP AUTH (PLAIN/LOGIN credential handling)</li>
+          <li>Exchange migration source (EWS)</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3>Trung hạn (2027)</h3>
+        <ul>
+          <li>Gmail migration source</li>
+          <li>PST/EML import</li>
+          <li>Groupware: Tasks, Notes (JMAP)</li>
+          <li>Collaborative editing (CRDT-based)</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3>Dài hạn</h3>
+        <ul>
+          <li><b>Tự viết engine chống spam/virus</b> thay Rspamd + ClamAV, kết hợp học máy (AI/LLM) ngay trong pipeline; bỏ phụ thuộc binary external, mở rộng gray-zone AI. <b>Động lực đo được: ClamAV chiếm 0.97-1.95 GB RAM/node - kẻ ngốn lớn nhất node</b> (§9.6)</li>
+          <li>Multi-region replication (CRDT conflict resolution)</li>
+          <li>Hardware security module (HSM) cho KEK</li>
+          <li>Fediverse / SMTP-over-TOR integration</li>
+        </ul>
+        <div class="warnbox">EAS/ActiveSync: bỏ qua vĩnh viễn do vấn đề license, không nằm trong roadmap.</div>
+      </div>
+    </div>
+    <p class="srcnote">Đề xuất lộ trình chuyển đổi: chạy song song OxMail với Zimbra trên 1 nhóm user trong 1 quý, đối chiếu số liệu vận hành (uptime, latency, spam ratio, chi phí) trước khi chuyển toàn bộ.</p>
+  </section>
+
+  <!-- ============ PHỤ LỤC ============ -->
+  <section class="block appendix" id="phuluc">
+    <div class="block-head">
+      <div class="secnum">Phụ lục</div>
+      <h2>Timeline thuyết trình và CLI commands</h2>
+    </div>
+
+    <div class="panel">
+      <h3>Phụ lục A: luồng thuyết trình - thời gian đề xuất</h3>
+      <div class="tblwrap">
+        <table>
+          <thead><tr><th>Phần</th><th>Thời lượng</th><th>Trọng tâm</th></tr></thead>
+          <tbody>
+            <tr><td class="nm">0. Mở đầu</td><td class="num">3 min</td><td>Tại sao rebuild mail năm 2026</td></tr>
+            <tr><td class="nm">1. Tổng quan</td><td class="num">6 min</td><td>What/why/where, code stats, tại sao tự viết protocols, workers</td></tr>
+            <tr><td class="nm">2. Kiến trúc</td><td class="num">8 min</td><td>Topology, JMAP-first endpoints, trait system, horizontal scale</td></tr>
+            <tr><td class="nm">2b. Component diagram</td><td class="num">4 min</td><td>Sơ đồ đầy đủ: app nodes + workers stateless, shared state ở PG/NATS/Dragonfly/S3</td></tr>
+            <tr><td class="nm">2c. Gateway GW</td><td class="num">5 min</td><td>gRPC + rkyv, RTT đo live 12-19 ms, auto-fallback SMTP direct khi GW down</td></tr>
+            <tr><td class="nm">2d. Mail flow + component mapping</td><td class="num">6 min</td><td>Inbound/outbound/multi-server flow, bản đồ component OxMail ↔ Zimbra</td></tr>
+            <tr><td class="nm">3. Protocols</td><td class="num">8 min</td><td>SMTP pipeline diagram, IMAP/JMAP, CalDAV/iTIP</td></tr>
+            <tr><td class="nm">4. Infrastructure</td><td class="num">4 min</td><td>S3, Tantivy, NATS, DragonflyDB</td></tr>
+            <tr><td class="nm">5. Bảo mật</td><td class="num">6 min</td><td>Auth stack, encryption, Gray Zone, DLP, ZAP, Phase 3</td></tr>
+            <tr><td class="nm">6. Hiệu năng</td><td class="num">5 min</td><td>jemalloc + bumpalo arena, TLS pool, async patterns</td></tr>
+            <tr><td class="nm">7. Tech Choices</td><td class="num">4 min</td><td>jemalloc vs mimalloc, rustls, Glommio, YugabyteDB</td></tr>
+            <tr><td class="nm">8. So sánh Zimbra</td><td class="num">6 min</td><td>Side-by-side tables</td></tr>
+            <tr><td class="nm">8b. Số liệu live production</td><td class="num">4 min</td><td>Đo trực tiếp trên 2 node: RAM, processes, latency</td></tr>
+            <tr><td class="nm">8c. Cấu hình theo quy mô</td><td class="num">4 min</td><td>100 / 1.000 / 5.000+ users, footprint so sánh</td></tr>
+            <tr><td class="nm">9. Hạn chế + Roadmap</td><td class="num">3 min</td><td>Thành thật về gaps</td></tr>
+            <tr><td class="nm"><b>Tổng</b></td><td class="num"><b>~75 min</b></td><td></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-top:16px">
+      <h3>Phụ lục B: CLI commands quan trọng</h3>
+      <div class="prewrap">
+<pre># All-in-one start
+./scripts/start_all.sh
+
+# Protocol tests
+./scripts/test-all.sh     # SMTP, IMAP, POP3, JMAP, Admin API
+./scripts/test-dav.sh     # CalDAV + CardDAV
+
+# Server
+cargo run --bin oxmail-server -- serve --config configs/dev.toml
+
+# Debug
+RUST_LOG=trace cargo run --bin oxmail-server -- serve --config configs/dev.toml
+OXMAIL_JSON_LOGS=1 cargo run --bin oxmail-server -- serve --config configs/dev.toml</pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer>
+    <p>
+      Phương pháp đo: curl healthz / SMTP EHLO trên localhost, ps, /proc/&lt;pid&gt; trên 2 node production
+      (ox.io.vn: 4 vCPU / 5.9 GB, uptime 54 ngày, load 0.30; nguyenthehung.id.vn: 4 vCPU / 5.6 GB, uptime 18 ngày, load 1.45),
+      lúc 11:19 (+07) ngày 02/08/2026, cả hai chạy binary features gateway.
+      Số liệu Zimbra lấy từ tài liệu công khai (system requirements, tài liệu triển khai), không đo cùng hạ tầng,
+      trình bày ở mức tham khảo. Con số sizing là khuyến nghị dựa trên cấu trúc hệ thống và giả định đã ghi rõ, cần benchmark chuẩn xác nhận.
+    </p>
+    <div class="row">
+      <span>OxMail - Rust-native mail infrastructure</span>
+      <span>Số liệu ngày 02/08/2026</span>
+      <span>2 node production - gateway mode</span>
+    </div>
+  </footer>
+
+</div>
+
+<!-- ============ MERMAID ============ -->
+<style>
+  .mermaid { margin: 18px 0; overflow-x: auto; }
+  .mermaid svg { max-width: 100%; height: auto; }
+  .mermaid-wrap { background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--radius-card); padding: 18px 14px 10px; }
+  .mermaid-cap { font-size: 12.5px; color: var(--ink-faint); margin: 4px 2px 10px; }
+  @media (prefers-color-scheme: dark) {
+    .mermaid { filter: invert(0.92) hue-rotate(180deg); }
+    .mermaid svg { background: transparent; }
+  }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.min.js"></script>
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'base',
+    themeVariables: {
+      primaryColor: '#e3f2eb', primaryTextColor: '#16211d', primaryBorderColor: '#0e7c5b',
+      lineColor: '#4a5752', fontSize: '13px',
+      clusterBkg: '#eef1ee', clusterBorder: '#c9d3cd',
+      edgeLabelBackground: '#ffffff',
+    },
+    securityLevel: 'loose',
+    flowchart: { curve: 'basis', padding: 14, htmlLabels: true },
+  });
+</script>
+</body>
+</html>

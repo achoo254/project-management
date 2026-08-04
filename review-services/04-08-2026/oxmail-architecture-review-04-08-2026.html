@@ -1,0 +1,1553 @@
+<!DOCTYPE html>
+<html lang="vi" id="top">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Review kiến trúc OxMail · Biên bản 04/08/2026</title>
+<meta name="description" content="Biên bản và đánh giá buổi review kiến trúc OxMail ngày 04/08/2026: số liệu đo production, 25 vấn đề hội đồng nêu ra, khoảng trống trước go-live và bốn quyết định cần chốt.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   TOKENS
+   ============================================================ */
+:root,
+:root[data-theme="light"]{
+  color-scheme: light;
+
+  --bg:        oklch(0.985 0.003 250);
+  --bg-sunk:   oklch(0.962 0.004 250);
+  --bg-raise:  oklch(0.998 0.002 250);
+  --rule:      oklch(0.885 0.007 252);
+  --rule-firm: oklch(0.775 0.010 252);
+  --text:      oklch(0.215 0.016 254);
+  --text-2:    oklch(0.365 0.014 253);
+  --muted:     oklch(0.460 0.012 252);
+
+  --accent:      oklch(0.470 0.170 262);
+  --accent-soft: oklch(0.935 0.030 262);
+
+  --idx:       oklch(0.550 0.012 252);
+
+  --sev-1: oklch(0.480 0.160 28);
+  --sev-2: oklch(0.520 0.110 78);
+  --sev-3: oklch(0.500 0.030 252);
+
+  --series-a: #1D4ED8;
+  --series-b: #C2410C;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]):not([data-theme="dark"]){
+    color-scheme: dark;
+    --bg:        oklch(0.170 0.012 258);
+    --bg-sunk:   oklch(0.205 0.013 258);
+    --bg-raise:  oklch(0.228 0.014 258);
+    --rule:      oklch(0.305 0.015 258);
+    --rule-firm: oklch(0.440 0.018 258);
+    --text:      oklch(0.945 0.008 258);
+    --text-2:    oklch(0.800 0.012 258);
+    --muted:     oklch(0.700 0.014 258);
+    --idx:       oklch(0.540 0.014 258);
+    --accent:      oklch(0.720 0.140 262);
+    --accent-soft: oklch(0.300 0.055 262);
+    --sev-1: oklch(0.680 0.150 30);
+    --sev-2: oklch(0.760 0.115 84);
+    --sev-3: oklch(0.640 0.028 258);
+    --series-a: #5B80E6;
+    --series-b: #D97448;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme: dark;
+  --bg:        oklch(0.170 0.012 258);
+  --bg-sunk:   oklch(0.205 0.013 258);
+  --bg-raise:  oklch(0.228 0.014 258);
+  --rule:      oklch(0.305 0.015 258);
+  --rule-firm: oklch(0.440 0.018 258);
+  --text:      oklch(0.945 0.008 258);
+  --text-2:    oklch(0.800 0.012 258);
+  --muted:     oklch(0.700 0.014 258);
+  --idx:       oklch(0.540 0.014 258);
+  --accent:      oklch(0.720 0.140 262);
+  --accent-soft: oklch(0.300 0.055 262);
+  --sev-1: oklch(0.680 0.150 30);
+  --sev-2: oklch(0.760 0.115 84);
+  --sev-3: oklch(0.640 0.028 258);
+  --series-a: #5B80E6;
+  --series-b: #D97448;
+}
+
+:root{
+  --font: "Archivo", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+
+  --t--2: 0.6875rem;
+  --t--1: 0.8125rem;
+  --t-0:  1rem;
+  --t-1:  1.1875rem;
+  --t-2:  1.4375rem;
+  --t-3:  1.75rem;
+  --t-4:  clamp(1.75rem, 1.2rem + 1.6vw, 2.375rem);
+  --t-5:  clamp(2.125rem, 1.3rem + 2.6vw, 3rem);
+  --t-hero: clamp(1.875rem, 1rem + 3.2vw, 3.5rem);
+  --t-index: clamp(2.25rem, 1.4rem + 2.4vw, 3.5rem);
+
+  --s1: 4px;  --s2: 8px;  --s3: 12px; --s4: 16px;
+  --s5: 24px; --s6: 32px; --s7: 48px; --s8: 64px; --s9: 96px;
+
+  --gut: 6rem;
+  --pad: clamp(20px, 4vw, 64px);
+  --wrap: 1280px;
+
+  --ease: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-q: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+*,*::before,*::after{ box-sizing: border-box; }
+html{ -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce){ html{ scroll-behavior: auto; } }
+body{
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: var(--t-0);
+  font-weight: 400;
+  font-stretch: 100%;
+  line-height: 1.6;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+h1,h2,h3,h4{
+  margin: 0;
+  font-stretch: 112%;
+  font-weight: 800;
+  letter-spacing: -0.024em;
+  line-height: 1.14;
+  text-wrap: balance;
+}
+h1{ font-size: var(--t-hero); letter-spacing: -0.03em; line-height: 1.1; }
+h2{ font-size: var(--t-5); }
+h3{ font-size: var(--t-2); letter-spacing: -0.018em; }
+h4{ font-size: var(--t-1); letter-spacing: -0.014em; font-weight: 700; }
+p{ margin: 0; text-wrap: pretty; }
+ul,ol{ margin: 0; padding: 0; list-style: none; }
+a{ color: inherit; }
+strong{ font-weight: 700; }
+:focus-visible{
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+::selection{ background: var(--accent-soft); }
+
+.num{ font-variant-numeric: tabular-nums; font-feature-settings: "tnum" 1; }
+.wrap{ max-width: var(--wrap); margin-inline: auto; padding-inline: var(--pad); }
+.note{ font-size: var(--t--1); color: var(--muted); line-height: 1.55; max-width: 78ch; }
+.sub-h3{ font-size: var(--t-2); margin-bottom: var(--s4); }
+.sub-h3.tight{ margin-bottom: var(--s3); }
+.tcap{ font-size: var(--t--1); color: var(--muted); padding: var(--s3) var(--s4); }
+.fcap{ margin-top: var(--s3); }
+
+/* ============================================================
+   NAV
+   ============================================================ */
+.nav{
+  position: sticky; top: 0; z-index: 40;
+  background: color-mix(in oklab, var(--bg) 88%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--rule);
+}
+.nav-in{
+  max-width: var(--wrap); margin-inline: auto; padding-inline: var(--pad);
+  min-height: 64px;
+  display: flex; align-items: center; gap: var(--s5);
+}
+.brand{
+  text-decoration: none;
+  font-stretch: 118%; font-weight: 800; letter-spacing: -0.02em;
+  font-size: var(--t-0);
+  display: inline-flex; align-items: baseline; gap: 8px;
+  padding: 12px 0; min-height: 44px;
+}
+.brand i{
+  font-style: normal; font-weight: 400; font-stretch: 100%;
+  font-size: var(--t--1); color: var(--muted); letter-spacing: 0;
+}
+.navlinks{
+  display: flex; gap: 2px; margin-inline-start: auto;
+  overflow-x: auto; scrollbar-width: none;
+}
+.navlinks::-webkit-scrollbar{ display: none; }
+.navlinks a{
+  position: relative;
+  display: inline-flex; align-items: center;
+  min-height: 44px; padding: 0 12px;
+  font-size: var(--t--1); color: var(--muted); text-decoration: none;
+  white-space: nowrap;
+  transition: color 200ms var(--ease);
+}
+.navlinks a::after{
+  content: ""; position: absolute; left: 12px; right: 12px; bottom: 12px;
+  height: 1.5px; background: currentColor;
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 220ms var(--ease);
+}
+.navlinks a:hover{ color: var(--text); }
+.navlinks a:hover::after{ transform: scaleX(1); }
+.navlinks a:active{ transform: translateY(1px); }
+.navlinks a[aria-current="true"]{ color: var(--text); font-weight: 700; }
+.navlinks a[aria-current="true"]::after{ transform: scaleX(1); background: var(--accent); }
+
+.theme{
+  display: flex; border: 1px solid var(--rule); flex: none;
+}
+.theme button{
+  appearance: none; background: none; border: 0; cursor: pointer;
+  width: 44px; height: 44px;
+  display: grid; place-items: center;
+  color: var(--muted);
+  transition: color 180ms var(--ease), background 180ms var(--ease);
+}
+.theme button + button{ border-inline-start: 1px solid var(--rule); }
+.theme button:hover{ color: var(--text); background: var(--bg-sunk); }
+.theme button:active{ transform: translateY(1px); }
+.theme button[aria-pressed="true"]{ color: var(--bg); background: var(--text); }
+.theme svg{ width: 17px; height: 17px; }
+
+.icon{
+  width: 1em; height: 1em; flex: none;
+  fill: none; stroke: currentColor; stroke-width: 1.5;
+  stroke-linecap: round; stroke-linejoin: round;
+}
+
+/* ============================================================
+   LEDGER GRID
+   ============================================================ */
+.sec{ border-top: 1px solid var(--rule); }
+.sec-in{
+  max-width: var(--wrap); margin-inline: auto; padding-inline: var(--pad);
+  padding-block: var(--s9) var(--s9);
+  display: grid; grid-template-columns: var(--gut) minmax(0, 1fr);
+  column-gap: var(--s6);
+}
+.sec-idx{
+  font-stretch: 118%; font-weight: 800;
+  font-size: var(--t-index); line-height: 0.85;
+  letter-spacing: -0.04em;
+  color: var(--idx);
+  position: sticky; top: 96px; align-self: start;
+}
+.sec-body{ min-width: 0; }
+.sec-head{ margin-bottom: var(--s7); max-width: 30ch; }
+.sec-head p{ margin-top: var(--s4); max-width: 58ch; color: var(--text-2); font-size: var(--t-0); }
+@media (max-width: 900px){
+  .sec-in{ grid-template-columns: 1fr; padding-block: var(--s8); row-gap: var(--s4); }
+  .sec-idx{ position: static; font-size: var(--t-3); line-height: 1; }
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{
+  min-height: calc(100dvh - 64px);
+  display: flex; flex-direction: column; justify-content: space-between;
+  padding-block: var(--s8) 0;
+}
+.hero-top{
+  flex: 1;
+  max-width: var(--wrap); margin-inline: auto; padding-inline: var(--pad); width: 100%;
+  display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(240px, 0.8fr);
+  gap: var(--s7) var(--s8); align-items: start; align-content: center;
+  padding-bottom: var(--s7);
+}
+.kicker{
+  font-size: var(--t--2); text-transform: uppercase; letter-spacing: 0.11em;
+  font-weight: 700; color: var(--muted);
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: var(--s5);
+}
+.kicker::before{
+  content: ""; width: 24px; height: 1.5px; background: var(--accent);
+}
+.hero h1{ max-width: 27ch; }
+.hero-sub{
+  margin-top: var(--s5); max-width: 52ch;
+  font-size: var(--t-1); line-height: 1.5; color: var(--text-2);
+}
+.verdict{
+  border-inline-start: 2px solid var(--accent);
+  padding-inline-start: var(--s4);
+  margin-top: var(--s6);
+  max-width: 46ch;
+  font-size: var(--t-0); font-weight: 500; line-height: 1.5;
+}
+.hero-meta{ display: grid; gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
+.hero-meta div{ background: var(--bg); padding: var(--s3) var(--s4); }
+.hero-meta dt{ font-size: var(--t--2); text-transform: uppercase; letter-spacing: 0.09em; color: var(--muted); font-weight: 700; }
+.hero-meta dd{ margin: 4px 0 0; font-size: var(--t--1); font-weight: 500; }
+
+.kpis{
+  border-top: 1px solid var(--rule-firm);
+  background: var(--bg-sunk);
+}
+.kpis-in{
+  max-width: var(--wrap); margin-inline: auto; padding-inline: var(--pad);
+  display: grid; grid-template-columns: repeat(4, 1fr);
+}
+.kpi{ padding: var(--s5) 0 var(--s6); }
+.kpi + .kpi{ border-inline-start: 1px solid var(--rule); padding-inline-start: var(--s5); }
+.kpi:not(:last-child){ padding-inline-end: var(--s5); }
+.kpi b{
+  display: block;
+  font-stretch: 118%; font-weight: 800; letter-spacing: -0.035em;
+  font-size: clamp(2rem, 1rem + 3.2vw, 3.25rem); line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.kpi span{ display: block; margin-top: var(--s3); font-size: var(--t--1); color: var(--muted); line-height: 1.45; max-width: 24ch; }
+.kpi.is-hot b{ color: var(--sev-1); }
+@media (max-width: 860px){
+  .hero-top{ grid-template-columns: 1fr; align-items: start; }
+  .kpis-in{ grid-template-columns: repeat(2, 1fr); }
+  .kpi{ padding: var(--s4) 0; }
+  .kpi:nth-child(odd){ padding-inline-end: var(--s4); }
+  .kpi:nth-child(even){ border-inline-start: 1px solid var(--rule); padding-inline-start: var(--s4); }
+  .kpi:nth-child(3), .kpi:nth-child(4){ border-top: 1px solid var(--rule); }
+}
+
+/* ============================================================
+   §01 TWO TRACKS
+   ============================================================ */
+.tracks{
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1px; background: var(--rule);
+  border: 1px solid var(--rule);
+}
+.track{ background: var(--bg); padding: var(--s6); display: flex; flex-direction: column; gap: var(--s4); }
+.track-tag{
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: var(--t--1); font-weight: 700; font-stretch: 112%;
+  color: var(--accent);
+}
+.track-tag .icon{ width: 16px; height: 16px; }
+.track h3{ max-width: 24ch; }
+.track ul{ display: grid; gap: var(--s3); }
+.track li{ display: grid; grid-template-columns: 14px 1fr; gap: 8px; font-size: var(--t--1); line-height: 1.5; color: var(--text-2); }
+.track li .icon{ width: 14px; height: 14px; margin-top: 4px; }
+.track-foot{
+  margin-top: auto; padding-top: var(--s4); border-top: 1px solid var(--rule);
+  font-size: var(--t--1); color: var(--muted);
+}
+.track-foot b{ color: var(--text); }
+@media (max-width: 820px){ .tracks{ grid-template-columns: 1fr; } .track{ padding: var(--s5); } }
+
+.flag{
+  margin-top: var(--s6);
+  position: relative;
+  border: 1px solid var(--rule-firm);
+  background: var(--bg-raise);
+  padding: var(--s6);
+  display: grid; grid-template-columns: 24px minmax(0,1fr); gap: var(--s4);
+}
+.flag::before, .flag::after{
+  content: ""; position: absolute; width: 10px; height: 10px;
+  border: 2px solid var(--sev-1);
+}
+.flag::before{ top: -1px; left: -1px; border-inline-end: 0; border-block-end: 0; }
+.flag::after{ bottom: -1px; right: -1px; border-inline-start: 0; border-block-start: 0; }
+.flag > .icon{ width: 22px; height: 22px; color: var(--sev-1); margin-top: 4px; }
+.flag--ok{ border-color: var(--rule); }
+.flag--ok::before, .flag--ok::after{ border-color: var(--accent); }
+.flag--ok > .icon{ color: var(--accent); }
+.flag h4{ margin-bottom: var(--s3); }
+.flag p{ font-size: var(--t--1); color: var(--text-2); line-height: 1.6; max-width: 74ch; }
+.flag p + p{ margin-top: var(--s3); }
+
+.rail{ margin-top: var(--s8); }
+.rail-track{
+  display: grid; grid-auto-flow: column; grid-auto-columns: minmax(152px, 1fr);
+  border-top: 1.5px solid var(--rule-firm);
+  overflow-x: auto; scrollbar-width: thin;
+}
+.stop{ padding: var(--s4) var(--s4) var(--s5) 0; position: relative; }
+.stop::before{
+  content: ""; position: absolute; top: -1.5px; left: 0;
+  width: 9px; height: 9px; background: var(--rule-firm);
+  transform: translateY(-50%);
+}
+.stop.is-now::before{ background: var(--accent); width: 11px; height: 11px; }
+.stop.is-due::before{ background: var(--sev-1); }
+.stop dt{ font-size: var(--t--1); font-weight: 800; font-stretch: 112%; font-variant-numeric: tabular-nums; }
+.stop dd{ margin: 8px 0 0; font-size: var(--t--2); color: var(--muted); line-height: 1.5; padding-inline-end: var(--s4); }
+.stop.is-now dt{ color: var(--accent); }
+.stop.is-due dt{ color: var(--sev-1); }
+
+/* ============================================================
+   §02 CAPABILITY + CHARTS
+   ============================================================ */
+.caps{ display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
+.cap{ background: var(--bg); padding: var(--s5); }
+.cap:first-child{ padding: var(--s6); }
+.cap h4{ display: flex; align-items: center; gap: 8px; margin-bottom: var(--s3); }
+.cap h4 .icon{ width: 18px; height: 18px; color: var(--accent); }
+.cap p{ font-size: var(--t--1); color: var(--text-2); line-height: 1.55; }
+.cap dl{ margin: var(--s4) 0 0; display: grid; gap: var(--s2); }
+.cap dl div{ display: flex; justify-content: space-between; gap: var(--s3); font-size: var(--t--1); border-top: 1px solid var(--rule); padding-top: var(--s2); }
+.cap dl dt{ color: var(--muted); }
+.cap dl dd{ margin: 0; font-weight: 700; font-variant-numeric: tabular-nums; text-align: end; }
+@media (max-width: 980px){ .caps{ grid-template-columns: 1fr 1fr; } .cap:first-child{ grid-column: 1 / -1; } }
+@media (max-width: 620px){ .caps{ grid-template-columns: 1fr; } }
+
+.ai3{ display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin-top: var(--s6); }
+.ai3 article{ background: var(--bg); padding: var(--s5); display: flex; flex-direction: column; gap: var(--s3); }
+.ai3 article:first-child{ grid-column: 1 / -1; padding: var(--s6); }
+.ai3 article:first-child h4{ font-size: var(--t-2); }
+.ai3 article:first-child > p:not(.state){ max-width: 82ch; }
+.ai3 h4{ font-size: var(--t-0); }
+.ai3 p{ font-size: var(--t--1); color: var(--text-2); line-height: 1.55; }
+.state{
+  display: inline-flex; align-items: center; gap: 8px; align-self: start;
+  font-size: var(--t--2); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+  border: 1px solid var(--rule-firm); padding: 4px 8px;
+  margin-top: auto; color: var(--text);
+}
+.state .dot{ width: 8px; height: 8px; flex: none; }
+.state.on .dot{ background: var(--accent); }
+.state.off .dot{ background: transparent; border: 1.5px solid var(--sev-1); }
+@media (max-width: 700px){ .ai3{ grid-template-columns: 1fr; } .ai3 article:first-child{ padding: var(--s5); } }
+
+.fig{ margin: var(--s8) 0 0; }
+.fig-head{ display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--s3); margin-bottom: var(--s4); }
+.fig-head h3{ font-size: var(--t-2); }
+.legend{ display: flex; gap: var(--s4); font-size: var(--t--1); color: var(--text-2); }
+.legend span{ display: inline-flex; align-items: center; gap: 8px; }
+.swatch{ width: 11px; height: 11px; flex: none; }
+.sw-a{ background: var(--series-a); }
+.sw-b{ background: var(--series-b); }
+
+.tablewrap{ overflow-x: auto; border: 1px solid var(--rule); }
+table{ width: 100%; border-collapse: collapse; font-size: var(--t--1); }
+caption{ text-align: start; font-size: var(--t--1); color: var(--muted); padding-bottom: var(--s3); }
+th, td{ text-align: start; padding: 10px var(--s4); border-bottom: 1px solid var(--rule); vertical-align: middle; }
+thead th{
+  font-size: var(--t--2); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700;
+  color: var(--muted); background: var(--bg-sunk); white-space: nowrap;
+}
+tbody th{ font-weight: 600; white-space: nowrap; }
+td.n{ text-align: end; font-variant-numeric: tabular-nums; font-weight: 600; white-space: nowrap; }
+tbody tr:last-child th, tbody tr:last-child td{ border-bottom: 0; }
+tfoot th, tfoot td{ border-top: 1.5px solid var(--rule-firm); border-bottom: 0; font-weight: 800; background: var(--bg-sunk); }
+tfoot td.n{ font-variant-numeric: tabular-nums; }
+td.plot{ width: 42%; min-width: 192px; padding-inline-end: var(--s5); }
+.bars{ display: grid; gap: 2px; }
+.bar{ height: 9px; background: var(--series-a); width: var(--w); }
+.bar.b{ background: var(--series-b); }
+.grp-row th{ background: var(--bg-sunk); font-size: var(--t--2); text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+
+.mini{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
+.mini section{ background: var(--bg); padding: var(--s5); }
+.mini h4{ font-size: var(--t-0); }
+.mini .cnt{ font-size: var(--t--2); color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700; margin-bottom: var(--s4); display: block; }
+.mrow{ display: grid; gap: 4px; margin-bottom: var(--s4); }
+.mrow .lbl{ display: flex; justify-content: space-between; font-size: var(--t--1); }
+.mrow .lbl b{ font-variant-numeric: tabular-nums; }
+.ratio{
+  margin-top: var(--s4); padding-top: var(--s3); border-top: 1px solid var(--rule);
+  font-size: var(--t--1); color: var(--muted);
+}
+.ratio b{ color: var(--text); font-stretch: 112%; font-weight: 800; font-variant-numeric: tabular-nums; }
+@media (max-width: 760px){ .mini{ grid-template-columns: 1fr; } }
+
+/* ============================================================
+   §03 FINDINGS LEDGER
+   ============================================================ */
+.sevkey{
+  display: flex; flex-wrap: wrap; gap: var(--s5);
+  padding: var(--s4) 0; margin-bottom: var(--s6);
+  border-block: 1px solid var(--rule);
+  font-size: var(--t--1);
+}
+.sevkey > div{ display: inline-flex; align-items: center; gap: 8px; }
+.mk{ width: 12px; height: 12px; flex: none; }
+.mk-1{ background: var(--sev-1); }
+.mk-2{ background: linear-gradient(135deg, var(--sev-2) 0 50%, transparent 50% 100%); border: 1.5px solid var(--sev-2); }
+.mk-3{ border: 1.5px solid var(--sev-3); }
+.sevkey b{ font-variant-numeric: tabular-nums; }
+
+.grp{ border: 1px solid var(--rule); }
+.grp + .grp{ border-top: 0; }
+.grp > summary{
+  list-style: none; cursor: pointer;
+  min-height: 60px; padding: var(--s3) var(--s5);
+  display: flex; align-items: center; gap: var(--s4); flex-wrap: wrap;
+  background: var(--bg-sunk);
+  transition: background 180ms var(--ease);
+}
+.grp > summary::-webkit-details-marker{ display: none; }
+.grp > summary:hover{ background: var(--accent-soft); }
+.grp > summary:active{ transform: translateY(1px); }
+.grp-key{
+  font-stretch: 118%; font-weight: 800; font-size: var(--t-1);
+  width: 1.35em; color: var(--accent);
+}
+.grp-name{ font-weight: 700; font-stretch: 108%; }
+.grp-tally{ margin-inline-start: auto; display: flex; align-items: center; gap: var(--s4); font-size: var(--t--1); color: var(--muted); }
+.grp-tally .marks{ display: flex; gap: 4px; }
+.chev{ width: 16px; height: 16px; color: var(--muted); transition: transform 260ms var(--ease); }
+.grp[open] > summary .chev{ transform: rotate(180deg); }
+.grp[open] > summary{ border-bottom: 1px solid var(--rule); }
+
+.find{
+  display: grid; grid-template-columns: 3.5rem minmax(0,1fr) 9.5rem;
+  gap: var(--s4);
+  padding: var(--s5);
+  position: relative;
+}
+.find + .find{ border-top: 1px solid var(--rule); }
+.find::before{
+  content: ""; position: absolute; inset-block: 0; inset-inline-start: 0;
+  width: 2px; background: var(--accent); transform: scaleY(0); transform-origin: top;
+  transition: transform 240ms var(--ease);
+}
+.find:hover::before{ transform: scaleY(1); }
+.find-id{
+  font-stretch: 118%; font-weight: 800; font-size: var(--t-1);
+  color: var(--idx); line-height: 1.2;
+}
+.find h4{ margin-bottom: var(--s3); max-width: 46ch; }
+.find p{ font-size: var(--t--1); color: var(--text-2); line-height: 1.6; max-width: 76ch; }
+.find p + p{ margin-top: var(--s3); }
+.find .said{
+  border-inline-start: 1.5px solid var(--rule-firm);
+  padding-inline-start: var(--s3);
+  color: var(--muted);
+}
+.find .said b{
+  display: block; color: var(--text-2);
+  font-size: var(--t--2); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px;
+}
+.sev{
+  display: inline-flex; align-items: flex-start; gap: 8px; align-self: start;
+  font-size: var(--t--1); font-weight: 600; line-height: 1.3;
+}
+.sev .mk{ margin-top: 4px; }
+@media (max-width: 840px){
+  .find{ grid-template-columns: 2.75rem minmax(0,1fr); }
+  .sev{ grid-column: 2; order: -1; margin-bottom: 2px; }
+  .find-id{ grid-row: span 2; }
+}
+
+/* ============================================================
+   §04 READINESS + CHECKLIST
+   ============================================================ */
+.two{ display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: var(--s8); align-items: start; }
+@media (max-width: 940px){ .two{ grid-template-columns: 1fr; gap: var(--s7); } }
+
+.rd{ border-top: 1px solid var(--rule); }
+.rd li{
+  display: grid; grid-template-columns: minmax(0,1fr) 96px minmax(120px, 9.5rem);
+  gap: var(--s4); align-items: center;
+  padding: var(--s3) 0;
+  border-bottom: 1px solid var(--rule);
+  font-size: var(--t--1);
+}
+.rd .rd-name{ font-weight: 600; }
+.rd .rd-state{ color: var(--muted); font-size: var(--t--2); line-height: 1.4; }
+.meter{ display: grid; grid-template-columns: repeat(5, 1fr); gap: 2px; }
+.meter i{ height: 14px; border: 1px solid var(--rule-firm); background: var(--bg-sunk); }
+.meter i.on{ background: var(--accent); border-color: var(--accent); }
+.meter.lvl-1 i.on, .meter.lvl-2 i.on{ background: var(--sev-1); border-color: var(--sev-1); }
+.meter.lvl-3 i.on{ background: var(--sev-2); border-color: var(--sev-2); }
+@media (max-width: 560px){
+  .rd li{ grid-template-columns: minmax(0,1fr) 80px; row-gap: 4px; }
+  .rd .rd-state{ grid-column: 1 / -1; }
+}
+
+.check{ display: grid; gap: var(--s5); }
+.check section{ border: 1px solid var(--rule); }
+.check h4{
+  padding: var(--s3) var(--s4); background: var(--bg-sunk);
+  border-bottom: 1px solid var(--rule);
+  display: flex; align-items: center; gap: 8px;
+  font-size: var(--t-0);
+}
+.check h4 .icon{ width: 17px; height: 17px; color: var(--accent); }
+.check ul{ padding: var(--s3) var(--s4) var(--s4); display: grid; gap: var(--s3); }
+.check li{ display: grid; grid-template-columns: 16px 1fr; gap: 8px; font-size: var(--t--1); line-height: 1.5; color: var(--text-2); }
+.box{ width: 13px; height: 13px; border: 1.5px solid var(--rule-firm); margin-top: 4px; }
+
+/* ============================================================
+   §05 DECISIONS
+   ============================================================ */
+.dec{ display: grid; gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
+.dec article{
+  background: var(--bg); padding: var(--s6);
+  display: grid; grid-template-columns: 3.5rem minmax(0,1fr); gap: var(--s4) var(--s5);
+}
+.dec-n{
+  font-stretch: 118%; font-weight: 800; font-size: var(--t-4);
+  line-height: 0.9; color: var(--accent); letter-spacing: -0.04em;
+}
+.dec h3{ font-size: var(--t-2); max-width: 34ch; }
+.dec-opts{ display: flex; flex-wrap: wrap; gap: var(--s2); margin-top: var(--s4); }
+.opt{
+  font-size: var(--t--1); border: 1px solid var(--rule-firm); padding: 4px 12px;
+  color: var(--text-2);
+}
+.cost{
+  margin-top: var(--s4); padding-top: var(--s3); border-top: 1px solid var(--rule);
+  font-size: var(--t--1); color: var(--text-2); max-width: 72ch;
+}
+.cost b{ color: var(--sev-1); font-weight: 700; }
+@media (max-width: 700px){ .dec article{ grid-template-columns: 1fr; padding: var(--s5); } }
+
+.next{ margin-top: var(--s7); border: 1px solid var(--rule-firm); background: var(--bg-sunk); padding: var(--s6); }
+.next h3{ font-size: var(--t-2); margin-bottom: var(--s4); }
+.next ol{ display: grid; gap: var(--s3); counter-reset: n; }
+.next li{
+  counter-increment: n;
+  display: grid; grid-template-columns: 2rem 1fr; gap: var(--s3);
+  font-size: var(--t-0); color: var(--text-2); line-height: 1.5;
+}
+.next li::before{
+  content: counter(n, decimal-leading-zero);
+  font-variant-numeric: tabular-nums; font-weight: 800; font-stretch: 112%;
+  color: var(--accent);
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.foot{ border-top: 1px solid var(--rule-firm); background: var(--bg-sunk); }
+.foot-in{
+  max-width: var(--wrap); margin-inline: auto; padding: var(--s8) var(--pad) var(--s9);
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--s7);
+}
+.foot h4{ font-size: var(--t-0); margin-bottom: var(--s4); }
+.foot ul{ display: grid; gap: var(--s3); }
+.foot li, .foot p{ font-size: var(--t--1); color: var(--muted); line-height: 1.6; }
+.foot a{ color: var(--text-2); text-decoration: underline; text-decoration-color: var(--rule-firm); text-underline-offset: 3px; word-break: break-word; }
+.foot a:hover{ color: var(--accent); text-decoration-color: currentColor; }
+.foot .sig{ border-top: 1px solid var(--rule); margin-top: var(--s3); padding-top: var(--s3); }
+
+/* ============================================================
+   MOTION
+   Content is ALWAYS visible at its natural value. The .in class
+   only plays an entrance animation on top of it, so a hidden tab,
+   a failed observer, print or a headless renderer can never ship
+   a blank section.
+   ============================================================ */
+@keyframes reveal{ from{ opacity: 0; transform: translateY(8px); } to{ opacity: 1; transform: none; } }
+@keyframes grow{ from{ width: 0; } to{ width: var(--w); } }
+@keyframes rise{ from{ opacity: 0; transform: translateY(4px); } to{ opacity: 1; transform: none; } }
+
+.js-reveal [data-reveal].in{
+  animation: reveal 520ms var(--ease-q) both;
+  animation-delay: calc(var(--i, 0) * 45ms);
+}
+.js-reveal .in .bar{
+  animation: grow 720ms var(--ease-q) both;
+  animation-delay: calc(var(--i, 0) * 40ms);
+}
+.grp[open] .find{ animation: rise 240ms var(--ease-q) both; }
+.nav.stuck{ border-bottom-color: var(--rule-firm); }
+
+@media (prefers-reduced-motion: reduce){
+  .js-reveal [data-reveal].in,
+  .js-reveal .in .bar,
+  .grp[open] .find{ animation: none; }
+  *{ transition-duration: 1ms !important; }
+}
+
+/* ============================================================
+   PRINT
+   ============================================================ */
+@media print{
+  :root, :root[data-theme="dark"], :root[data-theme="light"]{
+    color-scheme: light;
+    --bg: #fff; --bg-sunk: #f4f4f6; --bg-raise: #fff;
+    --rule: #cfd2d8; --rule-firm: #9aa0aa;
+    --text: #14161c; --text-2: #33373f; --muted: #4b5058; --idx: #6b7079;
+  }
+  .nav{ display: none; }
+  .hero{ min-height: auto; padding-block: 0 var(--s5); }
+  .sec-idx{ position: static; }
+  .grp > summary .chev{ display: none; }
+  .find, .dec article, .flag, figure, details{ break-inside: avoid; }
+  .sec{ break-before: page; }
+  a{ text-decoration: none; }
+  .js-reveal [data-reveal].in, .js-reveal .in .bar, .grp[open] .find{ animation: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ICON SPRITE -->
+<svg width="0" height="0" aria-hidden="true" style="position:absolute">
+  <defs>
+    <g id="i-sun"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/></g>
+    <g id="i-moon"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z"/></g>
+    <g id="i-auto"><rect x="2.5" y="4" width="19" height="13" rx="1"/><path d="M8 20.5h8M12 17v3.5"/></g>
+    <g id="i-chev"><path d="M6 9.5l6 6 6-6"/></g>
+    <g id="i-alert"><path d="M12 3.5 22 20H2L12 3.5Z"/><path d="M12 10v4.5M12 17.2v.3"/></g>
+    <g id="i-check"><path d="M4 12.5l5 5L20 6.5"/></g>
+    <g id="i-dash"><path d="M5 12h14"/></g>
+    <g id="i-server"><rect x="3" y="3.5" width="18" height="7" rx="1"/><rect x="3" y="13.5" width="18" height="7" rx="1"/><path d="M7 7h.3M7 17h.3"/></g>
+    <g id="i-shield"><path d="M12 3l8 3v6c0 5-3.4 8-8 9.5C7.4 20 4 17 4 12V6l8-3Z"/><path d="M8.8 12.2l2.2 2.2 4.2-4.4"/></g>
+    <g id="i-db"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></g>
+    <g id="i-graph"><path d="M4 20V9M10 20V4M16 20v-7M22 20H2"/></g>
+    <g id="i-net"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 3 2.6 15 0 18M12 3c-2.6 3-2.6 15 0 18"/></g>
+    <g id="i-box"><path d="M12 2.8 21 7v10l-9 4.2L3 17V7l9-4.2Z"/><path d="M3 7l9 4.2L21 7M12 11.2V21"/></g>
+  </defs>
+</svg>
+
+<!-- ===================== NAV ===================== -->
+<header class="nav" id="nav">
+  <div class="nav-in">
+    <a class="brand" href="#top">OxMail <i>review 04/08/2026</i></a>
+    <nav class="navlinks" aria-label="Mục lục">
+      <a href="#dinh-huong">01 Định hướng</a>
+      <a href="#kien-truc">02 Đã chạy thật</a>
+      <a href="#phan-hoi">03 Phản hồi</a>
+      <a href="#khoang-trong">04 Khoảng trống</a>
+      <a href="#quyet-dinh">05 Quyết định</a>
+    </nav>
+    <div class="theme" role="group" aria-label="Chủ đề hiển thị">
+      <button type="button" data-set="system" aria-pressed="true" aria-label="Chủ đề theo hệ thống" title="Theo hệ thống"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-auto"/></svg></button>
+      <button type="button" data-set="light" aria-pressed="false" aria-label="Chủ đề sáng" title="Sáng"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-sun"/></svg></button>
+      <button type="button" data-set="dark" aria-pressed="false" aria-label="Chủ đề tối" title="Tối"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-moon"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero" id="hero">
+  <div class="hero-top">
+    <div>
+      <p class="kicker" data-reveal style="--i:0">Biên bản review kiến trúc</p>
+      <h1 data-reveal style="--i:1">Lõi kỹ thuật đã chạy. Chỗ đứng sản phẩm chưa chốt.</h1>
+      <p class="hero-sub" data-reveal style="--i:2">OxMail thay Zimbra, hay để khách hàng tự vận hành trên cloud server: hai hướng, hai tech stack, chưa có quyết định.</p>
+      <p class="verdict" data-reveal style="--i:3">Hội đồng ghi nhận kiến trúc và bộ giao thức. Nút thắt nằm ở vị trí sản phẩm, quản trị đa node, backup và bằng chứng số liệu.</p>
+    </div>
+    <dl class="hero-meta" data-reveal style="--i:4">
+      <div><dt>Thời gian</dt><dd>04/08/2026, 15:31 (+07), 1 giờ 28 phút</dd></div>
+      <div><dt>Trình bày</dt><dd>Hưng (mail server) và Vũ (observability)</dd></div>
+      <div><dt>Hội đồng</dt><dd>Lãnh đạo kỹ thuật và đội vận hành email</dd></div>
+      <div><dt>Số liệu đối chiếu</dt><dd>Đo 02/08/2026, 2 node production</dd></div>
+    </dl>
+  </div>
+
+  <div class="kpis">
+    <div class="kpis-in">
+      <div class="kpi" data-reveal style="--i:0"><b class="num">25</b><span>vấn đề hội đồng nêu ra trong buổi review</span></div>
+      <div class="kpi is-hot" data-reveal style="--i:1"><b class="num">11</b><span>hạng mục đánh giá là chặn go-live</span></div>
+      <div class="kpi" data-reveal style="--i:2"><b class="num">1</b><span>binary thay khoảng 90 tới 100 tiến trình của Zimbra</span></div>
+      <div class="kpi" data-reveal style="--i:3"><b class="num">07/08</b><span>mốc chốt định hướng sản phẩm, thứ Sáu</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== §01 ===================== -->
+<section class="sec" id="dinh-huong">
+  <div class="sec-in">
+    <p class="sec-idx num" aria-hidden="true">01</p>
+    <div class="sec-body">
+      <div class="sec-head" data-reveal>
+        <h2>Hai hướng đi đang tranh nhau một tech stack</h2>
+        <p>Dự án đang mang tech stack của hướng thay thế Zimbra, trong khi kế hoạch phát hành lại theo hướng giao khách tự vận hành. Đây là mâu thuẫn cần chốt trước khi viết thêm dòng code nào.</p>
+      </div>
+
+      <div class="tracks" data-reveal>
+        <article class="track">
+          <p class="track-tag"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-server"/></svg>Hướng A</p>
+          <h3>Thay thế Zimbra nội bộ</h3>
+          <p class="note">Hướng người trình bày muốn đi. Đòi hỏi năng lực vận hành đầy đủ ngay từ ngày đầu.</p>
+          <ul>
+            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-dash"/></svg>Chứng minh nỗi đau vận hành hiện tại đã được giải quyết</li>
+            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-dash"/></svg>Quản trị tập trung nhiều node, group config tự đồng bộ</li>
+            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-dash"/></svg>Backup và restore incremental, cả dữ liệu lẫn cấu hình</li>
+            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-dash"/></svg>Migration từ Zimbra chạy được thật</li>
+            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-dash"/></svg>Số liệu đo trên cùng một hạ tầng với Zimbra</li>
+          </ul>
+          <p class="track-foot">Trở lực: <b>đội vận hành chưa thấy nỗi đau của mình được giải quyết</b>, nên chưa có động lực đổi hệ thống.</p>
+        </article>
+
+        <article class="track">
+          <p class="track-tag"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-box"/></svg>Hướng B</p>
+          <h3>Miễn phí trên cloud server, khách tự vận hành</h3>
+          <p class="note">Định hướng đã trao đổi với CEO. Đóng image, đẩy lên cloud server, có thể tích hợp qua OneDash.</p>
+          <ul>
+            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-dash"/></svg>Gói gọn một binary, tự biên dịch ra là chạy</li>
+            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-dash"/></svg>Tech stack tối giản, ít component phụ thuộc</li>
+            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-dash"/></svg>Tích hợp OneDash để khách bấm là dựng được</li>
+            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-dash"/></svg>Thu feedback từ lưu lượng thật trước khi thay hệ thống chính</li>
+            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-dash"/></svg>Tham chiếu mô hình Stalwart: một binary duy nhất</li>
+          </ul>
+          <p class="track-foot">Trở lực: <b>bài toán kinh tế của khách</b>, xem phần bên dưới.</p>
+        </article>
+      </div>
+
+      <div class="flag" data-reveal>
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-alert"/></svg>
+        <div>
+          <h4>Phản biện kinh tế chưa có câu trả lời</h4>
+          <p>Để chạy mail server này cần khoảng 4 tới 5 GB RAM, tức một cloud server vài trăm nghìn đồng mỗi tháng. Trong khi đó gói mail bán sẵn chỉ vài chục nghìn đồng và khách không phải lo cấu hình hay vận hành. Chưa có lý do để khách trả nhiều hơn cho việc tự vận hành.</p>
+          <p>Nhận định trong họp: nếu chốt hướng B ngay từ đầu thì tech stack sẽ đơn giản hơn nhiều và không cần lượng component như hiện tại. Hiện dự án phụ thuộc PostgreSQL, MinIO, NATS, DragonflyDB, Rspamd và ClamAV, đi ngược với lời hứa một binary.</p>
+        </div>
+      </div>
+
+      <div class="flag" data-reveal style="--i:1">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-alert"/></svg>
+        <div>
+          <h4>Mốc hết vòng đời Zimbra cần xác minh lại</h4>
+          <p>Trong họp nêu Zimbra ngừng hỗ trợ đến hết năm 2028. Tài liệu vòng đời công khai của Zimbra cho mốc sớm hơn đáng kể: bản 10.0 kết thúc general support 30/06/2025 và end of life 31/12/2025, các bản 10.z.x kết thúc general support 31/12/2026. Nếu con số công khai đúng thì áp lực thời gian lớn hơn giả định trong họp, và đây là lập luận mạnh nhất cho hướng A. Cần xác minh chính xác phiên bản iNET đang chạy trước khi đưa vào bất kỳ tài liệu nào.</p>
+        </div>
+      </div>
+
+      <div class="rail" data-reveal>
+        <h3 class="sub-h3">Mốc thời gian</h3>
+        <dl class="rail-track">
+          <div class="stop"><dt>02/08/2026</dt><dd>Đo số liệu trên 2 node production</dd></div>
+          <div class="stop is-now"><dt>04/08/2026</dt><dd>Review kiến trúc, buổi này</dd></div>
+          <div class="stop is-due"><dt>07/08/2026</dt><dd>Thứ Sáu, chốt định hướng sản phẩm</dd></div>
+          <div class="stop"><dt>Q3 tới Q4 2026</dt><dd>Benchmark thật, full SMTP AUTH, migration EWS</dd></div>
+          <div class="stop"><dt>2027</dt><dd>Gmail migration, PST/EML, Tasks và Notes, soạn thảo cộng tác</dd></div>
+          <div class="stop"><dt>Dài hạn</dt><dd>Tự viết engine chống spam và virus, multi-region, HSM</dd></div>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== §02 ===================== -->
+<section class="sec" id="kien-truc">
+  <div class="sec-in">
+    <p class="sec-idx num" aria-hidden="true">02</p>
+    <div class="sec-body">
+      <div class="sec-head" data-reveal>
+        <h2>Những gì đã chạy thật trên production</h2>
+        <p>Phần này là điểm mạnh của buổi trình bày. Toàn bộ số liệu dưới đây đo trên 2 node production ngày 02/08/2026, không phải số lý thuyết.</p>
+      </div>
+
+      <div class="caps" data-reveal>
+        <section class="cap">
+          <h4><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-server"/></svg>Một binary, một file cấu hình</h4>
+          <p>SMTP, IMAP4rev2, POP3, JMAP, CalDAV, CardDAV và ManageSieve chạy trong cùng một tiến trình Rust. Không JVM, không GC pause. Nâng cấp bằng cách thay binary. Toàn bộ giao thức tự viết, không dùng thư viện bên thứ ba, nên khi client như Outlook hay Apple Mail có quirk thì sửa được ngay trong mã nguồn của mình.</p>
+          <dl>
+            <div><dt>Mã nguồn</dt><dd class="num">~128K dòng, 33 crate</dd></div>
+            <div><dt>OS thread</dt><dd class="num">3</dd></div>
+            <div><dt>RAM app binary</dt><dd class="num">89 tới 138 MB</dd></div>
+            <div><dt>CPU khi rảnh</dt><dd class="num">0,4 tới 0,75% core</dd></div>
+          </dl>
+        </section>
+        <section class="cap">
+          <h4><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-shield"/></svg>Pipeline inbound 20+ stage</h4>
+          <p>DNSBL tại tầng TCP, allowlist bỏ qua toàn bộ scan, rồi SPF, DKIM, DMARC, ARC, reverse DNS, reputation, Rspamd và ClamAV có circuit breaker.</p>
+          <dl>
+            <div><dt>Điểm 0 tới 5</dt><dd>vào INBOX</dd></div>
+            <div><dt>Điểm 5 tới 15</dt><dd>gray zone</dd></div>
+            <div><dt>Trên 15</dt><dd>từ chối 554</dd></div>
+          </dl>
+        </section>
+        <section class="cap">
+          <h4><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-net"/></svg>Gateway gRPC</h4>
+          <p>Kết nối gRPC hai chiều với payload rkyv zero-copy, thay cho SMTP forward truyền thống. Tự chuyển SMTP direct khi gateway chết.</p>
+          <dl>
+            <div><dt>RTT gRPC Ping</dt><dd class="num">12 tới 19 ms</dd></div>
+            <div><dt>Health check</dt><dd class="num">mỗi 30 s</dd></div>
+            <div><dt>Fallback</dt><dd>tự động</dd></div>
+          </dl>
+        </section>
+      </div>
+
+      <h3 class="sub-h3 tight" style="margin-top:var(--s8)" data-reveal>Ba lớp phòng thủ AI, thứ Zimbra không có</h3>
+      <p class="note" data-reveal>Cả ba đều là NATS consumer chạy nền, không chặn đường deliver chính, tự retry khi crash. Đây là nhóm tính năng khó copy nhất, nhưng một trong ba đang tắt.</p>
+      <div class="ai3" data-reveal>
+        <article>
+          <h4>Gray zone AI Court</h4>
+          <p>Thư có điểm lấp lửng 5 tới 7 được giữ lại, hỏi LLM rồi mới quyết định vào INBOX hay Junk. Prompt có phòng thủ chống prompt injection. Watchdog trong server quét mỗi 30 giây, thư kẹt quá 300 giây thì tự chuyển Junk, không bao giờ mất thư.</p>
+          <p class="state off"><span class="dot"></span>Đang tắt ở production</p>
+        </article>
+        <article>
+          <h4>DLP outbound</h4>
+          <p>Quét mọi thư rời hệ thống: số thẻ, IBAN, SSN, secret, API key, JWT theo regex rồi đưa AI xét theo policy. Chặn thì trả 550 5.7.1 kèm nút Retry chủ ý trong delivery trace.</p>
+          <p class="state on"><span class="dot"></span>Đang chạy</p>
+        </article>
+        <article>
+          <h4>ZAP retro-scan</h4>
+          <p>Quét lại attachment sau khi ClamAV cập nhật signature, cho thư cũ tưởng sạch. Cửa sổ quét thu từ 24 giờ về 6 giờ, dedup theo lần trigger trước. Ba user report cùng người gửi thì quét lại 7 ngày.</p>
+          <p class="state on"><span class="dot"></span>Đang chạy</p>
+        </article>
+      </div>
+
+      <!-- FIG 1 -->
+      <figure class="fig" data-reveal>
+        <div class="fig-head">
+          <h3>RAM toàn node theo service</h3>
+          <div class="legend">
+            <span><i class="swatch sw-a"></i>ox.io.vn</span>
+            <span><i class="swatch sw-b"></i>nguyenthehung.id.vn</span>
+          </div>
+        </div>
+        <div class="tablewrap">
+          <table>
+            <caption class="tcap">RSS theo service, đơn vị MB, đo 02/08/2026. Sắp theo mức tiêu thụ giảm dần.</caption>
+            <thead>
+              <tr><th scope="col">Service</th><th scope="col" class="n">ox.io.vn</th><th scope="col" class="n">nguyenthehung</th><th scope="col">So sánh</th></tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">ClamAV (clamd)</th><td class="n num">968</td><td class="n num">1.952</td><td class="plot"><span class="bars"><i class="bar" style="--w:49.6%;--i:0"></i><i class="bar b" style="--w:100%;--i:0"></i></span></td></tr>
+              <tr><th scope="row">PostgreSQL</th><td class="n num">594</td><td class="n num">477</td><td class="plot"><span class="bars"><i class="bar" style="--w:30.4%;--i:1"></i><i class="bar b" style="--w:24.4%;--i:1"></i></span></td></tr>
+              <tr><th scope="row">Rspamd</th><td class="n num">264</td><td class="n num">373</td><td class="plot"><span class="bars"><i class="bar" style="--w:13.5%;--i:2"></i><i class="bar b" style="--w:19.1%;--i:2"></i></span></td></tr>
+              <tr><th scope="row">oxmail-server</th><td class="n num">138</td><td class="n num">89</td><td class="plot"><span class="bars"><i class="bar" style="--w:7.1%;--i:3"></i><i class="bar b" style="--w:4.6%;--i:3"></i></span></td></tr>
+              <tr><th scope="row">MinIO (S3)</th><td class="n num">108</td><td class="n num">141</td><td class="plot"><span class="bars"><i class="bar" style="--w:5.5%;--i:4"></i><i class="bar b" style="--w:7.2%;--i:4"></i></span></td></tr>
+              <tr><th scope="row">NGINX</th><td class="n num">103</td><td class="n num">51</td><td class="plot"><span class="bars"><i class="bar" style="--w:5.3%;--i:5"></i><i class="bar b" style="--w:2.6%;--i:5"></i></span></td></tr>
+              <tr><th scope="row">VictoriaMetrics</th><td class="n num">90</td><td class="n num">86</td><td class="plot"><span class="bars"><i class="bar" style="--w:4.6%;--i:6"></i><i class="bar b" style="--w:4.4%;--i:6"></i></span></td></tr>
+              <tr><th scope="row">NATS JetStream</th><td class="n num">69</td><td class="n num">36</td><td class="plot"><span class="bars"><i class="bar" style="--w:3.5%;--i:7"></i><i class="bar b" style="--w:1.8%;--i:7"></i></span></td></tr>
+              <tr><th scope="row">Dragonfly, VictoriaLogs, worker, rsyslog</th><td class="n num">~104</td><td class="n num">~108</td><td class="plot"><span class="bars"><i class="bar" style="--w:5.3%;--i:8"></i><i class="bar b" style="--w:5.5%;--i:8"></i></span></td></tr>
+            </tbody>
+            <tfoot>
+              <tr><th scope="row">Tổng toàn node</th><td class="n num">~2,4 GB</td><td class="n num">~3,3 GB</td><td></td></tr>
+            </tfoot>
+          </table>
+        </div>
+        <figcaption class="note fcap">ClamAV ngốn RAM gấp 7 tới 22 lần chính app binary và nhiều hơn cả PostgreSQL với Rspamd cộng lại. Đây là động lực đo được cho kế hoạch tự viết engine chống virus và spam, không chỉ là mong muốn kỹ thuật.</figcaption>
+      </figure>
+
+      <!-- FIG 2 -->
+      <figure class="fig" data-reveal>
+        <div class="fig-head">
+          <h3>Tổng RAM ước tính theo quy mô người dùng</h3>
+          <div class="legend">
+            <span><i class="swatch sw-a"></i>OxMail</span>
+            <span><i class="swatch sw-b"></i>Zimbra</span>
+          </div>
+        </div>
+        <div class="mini">
+          <section>
+            <h4>100 người dùng</h4><span class="cnt">1 node so với 1 node</span>
+            <div class="mrow"><span class="lbl">OxMail<b class="num">4 GB</b></span><i class="bar" style="--w:25%;--i:0"></i></div>
+            <div class="mrow"><span class="lbl">Zimbra<b class="num">16 GB</b></span><i class="bar b" style="--w:100%;--i:1"></i></div>
+            <p class="ratio">Chênh lệch <b>4x</b></p>
+          </section>
+          <section>
+            <h4>1.000 người dùng</h4><span class="cnt">3 node so với 5 tới 6 node</span>
+            <div class="mrow"><span class="lbl">OxMail<b class="num">24 GB</b></span><i class="bar" style="--w:25%;--i:0"></i></div>
+            <div class="mrow"><span class="lbl">Zimbra<b class="num">96 GB</b></span><i class="bar b" style="--w:100%;--i:1"></i></div>
+            <p class="ratio">Chênh lệch <b>4x</b></p>
+          </section>
+          <section>
+            <h4>5.000+ người dùng</h4><span class="cnt">10 tới 12 node so với 15 tới 20+ node</span>
+            <div class="mrow"><span class="lbl">OxMail<b class="num">~160 GB</b></span><i class="bar" style="--w:40%;--i:0"></i></div>
+            <div class="mrow"><span class="lbl">Zimbra<b class="num">~400 GB</b></span><i class="bar b" style="--w:100%;--i:1"></i></div>
+            <p class="ratio">Chênh lệch <b>2,5x</b></p>
+          </section>
+        </div>
+        <figcaption class="note fcap">Mỗi cột chuẩn hóa riêng theo quy mô của nó để không bóp méo tỉ lệ. Con số OxMail là ước lượng sizing từ cấu trúc hệ thống, con số Zimbra lấy từ tài liệu công khai và <strong>không đo cùng hạ tầng</strong>. Đây chính là điểm hội đồng phản đối mạnh nhất, xem mục E1.</figcaption>
+      </figure>
+
+      <!-- FIG 3 -->
+      <figure class="fig" data-reveal>
+        <div class="fig-head">
+          <h3>Độ trễ đo trên ox.io.vn</h3>
+          <div class="legend">
+            <span><i class="swatch sw-a"></i>p50</span>
+            <span><i class="swatch sw-b"></i>p90 hoặc p95</span>
+          </div>
+        </div>
+        <div class="tablewrap">
+          <table>
+            <caption class="tcap">Đơn vị mili giây. Hai nhóm dùng thang riêng vì lệch nhau hơn 100 lần.</caption>
+            <thead>
+              <tr><th scope="col">Thao tác</th><th scope="col" class="n">p50</th><th scope="col" class="n">p90 / p95</th><th scope="col">So sánh trong nhóm</th></tr>
+            </thead>
+            <tbody>
+              <tr class="grp-row"><th scope="colgroup" colspan="4">Nhóm dưới 15 ms, thang tối đa 13,3 ms</th></tr>
+              <tr><th scope="row">IMAP FETCH</th><td class="n num">1,4</td><td class="n" aria-label="không đo">-</td><td class="plot"><span class="bars"><i class="bar" style="--w:10.5%;--i:0"></i></span></td></tr>
+              <tr><th scope="row">IMAP SELECT</th><td class="n num">1,7</td><td class="n" aria-label="không đo">-</td><td class="plot"><span class="bars"><i class="bar" style="--w:12.8%;--i:1"></i></span></td></tr>
+              <tr><th scope="row">SMTP inbound, cùng kết nối</th><td class="n num">1,5</td><td class="n num">2,9</td><td class="plot"><span class="bars"><i class="bar" style="--w:11.3%;--i:2"></i><i class="bar b" style="--w:21.8%;--i:2"></i></span></td></tr>
+              <tr><th scope="row">JMAP Email/query</th><td class="n num">4,6</td><td class="n num">5,8</td><td class="plot"><span class="bars"><i class="bar" style="--w:34.6%;--i:3"></i><i class="bar b" style="--w:43.6%;--i:3"></i></span></td></tr>
+              <tr><th scope="row">JMAP full-text search</th><td class="n num">10,5</td><td class="n num">13,3</td><td class="plot"><span class="bars"><i class="bar" style="--w:78.9%;--i:4"></i><i class="bar b" style="--w:100%;--i:4"></i></span></td></tr>
+              <tr class="grp-row"><th scope="colgroup" colspan="4">Nhóm trên 35 ms, có handshake và xác thực, thang tối đa 166 ms</th></tr>
+              <tr><th scope="row">IMAP login</th><td class="n num">39,5</td><td class="n" aria-label="không đo">-</td><td class="plot"><span class="bars"><i class="bar" style="--w:23.8%;--i:5"></i></span></td></tr>
+              <tr><th scope="row">JMAP login, Argon2id</th><td class="n num">50,9</td><td class="n" aria-label="không đo">-</td><td class="plot"><span class="bars"><i class="bar" style="--w:30.7%;--i:6"></i></span></td></tr>
+              <tr><th scope="row">SMTP full cycle, kết nối mới</th><td class="n num">159</td><td class="n num">166</td><td class="plot"><span class="bars"><i class="bar" style="--w:95.8%;--i:7"></i><i class="bar b" style="--w:100%;--i:7"></i></span></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <figcaption class="note fcap">Con số 592 msg/s trên cùng một kết nối đo đường accept và queue ACK, phần scan chạy async phía sau, nên không phải throughput end-to-end của toàn pipeline bảo mật. SMTP full cycle 159 ms bị chi phối bởi Argon2id và STARTTLS. Chưa có số liệu ở mức concurrency trên 100.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== §03 ===================== -->
+<section class="sec" id="phan-hoi">
+  <div class="sec-in">
+    <p class="sec-idx num" aria-hidden="true">03</p>
+    <div class="sec-body">
+      <div class="sec-head" data-reveal>
+        <h2>25 vấn đề hội đồng đặt lên bàn</h2>
+        <p>Nhóm theo chủ đề, mở từng nhóm để đọc chi tiết. Mức ưu tiên là đánh giá của người soạn báo cáo, không phải xếp loại chính thức trong họp.</p>
+      </div>
+
+      <div class="sevkey" data-reveal>
+        <div><i class="mk mk-1"></i>Chặn go-live: <b class="num">11</b></div>
+        <div><i class="mk mk-2"></i>Cao: <b class="num">11</b></div>
+        <div><i class="mk mk-3"></i>Trung bình: <b class="num">3</b></div>
+      </div>
+
+      <div data-reveal>
+      <details class="grp" open>
+        <summary>
+          <span class="grp-key">A</span>
+          <span class="grp-name">Vận hành</span>
+          <span class="grp-tally">
+            <span class="marks"><i class="mk mk-1"></i><i class="mk mk-1"></i><i class="mk mk-1"></i><i class="mk mk-2"></i><i class="mk mk-2"></i><i class="mk mk-2"></i></span>
+            <span class="num">6 vấn đề</span>
+            <svg class="icon chev" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chev"/></svg>
+          </span>
+        </summary>
+        <article class="find">
+          <span class="find-id num">A1</span>
+          <div>
+            <h4>Tài khoản khách bị chiếm dụng để phát tán spam</h4>
+            <p>Sự cố vận hành gặp thường xuyên nhất hiện nay. Kẻ tấn công dò được tài khoản khách qua một giao thức nào đó, rồi dùng chính tài khoản đó gửi cho khách hoặc toàn bộ tài khoản nội bộ với tần suất không kiểm soát được. Đội vận hành phải đi khóa tài khoản email của khách bằng tay.</p>
+            <p class="said"><b>Trả lời trong họp</b>Có AUTH ở port 25, khóa truy cập, thiết bị tin cậy và TOTP nên hạn chế được phần nào, nhưng "để giải quyết được 100% thì em không chắc". Phần mềm cũng chưa có cơ chế riêng chống việc dò quét tài khoản.</p>
+          </div>
+          <span class="sev"><i class="mk mk-1"></i>Chặn go-live</span>
+        </article>
+        <article class="find">
+          <span class="find-id num">A2</span>
+          <div>
+            <h4>Chưa có cơ chế backup và restore</h4>
+            <p>Cần backup incremental cả dữ liệu lẫn cấu hình, restore nhanh nhất khi server lỗi, và phục hồi được tài khoản đã bị xóa. Câu hỏi kèm theo: chạy single node thì phục hồi thế nào, chạy cluster thì phục hồi thế nào.</p>
+            <p class="said"><b>Trả lời trong họp</b>"Cái này cháu chưa kỹ", muốn tham khảo cơ chế backup từ đội vận hành. Hiện chỉ có lớp lưu trữ MinIO hoặc Ceph, mà đó là lưu trữ message, không phải backup.</p>
+          </div>
+          <span class="sev"><i class="mk mk-1"></i>Chặn go-live</span>
+        </article>
+        <article class="find">
+          <span class="find-id num">A3</span>
+          <div>
+            <h4>Chưa chứng minh được nỗi đau vận hành đã giải quyết</h4>
+            <p>Điều kiện tiên quyết để đội vận hành đồng ý thay Zimbra: liệt kê nỗi đau hiện tại của bên vận hành, kèm bằng chứng hệ thống mới đã giải quyết được. Giải quyết được nỗi đau thì vận hành sẽ đổi ngay.</p>
+            <p class="said"><b>Nhận định trong họp</b>"Hiện chú vẫn chưa thấy nỗi đau của vận hành để cháu thay đổi được điều đấy."</p>
+          </div>
+          <span class="sev"><i class="mk mk-1"></i>Chặn go-live</span>
+        </article>
+        <article class="find">
+          <span class="find-id num">A4</span>
+          <div>
+            <h4>Thiếu catch-all cho địa chỉ không tồn tại</h4>
+            <p>Khi có người gửi tới một tài khoản bất kỳ không tồn tại trên hệ thống, cần cấu hình dồn về một hộp thư chỉ định. Hiện chỉ có các mailbox chuẩn RFC như postmaster, webmaster, abuse, hostmaster và tự động chuyển về admin domain.</p>
+          </div>
+          <span class="sev"><i class="mk mk-2"></i>Cao</span>
+        </article>
+        <article class="find">
+          <span class="find-id num">A5</span>
+          <div>
+            <h4>Chưa tự động hóa mail queue và hold queue</h4>
+            <p>Trên Zimbra quy trình đang thủ công: chuyển sang hold queue để giải phóng mail queue cho thư mới, khi khách claim thì mới check theo tài khoản và domain trong hold queue rồi requeue lại. Hệ thống mới cần tự động hóa được bài toán này và alert tập trung cho người quản trị.</p>
+          </div>
+          <span class="sev"><i class="mk mk-2"></i>Cao</span>
+        </article>
+        <article class="find">
+          <span class="find-id num">A6</span>
+          <div>
+            <h4>Thiếu checklist go-live và demo sát thực tế</h4>
+            <p>Cần soạn và đóng gói checklist trước khi sản phẩm đến người dùng thật. Buổi trình bày tới phải showcase kết nối từ thiết bị mobile và từ Outlook trên desktop, không chỉ webmail, để demo sát với cách khách dùng thật.</p>
+          </div>
+          <span class="sev"><i class="mk mk-2"></i>Cao</span>
+        </article>
+      </details>
+
+      <details class="grp">
+        <summary>
+          <span class="grp-key">B</span>
+          <span class="grp-name">Lưu trữ và dữ liệu</span>
+          <span class="grp-tally">
+            <span class="marks"><i class="mk mk-1"></i><i class="mk mk-2"></i><i class="mk mk-3"></i></span>
+            <span class="num">3 vấn đề</span>
+            <svg class="icon chev" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chev"/></svg>
+          </span>
+        </summary>
+        <article class="find">
+          <span class="find-id num">B1</span>
+          <div>
+            <h4>Lưu trữ phải phân hai lớp, không được full S3</h4>
+            <p>Nếu lưu toàn bộ trên S3 thì khi S3 treo hoặc chậm, mọi kết nối của mail server bị ảnh hưởng theo. Phương án hội đồng đề xuất: thư gần nhất giữ ở local cho tốc độ, thư cũ chuyển sang S3 để giảm tải local và tăng mật độ tài khoản trên mỗi node. Lý do nghiệp vụ: khách thường chỉ quan tâm thư gần nhất nhưng lại lưu hộp thư nhiều năm.</p>
+            <p class="said"><b>Hiện trạng</b>Đang cấu hình lưu qua S3, chưa có lớp local song song. Cần đo tỉ lệ khách dùng trên 2 tới 3 năm để chọn mốc phân lớp.</p>
+          </div>
+          <span class="sev"><i class="mk mk-1"></i>Chặn go-live</span>
+        </article>
+        <article class="find">
+          <span class="find-id num">B2</span>
+          <div>
+            <h4>PostgreSQL ở quy mô nhiều domain</h4>
+            <p>Kinh nghiệm vận hành nêu ra: dung lượng phình rất nhanh, khả năng xử lý trên nhiều domain kém, query chậm khi phải load nhiều filter dù tài nguyên vẫn còn.</p>
+            <p class="said"><b>Trả lời trong họp</b>Đồng ý là điểm nghẽn, và nếu cần thì có thể chuyển từng table sang backend khác về sau. Roadmap đã ghi hướng YugabyteDB.</p>
+          </div>
+          <span class="sev"><i class="mk mk-2"></i>Cao</span>
+        </article>
+        <article class="find">
+          <span class="find-id num">B3</span>
+          <div>
+            <h4>Thiếu sơ đồ database</h4>
+            <p>Cần bổ sung sơ đồ kiến trúc database và luồng hoạt động dữ liệu vào tài liệu kỹ thuật. Đã cam kết trong họp sẽ cập nhật.</p>
+          </div>
+          <span class="sev"><i class="mk mk-3"></i>Trung bình</span>
+        </article>
+      </details>
+
+      <details class="grp">
+        <summary>
+          <span class="grp-key">C</span>
+          <span class="grp-name">Kiến trúc và mở rộng</span>
+          <span class="grp-tally">
+            <span class="marks"><i class="mk mk-1"></i><i class="mk mk-1"></i><i class="mk mk-2"></i><i class="mk mk-2"></i><i class="mk mk-3"></i></span>
+            <span class="num">5 vấn đề</span>
+            <svg class="icon chev" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chev"/></svg>
+          </span>
+        </summary>
+        <article class="find">
+          <span class="find-id num">C1</span>
+          <div>
+            <h4>Thiếu tầng quản trị tập trung cho nhiều node</h4>
+            <p>Yêu cầu rõ ràng nhất về kiến trúc trong buổi họp: đừng làm single node theo kiểu Zimbra. Cần một central để các node mail join vào, tạo group config, khi thêm cấu hình ở một chỗ thì mọi server đã join tự nhận cấu hình đó. Áp dụng cho ClamAV, antivirus, filter và các thứ tương tự. Không có nó thì mỗi lần dựng cluster hay single node lại phải cấu hình lại từ đầu.</p>
+          </div>
+          <span class="sev"><i class="mk mk-1"></i>Chặn go-live</span>
+        </article>
+        <article class="find">
+          <span class="find-id num">C2</span>
+          <div>
+            <h4>Nginx với nhiều domain khách, HA và scale</h4>
+            <p>Mỗi khách một domain riêng, ví dụ mail.domainA và mail.domainB cùng dùng port 80 và 443. Câu hỏi: Nginx đọc cấu hình thế nào để vào đúng node của khách, triển khai cluster thì lớp VIP đặt ở đâu, và scale ra sao. Kèm câu hỏi cần tối thiểu bao nhiêu control node để quản lý.</p>
+            <p class="said"><b>Trả lời trong họp</b>"Cái này em nói thật là em chưa nghĩ gì", hiện chỉ đang chạy trên một node. Có kế hoạch tự viết SMTP proxy hai trong một để thay Nginx nhưng chưa làm.</p>
+          </div>
+          <span class="sev"><i class="mk mk-1"></i>Chặn go-live</span>
+        </article>
+        <article class="find">
+          <span class="find-id num">C3</span>
+          <div>
+            <h4>Central log email tập trung</h4>
+            <p>VictoriaLogs đã chạy nhưng local-only trên từng node. Yêu cầu: gom log của mọi node về một central log của email để tra vết tập trung, giống email central mà đội vận hành đang xây, thay vì đẻ thêm log server cho từng node.</p>
+          </div>
+          <span class="sev"><i class="mk mk-2"></i>Cao</span>
+        </article>
+        <article class="find">
+          <span class="find-id num">C4</span>
+          <div>
+            <h4>Chuyển sang ACME cho SSL</h4>
+            <p>Hiện chỉ đọc lại file chứng thư khi khởi động, chỉ đủ cho ít domain. Yêu cầu dùng ACME để cấp và gia hạn tự động, kết hợp ZeroSSL đã mua để tránh rate limit, và phân biệt được khách dùng SSL miễn phí với khách dùng SSL có phí.</p>
+          </div>
+          <span class="sev"><i class="mk mk-2"></i>Cao</span>
+        </article>
+        <article class="find">
+          <span class="find-id num">C5</span>
+          <div>
+            <h4>Nguy cơ nghẽn ở tầng dưới của monolith</h4>
+            <p>Nhận định trong họp: tầng trên làm monolith thì được, nhưng tầng dưới xử lý rất nhiều nên monolith dễ thành điểm nghẽn. Việc kéo theo PostgreSQL, ClamAV, Rspamd cũng đủ nhiều để phải quản lý, đi ngược lời hứa một binary.</p>
+          </div>
+          <span class="sev"><i class="mk mk-3"></i>Trung bình</span>
+        </article>
+      </details>
+
+      <details class="grp">
+        <summary>
+          <span class="grp-key">D</span>
+          <span class="grp-name">Bảo mật và AI</span>
+          <span class="grp-tally">
+            <span class="marks"><i class="mk mk-1"></i><i class="mk mk-2"></i><i class="mk mk-2"></i><i class="mk mk-2"></i><i class="mk mk-3"></i></span>
+            <span class="num">5 vấn đề</span>
+            <svg class="icon chev" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chev"/></svg>
+          </span>
+        </summary>
+        <article class="find">
+          <span class="find-id num">D1</span>
+          <div>
+            <h4>AI đọc nội dung thư có thể thành lỗ hổng rò rỉ</h4>
+            <p>Ba lớp AI phải đọc nội dung thư để đánh giá. Câu hỏi của hội đồng không dừng ở API key của hệ thống mà đi tới dữ liệu của chính khách: tài khoản, mật khẩu, API key mà khách gửi qua thư sẽ đi qua LLM nào, và làm sao biết được.</p>
+            <p class="said"><b>Trả lời trong họp</b>"Có khả năng." Hiện cho admin cấu hình và chạy trên API key riêng của họ, theo phạm vi system hoặc tenant. Chưa có câu trả lời cho dữ liệu nhạy cảm của chính khách hàng.</p>
+          </div>
+          <span class="sev"><i class="mk mk-1"></i>Chặn go-live</span>
+        </article>
+        <article class="find">
+          <span class="find-id num">D2</span>
+          <div>
+            <h4>DLP nên cảnh báo ngay ở bước gửi</h4>
+            <p>Hiện thư bị chặn thì khách phải vào delivery trace bấm Retry, mất thêm một bước và không có thông báo nói rõ thư chứa thông tin nhạy cảm. Đề xuất: đọc và xử lý nội dung ngay từ bước gửi, hỏi khách "thư chứa thông tin nhạy cảm, vẫn muốn gửi?" thay vì để khách tự đi tìm.</p>
+          </div>
+          <span class="sev"><i class="mk mk-2"></i>Cao</span>
+        </article>
+        <article class="find">
+          <span class="find-id num">D3</span>
+          <div>
+            <h4>Safe Links cần cảnh báo, không chỉ rewrite</h4>
+            <p>Hiện chỉ rewrite link giống Outlook, và ảnh chưa render đầy đủ sau khi rewrite. Đề xuất: xác định link nằm ngoài hệ thống thì cảnh báo ngay khi khách bấm; nếu domain hoặc IP nằm trong blacklist thì hiện cảnh báo màu đỏ, theo cách Netcraft đang làm.</p>
+          </div>
+          <span class="sev"><i class="mk mk-2"></i>Cao</span>
+        </article>
+        <article class="find">
+          <span class="find-id num">D4</span>
+          <div>
+            <h4>Cơ chế 3 user report cần học, không chỉ chặn</h4>
+            <p>Hiện đủ 3 report là hệ thống tự chặn. Nhận định: không nên đơn thuần tự chặn, phải học được tại sao thư đó bị đánh dấu spam, dùng AI kiểm tra lại kết luận, và cần một thư viện hoặc dataset để lưu những thông tin đó lại, sau này kết hợp vào luật riêng của mình.</p>
+          </div>
+          <span class="sev"><i class="mk mk-2"></i>Cao</span>
+        </article>
+        <article class="find">
+          <span class="find-id num">D5</span>
+          <div>
+            <h4>Chu kỳ ZAP và gray zone worker đang tắt</h4>
+            <p>Cửa sổ quét lại ZAP hiện 6 tới 24 giờ, chọn theo giả định "thư ít khi được mở lại", và chính người trình bày đặt câu hỏi nên quét bao lâu mới đủ. Đây là quyết định cần chốt cùng đội vận hành. Song song, gray zone worker đang tắt ở production vì chưa cấu hình LLM provider, thư vùng xám vẫn bị giữ và watchdog tự chuyển spam sau 5 phút.</p>
+          </div>
+          <span class="sev"><i class="mk mk-3"></i>Trung bình</span>
+        </article>
+      </details>
+
+      <details class="grp">
+        <summary>
+          <span class="grp-key">E</span>
+          <span class="grp-name">Số liệu và tính trung thực báo cáo</span>
+          <span class="grp-tally">
+            <span class="marks"><i class="mk mk-1"></i><i class="mk mk-2"></i></span>
+            <span class="num">2 vấn đề</span>
+            <svg class="icon chev" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chev"/></svg>
+          </span>
+        </summary>
+        <article class="find">
+          <span class="find-id num">E1</span>
+          <div>
+            <h4>Số liệu Zimbra là lý thuyết, không đo cùng hạ tầng</h4>
+            <p>Phần bị phản đối mạnh nhất trong cả buổi. Các con số Zimbra trong báo cáo lấy từ tài liệu công khai, không đo trên cùng cấu hình, nên bảng so sánh bị nhận xét là "hơi điêu" và "nóng mắt thấy khá cấn". Muốn so sánh thật thì phải dựng Zimbra trên cùng một cấu hình rồi đo lại. Đội vận hành sẵn sàng cấp hạ tầng.</p>
+            <p class="said"><b>Hệ quả</b>Cho tới khi có số đo cùng hạ tầng, mọi bảng so sánh RAM và số tiến trình chỉ nên trình bày ở mức tham khảo, kèm ghi rõ nguồn.</p>
+          </div>
+          <span class="sev"><i class="mk mk-1"></i>Chặn go-live</span>
+        </article>
+        <article class="find">
+          <span class="find-id num">E2</span>
+          <div>
+            <h4>Chưa có benchmark đầy tải, và cảnh báo về AI phóng đại</h4>
+            <p>Các kịch bản load test LT1 tới LT4 vẫn còn #[ignore], scale hiện tại là 2 node mỗi node một tài khoản, nên số RAM và thread chỉ là điểm khởi đầu chứ không phải năng lực chịu tải. Kèm cảnh báo về quy trình: khi để AI viết báo cáo, context tích lũy dần làm kết quả ảo giác và over-engineer, nên mọi số liệu so sánh phải kèm dẫn chứng nguồn để lần triển khai thật không đi sai hướng.</p>
+          </div>
+          <span class="sev"><i class="mk mk-2"></i>Cao</span>
+        </article>
+      </details>
+
+      <details class="grp">
+        <summary>
+          <span class="grp-key">F</span>
+          <span class="grp-name">Sản phẩm và kinh doanh</span>
+          <span class="grp-tally">
+            <span class="marks"><i class="mk mk-1"></i><i class="mk mk-1"></i><i class="mk mk-1"></i><i class="mk mk-2"></i></span>
+            <span class="num">4 vấn đề</span>
+            <svg class="icon chev" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chev"/></svg>
+          </span>
+        </summary>
+        <article class="find">
+          <span class="find-id num">F1</span>
+          <div>
+            <h4>Chưa chốt mục tiêu: thay Zimbra hay giao khách tự vận hành</h4>
+            <p>Câu hỏi trực tiếp trong họp. Người trình bày trả lời muốn thay Zimbra, nhưng kế hoạch phát hành lại là chạy thử miễn phí cho khách tự vận hành. Hai hướng dẫn tới hai tech stack khác nhau: nếu chốt hướng khách tự vận hành từ đầu thì stack sẽ đơn giản hơn và không cần lượng component như hiện tại.</p>
+          </div>
+          <span class="sev"><i class="mk mk-1"></i>Chặn go-live</span>
+        </article>
+        <article class="find">
+          <span class="find-id num">F2</span>
+          <div>
+            <h4>Bài toán kinh tế của hướng khách tự vận hành</h4>
+            <p>Mail server cần 3 tới 4 GB theo tài liệu, thực tế phải gọi 4 tới 5 GB, tức cloud server vài trăm nghìn đồng mỗi tháng. Trong khi gói mail bán sẵn chỉ vài chục nghìn đồng và khách không phải lo cấu hình hay vận hành. Chưa có lập luận thuyết phục để khách chọn trả nhiều hơn.</p>
+          </div>
+          <span class="sev"><i class="mk mk-1"></i>Chặn go-live</span>
+        </article>
+        <article class="find">
+          <span class="find-id num">F3</span>
+          <div>
+            <h4>Quan hệ với OneMail và số lớp quản lý</h4>
+            <p>Hiện đã phải đi qua ba lớp quản lý. Nếu giữ hiện trạng OneMail thì mỗi lần OxMail cập nhật, OneMail buộc cập nhật theo, làm tăng khối lượng bảo trì và phải giữ thêm một node nữa. Cần chốt: OxMail là bản nâng cấp lõi của OneMail với giao diện giữ nguyên, hay bán gói theo từng mail như Zimbra ngày xưa mà không có lớp giao diện OneMail.</p>
+          </div>
+          <span class="sev"><i class="mk mk-1"></i>Chặn go-live</span>
+        </article>
+        <article class="find">
+          <span class="find-id num">F4</span>
+          <div>
+            <h4>Không bỏ được IMAP và POP3, và tenant admin bị trùng</h4>
+            <p>Mong muốn tương lai chỉ support JMAP không khả thi: iOS, Android và Outlook desktop vẫn dùng IMAP và POP3 rất nhiều, các nền tảng đó cũng không bỏ tích hợp email thủ công. Nếu thay Dovecot thì phải chứng minh được hiệu năng và mức tuân thủ RFC. Song song, OneMail đang làm phần admin riêng cho khách, cần thống nhất để không có hai tenant admin.</p>
+          </div>
+          <span class="sev"><i class="mk mk-2"></i>Cao</span>
+        </article>
+      </details>
+      </div>
+
+      <div class="flag flag--ok" data-reveal>
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg>
+        <div>
+          <h4>Ba điểm đã đồng thuận</h4>
+          <p>OxMail và gateway là hai module riêng, thiết kế chạy độc lập nhưng hỗ trợ nhau như công dân hạng nhất, và cách chia này giúp kinh doanh dễ hơn về sau. Việc tái sử dụng dự án Authent nội bộ cho đăng nhập tập trung được ghi nhận, và OpenLDAP không phải vấn đề vì bản thân Zimbra cũng dùng OpenLDAP. Rspamd được chấp nhận cho thử nghiệm tiếp vì dễ tùy biến luật và dễ xây quy trình quản lý.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== §04 ===================== -->
+<section class="sec" id="khoang-trong">
+  <div class="sec-in">
+    <p class="sec-idx num" aria-hidden="true">04</p>
+    <div class="sec-body">
+      <div class="sec-head" data-reveal>
+        <h2>Khoảng trống giữa demo và vận hành thật</h2>
+        <p>Sắp theo mức sẵn sàng tăng dần, phần thiếu nằm ở trên. Thang 5 bước là đánh giá định tính của người soạn báo cáo, không phải số đo.</p>
+      </div>
+
+      <div class="two">
+        <div data-reveal>
+          <ul class="rd">
+            <li><span class="rd-name">Backup và restore</span><span class="meter lvl-1" role="img" aria-label="Mức 1 trên 5"><i class="on"></i><i></i><i></i><i></i><i></i></span><span class="rd-state">Chưa thiết kế</span></li>
+            <li><span class="rd-name">Quản trị tập trung nhiều node</span><span class="meter lvl-1" role="img" aria-label="Mức 1 trên 5"><i class="on"></i><i></i><i></i><i></i><i></i></span><span class="rd-state">Chưa có thiết kế</span></li>
+            <li><span class="rd-name">Nginx đa domain và HA</span><span class="meter lvl-1" role="img" aria-label="Mức 1 trên 5"><i class="on"></i><i></i><i></i><i></i><i></i></span><span class="rd-state">Chưa có phương án</span></li>
+            <li><span class="rd-name">Lưu trữ phân lớp local và S3</span><span class="meter lvl-2" role="img" aria-label="Mức 2 trên 5"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span><span class="rd-state">Đang lưu qua S3</span></li>
+            <li><span class="rd-name">Chống chiếm dụng tài khoản</span><span class="meter lvl-2" role="img" aria-label="Mức 2 trên 5"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span><span class="rd-state">Cơ chế rời rạc</span></li>
+            <li><span class="rd-name">Migration từ Zimbra</span><span class="meter lvl-2" role="img" aria-label="Mức 2 trên 5"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span><span class="rd-state">IMAP sync đọc được, chưa ghi storage</span></li>
+            <li><span class="rd-name">Benchmark đầy tải</span><span class="meter lvl-2" role="img" aria-label="Mức 2 trên 5"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span><span class="rd-state">LT1 tới LT4 còn bị bỏ qua</span></li>
+            <li><span class="rd-name">Ba lớp phòng thủ AI</span><span class="meter lvl-3" role="img" aria-label="Mức 3 trên 5"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span><span class="rd-state">ZAP và DLP chạy, gray tắt</span></li>
+            <li><span class="rd-name">Gateway gRPC</span><span class="meter lvl-4" role="img" aria-label="Mức 4 trên 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span><span class="rd-state">Chạy production, RTT 12 tới 19 ms</span></li>
+            <li><span class="rd-name">Log và metrics</span><span class="meter lvl-4" role="img" aria-label="Mức 4 trên 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span><span class="rd-state">VictoriaLogs và Prometheus đã deploy</span></li>
+            <li><span class="rd-name">Xác thực thư SPF, DKIM, DMARC, ARC</span><span class="meter lvl-5" role="img" aria-label="Mức 5 trên 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span><span class="rd-state">Production</span></li>
+            <li><span class="rd-name">Giao thức SMTP, IMAP, JMAP, DAV</span><span class="meter lvl-5" role="img" aria-label="Mức 5 trên 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span><span class="rd-state">Production</span></li>
+          </ul>
+          <p class="note" style="margin-top:var(--s4)">Thang đo: 1 chưa có, 2 mới một phần, 3 có nhưng chưa đủ, 4 đã chạy và cần hoàn thiện, 5 đang chạy production.</p>
+        </div>
+
+        <div class="check" data-reveal>
+          <section>
+            <h4><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-server"/></svg>Vận hành</h4>
+            <ul>
+              <li><i class="box"></i>Backup và restore incremental, đã diễn tập kịch bản phục hồi</li>
+              <li><i class="box"></i>Catch-all và bộ mailbox chuẩn RFC đầy đủ</li>
+              <li><i class="box"></i>Tự động hóa queue, hold queue và requeue</li>
+              <li><i class="box"></i>Runbook alert tập trung cho người quản trị</li>
+            </ul>
+          </section>
+          <section>
+            <h4><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-shield"/></svg>Bảo mật</h4>
+            <ul>
+              <li><i class="box"></i>Chặn dò quét tài khoản: rate limit, lockout, thiết bị tin cậy</li>
+              <li><i class="box"></i>DLP cảnh báo ngay tại bước gửi</li>
+              <li><i class="box"></i>Safe Links cảnh báo external link và domain blacklist</li>
+              <li><i class="box"></i>Chính sách API key AI theo tenant, có văn bản</li>
+            </ul>
+          </section>
+          <section>
+            <h4><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-db"/></svg>Hạ tầng</h4>
+            <ul>
+              <li><i class="box"></i>Central control plane và group config tự đồng bộ</li>
+              <li><i class="box"></i>Nginx đa domain với ACME và ZeroSSL</li>
+              <li><i class="box"></i>Lưu trữ hai lớp local và S3, có mốc phân lớp</li>
+              <li><i class="box"></i>Đánh giá lại PostgreSQL ở quy mô nhiều domain</li>
+            </ul>
+          </section>
+          <section>
+            <h4><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-graph"/></svg>Bằng chứng</h4>
+            <ul>
+              <li><i class="box"></i>Benchmark Zimbra trên cùng cấu hình hạ tầng</li>
+              <li><i class="box"></i>Benchmark đầy tải LT1 tới LT4, bỏ #[ignore]</li>
+              <li><i class="box"></i>Demo trên iOS, Android và Outlook desktop</li>
+              <li><i class="box"></i>Sơ đồ database và luồng dữ liệu</li>
+            </ul>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== §05 ===================== -->
+<section class="sec" id="quyet-dinh">
+  <div class="sec-in">
+    <p class="sec-idx num" aria-hidden="true">05</p>
+    <div class="sec-body">
+      <div class="sec-head" data-reveal>
+        <h2>Bốn quyết định phải chốt trước thứ Sáu</h2>
+        <p>Buổi họp kết thúc bằng thống nhất chờ tới thứ Sáu 07/08/2026 để trao đổi ý tưởng sản phẩm rồi mới chốt hướng đi. Bốn quyết định dưới đây chặn phần lớn 25 vấn đề ở trên.</p>
+      </div>
+
+      <div class="dec" data-reveal>
+        <article>
+          <p class="dec-n num">01</p>
+          <div>
+            <h3>Vị trí sản phẩm</h3>
+            <div class="dec-opts">
+              <span class="opt">Thay Zimbra nội bộ</span>
+              <span class="opt">Gói kèm cloud server cho khách tự vận hành</span>
+              <span class="opt">Hai giai đoạn</span>
+            </div>
+            <p class="cost">Chặn: F1, F2, C1, C5. <b>Chi phí của việc chậm quyết định:</b> tech stack tiếp tục phình theo hướng thay Zimbra trong khi kế hoạch phát hành lại theo hướng khách tự vận hành, nên công sức đổ vào component sẽ phải bỏ đi nếu chốt hướng còn lại.</p>
+          </div>
+        </article>
+        <article>
+          <p class="dec-n num">02</p>
+          <div>
+            <h3>Quan hệ với OneMail</h3>
+            <div class="dec-opts">
+              <span class="opt">OxMail là lõi mới của OneMail</span>
+              <span class="opt">Sản phẩm song song</span>
+              <span class="opt">Thay hẳn OneMail</span>
+            </div>
+            <p class="cost">Chặn: F3, F4. <b>Chi phí của việc chậm quyết định:</b> mỗi tính năng phải làm hai lần ở hai codebase, giữ ba lớp quản lý và hai tenant admin, khối lượng bảo trì tăng theo thời gian chứ không giảm.</p>
+          </div>
+        </article>
+        <article>
+          <p class="dec-n num">03</p>
+          <div>
+            <h3>Mô hình vận hành đa node</h3>
+            <div class="dec-opts">
+              <span class="opt">Central control plane, node join vào</span>
+              <span class="opt">Single node như Zimbra hiện tại</span>
+            </div>
+            <p class="cost">Chặn: C1, C2, C3, A2. <b>Chi phí của việc chậm quyết định:</b> Nginx đa domain, HA, backup và cơ chế phục hồi cluster đều phụ thuộc quyết định này, nên bốn hạng mục chặn go-live không thể bắt đầu.</p>
+          </div>
+        </article>
+        <article>
+          <p class="dec-n num">04</p>
+          <div>
+            <h3>Hạ tầng dữ liệu</h3>
+            <div class="dec-opts">
+              <span class="opt">Hai lớp local và S3</span>
+              <span class="opt">Full S3 như hiện tại</span>
+              <span class="opt">Giữ PostgreSQL</span>
+              <span class="opt">Chuyển backend khác</span>
+            </div>
+            <p class="cost">Chặn: B1, B2. <b>Chi phí của việc chậm quyết định:</b> đổi mô hình lưu trữ sau khi đã có dữ liệu khách hàng là việc rất đắt và rủi ro, nên phải chốt trước khi mở cho người dùng thật.</p>
+          </div>
+        </article>
+      </div>
+
+      <div class="next" data-reveal>
+        <h3>Việc cần làm trước 07/08/2026</h3>
+        <ol>
+          <li>Soạn checklist go-live theo 4 nhóm ở mục 04, đóng gói thành tài liệu để hội đồng duyệt.</li>
+          <li>Dựng Zimbra trên cùng cấu hình hạ tầng và đo lại toàn bộ bảng so sánh, đội vận hành đã đồng ý cấp máy.</li>
+          <li>Bổ sung sơ đồ kiến trúc database và luồng hoạt động dữ liệu vào tài liệu kỹ thuật.</li>
+          <li>Chuẩn bị demo kết nối từ iOS, Android và Outlook desktop, không chỉ webmail.</li>
+          <li>Xác minh chính xác mốc hết vòng đời của phiên bản Zimbra iNET đang chạy, vì con số 2028 chưa khớp tài liệu công khai.</li>
+          <li>Viết bản mô tả nỗi đau vận hành hiện tại kèm bằng chứng OxMail giải quyết được, đây là điều kiện để đội vận hành đồng ý đổi.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="foot">
+  <div class="foot-in">
+    <div>
+      <h4>Nguồn nội bộ</h4>
+      <ul>
+        <li>Bản ghi buổi review kiến trúc 04/08/2026, 15:31 (+07), độ dài 1:28:26.</li>
+        <li>Báo cáo kỹ thuật OxMail so với Zimbra, số liệu đo 02/08/2026 lúc 11:19 (+07) trên 2 node production: ox.io.vn (4 vCPU, 5,9 GB, uptime 54 ngày) và nguyenthehung.id.vn (4 vCPU, 5,6 GB, uptime 18 ngày), cả hai chạy binary có feature gateway.</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Nguồn công khai</h4>
+      <ul>
+        <li><a href="https://www.zimbra.com/product/product-lifecycle/">Zimbra Product Lifecycle</a></li>
+        <li><a href="https://forums.zimbra.org/viewtopic.php?t=72992">Zimbra Forums: Product Lifecycle Updates and Clarifications</a></li>
+        <li><a href="https://zimbra.github.io/documentation/zimbra-10/adminguide.html">Zimbra Collaboration 10 Admin Guide</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Lưu ý về phương pháp</h4>
+      <p>Bản ghi buổi họp được tạo bằng nhận dạng giọng nói tự động và sai tên riêng rất nhiều, ví dụ Zimbra bị nhận thành Ziprola, Zimra, Zebra và Jinva; OxMail thành Opsmail và Ockmail; jemalloc thành Zmalloc; Rspamd thành LSPAN D; ClamAV thành Karma V; Tantivy thành TanTV; ACME thành DMCA; Stalwart thành Star Wars. Mọi tên riêng và số liệu trong báo cáo này đã được đối chiếu lại với tài liệu kỹ thuật trước khi trích dẫn.</p>
+      <p class="sig">Xếp mức ưu tiên cho 25 vấn đề là đánh giá của người soạn báo cáo, không phải kết luận chính thức của hội đồng. Con số sizing theo quy mô người dùng là ước lượng từ cấu trúc hệ thống, chưa được benchmark xác nhận.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var root = document.documentElement;
+  var KEY = "oxmail-review-theme";
+
+  /* ---------- theme ---------- */
+  var buttons = Array.prototype.slice.call(document.querySelectorAll(".theme button"));
+  function paint(mode){
+    if (mode === "system") root.removeAttribute("data-theme");
+    else root.setAttribute("data-theme", mode);
+    buttons.forEach(function(b){
+      b.setAttribute("aria-pressed", String(b.dataset.set === mode));
+    });
+  }
+  var stored = "system";
+  try { stored = localStorage.getItem(KEY) || "system"; } catch(e){}
+  paint(stored);
+  buttons.forEach(function(b){
+    b.addEventListener("click", function(){
+      paint(b.dataset.set);
+      try { localStorage.setItem(KEY, b.dataset.set); } catch(e){}
+    });
+  });
+
+  /* ---------- reveal ----------
+     Entrance animation only. The CSS keeps every element at its natural
+     opacity/width, so if this never runs (hidden tab, no JS, print) the
+     report still reads completely. */
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if ("IntersectionObserver" in window && !reduce){
+    root.classList.add("js-reveal");
+    var mark = function(entries, obs){
+      entries.forEach(function(en){
+        if (!en.isIntersecting) return;
+        en.target.classList.add("in");
+        obs.unobserve(en.target);
+      });
+    };
+    var io = new IntersectionObserver(mark, { rootMargin: "0px 0px -8% 0px", threshold: 0.08 });
+    document.querySelectorAll("[data-reveal]").forEach(function(el){ io.observe(el); });
+
+    /* bars live inside tables/figures that are not [data-reveal] themselves */
+    var barHost = new IntersectionObserver(mark, { threshold: 0.12 });
+    document.querySelectorAll(".tablewrap, .mini section").forEach(function(el){ barHost.observe(el); });
+  }
+
+  /* ---------- print: expand every accordion ---------- */
+  var opened = [];
+  window.addEventListener("beforeprint", function(){
+    opened = [];
+    document.querySelectorAll("details:not([open])").forEach(function(d){
+      opened.push(d); d.open = true;
+    });
+  });
+  window.addEventListener("afterprint", function(){
+    opened.forEach(function(d){ d.open = false; });
+    opened = [];
+  });
+
+  /* ---------- sticky nav border ---------- */
+  var nav = document.getElementById("nav");
+  var onScroll = function(){ nav.classList.toggle("stuck", window.scrollY > 8); };
+  onScroll();
+  window.addEventListener("scroll", onScroll, { passive: true });
+
+  /* ---------- scrollspy ---------- */
+  var links = Array.prototype.slice.call(document.querySelectorAll(".navlinks a"));
+  var targets = links.map(function(a){ return document.querySelector(a.getAttribute("href")); }).filter(Boolean);
+  if ("IntersectionObserver" in window && targets.length){
+    var spy = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (!en.isIntersecting) return;
+        links.forEach(function(a){
+          a.setAttribute("aria-current", String(a.getAttribute("href") === "#" + en.target.id));
+        });
+      });
+    }, { rootMargin: "-45% 0px -50% 0px" });
+    targets.forEach(function(t){ spy.observe(t); });
+  }
+})();
+</script>
+</body>
+</html>

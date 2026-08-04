@@ -1,0 +1,5533 @@
+1
+00:00:00,000 --> 00:00:04,100
+Hôm nay em trình bày là diện án mà
+em với Vũ đã làm ở Phòng Thế Giang.
+
+2
+00:00:04,760 --> 00:00:08,340
+Đây là mail server mà
+em và Vũ đã chìm khang.
+
+3
+00:00:10,120 --> 00:00:15,120
+Trong quá trình vận hành thì bọn em thấy
+là một vài vấn đề của Ziprola với việc là
+
+4
+00:00:15,120 --> 00:00:19,120
+họ sẽ dừng hỗ trợ cho mình trong...
+
+5
+00:00:19,120 --> 00:00:20,360
+Em bật cái mic của em.
+
+6
+00:00:24,640 --> 00:00:28,120
+Hello, các em đã nghe chưa ạ?
+
+7
+00:00:28,180 --> 00:00:28,720
+Các em còn lại.
+
+8
+00:00:38,340 --> 00:00:43,320
+Trong quá trình vận hành thì Zimra sẽ
+ngừng hỗ trợ mình đến hết năm 2028 thì em hữu
+
+9
+00:00:43,320 --> 00:00:44,240
+vụ có biết một mail server.
+
+10
+00:00:46,500 --> 00:00:51,660
+Support của giáo sức là SMTP, IMAP, Jmask,
+lịch và danh bạn chạy chung một cái nấm
+
+11
+00:00:51,660 --> 00:00:51,960
+trình.
+
+12
+00:00:53,610 --> 00:00:59,530
+Và khác với cả Zimra thì không có
+máy ảo JVM quay ra những cái lúc
+
+13
+00:00:59,530 --> 00:01:02,010
+trễ không cần thiết hay là
+không có bộ thuốc rác tự động.
+
+14
+00:01:03,780 --> 00:01:08,720
+Bình thường thì khi mà em đo trên
+server anh chạy trực tiếp thì nó sẽ...
+
+15
+00:01:09,190 --> 00:01:15,170
+Rơi vào khoảng 100MB cho kiến trình này
+còn toàn stack thì sẽ là khoảng 2,4-3GB và
+
+16
+00:01:15,170 --> 00:01:20,670
+phần nguồn RAM chủ yếu đến từ CLAM3V
+riêng phần này thì nó đã đến từ 1
+
+17
+00:01:20,670 --> 00:01:26,470
+-2GB nên là sắp tới nhưng mà có dịch
+thì em sẽ xin phép được biết lại phần
+
+18
+00:01:26,470 --> 00:01:28,490
+scan spam này.
+
+19
+00:01:31,610 --> 00:01:35,770
+Thì vấn đề đầu tiên là mình sẽ đến là vấn
+đề cần giải quyết thì nhưng mọi người có
+
+20
+00:01:35,770 --> 00:01:41,200
+thể thấy là Zingrun có rất nhiều tiến
+trình con và hàng ngày cả promo cũng thế Mình
+
+21
+00:01:41,200 --> 00:01:45,600
+có Postscript, DoubleCode và rất nhiều thứ
+khác khiến cho việc quản lý vận hành hay
+
+22
+00:01:45,600 --> 00:01:49,220
+là TrayLog sẽ làm được rất nhiều khó khăn.
+
+23
+00:01:49,620 --> 00:01:53,960
+Ví dụ như là mail khi nó vào đến PogMob,
+xong rồi là tại sao nó không sang Zibra
+
+24
+00:01:53,960 --> 00:01:58,240
+hay là tại sao nó vào Mailbox thì nhiều
+khi mình không thể kiểm soát được vì mình
+
+25
+00:01:58,240 --> 00:01:59,360
+không nắm được mã nguồn của họ.
+
+26
+00:01:59,830 --> 00:02:01,670
+Thế nhưng không khác
+với một cái PogDen ấy.
+
+27
+00:02:01,990 --> 00:02:05,430
+Mọi người chỉ có thể sử dụng với mọi người
+không thể gọi là Audit hay là chỉ xử cho
+
+28
+00:02:05,430 --> 00:02:06,050
+nhu cầu của mình.
+
+29
+00:02:08,590 --> 00:02:14,050
+và một số khoản nợ kỹ thuật như là Deakin,
+tích hợp WebAuthent, dưới nhóm tương đối
+
+30
+00:02:14,050 --> 00:02:14,490
+dưới dài.
+
+31
+00:02:15,180 --> 00:02:18,700
+Và khả năng scale của Zebra
+đánh giá là không quá tốt.
+
+32
+00:02:19,880 --> 00:02:22,200
+Đây là lý do tại sao mà em viết lại.
+
+33
+00:02:22,840 --> 00:02:27,430
+Thứ tiên là về Opsmail
+thì nó biết được brush.
+
+34
+00:02:28,440 --> 00:02:33,640
+Nó cho một độ trễ có thể tính toán được
+và nó chỉ trả đi 1 binary và 1 file config
+
+35
+00:02:33,640 --> 00:02:33,980
+duy nhất.
+
+36
+00:02:36,800 --> 00:02:42,460
+như em cầm ở trên thì app process của
+nó sẽ khoảng 90-140 mb, chạy khoảng
+
+37
+00:02:42,460 --> 00:02:46,520
+3 threads và toàn mô stack
+thì em có nói là từ 24-33GB.
+
+38
+00:02:48,690 --> 00:02:53,770
+Đây là đi sơ qua về các giao
+thức và thứ rất là support.
+
+39
+00:02:54,010 --> 00:02:58,250
+Thì về phần backend thì viết phần
+Rust, khoảng 128.000 dòng, 33 threads.
+
+40
+00:02:59,150 --> 00:03:03,230
+Phone-end thì là solid JavaScript
+cộng là boom runtime cho tốc độ.
+
+41
+00:03:03,650 --> 00:03:06,750
+Theo anh đánh giá là tốt hơn React hay
+là những cái framework của Phone-end.
+
+42
+00:03:07,820 --> 00:03:08,820
+phổ biến hiện nay.
+
+43
+00:03:11,850 --> 00:03:17,510
+Trước khi thao tác ở đó thì nó có chèn
+thêm một lớp proxy Nginx để mọi người dùng
+
+44
+00:03:17,510 --> 00:03:18,450
+thao tác trên webmail.
+
+45
+00:03:18,710 --> 00:03:24,630
+Còn về infra cụ thể là Postgre 16,
+MinIO trên quá trình chạy thử, những
+
+46
+00:03:24,630 --> 00:03:29,650
+con bước đưa vào production thì em mong sẽ
+là Seth, Nudget Stream, RappenflyDB cùng
+
+47
+00:03:29,650 --> 00:03:32,530
+với Sust Engine và TăngTV mình
+trực tiếp cho từng tài khoản.
+
+48
+00:03:34,550 --> 00:03:36,630
+Về phần spam mình đang là RspamD.
+
+49
+00:03:37,480 --> 00:03:42,620
+Các bạn có thể tìm kiếm được tìm kiếm
+được tìm kiếm được tìm kiếm được tìm kiếm
+
+50
+00:03:42,620 --> 00:03:48,320
+được tìm kiếm được tìm kiếm được tìm kiếm
+được tìm kiếm được tìm kiếm được tìm kiếm
+
+51
+00:03:48,320 --> 00:03:52,320
+được tìm kiếm được tìm kiếm được tìm kiếm
+được tìm kiếm được tìm kiếm được tìm kiếm
+
+52
+00:03:52,320 --> 00:03:56,290
+được tìm kiếm được tìm
+kiếm được tìm kiếm được
+
+53
+00:03:56,290 --> 00:04:01,580
+tìm kiếm được tìm kiếm được tìm
+
+54
+00:04:01,580 --> 00:04:07,380
+kiếm được tìm kiếm được tìm kiếm
+được tìm kiếm được tìm kiếm được
+
+55
+00:04:07,380 --> 00:04:10,790
+tìm kiếm được tìm kiếm được tìm kiếm được
+tìm kiếm được tì Ngoài ra là để lợi khả
+
+56
+00:04:10,790 --> 00:04:16,370
+năng debug mình có thể xoay được chính xác
+là tại sao mail không vào được debug của
+
+57
+00:04:16,370 --> 00:04:21,270
+khách hàng hay là gần như là 100%
+bởi vì mình có mã nguồn của họ.
+
+58
+00:04:21,740 --> 00:04:27,060
+Tất nhiên là việc mà tự viết lại mã nguồn
+thì cũng sẽ không thể gọi là tốt được như
+
+59
+00:04:27,060 --> 00:04:32,020
+một vài bên ngay từ đầu nhưng mà mình có
+thể tinh chỉnh và nó sẽ phù hợp với mình
+
+60
+00:04:32,020 --> 00:04:32,800
+hơn cho dạng.
+
+61
+00:04:34,500 --> 00:04:39,880
+Đây là server về các break-up code base,
+mỗi thứ và vai trò, tất cả mọi thứ đều về
+
+62
+00:04:39,880 --> 00:04:40,640
+server này hết ạ.
+
+63
+00:04:42,590 --> 00:04:45,910
+Đây là cái để xử lý trên web, ntp-bound,
+
+64
+00:04:47,330 --> 00:04:48,810
+outbound.
+
+65
+00:04:49,640 --> 00:04:55,280
+Đây là phần email, ntp sẽ dùng
+để xử lý DNFVL, Spamhouse hay là
+
+66
+00:04:55,280 --> 00:04:55,980
+Procureland.
+
+67
+00:04:57,380 --> 00:05:03,340
+Trong giáo thức support thì có ntp,
+sll, muter, imap, pop bar, jmap.
+
+68
+00:05:03,440 --> 00:05:04,560
+Jmap tương đối nhiều.
+
+69
+00:05:05,020 --> 00:05:08,120
+Jmap lõi, jmap cho mail, box,
+jmap cho lịch và sách bạn.
+
+70
+00:05:09,780 --> 00:05:14,730
+Ngoài ra có cả lịch và sách bạn ở đây
+thì vấn đề nó sẽ là bài toán tích hợp.
+
+71
+00:05:14,970 --> 00:05:19,130
+Bài toán đồng bộ trạng thái
+giữa calendar, jmap và kvAV.
+
+72
+00:05:23,560 --> 00:05:29,300
+Về phần mcp này thì em đang tạm để
+comment lại chưa cho nó đưa vào binary vì
+
+73
+00:05:29,300 --> 00:05:32,740
+server thì em chưa biết là
+nó có sự cần thiết hay không.
+
+74
+00:05:32,840 --> 00:05:34,020
+Cái này thì em sẽ cần hỏi cho mọi người.
+
+75
+00:05:35,930 --> 00:05:40,350
+Về phần giam chức thì mình đã đề cập
+jmap first và trend based abstraction.
+
+76
+00:05:41,250 --> 00:05:45,330
+Mình support đầy đủ nhưng mà em sẽ khuyến
+khích mọi người tham gia vào webmail này
+
+77
+00:05:45,330 --> 00:05:45,550
+trước.
+
+78
+00:05:54,240 --> 00:05:59,460
+Đây là một bảng so sánh về khả năng scale
+ngang của tiến trình này mình có chỉ một
+
+79
+00:05:59,460 --> 00:06:00,380
+tiến trình trên một nốt.
+
+80
+00:06:00,820 --> 00:06:05,320
+SMTP các giáo thức khác sẽ chạy trên cùng
+một nốt này và đây là số liệu em đã đo.
+
+81
+00:06:06,190 --> 00:06:12,130
+Đo khoảng từ 90 đến 140 MB nhưng mà
+thực tế hôm nay em đo chỉ khoảng 72 MB
+
+82
+00:06:12,130 --> 00:06:14,730
+cho tiến trình của mail.
+
+83
+00:06:16,160 --> 00:06:17,560
+Fileconfig thì mình chỉ cần một file thôi.
+
+84
+00:06:21,040 --> 00:06:26,890
+Việc mà mình scale mình có thể
+gọi là ZeroData, mình sẽ compile
+
+85
+00:06:26,890 --> 00:06:29,270
+trước và đẩy Binary lên
+một phát là chạy được ngay.
+
+86
+00:06:31,460 --> 00:06:36,900
+Và đây là sơ đồ kiến trúc sơ qua thì nó
+sẽ đơn giản hơn so với Zinva khá nhiều.
+
+87
+00:06:37,690 --> 00:06:39,150
+Có thể gửi anh cái file đi không?
+
+88
+00:06:39,270 --> 00:06:39,890
+Anh chả nhìn đến cái gì.
+
+89
+00:06:42,720 --> 00:06:44,620
+Đây là
+
+90
+00:06:59,910 --> 00:07:00,330
+tiến trình.
+
+91
+00:07:00,890 --> 00:07:03,550
+Đây là cái sơ đồ liên quan
+đến Architecture Review.
+
+92
+00:07:03,730 --> 00:07:07,470
+Như anh Tiên có đề xuất là mình cần một
+cái sơ đồ như thế này để mình rõ được lùa.
+
+93
+00:07:11,910 --> 00:07:14,070
+Và đây là sơ đồ Component.
+
+94
+00:07:14,880 --> 00:07:19,660
+Thì mình entry từ một vài điểm như
+webmail, mobile hay là cất quay ẩn bên thứ 3,
+
+95
+00:07:20,080 --> 00:07:22,480
+thao tác qua Nginx và được đẩy từ server.
+
+96
+00:07:23,520 --> 00:07:26,120
+Đây là search engine của con em, TanTV.
+
+97
+00:07:26,480 --> 00:07:31,720
+Thực ra TanTV này nó chỉ là một search
+engine sô sơ nhưng mà cái bảng hoàn chỉnh
+
+98
+00:07:31,720 --> 00:07:32,420
+của nó là QuickWid.
+
+99
+00:07:32,720 --> 00:07:36,940
+QuickWid nhưng mà em không muốn sử
+dụng QuickWid sớm bởi vì nó sẽ kéo theo
+
+100
+00:07:36,940 --> 00:07:42,900
+máy hảo Java hay là những cái
+dependency cũ đưa ra nặng hơn trong các
+
+101
+00:07:42,900 --> 00:07:44,000
+tiến trình của mình thao tác.
+
+102
+00:07:51,020 --> 00:07:51,880
+Thế là phân vai.
+
+103
+00:07:53,170 --> 00:07:57,930
+Thì mình chỉ cần thêm nốt cho mail này
+là mình sẽ tiếp tục chạy và tận dụng được
+
+104
+00:07:57,930 --> 00:07:58,690
+hạt thẳng sẵn có.
+
+105
+00:07:59,570 --> 00:08:03,810
+Em muốn nó skill ngang tốt
+để các bạn kiếp đến hệ thống.
+
+106
+00:08:05,280 --> 00:08:08,800
+Tiếp theo đây là các tính năng mà
+tiếp theo em sẽ nói đến, em sẽ để sau.
+
+107
+00:08:09,900 --> 00:08:15,680
+Đây là những cái buộc cơ chạy được lập,
+và nó giữ được bảo mệnh của email tốt hơn.
+
+108
+00:08:17,010 --> 00:08:21,210
+Thế là về dự án Greenway này thì tạm
+thời em chưa đến hồ ở đây nhưng mà...
+
+109
+00:08:21,430 --> 00:08:25,650
+Có nghĩa là em dùng zipc là
+chuẩn binary được biết vào rs.
+
+110
+00:08:25,910 --> 00:08:28,750
+Nó sẽ cho tốc độ tốt hơn là
+SMTP forward thường thường.
+
+111
+00:08:30,710 --> 00:08:34,730
+Trước khi chặp endpoint thì hỏi
+nhau là có ý kiến gì về chất?
+
+112
+00:08:36,330 --> 00:08:37,490
+Chắc endpoint ra riêng đi.
+
+113
+00:08:37,890 --> 00:08:43,630
+Có nghĩa là em đã trỏ qua
+
+114
+00:08:43,630 --> 00:08:47,110
+endpoint và các domain đã được trỏ qua.
+
+115
+00:08:47,790 --> 00:08:48,930
+Có hàng đợi, có tracking.
+
+116
+00:08:50,420 --> 00:08:55,680
+có IP pool như trước em có nói em mới
+chỉ sử dụng IPv4 vì thêm bản hình IPv6.
+
+117
+00:08:56,900 --> 00:09:01,850
+Đây là tên nam của mình
+sẽ add vào đây xong rồi là
+
+118
+00:09:02,560 --> 00:09:05,340
+mình thêm mail server sau.
+
+119
+00:09:05,820 --> 00:09:08,560
+Vài template thế này thì
+nó vẫn chưa có hoàn thiện.
+
+120
+00:09:10,400 --> 00:09:11,880
+Đây là phần dên bản ghi.
+
+121
+00:09:12,020 --> 00:09:17,930
+Em sẽ ký ID Kim 2 lần, 1 lần ở mail
+server, 1 lần ở gateway này để thăng ký
+
+122
+00:09:17,930 --> 00:09:19,090
+vào mặt và sẵn sàng fullback.
+
+123
+00:09:22,180 --> 00:09:24,920
+Các bạn có thể nhận thêm nhiều
+video, em chỉ demo cho các bạn trước.
+
+124
+00:09:25,740 --> 00:09:27,980
+Nên là phần cấu hình về spam và virus.
+
+125
+00:09:30,260 --> 00:09:31,700
+Ngoài ra mình có log trực tiếp ở đây.
+
+126
+00:09:33,830 --> 00:09:34,770
+Ok, quay lại new server.
+
+127
+00:09:37,170 --> 00:09:43,050
+Khi mà em đo kiến trình mà mình kết nối
+đến cái gateway này, thì trung bình nó
+
+128
+00:09:43,050 --> 00:09:44,670
+sẽ từ 12 cho đến 20ms.
+
+129
+00:09:46,390 --> 00:09:48,510
+Trạng thái, em bốt tuyệt pin luôn ở đây.
+
+130
+00:09:53,250 --> 00:09:54,830
+Từ nhiên thì mình sẽ thêm gateway ở đây.
+
+131
+00:09:55,390 --> 00:09:58,010
+Em đã có một nốt, là hạn set.
+
+132
+00:10:00,220 --> 00:10:01,700
+Mỗi 30 giờ là shipping 1 lần.
+
+133
+00:10:02,650 --> 00:10:08,470
+Và về phần domain routing có nghĩa là
+mình sẽ quyết định là domain nào sẽ đi qua
+
+134
+00:10:08,470 --> 00:10:10,050
+gateway và domain nào không.
+
+135
+00:10:11,630 --> 00:10:13,570
+Mình có thể thêm 1 domain nữa.
+
+136
+00:10:14,610 --> 00:10:16,750
+Nhưng mà trước khi thêm mình
+sẽ cần thêm 1 gateway trước.
+
+137
+00:10:17,110 --> 00:10:21,010
+Tóm lại, domain server này sẽ đạt được nơi
+đủ khả năng đi 1 mình và đi qua gateway.
+
+138
+00:10:27,400 --> 00:10:32,280
+Tiếp theo về kế hoạch thì anh Nhiễ đã nói
+không chỉ cho gateway mà ngay cả SS phục
+
+139
+00:10:32,280 --> 00:10:33,920
+vụ cả, việc domain
+server này sẽ được được.
+
+140
+00:10:34,380 --> 00:10:39,800
+Em sẽ tự viết vào tự viết engine logspan
+vi viết riêng sau khi mà có dữ liệu đầy đủ
+
+141
+00:10:39,800 --> 00:10:40,980
+trong quá trình xe thực tế.
+
+142
+00:10:42,070 --> 00:10:47,510
+Và một vấn đề nữa là một SMTP Appalach
+Proxy, như kiểu HATAP Proxy dành
+
+143
+00:10:47,510 --> 00:10:53,310
+chuyên cho Bitway để giải quyết
+một vài vấn đề liên quan đến gọi là
+
+144
+00:10:53,310 --> 00:10:56,190
+API cho email marketing.
+
+145
+00:10:59,260 --> 00:11:04,990
+Đây là đồ lùng thư mọi người có thể
+nhìn và so sánh cách mà thư được gửi đi.
+
+146
+00:11:36,740 --> 00:11:39,580
+Đây là phần so sánh Q của 2 bên.
+
+147
+00:11:41,720 --> 00:11:43,120
+Em nghĩ là mình không hiểu gì cả.
+
+148
+00:11:43,220 --> 00:11:45,940
+Về phần quarantine, result như em
+đã đề cập thì em sẽ đề cập sau.
+
+149
+00:11:46,600 --> 00:11:48,260
+Và đây là sơ lồ đường vi thư cụ thể.
+
+150
+00:11:54,620 --> 00:11:55,140
+Thứ này trước này.
+
+151
+00:11:55,400 --> 00:11:56,420
+Thứ này từ Internet.
+
+152
+00:11:56,720 --> 00:11:59,140
+Xong rồi nó sẽ check xem là
+IP có bị backlit hay không.
+
+153
+00:12:00,150 --> 00:12:03,710
+Đấy, trong ngày thì xong
+rồi nó sẽ vào đến đây.
+
+154
+00:12:03,870 --> 00:12:07,630
+Nếu mà nó bị block thì nó sẽ đẩy
+sang đây có cái sender block vô rồi.
+
+155
+00:12:08,030 --> 00:12:10,510
+Và nếu được WildList thì chắc
+chắn là sẽ vào thành Inbox.
+
+156
+00:12:11,540 --> 00:12:16,020
+Mail bình thường sẽ đi tiếp theo đường
+này, chất DKIM, chất SPF, chất DMARC, xong
+
+157
+00:12:16,020 --> 00:12:20,180
+rồi sẽ qua Enzyme Scan Virus,
+scan spam của virus trước.
+
+158
+00:12:20,560 --> 00:12:25,660
+Và nếu như bị detect là spam,
+virus thì nó sẽ bị từ chối.
+
+159
+00:12:26,340 --> 00:12:30,580
+Còn trong ngưỡng là 5 đến 7 điểm
+thì em sẽ để qua cho AI, đặt
+
+160
+00:12:31,760 --> 00:12:37,520
+và quyết định xem là có nên cho vào Inbox
+hay không hay là sẽ để vào Jam Holder.
+
+161
+00:12:39,150 --> 00:12:45,060
+Về phần outbound thì cũng thể thao
+tác trên webmail, đẩy một build, xong
+
+162
+00:12:45,060 --> 00:12:51,050
+rồi sẽ qua một deal pworker,
+cái này sẽ là chống gọi là do
+
+163
+00:12:51,270 --> 00:12:56,240
+dịch thông tin nhạy cảm, API key, mật
+khẩu nó sẽ chặn, nó sẽ chặn cái chỗ và nó
+
+164
+00:12:56,490 --> 00:13:02,490
+format nếu như mà nó phát hiện thấy là
+API key nhạy cảm ở đây có để sẵn một kề
+
+165
+00:13:02,490 --> 00:13:04,690
+ở đây, mọi người có thể gửi thư.
+
+166
+00:13:05,050 --> 00:13:10,370
+Có nghĩa là đây, đây là
+cái worker này đang chặn.
+
+167
+00:13:10,750 --> 00:13:12,830
+Đó là bởi vì có
+
+168
+00:13:17,150 --> 00:13:21,060
+để API key ở đây thì nó sẽ tự động chặn.
+
+169
+00:13:21,620 --> 00:13:26,560
+Trong trường hợp mà mình bấm retry thì
+nó sẽ đẩy thư và gửi bình thường, nó sẽ
+
+170
+00:13:26,560 --> 00:13:27,080
+không chặn được không?
+
+171
+00:13:27,280 --> 00:13:29,580
+Bởi vì đấy là chủ nghĩ của mình, đây
+là tính ngang mà em tạo thêm vào.
+
+172
+00:13:36,790 --> 00:13:40,310
+Và đây là so sánh các component,
+em sẽ zoom toàn cho mọi người nhìn.
+
+173
+00:13:45,530 --> 00:13:47,090
+Nghĩ là mình không thiếu cái gì quá nhiều.
+
+174
+00:13:48,010 --> 00:13:51,570
+Và thứ mà thiếu bây giờ
+là AI Active Scene của...
+
+175
+00:13:51,750 --> 00:13:55,570
+Còn Zimbra cái này thì em chủ ý bỏ
+qua bởi vì là vdlicense của Microsoft.
+
+176
+00:13:56,370 --> 00:14:01,450
+Với cả việc mà mình support các mhub
+server, mhub server theo em nghĩ như thế là
+
+177
+00:14:01,450 --> 00:14:01,630
+được.
+
+178
+00:14:02,090 --> 00:14:03,190
+Chứ không cần active scene nữa.
+
+179
+00:14:06,800 --> 00:14:09,800
+Về phần matrix, thống kê thám
+sát tí tí nó giữ cái trình bày.
+
+180
+00:14:16,930 --> 00:14:20,270
+Đây là luồng lốc, thì nó giữ
+cái trình bày cái chỗ này.
+
+181
+00:14:22,470 --> 00:14:24,630
+Và đây là phần giáp BOP và greyzone.
+
+182
+00:14:25,450 --> 00:14:26,530
+Thì đầu tiên là về giáp.
+
+183
+00:14:26,690 --> 00:14:28,870
+Cái này thì đơn giản có
+thể hiểu là nó sẽ quét.
+
+184
+00:14:29,450 --> 00:14:32,850
+Tránh việc mailbox bị thay
+đổi nội dung trong một ngày.
+
+185
+00:14:33,260 --> 00:14:36,420
+Nhiều khi người ta cài backdoor ở trong
+đấy, mail đã qua vào đến ebook rồi, nhưng
+
+186
+00:14:36,420 --> 00:14:38,700
+có thể là người ta sẽ thay đổi nội dung.
+
+187
+00:14:39,220 --> 00:14:41,460
+Thì cái này sẽ quét trong vòng 1 ngày.
+
+188
+00:14:41,640 --> 00:14:42,800
+Tại sao quét trong vòng 1 ngày?
+
+189
+00:14:42,940 --> 00:14:45,840
+Bởi vì là mail là một cái mà
+người ta rất ít khi mở lại.
+
+190
+00:14:47,300 --> 00:14:49,660
+Nên là em nghĩ là chỉ
+cần quét trong 1 ngày.
+
+191
+00:14:50,160 --> 00:14:53,880
+Thì cái này thì sẽ hỏi mọi người, nên là
+quét bao nhiêu khoảng thời gian thì sẽ đủ.
+
+192
+00:14:54,760 --> 00:15:00,460
+Nó sẽ đẩy qua NATS, xong rồi đẩy vào giá
+mũ cơ, xong rồi sẽ cho KarmaV scan lại.
+
+193
+00:15:02,590 --> 00:15:06,090
+và NAS sẽ tự re-deliver
+nếu Worker sẽ crush lỗi.
+
+194
+00:15:06,330 --> 00:15:08,230
+Có nghĩa là mình sẽ không
+bị mất mail của khách hàng.
+
+195
+00:15:08,510 --> 00:15:14,430
+Sẽ để ở view đấy và sẽ có Worker Watchdog
+để mình có thể nhìn xem thống kê xem là
+
+196
+00:15:14,430 --> 00:15:16,970
+tiến trình đang làm việc đến đâu.
+
+197
+00:15:18,480 --> 00:15:20,580
+Khi như DOP, Abowscan
+này em cũng rất đề cập.
+
+198
+00:15:21,120 --> 00:15:25,180
+Có nghĩa là những thông tin nhạy cảm như
+là mật khẩu API key nó sẽ chọn cái chỗ mà
+
+199
+00:15:25,180 --> 00:15:31,120
+nó có AI để đọc và xem là cái này có
+thật sự là nguy hiểm cho tổ chức hay
+
+200
+00:15:31,120 --> 00:15:32,420
+là cho người dùng mail hay không.
+
+201
+00:15:32,770 --> 00:15:37,090
+Nó sẽ chắc mình có thể recharge chủ động
+để đẩy thằng 1 view luôn, không quét lại
+
+202
+00:15:37,090 --> 00:15:37,330
+nữa.
+
+203
+00:15:37,810 --> 00:15:43,220
+Về phần grey zone, AI code này thì liên
+quan đến tương chế Inbound có nghĩa là khi
+
+204
+00:15:43,220 --> 00:15:48,980
+mail trong khoảng điểm vùng sám, nó
+chưa bị reset hay cũng chưa chắc vào
+
+205
+00:15:48,980 --> 00:15:54,060
+thằng Inbox thì nó sẽ đẩy
+vào cho thằng AI nó đọc.
+
+206
+00:15:54,140 --> 00:15:57,580
+Và khi AI nó đọc xong rồi là nó sẽ quyết
+định là có nên vào Inbox hay là sẽ đẩy vào
+
+207
+00:15:57,580 --> 00:15:58,900
+spam hay không.
+
+208
+00:15:59,240 --> 00:16:01,480
+Thì trong trường hợp mà
+thằng này nó bị down ấy.
+
+209
+00:16:01,950 --> 00:16:06,050
+Mail sẽ auto được đẩy vào SPAR
+và tránh trường hợp mất mail.
+
+210
+00:16:09,630 --> 00:16:15,110
+Đây, em vừa có nói rằng, nếu AI Worker
+Down trên 5 phút thì nó sẽ đẩy vào và mình
+
+211
+00:16:15,110 --> 00:16:17,150
+có thể có Worker để mình đẩy chủ động.
+
+212
+00:16:18,690 --> 00:16:24,290
+Thì đây cũng chính là 3 lớp phòng chủ mà
+theo em chỉ có 2 lớp phòng chủ AI thôi.
+
+213
+00:16:25,410 --> 00:16:30,960
+3 lớp thì em có thể cân nhắc nhưng mà phần
+API Key AI là em mới tiết kiệm một tí.
+
+214
+00:16:31,610 --> 00:16:33,690
+Thì đây là lợi thế, em nghĩ
+là lợi thế của hệ thống này.
+
+215
+00:16:41,200 --> 00:16:46,560
+Zebra không có những cơ
+chế trực động này, chỉ có
+
+216
+00:16:46,560 --> 00:16:52,540
+DSBL, BlockBit thường,
+3 cơ chế mà Grayzone
+
+217
+00:16:52,540 --> 00:16:57,680
+là em tự nghĩ ra, DOP thì em tham hảo
+trên mạng, Zapp điện học ở Microsoft.
+
+218
+00:17:00,170 --> 00:17:06,130
+Về phần Migration thì hiện tại
+bọn em chưa hỗ trợ bởi vì là cũng
+
+219
+00:17:06,130 --> 00:17:10,970
+chưa có đủ data để test
+hay là để xin sang Migrate.
+
+220
+00:17:11,310 --> 00:17:16,970
+Nhưng mà em mong sau này khi có đủ dữ liệu
+thì em sẽ import được và thử migrate từ
+
+221
+00:17:16,970 --> 00:17:17,910
+vùng vùng Zimba.
+
+222
+00:17:18,010 --> 00:17:19,050
+Cái này cũng nghĩ là em làm được.
+
+223
+00:17:20,190 --> 00:17:21,390
+Không tối quanh như thế nào.
+
+224
+00:17:23,140 --> 00:17:24,800
+Và đây là phần hỗ trợ giao thức.
+
+225
+00:17:28,830 --> 00:17:34,040
+SMTP có PLS, MAP, POPPA, Jmap,
+
+226
+00:17:34,840 --> 00:17:35,480
+có Lịch, có Jmap.
+
+227
+00:17:36,240 --> 00:17:41,720
+Thì nếu mà trong tương lai thì em mong
+muốn là mình chỉ cần support mỗi Jmap thôi.
+
+228
+00:17:42,280 --> 00:17:45,300
+Vì mình sẽ thường đến là mình sẽ
+sử dụng mỗi web client của mình.
+
+229
+00:17:46,490 --> 00:17:52,470
+hoặc là mình bỏ được poppa,
+
+230
+00:17:53,370 --> 00:17:54,850
+bỏ được lịch và danh bản.
+
+231
+00:17:56,070 --> 00:18:00,430
+Theo những trọng số mà em có tìm hiểu thì
+khách hàng của mình hiện tại cũng không
+
+232
+00:18:00,430 --> 00:18:03,610
+dùng quá nhiều hoặc chỉ dùng
+mail, ít dùng vịt hay danh bản.
+
+233
+00:18:08,800 --> 00:18:11,100
+Nên chúng tôi mong mặt
+mà em đã đề cập ở trên.
+
+234
+00:18:14,450 --> 00:18:20,330
+Hạ tầng dữ liệu, portgram, liều trị
+S3, sân engine tan TV, NAS, grab and
+
+235
+00:18:20,330 --> 00:18:22,310
+fly, cái này là reddit.com.up.
+
+236
+00:18:22,890 --> 00:18:27,250
+Compatible thì trước em có chốt
+với CEO là sẽ dùng thằng này.
+
+237
+00:18:27,470 --> 00:18:33,470
+Trong khi làm gần xong thì mới
+biết là mình với chị có Reddit
+
+238
+00:18:33,470 --> 00:18:33,690
+không.
+
+239
+00:18:34,290 --> 00:18:38,090
+Thực ra để switch sang Reddit thì cũng
+dễ, nhưng anh chị sẽ bị sốc thảo ở memory
+
+240
+00:18:38,090 --> 00:18:38,270
+thôi.
+
+241
+00:18:38,770 --> 00:18:40,390
+Nhưng em nghĩ nó sẽ ổn trong quy mô này.
+
+242
+00:18:42,520 --> 00:18:48,360
+Về phần Authent thì hiện cũng sẵn
+sàng support nhưng mà về cơ bản
+
+243
+00:18:48,360 --> 00:18:52,500
+thì trước có nghe về dự án bên chỗ
+anh Việt liên quan đến Authent.
+
+244
+00:18:53,550 --> 00:18:58,110
+TOTP thì em nghĩ là em sẽ chia triển khai
+chỗ này bộn mà em sẽ hỏi mọi người về
+
+245
+00:18:58,110 --> 00:19:02,790
+Authent, Red Limit, các thứ liên quan
+đến vận hành thực thì nó cũng sẽ bớt được
+
+246
+00:19:02,790 --> 00:19:03,430
+việc cho em thôi.
+
+247
+00:19:05,520 --> 00:19:10,480
+Một lần nữa đến mặt lại về kiến trúc
+hiệu năng thì bọn em không dùng Zlibs của
+
+248
+00:19:10,480 --> 00:19:16,370
+Linux kernel mà dùng Zmaloc
+chống fragment phân mảnh
+
+249
+00:19:16,370 --> 00:19:22,280
+của RAM khi mà toolwork
+cấp phát hay TLS connection
+
+250
+00:19:22,280 --> 00:19:24,560
+pool nghĩa là khởi tạm
+một lần và nó sẽ dùng.
+
+251
+00:19:25,940 --> 00:19:28,420
+Mỗi lần gửi mail mình sẽ phải tạo TLF mới.
+
+252
+00:19:37,760 --> 00:19:43,470
+Đây là thịnh bản, nghĩa là cách làm
+bình thường thì TCP mới sẽ mở như thế
+
+253
+00:19:43,470 --> 00:19:43,970
+này.
+
+254
+00:19:45,100 --> 00:19:48,300
+Nhưng mà em sẽ chỉ mở 1 lần và dùng.
+
+255
+00:19:49,160 --> 00:19:50,800
+Dùng theo session, dùng theo cách.
+
+256
+00:19:57,750 --> 00:19:59,230
+Về Zmalloc thì tại sao em chọn?
+
+257
+00:19:59,570 --> 00:20:03,850
+Từ như giải thích với Zlipc thì
+em sẽ dễ bị phân mảnh RAM hơn.
+
+258
+00:20:04,050 --> 00:20:05,930
+Còn về Mimalloc thì...
+
+259
+00:20:05,930 --> 00:20:08,950
+Thực ra Mimalloc nó sẽ
+tối ưu hơn cho Wordmail.
+
+260
+00:20:09,300 --> 00:20:13,160
+có nghĩa là nó sẽ tối dư layer 1, layer
+2, 1 cách hơn nhưng vấn đề của nó là nó sẽ
+
+261
+00:20:13,480 --> 00:20:19,430
+cần có hooker dọn dẹp có nghĩa là nó sẽ
+
+262
+00:20:19,430 --> 00:20:23,070
+dễ bị lấy RAM hơn và cái Zmalloc này
+nó tự dọn dẹp một cách hưởng tính hơn.
+
+263
+00:20:23,390 --> 00:20:27,590
+Còn cái Vimalloc thì em chưa có đủ dữ
+kiện để có thể làm một cái hooker dọn dẹp
+
+264
+00:20:27,590 --> 00:20:28,390
+thật chuẩn chỉnh.
+
+265
+00:20:32,540 --> 00:20:36,780
+Tiếp theo là bong alo có nghĩa là em sẽ
+cấp phát một mạng để nó sử dụng luôn thay
+
+266
+00:20:36,780 --> 00:20:42,690
+vì cấp phát theo từng lượt
+một và em chỉ cần một lần free
+
+267
+00:20:42,690 --> 00:20:43,230
+toàn bộ thôi.
+
+268
+00:20:43,430 --> 00:20:44,830
+Sau khi mà hết cái mảnh RAM đấy.
+
+269
+00:20:46,760 --> 00:20:51,680
+Tiêu sự xong cho scope mới free RAM và
+em mới cấp phát lại, hạn chế được việc
+
+270
+00:20:51,680 --> 00:20:52,240
+phương mảnh RAM.
+
+271
+00:20:56,110 --> 00:21:01,280
+Về phần sử dụng root ls thì
+cái này nó sẽ thuần russ hơn.
+
+272
+00:21:01,580 --> 00:21:07,520
+So với OpenSSL, dính nhiều CBE, WS,
+ZCLS, cái này thì công nhận là nó sẽ
+
+273
+00:21:07,520 --> 00:21:12,640
+nhanh hơn 15-30% nhưng mà em muốn giữ
+kiến trúc của mình nó lean nhất có thể.
+
+274
+00:21:13,520 --> 00:21:16,200
+Trong phần mà mình kiểu
+code thì nó càng ít.
+
+275
+00:21:16,620 --> 00:21:19,160
+Dependency liên quan các
+ngôn ngữ khác càng tốt.
+
+276
+00:21:20,520 --> 00:21:26,520
+Tuy nhiên nếu mọi người cần OpenSSL
+hay AWS thì em có thể đổi qua.
+
+277
+00:21:27,100 --> 00:21:31,410
+Đây là phần so sánh.
+
+278
+00:21:33,800 --> 00:21:39,420
+Mình có dây map, SMTP,
+IMAPCO3, IMAP Breaker 2,
+
+279
+00:21:39,760 --> 00:21:45,370
+Zivar chỉ có vô 1,
+Grayzone, Zapp, DLP, Worker,
+
+280
+00:21:46,740 --> 00:21:49,440
+ActiveCase, EAS thì em đã đề
+cập là mình sẽ không thu bàn.
+
+281
+00:21:50,060 --> 00:21:50,640
+Vấn đề về license.
+
+282
+00:21:54,560 --> 00:21:57,420
+License phần mềm thì mình sẽ
+tự chủ được, mình đổi qua.
+
+283
+00:21:58,250 --> 00:22:02,130
+Ziprana nghĩ là mình chạy OpenSource nên
+thực ra mình cũng không tốn phí nhưng mà
+
+284
+00:22:02,130 --> 00:22:03,550
+mình sẽ vẫn phụ thuộc vào họ.
+
+285
+00:22:04,610 --> 00:22:06,530
+Nên là lý do mà em bảo vệ Mail server này.
+
+286
+00:22:08,020 --> 00:22:13,190
+Thì đây, em chạy 2 nốt thì mọi người có
+thể thấy là Plan 3B là thứ chiếm nhiều tiến
+
+287
+00:22:13,190 --> 00:22:15,610
+trình nhất và nó phình từ 1g đến 2g.
+
+288
+00:22:16,230 --> 00:22:18,870
+Mình hoàn toán có thể kiểm soát được
+là tại sao nó lại phình như thế này.
+
+289
+00:22:19,470 --> 00:22:23,230
+Thì nếu mà mình có khang nó tự chủ hay
+viết lại thì mình sẽ có thể bóp nó xuống.
+
+290
+00:22:23,570 --> 00:22:26,950
+Em mong là chỉ có 1 phần 3,
+1 phần 3 là 9 am mê này thôi.
+
+291
+00:22:28,680 --> 00:22:30,420
+Về cơ sở thương hiệu thì chưa dám.
+
+292
+00:22:31,100 --> 00:22:33,160
+Về sparmnet hàng ngày thời
+gian chạy cũng khá tốt.
+
+293
+00:22:33,320 --> 00:22:37,860
+Trong tương lai sẽ phát triển thêm để
+mình có thể custom-proof và tạo những lưu
+
+294
+00:22:37,860 --> 00:22:40,120
+riêng có thể bằng Python hay TypeScript.
+
+295
+00:22:40,420 --> 00:22:46,070
+Mình upload lên dưới dạng WebAssembly
+để cho Gateway chạy hay là lưu chạy.
+
+296
+00:22:48,480 --> 00:22:50,980
+Tổng toàn hốt là từ 2
+đến 4 đến 3 đến 3GB RAM.
+
+297
+00:22:52,020 --> 00:22:55,000
+Theo em thì đây là một con số đủ
+ấn tượng so với Zipra hiện tại.
+
+298
+00:22:57,540 --> 00:23:00,700
+Về phần benchmark thì em...
+
+299
+00:23:01,460 --> 00:23:05,000
+payload khoảng 200kb thì được khoảng 592
+
+300
+00:23:05,900 --> 00:23:08,840
+pin trên 1 giây.
+
+301
+00:23:12,140 --> 00:23:16,560
+Fulltext search thì P50,
+10.5 và P95, 3.3 mini giây.
+
+302
+00:23:17,310 --> 00:23:22,070
+Query thì 4.6, 5.8, 95 theo
+phân huyện 50, 90 và 95.
+
+303
+00:23:33,360 --> 00:23:38,120
+Theo server core, ok là kiến trinh này
+không tính các info độc lập của nó thì nó
+
+304
+00:23:38,120 --> 00:23:41,970
+chạy từ Thực ra hôm nay
+là từ khoảng 70-100B.
+
+305
+00:23:42,730 --> 00:23:46,530
+Bởi vì em đã comment lại nhiều thứ
+liên quan đến MCP, đây là WebDAV.
+
+306
+00:23:46,970 --> 00:23:50,670
+WebDAV thì tại vì là chưa có một cái nền
+tảng Drive của mạnh để em tích hợp vào.
+
+307
+00:23:50,810 --> 00:23:54,870
+Nên là em sẽ comment lại thì
+nó chỉ khoảng 70-100B thôi.
+
+308
+00:23:59,000 --> 00:24:04,810
+Đây là phần cấu hình theo ngưỡng, theo
+ngưỡng trung bình của các user từ 100
+
+309
+00:24:04,810 --> 00:24:05,690
+-5k hơn.
+
+310
+00:24:09,980 --> 00:24:14,060
+Mọi người để so sánh với giá mọi người là
+những người mà làm người này thật thì mọi
+
+311
+00:24:14,060 --> 00:24:15,940
+người sẽ có cái nhìn nó tầm khoan hơn.
+
+312
+00:24:17,480 --> 00:24:22,020
+Và cũng có một số hạn chế benchmark
+này bởi vì em chưa đầy tải.
+
+313
+00:24:22,860 --> 00:24:24,900
+Thực ra thì Grazone này em đã bật lên rồi.
+
+314
+00:24:25,460 --> 00:24:26,940
+Cho nên em có cái em chưa kịp cập nhật.
+
+315
+00:24:27,520 --> 00:24:28,380
+Em xin phép phát triển.
+
+316
+00:24:51,250 --> 00:24:57,130
+Em đang chạy DCV4 bảng Flash và nó đã quét
+
+317
+00:24:57,130 --> 00:24:57,450
+thật.
+
+318
+00:25:03,660 --> 00:25:05,120
+Quét và nó đã để vào trong.
+
+319
+00:25:15,970 --> 00:25:16,790
+Để lựa chọn.
+
+320
+00:25:24,040 --> 00:25:25,560
+Để lựa chọn em cũng đã nói.
+
+321
+00:25:26,400 --> 00:25:29,540
+Em có thể sẽ phải viết lại
+cái engine spam review.
+
+322
+00:25:30,900 --> 00:25:33,820
+Bỏ qua ActiveSIM của
+Microsoft như đã đề cập.
+
+323
+00:25:35,250 --> 00:25:38,530
+Và về phần mail này thì
+em sẽ xem qua mọi người.
+
+324
+00:25:38,750 --> 00:25:43,350
+Đây là có nghĩa là ảnh
+sẽ mặc định bị tắt đi.
+
+325
+00:25:43,990 --> 00:25:46,690
+Và khi mình tải thì đây là
+cách mà mail đã xử lý HTML.
+
+326
+00:25:47,730 --> 00:25:48,810
+Em thấy là khá chuẩn.
+
+327
+00:25:49,530 --> 00:25:50,550
+Có một vài giới hạn.
+
+328
+00:25:50,770 --> 00:25:52,670
+Khi phong bút mail thì có
+thể sai format đi một chút.
+
+329
+00:25:52,790 --> 00:25:54,050
+Cái đấy em sẽ chương trình sau.
+
+330
+00:25:56,810 --> 00:26:00,840
+Về phần link, mọi người để thấy
+là mỗi khi em bấm một cái link.
+
+331
+00:26:01,200 --> 00:26:04,020
+Thì nó là chức năng xếp link
+của nó sẽ viết lại link.
+
+332
+00:26:06,220 --> 00:26:08,080
+Cái này là do ý của họ
+không có ý của mình.
+
+333
+00:26:08,820 --> 00:26:10,740
+Ví dụ em sẽ thử với INS.
+
+334
+00:26:13,910 --> 00:26:14,950
+Em vẫn sẽ viết lại link.
+
+335
+00:26:15,410 --> 00:26:17,190
+Đấy rồi nó vẫn nhảy ra INS bình thường.
+
+336
+00:26:17,690 --> 00:26:22,340
+Nhưng mà một số giới hạn của cái tính năng
+này nó liên quan đến việc là ảnh nó sẽ
+
+337
+00:26:22,340 --> 00:26:23,180
+phương tản không đầy đủ.
+
+338
+00:26:23,340 --> 00:26:24,840
+Đây là một trade off
+mà em đang giải quyết.
+
+339
+00:26:25,020 --> 00:26:29,700
+Vấn đề em đang giải quyết nghĩa là trong
+cái chế viết lại link của dự án mail này
+
+340
+00:26:29,700 --> 00:26:32,780
+thì nó vẫn chưa xử lý
+ảnh sau khi viết lại.
+
+341
+00:26:33,150 --> 00:26:36,110
+Nhưng cái này sẽ đảm bảo an
+toàn hơn cho người dùng Gmail.
+
+342
+00:26:41,590 --> 00:26:42,950
+Ngoài ra thì đây là viết gửi.
+
+343
+00:26:43,270 --> 00:26:45,290
+Mọi người sẽ thấy được
+người nhận này không đúng.
+
+344
+00:26:45,430 --> 00:26:47,530
+Em sẽ chỉnh lại gửi người nhận.
+
+345
+00:26:48,670 --> 00:26:50,590
+Đây là cái nốt greyzone này.
+
+346
+00:26:53,770 --> 00:26:57,410
+Mình sẽ biết được là nó qua viết
+quay hay là nó qua SMTP Direct.
+
+347
+00:26:57,810 --> 00:27:00,130
+Chạy qua máy chữ mail trực tiếp.
+
+348
+00:27:02,030 --> 00:27:02,730
+Nó quá đầy đủ.
+
+349
+00:27:03,260 --> 00:27:03,940
+Khá đầy đủ.
+
+350
+00:27:04,120 --> 00:27:04,880
+Và đây là những cái nào.
+
+351
+00:27:05,270 --> 00:27:05,570
+Nó chạy.
+
+352
+00:27:06,350 --> 00:27:09,130
+Thì như em đã nói thì nó sẽ
+có sắp lý do chạm đây tìm.
+
+353
+00:27:09,390 --> 00:27:12,410
+Trong quá trình phận hành rất nhiều lúc
+có khách hàng sẽ hỏi tại sao ông Mêu không
+
+354
+00:27:12,410 --> 00:27:16,130
+nhận được hay là Mêu đã nhận được nhưng
+mà không thấy gì thế nào thì mọi người có
+
+355
+00:27:16,130 --> 00:27:17,410
+thể chủ động qua đây, có cái vết được.
+
+356
+00:27:20,960 --> 00:27:23,640
+Nội dung thư gốc, chỗ gốc ấy có chưa?
+
+357
+00:27:24,830 --> 00:27:25,190
+Đây ạ.
+
+358
+00:27:28,810 --> 00:27:30,630
+Nó là concept đấy luôn anh ạ.
+
+359
+00:27:31,410 --> 00:27:35,250
+Nhưng mà em đẩy trực tiếp lên trên này cho
+người dùng thấy luôn chứ không phải đợi
+
+360
+00:27:35,250 --> 00:27:36,310
+mình hoặc vận trị nữa.
+
+361
+00:27:52,880 --> 00:27:57,700
+có thể chuyển tiếp dưới dạng email
+được, để đi được, cho mình nhẹ nhẹ
+
+362
+00:27:59,520 --> 00:28:02,370
+nhẹ, sẽ có đầy đủ.
+
+363
+00:28:09,330 --> 00:28:13,410
+Thứ gốc sẽ có định dạng,
+sao nó cứ ốc nó có ra luôn.
+
+364
+00:28:14,900 --> 00:28:17,660
+Thứ gốc là nội dung round
+chứ đâu có định dạng gì đâu.
+
+365
+00:28:18,180 --> 00:28:23,780
+Vâng, đúng rồi, nó xong nó sẽ hơi
+như thế này, nó có định dạng gì đâu.
+
+366
+00:28:28,670 --> 00:28:31,890
+Ừ, kể cả HTML nó cũng phải
+được nội dung round luôn.
+
+367
+00:30:24,140 --> 00:30:26,060
+Do VictoriaMetrics phát triển.
+
+368
+00:30:26,980 --> 00:30:31,620
+Đây thì mục tiêu của VictoriaLogs thì nó
+là quyết quay toán lưu lớp và tìm viên
+
+369
+00:30:31,620 --> 00:30:31,900
+lớp.
+
+370
+00:30:33,370 --> 00:30:38,050
+Nó thương thích với cả Prometheus và
+nó có một ngữ truyền riêng là lớp SPL.
+
+371
+00:30:38,670 --> 00:30:44,270
+Thì cụ pháp ngắn gọn hơn Lucene hay là
+QPL có ý ưu hơn cho việc lớp Phil, Texas.
+
+372
+00:30:45,070 --> 00:30:49,950
+Thì có những thành phần sau là thành phần
+Injection là thành phần nhận lớp thì ghi
+
+373
+00:30:49,950 --> 00:30:50,630
+qua nhiệt giáo thức.
+
+374
+00:30:51,400 --> 00:30:54,460
+StorageEngine là lưu log
+các cái log dưới dạng này.
+
+375
+00:30:55,440 --> 00:31:00,110
+Logo-cureing engine là sử dụng
+các truy vấn, phương tách.
+
+376
+00:31:00,310 --> 00:31:03,010
+Tiếp theo là các API Endpoints.
+
+377
+00:31:03,550 --> 00:31:08,430
+Tiếp theo là DMU là giao diện web đi
+kèm sẵn, không cần cài proper phana.
+
+378
+00:31:09,230 --> 00:31:11,450
+Và cuối cùng là các cluster mode.
+
+379
+00:31:12,640 --> 00:31:18,320
+Bây giờ thì chọn thì lúc kinh mốt lớn
+để tách nhiều API Insert, nhận ghi và
+
+380
+00:31:18,320 --> 00:31:20,820
+vl.n.heterlog storage để lưu chữ.
+
+381
+00:31:23,260 --> 00:31:28,890
+Trong Ockmail thì tại vì là
+Ockmail có đúng 1 binary thôi.
+
+382
+00:31:29,470 --> 00:31:32,970
+Thì SYNCLOCK khác với Zimbra thì
+có rất nhiều domain giải rác.
+
+383
+00:31:35,190 --> 00:31:39,290
+Thì VictoriaOck thì điểm tập trung cho
+toàn bộ Ockmail đóng vai trò như là 1 cái
+
+384
+00:31:39,290 --> 00:31:39,930
+trí nhóm vận hành.
+
+385
+00:31:40,130 --> 00:31:45,050
+Khi có sự cố thì như kiểu là mail nó không
+bị gì tới, SMTP, reject bất thường hay
+
+386
+00:31:45,050 --> 00:31:46,750
+là có những cái grey zone, verdict sound.
+
+387
+00:31:47,210 --> 00:31:47,850
+Thì đây là đầu tiên.
+
+388
+00:31:48,350 --> 00:31:50,390
+Thì Ockmail service nó sẽ SYNCLOCK.
+
+389
+00:31:51,220 --> 00:31:55,920
+Kết hợp sử dụng vết hả vừa xin lấp, đọc
+file gắn tên vết hả này để phân biệt các
+
+390
+00:31:55,920 --> 00:31:57,280
+tiến trình khác trên server.
+
+391
+00:31:57,940 --> 00:32:02,880
+Và có thể cấu hình để đẩy server khác để
+
+392
+00:32:02,880 --> 00:32:04,000
+monitor.
+
+393
+00:32:12,630 --> 00:32:18,400
+Em xin nói lặng
+
+394
+00:32:18,400 --> 00:32:22,000
+là do là Ocnail có 1 binary
+thôi, để xin lấp thôi.
+
+395
+00:32:22,180 --> 00:32:24,180
+Khác với Zimbra có rất
+nhiều daemon giải sát.
+
+396
+00:32:26,360 --> 00:32:30,820
+Optimal Service nó sẽ synclock, còn
+bọn em sẽ sử dụng tên rsyslog để nó
+
+397
+00:32:30,820 --> 00:32:35,660
+đẩy, đọc file với gắn tab này để phân
+biệt với các tên trên khách hàng server.
+
+398
+00:32:36,700 --> 00:32:42,340
+Forward, porti, umtp có thể cấu hình thêm
+một server liên quan đến storage, monitor
+
+399
+00:32:42,340 --> 00:32:42,620
+nữa.
+
+400
+00:32:42,980 --> 00:32:48,040
+Và cuối cùng là VictoriaLogs sẽ đóng hệ
+trò là lưu trữ và hoạt động qua hộp 9428.
+
+401
+00:32:49,590 --> 00:32:55,270
+Thì so sánh bên phía Zebra thì đầu tiên
+là Zebra dùng logger và SMMP cho hệ thống
+
+402
+00:32:55,270 --> 00:32:55,630
+giám sát.
+
+403
+00:32:55,830 --> 00:33:00,710
+Và log cho từng cái daemon cũng khá là
+nhiều sản dạo và nhiều service khác nhau và
+
+404
+00:33:00,710 --> 00:33:01,970
+không có một chỗ chúng ta cứu chung.
+
+405
+00:33:02,830 --> 00:33:07,190
+Thì VictoriaLogs nó sẽ hoàn
+thành là những vai trò này.
+
+406
+00:33:09,020 --> 00:33:13,500
+Như bọn người có thể đây là về vị trí phi
+vận hành nó cũng nhẹ hơn là do 1 binary
+
+407
+00:33:13,500 --> 00:33:18,260
+nhẹ thì nó không cần nhiều cluster quy mô
+năng và quy mô của em đang trải thử hiện
+
+408
+00:33:18,260 --> 00:33:18,480
+tại.
+
+409
+00:33:21,450 --> 00:33:22,830
+Và đây là...
+
+410
+00:33:27,550 --> 00:33:32,870
+Hiện tại em đang banh riêng
+qua port 9428 ở trên server.
+
+411
+00:33:33,110 --> 00:33:34,490
+Và có thể đây là...
+
+412
+00:33:34,490 --> 00:33:38,550
+em đang cấu hình để
+cho hiện log của các...
+
+413
+00:33:38,550 --> 00:33:40,230
+từ Oxfail nó sinh ra.
+
+414
+00:33:40,570 --> 00:33:42,130
+Thì ở đây em có thể tìm kiếm.
+
+415
+00:33:42,800 --> 00:33:46,240
+Tìm kiếm trong 5 phút ở gần đây
+thì có thể thấy ít nhiên đây là...
+
+416
+00:33:46,910 --> 00:33:50,290
+comment sẽ được về thông tin,
+dưa cho thông tin về server.
+
+417
+00:33:57,140 --> 00:33:58,460
+Đây là Carbets Collector.
+
+418
+00:34:01,620 --> 00:34:05,100
+Đây là về phần log của chúng em.
+
+419
+00:34:10,880 --> 00:34:16,100
+Phần trình bày của em, nốt về
+Windows đến đây cũng hết rồi.
+
+420
+00:34:18,920 --> 00:34:21,140
+Tài liệu cụ thể gì quả em sẽ gửi lại sau.
+
+421
+00:34:21,360 --> 00:34:27,290
+Bởi vì thật ra UIWIC của tác
+quản trị thì thật ra nó cũng
+
+422
+00:34:27,290 --> 00:34:29,390
+đang hơi lựa sộn do
+quá trình Refector này.
+
+423
+00:34:30,270 --> 00:34:31,790
+Thật ra hơi rở ra một chút.
+
+424
+00:34:31,960 --> 00:34:33,120
+Em sẽ gửi lại tài liệu sau.
+
+425
+00:34:34,000 --> 00:34:37,800
+Công ty em cũng đã share trên ISV rồi
+mọi người có thể vào để vô ý cho anh.
+
+426
+00:34:38,220 --> 00:34:39,400
+Xin cảm ơn ạ.
+
+427
+00:34:42,630 --> 00:34:44,170
+Bắt đầu từ đội vận hành trước đi.
+
+428
+00:34:44,990 --> 00:34:50,450
+Đầu tiên chúng ta sẽ nghe xem là
+hiện tại hệ thống mail này của
+
+429
+00:34:50,450 --> 00:34:56,420
+hai bạn sẽ giải quyết
+được vấn đề gì, những
+
+430
+00:34:56,420 --> 00:34:59,190
+cái mà chúng ta gặp phải
+khi anh em vận hành email.
+
+431
+00:34:59,750 --> 00:35:00,770
+Được vận hành trước đi.
+
+432
+00:35:10,480 --> 00:35:16,340
+Ví dụ như anh em thắc mắc những cái mà
+Hiện tại trong quá trình vận hành email
+
+433
+00:35:16,340 --> 00:35:22,160
+mình đang gặp phải các vấn đề
+sự cố, các vấn đề cần phải xử
+
+434
+00:35:22,160 --> 00:35:25,200
+lý, các vấn đề về giám
+sát tập trung chẳng hạn.
+
+435
+00:35:25,840 --> 00:35:26,420
+Đúng không?
+
+436
+00:35:26,720 --> 00:35:26,880
+Đúng không?
+
+437
+00:35:27,600 --> 00:35:27,880
+Đúng.
+
+438
+00:35:27,880 --> 00:35:29,820
+Đấy là những cái...
+
+439
+00:35:30,430 --> 00:35:36,210
+Anh thì anh quan tâm là nếu mà bây giờ
+mà mình triển khai cái dự án email này
+
+440
+00:35:36,210 --> 00:35:39,020
+thì chúng ta bỏ qua email đi à?
+
+441
+00:35:39,220 --> 00:35:39,540
+Hay như thế nào?
+
+442
+00:35:45,330 --> 00:35:46,250
+Đấy là vấn đề.
+
+443
+00:35:46,980 --> 00:35:47,860
+Tại vì...
+
+444
+00:35:48,740 --> 00:35:52,520
+Bây giờ hiện tại chúng ta hướng nhất
+của hệ thống hệ thống email đúng không?
+
+445
+00:35:53,090 --> 00:35:55,610
+Anh đồng ý là mình có 2 cái phần này.
+
+446
+00:35:56,150 --> 00:35:59,670
+Nhưng mà nếu như vậy thì những dự
+án email hiện tại cũng sẽ thế nào?
+
+447
+00:36:00,170 --> 00:36:05,570
+Theo em thì đầu tiên là em sẽ không gọi
+là lần sau mình bỏ 1mail gội đúng không?
+
+448
+00:36:05,830 --> 00:36:07,510
+Bởi vì là đây là hệ
+thống đã chạy thật rồi.
+
+449
+00:36:08,130 --> 00:36:11,910
+Nó đã qua testing rất nhiều,
+nó đã qua nhiều kê thực tế rồi.
+
+450
+00:36:12,070 --> 00:36:17,470
+Em sẽ không muốn, bản thân em cũng
+không muốn là bỏ 1mail ra ngay bởi vì...
+
+451
+00:36:17,690 --> 00:36:18,490
+Nó có nhiều rủi ro.
+
+452
+00:36:18,970 --> 00:36:23,430
+Một hệ thống có tốt trình lý thuyết thì
+nó sẽ cần thời gian để kiểm thử và hoàn
+
+453
+00:36:23,430 --> 00:36:23,670
+thiện.
+
+454
+00:36:24,830 --> 00:36:30,830
+Theo như em trao đổi với Sido thì
+em muốn đưa vào cho khan xin sửa
+
+455
+00:36:30,830 --> 00:36:31,370
+miễn phí trước.
+
+456
+00:36:32,280 --> 00:36:37,540
+Có thể đóng image xong đẩy lên cloud
+server hay là tích hợp như bên ondap.
+
+457
+00:36:39,420 --> 00:36:41,840
+Nó sẽ ổn hơn và nhận
+feedback từ người dùng.
+
+458
+00:36:42,620 --> 00:36:46,860
+Khi có một lưu lượng đủ lớn đủ
+để hoàn thiện được dự án thì...
+
+459
+00:36:47,130 --> 00:36:48,110
+Nó mới tìm tiếc.
+
+460
+00:36:50,210 --> 00:36:51,750
+Đấy là ý kiến của em.
+
+461
+00:36:55,210 --> 00:36:59,610
+Mình không thể nào mà thay thế được Anmail
+một sớm một chiều được nên là một quá
+
+462
+00:36:59,610 --> 00:37:00,730
+trình cần thời gian ngoài ra gì.
+
+463
+00:37:00,850 --> 00:37:05,930
+Nhưng đã nói dự án này mà vẫn đang thuộc
+quá nhiều vào những info bên ngoài như là
+
+464
+00:37:05,930 --> 00:37:09,030
+Postgre, như là PlamAV, SpanB.
+
+465
+00:37:09,710 --> 00:37:11,550
+Thì em muốn viết lại nó.
+
+466
+00:37:12,010 --> 00:37:14,830
+Ít nhất là Customize để nó
+phù hợp với yêu cầu của mình.
+
+467
+00:37:15,210 --> 00:37:17,010
+Tạo ra một cái panel đầy đủ cho...
+
+468
+00:37:18,390 --> 00:37:20,530
+cho spam in hay là virus.
+
+469
+00:37:21,570 --> 00:37:27,450
+Đây là vấn đề lớn nhất của OneMail hiện
+tại là vấn đề về chặn nhầm và chặn thiếu.
+
+470
+00:37:27,970 --> 00:37:29,770
+Đây là hai vấn đề lớn
+nhất hiện tại OneMail.
+
+471
+00:37:30,150 --> 00:37:32,090
+Và vấn đề về hiệu năng của ClockMoke nữa.
+
+472
+00:37:32,750 --> 00:37:38,530
+Như em trong quá trình mà em code hay là
+em phai code ấy thì vấn đề là nhiều khi
+
+473
+00:37:38,530 --> 00:37:40,410
+em gửi mail cho Zebra nó không nhận được.
+
+474
+00:37:40,990 --> 00:37:45,550
+Bởi vì là Zebra ClockMoke nó
+chỉ cho một TCP connection thôi.
+
+475
+00:37:45,890 --> 00:37:49,950
+Trong khi đấy như một vài bên như là
+Google và Yahoo, họ cho phép mình mở nhiều cho
+
+476
+00:37:49,950 --> 00:37:55,750
+một phiên, mở nhiều TCP connection cho
+một phiên khiến cho kiểu cái việc tinh
+
+477
+00:37:55,910 --> 00:37:59,990
+viết với cả khao tác nó sẽ chạy hơn và nó
+dễ dàng hơn cho vì duy trì một phiên liên
+
+478
+00:37:59,990 --> 00:38:00,190
+tục.
+
+479
+00:38:06,150 --> 00:38:10,770
+Thì cái dự án để hai đứa đang viết theo
+hai cái mô đuôi khác nhau, một cái là thằng
+
+480
+00:38:10,770 --> 00:38:16,740
+OXMail, một cái thằng WGB, thì thật
+ra cái tham vọng của thằng OXMail
+
+481
+00:38:16,740 --> 00:38:20,820
+nó phát triển lực lập hợp, phải phải đi
+kèm với WGB, tạo ra có thể cung cấp cho bữa
+
+482
+00:38:20,820 --> 00:38:21,400
+các bạn ngoài.
+
+483
+00:38:22,090 --> 00:38:23,930
+Cháu sẵn sàng cho nó chạy được lực.
+
+484
+00:38:24,070 --> 00:38:28,450
+Và những cái engine như là engine Redspot
+hay Verus này nó đang hoàn toàn chạy được
+
+485
+00:38:28,450 --> 00:38:28,630
+lực.
+
+486
+00:38:30,440 --> 00:38:34,660
+Cháu thiết kế cho nó chạy được lực tốt
+và cái gateway nó sẽ support cái mail này
+
+487
+00:38:34,660 --> 00:38:36,380
+như kiểu là công dân hạng nhất ấy.
+
+488
+00:38:36,720 --> 00:38:40,600
+Nó không nhất thiết là phải chạy với nhau
+nhưng mà nó support cho nhau tốt nhất để
+
+489
+00:38:40,600 --> 00:38:41,300
+cái hệ thống hướng đến.
+
+490
+00:38:41,920 --> 00:38:44,820
+Thì như thế thì nó cũng sẽ dễ
+kinh doanh hơn trong tương lai.
+
+491
+00:38:45,040 --> 00:38:46,580
+Đấy là về mặt tầm mình.
+
+492
+00:38:55,100 --> 00:38:57,020
+Anh em cứ tranh thủ trao đổi.
+
+493
+00:39:00,490 --> 00:39:01,670
+An trọng đồ tuần này nhé.
+
+494
+00:39:03,210 --> 00:39:06,010
+Vận hành xong thì rất tí sẽ đến anh Đạt.
+
+495
+00:39:14,160 --> 00:39:17,490
+Em trao đổi các vấn đề vận hành.
+
+496
+00:39:17,670 --> 00:39:19,610
+Không nghĩa vấn đề vận
+hành không có vấn đề gì à?
+
+497
+00:39:21,470 --> 00:39:22,490
+Em thấy khá nhiều vấn đề.
+
+498
+00:39:27,800 --> 00:39:33,240
+Cái nơi tracking mà bọn em đưa vào là
+giải quyết vấn đề là có nhiều ticket,
+
+499
+00:39:33,520 --> 00:39:39,420
+khách hàng hỏi là được view như thế này,
+báo như thế này ở bên kia không nhận được.
+
+500
+00:39:41,210 --> 00:39:43,730
+Thì lý do của nơi tracking sẽ giải quyết
+được những nguyên liên liên liên liên liên
+
+501
+00:39:43,730 --> 00:39:44,090
+liên liên liên liên liên liên liên liên
+liên liên liên liên liên liên liên liên
+
+502
+00:39:44,090 --> 00:39:44,250
+liên liên liên liên liên liên liên liên
+liên liên liên liên liên liên liên liên
+
+503
+00:39:44,250 --> 00:39:46,730
+liên liên liên liên
+liên liên liên liên liên
+
+504
+00:40:00,670 --> 00:40:04,790
+Nhưng mà kết quả nó trả về như là
+biết mình không cần hỏi cách nào.
+
+505
+00:40:22,530 --> 00:40:26,970
+Mình sẽ hiểu tại sao mà mail đến lúc mà
+mã 5xx thì mới là lúc mà đội vận hành phải
+
+506
+00:40:26,970 --> 00:40:27,650
+can thiệp phần nào.
+
+507
+00:40:29,920 --> 00:40:31,140
+Có show cây ở đây không?
+
+508
+00:40:36,130 --> 00:40:37,190
+Em cho nó mở lại.
+
+509
+00:40:38,410 --> 00:40:38,770
+Cho
+
+510
+00:41:21,290 --> 00:41:21,850
+cây của em đây.
+
+511
+00:41:23,260 --> 00:41:28,550
+Như em đã nói trạng thái này là đã gủi
+có kết quả, có mail được đi qua đâu,
+
+512
+00:41:28,650 --> 00:41:28,970
+gateway.
+
+513
+00:41:32,080 --> 00:41:36,660
+Thì đấy, có nghĩa là mình có đầy đủ log ở
+đây kết quả LNTP như thế này thì có nghĩa
+
+514
+00:41:36,660 --> 00:41:40,330
+là nếu như mail thất bại, đây
+hoặc là đây như là chặn đây,
+
+515
+00:41:43,420 --> 00:41:44,480
+mình có lúc thử lại ở đây.
+
+516
+00:41:47,110 --> 00:41:47,750
+Thế là đầy đủ.
+
+517
+00:41:48,330 --> 00:41:53,590
+Đây là cách ly spam có đầy
+đủ lý do tại sao nó lại bị
+
+518
+00:41:53,590 --> 00:41:54,410
+chặn.
+
+519
+00:41:55,310 --> 00:42:00,570
+Tin là đến lúc mà mãn 5
+ích mới cần độ điều hành.
+
+520
+00:42:00,710 --> 00:42:01,950
+Ngoài ra thì đây em quên mất.
+
+521
+00:42:02,490 --> 00:42:03,490
+Có nghĩa là mình có tính là report.
+
+522
+00:42:06,440 --> 00:42:09,230
+Có nghĩa là user report này.
+
+523
+00:42:09,410 --> 00:42:13,030
+Nếu mà mỗi 3 user report thì
+hệ thống sẽ tự động chặn.
+
+524
+00:42:15,190 --> 00:42:16,650
+Và đây là cái gì mà họ đã chặn.
+
+525
+00:42:16,750 --> 00:42:18,170
+3 user report mình có thể xem ở đây.
+
+526
+00:42:18,310 --> 00:42:22,030
+Nếu mà dưới 3 thì sẽ cần phải
+vào đây thao tác trực tiếp.
+
+527
+00:42:22,900 --> 00:42:27,760
+Còn nếu không thì đây là nó sẽ chặn thật.
+
+528
+00:42:29,600 --> 00:42:35,500
+Ngoài ra thì mình có retry, retry cái này
+nó sẽ có thể quét lại, hoặc cái này là
+
+529
+00:42:35,500 --> 00:42:37,660
+vào khoảng 10 box luôn,
+hoặc cái này là cho nó fail.
+
+530
+00:42:38,320 --> 00:42:41,520
+Có đầy đủ, còn có cái hệ thống hệ thống
+hệ thống hệ thống hệ thống hệ thống
+
+531
+00:42:44,920 --> 00:42:48,200
+hệ thống hệ thống hệ thống hệ thống hệ
+thống hệ thống hệ thống hệ thống hệ thống hệ
+
+532
+00:42:48,200 --> 00:42:53,600
+thống hệ thống hệ thống hệ thống hệ thống
+hệ thống hệ thống hệ thống hệ thống hệ
+
+533
+00:42:56,830 --> 00:43:00,450
+thống hệ thống hệ thống hệ thống hệ thống
+hệ thống hệ thống hệ thống hệ thống hệ
+
+534
+00:43:00,450 --> 00:43:01,590
+thống hệ thống hệ thống hệ thống hệ thống
+hệ th Cái này là SecurityLogs, nên làm gì
+
+535
+00:43:01,590 --> 00:43:01,850
+thế này?
+
+536
+00:43:01,950 --> 00:43:03,870
+Cái này chắc là xong rồi
+đấy, để cho Hũ làm thể được.
+
+537
+00:43:03,970 --> 00:43:09,480
+Cái này là Legacy,
+Audit, có log, đăng nhập,
+
+538
+00:43:11,130 --> 00:43:16,830
+có log block, cluster,
+
+539
+00:43:17,670 --> 00:43:21,810
+nốt mà chạy, em chỉ chạy, nốt mà chạy,
+nốt mà chạy, nốt mà lẻ riêng thôi.
+
+540
+00:43:25,260 --> 00:43:27,910
+Setting, tạo package,
+
+541
+00:43:32,710 --> 00:43:35,660
+user name code, đây là để tạo gói.
+
+542
+00:43:38,780 --> 00:43:40,780
+Chắc là nốt domain sẽ được gắn cho 1 gói.
+
+543
+00:43:41,730 --> 00:43:42,130
+Vâng,
+
+544
+00:43:47,810 --> 00:43:49,250
+chúng ta có thể customize được.
+
+545
+00:43:49,860 --> 00:43:50,260
+Tùy.
+
+546
+00:43:58,080 --> 00:44:03,060
+Bạn có thể tài khoản email
+bây giờ em bị scan đúng không?
+
+547
+00:44:03,920 --> 00:44:05,540
+Mình gần bị các vấn đề giảm bảo email.
+
+548
+00:44:07,940 --> 00:44:09,500
+Mình có giải quyết những
+bài toán này không?
+
+549
+00:44:17,620 --> 00:44:20,700
+Đâu cần nghĩ hàng mình gặp
+cái vấn đề hiện tại là gì?
+
+550
+00:44:22,530 --> 00:44:23,790
+Nó có hai vấn đề đấy.
+
+551
+00:44:24,450 --> 00:44:28,690
+Tự đi giảm bảo email
+spam và gửi email spam.
+
+552
+00:44:30,270 --> 00:44:34,050
+Nhưng tại những vấn đề đấy thì những cái
+này mình có đang giải quyết được không?
+
+553
+00:44:34,290 --> 00:44:40,220
+Em nghĩ là được bởi vì là em
+có để Authent ở port 25 thì cái
+
+554
+00:44:40,220 --> 00:44:41,620
+này nó sẽ hạn chế được phần nào.
+
+555
+00:44:42,260 --> 00:44:45,420
+Còn về vấn đề gửi mail bị spam thì
+nó sẽ liên quan đến cơ chế warmup IP.
+
+556
+00:44:46,160 --> 00:44:51,280
+Cái này thì em cũng có để cập là nó sẽ
+liên quan nhiều hơn phần gateway và...
+
+557
+00:44:51,280 --> 00:44:57,120
+Mình bỏ qua cái vấn đề là
+bị spam do IP hoặc do định
+
+558
+00:44:57,120 --> 00:44:58,000
+dạng.
+
+559
+00:44:58,540 --> 00:45:03,060
+Bởi vì cái spam ví dụ em gửi theo một
+cái định dạng Full HTML có thể bị rơi vào
+
+560
+00:45:03,060 --> 00:45:03,320
+spam.
+
+561
+00:45:04,820 --> 00:45:09,220
+Nhưng vấn đề ở đây muốn hỏi những trường
+hợp ví dụ như là khách hàng bị scan tài
+
+562
+00:45:09,220 --> 00:45:14,480
+khoản như Zimbay tại của mình là
+khách hàng bị giả mạng tài khoản.
+
+563
+00:45:15,000 --> 00:45:16,460
+Nó scan được tài khoản đấy.
+
+564
+00:45:17,950 --> 00:45:23,270
+Nó scan được và sử dụng chính tài khoản
+đấy nên nó gửi đi cho chính khách hàng hoặc
+
+565
+00:45:23,270 --> 00:45:28,050
+trong nội bộ email hoặc nó gửi ra ngoài
+ra đến những tần suất của mình mình không
+
+566
+00:45:28,050 --> 00:45:28,690
+kiểm soát được.
+
+567
+00:45:30,040 --> 00:45:32,580
+Cho nhìn tận hành, bọn em thường
+xuyên gặp những trường hợp đấy.
+
+568
+00:45:33,160 --> 00:45:34,960
+Mình phải đi khóa tài
+khoản email của ngành hàng.
+
+569
+00:45:37,760 --> 00:45:42,780
+Vấn đề đấy trong hệ thống email này, khi
+ngay ban đầu thiết kế, mình đã lường trước
+
+570
+00:45:42,780 --> 00:45:45,860
+hết những trường hợp cơ bản.
+
+571
+00:45:47,450 --> 00:45:52,520
+Cái này chỉ liên quan đến vấn đề về
+phạm chủ của bảo mật tài khoản email.
+
+572
+00:45:52,900 --> 00:45:54,020
+Mình chưa tí hết hết.
+
+573
+00:45:54,830 --> 00:46:00,680
+Hoặc ví dụ trong trường hợp tài khoản
+liên tục bị scan, login, thì cơ chế của
+
+574
+00:46:00,680 --> 00:46:02,700
+mình sẽ bảo vệ tài khoản
+ngành hàng như thế này.
+
+575
+00:46:05,980 --> 00:46:07,360
+Thứ hai là khóa truy cập.
+
+576
+00:46:07,720 --> 00:46:13,220
+Thế này thì sẽ có cạn năng
+sập trên các thiết bị khác.
+
+577
+00:46:13,600 --> 00:46:17,100
+Có khóa truy cập, có mức khẩu.
+
+578
+00:46:17,800 --> 00:46:23,800
+Và có thiết bị tin cậy ở đây thì
+mình hoàn toàn có thể giảm thiểu được
+
+579
+00:46:23,800 --> 00:46:24,880
+phần nào về vấn đề bảo vệ.
+
+580
+00:46:28,710 --> 00:46:33,910
+Em đã có bề cập đến nhưng mà để giải
+quyết được 100% thì em không chắc.
+
+581
+00:46:34,270 --> 00:46:36,790
+Nhưng mà em cũng đã đi
+đến và có một vài cơ chế.
+
+582
+00:46:38,440 --> 00:46:39,800
+Nhưng em đã nói thì đấy.
+
+583
+00:46:40,080 --> 00:46:43,440
+Nó còn liên quan, em đang
+muốn sử dụng lại dự án.
+
+584
+00:46:43,680 --> 00:46:47,160
+Được sử dụng dự án của bên
+chỗ Việt đang làm Outhand này.
+
+585
+00:46:48,410 --> 00:46:50,230
+Được sử dụng dự án của chỗ
+Việt đang làm Outhand này.
+
+586
+00:46:51,290 --> 00:46:53,130
+Chỗ dự án Outhand của Việt khác.
+
+587
+00:46:53,710 --> 00:46:54,710
+Cái này của khách hàng.
+
+588
+00:46:56,450 --> 00:46:58,290
+Outhand này nó liên quan
+đến tài khoản nội bộ.
+
+589
+00:46:58,550 --> 00:47:03,250
+Tức là những sản phẩm nội bộ mình đang
+phải login qua nhiều loại tài khoản với
+
+590
+00:47:03,250 --> 00:47:03,490
+nhau.
+
+591
+00:47:03,730 --> 00:47:05,490
+Mỗi người tự xin nhâm một loại tài khoản.
+
+592
+00:47:06,700 --> 00:47:07,900
+Đấy là vấn đề.
+
+593
+00:47:08,620 --> 00:47:13,540
+Còn bản chất của việc thì nó là một cái
+hệ thống tập trung cho việc Authentr.
+
+594
+00:47:14,100 --> 00:47:16,100
+Anh thấy ở đây em có
+phần Eldad đúng không?
+
+595
+00:47:16,620 --> 00:47:18,900
+Em có Eldad Sync.
+
+596
+00:47:19,600 --> 00:47:21,060
+Em dựa trên là Open Eldad.
+
+597
+00:47:21,620 --> 00:47:22,820
+Em dùng Open Eldad.
+
+598
+00:47:22,840 --> 00:47:23,720
+Open Eldad đúng không?
+
+599
+00:47:23,940 --> 00:47:25,680
+Bản chất Zima cũng là Open Eldad.
+
+600
+00:47:26,160 --> 00:47:31,780
+Và bản thân hệ thống của việc ứng dụng
+qua thì chỉ tích hợp Open Eldad hoặc tích
+
+601
+00:47:31,780 --> 00:47:34,500
+hợp các công cụ như kiểu Git,
+GitLab, các thứ vào thôi.
+
+602
+00:47:35,510 --> 00:47:36,870
+Cho nên nó không phải vấn đề.
+
+603
+00:47:42,640 --> 00:47:47,320
+Cái quan trọng như lúc anh bảo đấy, những
+cái vấn đề liên quan đến những cái trường
+
+604
+00:47:47,320 --> 00:47:49,620
+hợp mình gặp phải nhiều nhất
+trong quá trình tận bản.
+
+605
+00:47:50,000 --> 00:47:53,000
+Đầu tiên anh thấy cái vấn
+đề về Qmail đúng không?
+
+606
+00:47:53,800 --> 00:47:57,300
+Qmail thì mình đang có cái này thì mình sẽ
+chủ động giải quyết được rồi đúng không?
+
+607
+00:47:58,120 --> 00:48:02,380
+Trên Cloud mà khách hàng cũng sẽ chủ động
+theo dõi được ở cái phần log gửi mail
+
+608
+00:48:02,380 --> 00:48:03,420
+theo từng tài khoản.
+
+609
+00:48:04,540 --> 00:48:04,980
+Đúng không?
+
+610
+00:48:05,920 --> 00:48:07,800
+Có phần khoản nào lại?
+
+611
+00:48:08,020 --> 00:48:09,180
+Để nào là kênh vật anh gửi?
+
+612
+00:48:10,210 --> 00:48:10,570
+Có.
+
+613
+00:48:10,810 --> 00:48:11,090
+Có.
+
+614
+00:48:45,320 --> 00:48:49,780
+Có tài khoản liên quan đến Postmaster,
+Webmaster, hay là gì đã có.
+
+615
+00:48:58,380 --> 00:48:59,400
+Có người cả.
+
+616
+00:49:01,220 --> 00:49:03,080
+Không tồn tại bên kia, tự gửi về mình.
+
+617
+00:49:08,000 --> 00:49:09,600
+Còn có trường hợp nữa là...
+
+618
+00:49:09,600 --> 00:49:11,200
+Còn có trường hợp nữa là...
+
+619
+00:49:11,330 --> 00:49:16,870
+Còn có trường hợp nữa là thấy email kiểu
+mình hãy đẩy, chứ là một user gửi là nó...
+
+620
+00:49:16,870 --> 00:49:17,450
+Có hình đầy đủ.
+
+621
+00:49:18,760 --> 00:49:22,300
+Hostmaster là view, hostmaster,
+những tài khoản gọi là chuẩn vfc.
+
+622
+00:49:23,340 --> 00:49:24,280
+Emulnery mình có hết.
+
+623
+00:49:24,780 --> 00:49:26,120
+Emulnery mình sẽ là cơ chế tự động.
+
+624
+00:49:26,740 --> 00:49:28,600
+Và đây là những tài khoản
+ví dụng Google gửi report.
+
+625
+00:49:28,990 --> 00:49:30,770
+Thì người quản trị cũng sẽ
+xem được trực tiếp luôn.
+
+626
+00:49:32,290 --> 00:49:33,430
+Đây là mail của CEO.
+
+627
+00:49:34,470 --> 00:49:35,710
+Các bạn làm chính làm caton chưa?
+
+628
+00:49:37,770 --> 00:49:38,270
+Caton đấy.
+
+629
+00:49:40,600 --> 00:49:41,260
+Có tiền làm caton không?
+
+630
+00:49:44,540 --> 00:49:45,180
+Chắc là chưa.
+
+631
+00:49:45,700 --> 00:49:49,740
+Các tôm đại khái là khi mà người ta gửi
+những cái tài khoản bất kỳ ở trên hệ thống
+
+632
+00:49:49,740 --> 00:49:53,890
+của mình mà nó không tồn tại thì nó sẽ
+được câu hình gửi về một tài khoản email.
+
+633
+00:49:54,130 --> 00:49:54,850
+Thế nên em chưa?
+
+634
+00:49:55,010 --> 00:49:55,350
+Chỉ về.
+
+635
+00:49:56,650 --> 00:49:59,690
+Em chưa có, em chỉ có những
+cái mailbox.vc, mấy cái châu.
+
+636
+00:50:00,910 --> 00:50:03,310
+Và nó sẽ tự động gửi về cho admin domain.
+
+637
+00:50:08,980 --> 00:50:10,700
+Cơ chế bài nhắc lại
+store ở thời đấy như nào?
+
+638
+00:50:11,730 --> 00:50:14,650
+Cái đấy cháu rất là nó theo mọi người.
+
+639
+00:50:14,710 --> 00:50:15,450
+Cái này cháu chưa kỹ.
+
+640
+00:50:15,730 --> 00:50:21,230
+Nhưng mà cháu muốn tham khảo thêm ý
+kiến của mọi người nó vận hành với cả để
+
+641
+00:50:21,260 --> 00:50:22,820
+cháu xây dựng cơ chế backup.
+
+642
+00:50:23,000 --> 00:50:26,760
+Bởi vì như cháu tìm hiểu thì cháu
+thấy mọi người theo chuẩn thì là 1-3.
+
+643
+00:50:26,960 --> 00:50:28,820
+Nhưng mà có vẻ như trên
+thực tế nó cũng phải là 1-3.
+
+644
+00:50:30,230 --> 00:50:31,230
+Và mùa vài cơ chế.
+
+645
+00:50:42,900 --> 00:50:46,040
+nên là đề cập có nghĩa
+là đủ cho mọi người.
+
+646
+00:50:49,520 --> 00:50:52,460
+Bách giáp của tài quản, xóa tài
+quản đi, desktop lại đầy đủ.
+
+647
+00:50:53,370 --> 00:50:54,170
+Nên sao làm được?
+
+648
+00:50:56,030 --> 00:50:58,970
+Cơ chế backup on của
+cái back to incremental.
+
+649
+00:51:00,310 --> 00:51:00,710
+Incremental?
+
+650
+00:51:01,030 --> 00:51:01,430
+Ừ.
+
+651
+00:51:02,900 --> 00:51:05,980
+Cả backup on, cả phần cầu hình như
+thế này trong trường server bị lỗi.
+
+652
+00:51:06,560 --> 00:51:08,100
+Cơ chế desktop là nhanh nhất.
+
+653
+00:51:09,880 --> 00:51:11,000
+Cái đấy...
+
+654
+00:51:11,000 --> 00:51:14,180
+Cái đấy chẳng nghĩ là liên
+quan nhiều phần liên trữ.
+
+655
+00:51:14,530 --> 00:51:18,470
+Nhưng mà nói về phần lưu chữ thì đang sử
+dụng MinIO hay là sau này sẽ là set nhưng
+
+656
+00:51:18,470 --> 00:51:22,430
+mà cháu hy vọng là cháu sẽ được làm
+một cái liên quan đến một cái hệ thống
+
+657
+00:51:22,430 --> 00:51:22,990
+FireStorage.
+
+658
+00:51:23,210 --> 00:51:26,950
+Thì cháu sẽ làm chủ được từ dưới lên
+trên và cháu sẽ cấu hình như thế này.
+
+659
+00:51:27,800 --> 00:51:32,620
+Không bản chất em chạy qua S3,
+bản chất nó chỉ là lưu chữ thôi.
+
+660
+00:51:33,420 --> 00:51:34,260
+Lưu chữ message thôi.
+
+661
+00:51:35,260 --> 00:51:36,060
+Để nghe anh không?
+
+662
+00:51:36,500 --> 00:51:40,440
+Tức là bản thân là các message
+mail mình sẽ lưu chữ qua S3.
+
+663
+00:51:41,600 --> 00:51:44,880
+Nếu mà em tìm hiểu về
+HTML của Hottinger rồi.
+
+664
+00:51:46,060 --> 00:51:47,680
+Họ cũng đang dùng theo cửa đấy.
+
+665
+00:51:49,150 --> 00:51:51,330
+Thế bản thân nó sẽ dấu chữ OS3.
+
+666
+00:51:55,490 --> 00:51:57,330
+Chắc em cần mọi người order thêm.
+
+667
+00:51:58,650 --> 00:52:02,970
+Còn bản chất em dùng Minio thì nó cũng là
+một dạng góp sách to đấy, giống OS3 rồi.
+
+668
+00:52:03,110 --> 00:52:07,820
+Em cũng biết là nó giống OS3 nhưng
+mà nó chỉ là một cái container thôi.
+
+669
+00:52:08,440 --> 00:52:09,400
+Mình không thể maintain.
+
+670
+00:52:09,740 --> 00:52:11,800
+Còn cái chế OS3 chẳng
+qua để nâng lưu chữ vậy?
+
+671
+00:52:12,140 --> 00:52:12,820
+Vâng, đó nhận.
+
+672
+00:52:13,460 --> 00:52:14,040
+Đấy chắc cũng nhận.
+
+673
+00:52:15,880 --> 00:52:18,500
+Còn ý anh Hải ở đây là
+cái phần cấu hình ấy.
+
+674
+00:52:18,800 --> 00:52:19,980
+Sau khi setting, đúng không?
+
+675
+00:52:20,140 --> 00:52:20,940
+Data, các thứ.
+
+676
+00:52:21,510 --> 00:52:26,310
+Data lưu trữ tài khoản, khi xảy
+ra một sự cố bị sập vệ đống này.
+
+677
+00:52:27,480 --> 00:52:31,020
+Ví dụ như em chạy theo kiểu single, như
+thế nào, em chạy theo kiểu cluster như thế
+
+678
+00:52:31,020 --> 00:52:31,220
+nào.
+
+679
+00:52:32,320 --> 00:52:34,660
+Ví dụ cơ chế phục hồi
+theo kiểu cluster làm sao.
+
+680
+00:52:35,300 --> 00:52:40,120
+Ví dụ như tạo một con server này của em
+hiện tại, ví dụ như Zimba, mình đang triển
+
+681
+00:52:40,120 --> 00:52:43,400
+khai theo dạng single node,
+tức là node nào biết node đấy.
+
+682
+00:52:44,180 --> 00:52:45,840
+Node nào chết thì không
+ảnh hưởng node khác.
+
+683
+00:52:46,680 --> 00:52:49,820
+Ví dụ như em đang thiết kế theo
+kiểu scale được theo chiều ngang.
+
+684
+00:52:51,800 --> 00:52:57,620
+Thì mình cần tối thiểu bao nhiêu nút
+control để làm nút quản lý, quản lý email đúng
+
+685
+00:52:57,620 --> 00:52:57,760
+không?
+
+686
+00:52:58,430 --> 00:53:01,410
+Nhưng mà anh thấy là em đang
+sử dụng thêm cả Nginx nữa.
+
+687
+00:53:02,850 --> 00:53:07,270
+Bệnh phần Nginx thì đúng là em có đang
+sử dụng thêm nhưng mà như đã nói thì cái
+
+688
+00:53:07,270 --> 00:53:11,260
+SMTP proxy nó sẽ support cả
+
+689
+00:53:12,100 --> 00:53:16,140
+API, VietWall có nghĩa là em sẽ
+làm 2 trong 1 để support luôn.
+
+690
+00:53:16,360 --> 00:53:19,580
+Em sẽ đẩy vào để thay dựng
+Nginx và support luôn.
+
+691
+00:53:19,580 --> 00:53:22,520
+Nhưng mà ví dụ em sử dụng
+cái Nginx đúng không?
+
+692
+00:53:22,770 --> 00:53:27,150
+Mình triển khai cluster thì Enzynix em
+định triển khai như thế này Tại vì Enzynix
+
+693
+00:53:27,150 --> 00:53:33,030
+và anh thấy em có node ở phần
+liên quan đến HA của UC để làm API
+
+694
+00:53:33,030 --> 00:53:38,670
+tập trung bản thân Enzynix cũng hỗ trợ
+cách HA như thế trảm quan thêm một lớp
+
+695
+00:53:38,670 --> 00:53:43,470
+VIP, Virtual IP là một IP
+chung cho tất cả nút node.
+
+696
+00:53:44,420 --> 00:53:49,180
+Lúc đấy em định scale kiểu gì
+khi mà em sử dụng Enzynix đấy.
+
+697
+00:53:53,440 --> 00:53:59,240
+Trong trường hợp có rất nhiều
+domain ở trên đấy, em port
+
+698
+00:53:59,240 --> 00:54:05,150
+port 8G443 để HTVS, thì
+Anjic đọc cấu hình kiểu gì
+
+699
+00:54:05,150 --> 00:54:07,070
+để đúng các domain của khách.
+
+700
+00:54:09,660 --> 00:54:13,880
+Như hiện tại thì em đang cấu hình ở Anjic
+như thế nào để đọc đúng domain của khách.
+
+701
+00:54:15,570 --> 00:54:21,530
+Ví dụ như mail.dolv,
+mail.vudm chẳng hạn, thì cấu
+
+702
+00:54:21,530 --> 00:54:24,970
+hình sẽ đọc kiểu gì để
+đúng trong hình dung.
+
+703
+00:54:32,640 --> 00:54:36,480
+Thay vì em dùng, nhưng mà bây
+
+704
+00:54:36,480 --> 00:54:42,470
+giờ người dùng người ta cắt
+từng theo cái domain của họ.
+
+705
+00:54:47,940 --> 00:54:53,590
+Đơn giản là không phải là 1
+mail.ví dụ như là 1, 2, 3, 4, từ cả
+
+706
+00:54:53,590 --> 00:54:54,090
+Đainamax.
+
+707
+00:54:55,670 --> 00:55:00,790
+Làm sao để cho biết là nó đi đúng
+cái tuyến đường vào được cái con...
+
+708
+00:55:10,550 --> 00:55:14,330
+Ví dụ bản email này khi
+trở về thì cái chỗ...
+
+709
+00:55:17,260 --> 00:55:17,880
+domain custom.
+
+710
+00:55:19,610 --> 00:55:20,870
+Cái lùa xử lý đó là gì?
+
+711
+00:55:27,370 --> 00:55:29,690
+Tức là mail server của cháu
+có nhiều node đúng không?
+
+712
+00:55:30,030 --> 00:55:34,670
+Thì bây giờ là domain A vào node
+1, domain B vào node 2, kiểu thế.
+
+713
+00:55:41,180 --> 00:55:45,600
+Mỗi khách hàng họ sẽ có
+một domain khác nhau mà.
+
+714
+00:55:48,340 --> 00:55:52,540
+Tại vì nếu em làm theo kiểu cluster thì
+tức là em phải sinh đột bộ, dưới công node.
+
+715
+00:55:56,730 --> 00:55:58,230
+Cái này em nói thật là em chưa nghĩ gì.
+
+716
+00:55:59,380 --> 00:56:04,930
+Khi mà scale now em mới chỉ đang trên
+một nốt nên là em có thể sắp lại.
+
+717
+00:56:06,640 --> 00:56:10,460
+Tức là bài toán này của mình nếu là trên
+một nốt thì mình vẫn triển khai như Zmine
+
+718
+00:56:10,460 --> 00:56:11,240
+hiện tại đúng không?
+
+719
+00:56:11,540 --> 00:56:11,940
+Được.
+
+720
+00:56:12,950 --> 00:56:16,790
+Và mình có thể sử dụng
+thêm S3 này đúng không?
+
+721
+00:56:17,330 --> 00:56:17,550
+Được.
+
+722
+00:56:17,970 --> 00:56:18,370
+Được.
+
+723
+00:56:18,470 --> 00:56:21,250
+Sử dụng thêm S3 để sử
+dụng cho bài toán lưu trữ.
+
+724
+00:56:22,330 --> 00:56:23,030
+Thí xác chưa?
+
+725
+00:56:23,410 --> 00:56:23,670
+Vâng.
+
+726
+00:56:24,110 --> 00:56:27,190
+Nhưng mà vậy thì mình có đang tính
+đến 2 trường hợp xảy ra không?
+
+727
+00:56:28,800 --> 00:56:34,600
+Ví dụ như trong trường hợp
+mà bây giờ mình chạy local
+
+728
+00:56:34,600 --> 00:56:40,320
+thì mình chạy để lưu trữ
+các email mà khách hàng
+
+729
+00:56:40,320 --> 00:56:43,440
+sử dụng trong vòng 1
+năm gần nhất chẳng hạn.
+
+730
+00:56:44,640 --> 00:56:49,890
+S3 đó để lưu trữ trong vòng 1 năm
+trở lại, 1 năm trở đi của khách.
+
+731
+00:56:53,610 --> 00:56:55,190
+Đã tính toán đến bài toán.
+
+732
+00:56:55,410 --> 00:56:58,130
+Tại vì lúc đấy nó sẽ chia
+ra làm 2 lớp storage.
+
+733
+00:57:00,320 --> 00:57:01,540
+Một lớp chạy tại local.
+
+734
+00:57:01,920 --> 00:57:04,340
+Tức là một lớp em phải lưu
+trực tiếp thông qua local.
+
+735
+00:57:04,700 --> 00:57:07,120
+Tại vì hiện tại em cấu hình lớp qua S3.
+
+736
+00:57:07,900 --> 00:57:08,820
+Giả dụ thôi nhé.
+
+737
+00:57:08,920 --> 00:57:11,000
+Ví dụ là em làm ở cái lab này.
+
+738
+00:57:11,340 --> 00:57:17,160
+Ví dụ là trong vòng một ngày thì tôi
+đọc trên message nó sẽ được ghi thẳng
+
+739
+00:57:17,160 --> 00:57:17,940
+cái đích của tôi.
+
+740
+00:57:18,540 --> 00:57:18,780
+Được chứ không?
+
+741
+00:57:19,000 --> 00:57:21,740
+Cái đích mà em cài OS,
+cài dependency các thứ.
+
+742
+00:57:23,360 --> 00:57:27,900
+Và cái ngày thứ hai thì em cho lưu
+vào trong cái object của Mimeo.
+
+743
+00:57:32,820 --> 00:57:37,440
+Đấy là kiểu mình sẽ chia lớp to hết ra
+thì lúc đấy nó mới giải quyết được cái bài
+
+744
+00:57:37,440 --> 00:57:43,170
+toán là mình sẽ lưu trữ thông qua
+việc là mình kết hợp song song
+
+745
+00:57:43,170 --> 00:57:47,490
+cả local và cả S3 để đảm bảo tính an toàn.
+
+746
+00:57:48,970 --> 00:57:52,710
+Còn nếu mà trong trường hợp mà lưu full
+S3 có thể xảy ra cái trường hợp gì?
+
+747
+00:57:53,330 --> 00:57:57,530
+Lưu full S3 có thể xảy ra trường hợp ví dụ
+là trường hợp S3 nó bị treo, nó bị chậm.
+
+748
+00:57:58,350 --> 00:58:02,570
+Tất cả kết nối liên quan đến logmail,
+các tử của em sẽ bị ảnh hưởng theo.
+
+749
+00:58:04,950 --> 00:58:08,550
+Mà thông thường khách hàng người ta
+chỉ quan tâm email gần nhất thôi.
+
+750
+00:58:11,200 --> 00:58:12,420
+Thông tin email gần nhất thôi.
+
+751
+00:58:12,540 --> 00:58:18,160
+Thay vì việc người ta sẽ quan tâm đến việc
+email đã từ rất lâu và ít khi người ta
+
+752
+00:58:18,160 --> 00:58:19,820
+tìm lại chia thức tầng.
+
+753
+00:58:22,540 --> 00:58:25,540
+Để đảm bảo an toàn cho cả mình
+và cả khách hàng là cái đầu tiên.
+
+754
+00:58:25,960 --> 00:58:31,760
+Bài thứ hai, nếu mà bọn em định xây dựng
+hệ thống email này mà thay thế cho cả cái
+
+755
+00:58:31,760 --> 00:58:35,240
+hệ thống email hiện tại,
+nên em kêu nghe không nhỉ?
+
+756
+00:58:38,760 --> 00:58:39,820
+Mọi người vẫn nghe được nhất, đúng không?
+
+757
+00:58:49,510 --> 00:58:50,910
+Alo, mọi người vẫn nghe được nhất?
+
+758
+00:58:54,200 --> 00:58:54,620
+Alo, lù.
+
+759
+00:59:05,870 --> 00:59:11,620
+Ok, thì với cái ý đồ với
+cái phần sản phẩm này
+
+760
+00:59:11,620 --> 00:59:14,880
+thì mình cần chia rõ ra anh, đúng không?
+
+761
+00:59:15,160 --> 00:59:20,080
+Tại vì thực tế cái bài toán của công ty
+bây giờ quan tâm là Thì là mình có thể lưu
+
+762
+00:59:20,080 --> 00:59:20,920
+trữ S3 thật.
+
+763
+00:59:22,040 --> 00:59:27,780
+Nhưng mà với bài toán bận hành an toàn
+thì nó phải được lưu trữ vừa local và vừa
+
+764
+00:59:27,780 --> 00:59:28,500
+lưu trữ S3.
+
+765
+00:59:29,470 --> 00:59:32,330
+Bởi vì có những khách hàng email
+thường người ta sử dụng rất nhiều năm.
+
+766
+00:59:34,310 --> 00:59:40,010
+Ví dụ như mình sẽ căn được tỷ lệ khách
+hàng của mình dùng trên mình 2 năm hoặc 3
+
+767
+00:59:40,010 --> 00:59:40,790
+năm như thế nào đấy.
+
+768
+00:59:41,230 --> 00:59:44,050
+Người ta sẽ sử dụng email
+box mình lưu trữ dài.
+
+769
+00:59:45,750 --> 00:59:49,950
+Thì lúc đấy bắt đầu mình chia ra là ok,
+khoảng thời gian này tôi sẽ để nhà hàng lưu
+
+770
+00:59:49,950 --> 00:59:52,030
+của local để lot dữ liệu cho nhanh.
+
+771
+00:59:52,030 --> 00:59:57,830
+Nhờ khoảng thời gian này tôi sẽ phải để
+lưu ở hệ thống chuyển sang hệ thống S3 để
+
+772
+00:59:57,830 --> 01:00:02,050
+nó giảm hệ thống local này lại thì mình
+mới tăng được tệp bất hàng ở trong hệ thống
+
+773
+01:00:02,050 --> 01:00:02,610
+local lên.
+
+774
+01:00:06,490 --> 01:00:08,770
+Đấy là cái đầu tiên quan đến bằng lưu chữ.
+
+775
+01:00:09,090 --> 01:00:13,610
+Cái thứ hai như anh bảo, cái bài toán mà
+mình đang thường xuyên gặp phải là vấn đề
+
+776
+01:00:13,610 --> 01:00:14,950
+tài khoản của nhà hàng SPAN.
+
+777
+01:00:16,320 --> 01:00:17,560
+Đi lạm dụng để spam.
+
+778
+01:00:18,980 --> 01:00:24,240
+Tức là nó scan được tài khoản ngách hàng
+bằng giao thức nào đấy và nó sử dụng thu
+
+779
+01:00:24,240 --> 01:00:27,960
+chế để mà nó tự sử dụng cái tài khoản đấy
+nó gửi chính cho ngách hàng hoặc chính
+
+780
+01:00:27,960 --> 01:00:29,660
+cho tất cả những cái tài khoản nội bộ.
+
+781
+01:00:32,090 --> 01:00:36,350
+Thì cái này thì nó sẽ liên quan đến
+
+782
+01:00:36,350 --> 01:00:41,100
+phần thu thập thông tin email.
+
+783
+01:00:42,360 --> 01:00:43,820
+Liên quan thu thập thông tin email.
+
+784
+01:00:44,000 --> 01:00:47,120
+Thì tức là bọn em sẽ
+phải giả định được cái...
+
+785
+01:00:47,440 --> 01:00:50,620
+Thông tin đấy là người ta sẽ thu
+tập tài khoản email bằng cách nào.
+
+786
+01:00:51,800 --> 01:00:57,200
+Vậy tại phần mềm mà các em viết có cơ
+chế để chống việc scan đấy hay không.
+
+787
+01:00:57,900 --> 01:01:00,860
+Ví dụ như là Portfix hay là
+ESIM nó sẽ có lỗ hỏng đấy.
+
+788
+01:01:01,480 --> 01:01:03,460
+Nếu mà người dùng người ta không
+có hình nó sẽ có lỗ hỏng đấy.
+
+789
+01:01:03,920 --> 01:01:06,640
+Và nó sẽ quét được tài
+khoản email của khách.
+
+790
+01:01:08,050 --> 01:01:11,430
+Người ta sử dụng các kỹ thu viết và người
+ta sẽ quét được những tài khoản email của
+
+791
+01:01:11,430 --> 01:01:11,570
+khách.
+
+792
+01:01:15,700 --> 01:01:21,240
+Cái thứ 3 là liên quan đến
+phần quản lý QQ, gửi nhận.
+
+793
+01:01:24,200 --> 01:01:30,200
+Thì các vấn đề tình trạng bây
+giờ chúng ta bị spam và dẫn đến
+
+794
+01:01:30,200 --> 01:01:30,900
+nét Quyld.
+
+795
+01:01:32,220 --> 01:01:35,020
+Và cái nhiệm vụ là ra là...
+
+796
+01:01:35,500 --> 01:01:41,040
+Thứ ra ở trong cái Zima thì nó vẫn hơi thủ
+công bằng việc là bình dường ví dụ mình
+
+797
+01:01:41,040 --> 01:01:44,600
+có Mail Quyld và mình có cái Hold Quyld.
+
+798
+01:01:45,220 --> 01:01:49,680
+Thông thường mình sẽ phải mút sang Hold
+Quyld để mà nó giải phóng tính trình Mail
+
+799
+01:01:49,680 --> 01:01:50,140
+Quyld đi.
+
+800
+01:01:52,150 --> 01:01:56,450
+Thì mà nó sẽ tiếp tục, những
+cái mail mới nó sẽ tiếp tục.
+
+801
+01:01:57,010 --> 01:02:01,130
+Còn những cái mail cũ chỉ khi nào khách
+hàng claim, thì bắt đầu mình sẽ check theo
+
+802
+01:02:01,130 --> 01:02:03,530
+cái tài khoản và cái domain
+ở trong cái home queue đấy.
+
+803
+01:02:03,790 --> 01:02:06,230
+Thì mình requeue lại, để
+gửi lại cho khách hàng.
+
+804
+01:02:07,290 --> 01:02:11,450
+Thì lúc này cái vấn đề ở hệ thống của mình
+là mình có giải quyết tự động được ở cái
+
+805
+01:02:11,450 --> 01:02:11,910
+bài toán không?
+
+806
+01:02:12,450 --> 01:02:15,050
+Ví dụ như là với cái việc mà...
+
+807
+01:02:15,080 --> 01:02:18,900
+hiện tại mình đang phải chia nhỏ cái vấn
+đề là mình alert cho những người quản trị
+
+808
+01:02:18,900 --> 01:02:19,220
+hệ thống.
+
+809
+01:02:20,750 --> 01:02:24,370
+Khi mình chỉnh khai thế này thì trên hệ
+thống mình sẽ có thể tập trung vào một hệ
+
+810
+01:02:24,370 --> 01:02:24,810
+thống hay không?
+
+811
+01:02:25,430 --> 01:02:30,150
+Nếu mà em xác định, em dùng hệ thống email
+này để sau này thay thế cho Zimba thì
+
+812
+01:02:30,150 --> 01:02:33,130
+đầu tiên mình phải giải quyết bài toán là
+mình quản lý tập trung vào những vấn đề
+
+813
+01:02:33,130 --> 01:02:33,310
+này.
+
+814
+01:02:34,980 --> 01:02:38,260
+Hiện tại anh thấy bọn em có
+xây dựng cả VictoriaLogs.
+
+815
+01:02:38,320 --> 01:02:41,540
+Anh biết là Vũ ứng dụng
+ở VictoriaLogs rồi rồi.
+
+816
+01:02:42,880 --> 01:02:46,880
+Bây giờ mình phải đẩy về một hệ thống
+email tập trung giống như cách mà hiện tại
+
+817
+01:02:46,880 --> 01:02:49,520
+đội vận hành đang xây dựng
+một email central để...
+
+818
+01:02:50,420 --> 01:02:52,980
+Cone tất cả các đồng tin của
+các hệ thống server mail này.
+
+819
+01:02:53,800 --> 01:02:53,960
+Đúng không?
+
+820
+01:02:54,360 --> 01:02:56,440
+Thì cái bài toán này của mình
+đặt toàn tương tự như vậy.
+
+821
+01:02:56,620 --> 01:03:01,400
+Đầu tiên là cái sitlog của nó bọn em đồng
+ý là bọn em vẫn sẽ để ở trên hệ thống
+
+822
+01:03:01,400 --> 01:03:02,680
+email của mẹ người ta.
+
+823
+01:03:03,180 --> 01:03:05,700
+Nhưng mà bọn em phải có một
+cái phần email tập trung.
+
+824
+01:03:05,900 --> 01:03:06,340
+Đúng không?
+
+825
+01:03:07,290 --> 01:03:09,010
+Để bọn em giải quyết những cái vấn đề này.
+
+826
+01:03:09,510 --> 01:03:13,830
+Và thực ra là cái central mail ấy, nếu mà
+bọn em đã xác dựng cái này, xây dựng cái
+
+827
+01:03:13,830 --> 01:03:16,670
+hệ thống email này rồi
+ấy, thì thực ra anh sẽ...
+
+828
+01:03:16,890 --> 01:03:20,150
+Anh sẽ có một bài toán cho em đặt ra là
+tại sao bọn em không xây dựng một cái
+
+829
+01:03:20,150 --> 01:03:23,750
+central để phản lý email và tất cả những
+cái node email mà bọn em join vào cái
+
+830
+01:03:23,750 --> 01:03:24,230
+central đấy.
+
+831
+01:03:25,460 --> 01:03:26,100
+Chính xác nhỉ?
+
+832
+01:03:26,540 --> 01:03:30,140
+Thay vì mình xây dựng theo kiểu
+single hiện tại, bám theo Zima.
+
+833
+01:03:30,780 --> 01:03:34,400
+Nếu mà bọn em xây dựng theo kiểu đấy nhé,
+bọn em xây dựng rất là dễ bằng việc khi
+
+834
+01:03:34,400 --> 01:03:38,040
+mà bọn em xây dựng một loạt các cluster
+hoặc là bọn em xây dựng single node đúng
+
+835
+01:03:38,040 --> 01:03:38,180
+không?
+
+836
+01:03:38,560 --> 01:03:41,420
+Thì thứ bọn em phải thường
+xuyên lặp lại khi cái lặp là gì?
+
+837
+01:03:43,200 --> 01:03:43,900
+Cấu hình lại.
+
+838
+01:03:45,620 --> 01:03:46,520
+Cấu hình lại con phí.
+
+839
+01:03:47,020 --> 01:03:51,540
+Nhưng nếu bọn em join vào chung một nốt
+thì trong nốt đấy bọn em có thể tự cấu hình
+
+840
+01:03:51,700 --> 01:03:56,760
+một server hoặc là bọn em tự tạo
+một group config và tất cả những
+
+841
+01:03:56,760 --> 01:04:00,400
+server được join vào nó sẽ tự
+nhận chung được cấu hình đấy.
+
+842
+01:04:02,980 --> 01:04:08,860
+Tất cả những phần liên quan đến Clam,
+liên quan đến Antivirus, liên quan
+
+843
+01:04:08,860 --> 01:04:09,860
+đến Filter, các thứ.
+
+844
+01:04:11,040 --> 01:04:14,000
+Khi bọn em add-up 1 cái là tất cả
+những server khác nó sẽ đồng bộ luôn.
+
+845
+01:04:15,500 --> 01:04:18,620
+Đấy chính là cách để con
+em thiết kế phần này.
+
+846
+01:04:19,740 --> 01:04:25,660
+Ví dụ những phần liên quan đến thu
+tập log của Vũ thì đẩy chung về
+
+847
+01:04:25,660 --> 01:04:28,140
+một server ấy thôi, không cần
+phải đẻ ra những server khác nữa.
+
+848
+01:04:28,900 --> 01:04:33,680
+Những server khác mình chỉ cần có một
+cái sheet log server tập trung thôi
+
+849
+01:04:33,680 --> 01:04:37,180
+để mình thu tập tất cả
+những log của người dùng.
+
+850
+01:04:37,480 --> 01:04:43,420
+Nhưng mà tất cả các data nó sẽ được
+gửi về cái central log của email để con
+
+851
+01:04:43,420 --> 01:04:45,800
+em sử lý cái bài toán là
+Mình chơi vết tập trung luôn.
+
+852
+01:04:49,180 --> 01:04:54,080
+Còn anh thấy là có cái phần
+liên quan đến trong inbox và đọc
+
+853
+01:04:54,650 --> 01:04:58,170
+API key, đọc được nội dung đúng không?
+
+854
+01:04:58,330 --> 01:04:58,850
+Vâng, vâng.
+
+855
+01:04:58,970 --> 01:05:02,150
+Mà để AI đánh giá thì chẳng.
+
+856
+01:05:02,510 --> 01:05:06,530
+Nhưng mà liệu AI có sẽ là cái lỗ
+hổng, lỗ API key của khách không?
+
+857
+01:05:09,230 --> 01:05:10,110
+Có khả năng không?
+
+858
+01:05:11,310 --> 01:05:12,290
+Có khả năng.
+
+859
+01:05:12,690 --> 01:05:15,250
+Thực ra thì em sẽ, cái này thì cũng có.
+
+860
+01:05:15,470 --> 01:05:18,070
+Nó có khả năng đấy là một,
+cái thứ hai là em để cho.
+
+861
+01:05:19,060 --> 01:05:23,240
+Đồn biên admin được webconfig sẽ
+chạy chủ động trên API key của họ.
+
+862
+01:05:25,860 --> 01:05:28,280
+Ví dụ như khách hàng người ta gửi
+nó không phải của mình thì sao?
+
+863
+01:05:28,460 --> 01:05:29,920
+Không phải của mình thì sao?
+
+864
+01:05:30,570 --> 01:05:34,510
+Mà là những cái thông tin khách hàng gửi
+liên quan đến tài khoản mật khẩu của khách
+
+865
+01:05:34,510 --> 01:05:34,810
+chẳng hạn.
+
+866
+01:05:35,450 --> 01:05:35,950
+Đúng không?
+
+867
+01:05:36,510 --> 01:05:39,110
+Còn những cái API key của khách thì sao?
+
+868
+01:05:41,440 --> 01:05:42,100
+Thí xác chưa?
+
+869
+01:05:42,340 --> 01:05:43,460
+Đúng không?
+
+870
+01:05:44,770 --> 01:05:46,390
+Thì làm sao mình biết?
+
+871
+01:05:46,550 --> 01:05:47,690
+Làm sao mình biết được?
+
+872
+01:05:49,570 --> 01:05:54,570
+Và trong trường hợp người ta vô tình
+gửi nhầm, retry của mình cũng chưa có
+
+873
+01:05:54,570 --> 01:05:59,130
+thông báo chứa thông tin này nhạy cảm.
+
+874
+01:05:59,590 --> 01:06:00,690
+Có muốn gửi đi hay không?
+
+875
+01:06:00,970 --> 01:06:05,030
+Thực ra ngay từ bước gửi, nếu em đọc được
+luôn cái đấy hoặc là em xử lý luôn được
+
+876
+01:06:05,030 --> 01:06:08,590
+nội dung đấy thì nó sẽ giải quyết
+luôn việc khách hàng tự vào retry lại.
+
+877
+01:06:08,790 --> 01:06:13,840
+Mất thêm một bước là tôi phải vào
+trí tích để retry lại việc gửi mail.
+
+878
+01:06:17,370 --> 01:06:22,770
+Hoặc là như việc em mở external link thông
+qua shape link, như cái này em làm giống
+
+879
+01:06:22,770 --> 01:06:23,770
+thằng Outlook.
+
+880
+01:06:25,190 --> 01:06:26,710
+Và em chèn cái shape link vào.
+
+881
+01:06:27,590 --> 01:06:32,850
+Thì với kiểu shape link như thế, thực ra
+là mình có một cách khi các nhà bấm vào
+
+882
+01:06:32,850 --> 01:06:33,210
+shape link.
+
+883
+01:06:33,910 --> 01:06:36,470
+Một là em góp minh luôn
+là mở external link.
+
+884
+01:06:37,680 --> 01:06:38,620
+Nó có hai cái nhé.
+
+885
+01:06:38,720 --> 01:06:40,900
+Tại vì đôi khi nó sẽ liên quan
+đến trải nghiệm của khách.
+
+886
+01:06:42,300 --> 01:06:45,680
+Tại vì trong trường hợp ví dụ như mình
+ghi đè vào lỗi thì có thể nó sẽ ảnh hưởng
+
+887
+01:06:45,680 --> 01:06:46,480
+trải nghiệm của khách.
+
+888
+01:06:47,070 --> 01:06:50,590
+Ví dụ mình xác định cái link đấy là link
+nằm ngoài thông tin email của khách, đúng
+
+889
+01:06:50,590 --> 01:06:50,730
+không?
+
+890
+01:06:52,170 --> 01:06:54,110
+Mình có thể xác định nó
+external link, đúng không?
+
+891
+01:06:54,510 --> 01:06:58,150
+Link bên ngoài thì mình có thể bôn link
+cho khách ngay từ cái việc khách hàng bấm
+
+892
+01:06:58,150 --> 01:06:58,530
+link, đúng không?
+
+893
+01:07:00,250 --> 01:07:00,390
+Vâng.
+
+894
+01:07:02,570 --> 01:07:06,030
+Còn cái việc mà ví dụ mình bấm link là
+mình có web hay không, lúc đấy mình sẽ cân
+
+895
+01:07:06,030 --> 01:07:06,210
+nhắc.
+
+896
+01:07:07,360 --> 01:07:12,660
+Ví dụ như web, ví dụ như IP,
+cái domain nó nằm trong cái
+
+897
+01:07:12,750 --> 01:07:17,890
+blacklist liên quan đến thu tập
+thông tin, chẳng hạn, đúng không?
+
+898
+01:07:19,180 --> 01:07:20,620
+Thì lúc đấy mình sẽ learning.
+
+899
+01:07:21,060 --> 01:07:24,600
+Thông thường ví dụ như kiểu những cái đấy
+nó hay trở rôn nó hiển thị màu đỏ đúng
+
+900
+01:07:24,600 --> 01:07:24,760
+không?
+
+901
+01:07:25,240 --> 01:07:25,600
+Vâng.
+
+902
+01:07:25,600 --> 01:07:25,940
+Đúng không?
+
+903
+01:07:26,260 --> 01:07:28,500
+Thì mình sẽ có cái learning
+đấy cho khách luôn.
+
+904
+01:07:29,810 --> 01:07:31,050
+Như cái đấy của Nescat.
+
+905
+01:07:35,490 --> 01:07:40,630
+Về ok, thật ra là nếu mà bỏ
+để đi hết thì khá là khó.
+
+906
+01:07:40,910 --> 01:07:46,200
+Nhưng mà về cơ bản thì những cái
+mà bọn em đang làm thì nó cũng
+
+907
+01:07:46,200 --> 01:07:48,800
+khá là ổn.
+
+908
+01:07:48,900 --> 01:07:53,120
+Khá là ổn về cái mặt mà mình
+có cái logic, cái sự thay đổi.
+
+909
+01:07:53,760 --> 01:07:54,920
+Về mặt hệ thống.
+
+910
+01:07:56,530 --> 01:07:59,450
+Nhưng mà sẽ có một số cái
+thì anh sẽ phải con link ra.
+
+911
+01:08:00,070 --> 01:08:03,610
+Ví dụ như iMob, iMob hay là Cobra.
+
+912
+01:08:04,130 --> 01:08:07,130
+Thì nếu mà bọn em xác định
+bọn em thay thế những cái...
+
+913
+01:08:07,130 --> 01:08:11,910
+Hiện tại như kiểu là DoveCode,
+DoveCode, hiện tại mà bọn em thay thế.
+
+914
+01:08:12,430 --> 01:08:15,730
+Thì bọn em cho thấy được sao
+bọn em sẽ phải thay thế đấy.
+
+915
+01:08:15,990 --> 01:08:17,490
+Nó về hiệu suất như nào, đúng không?
+
+916
+01:08:17,850 --> 01:08:20,330
+Tại sao bọn em defector lại nó bằng Word.
+
+917
+01:08:22,290 --> 01:08:25,850
+Bạn em đặt app theo ý chuẩn
+với FC nào của iMac, DevOps.
+
+918
+01:08:26,190 --> 01:08:32,010
+Ngoài ra tại sao không thể thay thế
+nó ngay được bởi vì các ứng dụng
+
+919
+01:08:32,010 --> 01:08:35,130
+liên quan đến email khách
+hàng còn dùng khá nhiều.
+
+920
+01:08:35,550 --> 01:08:38,830
+Ở ý chuẩn đấy kể cả ngay trên
+các kết thị iOS không bỏ.
+
+921
+01:08:40,230 --> 01:08:44,130
+iOS hay Android không bỏ những
+tích hợp email tủ công đấy.
+
+922
+01:08:44,750 --> 01:08:46,790
+Do vậy mình cũng sẽ rất khó bỏ nó.
+
+923
+01:08:47,710 --> 01:08:50,930
+Đến một lúc nào đấy nhé, anh không
+bỏ nó sẽ hoàn toàn không bỏ được nhé.
+
+924
+01:08:52,080 --> 01:08:54,640
+Thì khách hàng sử dụng GrabMail
+của mình ok rồi, đúng không?
+
+925
+01:08:55,120 --> 01:08:58,020
+Thì những cái đấy hoàn toàn thì nó sẽ giảm
+ít hụt hụt hụt hụt hụt hụt hụt hụt hụt
+
+926
+01:08:58,020 --> 01:08:59,520
+hụt hụt hụt hụt hụt hụt hụt hụt hụt hụt
+hụt hụt hụt hụt hụt hụt hụt hụt hụt hụt hụt
+
+927
+01:08:59,520 --> 01:09:02,980
+hụt hụt hụt hụt hụt hụt hụt hụt hụt hụt
+hụt hụt hụt hụt hụt hụt hụt hụt hụt hụt hụt
+
+928
+01:09:02,980 --> 01:09:07,200
+hụt hụt hụt hụt hụt hụt hụt hụt
+
+929
+01:09:07,200 --> 01:09:14,020
+hụt
+
+930
+01:09:14,020 --> 01:09:17,660
+hụt
+
+931
+01:09:17,790 --> 01:09:23,540
+hụ Anh em nên ghét là ứng dụng chỉ cần
+GIMM trên điện thoại này luôn, nó gọi là
+
+932
+01:09:23,540 --> 01:09:23,800
+GIMM.
+
+933
+01:09:24,920 --> 01:09:25,360
+VWR.
+
+934
+01:09:27,840 --> 01:09:28,280
+VWR.
+
+935
+01:09:30,100 --> 01:09:35,800
+Chính các bạn hiện tại là OneMail
+hiện tại đang làm có thể GIMM được ứng
+
+936
+01:09:35,860 --> 01:09:41,700
+dụng trực tiếp lên thời gian của
+mình, ứng dụng của Mobile, và
+
+937
+01:09:41,700 --> 01:09:42,160
+TESTOP.
+
+938
+01:09:52,210 --> 01:09:56,230
+Vậy thì đầu tiên anh đang
+
+939
+01:09:59,630 --> 01:10:01,190
+chốt được một số ý đấy với các em.
+
+940
+01:10:01,700 --> 01:10:03,660
+Còn một số ý liên quan đến...
+
+941
+01:10:03,660 --> 01:10:06,400
+Thế là anh biết là thằng LSPAN
+này như thằng Hải Phổ Nga.
+
+942
+01:10:09,460 --> 01:10:15,010
+Thằng Hải Phổ Nga nó
+cải tiến từ thằng SPAN
+
+943
+01:10:15,010 --> 01:10:15,530
+MASSACINE.
+
+944
+01:10:19,220 --> 01:10:23,480
+Thằng này thì anh không chắc lắm, anh
+không làm việc nhiều thằng LSPAN D này.
+
+945
+01:10:24,040 --> 01:10:26,480
+Anh không chắc lắm nhờ,
+bọn em cứ thử nghiệm thôi.
+
+946
+01:10:26,740 --> 01:10:32,180
+Tại vì em thấy là nó sẽ dễ customize hơn,
+có nghĩa là mình dễ custom blue hơn và
+
+947
+01:10:32,180 --> 01:10:34,200
+mình dễ xây DevOps để quản lý nó luôn hơn.
+
+948
+01:10:34,850 --> 01:10:37,450
+Thì em sẽ dễ xin cái này
+có trao đổi với chúng ta.
+
+949
+01:10:39,060 --> 01:10:40,960
+Ok, có vấn đề gì?
+
+950
+01:10:41,460 --> 01:10:44,460
+Thằng The Spam thì anh biết
+nhưng anh cũng chưa động vào nó.
+
+951
+01:10:45,480 --> 01:10:50,400
+Còn ngoài The Spam này thì nãy
+anh thấy là em có cái phần để mà
+
+952
+01:10:51,140 --> 01:10:57,090
+eluser người ta đánh dấu
+cái tự học 3 lần đúng
+
+953
+01:10:57,090 --> 01:10:57,190
+không?
+
+954
+01:10:57,490 --> 01:10:57,670
+Vâng.
+
+955
+01:10:57,690 --> 01:10:59,770
+Cái Spam đấy và hệ thống
+sẽ tự chặn đúng không?
+
+956
+01:10:59,890 --> 01:11:00,030
+Vâng.
+
+957
+01:11:00,790 --> 01:11:03,150
+Anh nghĩ là không đơn
+thuần là mình tự chặn đâu.
+
+958
+01:11:03,290 --> 01:11:05,330
+Nghĩ là mình sẽ cần phải
+bổ sung thêm cái việc này.
+
+959
+01:11:05,660 --> 01:11:08,600
+Nó sẽ phải tự học tại sao
+mình dùng để giấu spam đấy.
+
+960
+01:11:09,820 --> 01:11:14,040
+Mình sẽ phải dùng AI để kiểm
+tra email để xem kết quốc nó gì.
+
+961
+01:11:14,600 --> 01:11:19,840
+Và anh nghĩ mình sẽ cần phải có một thư
+viện, một data để lưu trữ những thông tin
+
+962
+01:11:19,840 --> 01:11:20,060
+đấy.
+
+963
+01:11:22,120 --> 01:11:26,020
+Như vậy thì sau mình dùng AI hoặc là mình
+kết hợp vào những lưu của mình thì mình
+
+964
+01:11:26,020 --> 01:11:28,820
+mới biết là spam giấu đợt.
+
+965
+01:11:33,480 --> 01:11:35,320
+Phần lưu trữ sẽ tách ra.
+
+966
+01:11:36,720 --> 01:11:42,580
+Còn phần Nginx thì anh sẽ
+chưa lõi cơ chế hiện tại là
+
+967
+01:11:42,580 --> 01:11:44,700
+em đang phỏng Nginx như thế nào thì dùng.
+
+968
+01:11:46,020 --> 01:11:51,120
+Chắc là sẽ ngồi riêng sau để xem thêm.
+
+969
+01:11:54,650 --> 01:12:00,500
+Ngoài ra nha, cái này nếu mà sắp tới
+trong cái bản trình bày thì mình cũng
+
+970
+01:12:00,500 --> 01:12:03,880
+cần showcase luôn những cái vấn đề đầu
+tiên là kết nối từ cái thiết bị mobile của
+
+971
+01:12:03,880 --> 01:12:04,300
+mình là một.
+
+972
+01:12:04,980 --> 01:12:08,440
+Thiết bị Outlook ở trên các cái ứng
+dụng desktop hiện tại là hai này.
+
+973
+01:12:09,540 --> 01:12:12,880
+Mình cũng cần sâu những thông tin đấy lên.
+
+974
+01:12:16,570 --> 01:12:19,730
+Tức là cái demo nó sẽ sát
+thực tế, nó sẽ dùng luôn.
+
+975
+01:12:21,640 --> 01:12:24,360
+Cho cái núi qua...
+
+976
+01:12:24,710 --> 01:12:25,550
+...Alo.
+
+977
+01:12:27,070 --> 01:12:29,470
+Các thứ mình sẽ phải test luôn.
+
+978
+01:12:35,230 --> 01:12:38,310
+Thì anh nghĩ là em sẽ cần
+có một số cái checklist.
+
+979
+01:12:38,830 --> 01:12:43,550
+Coi như em sẽ bổ sung cho một số cái
+checklist để đưa vào, để trước khi mà cái sản
+
+980
+01:12:43,550 --> 01:12:45,530
+phẩm này được đưa ra
+để vận hành đúng không?
+
+981
+01:12:46,000 --> 01:12:49,720
+Thì được đến người dùng thật thì mình cần
+có những checklist nào, và mình cần phải
+
+982
+01:12:49,720 --> 01:12:50,700
+pack những checklist đấy.
+
+983
+01:12:51,410 --> 01:12:56,930
+Chú hỏi tí này, cháu lấy số
+liệu bên Jinva là số liệu thật,
+
+984
+01:12:57,030 --> 01:12:58,950
+chạy thật hay là số liệu lý thuyết đấy?
+
+985
+01:12:59,270 --> 01:12:59,850
+Lý thuyết.
+
+986
+01:13:00,090 --> 01:13:01,850
+Không, không.
+
+987
+01:13:02,010 --> 01:13:03,270
+Nó không có số liệu thật à?
+
+988
+01:13:03,510 --> 01:13:06,010
+Cháu không có xét đổi nữa rồi.
+
+989
+01:13:07,010 --> 01:13:12,310
+Nếu mà muốn so sánh nếu mà gọi là số liệu
+thật thì bây giờ mình phải chạy chung
+
+990
+01:13:12,310 --> 01:13:14,550
+trên một cấu hình, cháu chiên hủ.
+
+991
+01:13:14,740 --> 01:13:16,780
+Thì không nghĩ là...
+
+992
+01:13:16,780 --> 01:13:21,200
+Nếu mà em cần thì tự ta là
+tự dẫn anh đều cấp được mà.
+
+993
+01:13:22,280 --> 01:13:27,960
+Tại vì ngay từ cái báo cáo
+đập phóng mắt là 1,3,3,90
+
+994
+01:13:27,960 --> 01:13:31,780
+,100, tỉnh chỉnh Zimba trên
+mỗi nót thấy hơi điêu điêu.
+
+995
+01:13:32,710 --> 01:13:36,230
+Zimba gì mà chạy, Zimba, Zimba, Zimba,
+Zimba, Zimba, Zimba, Zimba, Zimba, Zimba,
+
+996
+01:13:36,230 --> 01:13:36,750
+Zimba, Zimba, Zimba, Zimba, Zimba, Zimba,
+Zimba, Zimba, Zimba, Zimba, Zimba, Zimba,
+
+997
+01:13:36,750 --> 01:13:40,870
+Zimba, Zimba, Zimba, Zimba, Zimba, Zimba,
+Zimba, Zimba, Zimba, Zimba, Zimba, Zimba,
+
+998
+01:13:41,150 --> 01:13:46,990
+Zimba, Z Nóng mắt anh
+
+999
+01:13:46,990 --> 01:13:48,490
+thấy khá cấn như thế.
+
+1000
+01:13:49,470 --> 01:13:53,510
+Và kể cả chỗ đêm ác, đầy kim ấy.
+
+1001
+01:13:54,620 --> 01:13:59,780
+Anh thấy 2 lớp thì lúc mà
+ác đầy kim thì mình ác cả 2.
+
+1002
+01:14:01,330 --> 01:14:03,370
+Thì tại em nó trỏ, em ác cả 2.
+
+1003
+01:14:03,870 --> 01:14:04,750
+Thế biết sao?
+
+1004
+01:14:07,420 --> 01:14:08,280
+Thế biết sao?
+
+1005
+01:14:08,600 --> 01:14:10,840
+Tại vì nếu mà mình...
+
+1006
+01:14:10,840 --> 01:14:12,440
+cái báo cáo này thì cháu...
+
+1007
+01:14:13,220 --> 01:14:14,200
+cho cái AI đúng không?
+
+1008
+01:14:14,480 --> 01:14:20,200
+Thì trong cái context, cái nốc ở trong
+suộc của cháu ấy, nó cũng có thể lưu các
+
+1009
+01:14:20,200 --> 01:14:20,880
+thông tin như thế này.
+
+1010
+01:14:21,400 --> 01:14:25,740
+Thì thành ra càng lúc, cái lúc
+mà Viacode ấy nó càng bị ảo
+
+1011
+01:14:25,740 --> 01:14:31,660
+giác ấy, ảo giác sai ấy,
+nó càng sai dần, nó càng
+
+1012
+01:14:31,660 --> 01:14:33,240
+bị over engineer ấy.
+
+1013
+01:14:33,500 --> 01:14:34,400
+Cẩn thận chú ý cho đấy.
+
+1014
+01:14:34,740 --> 01:14:40,580
+Nên là khi có số liệu để làm bằng
+chứng, so sánh cụ thể này kia thì nên
+
+1015
+01:14:40,580 --> 01:14:42,500
+kêu nó phải có dẫn chứng.
+
+1016
+01:14:42,810 --> 01:14:48,050
+Phải có đi đâu đấy chẳng hạn để sau này ví
+dụ nó có contact một cái thì nó sẽ thiết
+
+1017
+01:14:48,050 --> 01:14:53,570
+kế chuẩn hơn đúng hơn chứ không nhiều khi
+nói ảo quá nó có phóng phóng phóng đại
+
+1018
+01:14:53,570 --> 01:14:58,770
+lên nên thành ra cái lúc mà triển
+khai thật cái này nó lại cứ đi sai
+
+1019
+01:14:58,770 --> 01:15:04,370
+hướng tại vì chưa thấy nó mà chạy
+ví dụ cái process của cháu chạy bằng
+
+1020
+01:15:04,370 --> 01:15:10,360
+rớt là có như là sát sát mạng
+máy nhất rồi mà mà nó tới tận cả
+
+1021
+01:15:10,360 --> 01:15:15,180
+trăm mê này kia Các bạn có thể chạy idea
+hay là chạy full load hay là chạy trung
+
+1022
+01:15:15,180 --> 01:15:15,380
+bình?
+
+1023
+01:15:15,580 --> 01:15:18,280
+Trung bình là 7.6 đến 7.7.
+
+1024
+01:15:18,500 --> 01:15:23,880
+Rất, chúng nghĩ là đã còn rớt thì nó phải
+siêu nhẹ rồi chứ mà nó còn chạy nhiều thế
+
+1025
+01:15:23,880 --> 01:15:24,100
+cơ.
+
+1026
+01:15:25,060 --> 01:15:29,440
+Nhẹ thì nó nhẹ thì nó mới mất bởi vì bây
+giờ mình còn bao thì nó nhìn vào iMac và
+
+1027
+01:15:29,440 --> 01:15:29,920
+có port 3.
+
+1028
+01:15:30,810 --> 01:15:33,010
+Tức là chỉ như cái...
+
+1029
+01:15:33,010 --> 01:15:35,430
+chính là cái OS Mail Server đúng không?
+
+1030
+01:15:35,610 --> 01:15:36,490
+Đã vâng.
+
+1031
+01:15:36,510 --> 01:15:38,090
+Tại em gom tất cả vào một cái đấy.
+
+1032
+01:15:38,630 --> 01:15:38,910
+Vâng.
+
+1033
+01:15:52,230 --> 01:15:53,270
+Thì nó
+
+1034
+01:15:54,670 --> 01:16:06,530
+lại
+
+1035
+01:16:06,530 --> 01:16:08,730
+khó, khoản lý tập trung.
+
+1036
+01:16:09,720 --> 01:16:15,020
+Ngay từ đầu cháu đang theo kiến trúc
+Microsoft hay là theo kiến trúc Monolith và
+
+1037
+01:16:15,020 --> 01:16:16,180
+kết nối bằng HTTP?
+
+1038
+01:16:16,940 --> 01:16:21,410
+Cháu chạy bên
+
+1039
+01:16:21,410 --> 01:16:25,030
+dưới mà Monolith thì chú sợ dễ quảng lắm.
+
+1040
+01:16:26,620 --> 01:16:31,860
+Ở trên thì có thể Monolith được, chứ còn
+ở dưới Monolith nó sợ điểm nhẹn của cha
+
+1041
+01:16:31,860 --> 01:16:32,060
+ấy.
+
+1042
+01:16:39,230 --> 01:16:43,450
+Ở dưới nó sẽ xử lý rất là
+nhiều, chứ nó không phải ít đâu.
+
+1043
+01:16:46,340 --> 01:16:52,320
+Việc kéo Infra, kéo Postgre hay là những
+nền tảng khác mà nó đủ nhiều để quản lý.
+
+1044
+01:16:53,160 --> 01:16:58,920
+Theo anh biết thì Postgre mà nếu
+một số lượng sau nó nhiều lên thì nó
+
+1045
+01:16:59,110 --> 01:16:59,750
+là điều nghĩa.
+
+1046
+01:16:59,850 --> 01:17:01,590
+Em cũng nghĩ là điều nghĩa nó sẽ là...
+
+1047
+01:17:01,590 --> 01:17:05,230
+Tại vì Postgre nó xử lý
+scale lớn và nó khá chậm.
+
+1048
+01:17:07,500 --> 01:17:11,440
+Chú Dũng thử rồi, nó phình nhanh lắm,
+dung lượng nó phình nhanh cực kì.
+
+1049
+01:17:11,780 --> 01:17:14,400
+Và trong cái đấy mình lưu
+Magic thì nó phình thôi nha.
+
+1050
+01:17:14,560 --> 01:17:17,040
+Nhưng ý ở đây là cái khả năng
+xử lý ví dụ trên nhiều domain.
+
+1051
+01:17:17,660 --> 01:17:20,100
+Thì thằng FoxQui nó xử lý này, khá là kém.
+
+1052
+01:17:20,640 --> 01:17:25,000
+Thằng FoxQui này bài toán xử lý kém là
+nó đã gặp ở ngay trên chính con đấu mốc.
+
+1053
+01:17:27,400 --> 01:17:28,160
+Đốc kém à?
+
+1054
+01:17:28,860 --> 01:17:29,260
+Đốc kém.
+
+1055
+01:17:29,340 --> 01:17:30,380
+Nó xử lý kém.
+
+1056
+01:17:30,520 --> 01:17:36,460
+Khi mà ví dụ là tần suất nó phải
+loát, đu các thứ filter nhiều ấy là nó
+
+1057
+01:17:36,460 --> 01:17:39,560
+sẽ bị chậm dù tài nguyên
+của SeguroMetrics còn.
+
+1058
+01:17:40,420 --> 01:17:44,320
+Nó sẽ rất là bị chậm kiểu
+nó không bị query nổi.
+
+1059
+01:18:08,760 --> 01:18:14,620
+Nhưng mà từ từ ngay từ từ chú hỏi mục
+đích ban đầu là cháu muốn thay luôn cái
+
+1060
+01:18:14,620 --> 01:18:20,020
+Zimba hay là cháu muốn là triển khai để
+cho để để cho khách hàng họ tự vận hành cái
+
+1061
+01:18:20,020 --> 01:18:23,580
+mail này để cài trên cloud server của họ.
+
+1062
+01:18:23,760 --> 01:18:27,300
+Cháu muốn thay Zimbra, thay cái của mình.
+
+1063
+01:18:28,460 --> 01:18:33,300
+Bởi vì nếu như cháu, từ đầu mà đã chốt
+là để cho khách hàng tự vận hành thì cái
+
+1064
+01:18:33,300 --> 01:18:36,260
+text tag sẽ đơn giản hơn, nó sẽ không
+có nhiều component như hiện tại.
+
+1065
+01:18:36,840 --> 01:18:40,800
+Mà nó sẽ gói vào một trong binary, nó
+giống như bọn Star Wars, một cái mail server
+
+1066
+01:18:40,800 --> 01:18:44,640
+khác bằng Rust ấy đang làm có nghĩa là nó
+cho người ta tự vận hành một cách là đúng
+
+1067
+01:18:44,640 --> 01:18:46,200
+chỉ một binary người ta
+biên dịch ra là chạy.
+
+1068
+01:18:46,540 --> 01:18:49,880
+Thì đấy là cái hướng mà bắt đầu
+cháu có biết hai cái hướng đấy.
+
+1069
+01:18:50,200 --> 01:18:52,600
+Và cháu đã quyết định là
+cháu để nó như thế này.
+
+1070
+01:18:53,740 --> 01:18:59,720
+Nhưng mà cháu quyết định thay, chạy hộp
+âm, chạy thử nghiệm cho để khách vận
+
+1071
+01:18:59,720 --> 01:18:59,960
+hành.
+
+1072
+01:19:01,900 --> 01:19:07,860
+Thì thực ra cái này là do vấn đề liên
+quan đến gọi là lấy sau gọi là hướng
+
+1073
+01:19:07,860 --> 01:19:09,620
+đi của mọi người, của trao đổi với CO.
+
+1074
+01:19:09,760 --> 01:19:12,820
+Tại vì nếu mà cháu muốn mục đích là để...
+
+1075
+01:19:12,880 --> 01:19:17,580
+Thay vận hành của mình hiện tại thì cháu
+phải có cái thứ nhất là phải đưa ra các
+
+1076
+01:19:17,580 --> 01:19:19,300
+nỗi đau hiện tại của bên vận hành.
+
+1077
+01:19:20,120 --> 01:19:23,960
+Và cháu có bằng chứng là cháu đã giải
+quyết được nỗi đau bằng hệ thống của cháu.
+
+1078
+01:19:27,380 --> 01:19:31,980
+Thì thế thì bên vận hành
+thì rất là thay đổi ngay.
+
+1079
+01:19:32,040 --> 01:19:34,440
+Vì giải quyết được nỗi đau của
+họ thì họ rất là thay đổi ngay.
+
+1080
+01:19:34,560 --> 01:19:40,180
+Còn hiện tại chú vẫn chưa thấy
+nỗi đau của vận hành để cháu thay
+
+1081
+01:19:40,180 --> 01:19:42,040
+đổi được cái điều đấy.
+
+1082
+01:19:47,530 --> 01:19:53,150
+Còn nếu mà muốn chạy để cho khách
+họ tự vận hành cái MailSaver thì
+
+1083
+01:19:53,150 --> 01:19:58,090
+rõ ràng về cái bài toán kinh tế là họ chả
+tội vạ gì, họ phải bỏ mấy trăm nghìn, họ
+
+1084
+01:19:58,090 --> 01:20:03,750
+mua một cái CloudSaver kèm
+cái Mail này làm gì trong khi
+
+1085
+01:20:03,750 --> 01:20:08,050
+cái gói Mail rất là rẻ rồi, có mấy chục
+nghìn là nó mua được một cái gói Mail rồi
+
+1086
+01:20:08,050 --> 01:20:10,110
+mà không phải lo về cấu
+hình vận hành gì hết.
+
+1087
+01:20:11,070 --> 01:20:16,270
+Mà để chạy được cái con, như cái mail
+server này theo như cháu ghi là 3,
+
+1088
+01:20:16,270 --> 01:20:21,210
+4 ghi thì ít nhất cũng phải gọi 4, 5 ghi
+đấy, là mấy trăm nghìn tháng rồi đấy.
+
+1089
+01:20:21,810 --> 01:20:26,470
+Để sao chú phải bỏ cái số tiền nhiều hơn
+so với việc mấy trung nghìn chú đã có một
+
+1090
+01:20:26,470 --> 01:20:29,550
+cái con mail để chú sử dụng luôn rồi.
+
+1091
+01:20:30,350 --> 01:20:30,470
+Đúng không?
+
+1092
+01:20:32,070 --> 01:20:32,470
+Vâng.
+
+1093
+01:20:38,870 --> 01:20:40,410
+Anh nghĩ
+
+1094
+01:20:46,270 --> 01:20:49,250
+là về xe checklist là những cái
+vận hành như các anh trao đổi.
+
+1095
+01:20:49,450 --> 01:20:49,770
+Được rồi.
+
+1096
+01:20:50,010 --> 01:20:50,010
+Được rồi.
+
+1097
+01:20:50,050 --> 01:20:50,410
+Được rồi.
+
+1098
+01:20:50,410 --> 01:20:50,710
+Được rồi.
+
+1099
+01:20:50,710 --> 01:20:50,730
+Được rồi.
+
+1100
+01:20:50,730 --> 01:20:50,730
+Được rồi.
+
+1101
+01:20:50,730 --> 01:20:50,830
+Được rồi.
+
+1102
+01:20:51,050 --> 01:20:51,050
+Được rồi.
+
+1103
+01:20:51,050 --> 01:20:51,050
+Được rồi.
+
+1104
+01:20:51,070 --> 01:20:51,070
+Được rồi.
+
+1105
+01:20:51,090 --> 01:20:51,090
+Được rồi.
+
+1106
+01:20:51,370 --> 01:20:51,430
+Được rồi.
+
+1107
+01:20:51,430 --> 01:20:51,430
+Được rồi.
+
+1108
+01:20:51,430 --> 01:20:51,590
+Được rồi.
+
+1109
+01:20:51,690 --> 01:20:51,690
+Được rồi.
+
+1110
+01:20:51,890 --> 01:20:52,050
+Được rồi.
+
+1111
+01:20:52,290 --> 01:20:52,730
+Được rồi.
+
+1112
+01:20:52,720 --> 01:20:55,670
+Mình sẽ tiếp tục để 06 tới.
+
+1113
+01:21:01,940 --> 01:21:06,440
+Còn ngày 3 thì nó sẽ có một cái là
+
+1114
+01:21:08,130 --> 01:21:11,730
+về phần triển khai thì anh
+cũng có ý tưởng cho nó rồi.
+
+1115
+01:21:13,200 --> 01:21:18,840
+Thực tế bây giờ cái duy nhất là khi
+mà mình đưa cái giải pháp này ra,
+
+1116
+01:21:19,020 --> 01:21:23,590
+liệu nó sẽ là phiên bản
+1Mail nâng cấp hay không?
+
+1117
+01:21:25,160 --> 01:21:29,900
+Ừ không cái giao diện có thể quán mail
+giao diện vẫn thế tại vì chú chuyển thay mỗi
+
+1118
+01:21:29,900 --> 01:21:35,780
+cái backend thôi là xong rồi đâu
+vẫn y chang y xì không thể đủ cái
+
+1119
+01:21:35,780 --> 01:21:41,690
+lõi thôi Vấn đề đồng ý là mình đang
+thay cái lõi vấn đề là ngay ở cái
+
+1120
+01:21:41,690 --> 01:21:45,630
+phần thiết kế ở cái webmail hiện
+tại của mọi người đúng không?
+
+1121
+01:21:46,530 --> 01:21:51,530
+Bây giờ mình đang thiết kế lại ở
+ngay phần webmail của chỗ Hưng rồi
+
+1122
+01:21:54,040 --> 01:21:58,680
+Nhưng mà ví dụ như nhá trong trường hợp
+mình giữ ở hiện trạng OneMail thì OneMail
+
+1123
+01:21:58,680 --> 01:22:02,180
+phải update thêm cái tính năng giống
+như của phía bán nhanh của Hưng.
+
+1124
+01:22:02,920 --> 01:22:03,960
+Nó sẽ lại là một vấn đề.
+
+1125
+01:22:04,580 --> 01:22:08,440
+Và cái thứ hai bây giờ anh thấy cái vấn
+đề hiện tại của mình ở chỗ OneMail đúng
+
+1126
+01:22:08,440 --> 01:22:08,600
+không?
+
+1127
+01:22:08,980 --> 01:22:12,360
+Mình phải đang đi qua rất nhiều lớp.
+
+1128
+01:22:12,520 --> 01:22:12,780
+Đúng không?
+
+1129
+01:22:13,850 --> 01:22:15,790
+Mình đang phải đi qua rất là nhiều lớp.
+
+1130
+01:22:17,430 --> 01:22:19,510
+À im nói thay cái kiến
+trúc của OneMail ấy.
+
+1131
+01:22:19,930 --> 01:22:21,210
+Thì bây giờ nếu mà mình...
+
+1132
+01:22:21,210 --> 01:22:24,330
+Nếu mà như hiện tại mà nếu
+mà mình có ý định mà...
+
+1133
+01:22:24,520 --> 01:22:27,480
+Mình sẽ xây dựng OXMail
+này để lên đúng không?
+
+1134
+01:22:27,900 --> 01:22:33,320
+Vì liệu mình sẽ cần phải coi như nó vào
+phiên bản nâng cấp mới của OneMail không?
+
+1135
+01:22:34,200 --> 01:22:40,180
+Còn nếu mà giữ theo kiểu hiện tại của
+OneMail, tức là bên OXMail update như thế
+
+1136
+01:22:40,180 --> 01:22:41,660
+nào thì bên OneMail thì phải update tiếp.
+
+1137
+01:22:44,380 --> 01:22:46,220
+Tuy nhiên anh bị đút công việc lên.
+
+1138
+01:22:46,400 --> 01:22:47,020
+Bảo trì.
+
+1139
+01:22:47,220 --> 01:22:52,030
+Bảo trì lên xong rồi mình phải
+giữ thêm cả cái nốt của OXMail.
+
+1140
+01:22:53,960 --> 01:22:58,020
+Giữ thêm cái nút 22.64 chỗ 1 mil nữa.
+
+1141
+01:22:59,150 --> 01:22:59,610
+Thế không?
+
+1142
+01:22:59,730 --> 01:23:02,070
+Bây giờ mình đang phải đi
+qua IT quản lý qua 3 lướt.
+
+1143
+01:23:02,830 --> 01:23:04,010
+Có phải nó rắc vỡ em không?
+
+1144
+01:23:05,010 --> 01:23:05,370
+Đấy.
+
+1145
+01:23:06,420 --> 01:23:07,320
+Đấy là vấn đề đấy.
+
+1146
+01:23:09,320 --> 01:23:15,280
+Và đấy, cái chỗ này nhắc đến thí vụ
+đấy thì cái này cái phần quản lý sL cho
+
+1147
+01:23:15,280 --> 01:23:16,220
+các domain thì như thế này.
+
+1148
+01:23:16,320 --> 01:23:17,860
+Nhưng nãy anh chưa thấy hữu có.
+
+1149
+01:23:28,280 --> 01:23:30,080
+Sao có dùng DMCA?
+
+1150
+01:23:31,460 --> 01:23:34,970
+Để support cái lần đầu
+tiện, cái lần đầu tiện.
+
+1151
+01:23:35,850 --> 01:23:37,470
+DMCA, đừng có gì nhỉ?
+
+1152
+01:23:39,130 --> 01:23:40,490
+DMCA, DMCA2.
+
+1153
+01:23:41,390 --> 01:23:41,950
+ACME.
+
+1154
+01:23:41,990 --> 01:23:42,970
+Ờ, ACME.
+
+1155
+01:23:44,310 --> 01:23:44,870
+ACME.
+
+1156
+01:23:45,250 --> 01:23:47,810
+Cái support thì nó nhanh.
+
+1157
+01:23:48,030 --> 01:23:48,450
+Nhanh.
+
+1158
+01:23:49,270 --> 01:23:51,070
+Nhờ nó chỉ có ít domain thôi.
+
+1159
+01:23:52,170 --> 01:23:54,590
+Support thì em, tức là
+em chỉ ít domain thôi.
+
+1160
+01:23:55,110 --> 01:23:57,450
+Còn nếu mà em dùng thì em phải dùng ACME.
+
+1161
+01:23:58,500 --> 01:24:00,960
+Nên tại sao anh mới hỏi về thằng Enginx?
+
+1162
+01:24:01,080 --> 01:24:03,420
+Tại sao anh thấy em có
+thằng Enginx ở dưỡng trước?
+
+1163
+01:24:05,280 --> 01:24:10,680
+Em đang quản lý các domain qua
+Enginx hay là Enginx chỉ là
+
+1164
+01:24:10,680 --> 01:24:15,220
+forward board thôi.
+
+1165
+01:24:16,020 --> 01:24:18,000
+Đấy là cái anh quan tâm.
+
+1166
+01:24:18,300 --> 01:24:24,000
+Tại vì thằng ACME sẽ giải quyết
+vấn đề trang cấp htl tự động.
+
+1167
+01:24:27,720 --> 01:24:30,940
+Có nghĩa là lần em dùng support là nếu khi
+em khởi khám chỉ có hình engine định cho
+
+1168
+01:24:30,940 --> 01:24:31,600
+nó đọc lại file.
+
+1169
+01:24:31,740 --> 01:24:32,260
+Đúng không?
+
+1170
+01:24:32,620 --> 01:24:34,980
+Còn ACMA nó sẽ cho em tự động về đấy luôn.
+
+1171
+01:24:39,040 --> 01:24:44,740
+Tại vì ACMA này sau mình dùng thêm
+cả cái Zero FSTL mà mình đang mua
+
+1172
+01:24:44,740 --> 01:24:46,900
+thì nó sẽ hạn chế vấn đề về create limit.
+
+1173
+01:24:47,500 --> 01:24:49,500
+Và chú ý nhé, FSTL nó sẽ có 2 cái nhé.
+
+1174
+01:24:49,680 --> 01:24:52,240
+Là FSTL nguyên phí và FSTL có phí.
+
+1175
+01:24:53,900 --> 01:24:57,500
+Ví dụ khách hàng sử dụng FSTL có phí thì
+như thế nào FSTL nguyên phí, như thế nào
+
+1176
+01:24:57,500 --> 01:24:58,990
+mình có thể rõ.
+
+1177
+01:25:00,400 --> 01:25:03,740
+Ngoài ra thì có một bài toán
+lên chỗ OneMail là phần admin.
+
+1178
+01:25:04,800 --> 01:25:07,080
+Cắt từng admin để cho
+người dùng tự quản trị.
+
+1179
+01:25:08,590 --> 01:25:10,010
+Bên OneMail người ta đang làm.
+
+1180
+01:25:11,410 --> 01:25:16,490
+Thì anh nghĩ là đầu tiên mình cứ đợi thứ
+6 này đi để mình trao đổi với ý tưởng của
+
+1181
+01:25:16,490 --> 01:25:16,990
+sản phẩm này.
+
+1182
+01:25:17,710 --> 01:25:23,070
+Cái thứ 2 là liên quan đến việc là mình
+sẽ, nếu mà mình có ý định là mình sẽ phát
+
+1183
+01:25:23,070 --> 01:25:27,070
+triển nó để thay thế Zima thì mình sẽ
+mật lại với thằng OneMail như thế này.
+
+1184
+01:25:27,850 --> 01:25:28,830
+Đâu ấy mình sẽ đi tiếp.
+
+1185
+01:25:31,120 --> 01:25:34,980
+Như anh bảo thì về phần quản lý ở phía
+dưới thì chú ý thêm cho anh cái chỗ khác
+
+1186
+01:25:34,980 --> 01:25:35,360
+nhau đấy.
+
+1187
+01:25:37,910 --> 01:25:43,190
+Thay Zimba thì sẽ giống như là Zimba
+ngày xưa, tức là không có cái lớp giao
+
+1188
+01:25:44,020 --> 01:25:49,820
+diện on mail nữa mà là bấm
+gói theo từng mail luôn ấy.
+
+1189
+01:25:49,940 --> 01:25:54,260
+Thì vấn đề là cái thằng admin mình đang
+thiết kế quản lý của khách hàng ấy đúng
+
+1190
+01:25:54,260 --> 01:25:54,360
+không?
+
+1191
+01:25:55,200 --> 01:25:57,900
+Mình đang có một cái admin
+nữa, đấy là vấn đề nữa.
+
+1192
+01:25:58,160 --> 01:25:59,760
+Tức là admin dành riêng cho khách.
+
+1193
+01:26:01,850 --> 01:26:02,610
+Đấy là vấn đề.
+
+1194
+01:26:02,730 --> 01:26:03,490
+Cho nên là...
+
+1195
+01:26:04,560 --> 01:26:10,040
+Trước mắt mình sẽ chốt được một số cái
+về mặt text-text và những cái clip.
+
+1196
+01:26:12,350 --> 01:26:18,160
+Sau đấy mình cứ chờ đến
+thứ 6 này để trao đổi.
+
+1197
+01:26:19,640 --> 01:26:23,480
+Trao đổi xong thì lúc đấy mình sẽ
+chốt, mình sẽ đi theo lúc nào thì...
+
+1198
+01:26:36,050 --> 01:26:38,410
+Cơ sở dữ liệu như thế nào, cơ chế lưu.
+
+1199
+01:26:41,370 --> 01:26:46,470
+Cái này trong phần technique
+cổ, nếu cần thiết thì em sẽ
+
+1200
+01:26:47,020 --> 01:26:50,660
+ướt thêm anh đặt vào project đấy.
+
+1201
+01:26:51,000 --> 01:26:52,320
+Chọn app từ lâu rồi.
+
+1202
+01:26:54,920 --> 01:27:00,020
+Vậy thì em sẽ update thêm cái diagram
+
+1203
+01:27:00,720 --> 01:27:02,360
+của database.
+
+1204
+01:27:03,360 --> 01:27:07,260
+Luồng hoạt động của database,
+kiến trúc database sẽ như thế nào.
+
+1205
+01:27:09,040 --> 01:27:10,760
+Thì mình sẽ có thêm một cái map nữa.
+
+1206
+01:27:12,340 --> 01:27:16,920
+Mọi người không muốn dùng Postgres
+thì mọi người cứ vấn cho em.
+
+1207
+01:27:17,560 --> 01:27:20,760
+Trước mắt thì chạy là như thế, còn cái
+vấn đề là sử dụng hay không thì mình sẽ là
+
+1208
+01:27:20,760 --> 01:27:21,520
+vấn đề tối yếu thôi.
+
+1209
+01:27:22,100 --> 01:27:22,800
+Điều gian nhau.
+
+1210
+01:27:23,020 --> 01:27:26,960
+Thật chất là em dùng Postgres thì kể cả
+là sau cùng cái table đấy em con vớt sang
+
+1211
+01:27:26,960 --> 01:27:27,620
+thằng khác cũng được.
+
+1212
+01:27:28,160 --> 01:27:29,500
+Nếu mình dính về về vấn đề...
+
+1213
+01:27:29,500 --> 01:27:30,320
+Zipa nó dùng gì?
+
+1214
+01:27:56,020 --> 01:27:57,600
+Hãy subscribe cho kênh Ghiền Mì Gõ Để
+
+1215
+01:27:57,720 --> 01:28:03,340
+không bỏ
+
+1216
+01:28:06,930 --> 01:28:06,970
+lỡ những video hấp dẫn
+
+1217
+01:28:25,800 --> 01:28:26,980
+Hôm nay có mỗi em bị quay à?
