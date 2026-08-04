@@ -9,7 +9,7 @@ Runbook lặp lại mỗi tháng: đối chiếu **tự đánh giá (OKR + P2)**
 
 | Nguồn | Cách lấy | Ghi chú |
 |-------|----------|---------|
-| **OKR tháng** | `POST my.inet.vn/api/client/v1/accountkpi/search` body `{account,size:200}`, lọc `monthStr="MMYYYY"` | KHÁC `kpi/search` (=KPI sales). Field: `target`/`result`(tự báo)/`description`/`note`/`status` |
+| **OKR tháng** | `POST my.inet.vn/api/client/v1/accountkpi/search` body `{account,monthStr:"MMYYYY",size:50}` | KHÁC `kpi/search` (=KPI sales). Field: `target`/`result`(tự báo)/`description`/`note`/`status` |
 | **P2 tự đánh giá** | `POST .../p2evaluation/get` body `{account,period:"YYYY-MM"}` → `selfScores`/`selfComputed`/`selfStatus` | Tính lại điểm: `.../p2evaluation/compute`. Never submit |
 | **Bằng chứng GitLab** | `gitlabs.inet.vn/api/v4` — `users/:id/events` (phân trang!), `merge_requests`, `issues` theo tháng | Token `GITLABS_ACCESS_TOKEN` trong `.env`. User IDs: dattqh=5, ducnd=27, chuongdt=26, hobv=17 |
 | **Code thực tế (local)** | Scout repo local qua git log + đọc source | Bản đồ repo ở mục 4 |
@@ -28,7 +28,10 @@ Cookie `sid`/`ssid` + token đọc từ `.env` (privacy-guarded → xin duyệt;
 
 ## 3. Quy tắc quan trọng (dễ sai)
 
+- **`accountkpi/search` phân trang cứng ở 30 entry/trang, BỎ QUA tham số `size`.** Luôn gửi kèm `monthStr` để BE lọc; KHÔNG lấy 1 trang rồi lọc client-side — người có nhiều entry lịch sử (vd dattqh `totalElements=58`) sẽ mất sạch entry của tháng cần review và bị kết luận sai là "không khai OKR". Đối chiếu `totalElements` trả về với số dòng thực nhận trước khi tin kết quả.
 - **Deadline:** OKR tháng N phải landed (merge main / issue close) **≤ ngày cuối tháng N**. Việc landed sang tháng sau = trễ.
+- **"Đã build lên production" không phải bằng chứng.** Phải đối chiếu mốc deploy thật: tag release, `last-modified` của bundle prod, hoặc pipeline `deploy` thành công. Có trường hợp merge main đúng hạn nhưng deploy prod sang tháng sau, và trường hợp CI `deploy` bị `skipped` cả tháng vì job `build` fail.
+- **Role P2 phải khớp công việc thực tế**, vì trọng số A/B/C/D khác nhau theo role. Kiểm bằng tỉ lệ commit theo repo/tầng, không tin title.
 - **"Chờ duyệt" ≠ chưa làm:** entry OKR `status="waiting"` chỉ là chờ quản lý duyệt — công việc **đã làm**. Chỉ coi là dở khi **code/result** cho thấy chưa xong.
 - **Liệt kê ĐỦ entry** — không gộp/bỏ sót (đối chiếu số entry `monthStr` khớp số dòng report).
 - **Role P2** lấy từ baseline `/get` (có người chọn role khác title, vd hobv title Design System nhưng P2 = Fullstack — hợp lệ nếu công việc đúng vậy).
