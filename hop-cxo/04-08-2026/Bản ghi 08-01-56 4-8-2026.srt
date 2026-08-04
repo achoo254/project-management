@@ -1,0 +1,6592 @@
+1
+00:00:00,000 --> 00:00:05,740
+Hết tháng thứ 7 thì sẽ có
+báo cáo chi tiết của Matic.
+
+2
+00:00:06,060 --> 00:00:11,000
+Matic sẽ báo có chi tiết từ
+cái này, sử dụng nhanh thôi.
+
+3
+00:00:11,790 --> 00:00:16,250
+Để cho cả kỹ thuật cũng có
+overview và thậm chí có một số
+
+4
+00:00:16,250 --> 00:00:20,300
+phản hồn để xem cần tối ưu gì.
+
+5
+00:00:20,780 --> 00:00:24,380
+Thứ 2, chúng ta chốt luôn
+phần liên quan đến F3 luôn.
+
+6
+00:00:31,500 --> 00:00:32,980
+Nếu có cái nào mà...
+
+7
+00:00:33,020 --> 00:00:35,180
+hoặc review, số biết thì
+hồn đều khác đúng không?
+
+8
+00:00:35,680 --> 00:00:37,260
+Được, cái review thì cần số biết.
+
+9
+00:00:39,390 --> 00:00:43,650
+Nếu bạn ấy qua bếp trên
+trường thì sẽ để sẵn.
+
+10
+00:00:47,430 --> 00:00:49,150
+Ok, Chí bắt đầu nhé.
+
+11
+00:00:50,060 --> 00:00:55,040
+Thế bởi cái báo cáo của Chí thì chỉ báo
+cáo phải đọc, một người phải từng đọc thôi,
+
+12
+00:00:55,180 --> 00:00:57,280
+chỉ báo cáo lại mấy cái ý chính nữa Chí ạ.
+
+13
+00:00:57,680 --> 00:00:57,940
+Vậy.
+
+14
+00:00:59,080 --> 00:01:01,420
+Xem cần...
+
+15
+00:01:01,610 --> 00:01:03,470
+mục tiêu làm gì tháng tới.
+
+16
+00:01:06,860 --> 00:01:10,880
+Về báo cáo thì chắc là
+lốt cho cháu một ngày rồi.
+
+17
+00:01:11,800 --> 00:01:12,780
+Mình đọc nhé vì nó dài vào.
+
+18
+00:01:16,920 --> 00:01:21,660
+Trong được một số cái,
+một cái insight, phần bán,
+
+19
+00:01:23,100 --> 00:01:28,990
+số liệu, chi tiết thì
+phần trên báo cáo này.
+
+20
+00:01:29,450 --> 00:01:35,250
+Thứ nhất là một số cái biệt sáng
+trong thực hạng vừa qua là Classroom
+
+21
+00:01:35,250 --> 00:01:35,670
+1.
+
+22
+00:01:37,270 --> 00:01:39,690
+Tăng thì chỉ phải gọi cho
+một trong bộ phương ngoài.
+
+23
+00:01:41,180 --> 00:01:43,540
+Một lượng active thì gấp 14 lần.
+
+24
+00:01:47,220 --> 00:01:52,750
+Tháng đầu tiên là dịch vụ
+
+25
+00:01:53,040 --> 00:01:58,980
+góp tỷ lệ dây thu cao nhất.
+
+26
+00:02:00,270 --> 00:02:03,880
+Cơ cấu dây thu là điện
+trang về Cloud Server.
+
+27
+00:02:04,640 --> 00:02:09,750
+Tiên miền quốc tế, tháng
+7 cũng tăng khá là mạnh.
+
+28
+00:02:10,710 --> 00:02:14,850
+Tháng 7, tên tên tăng giá tên miền lên.
+
+29
+00:02:16,380 --> 00:02:18,630
+Sau khi tăng thì cũng trùng hơn.
+
+30
+00:02:24,080 --> 00:02:25,460
+Điểm sáng thứ 3 là email.
+
+31
+00:02:25,640 --> 00:02:29,320
+Email thì có thể nói là tháng nào
+cũng tăng nhưng mà tháng không nhiều.
+
+32
+00:02:29,520 --> 00:02:34,070
+Tháng 7 thì được tăng khá mạnh 19,8%
+
+33
+00:02:35,670 --> 00:02:36,190
+email.
+
+34
+00:02:38,130 --> 00:02:40,530
+Tên miệng Việt Nam thì tháng 3 tăng.
+
+35
+00:02:40,910 --> 00:02:45,730
+Tên miệng Việt Nam thì tháng 7,
+Tenten họ cũng tăng giá tên miệng.
+
+36
+00:02:46,090 --> 00:02:51,500
+Và hiện tại thì mình đang là thấp nhất
+
+37
+00:02:52,870 --> 00:02:56,670
+tên miệng.vn, tên miệng
+quốc tế để cho Tenten tăng.
+
+38
+00:03:13,320 --> 00:03:14,720
+Tententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententententent
+
+
+39
+00:03:34,870 --> 00:03:37,030
+Tháng 7 đã giảm phần này.
+
+40
+00:03:43,360 --> 00:03:45,520
+Thứ 4 là khách hàng mới có giao dịch.
+
+41
+00:03:49,430 --> 00:03:54,470
+Tháng 7 so với tháng
+trước và năm trước thì
+
+42
+00:03:54,470 --> 00:03:55,790
+tăng nhẹ.
+
+43
+00:03:57,260 --> 00:04:02,460
+Tháng 7 cũng có sự thay đổi
+một chút ở chỗ khách hàng mới
+
+44
+00:04:02,460 --> 00:04:06,470
+có giao dịch gần các tin tháng trước.
+
+45
+00:04:07,400 --> 00:04:08,620
+Phần này rất là yếu.
+
+46
+00:04:09,040 --> 00:04:11,420
+Vì trong 6 tháng, năm nó giảm tới 16%.
+
+47
+00:04:16,280 --> 00:04:21,800
+Thứ ba, trong cả xóa khách hàng, phần
+dự trân khách hàng, tỷ lệ hủy workflow
+
+48
+00:04:21,800 --> 00:04:23,460
+khá là cao.
+
+49
+00:04:23,680 --> 00:04:28,840
+Đặc biệt là workflow hủy, không
+có phản hồi gì về workflow đấy
+
+50
+00:04:28,840 --> 00:04:30,480
+khá là cao.
+
+51
+00:04:33,080 --> 00:04:38,460
+Phần lớn là workflow
+dục thử, khách hàng dục
+
+52
+00:04:39,220 --> 00:04:43,820
+thử và bỏ đi, không có cái
+cụ thể thảo võ ở trong.
+
+53
+00:04:47,420 --> 00:04:50,780
+Vì AF thì từ thẳng trợ
+và tháng thay như phần
+
+54
+00:04:52,780 --> 00:04:54,590
+Hoc, hóa hồng, hoặc biên lợi lượng.
+
+55
+00:04:55,470 --> 00:05:01,260
+Nó sẽ cần báo cáo sau để có đơn
+
+56
+00:05:01,260 --> 00:05:07,010
+giá cho chính sạch hoa hồng.
+
+57
+00:05:12,310 --> 00:05:14,590
+Với một
+
+58
+00:05:18,270 --> 00:05:21,510
+số kỹ điểm cần cải thiện
+là dân phu hosting.
+
+59
+00:05:21,710 --> 00:05:26,430
+Hocking thì bắt thấy từ
+ngoài S5 này vẫn đang chạy.
+
+60
+00:05:27,260 --> 00:05:33,140
+Một số loại hosting mà mình đã không còn
+bán mới được thì nó giảm khá là mạnh.
+
+61
+00:05:36,700 --> 00:05:40,780
+Và mình cũng đang chuyển dẫn
+các loại hosting sang OnePanel.
+
+62
+00:05:42,020 --> 00:05:44,170
+OnePanel thì đã tăng.
+
+63
+00:05:44,250 --> 00:05:47,410
+Tuy nhiên là về tầm thể tất cả các
+loại hosting so với nước ngoài.
+
+64
+00:05:47,710 --> 00:05:50,970
+Bởi vì số lượng loại nghiệp vụ năm
+ngoài nó cao nhiều hơn rất nhiều.
+
+65
+00:05:51,290 --> 00:05:52,750
+Về tầm thể thì nó vẫn giảm.
+
+66
+00:05:53,740 --> 00:05:58,070
+Vì trong đó, cái AMD hosting
+cũng giảm khá là mạnh.
+
+67
+00:05:59,260 --> 00:06:02,150
+Vậy là hosting mới triển khai.
+
+68
+00:06:02,400 --> 00:06:08,370
+Nhưng so với năm ngoái, cái năm đầu
+tiên được chứng khai, cái luận mới tăng
+
+69
+00:06:08,370 --> 00:06:08,730
+rất mạnh.
+
+70
+00:06:08,850 --> 00:06:13,750
+Nhưng đến năm nay, nó đang chọn cái này,
+cái này là một cái có thể là duy nhất số
+
+71
+00:06:13,750 --> 00:06:14,470
+ít để xem lại.
+
+72
+00:06:16,670 --> 00:06:22,290
+Cái phần workflow chăm sóc khách hàng thì
+cái phần hoàn thành, hoàn thành này thực
+
+73
+00:06:22,290 --> 00:06:26,940
+ra là một số cái workflow
+về dùng thực đấy.
+
+74
+00:06:28,370 --> 00:06:33,050
+Có thể là cái GMC chưa
+đốt, chưa biệt vào cái
+
+75
+00:06:33,050 --> 00:06:35,110
+chọn vào cái phần hoàn thành.
+
+76
+00:06:35,450 --> 00:06:36,570
+Cho nên là cái số bước hoàn thành.
+
+77
+00:06:37,700 --> 00:06:41,920
+Tiêu hoàn thành rất nhiều
+mặc dù có thể đã xử lý rồi.
+
+78
+00:06:42,540 --> 00:06:43,980
+Thứ ba là về KPI.
+
+79
+00:06:44,790 --> 00:06:47,710
+Ngữ là về KPI của VinX trong tháng 7.
+
+80
+00:06:48,610 --> 00:06:51,170
+Trong tháng 6 tháng, mình có 3 tháng đạt.
+
+81
+00:06:51,450 --> 00:06:55,140
+Tháng 7 thì không đạt so
+với chỉ tiêu của VinX.
+
+82
+00:07:05,350 --> 00:07:08,330
+Về các khuyến nghị
+
+83
+00:07:09,450 --> 00:07:14,550
+trong thời gian tới, thứ
+nhất là phần vô color.
+
+84
+00:07:14,830 --> 00:07:18,290
+Thế tần này xem xem là sao tỷ lệ chờ được.
+
+85
+00:07:20,180 --> 00:07:26,000
+Phần lớn là nó mở trong
+dùng thử bị ưu động thái
+
+86
+00:07:26,000 --> 00:07:31,370
+nhiều, tức là chưa trích
+hoàn thành dùng thử,
+
+87
+00:07:31,630 --> 00:07:33,190
+đặc biệt là dùng thử cloud server.
+
+88
+00:07:34,820 --> 00:07:39,280
+Thứ hai là phần dùng vụ ANV
+hosting, dẫn khá là mạnh.
+
+89
+00:07:54,810 --> 00:07:55,330
+Thứ
+
+90
+00:08:01,410 --> 00:08:04,590
+ba là tầng liên quan đến Cloud
+Server đang tăng trưởng rất mạnh.
+
+91
+00:08:05,580 --> 00:08:07,280
+Cloud Server đang tăng trưởng rất mạnh.
+
+92
+00:08:09,570 --> 00:08:14,830
+Bắt đầu trọng số chính của
+phần doanh thu của các dịch vụ.
+
+93
+00:08:15,550 --> 00:08:20,980
+Cần phát triển đầu tư
+cho Cloud Server về các
+
+94
+00:08:20,980 --> 00:08:22,180
+dịch vụ trên nó.
+
+95
+00:08:24,410 --> 00:08:30,110
+Ngoài ra, phần One Panel hiện tại cũng
+
+96
+00:08:30,110 --> 00:08:32,880
+đang phát triển.
+
+97
+00:08:33,340 --> 00:08:35,040
+so với cPanel.
+
+98
+00:08:35,780 --> 00:08:39,100
+Các sĩ bộ porting cPanel
+đã bỏ đi rất nhiều.
+
+99
+00:08:40,720 --> 00:08:43,260
+Hiện tại thì tập trung vào
+cPanel mà nó thăng lẫn.
+
+100
+00:08:44,210 --> 00:08:47,960
+Thì cái này mình tiếp
+tục đẩy bài phần cPanel.
+
+101
+00:08:49,530 --> 00:08:52,170
+Nó không phụ thuộc vào
+nền tảng của bên thứ 3.
+
+102
+00:08:52,630 --> 00:08:58,130
+Ngoài ra thì một cái cần
+lưu ý là phần API của Winix.
+
+103
+00:08:58,850 --> 00:09:02,170
+API của Winix thì trong 4 tháng
+gần lợi chỉ được cộng đàn.
+
+104
+00:09:02,580 --> 00:09:05,370
+3 tháng đầu thì 3 tháng.
+
+105
+00:09:05,740 --> 00:09:11,100
+Trong 6 tháng đầu năm thì có 3 tháng đạt
+và đạt ra ngoài không đạt IPI của Covid.
+
+106
+00:09:11,540 --> 00:09:17,040
+Đây là cái dịch vụ chỉ
+là dịch vụ tên miệng
+
+107
+00:09:17,040 --> 00:09:21,820
+.vn Hiện tại thì tên miệng.vn của
+
+108
+00:09:22,560 --> 00:09:28,120
+Temtem cũng họ đã tặng cái ký giá bán lên.
+
+109
+00:09:28,500 --> 00:09:33,880
+Trong thời gian tới thì tận
+dụng một này gặp với combo
+
+110
+00:09:33,880 --> 00:09:38,900
+.com.vn Tất nhiên,
+
+111
+00:09:39,860 --> 00:09:42,400
+người chấp nhận là mục tiêu của quý vị.
+
+112
+00:09:43,630 --> 00:09:49,630
+Có một số cái làm được, chưa làm
+
+113
+00:09:49,630 --> 00:09:52,010
+được, và một số quý vị hành
+động trong thời gian tới.
+
+114
+00:09:54,070 --> 00:09:59,950
+Các bản thân, chi tiết, các phần báo cáo
+đã có ở phần trên là các phần tòa đổi làm.
+
+115
+00:10:05,880 --> 00:10:10,560
+Các quý vị chỉ, đây là toàn phần
+liên quan đến thống kê tháng 7 giờ.
+
+116
+00:10:11,480 --> 00:10:14,680
+Cái này, trong CMO cũng
+đã trao đổi hết rồi.
+
+117
+00:10:17,170 --> 00:10:23,130
+Các bạn có thể trao đổi trước.
+
+118
+00:10:23,150 --> 00:10:25,260
+Em trao đổi trước luôn.
+
+119
+00:10:26,950 --> 00:10:32,770
+Chỗ cloud server đầu
+tiên là bụng nổ của tháng
+
+120
+00:10:33,340 --> 00:10:33,920
+7 vừa rồi.
+
+121
+00:10:34,460 --> 00:10:40,000
+Mình có so sánh với tháng trước thì mình
+có thử so sánh với tháng cao điểm nhất của
+
+122
+00:10:40,000 --> 00:10:40,580
+mình không anh chị?
+
+123
+00:10:50,670 --> 00:10:55,270
+Ví dụ như là những tháng cao điểm nhất
+quyến mạng của mình ngoài tháng 11 ta mình
+
+124
+00:10:55,270 --> 00:10:57,290
+còn rơi vào tháng 3 nữa đúng không?
+
+125
+00:10:59,220 --> 00:11:04,830
+Em nghĩ là mình sẽ thử so sánh xem
+là so với 3 tháng đầu năm ấy thì
+
+126
+00:11:04,830 --> 00:11:10,730
+từ tháng 3 mình đã có quyến mạng
+nhiều thì kỷ lệ của mình ở tháng 7
+
+127
+00:11:10,730 --> 00:11:12,190
+nó đang như thế nào?
+
+128
+00:11:13,390 --> 00:11:18,690
+Và ở cái Linux thì nó đang
+tập trung vào cái email này.
+
+129
+00:11:18,910 --> 00:11:24,210
+Ví dụ như khách hàng có nhu cầu liên
+quan đến L8N, Google Cloud nhiều,
+
+130
+00:11:24,510 --> 00:11:30,310
+tập trung nhiều vào email,
+xem là mình phân tích là khách
+
+131
+00:11:30,310 --> 00:11:36,010
+hàng sẽ đến gần đâu từ các
+giảm viên hay là các khách lẻ
+
+132
+00:11:36,010 --> 00:11:41,810
+chiếm nữa thì mình sẽ có tài
+toán hình dung về các khách hàng
+
+133
+00:11:41,810 --> 00:11:43,630
+tiếp cận dịch vụ Cloud của mình.
+
+134
+00:11:44,510 --> 00:11:50,330
+Từ đấy thì các em có thể biết được là
+Mình có phải đầu tư tiếp tục phát triển
+
+135
+00:11:50,330 --> 00:11:51,510
+sản phẩm gì của nó không?
+
+136
+00:11:54,850 --> 00:12:00,730
+Cái thứ hai về mảng dịch vụ hosting
+thì chúng ta thấy là việc chúng
+
+137
+00:12:00,730 --> 00:12:01,830
+ta chuyển đổi từ C.N.O.
+
+138
+00:12:01,830 --> 00:12:02,890
+sang thì chắc chắn là C.N.O.
+
+139
+00:12:02,930 --> 00:12:03,510
+sẽ giảm rồi.
+
+140
+00:12:04,410 --> 00:12:10,230
+Nhưng có mảng của AMD và Fogpad thì
+thực ra cái này mình đã nói từ trước
+
+141
+00:12:10,230 --> 00:12:10,490
+rồi.
+
+142
+00:12:11,210 --> 00:12:15,890
+Biết thật sự là khách hàng bây giờ người
+ta có quan tâm đến phần cứng không hay là
+
+143
+00:12:15,890 --> 00:12:17,350
+người ta quan tâm đến
+các keywords nhiều hơn?
+
+144
+00:12:18,020 --> 00:12:23,460
+Tại vì như nếu mà mọi người theo dõi
+để ý thì các đơn vị khác kể cả như
+
+145
+00:12:23,460 --> 00:12:29,340
+AZ hay là như Vietnix thì
+họ cũng đã giảm cái thị
+
+146
+00:12:29,340 --> 00:12:33,960
+phần của AMD tức là người ta đã bỏ AMD
+về trọng số phía sau rồi lại quay lại cái
+
+147
+00:12:33,960 --> 00:12:37,390
+bài toán của Intel, Latium các thứ.
+
+148
+00:12:38,330 --> 00:12:43,090
+Tức là có thể bây giờ là cái thị trường
+liên quan đến thị phần cứng bây giờ nó
+
+149
+00:12:43,090 --> 00:12:45,110
+không đặt nặng được cái
+tầng thách hàng nữa rồi.
+
+150
+00:12:46,070 --> 00:12:50,630
+Mà có thể là nó đang tập trung vào cái
+keyboard mà khách hàng người ta tiếp cận để
+
+151
+00:12:50,630 --> 00:12:54,670
+thác nhập cung cấp để xem là các dịch vụ
+hosting người ta đã cung cấp cái sản phẩm
+
+152
+00:12:54,670 --> 00:12:55,890
+hosting cho dịch vụ đấy hay không.
+
+153
+00:12:57,430 --> 00:13:03,250
+Em có 2 ý kiến này để
+mình bổ sung thêm cái phần
+
+154
+00:13:03,250 --> 00:13:04,630
+dữ liệu để mình so sánh.
+
+155
+00:13:07,170 --> 00:13:12,070
+Còn ngoài ra ở cái chỗ hosting thì thực
+tế là đúng là doanh thu khi mà mình bỏ c
+
+156
+00:13:12,070 --> 00:13:14,030
+-vonel chắc chắn là nó sẽ giảm.
+
+157
+00:13:14,060 --> 00:13:15,640
+Nhưng mà ngược lại thì...
+
+158
+00:13:16,280 --> 00:13:20,920
+Về phần mình sử dụng OnePanel thì mình
+cũng đã tiết kiệm chi phí hơn nhiều.
+
+159
+00:13:23,800 --> 00:13:28,740
+Nếu so sánh với các năm trước thì mình có
+giảm nhưng nếu so với lợi ích chung mang
+
+160
+00:13:28,740 --> 00:13:30,620
+lại cho công ty có thể nó sẽ lớn hơn.
+
+161
+00:13:31,420 --> 00:13:37,190
+Nếu mình có thêm chỉ số ấy nữa
+thì bài toán sẽ rõ ràng hơn
+
+162
+00:13:37,190 --> 00:13:38,970
+trong bản cung cấp sản phẩm của mình.
+
+163
+00:13:54,150 --> 00:13:55,530
+Báo cáo rất là dài.
+
+164
+00:13:57,480 --> 00:14:00,820
+Anh nghĩ mọi anh thử xem xem là mình...
+
+165
+00:14:01,380 --> 00:14:03,240
+Tập trung vào một vài chỉ số chính.
+
+166
+00:14:04,320 --> 00:14:08,300
+Ví dụ như các cái service mới mình đưa
+ra thì các cái tham số có thể thể hiện.
+
+167
+00:14:08,480 --> 00:14:12,620
+Thực ra bây giờ có rồi đấy
+nhưng mà nó hơi tả mạng.
+
+168
+00:14:13,390 --> 00:14:15,310
+Có những cái thứ mà thông
+tin nó cứ lập điểm lại.
+
+169
+00:14:15,650 --> 00:14:19,130
+Thì theo anh nghĩ là Martin bây giờ phải
+sâu nữa để cùng kỹ thuật ấy để có kỹ kiệm
+
+170
+00:14:19,130 --> 00:14:19,330
+đủ cho.
+
+171
+00:14:20,240 --> 00:14:22,420
+Để xem xem là ví dụ mình
+đưa ra cái tính nhăng này.
+
+172
+00:14:23,180 --> 00:14:29,160
+Cụ thể là cái số hiệu, cái dữ hiệu,
+cái hit, cái đo xem nó như thế nào
+
+173
+00:14:29,160 --> 00:14:30,320
+thì anh nghĩ là nó quan trọng hơn.
+
+174
+00:14:32,840 --> 00:14:38,100
+Thậm chí kể cả Martin có thể đánh giá
+thêm, thử tính toán xem, từ số hiệu đó mình
+
+175
+00:14:38,100 --> 00:14:40,200
+sẽ có đánh giá ở lại nó hơn không.
+
+176
+00:14:40,880 --> 00:14:46,540
+Hay người ta chỉ bấm phát,
+hít phát, người ta hạ luôn,
+
+177
+00:14:46,900 --> 00:14:47,380
+kiểu kiểu thế.
+
+178
+00:14:48,240 --> 00:14:50,520
+Thế anh nghĩ phải đi
+xấu, cái thứ đó thì nói.
+
+179
+00:14:51,320 --> 00:14:56,940
+Bởi vì gia đoạn tới thì anh nghĩ là phần
+Martin mình làm nó sẽ phải khác, nó phải
+
+180
+00:14:56,940 --> 00:15:02,260
+đi vào góc độ liên quan đến thân sự cảm
+nhận, cảm xúc, sự sử dụng của người dùng.
+
+181
+00:15:05,500 --> 00:15:09,700
+Đặc biệt là marketing Hà Nội để hoàn
+thiện về vấn đề khóa hành thị trường.
+
+182
+00:15:13,850 --> 00:15:15,150
+Anh thấy dữ liệu khó không?
+
+183
+00:15:19,520 --> 00:15:23,650
+Anh Chí, em hỏi thêm một
+tí về chỗ tên nguyền .vn.
+
+184
+00:15:25,900 --> 00:15:31,780
+Hiện tại chỉ tiêu của BenVinix
+bao gồm tất cả là .vn, .io, .id,
+
+185
+00:15:31,900 --> 00:15:32,220
+.vn.
+
+186
+00:15:34,230 --> 00:15:39,730
+Có một số chỉ tiêu về trả phí em
+không tính, đăng ký, đăng ký, đăng ký.
+
+187
+00:15:42,660 --> 00:15:48,530
+Có 2 loại, 1 loại là trị
+tiêu và trả phí, 2 loại là có
+
+188
+00:15:48,530 --> 00:15:49,330
+phí và không phí.
+
+189
+00:15:49,690 --> 00:15:55,570
+Trong cái này mình tính cả loại
+có phí, trừ cái loại mít với loại
+
+190
+00:15:55,770 --> 00:15:56,270
+ID ra.
+
+191
+00:15:59,350 --> 00:16:02,520
+Trừ mít ra đi, trừ cái miên phí.
+
+192
+00:16:03,380 --> 00:16:05,160
+Nhưng mà cái kia sao lại
+cho con thân như cái đấy?
+
+193
+00:16:05,620 --> 00:16:07,560
+À không, tại vì là...
+
+194
+00:16:09,210 --> 00:16:13,390
+Em có thấy là bình thường người bên mình
+có giảm giá những tên miền kiểu io.vn, id
+
+195
+00:16:13,390 --> 00:16:19,060
+.vn Thực tế thì nếu mà mình được khách
+hàng đăng ký dịch vụ hosting các thứ của mình
+
+196
+00:16:19,060 --> 00:16:24,960
+chẳng hạn Thay vì việc mình tập trung
+và mình giảm giá trực tiếp thì mình
+
+197
+00:16:24,960 --> 00:16:26,560
+có thể cộng thêm cái
+tên miền cho khách hàng.
+
+198
+00:16:27,580 --> 00:16:33,390
+Ngày xưa .com mình có
+làm như thế thì .io.io.vn
+
+199
+00:16:34,000 --> 00:16:39,910
+Túng lại bọn em nhìn chung này này
+Riêng về tên miền trước anh đã nói
+
+200
+00:16:39,910 --> 00:16:40,130
+rồi
+
+201
+00:17:01,870 --> 00:17:07,650
+Các nhiệm vụ khác về cơ
+bản thì mình sẽ không bán,
+
+202
+00:17:07,830 --> 00:17:08,610
+không giảm giá.
+
+203
+00:17:08,850 --> 00:17:14,790
+Giá mình cũng không thể là đắt
+đất, cũng không thể là giải nhất
+
+204
+00:17:14,790 --> 00:17:18,010
+được ở mức chung bình và mình
+sẽ đưa các loại thế khác.
+
+205
+00:17:18,810 --> 00:17:23,450
+Anh nói thêm một chút này, hiện nay thực
+ra mình có được sự bảo vệ rất nhiều tầng.
+
+206
+00:17:23,450 --> 00:17:27,810
+Thứ nhất là tầng liên quan đến mọi người
+thấy trước kia mình chỉ có cái phần IC,
+
+207
+00:17:28,050 --> 00:17:29,550
+tầng gì, báo IC nắt đúng không?
+
+208
+00:17:30,910 --> 00:17:36,530
+Bây giờ mình có thêm cả tầng của các
+dự án CUT, OneSeal, OneSeal+, đang làm.
+
+209
+00:17:37,050 --> 00:17:41,860
+Tất cả các phần mềm Phần đấy là ở
+phần lớp ngoài còn cái lớp bên trong.
+
+210
+00:17:43,320 --> 00:17:45,680
+Tất cả các license mở mật mình đều có cả.
+
+211
+00:17:46,520 --> 00:17:48,920
+Và thêm một cái tầng nữa là
+một cái tầng liên quan trận UB.
+
+212
+00:17:49,180 --> 00:17:54,420
+Ví dụ như mọi người thấy có những trận
+trận trăm Wix, 200 Wix mà chúng nó kêu xóa
+
+213
+00:17:54,420 --> 00:17:54,620
+lên.
+
+214
+00:17:54,820 --> 00:17:56,720
+Thật như thằng Hoàng Tiên
+trận trăm Wix kêu xóa lên.
+
+215
+00:17:56,860 --> 00:17:58,120
+Mình mới đánh mấy trăm Wix bình thường.
+
+216
+00:17:59,140 --> 00:18:01,360
+Tất nhiên phôi cũng chẳng
+cần phải đi BI cái này nhé.
+
+217
+00:18:01,480 --> 00:18:01,780
+Cũng cần.
+
+218
+00:18:02,180 --> 00:18:03,480
+Cái này là cái bí mật của doanh nghiệp.
+
+219
+00:18:03,640 --> 00:18:04,040
+Mọi người hiểu chưa?
+
+220
+00:18:04,220 --> 00:18:05,280
+Không cần phải BI cái đấy.
+
+221
+00:18:07,630 --> 00:18:10,950
+Đừng có đi bia cái đấy, đấy
+là cái một trạm bí mật đó.
+
+222
+00:18:14,260 --> 00:18:17,580
+Thì bây giờ mình đang tập trung vào những
+cái thứ liên quan đến đánh chuyên sâu
+
+223
+00:18:17,580 --> 00:18:18,600
+hơn, cho cường đang làm.
+
+224
+00:18:18,960 --> 00:18:20,740
+Sắp tới có trung tâm
+làm sạch giữ điệu nữa.
+
+225
+00:18:21,260 --> 00:18:24,380
+Mình hiểu tăng cường để chuyển thông những
+thứ đó để mình làm sao mình giữ được cái
+
+226
+00:18:24,380 --> 00:18:25,420
+bán các dịch vụ khác.
+
+227
+00:18:25,860 --> 00:18:29,680
+Khách hàng người ta thực ra sẽ khăn care
+quá cái giá dịch vụ đâu nếu cái dịch vụ
+
+228
+00:18:29,680 --> 00:18:30,700
+mình tốt để đồng minh ok.
+
+229
+00:18:31,710 --> 00:18:32,750
+Kiểu kiểu như thế.
+
+230
+00:18:33,170 --> 00:18:34,830
+Đó là chiến lược riêng
+đến tiệm miền quốc tế.
+
+231
+00:18:34,970 --> 00:18:36,070
+Bọn em nhớ cho anh đừng có dọn bàn.
+
+232
+00:18:36,890 --> 00:18:39,110
+Các tiệm miền Việt Nam Việt
+Nam nó giá và phải thốt nhất.
+
+233
+00:18:41,710 --> 00:18:47,110
+Còn một cái vấn đề nữa là liên quan đến
+các vấn đề về kỹ thuật liên quan đến thậm
+
+234
+00:18:47,110 --> 00:18:48,830
+chí là bán mình tặng kèm luôn.
+
+235
+00:18:49,130 --> 00:18:50,330
+Cái đấy Việt Nam từ lâu rồi mà.
+
+236
+00:18:50,890 --> 00:18:54,090
+Cái đấy thì Kiên chỉ cần nhắc nhở với
+Martin thôi là tại sao ngày xưa mình có cái
+
+237
+00:18:54,090 --> 00:18:57,830
+đấy rồi bây giờ mình không theo đuổi những
+chiến dịch, chiến dịch, chiến sách như
+
+238
+00:18:57,830 --> 00:18:58,010
+vậy.
+
+239
+00:18:58,570 --> 00:19:02,290
+Còn anh ấy hay quan tâm đến nhiều hơn là
+chỗ liên quan tạp và đặc biệt chỗ Kiên.
+
+240
+00:19:02,880 --> 00:19:06,560
+Là liên quan đến làm thế nào để giúp anh
+để bộ phận Martin và đặc biệt Martin Hà
+
+241
+00:19:06,560 --> 00:19:11,060
+Nội có thể có những cái phân tích, những
+cái dữ liệu sâu hơn về cái cường tác giữa
+
+242
+00:19:11,060 --> 00:19:13,020
+người dùng với các cái
+dịch vụ mới mình đưa ra.
+
+243
+00:19:13,200 --> 00:19:14,900
+Anh cần những cái bản
+báo cáo gắn gọn như thế.
+
+244
+00:19:15,300 --> 00:19:19,200
+Tung lại anh có thể hỏi ông Đạt, ông Đạt
+ấy hỏi Đạt cái chương Đức đang làm ra đây
+
+245
+00:19:19,200 --> 00:19:19,900
+có giá trị không?
+
+246
+00:19:21,280 --> 00:19:26,240
+Bọn em cứ báo, hiện nay bọn em đang báo
+cáo anh em làm việc chăm chỉ lắm rồi bọn em
+
+247
+00:19:26,240 --> 00:19:31,040
+nốt tóc cần, lũng nào cũng sánh bét,
+ok rất là tốt, tuyên dương vỗ tay.
+
+248
+00:19:31,500 --> 00:19:33,000
+Nhưng anh cần một cái nữa là gì?
+
+249
+00:19:33,180 --> 00:19:33,960
+Cô hệ kết quả.
+
+250
+00:19:34,480 --> 00:19:35,120
+Hiểu biết không?
+
+251
+00:19:35,800 --> 00:19:36,860
+Tốt lần kết quả là gì?
+
+252
+00:19:36,960 --> 00:19:39,920
+Có bao nhiêu cái hàng đó nhận, có bao
+nhiêu cái hàng chuyển về, có ít bao nhiêu, ở
+
+253
+00:19:39,920 --> 00:19:40,340
+lại bao lâu.
+
+254
+00:19:40,460 --> 00:19:40,880
+Kiểu hiểu thế.
+
+255
+00:19:41,040 --> 00:19:44,120
+Thì anh muốn là biên chủ kết được cơ hệ
+làm sao giúp hoàn tin nắm được, hiểu được
+
+256
+00:19:44,120 --> 00:19:48,740
+cái kết đo, đồng đếm, báo cáo,
+đồng thứ đó, cái đó là cái cần.
+
+257
+00:19:50,210 --> 00:19:52,090
+Thì cái đó không đạt chẳng cần báo cáo.
+
+258
+00:19:52,110 --> 00:19:55,310
+Báo cáo anh Đô, anh Tiên,
+không truyền ông nào, phí nhắc.
+
+259
+00:19:56,110 --> 00:19:57,610
+Nhìn vào số điểm này cái thì có mẹ.
+
+260
+00:19:57,710 --> 00:19:59,330
+Vì sau dạy số điểm này sẽ dựa trên đấy.
+
+261
+00:19:59,530 --> 00:20:00,950
+Làm nhiều để gì chứ không?
+
+262
+00:20:01,660 --> 00:20:05,160
+Làm nhiều và kết quả tạo ra giá trị thật
+cuối cùng thì cũng chẳng bảo làm ít.
+
+263
+00:20:06,720 --> 00:20:09,700
+Do vậy cũng có phải chỉ dựa trên
+phần hỗn tốc cân các thứ kia đâu.
+
+264
+00:20:11,300 --> 00:20:14,640
+Đặc biệt là team Martin Nhà
+Nội cho Trí với cả trái.
+
+265
+00:20:15,080 --> 00:20:20,340
+Phải cần đào sâu cho anh và
+hoặc bạch các phần như vậy.
+
+266
+00:20:20,660 --> 00:20:24,940
+Thì phải hỗ trợ cho mình cho Hồ Chí Minh
+để làm Martin phát triển thị trường được.
+
+267
+00:20:34,590 --> 00:20:40,140
+Báo cáo của em với Chí thì
+có gì cứ dẫn thêm cái nguồn
+
+268
+00:20:40,140 --> 00:20:42,160
+để lấy từ report nào.
+
+269
+00:20:42,340 --> 00:20:47,360
+Tại nhiều khi cái phần dashboard anh đẩy
+số liệu nhiều nhưng mà không biết là em
+
+270
+00:20:47,360 --> 00:20:48,280
+đang lấy số liệu ở đâu.
+
+271
+00:20:48,900 --> 00:20:54,760
+Nếu mà không phải là quá nhạy
+cảm thì em có thể dẫn link cho
+
+272
+00:20:54,760 --> 00:20:55,900
+anh đi chỗ đấy.
+
+273
+00:20:57,920 --> 00:20:59,520
+Biết là dashboard kiểu như là...
+
+274
+00:20:59,520 --> 00:21:01,800
+Tại vì ví dụ như là trong cái...
+
+275
+00:21:01,800 --> 00:21:03,960
+Anh nói cái ondash đi.
+
+276
+00:21:04,300 --> 00:21:06,080
+Thì ví dụ nó có nhiều số liệu lắm.
+
+277
+00:21:06,440 --> 00:21:10,140
+Anh cũng không biết được số liệu chính
+xác của nó là số liệu chuẩn chưa ấy.
+
+278
+00:21:10,580 --> 00:21:15,220
+Còn giả sử khi mà em đã lấy em dùng được
+rồi ấy, tức là số liệu nó ổn rồi, chuẩn
+
+279
+00:21:15,220 --> 00:21:15,400
+rồi.
+
+280
+00:21:15,620 --> 00:21:17,440
+Anh không cần phải update thêm gì nó nữa.
+
+281
+00:21:17,780 --> 00:21:18,360
+Kiểu kiểu thế.
+
+282
+00:21:19,060 --> 00:21:22,360
+Chứ số liệu đắt qua bây giờ nhiều lắm.
+
+283
+00:21:27,310 --> 00:21:28,930
+Bây giờ em có biết số
+liệu chính xác hay chưa?
+
+284
+00:21:30,170 --> 00:21:33,410
+Kiểu như là Trí sẽ cần
+lấy những số liệu...
+
+285
+00:21:33,410 --> 00:21:39,370
+lấy ra số liệu mà Trí Cận ấy
+thì em sẽ biết là còn những số
+
+286
+00:21:39,370 --> 00:21:44,090
+liệu nào không dùng nữa thì em có
+thể em sẽ bỏ, bớt một cái query đến.
+
+287
+00:21:44,910 --> 00:21:45,250
+Kiểu như thế.
+
+288
+00:21:45,310 --> 00:21:50,530
+Cái việc số liệu là người làm
+dự án là người nắm chính ấy.
+
+289
+00:21:51,500 --> 00:21:54,640
+Nhưng mà có một số cái ví
+dụ như là để phân tích ấy.
+
+290
+00:22:01,330 --> 00:22:07,230
+Thì em là người người nắm tất cả em em
+lấy số liệu ra thì ok chắc chắn lấy thì ok
+
+291
+00:22:07,230 --> 00:22:11,530
+chính xác rồi nhưng mà kiểu như là ví dụ
+như số này trừ số này ra phần trăm tỷ lệ
+
+292
+00:22:11,530 --> 00:22:17,130
+bằng như thế nào ấy thì em không không
+biết vì cái đó thì ví dụ nhiều khi cái
+
+293
+00:22:18,030 --> 00:22:23,970
+Cái số đấy thì có thể chỉ làm ra thì lúc
+đấy em mới nhìn và biết là nó còn thiếu
+
+294
+00:22:23,970 --> 00:22:25,250
+hay cần bổ sung cái gì thêm.
+
+295
+00:22:29,750 --> 00:22:34,430
+Chứ còn các số liệu về tính năng người
+dùng này kia bao nhiêu lượt truy cập này kia
+
+296
+00:22:34,430 --> 00:22:35,050
+là có hết rồi.
+
+297
+00:22:36,330 --> 00:22:39,210
+Em phải confirm chính xác
+thì cho mạng tính họ thử tí.
+
+298
+00:22:40,070 --> 00:22:42,630
+Không phải là việc quyết
+định số liệu là mạng tính.
+
+299
+00:22:44,480 --> 00:22:50,320
+Tại vì tần số liệu, IT là
+cái con chẳng này, cái online
+
+300
+00:22:50,320 --> 00:22:51,240
+này, cái con chẳng này.
+
+301
+00:22:52,590 --> 00:22:58,250
+Những cái rời bỏ vẫn
+thiếu liên quan đến bao
+
+302
+00:22:58,250 --> 00:23:01,890
+nhiêu agent từ các nhà máu cấp
+khác chuyển đến cũng chưa có.
+
+303
+00:23:03,290 --> 00:23:08,970
+Em hỗ trợ cho Martin cái này thực
+ra, hỗ trợ anh yêu cầu em thêm vấn
+
+304
+00:23:08,970 --> 00:23:14,830
+đề là bao nhiêu khách hàng từ bên nhà máu
+cấp khác cũng đang dùng VPS của Cloudfly
+
+305
+00:23:14,830 --> 00:23:20,210
+chuyển sang đây dùng OnApps này để
+xem số liệu đấy mình quan trọng.
+
+306
+00:23:21,810 --> 00:23:27,390
+Đây là số liệu bên ngoài,
+còn số liệu nào sao
+
+307
+00:23:27,390 --> 00:23:33,230
+đọc được tương tác của khách hàng, cảm
+nhận của khách hàng, thông qua dữ liệu
+
+308
+00:23:33,230 --> 00:23:34,970
+phân tích cho đọc hết.
+
+309
+00:23:59,620 --> 00:24:01,100
+Mọi người nhìn thấy nó có 2.
+
+310
+00:24:04,050 --> 00:24:08,370
+Mà trong khi đó chúng ta Martin hiểu
+cái project đang chạy là cái gì không?
+
+311
+00:24:09,050 --> 00:24:09,970
+Chắc là không đúng không?
+
+312
+00:24:11,510 --> 00:24:15,670
+Đây là cái này anh nhép đạt, hôm nào phải
+giới thiệu tình cái buổi còn đến git.
+
+313
+00:24:15,930 --> 00:24:17,470
+Cái này là git đúng không?
+
+314
+00:24:32,510 --> 00:24:33,770
+Anh tiếp vấn đề là gì?
+
+315
+00:24:33,890 --> 00:24:37,670
+Thứ nhất là khách hàng
+không biết tính năng này.
+
+316
+00:24:38,150 --> 00:24:39,690
+Hai là tính năng chưa chạy ổn.
+
+317
+00:24:43,120 --> 00:24:47,620
+Những cái này thì Đạt phải hỗ trợ Martin
+cho anh với cái này, project đang chạy.
+
+318
+00:24:47,920 --> 00:24:52,900
+Theo anh thì anh biết thôi, nhưng quan
+trọng là Đạt phải làm cho Martin hiểu được.
+
+319
+00:24:53,220 --> 00:24:58,540
+Có một cái buổi tính năng thừa thừa, chưa
+cần sâu, những tính năng quan trọng mà
+
+320
+00:24:58,540 --> 00:25:02,820
+hút được khách hàng như Vi-Coding,
+Vi-Hot thì những cái này rất là hot.
+
+321
+00:25:03,040 --> 00:25:04,220
+để cho Martin IPA.
+
+322
+00:25:05,620 --> 00:25:11,080
+Theo anh, bây giờ mình sẽ
+có một cái tiếp cận khác
+
+323
+00:25:11,080 --> 00:25:14,840
+một chút nữa để giải quyết
+bài toán với Đô Cát nói.
+
+324
+00:25:15,560 --> 00:25:20,900
+Thay vì Martin chờ hướng
+dẫn, bản thân Martin
+
+325
+00:25:20,990 --> 00:25:24,610
+phải là người có những cái dự án nhỏ.
+
+326
+00:25:25,990 --> 00:25:31,170
+Ví dụ như mình muốn tập trung đến đối
+tượng khách hàng nào thì cơ bản mình phải hòa
+
+327
+00:25:31,170 --> 00:25:31,990
+mình vào đối tượng khách hàng đấy.
+
+328
+00:25:32,420 --> 00:25:38,000
+Anh nghĩ Martin từ cách thức hướng anh nói
+xem có thể cũng phải tập làm khách hàng
+
+329
+00:25:38,000 --> 00:25:38,940
+như thế.
+
+330
+00:25:39,880 --> 00:25:43,220
+Tức là bản thân Martin có nhu cầu ấy,
+
+331
+00:25:45,770 --> 00:25:46,210
+có được không?
+
+332
+00:25:46,590 --> 00:25:47,370
+Có khả thi không?
+
+333
+00:25:47,590 --> 00:25:49,630
+Anh nghĩ ngày xưa thì có,
+bây giờ thì khả thi mà.
+
+334
+00:25:50,710 --> 00:25:54,130
+Bây giờ có công vụ nó hỗ trợ
+mình làm việc đấy rồi đúng không?
+
+335
+00:25:54,810 --> 00:25:56,910
+Em nghĩ có thể Martin trả
+lời em không chắc đâu.
+
+336
+00:25:57,070 --> 00:26:00,830
+Tùy ngày trước em bảo Martin code được,
+vai code như là cha em đã vai code được rồi
+
+337
+00:26:00,830 --> 00:26:01,050
+cả.
+
+338
+00:26:01,150 --> 00:26:02,010
+Chí đã vai code được rồi cả.
+
+339
+00:26:02,690 --> 00:26:07,130
+Các bạn đang vai cốt trên một số
+cái di-beth của họ, của em đó.
+
+340
+00:26:08,130 --> 00:26:10,510
+Quan trọng có dùng hoan
+đắt được không hay gì đó.
+
+341
+00:26:10,830 --> 00:26:11,630
+Anh nghĩ là marketing.
+
+342
+00:26:13,130 --> 00:26:18,760
+Trước phần học vai cốt, anh
+em đang không đúng hoan đắt.
+
+343
+00:26:19,420 --> 00:26:21,820
+Có sắc đắt lên di-beth rồi.
+
+344
+00:26:22,460 --> 00:26:26,040
+Bây giờ chưa dùng nữa cái tính đắt.
+
+345
+00:26:27,300 --> 00:26:28,460
+Rồi anh nói tiếp nhé.
+
+346
+00:26:28,580 --> 00:26:30,180
+Tại sao anh có cái suy nghĩ đấy?
+
+347
+00:26:30,380 --> 00:26:30,740
+Bởi vì như thế này.
+
+348
+00:26:31,520 --> 00:26:35,580
+Bởi vì là anh nghĩ trong một năm nữa
+công ty mình sẽ có nhiều thay đổi.
+
+349
+00:26:36,140 --> 00:26:37,200
+Anh hình chúng ta rồi.
+
+350
+00:26:37,560 --> 00:26:41,900
+Tất nhiên là để mà anh thấy mọi người
+cũng đang đi theo hướng như thế này.
+
+351
+00:26:41,920 --> 00:26:44,460
+Anh sẽ matching những
+cái đấy lại với nhau.
+
+352
+00:26:45,340 --> 00:26:51,190
+Thì các cái công việc của
+hệ thống anh chị em nó sẽ
+
+353
+00:26:51,190 --> 00:26:52,530
+tiếp tục thay đổi, thay đổi mạnh hơn nữa.
+
+354
+00:26:53,810 --> 00:26:58,350
+Do vậy mà anh nghĩ là cái mộ phận bị tác
+động mạnh nhất ở đây đó là matching sở lên
+
+355
+00:26:58,350 --> 00:26:58,590
+visual.
+
+356
+00:26:59,730 --> 00:27:01,490
+Chắc chắn luôn là bị tác động mạnh nhất.
+
+357
+00:27:03,210 --> 00:27:07,870
+Bởi vì anh đang nghĩ là kiểu gì kiểu
+Martin ấy, mình muốn hướng đến tập khách hàng
+
+358
+00:27:07,870 --> 00:27:12,110
+nào thì Martin thực sự phải là người
+làm cho những vực đấy là tốt nhất.
+
+359
+00:27:12,250 --> 00:27:14,710
+Còn nếu không được thì mình phải mô phỏng.
+
+360
+00:27:14,910 --> 00:27:15,170
+Đúng không?
+
+361
+00:27:17,970 --> 00:27:21,910
+Martin ví dụ như mình muốn bán cho tập
+khách hàng là người làm bán hàng thì Martin
+
+362
+00:27:21,910 --> 00:27:23,370
+phải là những người làm bán hàng thôi.
+
+363
+00:27:24,010 --> 00:27:26,410
+Nhưng mà bây giờ cái điều này không
+được thì mình phải mô phỏng cái vực đấy.
+
+364
+00:27:30,280 --> 00:27:32,460
+Còn nếu không bọn em không có cách nào.
+
+365
+00:27:33,100 --> 00:27:33,720
+Bởi vì sao?
+
+366
+00:27:33,860 --> 00:27:36,040
+Bởi vì suốt ngày bảo Kiên
+không đạt nôi nhà nó dậy.
+
+367
+00:27:36,340 --> 00:27:37,380
+Anh hỏi Kiên nhé.
+
+368
+00:27:38,300 --> 00:27:39,200
+Có đạt được hai bên nhau không?
+
+369
+00:27:39,860 --> 00:27:40,460
+Thế thì có đúng không?
+
+370
+00:27:41,230 --> 00:27:41,810
+Chắc chắn.
+
+371
+00:27:42,230 --> 00:27:43,770
+Do vậy bắt buộc phải đóng vai.
+
+372
+00:27:45,160 --> 00:27:46,420
+Cái này tối qua anh ngồi ý nghĩ.
+
+373
+00:27:46,920 --> 00:27:47,880
+Anh cũng suy nghĩ mãi.
+
+374
+00:27:47,960 --> 00:27:50,520
+Anh kêu việc là cái mô hình sắp tới sẽ
+chuyển dịch cái mô hình marketing như thế
+
+375
+00:27:50,520 --> 00:27:50,620
+này.
+
+376
+00:27:50,980 --> 00:27:52,740
+Thế còn treo cáo ra cái gì đâu đúng không?
+
+377
+00:27:53,860 --> 00:27:55,000
+Còn cái gì nữa đâu mà chạy.
+
+378
+00:27:55,880 --> 00:27:58,040
+Mấy cái phần mà đập kế
+hoạch marketing có gì đâu.
+
+379
+00:27:58,520 --> 00:28:03,540
+Hôm trước bọn em cứ nói thôi, bọn em cho
+hết dữ liệu vào, nó phân tích, hết dữ liệu
+
+380
+00:28:03,540 --> 00:28:05,840
+từ ngày xưa đến giờ nó phân tích
+cho nó đưa ra một cái plan tốt hơn.
+
+381
+00:28:06,400 --> 00:28:12,100
+Hôm trước anh nói bọn em như là từ trước
+khi mình tăng giá gia hạn thêm miền lên
+
+382
+00:28:12,100 --> 00:28:16,060
+300 năm mấy hay 6 mấy đúng không chí thì
+Martin mình có cái hành động gì khác hay
+
+383
+00:28:16,060 --> 00:28:16,500
+không đúng không?
+
+384
+00:28:18,170 --> 00:28:20,450
+Đảm bảo em đưa vào AI
+nó phân tích tốt hơn.
+
+385
+00:28:22,160 --> 00:28:22,680
+Tốt hơn.
+
+386
+00:28:22,840 --> 00:28:26,620
+Do vậy thì chắc chắn một điều
+rằng Martin phải thay đổi cách mà.
+
+387
+00:28:26,910 --> 00:28:30,250
+Thế đổi theo cách anh
+nói là mô phỏng vàng.
+
+388
+00:28:31,900 --> 00:28:34,480
+Bởi vì không có thật,
+Martin đâu phải thật.
+
+389
+00:28:35,040 --> 00:28:39,360
+Martin là sao mà có thể là từ những ông
+bán hàng nữa, từ những ông có nhu cầu được,
+
+390
+00:28:39,480 --> 00:28:41,060
+do vậy phải mô phỏng nhập vàng.
+
+391
+00:28:41,600 --> 00:28:45,360
+Cách nào đó ngày xưa khó nhưng mà anh
+nghĩ bây giờ không có cách nào khác.
+
+392
+00:28:46,020 --> 00:28:46,360
+Chắc chắn.
+
+393
+00:28:46,880 --> 00:28:48,380
+Anh nghĩ nói thế thì Chí hiểu luôn.
+
+394
+00:28:49,140 --> 00:28:52,840
+Chắc chắn thì hiểu vì có những lần Chí
+đã gặp lại hơi hơi cái kiểu hướng thế.
+
+395
+00:28:54,480 --> 00:28:55,020
+Đúng không?
+
+396
+00:28:55,260 --> 00:28:57,900
+Ví dụ như anh nói cái này
+trong một năm nữa nhé.
+
+397
+00:28:58,930 --> 00:29:00,550
+Sắp tới anh sẽ định nói chuyện với bọn em.
+
+398
+00:29:01,830 --> 00:29:07,770
+Anh yêu cầu kích hoạt dự án
+
+399
+00:29:07,770 --> 00:29:11,560
+review trên các model riêng của mình.
+
+400
+00:29:13,270 --> 00:29:19,210
+Đấy là một bước tiên quyết và AI là
+thành phần, nhân tố của hệ thống lõi
+
+401
+00:29:19,210 --> 00:29:19,450
+của mình.
+
+402
+00:29:19,890 --> 00:29:22,310
+Chứ không phải là việc ai mới sử dụng AI.
+
+403
+00:29:23,190 --> 00:29:27,860
+Và nhúng tất cả những model đó vào trong
+tất cả các sản phẩm dịch vụ của mình.
+
+404
+00:29:28,280 --> 00:29:30,700
+Bây giờ chatbot chỉ là
+hỏi đáp thôi đúng không?
+
+405
+00:29:31,080 --> 00:29:33,860
+Với cả nếu trong trường sửa tôi thế này
+thì phải log in tài khoản nào không?
+
+406
+00:29:34,200 --> 00:29:35,640
+Bảo dù có API ra ngoài đúng không?
+
+407
+00:29:36,060 --> 00:29:36,540
+Đúng không?
+
+408
+00:29:37,780 --> 00:29:41,800
+Nhưng cái mình muốn thì AI phải là một
+nhân tố, một thành phần như hệ thống của
+
+409
+00:29:41,800 --> 00:29:44,060
+mình và nhúng cái đó vào
+tất cả các sản phẩm mình.
+
+410
+00:29:45,920 --> 00:29:47,380
+Dữ liệu của mình, đúng không?
+
+411
+00:29:47,760 --> 00:29:52,140
+Rồi AGRP lại là nghiên cứu rồi, dữ liệu
+của mình không mất phí, không mất phí hết
+
+412
+00:29:52,140 --> 00:29:52,700
+chuyện nhỏ thôi.
+
+413
+00:29:52,980 --> 00:29:56,020
+Tất nhiên đâu dàn chuyện lớn đấy, mà lấy
+dữ liệu của mình bảo vật, chính xác thì
+
+414
+00:29:56,020 --> 00:29:56,200
+đối.
+
+415
+00:29:56,880 --> 00:29:58,620
+Và không phải chỉ hỏi
+đáp nữa mà xử lý luôn.
+
+416
+00:30:00,460 --> 00:30:02,480
+xử lý luôn khi tôi có
+các vấn đề như thế này.
+
+417
+00:30:05,380 --> 00:30:09,000
+Như vậy thì bọn em thấy phần tích xử
+lý sự cố, các thứ của mình giảm không?
+
+418
+00:30:09,760 --> 00:30:10,900
+Kể cả sales và sức tốt giảm không?
+
+419
+00:30:11,790 --> 00:30:12,610
+Giảm là cái chất.
+
+420
+00:30:13,350 --> 00:30:16,010
+Và trong chồng anh confirm
+cái thì bấm yếp phát.
+
+421
+00:30:16,310 --> 00:30:21,300
+Hay chỉ chạm nhẹ cái tức là AI xử lý cho.
+
+422
+00:30:22,240 --> 00:30:26,620
+Cái ý của anh như thế, tức là không phải
+dùng AI không phải dùng AI, mà AI là hộp
+
+423
+00:30:26,620 --> 00:30:27,180
+thành phần.
+
+424
+00:30:28,830 --> 00:30:33,210
+Cái đó cũng chính là một bước chuyển tiếp
+để mình tiến tới AI-letit giống như chiếc
+
+425
+00:30:33,210 --> 00:30:35,270
+bọn em chỉnh máy, do chỉnh
+máy, kia gì máy, đó kia.
+
+426
+00:30:35,330 --> 00:30:36,770
+Đấy là cái thứ mình sẽ đi.
+
+427
+00:30:37,190 --> 00:30:39,370
+Và nếu mình đi như vậy
+thì bọn em thấy không?
+
+428
+00:30:39,830 --> 00:30:41,130
+Thứ nhất là các vị trí bình thường.
+
+429
+00:30:41,470 --> 00:30:42,230
+Thứ nhất là marketing.
+
+430
+00:30:42,670 --> 00:30:43,950
+Thứ hai là SEO, thứ ba là Spot.
+
+431
+00:30:44,790 --> 00:30:48,410
+Tốn lại chúng ta phải tập trung
+vào các vấn đề liên quan đến gì.
+
+432
+00:30:50,970 --> 00:30:51,630
+Control lệ thống.
+
+433
+00:30:53,100 --> 00:30:55,540
+AI nó cũng làm thay được, mình
+control lệ thống để cho nó phát triển.
+
+434
+00:30:56,120 --> 00:30:58,640
+Giải ra các bài toán để phục
+vụ các đáp ứng của cây hàng.
+
+435
+00:31:00,860 --> 00:31:03,700
+Và mình thực sự hiểu
+nhu cầu của cái này AI.
+
+436
+00:31:03,840 --> 00:31:06,660
+Anh khẳng định bọn em làm được, bọn em có
+thể bảo AI để phân tích cho tao đi nhưng
+
+437
+00:31:06,660 --> 00:31:07,720
+nó không thể hiểu được.
+
+438
+00:31:08,740 --> 00:31:13,600
+Kể cả bài sao lại thấy vẫn phải là vấn
+đề con người để làm sao thực sự mình thấy
+
+439
+00:31:13,600 --> 00:31:15,500
+cái này cần gì và mình dạy
+các bài toán gì cho cái này.
+
+440
+00:31:15,900 --> 00:31:18,140
+Toàn bộ máy tình phải tập trung
+vào dạy các bài toán như thế.
+
+441
+00:31:19,570 --> 00:31:21,990
+Tất cả những truyền thông bỏng
+bá anh nói với bọn em nhé.
+
+442
+00:31:22,350 --> 00:31:24,450
+Bây giờ nghe có vẻ quan trọng
+nhưng bài sao chỉ chiếm 200% thôi.
+
+443
+00:31:24,590 --> 00:31:26,410
+Còn 800% là mình ok thôi.
+
+444
+00:31:26,690 --> 00:31:29,490
+Mình ok rồi tự khác đó là
+viết dầu loạn nó khác lo toàn.
+
+445
+00:31:31,620 --> 00:31:35,320
+Tự nhiên làm truyền thông cũng quan trọng
+nói vậy thôi rất quan trọng đặc biệt ở
+
+446
+00:31:35,320 --> 00:31:39,660
+gia đạo ban đầu nhưng vẫn là quan trọng
+vấn đề là phát triển sản phẩm, dịch vụ mình
+
+447
+00:31:39,660 --> 00:31:44,160
+có thực sự tốt thì thực sự việc điều đó
+nó sẽ truyền thông bảo bản cho mình do vậy
+
+448
+00:31:44,160 --> 00:31:48,080
+một cái điều chắc chắn luôn là tất cả
+những phẩm mình và con người phải thay đổi
+
+449
+00:31:48,080 --> 00:31:53,400
+theo không có cách nào khác nếu bọn em có
+thể nghĩ ra là phương án đặt lại cách nào
+
+450
+00:31:53,400 --> 00:31:58,120
+khác bọn em trình bày anh dự đoán
+trong một năm nữa nó sẽ như thế thế
+
+451
+00:31:59,590 --> 00:32:03,980
+còn như cái này là cách đây xáo đáng anh
+nói một lần rồi đúng không Anh xóa tá anh
+
+452
+00:32:03,980 --> 00:32:04,840
+nói một lần rồi là đúng không?
+
+453
+00:32:05,080 --> 00:32:08,520
+Và trong INS sẽ cần không quá
+nhiều nhân sự làm benefit.
+
+454
+00:32:09,710 --> 00:32:11,350
+Vẫn có nhưng mà không hiểu.
+
+455
+00:32:13,900 --> 00:32:16,500
+Kể cả từ 160,000, từ support
+cho đến từ marketing.
+
+456
+00:32:17,040 --> 00:32:17,720
+Nói kiếm cũng có.
+
+457
+00:32:18,180 --> 00:32:19,080
+Có nhưng không hiểu.
+
+458
+00:32:19,320 --> 00:32:19,980
+Cứ vào cối bất học.
+
+459
+00:32:21,980 --> 00:32:24,060
+Và anh thấy bọn em đang
+vận hành như thế rồi đấy.
+
+460
+00:32:24,280 --> 00:32:25,440
+Có thể bọn em không nói ra đâu.
+
+461
+00:32:25,580 --> 00:32:26,780
+Chẳng có anh chỉ là người tổng hợp thôi.
+
+462
+00:32:27,040 --> 00:32:28,340
+Có thể anh chỉ là người tổng hợp thôi.
+
+463
+00:32:28,480 --> 00:32:33,940
+Chứ còn anh thấy trong cái định hướng tư
+duy phát triển kiến trúc của đô rồi xuống
+
+464
+00:32:33,940 --> 00:32:35,820
+bên tiên, bên đạn, rồi cường thứ mợ.
+
+465
+00:32:38,120 --> 00:32:43,880
+Về cơ bản anh chỉ là người tổng hợp lại,
+có thể không đúng 100% nhưng anh ý đúng 8%
+
+466
+00:32:43,880 --> 00:32:44,320
+đúng không?
+
+467
+00:32:44,480 --> 00:32:46,980
+Có vẻ anh chỉ là người tổng hợp
+lại một chút thôi đúng không?
+
+468
+00:32:47,700 --> 00:32:48,820
+Chứ cách đi tăng hợp lại thì thôi.
+
+469
+00:33:14,280 --> 00:33:20,120
+Các server khác ngoài thị trường biết cần
+những cái gì, email, website sẽ bị cái
+
+470
+00:33:20,120 --> 00:33:21,360
+gì, thế nào.
+
+471
+00:33:21,660 --> 00:33:25,860
+Thực ra mình đang đi theo hướng là một
+số marketing là đúng video hướng đợi.
+
+472
+00:33:25,860 --> 00:33:28,140
+Hay là làm video hay là viết content.
+
+473
+00:33:28,360 --> 00:33:32,120
+Thực ra mình phải đón máy khách hàng
+để biết những khách hàng cần gì.
+
+474
+00:33:34,880 --> 00:33:38,100
+Tất nhiên là nó sẽ không
+được hết một số nhận sự khác.
+
+475
+00:33:41,440 --> 00:33:46,280
+Chia ra, không có 1 người không cover
+được hết đâu, chia ra các mảng nghe.
+
+476
+00:33:46,360 --> 00:33:50,360
+Ví dụ như Chí không thể cover được hết
+được, em tập trung vào 1 số thứ khó thôi.
+
+477
+00:33:51,330 --> 00:33:55,950
+Một số thứ khác em đẩy lại cho anh chị em
+khác, đẩy cho cho Trà, để cho Phương, để
+
+478
+00:33:55,950 --> 00:33:59,790
+cho Ngọc, để cho Hậu, để em chỉ
+tập trung 1 vài cái kỹ chính thôi.
+
+479
+00:34:02,710 --> 00:34:07,470
+Anh thấy ở mình có mấy cái hướng chính,
+hướng thứ 1 là CUT, đấy là 1 thứ 1, còn
+
+480
+00:34:07,470 --> 00:34:08,170
+nhiều thứ lắm.
+
+481
+00:34:08,870 --> 00:34:12,070
+Hướng thứ 2 là Classroom, và
+hướng thứ 3 là các phần AI.
+
+482
+00:34:13,450 --> 00:34:18,030
+Và mình không, trước nói với Do, anh Do
+đã thống rất cao về việc không phải mình
+
+483
+00:34:18,030 --> 00:34:20,550
+đầu tư từ VU để mình bán.
+
+484
+00:34:21,800 --> 00:34:23,600
+Cái quan trọng nhất để mình
+phát triển được service ý.
+
+485
+00:34:23,720 --> 00:34:25,000
+Thứ nhất là các model riêng như mình.
+
+486
+00:34:25,160 --> 00:34:29,460
+Thứ hai là mình phát triển một số service,
+ví dụ như về hình ảnh EQC, lo kia, kiểu
+
+487
+00:34:29,460 --> 00:34:29,940
+kiểu như thế.
+
+488
+00:34:30,520 --> 00:34:32,040
+Đấy rất là cái quan trọng đấy chứ.
+
+489
+00:34:36,010 --> 00:34:40,650
+Nhưng mà chắc chắn sẽ quyết tâm đầu tư Do
+ạ nó giống như hệ thống F3 ngày xưa nói
+
+490
+00:34:40,650 --> 00:34:40,990
+với kia đấy.
+
+491
+00:34:41,650 --> 00:34:45,290
+Chúng ta sẽ phải có hệ thống đấy để
+nền đảng chúng ta sẽ phát triển tiếp.
+
+492
+00:34:45,430 --> 00:34:47,330
+Nhưng phát triển tiếp giống như
+vậy giống như chúng ta phải đầu tư.
+
+493
+00:34:47,470 --> 00:34:48,730
+Nó không phải bài toán kinh doanh đâu.
+
+494
+00:34:48,970 --> 00:34:51,770
+Mà bài toán mình xác định nó sẽ
+là một thành phần của IS thôi.
+
+495
+00:34:52,530 --> 00:34:56,970
+AI-ITIP, tiến tới AI-ITIP và tiến tới nó
+là thành phần của IS chúng ta phải mua đồ.
+
+496
+00:35:01,380 --> 00:35:03,160
+Chứ không phải là thuần
+phí bài toán kinh doanh.
+
+497
+00:35:03,820 --> 00:35:06,140
+Nên là mình đặt cái quyết
+tâm là mình sẽ như thế.
+
+498
+00:35:13,850 --> 00:35:15,970
+Cái báo cáo của Martin thì vẫn cứ như vậy.
+
+499
+00:35:16,070 --> 00:35:18,090
+Ý anh là muốn bổ sung một số thứ chính.
+
+500
+00:35:18,330 --> 00:35:19,470
+Chứ không phải là em bỏ cái này nhé.
+
+501
+00:35:19,550 --> 00:35:20,210
+Cái này vẫn hữu ích đấy.
+
+502
+00:35:20,650 --> 00:35:21,510
+Anh đừng có hình đọc hết đấy.
+
+503
+00:35:22,510 --> 00:35:25,410
+Ví dụ như trong này có những cái thứ, ví
+dụ cái kết luận rất là hay này ví dụ như
+
+504
+00:35:25,410 --> 00:35:28,250
+là xây dựng cộng đồng, lập
+trưởng kiên chính viên ấy.
+
+505
+00:35:29,060 --> 00:35:31,660
+Còn đây ghi là cần diễn đảm,
+blog, kỹ thuật, cốt sát.
+
+506
+00:35:32,260 --> 00:35:35,160
+Rất là kinh khủng cái này thì mình nói
+từ lâu rồi nhưng thực sự không nhất thiết
+
+507
+00:35:35,160 --> 00:35:35,580
+phải như này đâu.
+
+508
+00:35:35,640 --> 00:35:37,600
+Có nhiều cách nó nỡ tốn
+nguồn lực hơn đi đâu.
+
+509
+00:35:38,260 --> 00:35:39,220
+Có nhiều cách đấy đúng không?
+
+510
+00:35:40,660 --> 00:35:42,220
+Ví dụ như developer chẳng hạn đúng không?
+
+511
+00:35:42,280 --> 00:35:46,480
+Các dự án này nó là một cách kết luận nó
+sẽ được nấu vưu được hơn để hỗ trợ cho các
+
+512
+00:35:46,480 --> 00:35:47,620
+cộng đồng phát triển kiểu kiểu thế.
+
+513
+00:35:48,860 --> 00:35:50,480
+Mình làm trên nhiều kênh.
+
+514
+00:35:50,670 --> 00:35:56,310
+Mà kinh đang biểu về nhóm Facebook,
+được mấy trăm người rồi thì
+
+515
+00:35:56,310 --> 00:35:57,130
+sẽ tiếp tục.
+
+516
+00:35:58,870 --> 00:36:04,710
+Các kênh TheHupper là kênh ShowMeetHensen
+để hút khách hàng, hút lập trình
+
+517
+00:36:04,710 --> 00:36:07,190
+viên, Ondas hút lập trình viên.
+
+518
+00:36:07,650 --> 00:36:11,410
+Tất cả đánh trên nhiều kênh.
+
+519
+00:36:11,610 --> 00:36:17,530
+Có một số số liệu, mình đang
+thấy có một số vấn đề, chủ nghĩa
+
+520
+00:36:17,530 --> 00:36:19,930
+là để chúng ta...
+
+521
+00:36:27,990 --> 00:36:31,610
+Thật là cho Martin hiểu có rất là gì á?
+
+522
+00:36:31,890 --> 00:36:33,370
+Chưa chắc tất cả mọi người hiểu đâu.
+
+523
+00:36:33,610 --> 00:36:38,290
+Có 1 buổi, 2 buổi giới thiệu cho
+Martin hiểu cái gì, chảy cái gì.
+
+524
+00:36:38,930 --> 00:36:43,670
+Thậm chí anh thật là khi mà cái này, cái
+này sẽ dựa vào cái này để đánh giá kênh
+
+525
+00:36:43,670 --> 00:36:44,250
+với ai chứ không Việt.
+
+526
+00:36:44,990 --> 00:36:46,570
+Rồi các bạn đang làm cái dự án này.
+
+527
+00:36:46,780 --> 00:36:49,760
+Nếu có 2 người dùng thì việc
+đánh ra cây vài rất khó.
+
+528
+00:36:49,920 --> 00:36:55,860
+Nếu việc này tự nhiên project hút
+được khách hàng, thành một trend
+
+529
+00:36:55,860 --> 00:37:00,000
+của Alainet, thì việc cây
+vài của bạn rất là tốt.
+
+530
+00:37:04,180 --> 00:37:08,040
+Anh thấy gửi một list ra, có thể
+mọi người không chú ý cái đấy đâu.
+
+531
+00:37:08,760 --> 00:37:10,140
+Em chỉ chọn tầm đúng cái gít mà.
+
+532
+00:37:11,900 --> 00:37:17,680
+Nếu khách hàng không dùng on-back
+thì có thể không lãng được.
+
+533
+00:37:17,880 --> 00:37:22,200
+Họ chỉ dùng terminus tắp
+lên thôi, không có ghi.
+
+534
+00:37:22,580 --> 00:37:28,140
+Ví dụ như là họ vi code
+ở bên local ấy, thì cũng
+
+535
+00:37:28,140 --> 00:37:29,960
+không có biết làm gì cả.
+
+536
+00:37:31,720 --> 00:37:34,740
+Nên là có kỹ đối tượng họ chưa biết.
+
+537
+00:37:35,000 --> 00:37:40,320
+Thực ra ở trên các mắt bão,
+họ PA Việt Nam, họ PA vi
+
+538
+00:37:40,320 --> 00:37:42,760
+hosting, vi code hosting ấy.
+
+539
+00:37:43,390 --> 00:37:45,510
+Thì họ dùng trên những cái...
+
+540
+00:37:49,470 --> 00:37:53,060
+Mình yêu cầu phải có một con dbass.
+
+541
+00:37:53,220 --> 00:37:55,860
+Nó hơi khác mô hình chút,
+nó chỉ khác cái đấy thôi.
+
+542
+00:37:58,100 --> 00:38:04,050
+Thì ý là khác một chút cái đấy, mình
+phải mua một con dbass, còn kia là họ
+
+543
+00:38:04,050 --> 00:38:05,730
+build sẵn luôn, giống như vừa sồ.
+
+544
+00:38:06,960 --> 00:38:08,700
+Thì ý là khác hẳn luôn mình cái đấy.
+
+545
+00:38:09,700 --> 00:38:11,580
+Mật bão là họ cắm plugin vào black.
+
+546
+00:38:15,030 --> 00:38:18,930
+Thực tế là nó cũng nang ná, cái
+MCP và OnePanel mình sử dụng thôi.
+
+547
+00:38:19,110 --> 00:38:22,910
+Thì quan trọng bây giờ mình phải hiểu cho
+Martin hiểu về cái vấn đề của OnePanel
+
+548
+00:38:22,910 --> 00:38:24,430
+khác với cái của bên mắt bão là gì.
+
+549
+00:38:24,690 --> 00:38:28,650
+Như các bạn chè, Hôm Nọ, Hôm Nọ
+nói là bên mình có cái này chưa?
+
+550
+00:38:28,890 --> 00:38:30,630
+Anh Thơ hỏi, biết mình có cái này chưa?
+
+551
+00:38:32,870 --> 00:38:33,890
+Vì nó đang rất là hot.
+
+552
+00:38:33,950 --> 00:38:35,270
+Nhưng mà đấy là một thiếu sót đấy.
+
+553
+00:38:35,490 --> 00:38:38,310
+Cái vấn đề mình có mà lại không,
+Martin không nắm được đúng không?
+
+554
+00:38:38,670 --> 00:38:39,350
+Làm thiếu sót.
+
+555
+00:38:40,560 --> 00:38:41,580
+Thế bây giờ...
+
+556
+00:38:41,770 --> 00:38:43,230
+để tiền công mạnh lẽ thôi.
+
+557
+00:38:44,190 --> 00:38:48,490
+Anh nghĩ là không phải chỉ phát tinh đâu,
+thậm chí là các sale nữa, thậm chí một số
+
+558
+00:38:48,490 --> 00:38:49,090
+sale trọng yếu.
+
+559
+00:38:51,620 --> 00:38:56,080
+Phần project này lúc dự án bắt
+đầu triển khai từ đầu tháng 6.
+
+560
+00:38:56,720 --> 00:39:01,540
+Kiên phải ra cho nhân sự cover thêm
+một cái mảng trước khi Hòa nó làm.
+
+561
+00:39:02,200 --> 00:39:05,040
+Khi Hòa nó còn đây, nó tổ
+chức các cái khoán đào tạo.
+
+562
+00:39:05,460 --> 00:39:06,320
+Tết đi, Tết sale.
+
+563
+00:39:08,220 --> 00:39:11,660
+Cái này phải sale ra cho anh em làm lấy
+bên kỹ thuật để làm nghiệp lấy bá vào cái
+
+564
+00:39:11,660 --> 00:39:12,000
+chỗ đấy.
+
+565
+00:39:13,780 --> 00:39:15,600
+Trong bây giờ thì có chút với có duy rồi.
+
+566
+00:39:16,940 --> 00:39:22,900
+Cái chỗ project thì thật ra nó chỉ là
+một cái phần nhỏ trong ngón đá thôi.
+
+567
+00:39:23,420 --> 00:39:26,040
+Trong ngón đá là hiện tại là còn
+rất là nhiều các mô đun khác.
+
+568
+00:39:26,720 --> 00:39:31,820
+Thì theo anh thì mình nên tâm
+trung vào cái ký quốc MCP Shiver.
+
+569
+00:39:32,240 --> 00:39:38,060
+Tại vì đa số phần lớn bây giờ cái tệp lập
+trình viên bây giờ họ kiểu gì thì cũng
+
+570
+00:39:38,060 --> 00:39:38,860
+phải cố hết rồi.
+
+571
+00:39:39,440 --> 00:39:45,440
+Mà kiểu gì thì họ cũng sẽ dùng một cái
+nền tảng Còn JSON nào đấy để họ làm
+
+572
+00:39:45,440 --> 00:39:48,140
+việc thôi chứ không còn kiểu
+code thuần túy như ngày xưa.
+
+573
+00:39:48,820 --> 00:39:53,360
+Thế nên là nếu mà dùng MCP Silver
+thì nó coi như là nó đã phủ, nó
+
+574
+00:39:53,360 --> 00:39:56,140
+làm được hết tất cả
+các tính năng khác rồi.
+
+575
+00:39:56,340 --> 00:40:01,000
+Muốn tạo project thì nó cũng tạo hết, muốn
+tạo hot, muốn quản lý hot, muốn scan này
+
+576
+00:40:01,000 --> 00:40:02,660
+kia, muốn có log có hết.
+
+577
+00:40:03,740 --> 00:40:07,720
+Thế nên là nếu mà theo
+anh thì nên là MCP Silver.
+
+578
+00:40:07,980 --> 00:40:10,520
+Thế vì họ chỉ cần tích hợp
+MCP Silver cái xong rồi.
+
+579
+00:40:11,100 --> 00:40:14,400
+Họ pro mấy cái là xử lý tự động hết rồi.
+
+580
+00:40:14,540 --> 00:40:18,400
+Chả cần phải lên web để tổ
+công tạo project làm gì nữa.
+
+581
+00:40:21,760 --> 00:40:25,980
+MCP của Wondad là phủ gần hết tất
+cả tính năng của Wondad rồi mà.
+
+582
+00:40:27,310 --> 00:40:32,330
+Nhưng mà đảm ơn anh thấy, anh thấy về
+
+583
+00:40:32,330 --> 00:40:36,410
+cơ bản, anh thấy kỹ thuật công nghệ có
+một tư viên làm việc khác trước rồi.
+
+584
+00:40:36,490 --> 00:40:37,110
+Là việc công nghệ.
+
+585
+00:40:38,030 --> 00:40:39,270
+Thì em phải phát tri cái đấy.
+
+586
+00:40:39,350 --> 00:40:42,210
+Tố mại là em phải hoang cường
+bởi vì em sẽ nhìn rõ hơn.
+
+587
+00:40:43,480 --> 00:40:47,880
+Mình đang có cái gì, đang chuẩn bị có cái
+gì, cái gì em cảm nhận hay cần trong nhà
+
+588
+00:40:47,880 --> 00:40:50,760
+thì em phải không phải chờ marketing
+em chủ động tư tác marketing.
+
+589
+00:40:51,320 --> 00:40:52,480
+Nhiều khi để bút marketing ấy.
+
+590
+00:40:52,800 --> 00:40:57,100
+Giống như hiện nay bọn em đang đốc mồn
+luôn để cho marketing trên 2 cái bút
+
+591
+00:40:57,100 --> 00:40:57,660
+marketing.
+
+592
+00:41:00,140 --> 00:41:03,540
+Bản thân thực sự cái buổi giới thiệu như
+thế là nếu bọn em đăng ký Facebook nhưng
+
+593
+00:41:03,540 --> 00:41:04,580
+mà anh biết là anh ngồi nghe.
+
+594
+00:41:06,230 --> 00:41:07,390
+Thực ra anh cũng không hiểu rõ.
+
+595
+00:41:10,850 --> 00:41:14,790
+Thì phải chăng là cái phần on-app của em
+bây giờ cung cấp các tính năng là ví dụ
+
+596
+00:41:14,790 --> 00:41:20,610
+như là anh là lập trình anh mua
+con VVS hay con VMCS, đúng không?
+
+597
+00:41:20,690 --> 00:41:25,550
+Là bây giờ bọn em hỗ trợ các cái
+việc liên quan đến auto kết nối lên
+
+598
+00:41:25,550 --> 00:41:27,870
+cái tài khoản Git của anh, đúng không?
+
+599
+00:41:28,490 --> 00:41:33,100
+GitLab của GitHub hết thứ của anh là
+hiện nay nó hỗ trợ hết rồi đúng không?
+
+600
+00:41:33,240 --> 00:41:34,100
+Full code về.
+
+601
+00:41:35,170 --> 00:41:36,190
+Upload lên cái con xin.
+
+602
+00:41:36,230 --> 00:41:36,930
+Xong tự động hết.
+
+603
+00:41:37,130 --> 00:41:40,710
+Chứ không cần phải như ngày xưa là anh
+phải làm bằng tay copy đọng kia xong bắt đầu
+
+604
+00:41:40,710 --> 00:41:41,930
+anh chạy chạy trên dân tử đúng không?
+
+605
+00:41:42,170 --> 00:41:43,270
+Đó là về tự động hết đúng không?
+
+606
+00:41:43,850 --> 00:41:48,030
+Những cái kiểu kiểu như thế, những
+cái thứ mà mình hỗ trợ cho đối tượng.
+
+607
+00:41:48,890 --> 00:41:52,110
+Thì những cái thứ đó thì như bọn
+em nói là mà anh nắm được không?
+
+608
+00:41:52,510 --> 00:41:53,550
+Chắc phải nắm được hết chứ đúng không?
+
+609
+00:41:55,960 --> 00:41:56,320
+Đúng không?
+
+610
+00:41:57,000 --> 00:41:58,520
+Thì đấy thì bọn em cần phải đến buổi đấy.
+
+611
+00:41:58,660 --> 00:42:00,660
+Và những cái buổi đấy thì anh
+thấy hay, anh ngồi anh nghe.
+
+612
+00:42:01,860 --> 00:42:02,740
+Có 2 cái vốt.
+
+613
+00:42:02,860 --> 00:42:03,920
+Một là NCP.
+
+614
+00:42:04,160 --> 00:42:05,200
+Chỗ đàn anh nghĩ ok đấy.
+
+615
+00:42:05,300 --> 00:42:06,740
+Thực ra là NCP rất là...
+
+616
+00:42:09,030 --> 00:42:10,550
+Đừng có đi lan man nhiều.
+
+617
+00:42:10,850 --> 00:42:15,050
+Có cái đấy, người dũng đẹp
+tốt cái gì nó chẳng phải chọn.
+
+618
+00:42:16,310 --> 00:42:19,850
+Nhiều khi ghi, không phải tất cả
+những người biết ghi là cái gì.
+
+619
+00:42:20,330 --> 00:42:24,790
+Mà quan trọng là không phải biết khái
+niệm mà ý anh vừa nói lúc đầu ấy là ý anh
+
+620
+00:42:24,790 --> 00:42:30,490
+muốn là mà nhập vai để có làm ra thật, có
+sản phẩm thật, có thể quản tạo sản phẩm
+
+621
+00:42:30,490 --> 00:42:32,470
+rồi chạy ra một cái dự
+án demo nhỏ nổi vào đấy.
+
+622
+00:42:33,250 --> 00:42:33,770
+Ý là như thế.
+
+623
+00:42:34,170 --> 00:42:36,610
+Có nhiều đối tượng khách hàng,
+đối tượng khách hàng là...
+
+624
+00:42:37,500 --> 00:42:40,980
+Đối với khách hàng là lập chỉ
+viên người thích vay code.
+
+625
+00:42:41,640 --> 00:42:47,220
+Mình đang chuyển hướng dẫn dùng developer
+để build cho khách hàng có dùng API,
+
+626
+00:42:47,740 --> 00:42:49,880
+SAP, Git.
+
+627
+00:42:50,580 --> 00:42:53,360
+Mình nghĩ khách hàng không
+biết gì về code, nhiều mà.
+
+628
+00:42:53,440 --> 00:42:57,980
+Trong cộng đồng, cộng đồng AI
+code, vay code, nhiều luôn.
+
+629
+00:42:58,160 --> 00:42:59,620
+Mình có thể đánh vào những thị trường đó.
+
+630
+00:42:59,820 --> 00:43:04,560
+Thì mình sẽ hỗ trợ những khen hạng đã biết
+và mình sẽ có một cái nữa mà có thể tạo
+
+631
+00:43:04,560 --> 00:43:05,240
+ra thị trường được không?
+
+632
+00:43:05,320 --> 00:43:07,420
+Có nghĩa là mình dẫn dắt
+những người người ta...
+
+633
+00:43:07,420 --> 00:43:09,180
+Thực ra bây giờ học rất là nhanh.
+
+634
+00:43:09,380 --> 00:43:10,620
+Học rất là nhanh.
+
+635
+00:43:10,680 --> 00:43:12,520
+Thì mình có thể tạo ra
+thị trường được không?
+
+636
+00:43:12,720 --> 00:43:13,900
+Chứ không phải là chỉ dẫn dắt đấy.
+
+637
+00:43:14,200 --> 00:43:15,020
+Chỉ hướng dẫn nữa.
+
+638
+00:43:15,720 --> 00:43:19,140
+Bây giờ có thể mình tạo ra một cái xu
+hướng của thị trường trong việc khen hạng sử
+
+639
+00:43:19,140 --> 00:43:19,880
+dụng các dịch vụ của mình.
+
+640
+00:43:21,860 --> 00:43:24,140
+Và bản thân anh nghĩ bảo
+là thật cán sê không?
+
+641
+00:43:24,300 --> 00:43:27,860
+Tại sao ông Nhóm Trúc, ông Duy, thậm chí
+cũng một số ông ngoài này đúng không?
+
+642
+00:43:28,580 --> 00:43:29,500
+Nó tạo ra sự khác biệt.
+
+643
+00:43:29,580 --> 00:43:30,640
+Thực ra người ta là làm thật.
+
+644
+00:43:34,330 --> 00:43:40,290
+Các bạn có thể nhận thêm những năng
+
+645
+00:43:40,290 --> 00:43:42,190
+lực làm thật.
+
+646
+00:43:44,420 --> 00:43:47,440
+Còn nếu chắc chắn một điều mà anh chị em
+không có năng lực làm thật thì anh nghĩ
+
+647
+00:43:47,440 --> 00:43:51,260
+theo nội trình của công ty cũng
+hết hơi đây không phải đâu.
+
+648
+00:43:52,090 --> 00:43:56,270
+Chứ vì đây là một cái anh nghĩ là
+trụ tiên trộn đồ về áp lực xuống.
+
+649
+00:43:58,410 --> 00:44:02,710
+Ok, chờ những người thương giỏi, những
+người mà anh nói em không cần cái gì, người
+
+650
+00:44:02,710 --> 00:44:05,110
+ta chỉ cần ra ngoài kia, người ta cứ
+nối ra tầm đấy nó khác rồi đúng không?
+
+651
+00:44:06,950 --> 00:44:12,170
+Ok, theo em thì bây giờ mình chốt thấy
+hướng này, hai cái tính năng quan trọng nhất
+
+652
+00:44:12,170 --> 00:44:18,130
+của Yohannas mà mình muốn PR
+trong tháng này là Project, SAP và
+
+653
+00:44:18,130 --> 00:44:23,850
+GIP và Đạt thêm phần
+thống kê, bao nhiêu người
+
+654
+00:44:23,850 --> 00:44:24,790
+xử SAP nữa.
+
+655
+00:44:25,840 --> 00:44:27,460
+Có màn trong report.
+
+656
+00:44:28,040 --> 00:44:32,740
+Cho Martin thấy luôn cả phần bao nhiêu
+người dùng FCP, bao nhiêu người dùng project
+
+657
+00:44:32,740 --> 00:44:36,120
+và mình sẽ từ giờ cố gắng đo luôn.
+
+658
+00:44:36,360 --> 00:44:37,260
+Nó phải tăng trưởng.
+
+659
+00:44:37,500 --> 00:44:39,820
+Tất cả bây giờ số liệu
+trên MyNet đủ hết rồi.
+
+660
+00:44:40,980 --> 00:44:46,900
+Đưa cái phần ý kiến góp ý thứ nhất là
+liên quan đến phần kỹ thuật, chốt là
+
+661
+00:44:46,900 --> 00:44:47,480
+đắt thế nhé.
+
+662
+00:44:47,560 --> 00:44:52,220
+Trong giá này là có thể việc mà anh em
+Martin với cả kỹ thuật, công nghệ ngồi với
+
+663
+00:44:52,220 --> 00:44:53,180
+nhau lại cho tự sản xếp.
+
+664
+00:44:53,730 --> 00:44:54,650
+Càng sớm hơn tốt.
+
+665
+00:44:55,090 --> 00:44:56,550
+Không cần chạy quá lan man.
+
+666
+00:44:56,730 --> 00:45:01,850
+Chạy tập trung cả tháng, có thể chỉ tập
+trung một cái đấy để cho nó tăng đến doanh
+
+667
+00:45:01,850 --> 00:45:02,750
+thù của Classroom.
+
+668
+00:45:03,310 --> 00:45:04,630
+Tăng tới sự quan đáp.
+
+669
+00:45:05,540 --> 00:45:07,440
+Cái thứ hai liên quan kiến kỹ cầu ý ok.
+
+670
+00:45:07,740 --> 00:45:08,760
+Nghĩa là liên quan đến combo.
+
+671
+00:45:09,280 --> 00:45:12,820
+Combo thì tháng trước rồi
+cũng chắc là kỹ thuật.
+
+672
+00:45:14,540 --> 00:45:17,920
+Kỹ thuật Martin ra cái phần
+combo nhưng chưa áp dụng.
+
+673
+00:45:18,870 --> 00:45:21,210
+Nên là cross-sell tỷ lệ khá ổn.
+
+674
+00:45:21,390 --> 00:45:26,050
+Bây giờ mình vẫn thiêu combo nghĩa là
+combo tên miền, hosting, email tên miền.
+
+675
+00:45:26,250 --> 00:45:28,690
+Nó gom và giá sẽ được giảm.
+
+676
+00:45:28,810 --> 00:45:32,230
+Nhưng phần hệ thống hỗ trợ hết rồi.
+
+677
+00:45:34,090 --> 00:45:39,170
+Đăng ký hosting, đăng ký VPS, được tặng
+cho miền nghe nó sớm hơn là combo đấy nhé.
+
+678
+00:45:39,780 --> 00:45:40,480
+Thì nó là combo.
+
+679
+00:45:41,020 --> 00:45:42,120
+Nhiều khi nó tiêu hơn đấy.
+
+680
+00:45:45,670 --> 00:45:48,050
+Có một cách truyền thông như thế nào đó?
+
+681
+00:45:48,430 --> 00:45:51,750
+Đi combo, các nhà sẽ cộng vào giá.
+
+682
+00:45:52,090 --> 00:45:54,630
+Thì thường combo sẽ hay kiểu này hơn.
+
+683
+00:46:03,190 --> 00:46:08,630
+Cả kia có nghĩ đến tên
+miền, iNet, lâu rồi đó rồi.
+
+684
+00:46:08,790 --> 00:46:14,650
+Ngày xưa mới đổi được
+banner phía trên rồi.
+
+685
+00:46:14,950 --> 00:46:16,650
+Còn phía dưới mình chưa đọng gì.
+
+686
+00:46:17,150 --> 00:46:18,130
+Mình đọng luôn đi.
+
+687
+00:46:19,210 --> 00:46:23,630
+Em nghĩ bây giờ các sản phẩm của mình, về
+cả như hotting, mình có cả con siêu cộng
+
+688
+00:46:23,630 --> 00:46:24,130
+các thứ ấy.
+
+689
+00:46:24,410 --> 00:46:25,310
+Thực tế thì...
+
+690
+00:46:26,220 --> 00:46:32,020
+Bây giờ trên trang trinh thống của
+mình, mình cũng mê kiểu đẩy hết
+
+691
+00:46:32,020 --> 00:46:36,060
+lên, via thẳng trực tiếp
+lên sản phẩm của mình.
+
+692
+00:46:36,440 --> 00:46:37,680
+Backorder sàn thì đấy.
+
+693
+00:46:37,940 --> 00:46:43,900
+Thứ nhất là bây giờ,
+
+694
+00:46:44,160 --> 00:46:48,580
+nhiều khách hàng nói về iNet,
+chúng nằm với gương mặt đấy.
+
+695
+00:46:49,570 --> 00:46:52,590
+Rồi những tính năng mới, Wansil,
+cộng hay gì cũng chưa có.
+
+696
+00:46:53,720 --> 00:46:57,700
+Cái này tháng trước anh nhớ anh nói quân
+rồi, bây giờ tập trung tháng này cũng làm
+
+697
+00:46:57,700 --> 00:46:58,640
+lại bây giờ dùng AI rồi.
+
+698
+00:46:58,900 --> 00:47:02,120
+Mà tình cứ vẽ ra rồi anh
+sẽ đi thức mẹ làm sao.
+
+699
+00:47:03,040 --> 00:47:05,820
+Thì hôm qua anh có thông báo là
+anh update lại cái portal đấy.
+
+700
+00:47:06,120 --> 00:47:10,600
+Mọi người xem, nói bây giờ portal ok rồi,
+bây giờ I-net, update lại tất cả những
+
+701
+00:47:10,600 --> 00:47:11,340
+cái để chia ăn.
+
+702
+00:47:11,800 --> 00:47:17,200
+Menu, thêm menu, cần thay đổi gì, các
+phần gì, cần thay đổi, cứ gửi task,
+
+703
+00:47:17,440 --> 00:47:18,900
+AI tự trải khai hết rồi.
+
+704
+00:47:24,360 --> 00:47:25,820
+Thậm chí mình không cần chọn.
+
+705
+00:47:26,540 --> 00:47:30,640
+Phải để ưu tiên những cái
+
+706
+00:47:30,640 --> 00:47:33,400
+nào là trên trước.
+
+707
+00:47:34,290 --> 00:47:38,000
+Con siêu cộng có đầy, còn 4 cái.
+
+708
+00:47:38,120 --> 00:47:40,140
+Con siêu cộng nó khác rồi.
+
+709
+00:47:40,710 --> 00:47:45,720
+Con siêu cộng nó tích hợp
+vào đấy nó không phải là sản
+
+710
+00:47:45,720 --> 00:47:47,450
+phẩm, nó là hotting.
+
+711
+00:47:50,150 --> 00:47:54,870
+Phần vết đờ sàn tiên miền nếu thật là
+không cần quá kia thì mình cũng để đoàn đi,
+
+712
+00:47:55,050 --> 00:47:57,110
+không cần để không đất rộng hết.
+
+713
+00:47:58,860 --> 00:48:03,200
+Các lý do chọn INS, ngày xưa là nhà
+hàng ký, uy tín chất lượng, cả sales.
+
+714
+00:48:03,600 --> 00:48:06,440
+Bây giờ làm sao để có tử khoá phù hợp hơn.
+
+715
+00:48:06,620 --> 00:48:10,800
+Bây giờ, uy tín chất lượng, hỗ trợ
+24, gì đó, nó không phải là cái chính.
+
+716
+00:48:11,000 --> 00:48:15,920
+Bây giờ, cái chính liên quan bảo mật, an
+toàn, thông tin, cái mùi oan siêu, nó là
+
+717
+00:48:15,920 --> 00:48:16,720
+cái chính.
+
+718
+00:48:17,280 --> 00:48:20,100
+Bho sản Tây Biển đã xong sức mạnh rồi.
+
+719
+00:48:20,760 --> 00:48:24,360
+Điều đó không có ý cho cái này biến mất
+đâu, mà tạm thời mình để lắng xuống.
+
+720
+00:48:24,460 --> 00:48:25,840
+Nó có rất nhiều các yếu tố.
+
+721
+00:48:26,140 --> 00:48:28,800
+Thứ nhất là giai đoạn
+lịch sử đã hoàn thành rồi.
+
+722
+00:48:29,120 --> 00:48:31,080
+Thứ hai là ở giai đoạn dây cảng này.
+
+723
+00:48:31,200 --> 00:48:32,880
+Và thứ ba là mình nên
+focus phải những thứ.
+
+724
+00:48:32,980 --> 00:48:37,420
+Bây giờ mình phải chuyển hướng xem nó
+mãi mãi là bà Tuy Miền, bộ Tuy Miền.
+
+725
+00:48:37,720 --> 00:48:40,660
+Bản chất là Tuy Miền nó
+làm mọi thứ đấy bọn em ạ.
+
+726
+00:48:40,780 --> 00:48:44,960
+Nhưng mình không cần phải nói ra cái đó.
+
+727
+00:48:45,380 --> 00:48:47,740
+Cái đó cũng là một trong những
+cái bí quyết, cái khẩu quyết.
+
+728
+00:48:48,160 --> 00:48:52,340
+Còn mình phải tập trung vào cái dơ mình
+phải đi theo hướng CUT, đi theo các hướng
+
+729
+00:48:52,340 --> 00:48:55,080
+về cái phần dịch vụ, về các
+phần trải nghiệm người dùng.
+
+730
+00:48:56,310 --> 00:49:01,610
+Thế còn dự án PO sản biệt biển cứ để nó
+duy trì maintain kiểu kiểu kiểu như thế rồi
+
+731
+00:49:01,610 --> 00:49:06,190
+một tí sau có thể đến lúc nào đó mình sẽ
+quay trở lại tí sau thực sự cái mạng đó mà
+
+732
+00:49:06,190 --> 00:49:09,610
+làm được cũng rất hay đấy luôn nhé nó là
+cái dịch vụ giá trị gia tăng nhưng có lẽ
+
+733
+00:49:09,610 --> 00:49:14,190
+cùng lúc mình không thể để làm nhiều thứ
+mình coi như đấy là một cái miếng ăn để
+
+734
+00:49:14,190 --> 00:49:17,630
+dành thôi mà thực ra nó bất đông nó bất
+đăng duy trì mà mà trong quá cứ nó đã hoàn
+
+735
+00:49:17,630 --> 00:49:20,770
+thành rất tốt dịch vụ rồi chúng ta sẽ
+quay trở lại cái vật đấy nhưng mà quay lại
+
+736
+00:49:20,770 --> 00:49:22,750
+với một cái thân thiện khác nhé
+
+737
+00:49:30,300 --> 00:49:36,080
+Nói về trang chủ thì
+theo trên xuống dưới độ
+
+738
+00:49:36,080 --> 00:49:42,080
+tiền cao dần xuống thấp dần
+One Series sẽ đẩy đến đầu
+
+739
+00:49:42,080 --> 00:49:45,540
+tiên luôn có thể ngay vì
+dưới đăng ký tiên miền thôi.
+
+740
+00:49:45,760 --> 00:49:49,200
+Cái này ma tin trừ tiên miền
+mình vẫn phải có sản phẩm dẫn em.
+
+741
+00:49:49,460 --> 00:49:50,260
+Ý là phẽo em.
+
+742
+00:49:50,420 --> 00:49:51,660
+Phẽo thì tiên miền đúng không em.
+
+743
+00:49:51,980 --> 00:49:52,120
+Ok.
+
+744
+00:49:53,180 --> 00:49:55,700
+Bắt đầu từ tiên miền bắt đầu
+trở xuống One Series luôn.
+
+745
+00:50:01,250 --> 00:50:06,990
+Thứ đấy liên quan đến thương hiệu, email,
+one mail nghe, sau đó sẽ gắn vào cái
+
+746
+00:50:06,990 --> 00:50:07,390
+mail.
+
+747
+00:50:07,570 --> 00:50:11,170
+Có ai nào nói là Tino, Tino Mail đó.
+
+748
+00:50:11,370 --> 00:50:12,990
+Thứ nó thành một cái sản phẩm.
+
+749
+00:50:13,070 --> 00:50:15,950
+Mình không phải ngại được email cho
+tên nghiệp, email doanh nghiệp gì.
+
+750
+00:50:16,480 --> 00:50:18,100
+Thứ thành một cái thương hiệu của người.
+
+751
+00:50:18,980 --> 00:50:20,860
+Như gờ mail, one mail.
+
+752
+00:50:23,590 --> 00:50:26,170
+Thì cái phần audit này
+thì ma tìm cho chứng trí.
+
+753
+00:50:27,080 --> 00:50:29,180
+Thông báo cho anh em audit lại trang.
+
+754
+00:50:29,820 --> 00:50:31,020
+Giờ thì tù hãy ngại hết.
+
+755
+00:50:32,220 --> 00:50:34,340
+Cái này được trong tháng
+trước anh cũng bàn rồi.
+
+756
+00:50:34,500 --> 00:50:36,660
+Nhưng phần liên quan đến
+tích hợp của JoJo vào.
+
+757
+00:50:37,180 --> 00:50:41,920
+JoJo vào thì nó sẽ như thế nào, các sản
+phẩm nó phải đủ như nào, tương đồng hóa như
+
+758
+00:50:41,920 --> 00:50:44,360
+nào, tất cả phải rõ ràng thế.
+
+759
+00:50:53,440 --> 00:50:55,060
+Kỹ thuật, công nghệ còn gì nữa anh?
+
+760
+00:50:56,080 --> 00:50:56,480
+Có...
+
+761
+00:51:00,260 --> 00:51:02,480
+Xác đổi với S3 đúng không?
+
+762
+00:51:02,950 --> 00:51:03,330
+Vâng.
+
+763
+00:51:04,640 --> 00:51:08,740
+Phần S3 trước em có gửi anh
+Chí confirm lại cho em chút.
+
+764
+00:51:08,980 --> 00:51:11,000
+Còn về kế hoạch thì em cũng...
+
+765
+00:51:11,310 --> 00:51:17,010
+Đã trao đổi được thì mình sẽ cung cấp giải
+pháp standard chạy HD trước sau đấy mình
+
+766
+00:51:17,010 --> 00:51:19,010
+sẽ bổ sung thêm HD sau.
+
+767
+00:51:19,170 --> 00:51:24,850
+Còn về các cái phần dung lượng và giá
+bán thì về sau kể cả mình bổ sung thêm
+
+768
+00:51:24,850 --> 00:51:26,830
+HDD mình chỉ cần bổ sung thêm giá thôi.
+
+769
+00:51:27,290 --> 00:51:28,230
+Cấu hình thì vẫn thế.
+
+770
+00:51:32,060 --> 00:51:33,620
+Rồi workflow hắn hành thế nào?
+
+771
+00:51:33,720 --> 00:51:34,120
+Trao đổi luôn.
+
+772
+00:51:35,370 --> 00:51:39,670
+Ở phần này thì mình sẽ vẫn có trang
+ở trên INS với Portal, vẫn đủ toán.
+
+773
+00:51:39,870 --> 00:51:44,110
+Còn bên OneDash thì đã tích hợp
+ở phần nội bộ để overview thử.
+
+774
+00:51:48,880 --> 00:51:54,760
+Đối tượng khách hàng của S3 thì khá
+là đặc thù cho nên với trọng số của S3
+
+775
+00:51:54,760 --> 00:51:57,920
+thì em nhắm đến là mình làm
+giàu hệ sinh thái của nó trước.
+
+776
+00:52:01,120 --> 00:52:05,020
+Mình có liên tục phát triển sản
+phẩm xoay quanh hệ sinh thái của S3.
+
+777
+00:52:05,120 --> 00:52:08,800
+Anh đọc rồi trong báo cáo này nhưng mà anh
+đang hỏi cái gì như năm qua anh hỏi anh
+
+778
+00:52:08,800 --> 00:52:09,360
+Quân.
+
+779
+00:52:10,050 --> 00:52:14,710
+Anh thấy mọi người đang định kỳ vọng bán
+cho các khách hàng mua VM của mình như thế
+
+780
+00:52:14,710 --> 00:52:15,070
+nào?
+
+781
+00:52:15,640 --> 00:52:18,040
+VM thì hệ quan điện phần...Polop chứ.
+
+782
+00:52:19,100 --> 00:52:22,880
+Anh đang sợ là C4Batim
+có thể chưa rõ cái đấy.
+
+783
+00:52:23,100 --> 00:52:28,500
+Anh mua mở rộng expand, extend
+ra rồi mua object là gì đâu.
+
+784
+00:52:28,780 --> 00:52:33,960
+Mặc dù object của mình LED không xịn
+rò quá nhưng nó sẽ phải mua, mua block.
+
+785
+00:52:35,210 --> 00:52:37,070
+Cái block bao giờ mình có?
+
+786
+00:52:37,570 --> 00:52:39,670
+Trong tháng 7 em với anh Đạt
+
+787
+00:52:44,150 --> 00:52:45,110
+Thằng 8.
+
+788
+00:52:46,530 --> 00:52:52,490
+Theo anh ý là F3, SD này mình bán
+
+789
+00:52:52,490 --> 00:52:53,630
+bây giờ không bán được đâu.
+
+790
+00:52:54,420 --> 00:52:55,540
+Có kêu lông lý gì không?
+
+791
+00:52:56,900 --> 00:53:02,420
+Thực ra là so với mặt bằng chung hiện
+tại thì em đang khảo qua 3 đơn vị
+
+792
+00:53:02,420 --> 00:53:07,560
+là FPT, VNG và
+
+793
+00:53:07,560 --> 00:53:08,800
+Bitfly.
+
+794
+00:53:09,560 --> 00:53:14,710
+Thì với giá này của mình
+thì mình cũng xem xem họ với
+
+795
+00:53:14,710 --> 00:53:17,510
+sử dụng cái phần cứng này.
+
+796
+00:53:18,090 --> 00:53:20,510
+Thế là cũng không phải vấn đề.
+
+797
+00:53:20,690 --> 00:53:25,130
+Và thực ra mình PS3 này không phải đặt
+nặng trọng số vào việc mình sẽ phát triển
+
+798
+00:53:25,130 --> 00:53:26,050
+phần dưu trữ đấy.
+
+799
+00:53:26,410 --> 00:53:32,270
+Nhưng mà nó sẽ là cái tiền đề ví dụ như
+là sau có các đơn vị người ta cần khả năng
+
+800
+00:53:32,270 --> 00:53:37,110
+xử lý dữ liệu nhanh thì mình cung
+cấp và cái lúc đấy mình không phải.
+
+801
+00:53:38,190 --> 00:53:41,270
+Thay đổi giá có thể sẽ hành
+lợi các khách hàng cũ của mình.
+
+802
+00:53:42,920 --> 00:53:45,300
+Ý anh hỏi thêm một cái nữa là...
+
+803
+00:53:46,800 --> 00:53:51,840
+Bởi vì anh thấy là cái khách hàng của
+mình khi chuyển sang mô hình liên quan đến
+
+804
+00:53:51,840 --> 00:53:54,100
+Cloud Server ấy.
+
+805
+00:53:55,450 --> 00:53:58,990
+Thì mình đã gặp phải một vấn đề một
+số khách hàng có dung lượng lớn ấy.
+
+806
+00:53:59,490 --> 00:54:00,510
+Người ta muốn extend ấy.
+
+807
+00:54:01,690 --> 00:54:05,450
+Anh muốn hỏi cái blog ấy thì anh
+nghĩ là cái blog nó sẽ có nhu cầu.
+
+808
+00:54:06,260 --> 00:54:08,080
+Nếu không thì mình sẽ
+mất một số khách hàng.
+
+809
+00:54:08,740 --> 00:54:09,540
+Lost storage đấy.
+
+810
+00:54:09,800 --> 00:54:11,600
+Chị, Phun ạ.
+
+811
+00:54:13,720 --> 00:54:14,240
+Phun ơi được không?
+
+812
+00:54:17,300 --> 00:54:18,260
+Dạ, em nghĩ được đấy.
+
+813
+00:54:18,820 --> 00:54:24,120
+Thế còn liên quan đến cái F3 này thì tiên
+thử xem xem nếu là cái phần mà đầu tư
+
+814
+00:54:24,120 --> 00:54:29,960
+Zbackup nó lớn ấy, nó có thể nó gần đứng
+đương thì em nói, em đề xuất là anh nghĩ
+
+815
+00:54:29,960 --> 00:54:30,480
+ok đấy.
+
+816
+00:54:30,680 --> 00:54:32,160
+Trao đổi với anh Hải với Hậu, đấy.
+
+817
+00:54:32,700 --> 00:54:34,540
+Và sẽ đầu tư luôn một cụm HTD đấy.
+
+818
+00:54:36,120 --> 00:54:37,820
+Tức là mình cũng thay
+đổi lại quan điểm chút.
+
+819
+00:54:37,920 --> 00:54:40,980
+Nhưng trước thì mình cứ nghĩ là mình cho
+là cái phần hệ thống F3D của mình còn
+
+820
+00:54:40,980 --> 00:54:41,340
+nhiều đấy.
+
+821
+00:54:41,550 --> 00:54:42,350
+Thì mình sẽ cần đầu tư thế.
+
+822
+00:54:43,110 --> 00:54:48,750
+Nhưng theo ý nghĩ là nếu cần
+thì sẽ đầu tư để mình bán F3 ở
+
+823
+00:54:48,750 --> 00:54:49,450
+mức giá.
+
+824
+00:54:50,110 --> 00:54:55,030
+Nhưng mà đến lúc ra như thế thì mình có
+nói rõ là mình bán F3, HDD hay được không?
+
+825
+00:54:55,310 --> 00:54:58,130
+Không, mình chỉ ghi Standard và IA.
+
+826
+00:54:58,210 --> 00:54:58,750
+Thế thôi đúng không?
+
+827
+00:54:58,850 --> 00:54:59,850
+Mình sẽ ghi thế thôi đúng không?
+
+828
+00:55:00,510 --> 00:55:00,870
+Đấy.
+
+829
+00:55:00,970 --> 00:55:06,250
+Ý anh thì là mình không hẳn là mình kỳ
+vọng mà mình bán cái Startup nữa đâu.
+
+830
+00:55:06,830 --> 00:55:09,290
+Và ý anh là sẽ sử dụng
+để giảm bắt up luôn đấy.
+
+831
+00:55:10,240 --> 00:55:12,480
+Vâng, backup thì mình sẽ
+chỉ sử dụng HTTP thôi.
+
+832
+00:55:12,620 --> 00:55:15,320
+Thì đấy, ý anh thì sẽ thay vì đầu tư Zapp.
+
+833
+00:55:15,920 --> 00:55:18,780
+Nhưng bây giờ nếu có đầu tư một hệ thống
+Zapp nữa thì cũng cần phải đầu tư thêm các
+
+834
+00:55:18,780 --> 00:55:20,100
+server ZappXM không đúng không?
+
+835
+00:55:21,100 --> 00:55:22,740
+Mình sẽ có 2 loại.
+
+836
+00:55:23,240 --> 00:55:25,100
+Tại vì em kế hoạch theo
+tiêu chuẩn của backup.
+
+837
+00:55:25,620 --> 00:55:28,500
+Backup là cho hệ thống hosting vũ các thứ
+thì vẫn dùng Z để từ đó kia đúng không?
+
+838
+00:55:28,820 --> 00:55:31,420
+Với những cái hệ thống mà
+ví dụ phai mán chẳng hạn.
+
+839
+00:55:32,180 --> 00:55:36,520
+Mà ví dụ như cái bài toán lần rồi khi
+hệ thống hosting của CvN gặp sự cố ấy.
+
+840
+00:55:37,660 --> 00:55:41,620
+ZVM có nhập điểm nó bắt
+đầu file rất là lâu.
+
+841
+00:55:41,700 --> 00:55:46,120
+Do vậy việc recover của các khách
+hàng có thể mất cả ngày hoặc vài ngày.
+
+842
+00:55:46,840 --> 00:55:52,060
+Thay vì vậy, những dạng file nhắn mình sẽ
+có 2 tổng bắt đầu riêng tức là file nhắn
+
+843
+00:55:52,060 --> 00:55:55,000
+cục vụ cho việc recover
+thêm thì mình sẽ đẩy vS3.
+
+844
+00:55:55,280 --> 00:56:00,580
+Nó sẽ bắt đầu kiểu như là...
+
+845
+00:56:02,370 --> 00:56:03,290
+Không, vẫn là object.
+
+846
+00:56:04,130 --> 00:56:06,190
+Nhưng mà cơ chế nhắn của nó sẽ tốt hơn.
+
+847
+00:56:07,290 --> 00:56:08,710
+Về cao hơn nhanh hơn.
+
+848
+00:56:08,770 --> 00:56:09,750
+Về cao hơn nhanh hơn.
+
+849
+00:56:10,210 --> 00:56:12,650
+Còn dạng của ZMF kia là...
+
+850
+00:56:12,650 --> 00:56:17,910
+Thế thì ZMF nó giống như kiểu một cái kho
+để ưu trí để đảm bảo an toàn chính thôi
+
+851
+00:56:17,910 --> 00:56:18,050
+chứ không?
+
+852
+00:56:18,210 --> 00:56:21,950
+Chứ là tính năng của nó, nếu mà nó lâu
+như vậy thì sao nó đúng các vấn đề mà...
+
+853
+00:56:21,950 --> 00:56:25,930
+Nó sẽ chỉ đáp ứng cho khách hàng, những
+khách hàng người ta cần là backup in
+
+854
+00:56:25,930 --> 00:56:26,330
+environmental.
+
+855
+00:56:26,810 --> 00:56:28,210
+Tức là những cái mà...
+
+856
+00:56:28,210 --> 00:56:29,490
+Tinh nghề, tinh nghề.
+
+857
+00:56:30,730 --> 00:56:33,250
+Thì nó sẽ cho hiệu suất đọc đi nhanh hơn.
+
+858
+00:56:33,670 --> 00:56:36,250
+Tại vì nó chạy local rate sẽ nhanh hơn.
+
+859
+00:56:37,090 --> 00:56:40,310
+Và vấn đề recorder thì
+nó không thực xuyên.
+
+860
+00:56:40,350 --> 00:56:42,650
+Thế là lúc này sẽ phép theo đối tượng
+file chứ không phải theo dịch vụ nữa.
+
+861
+00:56:43,150 --> 00:56:43,550
+Vâng.
+
+862
+00:56:43,570 --> 00:56:43,970
+Được không?
+
+863
+00:56:44,090 --> 00:56:45,430
+Nó sẽ tiết kiệm hơn cho mình.
+
+864
+00:56:45,850 --> 00:56:47,570
+Thế thì anh nghĩ là
+theo giải pháp đấy chứ?
+
+865
+00:56:49,730 --> 00:56:54,720
+Thì để mình hoàn hiện
+
+866
+00:56:54,720 --> 00:56:56,700
+hạ tầng info đi.
+
+867
+00:57:00,900 --> 00:57:04,840
+Thực ra cái loader, search, connect thì
+đầu tiên nhiều khi là thuận giữ PR mà có
+
+868
+00:57:04,840 --> 00:57:06,800
+khi em update tí để cho mình cầm bố luôn.
+
+869
+00:57:07,140 --> 00:57:09,520
+Anh ý nó chỉ là cái để gọi là lòe lòe thế.
+
+870
+00:57:10,480 --> 00:57:13,200
+Nói vậy thôi, nhiều khi mình
+cũng cần phải PR một tí.
+
+871
+00:57:14,120 --> 00:57:17,660
+Chứ nhiều khi mà mình cứ làm gọi
+là mình không lừa đảo là được.
+
+872
+00:57:18,040 --> 00:57:23,920
+Thực ra về cái chiếc lý sản phẩm, cái
+chiếc lý của mình ý, là anh ý là, là,
+
+873
+00:57:23,920 --> 00:57:26,340
+là, là, là, anh ý không doanh nghiệp
+nào làm cái kiểu của mình đâu.
+
+874
+00:57:26,660 --> 00:57:30,300
+Nhưng mà anh ý là cũng không nên
+lành quá để người ta bắt đảo.
+
+875
+00:57:31,460 --> 00:57:37,380
+Về cái phần Logs Lancer thì cái phần này
+có kế hoạch sau khi block xong thì tại
+
+876
+00:57:37,380 --> 00:57:40,920
+vì giờ tuần rồi mình có làm S3
+thì mình làm với cả cái IAM nữa.
+
+877
+00:57:41,900 --> 00:57:46,880
+Nên là do vậy là cái phần đấy
+sẽ tích hợp với phần VPC luôn.
+
+878
+00:57:47,660 --> 00:57:52,460
+Thì bỏ cái phần VB Cloud ấy để mình
+làm luôn thì phí như vậy nó sẽ ổn hơn.
+
+879
+00:57:52,540 --> 00:57:54,400
+Nhưng mà trong lúc này mình
+có đóng được cái đấy không?
+
+880
+00:57:55,710 --> 00:58:00,210
+Nhưng mà MacPay & Sơ thì định
+sử dụng cái giải pháp hả?
+
+881
+00:58:00,250 --> 00:58:01,830
+Giải pháp của Overstack luôn.
+
+882
+00:58:02,050 --> 00:58:04,830
+Không, trong đó nó có nhưng mà
+định dùng cái kỹ thuật nào ý?
+
+883
+00:58:05,390 --> 00:58:07,290
+Cái tạo toán kiểu dự kiểu nào trong đấy?
+
+884
+00:58:07,490 --> 00:58:12,650
+Tạo toán tại vì nó sẽ dính đến cái phần
+IPvCloud do vậy là cái việc tối ưu được...
+
+885
+00:58:12,650 --> 00:58:14,810
+Nó có 5, 6, 7 cái tạo toán thì
+em định dùng cái nào không?
+
+886
+00:58:15,070 --> 00:58:16,510
+Không, mình chọn được đấy ạ.
+
+887
+00:58:17,150 --> 00:58:18,870
+Thế em định chọn cái nào à?
+
+888
+00:58:21,580 --> 00:58:25,840
+Để cho khách hàng được tự
+quyết tốc án, chứ không phải.
+
+889
+00:58:30,140 --> 00:58:33,680
+Nếu để khách hàng tự quyết, nó không
+ảnh hưởng đến mô phân bổn lệ đâu.
+
+890
+00:58:35,080 --> 00:58:38,940
+Tại vì nó đi rao lượng
+network của khách hàng.
+
+891
+00:58:39,200 --> 00:58:42,280
+Tức là không phải mình fix
+ra vài phương án đúng không?
+
+892
+00:58:42,600 --> 00:58:43,920
+Vâng, nó có sự thường hình.
+
+893
+00:58:44,620 --> 00:58:45,640
+Cái được ưu tiên.
+
+894
+00:58:45,720 --> 00:58:48,300
+Thì như vậy, Quân hiểu ý anh ở đây không?
+
+895
+00:58:48,680 --> 00:58:53,040
+Tức là để có cái cho ông
+Martin đi đưa vào hồ sơ.
+
+896
+00:58:53,240 --> 00:58:58,220
+Bởi vì các dự án lớn với nhà nước thì
+ông cũng phải gọi là nêm minh một tí.
+
+897
+00:58:58,520 --> 00:58:58,740
+Quân ạ.
+
+898
+00:59:03,330 --> 00:59:04,110
+Dạ, anh nghe được.
+
+899
+00:59:06,500 --> 00:59:10,480
+Thực ra mình cũng không phải là mình kỳ
+vọng mình sẽ ở trong gắn hạn mình kiếm
+
+900
+00:59:10,480 --> 00:59:11,280
+chính gì ở cái đấy đâu.
+
+901
+00:59:11,840 --> 00:59:13,940
+Nhưng mà một số thứ mình
+cần để làm hình ảnh như thế.
+
+902
+00:59:14,440 --> 00:59:18,280
+Như vậy thì trong năm nay mình đóng được
+cơ bản một số thứ như thế thì rất là ok
+
+903
+00:59:18,280 --> 00:59:18,460
+rồi.
+
+904
+00:59:22,920 --> 00:59:26,240
+Ok, thì Phanet 3 mình cho
+chất những cụ thể hơn.
+
+905
+00:59:27,290 --> 00:59:31,090
+Thế nên em phúc cho Hải với cả chỗ
+Hậu đi làm cái dự án nhanh lên đi.
+
+906
+00:59:31,490 --> 00:59:35,150
+Bởi vì cái đợt này nó rất phức tạp nhỉ,
+là nhẹn ở cái chỗ là gì là anh yêu cầu Hải
+
+907
+00:59:35,150 --> 00:59:36,130
+với Hậu phải tính cho anh.
+
+908
+00:59:36,330 --> 00:59:40,210
+Bởi vì sau cái đợt kỳ hoạch server này này
+liên quan đến một loạt các đợt kỳ hoạch
+
+909
+00:59:40,210 --> 00:59:44,350
+VMware, rồi liên quan đến đợt hosting,
+thậm chí cả cloud server cho Windows hay thứ
+
+910
+00:59:44,350 --> 00:59:44,610
+nữa.
+
+911
+00:59:44,970 --> 00:59:47,570
+Thì làm sao bởi vì bây giờ đồng
+tư thiết bị nó rất là nặng ấy.
+
+912
+00:59:47,690 --> 00:59:48,750
+Do vậy tính đoán làm sao đấy.
+
+913
+00:59:48,930 --> 00:59:53,210
+Mà thiết bị thì anh nghĩ là nếu mình dùng
+phong hiệu quả chỉ 3 năm thôi là mình hết
+
+914
+00:59:53,210 --> 00:59:53,570
+hơi ngay.
+
+915
+00:59:54,160 --> 01:00:00,160
+Do vậy mình tính đoán kỳ quả, chứ
+không là vài năm sau cái thiết bị mà
+
+916
+01:00:00,160 --> 01:00:04,120
+mình rút ra mình không quy hoạch mình
+đưa vào mình rút luôn thì nó dở hơi lắm.
+
+917
+01:00:04,460 --> 01:00:07,600
+Em giúp cho Hải với Hậu
+xử lý nhanh lên kia đây.
+
+918
+01:00:08,660 --> 01:00:13,260
+Hình như đội đấy đã chờ tiên
+chút một vài thứ đúng không?
+
+919
+01:00:13,680 --> 01:00:15,440
+Hôm rồi em đã chốt với các anh.
+
+920
+01:00:16,460 --> 01:00:19,240
+Em chốt xong rồi để tiên
+nhé, để làm nhanh lên.
+
+921
+01:00:21,370 --> 01:00:26,710
+Từ nay, cuối năm còn phần đầu tư cho các
+dự án cloud này và tiếp một cái dự án gần
+
+922
+01:00:26,710 --> 01:00:27,270
+của anh nói rồi.
+
+923
+01:00:27,530 --> 01:00:28,470
+Ai sẽ thuốc ngành như thế này?
+
+924
+01:00:29,040 --> 01:00:33,280
+Hy vọng là sẽ từ nay cuối năm, sẽ
+không muộn sang đến đầu sau này.
+
+925
+01:00:42,650 --> 01:00:47,430
+Cho S3 thì anh Trí, như hôm trước
+em trao đổi thì mình sẽ lấy về giá.
+
+926
+01:00:47,750 --> 01:00:51,350
+Thời gian đầu mình có thể
+quên mại để giảm nhẹ được.
+
+927
+01:00:51,590 --> 01:00:56,850
+Chứ cũng không nhất thiết là mình phải đặt
+nặng vấn đề là mình có giá tốt để bán đi
+
+928
+01:00:56,850 --> 01:00:58,230
+cạnh tranh với các nhà cung cấp khác.
+
+929
+01:00:59,300 --> 01:01:03,180
+Phần thích hợp trước mắt có
+phần triển khai thử nghiệm.
+
+930
+01:01:03,280 --> 01:01:04,760
+Hôm trước anh Đạt có nhắn nhóm nhóm.
+
+931
+01:01:04,960 --> 01:01:10,660
+Bạn em đã thích hợp nội
+bộ để theo phần workflow
+
+932
+01:01:10,660 --> 01:01:13,760
+để xem thao tác với các thứ mọi
+người có vấn đề gì hay không.
+
+933
+01:01:15,080 --> 01:01:20,740
+Trong tuần này anh Chí hỗ trợ theo phần
+liên quan lên Google lên xong và mình sẽ
+
+934
+01:01:20,740 --> 01:01:22,440
+thiết kế trên trang của anh em nữa.
+
+935
+01:01:24,060 --> 01:01:27,120
+Sau đấy sẽ móc vào phần
+OneDash của mình để hoàn thiện.
+
+936
+01:01:27,600 --> 01:01:32,560
+Trong tháng này, em bên Đạt sẽ ngồi bên
+Đô để chuyển phần quản lý dịch vụ Cloud
+
+937
+01:01:32,560 --> 01:01:33,160
+Server sang.
+
+938
+01:01:33,380 --> 01:01:37,740
+Tại vì sau tất cả những mô-do mình phát
+triển ở OneCloud rồi nó dính hết ở OneDash.
+
+939
+01:01:37,980 --> 01:01:40,780
+Sau vậy mình sẽ tập trung lên đấy
+để mình quản lý tập trung luôn.
+
+940
+01:01:42,040 --> 01:01:43,800
+Phần tính tiền thì vẫn là OneMS.
+
+941
+01:01:44,480 --> 01:01:48,960
+Còn phần liên quan đến service, sự
+dịch vụ thì sẽ đưa lên từng service.
+
+942
+01:01:51,340 --> 01:01:55,600
+Tất cả thể thấy mình thống nhất từ
+thiết kế từ quy hoạch trước ngày xưa.
+
+943
+01:01:59,240 --> 01:02:04,000
+Bây giờ chủ nghĩa là liên quan đến phần
+liên quan đến truyền thông và cập nhật lại.
+
+944
+01:02:04,500 --> 01:02:10,330
+Anh em chú ý trong phần đưa ra những
+cái nội dung truyền thông thật hơn.
+
+945
+01:02:17,270 --> 01:02:18,710
+Còn ai có ý kiến gì nào?
+
+946
+01:02:22,040 --> 01:02:25,680
+Kiên với Đạt ở lại một tí, anh đã gọi lấy
+họ vào để anh trao đổi nhanh 5 phút về vụ
+
+947
+01:02:25,680 --> 01:02:26,000
+APH.
+
+948
+01:02:26,900 --> 01:02:27,260
+Vâng.
+
+949
+01:02:27,520 --> 01:02:28,840
+Cái vụ APH.
+
+950
+01:02:29,160 --> 01:02:30,740
+Đây anh gọi rồi.
+
+951
+01:02:31,020 --> 01:02:33,100
+Cứ nói máy đi trong đấy.
+
+952
+01:02:33,500 --> 01:02:34,220
+Không sao cả.
+
+953
+01:02:35,090 --> 01:02:36,390
+Trúc ở lại, Trúc Quân ở lại.
+
+954
+01:02:40,960 --> 01:02:43,120
+Em cứ bảo Trí đi, chứ không quan đến Trí.
+
+955
+01:02:44,100 --> 01:02:46,860
+Trí đi mở, em bận thì cứ đi nhé.
+
+956
+01:02:47,200 --> 01:02:48,200
+Trúc Quân lại, Trí.
+
+957
+01:02:48,580 --> 01:02:49,660
+Ngồi đây, ngồi đây.
+
+958
+01:02:50,420 --> 01:02:51,560
+Trong đổi nhanh đến 5 phút thôi.
+
+959
+01:03:00,670 --> 01:03:01,770
+Quân với Trúc vẫn nghe được cái gì?
+
+960
+01:03:07,780 --> 01:03:09,500
+Ok, anh trao đổi cái này thôi.
+
+961
+01:03:09,640 --> 01:03:11,060
+Thực ra là trao đổi rất là nhiều lần rồi.
+
+962
+01:03:11,560 --> 01:03:13,380
+Chia sẻ lại thêm tí thôi.
+
+963
+01:03:14,140 --> 01:03:18,610
+Tức là bọn em hình dung thì bây
+
+964
+01:03:19,990 --> 01:03:22,970
+giờ, bây giờ là mọi thứ
+người ta đều có thể.
+
+965
+01:03:23,420 --> 01:03:27,580
+Người ta đều có thể học hỏi bắt trước được
+với nhau rất nhanh, đặc biệt các vấn đề
+
+966
+01:03:27,580 --> 01:03:28,820
+phát triển sản phẩm.
+
+967
+01:03:28,820 --> 01:03:34,400
+Nhưng thực sự nếu anh xây dựng
+được một hệ sinh thái đủ lớn,
+
+968
+01:03:34,490 --> 01:03:39,270
+thực ra hệ sinh thái của mình khá đủ
+lớn bay lên từ việc này là tên miệng.
+
+969
+01:03:40,230 --> 01:03:45,570
+Bây giờ các vấn đề về Cloud Service, đặc
+biệt là COD mình sẽ tập trung rất mạnh vào
+
+970
+01:03:45,570 --> 01:03:47,490
+mạng và phần hạt tầng.
+
+971
+01:03:48,140 --> 01:03:51,320
+Thực ra anh vừa nói chuyện với Kiên là
+trong cuối năm nay đoán sau thôi, chứ nhanh
+
+972
+01:03:51,320 --> 01:03:57,200
+chóng ngoài việc nói với
+em là đầu tư GPU để trên
+
+973
+01:03:57,200 --> 01:04:03,040
+Google riêng và xác định đó là một cái
+thành phần, một cái AI, một cái thành phần
+
+974
+01:04:03,040 --> 01:04:04,180
+trong hệ thống liên tạc IS.
+
+975
+01:04:04,320 --> 01:04:07,780
+Chứ không phải là IS chỉ
+đi mua API, AI về dụng.
+
+976
+01:04:08,750 --> 01:04:13,350
+Và anh vừa nói với Kiên thêm ý nữa là sẽ
+nâng cấp các đường mình lên cổng 100 kỹ
+
+977
+01:04:13,350 --> 01:04:15,380
+thuật ở cả hai biệt.
+
+978
+01:04:18,620 --> 01:04:21,900
+Những thứ đó nếu mình tạo ra một
+hệ sinh thái thì rất khó bắt chiếc.
+
+979
+01:04:23,680 --> 01:04:25,160
+Nhưng vẫn có thể bắt chiếc được.
+
+980
+01:04:26,560 --> 01:04:27,640
+Khó nhưng vẫn có thể.
+
+981
+01:04:30,140 --> 01:04:33,560
+Có thể mất 5 năm, 10 năm để
+bắt chiếc được, để làm được.
+
+982
+01:04:33,860 --> 01:04:37,560
+Thực sự là mô hình của mình mình không
+xây dựng hàng chục năm hơn, không phải như
+
+983
+01:04:37,560 --> 01:04:37,880
+thế này đâu.
+
+984
+01:04:38,280 --> 01:04:40,240
+Nhưng có một cái từ sau
+anh nghĩ là cực kỳ khó.
+
+985
+01:04:40,480 --> 01:04:41,300
+Đó là văn hóa.
+
+986
+01:04:43,820 --> 01:04:45,800
+Anh khẳng định luôn văn hóa
+không thể bắt chiếc được.
+
+987
+01:04:49,740 --> 01:04:53,680
+Văn hóa của mình được xây dựng
+dựa trên sự tử tế và chính trực.
+
+988
+01:04:55,360 --> 01:04:59,900
+Và vừa rồi thêm một cái nữa, chúng ta sẽ
+tiếp tục tích lọc khách hàng để làm sao
+
+989
+01:04:59,900 --> 01:05:00,080
+đấy.
+
+990
+01:05:00,820 --> 01:05:04,720
+Đảm bảo là ngay bản thân khách hàng của
+chúng ta là những người mà có giá trị cho
+
+991
+01:05:04,720 --> 01:05:06,680
+xã hội, cho cuộc sống, cho đời sợ.
+
+992
+01:05:07,460 --> 01:05:10,400
+Chúng ta không đảm bảo chúng ta nữa, mà
+chúng ta còn đảm bảo cả khách hàng của
+
+993
+01:05:10,400 --> 01:05:10,560
+chúng ta.
+
+994
+01:05:11,100 --> 01:05:12,340
+Đấy là cái đích chúng ta sẽ hôm tới.
+
+995
+01:05:17,180 --> 01:05:18,480
+Văn hóa nó có rất nhiều thứ.
+
+996
+01:05:19,260 --> 01:05:21,660
+Nhưng mà ý anh ở đây đó là cái...
+
+997
+01:05:22,190 --> 01:05:25,270
+Các bạn có thể nhận thêm một trong những
+giá trị lớn nhất mà chúng ta đang hướng
+
+998
+01:05:25,270 --> 01:05:25,870
+đến như thế.
+
+999
+01:05:26,710 --> 01:05:30,510
+Trong nay, anh nói vào vò một chút hơn
+liên quan câu chuyện về khách hàng kia.
+
+1000
+01:05:30,870 --> 01:05:34,050
+Anh đọc qua tất cả trường hợp trao đi
+đổi lại khách hàng của Phương Linh.
+
+1001
+01:05:34,530 --> 01:05:37,710
+Đối chiếu theo các quy
+định thì họ vi phạm.
+
+1002
+01:05:39,980 --> 01:05:42,950
+Nhưng, xét về bản chất
+khách hàng đó là thật.
+
+1003
+01:05:43,790 --> 01:05:46,750
+Người ta là giám đốc công nghệ
+thông tin của một công ty.
+
+1004
+01:05:47,170 --> 01:05:48,950
+Người ta lôi rất nhiều
+khách hàng về cho anh ấy.
+
+1005
+01:05:49,310 --> 01:05:53,170
+Và đúng là người ta đăng ký
+cho khách hàng người ta thật.
+
+1006
+01:05:53,380 --> 01:05:57,100
+Nhưng khách hàng người ta có những người
+người ta không đủ năng lượng quản trị thì
+
+1007
+01:05:57,100 --> 01:05:58,060
+thậm chí người ta quản trị cho.
+
+1008
+01:05:58,560 --> 01:05:59,580
+Thì đấy đúng là A-phi-ơ.
+
+1009
+01:05:59,880 --> 01:06:00,520
+Thật đúng không ạ?
+
+1010
+01:06:01,220 --> 01:06:06,100
+Nếu mình áp dụng một cách máy móc
+quy định của mình là mình chết.
+
+1011
+01:06:06,400 --> 01:06:09,620
+Bọn em phải hiểu ra quy định, chính
+sách xin ra để phục vụ con người.
+
+1012
+01:06:10,260 --> 01:06:14,240
+Và với thời đại AI hiện nay thì anh đã
+bảo em quy định chính sách luôn chạy theo
+
+1013
+01:06:14,240 --> 01:06:14,860
+sau thực tế.
+
+1014
+01:06:15,900 --> 01:06:17,080
+Luôn chạy theo sau thực tế.
+
+1015
+01:06:17,200 --> 01:06:20,620
+Do vậy chúng ta phải rất nhanh nhanh,
+chúng ta linh hoạt để chúng ta update chính
+
+1016
+01:06:20,620 --> 01:06:20,880
+sách.
+
+1017
+01:06:21,670 --> 01:06:22,130
+Đúng không?
+
+1018
+01:06:22,970 --> 01:06:28,270
+Và thậm chí anh nghĩ là Đô phải
+dám cho anh chị em cái quyền
+
+1019
+01:06:28,940 --> 01:06:33,000
+nếu trực quan mình cảm thấy đúng,
+được quyết và chịu chuyện sau.
+
+1020
+01:06:33,940 --> 01:06:39,350
+Anh đảm bảo nhé, nếu Phương Linh
+mà thấy cái trường hợp này là đúng,
+
+1021
+01:06:40,060 --> 01:06:45,160
+không vi phạm cái gì về chiến lý kinh
+doanh công ty, Phương Linh quyết luôn.
+
+1022
+01:06:46,220 --> 01:06:50,500
+Đấy, và sau đó Phương Linh báo cáo lại,
+anh đảm bảo Đô hay anh anh quân không phạt
+
+1023
+01:06:50,500 --> 01:06:50,820
+Phương Linh.
+
+1024
+01:06:51,930 --> 01:06:56,710
+Chúng ta nên đẩy mạnh một nước nước, dám
+cho anh chị em chúng ta có được cái quyền
+
+1025
+01:06:56,710 --> 01:06:58,630
+nếu đó là cái điều chính trực.
+
+1026
+01:06:59,710 --> 01:07:00,530
+Đâu hiểu như thế nào?
+
+1027
+01:07:01,320 --> 01:07:01,780
+Dám không?
+
+1028
+01:07:04,200 --> 01:07:08,770
+Chúng ta cho nhân viên của ta được cái
+quyền, thậm chí có những thứ nó không nằm
+
+1029
+01:07:08,770 --> 01:07:09,270
+trong quy định.
+
+1030
+01:07:09,650 --> 01:07:13,090
+Nhưng mà nhân viên nhất định đây là một
+cái sự chính trực, đây là một sự tử tế, một
+
+1031
+01:07:13,090 --> 01:07:14,070
+sự đàng hoàng, đây là thật.
+
+1032
+01:07:14,750 --> 01:07:17,730
+Thì dám quyết trước và báo cáo sau.
+
+1033
+01:07:18,520 --> 01:07:21,320
+Và chúng ta sẽ bổ sung vào quy chế độ.
+
+1034
+01:07:22,380 --> 01:07:23,840
+Nên đẩy thêm những lúc này.
+
+1035
+01:07:25,440 --> 01:07:28,100
+Cái điều đó tốt cho công ty,
+tốt cho nhân viên, đúng không?
+
+1036
+01:07:28,520 --> 01:07:29,860
+Và tốt cho khách hàng, đúng không?
+
+1037
+01:07:31,280 --> 01:07:32,780
+Tốt cho cái trải nghiệm của khách hàng.
+
+1038
+01:07:35,590 --> 01:07:38,070
+Đấy là anh có cái ý thế thôi,
+còn bọn anh bàn với nhau.
+
+1039
+01:07:38,790 --> 01:07:40,070
+Quân, đô, cái thứ bàn.
+
+1040
+01:07:42,270 --> 01:07:44,330
+Chúng ta phải nâng cấp dần
+nhân viên chúng ta lên.
+
+1041
+01:07:45,490 --> 01:07:50,590
+Chả lẽ là mãi mãi là cái người đi, sức
+ngày đi làm, đi báo cáo gì, xin phép, dần
+
+1042
+01:07:50,590 --> 01:07:51,270
+dần đào tạo nhân viên.
+
+1043
+01:07:51,390 --> 01:07:54,390
+Nâng cấp, thẩm quyền lên cái năng lực,
+cái sự trị nghiệm của người ta lên.
+
+1044
+01:07:54,870 --> 01:07:56,850
+Điều đó là sự thực tế chính trực và chuẩn.
+
+1045
+01:07:58,470 --> 01:08:00,250
+Mà có quy định có tin không theo được.
+
+1046
+01:08:00,690 --> 01:08:03,430
+Tất nhiên nó có những sự rủi ro mạo
+hiểm ở đây nên mình phải tính nghĩ thôi.
+
+1047
+01:08:04,950 --> 01:08:05,430
+Ý là như thế.
+
+1048
+01:08:11,950 --> 01:08:16,210
+Thì do vậy, cái trường hợp này thì anh
+nói với cả trong cái chat ấy là anh duyệt.
+
+1049
+01:08:17,050 --> 01:08:21,550
+Sau đó anh trao đổi lại với ở đây
+kiên với Đạt không liên quan ấy.
+
+1050
+01:08:22,350 --> 01:08:25,390
+Anh sẽ trao đổi với nhóm
+làm làm các cao viên ấy.
+
+1051
+01:08:27,410 --> 01:08:28,450
+Thì thôi, sợ sợ như vậy.
+
+1052
+01:08:28,710 --> 01:08:31,110
+Thì trốn Trí với Lê Hậu với...
+
+1053
+01:08:31,600 --> 01:08:33,520
+HDP, Lê Hậu với cả Quân
+có ý kiến gì không?
+
+1054
+01:08:36,340 --> 01:08:42,100
+Thế còn một cái suy nghĩ lớn hơn thì đấy
+để anh đô anh suy nghĩ rồi có thể dần dần
+
+1055
+01:08:42,100 --> 01:08:42,300
+đi.
+
+1056
+01:08:43,380 --> 01:08:47,120
+Có lẽ dần dần thì sẽ thông qua cơ chỉ,
+chính sách, thông qua những khóa đào tạo.
+
+1057
+01:08:47,280 --> 01:08:53,280
+Anh cũng dự kiến sẽ có một số các khóa
+đào tạo cho đội ngũ quản trị nhân sự
+
+1058
+01:08:53,280 --> 01:08:55,160
+cấp trung, thậm chí lên ma dân bất.
+
+1059
+01:09:04,030 --> 01:09:07,970
+Bây giờ mọi thứ nó đi vết và coi ai rồi,
+thành ra việc truy vết nó dễ mà hậu.
+
+1060
+01:09:09,510 --> 01:09:11,970
+Nhiều khi chỉ trít 1 lần,
+không trít lần 2, 3, 4 đâu.
+
+1061
+01:09:13,110 --> 01:09:18,690
+Nếu mà mình muốn nói thì thôi, cái việc
+đấy thì anh quyết luôn rồi, thì đâu có ý
+
+1062
+01:09:18,690 --> 01:09:19,250
+kiến gì khác không?
+
+1063
+01:09:21,050 --> 01:09:22,910
+Thưa cây này em chưa nắm được.
+
+1064
+01:09:24,440 --> 01:09:28,120
+Em có đợt em trao đổi với một người, thưa
+cây giống như vùng lính, ngoài trận ấy,
+
+1065
+01:09:28,440 --> 01:09:31,280
+có nhiều cái không phải quyết
+thì trở nên cái gì về...
+
+1066
+01:09:31,280 --> 01:09:32,580
+Thưa trước mình mới nói
+tướng thôi, thưa cậu.
+
+1067
+01:09:33,260 --> 01:09:34,560
+Cái gì về báo cáo chỉ huy.
+
+1068
+01:09:35,760 --> 01:09:38,940
+Trong phòng kỹ thuật, công nghệ thì em
+thấy là anh em bây giờ cũng gần như tự quyết
+
+1069
+01:09:38,940 --> 01:09:39,620
+cả sản phẩm.
+
+1070
+01:09:40,310 --> 01:09:46,050
+Đưa ra những việc tự đưa ra plan, tự
+đưa ra những gần như test-type luôn
+
+1071
+01:09:46,050 --> 01:09:49,960
+để quyết những cái mà
+mọi người có thể làm.
+
+1072
+01:09:50,200 --> 01:09:53,180
+Liên quan một số chính sách thực
+ra nó hơi nhạy cảm một chút.
+
+1073
+01:09:55,110 --> 01:09:59,770
+Thực ra nhân kiên nó liên quan cả cả bản
+lính, cả sự mà chúng ta nhìn nhận, sự việc
+
+1074
+01:09:59,770 --> 01:10:00,250
+ấy như thế nào.
+
+1075
+01:10:00,470 --> 01:10:03,570
+Nó không phải cái gì chúng ta không quyết
+được, không phải cái gì chúng ta cũng
+
+1076
+01:10:03,570 --> 01:10:05,510
+không quyết được.
+
+1077
+01:10:05,630 --> 01:10:10,490
+Vì đôi khi là có nhiều cái nhạy
+cảm cũng cần phải có sự nhìn nhận.
+
+1078
+01:10:10,970 --> 01:10:12,270
+Nhìn nhận từ nhiều hướng.
+
+1079
+01:10:12,670 --> 01:10:16,350
+Đôi khi hỏi, nó chỉ có phần
+lại cái cho nó rõ ràng hơn cái.
+
+1080
+01:10:16,510 --> 01:10:20,330
+Sau khi có sự tham vấn sẽ tiện
+hơn cho việc mình thực quyết.
+
+1081
+01:10:20,470 --> 01:10:26,460
+Nhìn cái này nó liên quan nhiều
+vấn đề về trình độ của nhân viên
+
+1082
+01:10:26,460 --> 01:10:27,420
+và người đấy.
+
+1083
+01:10:28,120 --> 01:10:30,280
+Họ thấy cảm thấy cái này ok,
+họ có thể giải quyết được.
+
+1084
+01:10:30,520 --> 01:10:33,900
+Nhưng mà cái việc chính sách như thế nào
+thì giống như nhà nước bây giờ, bây giờ
+
+1085
+01:10:33,900 --> 01:10:37,040
+hôm nào cũng đăng lên tin mới một số.
+
+1086
+01:10:38,440 --> 01:10:41,720
+Các dự án công nghệ không bị bắt.
+
+1087
+01:10:42,880 --> 01:10:48,700
+Khi chúng ta làm những cái thực
+sự tốt, không phải là mục tiêu để
+
+1088
+01:10:48,700 --> 01:10:52,980
+lợi, thì chúng ta không
+truy cứu mọi thứ đó.
+
+1089
+01:10:54,150 --> 01:10:59,230
+Đôi khi đưa ra chính sách cụ thể
+để cho mọi người yên tâm, dám làm.
+
+1090
+01:10:59,370 --> 01:11:01,130
+Bây giờ đôi khi hơi sợ.
+
+1091
+01:11:02,070 --> 01:11:04,350
+Nhưng ngoại trừ những thứ liên quan đi.
+
+1092
+01:11:04,640 --> 01:11:10,280
+Quá nhạy cảm liên quan đến chính trị, an
+ninh quốc gia, các vấn đề về lạm dụng.
+
+1093
+01:11:10,440 --> 01:11:12,340
+Cái này thuần tính về kinh tế thôi thì ok.
+
+1094
+01:11:12,980 --> 01:11:15,680
+Còn những thứ khác thì phải
+chuẩn chỉ theo quy định.
+
+1095
+01:11:15,940 --> 01:11:19,540
+Chứ không nhiều khi có những thứ
+mà quyết là hết hơi, ăn nòn đấy.
+
+1096
+01:11:19,660 --> 01:11:21,280
+Quan trọng là nhận thức của người.
+
+1097
+01:11:22,090 --> 01:11:26,990
+Thực ra phải có thời gian
+chiến binh, chất lượng nhân sự.
+
+1098
+01:11:29,550 --> 01:11:30,990
+Không phải cái gì mà quyết được.
+
+1099
+01:11:32,730 --> 01:11:35,290
+Thế thì đấy là một trường hợp.
+
+1100
+01:11:35,740 --> 01:11:39,280
+Trực tiếp đã nhau thuyền rồi nhưng mà qua
+trường hợp này thì anh muốn nói với một
+
+1101
+01:11:39,280 --> 01:11:42,960
+cái về mặt lâu dài ấy là chúng ta dần
+dần sẽ hình thành những cơ chế đó.
+
+1102
+01:11:43,680 --> 01:11:47,740
+Đúng lại để làm thế nào đó để ICM chúng
+ta chủ động hơn lớn hơn bởi vì chúng ta
+
+1103
+01:11:47,740 --> 01:11:49,200
+thấy mọi thứ đang thay đổi.
+
+1104
+01:11:49,800 --> 01:11:55,020
+Nếu mà chỉ thủ động làm theo làm chuẩn
+làm bài giống như một cái máy thì quá rất
+
+1105
+01:11:55,020 --> 01:11:59,160
+rủi ro chúng ta cần phải bổ trợ những
+cái năng lực khác để nó chính thức bảo vệ
+
+1106
+01:11:59,160 --> 01:12:01,280
+chúng ta nâng cấp cả
+những tổng hệ này như thế.
+
+1107
+01:12:01,780 --> 01:12:02,480
+Thế thôi nhé.
+
+1108
+01:12:04,350 --> 01:12:08,110
+Tất nhiên là những thứ anh nói ra thì em
+đừng tin hoàn toàn, em phải phân tích xem
+
+1109
+01:12:08,110 --> 01:12:09,670
+phim này không để không hiểu chỗ A.
+
+1110
+01:12:09,850 --> 01:12:12,710
+Bởi vì trong tất cả những thứ anh quyết
+định đó thì anh dựa vào một số thứ.
+
+1111
+01:12:13,070 --> 01:12:17,190
+Nhưng có thể một số thứ nào đó
+nó bị sai, bản thân anh cũng sai.
+
+1112
+01:12:17,730 --> 01:12:21,590
+Thì khi đó dẫn đến cái quy định sai thì
+trong điều đó thì các cụ hợp chuyên môn của
+
+1113
+01:12:21,590 --> 01:12:22,830
+em phải phân tích nhé.
+
+1114
+01:12:24,380 --> 01:12:28,620
+Phân tích xem thì để phát biệt lại chứ
+đừng có bao giờ có cái tư duy được cái gì
+
+1115
+01:12:28,620 --> 01:12:31,020
+bên trên nói cũng là đúng là hết rồi đấy.
+
+1116
+01:12:31,920 --> 01:12:32,220
+Thế thôi.
+
+1117
+01:12:35,770 --> 01:12:36,290
+Đấy nhá.
+
+1118
+01:12:36,910 --> 01:12:40,810
+Đạt đạt cái kênh đồ lại thì anh cho được
+thêm chút được kỹ thuật công nghệ này.
+
+1119
+01:12:43,920 --> 01:12:45,160
+Chúc họ cùng.
+
+1120
+01:12:50,500 --> 01:12:53,840
+Từ nay cuối tháng còn cái review
+showbiz kia chính nhất kia.
+
+1121
+01:12:54,180 --> 01:12:56,480
+Review showbiz kia và đặc
+biệt liên quan đến vấn đề giá.
+
+1122
+01:12:56,700 --> 01:13:02,180
+Ví dụ như họ có app-test giá
+như thế thì mình phải hiểu tại
+
+1123
+01:13:02,180 --> 01:13:04,860
+sao họ tăng, tại vì các hóa tật khác.
+
+1124
+01:13:05,660 --> 01:13:09,660
+Hay là mình chỉ chắc là tăng vì giá bị
+tăng nhưng mình nhìn sâu hơn một chút.
+
+1125
+01:13:16,520 --> 01:13:22,430
+Nó có một số đầu vẻo tăng thì khi
+
+1126
+01:13:22,430 --> 01:13:24,570
+đó chỉ đề xuất thấp hết một số dịch vụ.
+
+1127
+01:13:25,830 --> 01:13:29,750
+Nhưng mà anh bảo riêng về thêm
+biển với anh nói nhiều rồi.
+
+1128
+01:13:29,870 --> 01:13:33,270
+Nó phải quan triệt tinh lần đấy, theo các
+dịch vụ khác thì nhân liên mình phải giả
+
+1129
+01:13:33,270 --> 01:13:33,750
+sắc hết luôn.
+
+1130
+01:13:34,670 --> 01:13:37,630
+Thì xem hiện nay có những đầu
+vẻo tăng và tác động như thế nào.
+
+1131
+01:13:38,210 --> 01:13:42,410
+Ngoài cái đầu vẻo bị phạt cứng thì có đầu
+vẻo gai sân ấy, nó tác động như thế nào.
+
+1132
+01:13:42,610 --> 01:13:46,530
+Và mình cũng xem xem các nhà cung cấp
+trong nước mà họ đang giảm hoặc tăng.
+
+1133
+01:13:46,860 --> 01:13:49,080
+Và họ tăng vì cái gì, họ giải về cái gì.
+
+1134
+01:13:50,140 --> 01:13:52,540
+Mình cố gắng tìm hiểu
+được thì nó sẽ tốt hơn.
+
+1135
+01:13:52,700 --> 01:13:54,360
+Hơn việc mình cứ nghĩ.
+
+1136
+01:13:55,740 --> 01:13:58,940
+Trong điều kiện xử lý lông tới thì
+nó sẽ có một cái chỉ bài server.
+
+1137
+01:13:59,360 --> 01:14:01,740
+Kể cả có những thứ mình không quyết
+nhưng mà ít nhất mình cũng nắm được.
+
+1138
+01:14:02,460 --> 01:14:03,580
+Để cho Martin nhỏ.
+
+1139
+01:14:04,360 --> 01:14:08,120
+Thì định hướng, thiên hướng là Martin
+ngoài Hà Nội sẽ đi vào phần bài học viết,
+
+1140
+01:14:08,180 --> 01:14:11,120
+phần kho hơn, phần phân tích
+sức hiệu, phần chuyên sâu hơn.
+
+1141
+01:14:11,680 --> 01:14:13,960
+Thế là Martin đúng kia nó đi
+tiền về hướng thị trường hơn.
+
+1142
+01:14:14,400 --> 01:14:15,440
+Tự nhiên là một hoạt động là một.
+
+1143
+01:14:15,880 --> 01:14:20,960
+Anh nghĩ là một trong những việc nói ở
+đây là một cái kỹ thuật mà em cần quan tâm
+
+1144
+01:14:20,960 --> 01:14:23,380
+nên con Kim đổi mặt tính nhiều hơn.
+
+1145
+01:14:25,200 --> 01:14:27,280
+Mình phải chấp nhận thực
+tại hiện nay để đào tạo họ.
+
+1146
+01:14:27,440 --> 01:14:29,640
+Anh nghĩ rằng Trí rất là cầu
+thị thì nó cũng chịu khó.
+
+1147
+01:14:30,120 --> 01:14:33,540
+Ngoài này thì con Trí trẻ đề
+hội làm cách học kỹ thuật.
+
+1148
+01:14:34,240 --> 01:14:39,660
+Trong khi đổi ngọc, Phương trẻ những phần
+năng lực kỹ thuật thì nó hiểu sơ sơ nhưng
+
+1149
+01:14:39,660 --> 01:14:41,120
+nó tích cực.
+
+1150
+01:14:41,800 --> 01:14:43,200
+Trong đấy cũng có con Trí Duy.
+
+1151
+01:14:43,990 --> 01:14:47,710
+Ngoài này có cái đội marketing
+đây, trí, vichè, đội SEO đây.
+
+1152
+01:14:48,210 --> 01:14:50,090
+Sắp tới thế này sẽ làm
+việc lại với SEO này.
+
+1153
+01:14:51,050 --> 01:14:54,970
+Trước khi ở ngoài này nó sẽ
+làm được khóa đào tạo cho anh.
+
+1154
+01:14:55,130 --> 01:14:58,550
+Nó cũng hỗ trợ face to face
+với một số kỹ liên sửa tốt.
+
+1155
+01:14:59,090 --> 01:15:00,050
+Mà xem lại như thế nào ấy.
+
+1156
+01:15:00,170 --> 01:15:02,650
+Bởi vì marketing và SEO không hiểu
+sâu về con sơ biết gì của mình.
+
+1157
+01:15:03,350 --> 01:15:04,430
+Không hiểu nó làm gì.
+
+1158
+01:15:04,650 --> 01:15:06,690
+Và thậm chí cái nhu cầu
+sau khi đặt ra nó cao nữa.
+
+1159
+01:15:06,830 --> 01:15:08,830
+Có thể dính là các bạn
+bị đặt vai một số thứ.
+
+1160
+01:15:10,710 --> 01:15:13,990
+Như Trí nói thì Trà đã lăng nhập bay rồi,
+Trí đã lăng nhập ban rồi nhưng mà sẽ phải
+
+1161
+01:15:13,990 --> 01:15:16,990
+tại Trà khác nhân sự khác
+và nó phải mở phổ dẫn hơn.
+
+1162
+01:15:17,510 --> 01:15:20,910
+Và như vậy cần một sự ốp
+trợ nối ngon thì nó lại đạt.
+
+1163
+01:15:21,110 --> 01:15:23,690
+Tiếng thử xem, ngoài tiền đạt ra
+thì sẽ có nhân sự kỹ thuật khác.
+
+1164
+01:15:24,370 --> 01:15:29,550
+Theo anh nghĩ nó phải mở thường xuyên
+các tần, buổi hay 2 tập, buổi các
+
+1165
+01:15:29,550 --> 01:15:35,050
+khóa đào tạo thường xuyên hoặc khi có tính
+năng gì mới thì sẽ yêu cầu chênh hình,
+
+1166
+01:15:35,230 --> 01:15:38,950
+chênh hình ngắn, tối đa
+khoảng 5 tiếng cho ưu hộ hội.
+
+1167
+01:15:39,500 --> 01:15:42,660
+Marketing và Sales có bắt mộ luôn
+một số nhân sự đấy phải nắm được.
+
+1168
+01:15:44,860 --> 01:15:46,620
+Thang hạ thêm ý anh nói là phải nhập phai.
+
+1169
+01:15:46,960 --> 01:15:48,580
+Ít nhất là ở các buổi
+giới thiệu để nắm được.
+
+1170
+01:15:48,740 --> 01:15:50,440
+Thứ hai là nhập nhập phai được quá tốt.
+
+1171
+01:15:51,040 --> 01:15:54,520
+Khi đó thì nó mới đi theo
+một hướng cho anh nói.
+
+1172
+01:15:54,660 --> 01:15:57,320
+Thậm chí lần tới có thể là kỹ thuật có
+thể, nhưng mà kỹ thuật có thể bắt tính.
+
+1173
+01:15:58,840 --> 01:16:01,780
+Thì như thế bởi vì mình đăng ra nhiều sản
+phẩm nhưng mà nếu mà mình không truyền
+
+1174
+01:16:01,780 --> 01:16:04,560
+thông đến cái hàng, không tiếp cận
+đến cái hàng thì cũng văn thuốc.
+
+1175
+01:16:04,960 --> 01:16:08,700
+Ít nhất là anh nói chuyện với hạ hạ hạ hạ
+hạ hạ hạ hạ hạ hạ hạ hạ hạ hạ hạ hạ hạ hạ
+
+1176
+01:16:08,700 --> 01:16:14,600
+hạ hạ hạ hạ hạ hạ hạ h ý thứ hai đây,
+sau anh nói, cái xu hướng của công
+
+1177
+01:16:14,600 --> 01:16:17,060
+ty sẽ đi thế mà bọn F các em như thế thôi.
+
+1178
+01:16:17,560 --> 01:16:18,000
+Được không?
+
+1179
+01:16:18,000 --> 01:16:21,860
+Bây giờ em thấy là bọn F các em là tích
+hợp MCB rồi, nó kết nơi nó nối rất ngoài
+
+1180
+01:16:21,860 --> 01:16:22,020
+rồi.
+
+1181
+01:16:22,500 --> 01:16:26,300
+Sau này tích hợp luôn không phải API,
+tích hợp luôn mô đồ này để bảo giải quyết
+
+1182
+01:16:26,300 --> 01:16:26,500
+quả.
+
+1183
+01:16:28,440 --> 01:16:31,920
+Chỉ cần cấp quyền cho nó đã xử lý được dữ
+liệu của mình, nó ghiền thì mình có cái
+
+1184
+01:16:31,920 --> 01:16:32,620
+bọn thứ bây giờ.
+
+1185
+01:16:32,880 --> 01:16:37,180
+Trong cái vấn đề di chuyển nhân sự, tiếp
+tục đào tạo mốt nhân sự của bọn em có một
+
+1186
+01:16:37,180 --> 01:16:38,700
+cái gì đó để người ta bảo vệ.
+
+1187
+01:16:40,260 --> 01:16:41,500
+Ngay bản thân con em đi thôi.
+
+1188
+01:16:41,980 --> 01:16:47,000
+Ví dụ là ông Đà không bán con đát thì suốt
+ngày lập trình nó ăn mail, suốt ngày để
+
+1189
+01:16:47,000 --> 01:16:49,000
+sang cái bottle thì ông chỉ có cái toy.
+
+1190
+01:16:50,020 --> 01:16:53,600
+Tại sao bây giờ chắc bây giờ quá hiểu tại
+sao anh cứ ép đi về học tầm biên giới rồi
+
+1191
+01:16:53,600 --> 01:16:54,940
+đi tham gia cloud rồi đúng không?
+
+1192
+01:16:55,300 --> 01:16:56,220
+Chắc là quá thấm rồi đúng không?
+
+1193
+01:16:56,600 --> 01:17:01,690
+Nếu suốt ngày chỉ đi lập trình giao diện
+thì bản thân có cái toy mình có cái thứ
+
+1194
+01:17:01,690 --> 01:17:03,510
+của hệ sinh thái để mình
+tập trung, mình phát triển.
+
+1195
+01:17:04,990 --> 01:17:07,990
+Ví dụ như ông Cường, ông làm có thể vô
+tận chẳng bao giờ xong cái mạng security
+
+1196
+01:17:07,990 --> 01:17:08,290
+Việt.
+
+1197
+01:17:08,840 --> 01:17:11,720
+Cái đấy cũng bảo vụ tận các sản phẩm.
+
+1198
+01:17:11,920 --> 01:17:14,060
+Bây giờ các nhân sự
+bên dưới mình thì thôi.
+
+1199
+01:17:14,500 --> 01:17:15,920
+Người ta có hướng gì để bán mảng.
+
+1200
+01:17:18,090 --> 01:17:21,170
+Các mảng như anh hôm nói
+thì rất hay trên đó bán vào.
+
+1201
+01:17:21,510 --> 01:17:24,250
+Mảng đấy phát triển được
+một cái mỏng, nhiều thứ.
+
+1202
+01:17:24,590 --> 01:17:26,190
+Những các nhân sự khác cũng cử như vậy.
+
+1203
+01:17:27,820 --> 01:17:28,800
+Nhưng tố lại là gì?
+
+1204
+01:17:29,120 --> 01:17:33,680
+Về sau, hiện nay các em đang đánh giá
+vào cái summit, cái issue của nó kia đúng
+
+1205
+01:17:33,680 --> 01:17:33,780
+không?
+
+1206
+01:17:34,220 --> 01:17:36,860
+Nhưng có thể sắp tới bọn em phải
+thêm cái thông số hiệu quả chứ.
+
+1207
+01:17:37,260 --> 01:17:37,620
+Yên.
+
+1208
+01:17:37,990 --> 01:17:42,890
+Ông có đốt token bằng giờ thì ông làm
+việc suốt ngày đêm nhưng hiệu quả đến đầu
+
+1209
+01:17:42,890 --> 01:17:44,410
+cuối của khách hàng ấy đúng không?
+
+1210
+01:17:44,500 --> 01:17:49,540
+Ông vẫn thấp hơn một cái ông mà ông xem
+nè suốt ngày nhưng hiệu quả của khách hàng
+
+1211
+01:17:49,540 --> 01:17:51,440
+vẫn thấp hơn một cái ông mà ông
+chỉ bằng hàng thôi đúng không?
+
+1212
+01:17:51,780 --> 01:17:53,080
+Thì em đánh giá ông nào cao hơn?
+
+1213
+01:17:54,280 --> 01:17:57,960
+Cơ chế tương thưởng nó phải dần dần nó bị
+phân cấp chứ không cảo bằng, nó phải phân
+
+1214
+01:17:57,960 --> 01:17:58,480
+cấp rõ ràng.
+
+1215
+01:17:59,920 --> 01:18:01,280
+Nó giống như mọi anh thấy không?
+
+1216
+01:18:01,540 --> 01:18:02,800
+Chỉ có lúc này anh mới thực hiện được.
+
+1217
+01:18:03,000 --> 01:18:06,220
+Cơ chế của hai em bằng anh cao
+đôi, thậm chí hơn người khác.
+
+1218
+01:18:07,850 --> 01:18:08,590
+Thực tiếp theo, thường hiện thứ.
+
+1219
+01:18:10,010 --> 01:18:15,950
+Năm nay, anh muốn những
+việc này thậm chí có 3, 4,
+
+1220
+01:18:16,010 --> 01:18:21,190
+3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 4, 3,
+4, 4, 4, 5, 4, 5, 4, 5, 5, 5, 5, 6, 7, 8,
+
+1221
+01:18:21,450 --> 01:18:26,710
+9, 9, 10, 9, 10, 10, 10, 11, 11, 11, 11,
+11, 11, 11, 11, 11, 11, 11, 11, 11, 11,
+
+1222
+01:18:26,710 --> 01:18:26,710
+11, 11, 11, 11, 11, 11, 11, 11, 11, 11,
+11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11,
+
+1223
+01:18:26,710 --> 01:18:26,710
+11, 11, 11, 11, 11, 11, 11, 11, 11, 11,
+11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11,
+
+1224
+01:18:26,710 --> 01:18:32,580
+11, 11, 11, 11, 11, 11,
+
+1225
+01:18:32,780 --> 01:18:38,730
+11 Bởi vì hiện nay
+
+1226
+01:18:38,730 --> 01:18:41,730
+cơ chế vẫn đang sắp xếp
+theo Zoom như thế rồi.
+
+1227
+01:18:42,550 --> 01:18:46,310
+Anh còn đang suy nghĩ rất nhiều thứ để đến
+cơ chế và cơ chế khoá nó tạm lắm rồi đơn
+
+1228
+01:18:46,310 --> 01:18:46,490
+giản.
+
+1229
+01:18:47,090 --> 01:18:52,470
+Nhưng mà bản thân triệu vận của em sẽ
+thậm chí sẽ đi với ông giáo dân vận hành
+
+1230
+01:18:52,470 --> 01:18:53,510
+luôn, thậm chí với anh luôn.
+
+1231
+01:18:54,170 --> 01:18:55,810
+Em tại sao tôi cần mình vị trí này?
+
+1232
+01:18:57,380 --> 01:19:00,380
+Tại sao tôi bỏ vị trí này thì
+có ảnh hưởng đến hệ thống không?
+
+1233
+01:19:03,320 --> 01:19:04,560
+Tất nhiên không phải mình tư yêu khóa.
+
+1234
+01:19:04,660 --> 01:19:06,460
+Ở đây mình phải đảm bảo vấn đề về an toàn.
+
+1235
+01:19:12,110 --> 01:19:13,510
+Singapore đều là quan toàn cả.
+
+1236
+01:19:13,990 --> 01:19:15,410
+Ngoài cần phải cả các hướng án.
+
+1237
+01:19:17,670 --> 01:19:22,630
+Không phải tại sao tôi xin ra vị trí này,
+giả sử cái off là có vấn đề gì không.
+
+1238
+01:19:25,970 --> 01:19:31,810
+Tối mại là mình phải làm hết sức
+
+1239
+01:19:31,810 --> 01:19:33,870
+rõ ràng, liên bằng và hiệu quả.
+
+1240
+01:19:34,760 --> 01:19:36,260
+Thế tiếp tục thay đổi mạnh mẽ nữa.
+
+1241
+01:19:36,520 --> 01:19:38,730
+Cảnh như này, các bạn biết được.
+
+1242
+01:19:39,830 --> 01:19:42,850
+Thấy lúc tin là chung
+thì tất nhiên đừng...
+
+1243
+01:19:43,080 --> 01:19:45,720
+Sau ngày hôm nay cũng được mang cái
+anh nói ra là dọn trực tiếp nhân viên.
+
+1244
+01:19:45,840 --> 01:19:47,280
+Mong mọi người có muốn hiểu người sợ ngay.
+
+1245
+01:19:48,010 --> 01:19:49,350
+Cái vấn đề của anh phải rất là hiểu.
+
+1246
+01:19:49,850 --> 01:19:52,750
+Ý anh muốn nói ở đây để mình sẽ có
+một cái nộ trình cho anh chị em.
+
+1247
+01:19:53,430 --> 01:19:58,470
+Chứ nếu mang ra chỗ sợ trực tiếp để nói
+lúc anh nói cho nó sợ thì vấn đề mình
+
+1248
+01:19:58,470 --> 01:20:02,990
+sẽ hướng đến nộ trình cho từng
+anh chị em một để người ta biết.
+
+1249
+01:20:03,810 --> 01:20:05,650
+Vậy bây giờ thì có gì
+bầu hú ý vào đúng không?
+
+1250
+01:20:05,950 --> 01:20:09,630
+Chỉ có mỗi cái bầu hú ý vào và nỗi bằng
+là một bản tình mình cũng là cái hiệu quả.
+
+1251
+01:20:10,820 --> 01:20:12,620
+Cái giá trị và phát
+trò mình trong tổ chức.
+
+1252
+01:20:16,320 --> 01:20:19,260
+Công ty bắt buộc tùy theo
+một trạng phẩm hay là thần
+
+1253
+01:20:22,170 --> 01:20:23,050
+ngoài hành trạng của giá trị.
+
+1254
+01:20:25,840 --> 01:20:29,980
+Kể cả trong tâm anh thôi, nếu có những
+nhiệm vụ có giá trị thì phải làm nó cần.
+
+1255
+01:20:31,330 --> 01:20:34,670
+Nếu không, nó có vấn đề không tạo giá
+trị thì nó cũng sớm muộn, nó gặp thôi.
+
+1256
+01:20:40,190 --> 01:20:43,690
+Nhiên quan đến vấn đề chính sự, vừa sợ
+anh chưa định trao đổi với việc này đâu.
+
+1257
+01:20:44,450 --> 01:20:44,930
+Vừa sợ anh chưa định trao
+đổi với việc này đâu.
+
+1258
+01:20:44,930 --> 01:20:47,230
+Vừa sợ anh chưa định trao đổi, nhưng
+vừa sợ hỏi thì có những việc mà.
+
+1259
+01:20:47,730 --> 01:20:51,310
+Chỗ Việt là đây, chỗ tâm anh, chỗ...
+
+1260
+01:20:51,630 --> 01:20:55,230
+Anh hồ những thứ gì nhất định cho nó luôn
+để có những thứ để định hình cho anh em.
+
+1261
+01:20:55,590 --> 01:20:57,690
+Mình phải định hình
+giúp anh em phát triển.
+
+1262
+01:20:58,310 --> 01:21:03,310
+Tức là mình đảm với
+một cái suy nghĩ tức là
+
+1263
+01:21:03,310 --> 01:21:07,940
+tử tế, trao lạc và giúp đỡ con người để
+làm sao có bản đề cho người em phát triển.
+
+1264
+01:21:09,380 --> 01:21:11,020
+Làm quản lý có một cái nguyên tắc.
+
+1265
+01:21:12,110 --> 01:21:14,530
+Làm quản lý thì rất nhiều
+lúc quả em sẽ bị bực mình.
+
+1266
+01:21:16,210 --> 01:21:18,030
+Nhưng phải dẹp cái đấy đi.
+
+1267
+01:21:19,160 --> 01:21:24,360
+Mỗi nếu mình để sự bực mình đó thì
+mình sẽ bị để tất đi yếu tố cảm xúc.
+
+1268
+01:21:25,070 --> 01:21:26,810
+Các bạn gọi là cảm tĩnh.
+
+1269
+01:21:27,390 --> 01:21:29,290
+Cho nên là nó nhạm lên
+sử dụng cái linh tinh.
+
+1270
+01:21:29,790 --> 01:21:33,350
+Bởi vì nếu một em để cái đó thì rất nhiều
+khi một em bị ảnh hưởng tình cảm đó và
+
+1271
+01:21:33,350 --> 01:21:33,770
+bằng nào đó.
+
+1272
+01:21:33,870 --> 01:21:37,610
+Và khi mình ảnh hưởng tình cảm đó mình
+sẽ có cái suy nghĩ không hay được nó.
+
+1273
+01:21:38,090 --> 01:21:38,470
+Đúng không?
+
+1274
+01:21:39,010 --> 01:21:39,550
+Thì không ạ.
+
+1275
+01:21:40,470 --> 01:21:42,390
+Nhiều khi mình phải đi chán bỏ qua này.
+
+1276
+01:21:43,060 --> 01:21:44,160
+Mình quan tâm đến...
+
+1277
+01:21:44,160 --> 01:21:45,860
+Bởi vì con người ta nhiệm vụ thật toàn.
+
+1278
+01:21:46,400 --> 01:21:50,100
+Nếu mình mà làm quả lý mình không cẩn thận
+để cảm tĩnh cho đeo mình thì nhiều khi
+
+1279
+01:21:50,100 --> 01:21:51,380
+mình yêu này mình ghét đúng khiến.
+
+1280
+01:21:51,620 --> 01:21:53,620
+Và anh nói thật sự của em cho
+tất cả những việc này bọn em.
+
+1281
+01:21:55,280 --> 01:21:56,820
+Người bọn như vậy là nhân viên biết hết.
+
+1282
+01:21:58,400 --> 01:22:00,120
+Giống như mấy ông đi
+nào, mấy dân biết hết.
+
+1283
+01:22:00,580 --> 01:22:01,540
+Nghe thi hồi đúng chặt chặt.
+
+1284
+01:22:02,400 --> 01:22:03,440
+Mọi người phải gạt thấy ra.
+
+1285
+01:22:04,320 --> 01:22:07,020
+Mình thực sự mang sự công
+tâm mình vào nhà sở trị.
+
+1286
+01:22:09,100 --> 01:22:13,840
+Tất nhiên là sẽ có chấp nhận đến trường
+hợp, thậm chí bọn em có tốt đến mấy thì
+
+1287
+01:22:13,840 --> 01:22:16,440
+thậm chí bọn em vẫn bị chấp
+nhận chuyện đó bình thường.
+
+1288
+01:22:16,620 --> 01:22:17,400
+Chấp nhận được đó.
+
+1289
+01:22:18,200 --> 01:22:18,940
+Không chấp nhận được nào.
+
+1290
+01:22:21,080 --> 01:22:21,660
+Chuyện bình thường.
+
+1291
+01:22:24,770 --> 01:22:30,350
+Sơ sơ mấy vấn đề thì anh em kỹ
+thuật công nghệ thì có vẻ khác nhỉ?
+
+1292
+01:22:31,010 --> 01:22:31,750
+Thay đổi nhiều.
+
+1293
+01:22:32,590 --> 01:22:35,710
+Thay đổi nhiều.
+
+1294
+01:22:40,420 --> 01:22:40,820
+Thay đổi nhiều.
+
+1295
+01:22:40,820 --> 01:22:41,420
+Thay đổi nhiều.
+
+1296
+01:22:41,580 --> 01:22:41,800
+Thay đổi nhiều.
+
+1297
+01:22:41,880 --> 01:22:41,880
+Thay đổi nhiều.
+
+1298
+01:22:41,880 --> 01:22:41,880
+Thay đổi nhiều.
+
+1299
+01:22:41,900 --> 01:22:42,200
+Thay đổi nhiều.
+
+1300
+01:22:42,200 --> 01:22:42,260
+Thay đổi nhiều.
+
+1301
+01:22:42,260 --> 01:22:42,260
+Thay đổi nhiều.
+
+1302
+01:22:42,260 --> 01:22:42,360
+Thay đổi nhiều.
+
+1303
+01:22:42,360 --> 01:22:42,380
+Thay đổi nhiều.
+
+1304
+01:22:42,380 --> 01:22:42,380
+Thay đổi nhiều.
+
+1305
+01:22:42,380 --> 01:22:42,620
+Thay đổi nhiều.
+
+1306
+01:22:42,780 --> 01:22:42,780
+Thay đổi nhiều.
+
+1307
+01:22:42,780 --> 01:22:42,780
+Thay đổi nhiều.
+
+1308
+01:22:42,780 --> 01:22:42,780
+Thay đổi nhiều.
+
+1309
+01:22:42,780 --> 01:22:42,780
+Thay đổi nhiều.
+
+1310
+01:22:42,780 --> 01:22:42,780
+Thay đổi nhiều.
+
+1311
+01:22:42,880 --> 01:22:42,880
+Thay đổi nhiều.
+
+1312
+01:22:44,240 --> 01:22:45,300
+Thay đổi nhiều.
+
+1313
+01:22:45,320 --> 01:22:45,320
+Thay đổi nhiều.
+
+1314
+01:22:46,000 --> 01:22:46,680
+Thay đổi nhiều.
+
+1315
+01:22:47,160 --> 01:22:47,980
+Thay đổi nhiều.
+
+1316
+01:22:48,600 --> 01:22:49,040
+Thay đổi nhiều.
+
+1317
+01:22:49,040 --> 01:22:50,260
+Thay đổi nhiều.
+
+1318
+01:22:50,840 --> 01:22:52,220
+Thay đổi nhiều.
+
+1319
+01:22:52,260 --> 01:22:52,900
+Thay đổi nhiều.
+
+1320
+01:22:53,440 --> 01:22:54,320
+Thay đổi nhiều.
+
+1321
+01:22:54,400 --> 01:22:55,080
+Thay đổi nhiều.
+
+1322
+01:22:55,440 --> 01:22:56,480
+Thay đổi nhiều.
+
+1323
+01:22:56,720 --> 01:22:57,180
+Thay đổi nhiều.
+
+1324
+01:22:58,800 --> 01:23:00,910
+Thay đổi Mất tháng để xử lý cái đấy.
+
+1325
+01:23:01,310 --> 01:23:02,950
+Đi ra xế tầm nó bị chậm một chút.
+
+1326
+01:23:07,360 --> 01:23:11,880
+Theo như anh Hồ thì
+không phải đi ra xế tầm.
+
+1327
+01:23:34,140 --> 01:23:40,110
+Chỉ là cái output đầu ra
+của bạn thấy là nó ở mức
+
+1328
+01:23:40,110 --> 01:23:40,990
+tròn vai ấy.
+
+1329
+01:23:41,150 --> 01:23:44,150
+Nên là cảm giác là mọi
+thứ nó cứ bình bình vậy.
+
+1330
+01:23:44,330 --> 01:23:49,130
+Nhưng mà còn về thực tế các công việc
+bạn làm thì hiện tại cũng khá là ổn.
+
+1331
+01:23:49,490 --> 01:23:54,950
+Và bạn đang kiểu vừa bên hệ
+thống vừa cả bên code ấy.
+
+1332
+01:23:55,580 --> 01:23:59,900
+Nên các việc hiện tại của bạn thì
+bây giờ đang đang chuyển dịch dần.
+
+1333
+01:24:00,620 --> 01:24:04,860
+Ngày xưa mình để bạn lưu soi vào hệ thống
+thì bạn ấy làm quen hệ thống bất cứ rồi.
+
+1334
+01:24:05,180 --> 01:24:07,100
+Bây giờ cũng hòm hòm rồi.
+
+1335
+01:24:07,800 --> 01:24:13,480
+Sau đấy bắt đầu từ tháng rồi thì bắt đầu
+bạn ấy đã thực ra công việc để mình sẽ tối
+
+1336
+01:24:13,480 --> 01:24:16,800
+ưu hệ thống hơn và tự động
+hóa hệ thống tốt hơn bằng AI.
+
+1337
+01:24:17,240 --> 01:24:22,540
+Bằng các lữ liệu mình tập trung mình sẽ
+có để sau khi mà có vấn đề gì xảy ra mình
+
+1338
+01:24:22,540 --> 01:24:23,620
+sẽ có để mình truy phép.
+
+1339
+01:24:24,590 --> 01:24:27,250
+Bây giờ bạn ấy đang làm cái đấy rồi.
+
+1340
+01:24:27,470 --> 01:24:29,450
+Bạn ấy đang có kết quả, đang review rồi.
+
+1341
+01:24:32,580 --> 01:24:35,320
+Với chỗ Việt thì sẽ hơi khác.
+
+1342
+01:24:35,500 --> 01:24:41,010
+Đôi khi sản phẩm sẽ không nhìn ngay
+được như là anh em làm Beover kia.
+
+1343
+01:24:41,470 --> 01:24:45,530
+Ví dụ như ngày trước tham gia VangDap
+nhưng như anh đã thấy thì anh Đô thấy bên
+
+1344
+01:24:45,530 --> 01:24:49,950
+VangDap thì em giao cho bạn 2 cái mảnh
+làm trực tiếp với hệ thống liên quan với
+
+1345
+01:24:49,950 --> 01:24:51,910
+Project và WebServer.
+
+1346
+01:24:51,990 --> 01:24:56,530
+Thì là những cái mà bạn đi đang học và
+làm việc với trực tiếp với khách hàng.
+
+1347
+01:24:57,570 --> 01:24:59,130
+Sau đấy thì mình sẽ...
+
+1348
+01:24:59,480 --> 01:25:04,840
+Qua những buổi đào tạo cùng với bên của
+anh Công nữa, có một số hướng mở rộng hơn.
+
+1349
+01:25:04,940 --> 01:25:07,580
+Nhưng bạn có gì để phán bao lâu dài không?
+
+1350
+01:25:08,390 --> 01:25:13,870
+Có, ở phần này, phần vươn động hóa
+AI, các thứ về AI-op của hệ thống,
+
+1351
+01:25:14,010 --> 01:25:17,170
+sau này sẽ giao cho bạn làm hướng đấy.
+
+1352
+01:25:18,130 --> 01:25:23,470
+Thế thì Việt sẽ bổ sung vào team phát
+triển các dự án quan đến dự án dài hồi hình
+
+1353
+01:25:23,470 --> 01:25:27,070
+huynh về AI, nó sẽ không
+được thế đúng không?
+
+1354
+01:25:27,310 --> 01:25:30,650
+Sau này mọi người sẽ cùng
+làm cái đấy, không chỉ Việt.
+
+1355
+01:25:32,240 --> 01:25:36,100
+Anh là cái team core đương nhiên tích hợp
+với tất cả hệ thống thì đương nhiên kể
+
+1356
+01:25:36,100 --> 01:25:36,820
+các team cắt thôi.
+
+1357
+01:25:38,040 --> 01:25:41,890
+Ngày xưa mình cũng định nhắc
+Việt ra đấy, nó hơi sớm.
+
+1358
+01:25:43,250 --> 01:25:49,160
+Bạn đang học với những phần rap,
+phần liên quan đến tư hợp hay ai phải
+
+1359
+01:25:49,160 --> 01:25:50,320
+hiểu tất cả các bạn.
+
+1360
+01:25:50,440 --> 01:25:54,680
+Chỉ hợp bây giờ thì cứ để thời gian này
+việc tập trung vào cái đấy trước thì là cái
+
+1361
+01:25:54,680 --> 01:25:56,340
+chỗ đấy nó liên quan đến
+phần xử lý dưới hiện.
+
+1362
+01:25:56,700 --> 01:25:57,800
+Bạn ấy cũng làm xúc hoan đúng không?
+
+1363
+01:25:58,320 --> 01:26:00,700
+Có, nhưng vẫn không hiểu kỹ thuật.
+
+1364
+01:26:01,380 --> 01:26:04,480
+Cuối tuần sẽ có một số lịch trực thôi.
+
+1365
+01:26:05,100 --> 01:26:08,520
+Trong tuần có các anh em
+nghỉ thì bạn sẽ đặt thời.
+
+1366
+01:26:09,000 --> 01:26:12,600
+Cái đấy bạn cũng nên duy
+trì, không nhiều thì ít.
+
+1367
+01:26:12,660 --> 01:26:14,580
+Chứ nếu bạn tách hẳn ra thì
+câu chuyện này khác đấy nhé.
+
+1368
+01:26:15,870 --> 01:26:20,990
+Bởi vì bạn như thế này làm liên quan tứ
+yêu, DevOps, bây giờ sắp tới AIOF ấy.
+
+1369
+01:26:21,630 --> 01:26:25,050
+Mà bạn không va đến cây
+đấy, nguyên riêng thì...
+
+1370
+01:26:25,410 --> 01:26:26,470
+Kể cả trong tốt anh hay đâu.
+
+1371
+01:26:26,630 --> 01:26:30,030
+Nếu mà không đưa vào những phần DevOps
+thực tế, thực chiến với khách hàng anh nghĩ
+
+1372
+01:26:30,030 --> 01:26:30,870
+là nó sẽ khó đấy.
+
+1373
+01:26:34,190 --> 01:26:39,310
+Chúng Trung với An Hải, Trung
+NQ trong kia thì xác định là sẽ
+
+1374
+01:26:39,310 --> 01:26:44,950
+là người giống như kiểu back office, giống
+như kiểu lê hậu ngoài này trong mạng quá
+
+1375
+01:26:44,950 --> 01:26:45,590
+tin ở chính đúng không?
+
+1376
+01:26:46,570 --> 01:26:48,430
+Hỗ trợ support, vận
+hành ở chính đúng không?
+
+1377
+01:26:48,730 --> 01:26:54,570
+Thế còn Trung với An Hải, An Hải thì có
+thêm các bộ bán theo anh Hải đấy đúng
+
+1378
+01:26:54,570 --> 01:26:54,670
+không?
+
+1379
+01:26:54,970 --> 01:26:56,490
+Thế còn Trung thì là...
+
+1380
+01:26:59,500 --> 01:27:04,100
+Lâu dài thì em trao đổi với bạn rồi, bạn
+muốn phát triển thêm mấy mảng liên quan
+
+1381
+01:27:04,100 --> 01:27:04,700
+đến hệ thống.
+
+1382
+01:27:05,600 --> 01:27:08,980
+Nó sẽ liên quan đến một số
+dạng cloud service các thứ.
+
+1383
+01:27:10,620 --> 01:27:14,560
+Em có kế hoạch trong thời
+gian tới để đào tạo anh em đi.
+
+1384
+01:27:15,120 --> 01:27:18,400
+Mình sẽ đào tạo được bộ trước thôi, còn
+về mặt lâu dài mình sẽ có thêm các khóa
+
+1385
+01:27:18,400 --> 01:27:20,900
+học, chính quy về phần
+cloud cho các bạn đấy.
+
+1386
+01:27:21,580 --> 01:27:23,460
+Thế còn cho anh Hải có gì mới được?
+
+1387
+01:27:24,240 --> 01:27:30,160
+Thế thời gian này bạn đang theo bên anh
+Hải, tháng vừa rồi bạn đã tự xử lý được
+
+1388
+01:27:30,160 --> 01:27:31,840
+các dịch vụ liên quan đến Hotting Windows.
+
+1389
+01:27:32,360 --> 01:27:35,640
+Đấy là một cái thay đổi khá
+tích cực so với ngày trước.
+
+1390
+01:27:35,860 --> 01:27:40,320
+Đấy trước phải phụ thuộc em với anh Hải,
+còn bây giờ bạn đã chủ động được cho nên
+
+1391
+01:27:40,320 --> 01:27:44,320
+công việc của em với anh Hải cũng sẽ
+giảm những khối lượng công việc xuống.
+
+1392
+01:27:44,940 --> 01:27:46,200
+Thì nó cũng dễ hơn.
+
+1393
+01:27:46,840 --> 01:27:48,800
+Vũ thì sẽ tiết về hướng gì?
+
+1394
+01:27:49,280 --> 01:27:54,780
+Vũ thì hiện tại ngoài việc phần lớn
+dưới ra thực tế là bạn đang đi học.
+
+1395
+01:27:56,440 --> 01:28:02,000
+Bạn đã giao mạng để tiếp tục
+mê thêm phần OpenClaw VNN
+
+1396
+01:28:02,000 --> 01:28:05,180
+và sắp tới mình có thêm phần Connect.
+
+1397
+01:28:05,620 --> 01:28:09,020
+Bây giờ tất nhiên bạn ấy học về Cloud
+và bạn ấy được tham gia khoáng Cloud.
+
+1398
+01:28:09,200 --> 01:28:13,320
+Bạn ấy là sinh viên duy nhất được tham
+gia khoáng Cloud đấy thì khai nát được cái
+
+1399
+01:28:13,320 --> 01:28:15,140
+gì của bạn trong các cái dự án Cloud này?
+
+1400
+01:28:16,920 --> 01:28:22,020
+Bạn đang tiếp cận với phần new image và
+
+1401
+01:28:22,020 --> 01:28:27,060
+triển thai những ứng dụng thêm nền
+cloud của mình để bạn hình dung được
+
+1402
+01:28:27,060 --> 01:28:31,300
+việc triển thai ở môi
+trường cloud như thế này.
+
+1403
+01:28:31,690 --> 01:28:35,330
+Sau đấy mình sẽ quay lại đi từ phần nền.
+
+1404
+01:28:35,510 --> 01:28:39,650
+Tại phần nền thật này, Miết Khiến
+công đang có tạo tạo một số cái.
+
+1405
+01:28:40,190 --> 01:28:45,890
+Bắt đầu dính mạng cloud thì nó sẽ mở ra
+cho bạn một số hướng để bạn phát triển.
+
+1406
+01:29:07,970 --> 01:29:13,770
+Đức thì em vẫn đang tập trung vào
+phần phân tích số liệu để lên đắt
+
+1407
+01:29:13,770 --> 01:29:17,390
+qua tỷ lệ trải nghiệm người
+dùng, các tính năng này kia.
+
+1408
+01:29:18,010 --> 01:29:23,530
+Em muốn cho Đức biết được
+
+1409
+01:29:23,530 --> 01:29:28,550
+nhu cầu thật của khách hàng đang sử dụng
+các dịch vụ như nào, sử dụng làm sao.
+
+1410
+01:29:45,650 --> 01:29:51,630
+Đô Anh Đô với Đạt sau về
+vị trí thế của bản thân
+
+1411
+01:29:51,630 --> 01:29:57,590
+anh nghĩ là kể cả chỗ đô Anh Đô cũng
+đang kỷ vọc ở chỗ đấy rất là nhiều.
+
+1412
+01:29:58,050 --> 01:30:01,050
+Nhưng hiện nay vẫn làm
+chưa tới để nói chuyện sau.
+
+1413
+01:30:01,590 --> 01:30:05,910
+Nhưng trong Đức có một gì đó để
+cho bạn bám để phát triển hôm nay.
+
+1414
+01:30:14,860 --> 01:30:16,120
+Nhiều thứ mình còn chưa làm lắm ạ.
+
+1415
+01:30:44,400 --> 01:30:45,320
+Thế là chỉ phải được.
+
+1416
+01:30:46,040 --> 01:30:51,360
+Bởi vì là thay vì người ta bây giờ bị phạm
+bằng quyền hay người ta phải mua license
+
+1417
+01:30:51,360 --> 01:30:52,160
+thì người ta dùng cái thứ.
+
+1418
+01:30:53,070 --> 01:30:57,450
+Bây giờ hay thế cái sự di chuyển, cái nhu
+cầu nó có AI mà cái sự di chuyển nó khác
+
+1419
+01:30:57,450 --> 01:30:57,730
+hơn rồi.
+
+1420
+01:30:58,090 --> 01:31:02,450
+Không phải, ai chảy giờ, ngồi dân mình
+cực kỳ chuyên, giống như những bước hoặc
+
+1421
+01:31:02,450 --> 01:31:04,450
+đoán khi đó nó có office chuyên dụng rồi.
+
+1422
+01:31:05,150 --> 01:31:07,670
+Thế còn lại thì về cơ bản thì
+mình không cần cái thứ đấy.
+
+1423
+01:31:08,540 --> 01:31:10,940
+Thế thì có thể là mình có thể sẽ tiếp tục.
+
+1424
+01:31:12,450 --> 01:31:16,010
+Nếu mình làm tốt thì mình sẽ nốt khách
+hàng cho mẹ xin thái mình rất là tốt đi
+
+1425
+01:31:16,010 --> 01:31:16,190
+thôi.
+
+1426
+01:31:17,460 --> 01:31:21,260
+Thử xem một hướng có thực sự đủ
+lớn để cho bạn theo hồi không?
+
+1427
+01:31:22,140 --> 01:31:24,140
+Bạn phù hợp với bạn không
+hay là một mạng cạnh?
+
+1428
+01:31:24,300 --> 01:31:25,900
+Cái này cũng là với Kiên.
+
+1429
+01:31:27,220 --> 01:31:32,260
+Chỗ Đức thấy hay thì làm
+cái mail riêng của bạn ấy.
+
+1430
+01:31:32,660 --> 01:31:37,520
+Giống như chú Hưng ấy, nhưng bạn ấy
+làm private để trao đổi với Hưng.
+
+1431
+01:31:38,010 --> 01:31:42,790
+Hưng mà cũng đang nhấn lại với mail
+thì phế biệt cứ làm điều gì đó tốt.
+
+1432
+01:31:43,680 --> 01:31:47,020
+Nhưng mà trong tuần này, Hưng sẽ
+
+1433
+01:31:48,200 --> 01:31:52,440
+giới thiệu cái mail của bạn này.
+
+1434
+01:31:53,180 --> 01:31:58,360
+Nếu hộ chúng ta chốt thì hướng đi
+thì có thể cho cụm tham gia bạn.
+
+1435
+01:31:58,700 --> 01:32:01,360
+Vì như anh nói, tính là mail
+thì nó có rất nhiều module.
+
+1436
+01:32:01,880 --> 01:32:05,100
+Mail là một, hai module
+liên quan đến write, office.
+
+1437
+01:32:06,360 --> 01:32:08,880
+Mọi người thấy là office nó
+không cần phải đủ tính đâu.
+
+1438
+01:32:09,130 --> 01:32:14,530
+Nhiều hàm, quan trọng gì, quan trọng đọc
+được, edit được nhanh, không vỡ định dạng
+
+1439
+01:32:14,530 --> 01:32:14,910
+nhiều được.
+
+1440
+01:32:15,150 --> 01:32:17,170
+Còn như anh em mình chỉ
+có mấy cái vài cái nữa.
+
+1441
+01:32:17,550 --> 01:32:19,250
+Gọi là như của McDow dùng theo.
+
+1442
+01:32:20,320 --> 01:32:26,290
+Sau mình có thể viết một bộ outfit,
+có bao nhiêu là line thôi, outfit
+
+1443
+01:32:26,290 --> 01:32:29,630
+line để cho khách hàng có thể
+dùng xem sửa ngăn nhanh trên đấy.
+
+1444
+01:32:31,180 --> 01:32:36,180
+Nếu mà chúng ta chốt cái dự án mail chẳng
+hạn thì có thể cho bạn John và cùng, thì
+
+1445
+01:32:36,180 --> 01:32:38,260
+nó sẽ thành một cái nhóm chung.
+
+1446
+01:32:40,980 --> 01:32:46,960
+Đức đang làm dự án mail,
+mail riêng, về tầm, hiểu về
+
+1447
+01:32:46,960 --> 01:32:50,520
+system hơi đuối, về do thức MTP.
+
+1448
+01:32:51,000 --> 01:32:52,580
+Không phải chuyên về hệ thống.
+
+1449
+01:32:54,180 --> 01:32:58,680
+Nếu không có các dự án để cho các bạn theo
+dự án lâu dài thì nhân sự cứ có vay điều
+
+1450
+01:32:58,680 --> 01:33:04,380
+là giao diện này, vay làm viên thử vay
+cái, tính năng làm khác thì sẽ rất là nản.
+
+1451
+01:33:04,760 --> 01:33:07,020
+Một mục tiêu lâu dài để theo hội.
+
+1452
+01:33:23,570 --> 01:33:24,650
+Được rồi?
+
+1453
+01:33:24,850 --> 01:33:25,210
+Được rồi.
