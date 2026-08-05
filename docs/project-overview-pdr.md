@@ -31,7 +31,8 @@ Internal project management system for the iNET Tech Department. Centralized tra
 - **Cadence:** early month N+1, reviewing month N
 - **Runbook:** [`monthly-okr-p2-review-guide.md`](./monthly-okr-p2-review-guide.md)
 - **Method:** three layers — self-reported completion, real code (git + GitLab + production), then effort-weighting from code footprint
-- **Output:** self-contained HTML report in `plans/reports/`, kept local (personnel data)
+- **Output:** self-contained HTML report in `okr-kpi/MM-YYYY/` (the period under review), kept local — personnel data
+- **Evidence rule:** P2 on my.inet.vn is authoritative, not the Excel file. Read both `selfScores` and `scores` and report any divergence; `scores` empty with `status="draft"` means unscored, not a bad score.
 
 ### 4. Meetings & Training
 - **CXO meetings:** minutes in `hop-cxo/DD-MM-YYYY/`, kept alongside the raw transcripts they were derived from
@@ -78,7 +79,7 @@ Independent evidence: git log · GitLab issues/MRs/pipelines · HTTP production 
            ↓
 Effort-weight each OKR (S/M/L/XL from code footprint, not self-declared)
            ↓
-Verdict per member + suggested adjustment → HTML report in plans/reports/
+Verdict per member + suggested adjustment → HTML report in okr-kpi/MM-YYYY/
 ```
 
 ## Current State
@@ -87,7 +88,7 @@ Active OKR/KPI per member is **not duplicated here** — it changes monthly and 
 
 - **OKR of a month:** `POST /api/client/v1/accountkpi/search` with `{account, monthStr}`, or the KPI detail page `https://my.inet.vn/account/kpi/detail/{email}`
 - **P2+ of a period:** `POST /p2evaluation/get` with `{account, period}`
-- **Latest reviewed period:** the newest report in `plans/reports/`
+- **Latest reviewed period:** the newest folder under `okr-kpi/` (periods T5–T7 2026 are in `plans/reports/`)
 - **Latest P2 forms:** the highest `members/{năm}/T{tháng}/` folder
 
 ## Success Metrics
@@ -118,7 +119,7 @@ Active OKR/KPI per member is **not duplicated here** — it changes monthly and 
 | "Deployed to production" without a marker | Late work counted as on-time | Require release tag, prod bundle `last-modified`, or a successful `deploy` job |
 | Excel formula errors | P2 scoring inaccurate | Preserve template formulas; never hard-code summary cells; compare against server-computed total |
 | Leaked `.env` in git | Credential exposure | All `.env*` ignored; rotate immediately if one ever lands in history |
-| Personnel report published externally | Data exposure | Reports stay local in `plans/reports/`, never deployed or shared outside |
+| Personnel report published externally | Data exposure | Reports stay local in `okr-kpi/` and `plans/reports/`, never deployed or shared outside |
 
 ## Next Steps (Priority Order)
 

@@ -8,7 +8,8 @@ Hệ thống quản lý nội bộ theo dõi **OKR/KPI hàng tháng**, **đánh 
 
 - **`members/{năm}/T{tháng}/`** - Biểu mẫu đánh giá P2 theo từng thành viên, chia theo kỳ (vd `members/2026/T5/`)
 - **`docs/`** - Tài liệu hướng dẫn, quy chuẩn, lộ trình; ADR trong `docs/decisions/`
-- **`plans/<user>/`** - Kế hoạch theo từng người; **`plans/reports/`** - báo cáo đã xuất
+- **`okr-kpi/MM-YYYY/`** - Báo cáo audit OKR + P2 theo từng kỳ (xem [`okr-kpi/README.md`](./okr-kpi/README.md))
+- **`plans/<user>/`** - Kế hoạch theo từng người; **`plans/reports/`** - báo cáo khác + audit kỳ T5–T7/2026
 - **`hop-cxo/DD-MM-YYYY/`** - Biên bản họp CXO kèm transcript
 - **`dao-tao/DD-MM-YYYY/`** - Tài liệu đào tạo nội bộ (slide HTML, transcript)
 - **`scripts/`** - Script Python đọc/dump file P2 Excel (`dump_p2_*.py`, chỉ đọc)
@@ -22,7 +23,7 @@ Dữ liệu OKR/KPI hàng tháng nằm trên **my.inet.vn**, không lưu trong r
 1. **Khai OKR đầu tháng** → nhập trên my.inet.vn theo [Quy tắc viết nội dung OKR](./docs/quy-tac-viet-noi-dung-okr.html)
 2. **Tự động hóa OKR/KPI** → skill `/gitlab-okr-kpi` gọi API my.inet.vn trực tiếp (curl)
 3. **Đánh giá P2+ cuối tháng** → điền mức trong file Excel thành viên, lưu nháp lên my.inet.vn
-4. **Review đầu tháng sau** → đối chiếu tự đánh giá với bằng chứng thật, xuất báo cáo HTML vào `plans/reports/`
+4. **Review đầu tháng sau** → đối chiếu tự đánh giá với bằng chứng thật, xuất báo cáo HTML vào `okr-kpi/MM-YYYY/`
 
 ### Tài Liệu Tham Khảo
 
@@ -63,7 +64,7 @@ Phạm vi đánh giá P2 của dattqh: **dattqh, hobv, ducnd, chuongdt**. Không
 **Review OKR + P2 tháng trước:**
 1. Theo runbook [monthly-okr-p2-review-guide.md](./docs/monthly-okr-p2-review-guide.md)
 2. Chạy `/p2-monthly-okr-audit` (chỉ đọc, không sửa/khóa điểm)
-3. Báo cáo HTML xuất vào `plans/reports/` - dữ liệu nhân sự, để local, không publish
+3. Báo cáo HTML xuất vào `okr-kpi/MM-YYYY/` theo kỳ được review - dữ liệu nhân sự, để local, không publish
 
 ---
 

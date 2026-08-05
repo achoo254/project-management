@@ -24,9 +24,18 @@
   - `P2-Duc.xlsx` ✗ (incomplete prefix)
 - Period folders may also contain generated audit reports (`p2-delivery-evidence-audit-*.html`).
 
-### Reports & Plans
+### Monthly OKR/P2 Audit Reports (`okr-kpi/`)
+- **Location:** `okr-kpi/MM-YYYY/review-okr-p2-<scope>-<YYMMDD>.html`
+  - `MM-YYYY` = **the period under review**, not the month the audit ran (a July review executed on 04/08 still goes in `okr-kpi/07-2026/`)
+  - `<scope>` = `team` for a whole-team roll-up, or a username when split per member
+  - `<YYMMDD>` = the date the audit ran, so re-auditing a period never overwrites the earlier run
+  - An accompanying `.md` detail record sits in the same folder under the same base name
+- **Required content:** both `selfScores` and `scores` (state explicitly when the manager has not scored yet), `total`/`grade` re-verified against the formula, each OKR with an S/M/L/XL effort badge plus evidence (path/SHA + landed date), a suggested-adjustment column, and any claim that could not be verified marked as such
+- See `okr-kpi/README.md` for the full convention. Reports for T5–T7 2026 predate it and stay where they are (`plans/reports/`, `plans/dattqh/reports/`, `members/2026/T5/`).
+
+### Other Reports & Plans
 - **Plans:** `plans/<user>/<slug>/` — scoped per person to avoid merge conflicts (see `plans/README.md`)
-- **Reports:** `plans/reports/<kind>-<YYMMDD>-<scope>.html` — e.g. `review-p2-hobv-260804-thang-07-2026.html`
+- **Other reports** (not the monthly OKR/P2 audit): `plans/reports/<kind>-<YYMMDD>-<scope>.html`
 - Name files by content, never by phase number or plan ID — renamed plans turn such references into garbage
 - Aggregated reports for humans are **HTML**; `.md` is only for the accompanying detail record
 
@@ -272,7 +281,7 @@ Before committing changes:
 | OKR entries on my.inet.vn | Each member | Monthly, at the start of the month |
 | P2 evaluation files | Department head + individual | Monthly (one folder per period) |
 | Master P2 template | Department head | As needed (criteria changes) |
-| Monthly review reports (`plans/reports/`) | Department head | Monthly, early in month N+1 |
+| Monthly audit reports (`okr-kpi/MM-YYYY/`) | Department head | Monthly, early in month N+1 |
 | Meeting minutes (`hop-cxo/`) | Meeting lead | Per session |
 | Training material (`dao-tao/`) | Session speaker | Per session |
 | `.env` credentials | Each developer, locally | `sid` roughly daily; tokens as they rotate |

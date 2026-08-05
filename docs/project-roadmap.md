@@ -32,7 +32,7 @@
 
 ## Active Initiatives
 
-Per-member OKR/KPI is **not duplicated in this document** — it changes monthly and the portal is the source of truth. Read the current month from `accountkpi/search` or the KPI detail page; read the last reviewed period from the newest report in `plans/reports/`.
+Per-member OKR/KPI is **not duplicated in this document** — it changes monthly and the portal is the source of truth. Read the current month from `accountkpi/search` or the KPI detail page; read the last reviewed period from the newest folder under `okr-kpi/` (periods T5–T7 2026 are still in `plans/reports/`).
 
 Training sessions are recorded as they happen in `dao-tao/DD-MM-YYYY/` (most recent: software architecture 10/07/2026, Docker part 1 22/07/2026).
 
@@ -168,7 +168,7 @@ Sizing uses complexity tiers, not hours: **S** = 1–3 files isolated · **M** =
 | P2 left at `draft` with no manager score | The period scores zero on the portal | Medium | Review report flags any period still unscored |
 | Token scope gaps on GitLab | Some claims cannot be verified at all | Medium | Mark explicitly as unverifiable rather than assuming either way |
 | Documentation drifts from reality | Wrong folder, wrong skill name, wrong env var sends work down a dead end | Medium | Re-verify against the repo whenever conventions change |
-| Personnel report published externally | Data exposure | Low | Reports stay local in `plans/reports/`, never deployed |
+| Personnel report published externally | Data exposure | Low | Reports stay local in `okr-kpi/` and `plans/reports/`, never deployed |
 
 ---
 

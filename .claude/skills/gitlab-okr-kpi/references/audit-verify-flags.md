@@ -21,7 +21,7 @@ Nếu cần audit đầy đủ (đối chiếu OKR + P2 với bằng chứng git
    - ❓ **Thừa**: có trên my.inet.vn, không có trong kỳ vọng
    - ⚡ **Sai lệch**: nội dung khác biệt (fuzzy match < 70%)
 4. Không chắc chắn → `AskUserQuestion` hỏi user
-5. Xuất report vào `<project-root>/plans/reports/`
+5. Xuất report HTML vào `<project-root>/okr-kpi/MM-YYYY/` (kỳ được review, xem `okr-kpi/README.md`)
 
 **Report format:**
 ```markdown
@@ -78,7 +78,7 @@ Kiểm tra OKR/KPI có liên quan đến issues/projects trên gitlabs.inet.vn.
    - ⚠️ **Không rõ**: không tìm thấy trực tiếp, có thể thuộc task chung
    - ❌ **Không có liên kết**: OKR/KPI không liên quan project nào
 5. Không chắc chắn → `AskUserQuestion`
-6. Xuất report vào `<project-root>/plans/reports/`
+6. Xuất report HTML vào `<project-root>/okr-kpi/MM-YYYY/` (kỳ được review, xem `okr-kpi/README.md`)
 
 **Deadline khi đánh giá:** OKR tháng N phải landed (merge main / issue close) **≤ ngày cuối tháng N**. Landed sang tháng sau = trễ. "Đã build lên production" không phải bằng chứng — cần tag release, `last-modified` của bundle prod, hoặc pipeline `deploy` thành công.
 

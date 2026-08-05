@@ -66,7 +66,7 @@ Run ALL checks before Phase 1. Use `AskUserQuestion` for missing info (session-o
 1. **Cookie my.inet.vn**: Read `.env` → check `sid` + `ssid` → validate via `curl -s -o /dev/null -w "%{http_code}" -H "Cookie: sid=<sid>; ssid=<ssid>" https://my.inet.vn/account/kpi` (200=OK, 302/401=expired)
 2. **GitLab Auth**: Test `curl -s -H "PRIVATE-TOKEN: <token>" https://gitlabs.inet.vn/api/v4/user` — optional, skip if not needed
 3. **Team member**: Match against table above (name/username/email). Ask if ambiguous.
-4. **Meeting notes**: Find `meetings/DD-MM-YYYY.md` for target month, or `plans/reports/`
+4. **Nguồn OKR tháng**: KHÔNG có folder meeting notes (`weekly meetings/` đã xoá). Theo thứ tự: user chỉ định trực tiếp → `plans/<user>/` → GitLab issues/milestone của tháng. Báo cáo audit kỳ trước ở `okr-kpi/MM-YYYY/` (kỳ T5–T7/2026 ở `plans/reports/`).
 
 Display summary table after all checks pass, then proceed.
 

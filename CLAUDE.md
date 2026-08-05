@@ -12,7 +12,8 @@ Internal project management repo for iNET Tech Department. Tracks monthly OKR/KP
 - `members/*.xlsx` + `members/T5/` - Legacy copies before the year/month layout; `members/{năm}/T{tháng}/` is authoritative
 - `P2_Form_BP_Cong_Nghe.xlsx` - Master P2 evaluation template (root, immutable)
 - `docs/` - Standards, PDR, roadmap, runbooks (`monthly-okr-p2-review-guide.md`), ADRs in `docs/decisions/`
-- `plans/<user>/` - Per-person plans; `plans/reports/` - generated reports (HTML for sharing, `.md` for detail records)
+- `okr-kpi/MM-YYYY/` - Monthly OKR+P2 audit reports, one folder per period under review (see `okr-kpi/README.md`)
+- `plans/<user>/` - Per-person plans; `plans/reports/` - other reports plus the T5–T7 2026 audits
 - `hop-cxo/DD-MM-YYYY/` - CXO meeting minutes + transcripts
 - `dao-tao/DD-MM-YYYY/` - Internal training material (HTML slides, transcripts)
 - `scripts/` - Python read-only dump helpers for P2 Excel inspection (`dump_p2_*.py`, openpyxl)

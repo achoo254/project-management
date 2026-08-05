@@ -36,6 +36,9 @@ Cookie `sid`/`ssid` + token đọc từ `.env` (privacy-guarded → xin duyệt;
 - **Liệt kê ĐỦ entry** — không gộp/bỏ sót (đối chiếu số entry `monthStr` khớp số dòng report).
 - **Role P2** lấy từ baseline `/get` (có người chọn role khác title, vd hobv title Design System nhưng P2 = Fullstack — hợp lệ nếu công việc đúng vậy).
 - Trọng số A/B/C/D khác theo role; điểm do server tính (`selfComputed`) — không hardcode.
+- **P2 trên my.inet.vn là nguồn chuẩn, KHÔNG phải file Excel.** Excel là nháp tại chỗ; điểm có hiệu lực nằm ở `p2evaluation/get`. Hai bên **có thể lệch** (điền Excel rồi quên submit, hoặc sửa trên portal mà không sửa lại Excel) → luôn đọc cả hai và **báo rõ chỗ lệch**, đừng chỉ tin một nguồn.
+- **Phân biệt `scores` với `selfScores`.** `selfScores`/`selfComputed`/`selfStatus` = tự đánh giá; `scores`/`computed`/`status` = điểm quản lý chấm. `scores` rỗng + `status="draft"` nghĩa là **chưa ai chấm** — hiển thị 0/"Chưa đạt" trên portal KHÔNG phải kết quả xấu. Report phải nói rõ, vì để nguyên thì kỳ đó nằm mãi ở 0.
+- **Không kết luận từ ảnh chụp màn hình.** Ảnh dùng để đối chiếu, con số phải lấy từ API. Đã có lần khối vàng "ĐÁNH GIÁ CHÍNH THỨC = 0" bị đọc thành điểm thật.
 
 ## 4. Bản đồ repo local ↔ thành viên
 
@@ -45,9 +48,25 @@ Cookie `sid`/`ssid` + token đọc từ `.env` (privacy-guarded → xin duyệt;
 | hobv | `design-sys-fe` (packages `@hobui/*`) | design-system/design-sys-fe |
 | chuongdt | `developers.inet.vn` (+ portal-client/server) | donv/developers.inet.vn |
 
-## 5. Đầu ra: BÁO CÁO HTML (không dùng .md cho bản tổng hợp)
+## 5. Đầu ra: BÁO CÁO HTML trong `okr-kpi/MM-YYYY/`
 
-Bản tổng hợp cho người xem = **file HTML** self-contained (CSS inline), **để local** trong `plans/reports/` — KHÔNG publish ra ngoài (dữ liệu nhân sự). File `.md` chỉ dùng làm bản chi tiết/record đi kèm.
+Bản tổng hợp cho người xem = **file HTML** self-contained (CSS inline), **để local** — KHÔNG publish ra ngoài (dữ liệu nhân sự). File `.md` chỉ dùng làm bản chi tiết/record đi kèm.
+
+**Vị trí bắt buộc:** mỗi kỳ review có một thư mục riêng.
+
+```
+okr-kpi/MM-YYYY/          # kỳ được review, KHÔNG phải tháng chạy audit
+├── review-okr-p2-<scope>-<YYMMDD>.html    # bản tổng hợp (bắt buộc)
+└── review-okr-p2-<scope>-<YYMMDD>.md      # bản chi tiết đi kèm (tuỳ chọn)
+```
+
+- `MM-YYYY` = **kỳ được review**, KHÔNG phải tháng chạy audit. Review tháng 07/2026 chạy ngày 04/08 vẫn nằm ở `okr-kpi/07-2026/`.
+- `<scope>` = `team` khi tổng hợp cả nhóm, hoặc username khi tách riêng (`hobv`, `dattqh`…).
+- `<YYMMDD>` = ngày chạy audit — cho phép nhiều lần audit cùng một kỳ mà không ghi đè.
+- Tên file mô tả nội dung, **không** chứa số phase hay mã plan.
+- Report cũ (T5–T7/2026) nằm rải ở `plans/reports/`, `plans/dattqh/reports/` và `members/2026/T5/`; giữ nguyên tại chỗ, quy tắc này áp dụng từ kỳ T8/2026.
+
+**Nội dung tối thiểu phải có:** cả `selfScores` và `scores` (nêu rõ nếu quản lý chưa chấm) · điểm `total`/`grade` kiểm chứng lại bằng công thức · từng OKR kèm badge effort S/M/L/XL và bằng chứng (path/SHA + ngày landed) · cột "Điều chỉnh đề xuất" · claim nào **không kiểm chứng được** (vd repo ngoài scope token) phải ghi rõ là không kiểm chứng, không đoán theo hướng nào.
 
 **Style theo iNET Design System (viui) — primary.** Lấy token từ `~/inet-gitlab/design-sys-fe/docs/ai-prompt-tokens.json` (đúng thứ viui MCP phục vụ):
 - Primary `#0582D4`, gradient `#0582D4→#619ee9`, accent-red `#E8353C`, tech-cyan `#22D3EE`
@@ -60,10 +79,13 @@ Bố cục gợi ý: TL;DR (số người khớp / thổi phồng / điều ch�
 
 - [ ] Xác thực cookie my.inet.vn (200) + token GitLab
 - [ ] Lấy đủ OKR (`accountkpi/search`) + P2 (`p2evaluation/get`) cho 4 người — đếm đủ entry
+- [ ] Đọc cả `selfScores` và `scores`; đối chiếu với mức trong Excel `members/{năm}/T{tháng}/` — báo rõ chỗ lệch
 - [ ] GitLab: commits/MR/issue trong tháng (phân trang đủ, không cap 100)
 - [ ] Scout code local từng repo: xác minh code thật + ngày landed vs deadline
 - [ ] Gán effort S/M/L/XL từ code footprint; áp ngưỡng "Tốt = + stretch"
-- [ ] Xuất HTML (style iNET DS) vào `plans/reports/`; `.md` record đi kèm
-- [ ] Nêu điều chỉnh đề xuất; nhắc quản lý khóa điểm cuối
+- [ ] Kiểm lại `total`/`grade` bằng công thức, so với `selfComputed` server trả về
+- [ ] Xuất HTML (style iNET DS) vào **`okr-kpi/MM-YYYY/`**; `.md` record đi kèm nếu cần
+- [ ] Ghi rõ claim nào không kiểm chứng được (không đoán)
+- [ ] Nêu điều chỉnh đề xuất; nhắc quản lý khóa điểm cuối nếu `scores` còn rỗng
 
-> Xem ví dụ: `plans/reports/audit-okr-p2-260701-1115-thang-06-2026.html` (+ `...-1038-...report.md`) — review tháng 6/2026.
+> Xem ví dụ (nằm ở vị trí cũ, trước khi có quy tắc `okr-kpi/`): `plans/reports/audit-okr-p2-260701-1115-thang-06-2026.html` — review tháng 6/2026; `plans/reports/review-p2-hobv-260804-thang-07-2026.html` — review tháng 7/2026 với ma trận 18 claim đối chiếu bằng chứng độc lập.

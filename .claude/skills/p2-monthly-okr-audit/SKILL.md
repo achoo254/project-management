@@ -41,21 +41,27 @@ Does NOT handle: chỉnh sửa/ghi đè file P2 Excel (read-only); nhập KPI m�
 7. Tôn trọng quyết định đã chốt của user về mức điểm (không tự đảo ngược); chỉ nêu nếu phát hiện mâu thuẫn mới.
 8. **Project mỗi người KHÔNG cố định — phát hiện lại mỗi kỳ** từ KPI my.inet.vn + git, KHÔNG bê assignment kỳ trước. (xem `team-roster-and-repos.md` §3)
 9. **Local path khác nhau theo máy/người.** Verify repo tồn tại trước khi scan; nếu KHÔNG scan được (path sai/repo thiếu) → **HỎI USER**, KHÔNG đoán, KHÔNG coi "0 commit = không làm việc".
+10. **P2 trên my.inet.vn là nguồn chuẩn, KHÔNG phải Excel.** Excel là nháp tại chỗ; điểm có hiệu lực nằm ở `p2evaluation/get`. Hai bên có thể lệch (điền Excel rồi quên submit, hoặc sửa portal mà không sửa lại Excel) → đọc **cả hai**, báo rõ chỗ lệch.
+11. **Phân biệt `scores` với `selfScores`.** `selfScores`/`selfComputed`/`selfStatus` = tự đánh giá; `scores`/`computed`/`status` = điểm quản lý. `scores` rỗng + `status="draft"` = **chưa ai chấm** — portal hiển thị 0/"Chưa đạt" KHÔNG phải kết quả xấu; phải nêu rõ trong report vì để nguyên thì kỳ đó nằm mãi ở 0.
+12. **Con số lấy từ API, không từ ảnh chụp màn hình.** Ảnh chỉ để đối chiếu. Đã có lần khối "ĐÁNH GIÁ CHÍNH THỨC = 0" bị đọc thành điểm thật.
+13. **Claim không kiểm chứng được phải ghi rõ là không kiểm chứng** (vd repo ngoài scope token) — KHÔNG đoán theo hướng có lợi hay bất lợi.
 
 ## Workflow (numbered)
 
 ### Step 0 — Xác định kỳ, thành viên & project
-- Hỏi/suy ra tháng đánh giá (vd `T05/2026`) + thư mục P2 (`members/T{n}/`). Mặc định phạm vi: **cả team** (`references/team-roster-and-repos.md` §1).
+- Hỏi/suy ra tháng đánh giá (vd `T05/2026`) + thư mục P2 `members/{năm}/T{tháng}/` (vd `members/2026/T5/`; bản phẳng `members/*.xlsx` và `members/T5/` là legacy). Mặc định phạm vi: **cả team** (`references/team-roster-and-repos.md` §1).
 - ⚠️ **Project mỗi người THAY ĐỔI theo tháng — KHÔNG cố định, KHÔNG giả định từ kỳ trước.** Assignment tháng này được PHÁT HIỆN ở Step 2 (từ KPI my.inet.vn), đối chiếu git Step 3, hỏi user nếu mơ hồ. Xem `team-roster-and-repos.md` §3.
 
 ### Step 1 — Đọc file P2 Excel (read-only)
 - Chạy `scripts/dump_p2_sheets.py "<đường dẫn .xlsx>" <out.txt>` cho từng thành viên → trích 3 mức Delivery (C17/C18/C19), điểm (C20/C23/C24), metadata (Kỳ đánh giá C3/D3, Người đánh giá C4/D4), vai trò (B4), và rubric (`CẤU TRÚC & TRỌNG SỐ`).
 - Lưu ý file có thể đang mở trong Excel (`~$...`) → openpyxl đọc bản đã save trên đĩa.
 
-### Step 2 — Đọc KPI my.inet.vn → PHÁT HIỆN project tháng này
-- Theo `references/myinet-kpi-extraction.md`: browser đã đăng nhập (claude-in-chrome) navigate `https://my.inet.vn/account/kpi/detail/<email>` → JS snippet trích: số Commits hệ thống đếm, danh sách KPI (tên + Mục tiêu + Kết quả). **Bỏ qua cột trạng thái duyệt.**
+### Step 2 — Đọc OKR + P2 từ my.inet.vn (API-first) → PHÁT HIỆN project tháng này
+- **OKR:** `POST /api/client/v1/accountkpi/search` body `{api,account,monthStr}` — cookie `sid`/`ssid` từ `.env` (privacy-approved). ⚠️ Endpoint phân trang cứng 30/trang và **bỏ qua `size`** → luôn gửi `monthStr` cho BE lọc, đối chiếu `totalElements` với số dòng thực nhận. **Bỏ qua cột trạng thái duyệt** (`status="waiting"` = chờ duyệt, không phải chưa làm).
+- **P2 (bắt buộc, đây là nguồn chuẩn):** `POST /api/client/v1/p2evaluation/get` body `{account, period:"YYYY-MM"}` → lấy `selfScores`/`selfComputed`/`selfStatus` **và** `scores`/`computed`/`status`, kèm `roles`/`department`. Đối chiếu với mức đọc từ Excel ở Step 1 → **báo rõ chỗ lệch**. `scores` rỗng + `status="draft"` = quản lý chưa chấm, phải nêu trong report.
+- Kiểm lại điểm: `POST /p2evaluation/compute` hoặc tính tay `Delivery = Σ(level×weight)`, `P2+ = Core×0.5 + Delivery×0.5`; so với `selfComputed` server trả về. **Never submit** — read-only.
 - **Suy project từ tên/Mục tiêu mỗi KPI** (vd "...Cloud Panel"→OneDash; "...whois inet.vn"→website inet.vn) → lập danh sách project người đó làm THÁNG NÀY. Tra path/URL trong `team-roster-and-repos.md` §2 (project mới → hỏi user + `git remote get-url`).
-- Nếu browser chưa đăng nhập: cookie từ `.env` (privacy-approved) — xem reference phần curl/auth.
+- Browser (claude-in-chrome + JS snippet trong `references/myinet-kpi-extraction.md`) chỉ là **fallback** khi API không dùng được. Cookie hết hạn (302/401) → báo user re-login SSO + cập nhật `.env`, KHÔNG đoán dữ liệu.
 
 ### Step 3 — Thu thập git evidence (theo project vừa phát hiện)
 - Với mỗi project đã xác định ở Step 2, chạy `scripts/git_month_evidence.py --repo "<path>" --authors "<regex author của người đó>" --month YYYY-MM --grep "<kw từ KPI>" ...` → tổng commit, số thực (loại release-bot/merge), feat/fix, commit/ngày, và **full SHA** mỗi từ khóa KPI để dựng link GitLab.
@@ -67,10 +73,17 @@ Does NOT handle: chỉnh sửa/ghi đè file P2 Excel (read-only); nhập KPI m�
 - Verify công thức: Delivery = ΣΣ(level×weight); P2+ = Core×0.5 + Delivery×0.5. Báo nếu lệch.
 - Đánh giá minh bạch: Kết quả KPI đã điền chưa? Metadata (Kỳ/Người đánh giá) đủ chưa?
 
-### Step 5 — Sinh báo cáo
-- Viết 1 JSON theo schema trong `scripts/build_html_report.py` (header docstring) → chạy `scripts/build_html_report.py --data audit.json --out report.html` → HTML self-contained (bảng tổng + chi tiết + chip link commit thật).
-- Viết thêm MD tóm tắt vào `plans/dattqh/reports/` (verdict + danh sách cần sửa).
-- Mở HTML: `start "" report.html` (Windows).
+### Step 5 — Sinh báo cáo vào `okr-kpi/MM-YYYY/`
+- Viết 1 JSON theo schema trong `scripts/build_html_report.py` (header docstring) → chạy `scripts/build_html_report.py --data audit.json --out <path>` → HTML self-contained (bảng tổng + chi tiết + chip link commit thật).
+- **Vị trí bắt buộc:** `<project-root>/okr-kpi/MM-YYYY/review-okr-p2-<scope>-<YYMMDD>.html`
+  - `MM-YYYY` = **kỳ được review**, KHÔNG phải tháng chạy audit (review tháng 07/2026 chạy ngày 04/08 vẫn nằm ở `okr-kpi/07-2026/`)
+  - `<scope>` = `team` khi tổng hợp cả nhóm, hoặc username khi tách riêng
+  - `<YYMMDD>` = ngày chạy audit → audit lại cùng kỳ không ghi đè bản trước
+  - MD chi tiết (nếu cần) đặt cùng thư mục, cùng tên, đuôi `.md`
+  - Xem `okr-kpi/README.md` cho convention đầy đủ. Report các kỳ T5–T7/2026 nằm ở vị trí cũ (`plans/reports/`, `plans/dattqh/reports/`) — giữ nguyên, không move.
+- **Nội dung tối thiểu:** cả `selfScores` và `scores` (nêu rõ nếu quản lý chưa chấm) · `total`/`grade` đã kiểm chứng bằng công thức · từng OKR kèm badge effort S/M/L/XL + bằng chứng (path/SHA + ngày landed) · cột "Điều chỉnh đề xuất" · claim không kiểm chứng được ghi rõ là không kiểm chứng.
+- HTML phải **self-contained** (inline CSS/JS, không CDN/font ngoài), style theo iNET Design System. Dữ liệu nhân sự → **để local, không publish**.
+- Mở HTML: `open <path>` (macOS) · `start "" <path>` (Windows).
 
 ## Resources
 

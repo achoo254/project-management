@@ -37,10 +37,16 @@ project-management/
 │   ├── T5/                                # Legacy copies (pre year/month layout)
 │   └── P2_Form_BP_Cong_Nghe - *.xlsx      # Legacy flat copies (4 members)
 │
+├── okr-kpi/                               # Monthly OKR+P2 audit reports (from period 07-2026 on)
+│   ├── README.md                          # Location, naming and content convention
+│   ├── 07-2026/                           # MM-YYYY = period under review, not the month audited
+│   └── MM-YYYY/
+│       └── review-okr-p2-<scope>-<YYMMDD>.html
+│
 ├── plans/
 │   ├── README.md                          # Per-user scoping convention
 │   ├── dattqh/                            # Plans owned by dattqh (+ its own reports/)
-│   └── reports/                           # Generated reports — HTML for humans, .md for detail
+│   └── reports/                           # Other reports + audit reports for T5–T7 2026
 │
 ├── hop-cxo/
 │   └── DD-MM-YYYY/                        # CXO meeting minutes + whisper transcripts
@@ -146,8 +152,10 @@ Cross-check against independent evidence
                           ↓
 Effort-weight each OKR (S/M/L/XL from code footprint, not self-declared)
                           ↓
-HTML report into plans/reports/ — local only, personnel data
+HTML report into okr-kpi/MM-YYYY/ — local only, personnel data
 ```
+
+The report must carry both `selfScores` and `scores`. A period where `scores` is empty and `status="draft"` means nobody has scored it yet — the portal shows 0 / "Chưa đạt", which is not a bad result but an unscored one, and it stays at 0 until the manager acts.
 
 ## Team Members & Roles
 
@@ -203,7 +211,8 @@ GitLab user IDs (for evidence queries): dattqh=5, ducnd=27, chuongdt=26, hobv=17
 3. **Excel structure:** the master template carries the formulas and per-role weights; member copies must preserve them and never hard-code summary cells.
 4. **Automation is API-first:** browser automation remains only as a legacy fallback in `gitlab-okr-kpi/references/browser-automation-guide.md`.
 5. **Two verification traps** that have caused wrong conclusions before: `accountkpi/search` pages at 30 and ignores `size`; and "đã build lên production" is not evidence without a deploy marker. Both are documented in the review runbook.
-6. **Reports stay local:** everything in `plans/reports/` and the period audit HTML contains personnel data and is never published outside the company.
+6. **Reports stay local:** everything in `okr-kpi/`, `plans/reports/` and the period audit HTML contains personnel data and is never published outside the company.
+7. **Audit output location changed:** monthly OKR+P2 audit reports go to `okr-kpi/MM-YYYY/` from period T8/2026 onward. Earlier periods stayed where they were produced (`plans/reports/`, `plans/dattqh/reports/`, `members/2026/T5/`) and were not migrated.
 
 ## Glossary
 
