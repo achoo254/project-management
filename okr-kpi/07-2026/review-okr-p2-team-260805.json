@@ -10,13 +10,13 @@
       "Nguồn: my.inet.vn API · GitLab API · git local · HTTP production",
       "⛔ Ngoài phạm vi: anhtct"
     ],
-    "sourceNote": "Mức đánh giá lấy từ <code>p2evaluation/get</code> trên my.inet.vn — <b>nguồn duy nhất</b>. Tiêu chí + trọng số từ <code>p2config/list</code>. Không dùng file Excel: <code>.xlsx</code> trong repo chỉ giữ mẫu công thức tính P2, không chứa mức đánh giá. · <b>Cập nhật 05/08:</b> OKR của ducnd hạ từ Tốt → Đạt theo <b>điều kiện 3 “có khác biệt thật”</b> mới bổ sung vào ngưỡng “Tốt” (runbook §2) — quyết định của TBP về tính chất công việc, không phải do bằng chứng thay đổi."
+    "sourceNote": "Mức đánh giá lấy từ <code>p2evaluation/get</code> trên my.inet.vn — <b>nguồn duy nhất</b>. Tiêu chí + trọng số từ <code>p2config/list</code>. Không dùng file Excel: <code>.xlsx</code> trong repo chỉ giữ mẫu công thức tính P2, không chứa mức đánh giá. · <b>Cập nhật 05/08:</b> ducnd hạ 2 tiêu chí — OKR theo <b>điều kiện 3 “có khác biệt thật”</b> (runbook §2) và Cam kết theo quy tắc <b>“issue closed ≠ dùng được”</b> (runbook §3). Cả hai là quyết định của TBP về tính chất và thời điểm hoàn thành, KHÔNG phải do bằng chứng tự khai thay đổi — mọi số liệu ducnd khai vẫn kiểm chứng được và đều khớp."
   },
   "banners": [
     {
       "tone": "err",
       "title": "2 điểm cần sửa: Cam kết của chuongdt và OKR của ducnd — cả hai đang khoá",
-      "html": "<b>chuongdt · Cam kết “Tốt (1.2)” không có bằng chứng đỡ:</b> không có deploy production nào trong kỳ sau 13/07 · CI <code>main</code> đỏ 10/10 cả tháng không báo · <b>0 issue</b> do chuongdt mở trong T7 · chấm công trễ 4 ngày (79%, thấp nhất phòng). → hạ Cam kết về “Đạt”: tổng <b>1.025 → 1.0</b>, grade <b>Tốt → Đạt</b>.<br><b>ducnd · OKR “Tốt (1.2)” không đủ điều kiện khác biệt:</b> khối lượng rất lớn và số liệu khớp tuyệt đối, nhưng công việc là <b>mở rộng theo khuôn đã có</b> (MCP Phase 2–4 lặp lại nền Phase 1 từ T6; Admin Analytics là dashboard trên dữ liệu có sẵn) — không có deliverable dựng mới hay đổi kiến trúc. → hạ OKR về “Đạt”: tổng <b>1.1 → 1.06</b>, vẫn grade Tốt. <i>Quyết định TBP 05/08, đồng thời bổ sung điều kiện 3 vào ngưỡng “Tốt” trong runbook §2.</i>"
+      "html": "<b>chuongdt · Cam kết “Tốt (1.2)” không có bằng chứng đỡ:</b> không có deploy production nào trong kỳ sau 13/07 · CI <code>main</code> đỏ 10/10 cả tháng không báo · <b>0 issue</b> do chuongdt mở trong T7 · chấm công trễ 4 ngày (79%, thấp nhất phòng). → hạ Cam kết về “Đạt”: tổng <b>1.025 → 1.0</b>, grade <b>Tốt → Đạt</b>.<br><b>ducnd · OKR “Tốt (1.2)” không đủ điều kiện khác biệt:</b> khối lượng rất lớn và số liệu khớp tuyệt đối, nhưng công việc là <b>mở rộng theo khuôn đã có</b> (MCP Phase 2–4 lặp lại nền Phase 1 từ T6; Admin Analytics là dashboard trên dữ liệu có sẵn) — không có deliverable dựng mới hay đổi kiến trúc. → hạ OKR về “Đạt”. Đồng thời hạ <b>Cam kết</b> về “Đạt”: deliverable XL lớn nhất (116 tool MCP) tuyên bố xong 22/07 nhưng <b>31/07 mới rà soát bằng lượt gọi thật và ra 11 lỗi, 1 lỗi làm hỏng cả 26 tool đọc</b> — tức chỉ thật sự dùng được vào đúng ngày cuối kỳ. Tổng <b>1.1 → 1.035</b>, vẫn grade Tốt. <i>Quyết định TBP 05/08, kèm 2 quy tắc mới trong runbook §2–§3.</i>"
     },
     {
       "tone": "ok",
@@ -62,10 +62,10 @@
       "officialGrade": "Tốt",
       "officialNote": "khoá 05/08 10:37",
       "status": "locked",
-      "delivery": "Tốt → Đạt / Tốt / Tốt",
-      "proposal": "Hạ OKR → Đạt",
+      "delivery": "Tốt→Đạt / Tốt / Tốt→Đạt",
+      "proposal": "Hạ OKR + Cam kết → Đạt",
       "proposalTone": "err",
-      "proposalNote": "tổng 1.1 → 1.06, vẫn Tốt",
+      "proposalNote": "tổng 1.1 → 1.035, vẫn Tốt",
       "flag": true
     },
     {
@@ -391,7 +391,7 @@
     },
     {
       "name": "ducnd · Nguyễn Đăng Đức",
-      "score": "1.1 → 1.06",
+      "score": "1.1 → 1.035",
       "pills": [
         {
           "tone": "info",
@@ -409,11 +409,11 @@
       "formula": {
         "lines": [
           "core     = 1.0×0.30 + 1.0×0.25 + 1.0×0.10 + 1.0×0.35 = 1.00      // trọng số role Frontend",
-          "delivery = 1.2×0.40 + 1.2×0.35 + 1.2×0.25 = 0.48+0.42+0.30 = 1.20  → total = 1.10  (bản đang khoá)",
-          "ĐỀ XUẤT (OKR → Đạt):",
-          "delivery = 1.0×0.40 + 1.2×0.35 + 1.2×0.25 = 0.40+0.42+0.30 = 1.12  → total = 1.06 → \"Tốt\""
+          "delivery = 1.2×0.40 + 1.2×0.35 + 1.2×0.25 = 0.48+0.42+0.30 = 1.20  → total = 1.100  (bản đang khoá)",
+          "ĐỀ XUẤT (OKR → Đạt, Cam kết → Đạt):",
+          "delivery = 1.0×0.40 + 1.2×0.35 + 1.0×0.25 = 0.40+0.42+0.25 = 1.07  → total = 1.035 → \"Tốt\""
         ],
-        "server": "1.10 khớp computed server; 1.06 đã validate qua POST /p2evaluation/compute"
+        "server": "1.100 khớp computed server; 1.035 đã validate qua POST /p2evaluation/compute"
       },
       "criteria": [
         {
@@ -461,22 +461,34 @@
             {
               "tone": "q",
               "html": "Điểm trừ: 116 tool ship 22/07, đến 31/07 rà soát bằng lượt gọi thật mới ra 11 lỗi (1 lỗi ảnh hưởng 26 tool đọc). Đối trọng: tự phát hiện, tự tạo issue, sửa hết và đóng trong cùng kỳ trên quy mô 122 tool."
+            },
+            {
+              "tone": "i",
+              "html": "⚠️ <b>Lưu ý nhất quán:</b> sự việc “ship 22/07 chưa kiểm → 31/07 ra 11 lỗi diện rộng” đã dùng làm căn cứ hạ <b>Cam kết</b>. Giữ Chất lượng “Tốt” là quyết định có cân nhắc: 11 lỗi do <b>chính ducnd tự phát hiện, tự tạo issue, sửa hết và đóng trong cùng kỳ</b> trên quy mô 122 tool, không có lỗi nào lọt ra ngoài cho người dùng. Nếu tháng sau lặp lại mà KHÔNG tự phát hiện thì Chất lượng phải hạ theo."
             }
           ]
         },
         {
           "name": "Cam kết & tiến độ",
           "weight": "25%",
-          "level": "Tốt",
-          "levelTone": "ok",
+          "level": "Tốt → đề xuất Đạt",
+          "levelTone": "err",
           "evidence": [
             {
-              "tone": "y",
-              "html": "596 commit trong T7 (cloud-panel-application), 24 issue đóng — khối lượng cao thứ hai phòng."
+              "tone": "n",
+              "html": "<b>Deliverable XL lớn nhất chỉ dùng được vào đúng ngày cuối kỳ.</b> 116 tool MCP tuyên bố xong khi <code>#192</code>/<code>#193</code> đóng <b>22/07</b>, nhưng <code>#236</code> (31/07) cho thấy đến 31/07 mới rà soát bằng lượt gọi thật trên VPS và ra <b>11 lỗi — trong đó 1 lỗi làm hỏng toàn bộ 26 tool đọc</b>. Bề mặt “xong 22/07” thực tế chưa dùng được trong 9 ngày."
+            },
+            {
+              "tone": "n",
+              "html": "2/6 entry đóng đúng <b>31/07</b> — ngày cuối cùng của kỳ (<code>#236</code>, <code>#237</code>), và cả hai chỉ được khai vào kỳ T7 ngày 04/08 sau khi audit phát hiện lệch kỳ."
+            },
+            {
+              "tone": "i",
+              "html": "⚠️ <b>Không dùng lý do “làm dồn cuối tháng”</b> — dữ liệu commit phản đối: 22/22 ngày làm việc đều có commit, phân bổ theo tuần 76 · 166 · 122 · 95 · 137, tuần cao nhất là tuần 2 chứ không phải tuần cuối; 7/9 issue đóng trước 22/07. Căn cứ hạ mức là <b>thời điểm deliverable đạt trạng thái dùng được</b>, không phải nhịp làm việc."
             },
             {
               "tone": "y",
-              "html": "Chủ động tự tạo <code>#209</code> (16/07) rồi đóng 21/07; nhận thêm việc ngoài 4 entry đã khai đầu kỳ; chấm công 22 ngày · trễ 0 · 100%."
+              "html": "Đối trọng đã cân: chấm công 22 ngày · trễ 0 · đúng giờ 100%; chủ động tự tạo <code>#209</code> (16/07) rồi đóng 21/07; nhận thêm việc ngoài 4 entry khai đầu kỳ; 596 commit trong kỳ. Đủ để giữ “Đạt”, không đủ “Tốt”."
             }
           ]
         }
@@ -682,7 +694,7 @@
       "owner": "dattqh"
     },
     {
-      "task": "Mở lại điểm chính thức của <b>ducnd</b> (đang <code>locked</code> ở 1.1) và hạ OKR về <b>Đạt</b> → tổng <b>1.06</b> (vẫn grade Tốt) — theo điều kiện 3 “có khác biệt thật” vừa chốt trong runbook §2",
+      "task": "Mở lại điểm chính thức của <b>ducnd</b> (đang <code>locked</code> ở 1.1) và hạ <b>OKR → Đạt</b> (điều kiện 3 “có khác biệt thật”, runbook §2) + <b>Cam kết → Đạt</b> (deliverable XL chỉ dùng được ngày cuối kỳ, runbook §3) → tổng <b>1.035</b>, vẫn grade Tốt",
       "level": "quyết định",
       "levelTone": "err",
       "owner": "dattqh"
