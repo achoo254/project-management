@@ -8,15 +8,16 @@
       "Audit 05/08/2026",
       "Chỉ-đọc — không sửa, không khoá điểm",
       "Nguồn: my.inet.vn API · GitLab API · git local · HTTP production",
+      "Baseline so sánh: OKR T6/2026",
       "⛔ Ngoài phạm vi: anhtct"
     ],
-    "sourceNote": "Mức đánh giá lấy từ <code>p2evaluation/get</code> trên my.inet.vn — <b>nguồn duy nhất</b>. Tiêu chí + trọng số từ <code>p2config/list</code>. Không dùng file Excel: <code>.xlsx</code> trong repo chỉ giữ mẫu công thức tính P2, không chứa mức đánh giá. · <b>Cập nhật 05/08:</b> ducnd hạ 2 tiêu chí — OKR theo <b>điều kiện 3 “có khác biệt thật”</b> (runbook §2) và Cam kết theo quy tắc <b>“issue closed ≠ dùng được”</b> (runbook §3). Cả hai là quyết định của TBP về tính chất và thời điểm hoàn thành, KHÔNG phải do bằng chứng tự khai thay đổi — mọi số liệu ducnd khai vẫn kiểm chứng được và đều khớp."
+    "sourceNote": "Mức đánh giá lấy từ <code>p2evaluation/get</code> trên my.inet.vn — <b>nguồn duy nhất</b>. Tiêu chí + trọng số từ <code>p2config/list</code>. Không dùng file Excel: <code>.xlsx</code> trong repo chỉ giữ mẫu công thức tính P2, không chứa mức đánh giá. · <b>Cập nhật 05/08:</b> ducnd hạ 2 tiêu chí — OKR theo <b>điều kiện 3 “có khác biệt so với kỳ trước”</b> (runbook §2: mở rộng trên nền có sẵn không được đánh giá cao) và Cam kết theo quy tắc <b>“issue closed ≠ dùng được”</b> (runbook §3). Cả hai là quyết định của TBP về tính chất và thời điểm hoàn thành, KHÔNG phải do bằng chứng tự khai thay đổi — mọi số liệu ducnd khai vẫn kiểm chứng được và đều khớp. Mỗi entry OKR nay có nhãn <b>tính chất</b> (<code>mới</code> / <code>mở rộng</code> / <code>thường kỳ</code>) gán bằng cách so với OKR kỳ T6 và kiểm bằng git — cột “Tính chất” trong bảng entry của từng người."
   },
   "banners": [
     {
       "tone": "err",
       "title": "2 điểm cần sửa: Cam kết của chuongdt và OKR của ducnd — cả hai đang khoá",
-      "html": "<b>chuongdt · Cam kết “Tốt (1.2)” không có bằng chứng đỡ:</b> không có deploy production nào trong kỳ sau 13/07 · CI <code>main</code> đỏ 10/10 cả tháng không báo · <b>0 issue</b> do chuongdt mở trong T7 · chấm công trễ 4 ngày (79%, thấp nhất phòng). → hạ Cam kết về “Đạt”: tổng <b>1.025 → 1.0</b>, grade <b>Tốt → Đạt</b>.<br><b>ducnd · OKR “Tốt (1.2)” không đủ điều kiện khác biệt:</b> khối lượng rất lớn và số liệu khớp tuyệt đối, nhưng công việc là <b>mở rộng theo khuôn đã có</b> (MCP Phase 2–4 lặp lại nền Phase 1 từ T6; Admin Analytics là dashboard trên dữ liệu có sẵn) — không có deliverable dựng mới hay đổi kiến trúc. → hạ OKR về “Đạt”. Đồng thời hạ <b>Cam kết</b> về “Đạt”: deliverable XL lớn nhất (116 tool MCP) tuyên bố xong 22/07 nhưng <b>31/07 mới rà soát bằng lượt gọi thật và ra 11 lỗi, 1 lỗi làm hỏng cả 26 tool đọc</b> — tức chỉ thật sự dùng được vào đúng ngày cuối kỳ. Tổng <b>1.1 → 1.035</b>, vẫn grade Tốt. <i>Quyết định TBP 05/08, kèm 2 quy tắc mới trong runbook §2–§3.</i>"
+      "html": "<b>chuongdt · Cam kết “Tốt (1.2)” không có bằng chứng đỡ:</b> không có deploy production nào trong kỳ sau 13/07 · CI <code>main</code> đỏ 10/10 cả tháng không báo · <b>0 issue</b> do chuongdt mở trong T7 · chấm công trễ 4 ngày (79%, thấp nhất phòng). → hạ Cam kết về “Đạt”: tổng <b>1.025 → 1.0</b>, grade <b>Tốt → Đạt</b>.<br><b>ducnd · OKR “Tốt (1.2)” không đủ điều kiện khác biệt:</b> khối lượng rất lớn và số liệu khớp tuyệt đối, nhưng <b>5/6 hạng mục là mở rộng trên nền có sẵn</b> và phần lớn khối lượng nằm ở đó (116 tool wrapper quanh endpoint OneDash đã có; Admin Analytics là dashboard trên dữ liệu đã có; parity systemd; QA cho bề mặt vừa ship). Hạng mục <code>mới</code> duy nhất — MCP server dựng từ 0 ngày 09/07 — là tooling nội bộ, chưa thành năng lực khách dùng được trong kỳ. → hạ OKR về “Đạt”. Đồng thời hạ <b>Cam kết</b> về “Đạt”: deliverable XL lớn nhất (116 tool MCP) tuyên bố xong 22/07 nhưng <b>31/07 mới rà soát bằng lượt gọi thật và ra 11 lỗi, 1 lỗi làm hỏng cả 26 tool đọc</b> — tức chỉ thật sự dùng được vào đúng ngày cuối kỳ. Tổng <b>1.1 → 1.035</b>, vẫn grade Tốt. <i>Quyết định TBP 05/08, kèm 2 quy tắc mới trong runbook §2–§3.</i>"
     },
     {
       "tone": "ok",
@@ -245,19 +246,22 @@
           "effort": "M",
           "status": "approved",
           "target": "Giao diện trang Cộng tác viên (Affiliate/CTV) trên Portal — gom về 1 trang tổng quan, kho marketing, Học viện CTV",
-          "evidence": "MR <code>!25 chuongdt/affiliate-ctv-menu-stats→master</code> merged <b>23/07 17:38</b> · ~40 commit portal-client + 10 portal-server · record chỉ ghi “Đã build lên production”, <b>không có mốc prod trong kỳ</b> (bundle prod 04/08 09:25). Effort đo lại: <b>L</b> (2 tầng, 5 khu chức năng) — khai thấp hơn thực tế."
+          "evidence": "MR <code>!25 chuongdt/affiliate-ctv-menu-stats→master</code> merged <b>23/07 17:38</b> · ~40 commit portal-client + 10 portal-server · record chỉ ghi “Đã build lên production”, <b>không có mốc prod trong kỳ</b> (bundle prod 04/08 09:25). Effort đo lại: <b>L</b> (2 tầng, 5 khu chức năng) — khai thấp hơn thực tế.",
+          "novelty": "mới"
         },
         {
           "effort": "M",
           "status": "approved",
           "target": "Báo cáo giám sát vận hành tự động qua Telegram (developers.inet.vn)",
-          "evidence": "9 commit 17–22/07 đúng mô tả (telegram alerts abnormal API keys 17/07, daily ops report 20/07, notification-channels 21/07) · <b>CI main FAIL 10/10 trong T7</b>, <code>deploy</code> luôn <code>skipped</code> → mốc production <b>không kiểm chứng được</b>."
+          "evidence": "9 commit 17–22/07 đúng mô tả (telegram alerts abnormal API keys 17/07, daily ops report 20/07, notification-channels 21/07) · <b>CI main FAIL 10/10 trong T7</b>, <code>deploy</code> luôn <code>skipped</code> → mốc production <b>không kiểm chứng được</b>.",
+          "novelty": "mở rộng"
         },
         {
           "effort": "XL",
           "status": "approved",
           "target": "Bộ base component dùng chung cho Portal theo khung ViUI (Modal/Card/Table/Button/Tabs, namespace CSS riêng)",
-          "evidence": "MR <code>!26 viui-responsive→master</code> merged <b>31/07 14:45 (+07)</b> — trong hạn · 77 commit 25–31/07 · bundle prod chứa <code>BaseSheetRow</code>/<code>BaseActionMenu</code>/<code>BaseCopyText</code> nhưng <b>last-modified 04/08 09:25</b> → deploy prod <b>ngoài kỳ</b>. portal-client có <b>0 pipeline</b> trong T7, <code>.gitlab-ci.yml</code> chỉ deploy nhánh <code>staging</code> → prod deploy thủ công, không để lại dấu vết audit."
+          "evidence": "MR <code>!26 viui-responsive→master</code> merged <b>31/07 14:45 (+07)</b> — trong hạn · 77 commit 25–31/07 · bundle prod chứa <code>BaseSheetRow</code>/<code>BaseActionMenu</code>/<code>BaseCopyText</code> nhưng <b>last-modified 04/08 09:25</b> → deploy prod <b>ngoài kỳ</b>. portal-client có <b>0 pipeline</b> trong T7, <code>.gitlab-ci.yml</code> chỉ deploy nhánh <code>staging</code> → prod deploy thủ công, không để lại dấu vết audit.",
+          "novelty": "mới"
         }
       ]
     },
@@ -349,43 +353,50 @@
           "effort": "L",
           "status": "waiting",
           "target": "Web-scanner detection sang đường VictoriaLogs (preset nginx VRL, alert anomaly, dashboard LogsQL, bỏ OSSEC)",
-          "evidence": "<code>#195</code> closed <b>05/07</b> · <code>#188</code> closed <b>06/07</b> · <code>#182</code> closed <b>10/07</b> — live-fire trên traffic thật 07/07. Record ghi “#182 giữ mở cố ý” là <b>lạc hậu</b>: thực tế đã đóng 10/07 → khai <b>thấp hơn</b> thực tế."
+          "evidence": "<code>#195</code> closed <b>05/07</b> · <code>#188</code> closed <b>06/07</b> · <code>#182</code> closed <b>10/07</b> — live-fire trên traffic thật 07/07. Record ghi “#182 giữ mở cố ý” là <b>lạc hậu</b>: thực tế đã đóng 10/07 → khai <b>thấp hơn</b> thực tế.",
+          "novelty": "mới"
         },
         {
           "effort": "XL",
           "status": "waiting",
           "target": "VictoriaMetrics thay TimescaleDB: VM ingress sau vmauth, agent dual-write, parity test",
-          "evidence": "commit <code>e15ffa42a</code> 05/07 teardown TimescaleDB · <code>51b3a2650</code> 06/07 “schema dropped, postgres decommissioned both Server C” — khớp claim từng chữ · <code>#188</code> closed 06/07. Chạy hết 6 phase tới cutover, <b>vượt cam kết</b>."
+          "evidence": "commit <code>e15ffa42a</code> 05/07 teardown TimescaleDB · <code>51b3a2650</code> 06/07 “schema dropped, postgres decommissioned both Server C” — khớp claim từng chữ · <code>#188</code> closed 06/07. Chạy hết 6 phase tới cutover, <b>vượt cam kết</b>.",
+          "novelty": "mới"
         },
         {
           "effort": "L",
           "status": "waiting",
           "target": "Command Capture — audit lệnh shell tập trung (auditd → laurel → Vector VRL → VictoriaLogs)",
-          "evidence": "Release <code>v1.7.0</code> — <b>release object created 27/07 21:34 (+07)</b> qua <code>GET /projects/300/releases</code> (tag là lightweight nên không dùng creatordate) · <code>#190</code> closed <b>28/07</b>. Tự khai rõ: xong giai đoạn 1–3/5, chỉ Linux."
+          "evidence": "Release <code>v1.7.0</code> — <b>release object created 27/07 21:34 (+07)</b> qua <code>GET /projects/300/releases</code> (tag là lightweight nên không dùng creatordate) · <code>#190</code> closed <b>28/07</b>. Tự khai rõ: xong giai đoạn 1–3/5, chỉ Linux.",
+          "novelty": "mới"
         },
         {
           "effort": "XL",
           "status": "waiting",
           "target": "Object Storage S3 trên CEPH — Increment 1 (kiến trúc + CEPH test lab + S3 gateway staging)",
-          "evidence": "Epic <code>#207</code> <b>còn mở</b> — đúng bản chất epic 8 increment, không phải trễ · CEPH Squid 19.2.3 3 node HEALTH_OK + RGW S3 HTTPS + cô lập tenant, kiểm thử PASS · red-team 31 phát hiện → 23 tiếp nhận (nguồn: infra-report nội bộ). Dịch vụ được duyệt 11/07."
+          "evidence": "Epic <code>#207</code> <b>còn mở</b> — đúng bản chất epic 8 increment, không phải trễ · CEPH Squid 19.2.3 3 node HEALTH_OK + RGW S3 HTTPS + cô lập tenant, kiểm thử PASS · red-team 31 phát hiện → 23 tiếp nhận (nguồn: infra-report nội bộ). Dịch vụ được duyệt 11/07.",
+          "novelty": "mới"
         },
         {
           "effort": "L",
           "status": "waiting",
           "target": "Thu thập nhật ký tập trung cho máy chủ Windows (parity với Linux)",
-          "evidence": "commit <code>79356d82e</code> <b>09/07 16:18</b> “chore(agent): release v2.3.69 — Windows log collector parity” — khớp cả số hiệu lẫn mô tả · <code>#205</code> closed <b>09/07</b> · E2E staging đạt 4/4 tiêu chí tự khai."
+          "evidence": "commit <code>79356d82e</code> <b>09/07 16:18</b> “chore(agent): release v2.3.69 — Windows log collector parity” — khớp cả số hiệu lẫn mô tả · <code>#205</code> closed <b>09/07</b> · E2E staging đạt 4/4 tiêu chí tự khai.",
+          "novelty": "mở rộng"
         },
         {
           "effort": "XL",
           "status": "waiting",
           "target": "Nền tảng APM đa khách hàng (traces theo tenant, service map, bộ telemetry chuẩn OTel)",
-          "evidence": "Epic <code>#217</code> closed <b>28/07</b> · sửa lỗi phồng chỉ số 9.800 lần bằng <code>service.instance.id</code> + <code>metrics_expiration=10m</code>, thời gian tải 640 ms → 4 ms (nguồn: plan phase-07 nội bộ) · tự khai đã <b>gỡ bỏ hoàn toàn</b> bộ SDK riêng 8 giai đoạn để chuyển sang gói OTel chuẩn."
+          "evidence": "Epic <code>#217</code> closed <b>28/07</b> · sửa lỗi phồng chỉ số 9.800 lần bằng <code>service.instance.id</code> + <code>metrics_expiration=10m</code>, thời gian tải 640 ms → 4 ms (nguồn: plan phase-07 nội bộ) · tự khai đã <b>gỡ bỏ hoàn toàn</b> bộ SDK riêng 8 giai đoạn để chuyển sang gói OTel chuẩn.",
+          "novelty": "mới"
         },
         {
           "effort": "XL",
           "status": "waiting",
           "target": "Object Storage — mở rộng giai đoạn 2→8 thành dịch vụ đủ nghiệp vụ (user/quyền, quản trị bucket, 2-tier lifecycle, cô lập, cảnh báo)",
-          "evidence": "Test count 35/35 · 46/46 · 18/18 tìm thấy trong <code>plan.md</code> + <code>increments/inc6-2tier-storage/plan.md</code> · tự khai chặn 1 lỗ hổng leo quyền nghiêm trọng giữa các tài khoản · trạng thái đúng mức: chạy nội bộ, <b>với khách vẫn ẩn</b>."
+          "evidence": "Test count 35/35 · 46/46 · 18/18 tìm thấy trong <code>plan.md</code> + <code>increments/inc6-2tier-storage/plan.md</code> · tự khai chặn 1 lỗ hổng leo quyền nghiêm trọng giữa các tài khoản · trạng thái đúng mức: chạy nội bộ, <b>với khách vẫn ẩn</b>.",
+          "novelty": "mở rộng"
         }
       ]
     },
@@ -427,12 +438,20 @@
               "html": "Bằng chứng <b>hoàn thành</b> vững: 7/7 issue mốc khai đóng đúng ngày, 2 hạng mục XL, 596 commit trong kỳ — thoả điều kiện 1 và 2 của ngưỡng “Tốt”."
             },
             {
+              "tone": "y",
+              "html": "<b>Có 1 hạng mục <code>mới</code>:</b> MCP server dựng từ 0 trong kỳ — commit đầu tiên <code>fd195621c</code> <b>09/07 16:44</b> (“scaffold onedash-mcp sub-repo with stdio transport”), thêm Streamable HTTP transport và device-code CLI cho 13 AI client. Đối chiếu OKR T6 của ducnd (6 entry: cảnh báo RDP, cài agent, terminal latency, CLI agent, redesign Dashboard, module Projects): <b>không có hạng mục MCP nào</b>."
+            },
+            {
               "tone": "n",
-              "html": "<b>Không thoả điều kiện 3 (có khác biệt thật)</b> — quyết định TBP 05/08. Công việc T7 là <b>mở rộng theo khuôn đã có</b>: MCP Phase 2–4 lặp lại nền Phase 1 đã dựng từ T6 (116 tool cùng một pattern, không phải 116 bài toán khác nhau); Admin Analytics 3-lens là dashboard trên dữ liệu đã có. Không có deliverable dựng mới từ 0 hay đổi kiến trúc. Đối chiếu cùng kỳ: hobv dựng DAM từ 0, dattqh cutover VictoriaMetrics + CEPH/S3 + APM đa tenant."
+              "html": "<b>Nhưng 5/6 hạng mục là <code>mở rộng</code></b>, và phần lớn khối lượng nằm ở đó: 116 file tool là wrapper quanh endpoint OneDash đã có (cùng một khuôn, không phải 116 bài toán khác nhau); Admin Analytics 3-lens là dashboard trên dữ liệu đã có, tiếp nối “Redesign Dashboard Overview” của T6; Linux Services là parity với Windows Services đã có; RDP diagnostics cải thiện tính năng RDP có sẵn; <code>#236</code> là QA cho bề mặt vừa ship."
+            },
+            {
+              "tone": "n",
+              "html": "<b>Phần <code>mới</code> chưa thành năng lực dùng được cho khách trong kỳ</b> — MCP là tooling nội bộ, và chính bề mặt tool đó đến 31/07 mới hết lỗi. Theo runbook §2, phần <code>mới</code> dạng hạ tầng/tooling nội bộ tính nhẹ hơn năng lực đã tới người dùng ⇒ chưa đủ “chiếm phần đáng kể của kỳ” để lên “Tốt”."
             },
             {
               "tone": "i",
-              "html": "⚠️ Đây là <b>đánh giá tính chất công việc, không phải phủ nhận bằng chứng</b> — mọi số liệu ducnd tự khai vẫn kiểm chứng được và đều khớp. Điều kiện 3 vừa được ghi vào runbook §2 để tháng sau áp nhất quán cho cả 4 người."
+              "html": "⚠️ <b>Đính chính so với bản audit trước:</b> bản 05/08 sớm hơn ghi “MCP Phase 2–4 lặp lại khuôn Phase 1 đã dựng từ T6” — <b>sai</b>, Phase 1 dựng ngay trong T7 (bằng chứng ở trên). Kết luận “Đạt” giữ nguyên nhưng căn cứ đã sửa. Bài học đã ghi vào runbook §2: gán nhãn tính chất phải kiểm bằng git + OKR kỳ trước, không suy từ tên hạng mục."
             },
             {
               "tone": "y",
@@ -498,37 +517,43 @@
           "effort": "L",
           "status": "approved",
           "target": "Quản lý Service Linux qua Agent (systemd) — parity với Windows Services + realtime push",
-          "evidence": "<code>#189</code> closed <b>01/07</b> (closed_by ducnd) · CI gate <code>pnpm ci:all</code> + <code>make test/lint</code> theo record."
+          "evidence": "<code>#189</code> closed <b>01/07</b> (closed_by ducnd) · CI gate <code>pnpm ci:all</code> + <code>make test/lint</code> theo record.",
+          "novelty": "mở rộng"
         },
         {
           "effort": "XL",
           "status": "approved",
           "target": "Admin Analytics Dashboard 3-lens (Điều hành / Tăng trưởng / Vận hành) + xlsx export",
-          "evidence": "<code>#204</code> closed <b>06/07</b> · đủ hạng mục checklist trong issue theo record."
+          "evidence": "<code>#204</code> closed <b>06/07</b> · đủ hạng mục checklist trong issue theo record.",
+          "novelty": "mở rộng"
         },
         {
           "effort": "L",
           "status": "approved",
           "target": "MCP server OneDash kết nối từ AI client — nhóm tool server-management end-to-end",
-          "evidence": "<code>#191</code> closed <b>10/07</b> · <code>#194</code> closed <b>16/07</b> · 6 tool <code>server-management</code> tại snapshot 31/07."
+          "evidence": "<code>#191</code> closed <b>10/07</b> · <code>#194</code> closed <b>16/07</b> · 6 tool <code>server-management</code> tại snapshot 31/07.",
+          "novelty": "mới"
         },
         {
           "effort": "XL",
           "status": "approved",
           "target": "Mở rộng MCP sang Project / Webserver / Observability + CLI odmcp device-code flow",
-          "evidence": "<code>#192</code>, <code>#193</code> closed <b>22/07</b> · <code>#209</code> closed <b>21/07</b> · đếm tại <code>d8a0d9f99</code>: 64+38+11+6+3 = <b>122 tool</b>, −6 Phase 1 = <b>116 mới</b> · <b>13</b> slug AI client."
+          "evidence": "<code>#192</code>, <code>#193</code> closed <b>22/07</b> · <code>#209</code> closed <b>21/07</b> · đếm tại <code>d8a0d9f99</code>: 64+38+11+6+3 = <b>122 tool</b>, −6 Phase 1 = <b>116 mới</b> · <b>13</b> slug AI client.",
+          "novelty": "mở rộng"
         },
         {
           "effort": "L",
           "status": "approved",
           "target": "RDP nói rõ lý do lỗi thật từ guacd — phân loại 7 nhóm nguyên nhân, bỏ mã lỗi tự suy",
-          "evidence": "<code>#237</code> closed <b>31/07</b> · entry KPI <b>tạo 04/08 17:58</b> (chuyển từ T8 về T7 sau audit 04/08)."
+          "evidence": "<code>#237</code> closed <b>31/07</b> · entry KPI <b>tạo 04/08 17:58</b> (chuyển từ T8 về T7 sau audit 04/08).",
+          "novelty": "mở rộng"
         },
         {
           "effort": "L",
           "status": "approved",
           "target": "Rà soát toàn bộ bề mặt tool MCP bằng lượt gọi thật trên VPS Linux (77+ lượt, 4 nhóm tool)",
-          "evidence": "<code>#236</code> closed <b>31/07</b> · 11 lỗi thật đã sửa, gồm 1 lỗi ảnh hưởng toàn bộ 26 tool đọc · entry KPI <b>tạo 04/08 17:58</b>."
+          "evidence": "<code>#236</code> closed <b>31/07</b> · 11 lỗi thật đã sửa, gồm 1 lỗi ảnh hưởng toàn bộ 26 tool đọc · entry KPI <b>tạo 04/08 17:58</b>.",
+          "novelty": "mở rộng"
         }
       ],
       "unverified": [
@@ -624,19 +649,22 @@
           "effort": "L",
           "status": "approved",
           "target": "DS-R5: MKT Enablement & Ecosystem (O1 landing qua MCP · O2 Icon Ecosystem · O3 Governance)",
-          "evidence": "Milestone DS-R5 due <b>31/07</b> · <code>#47</code>+<code>#48</code> closed <b>30/07</b>, <code>#49</code> <b>còn mở</b> → 2/3 Objective. O1: 5 template MCP (target ≥4), landing <code>viui.inet.vn/lp/ssl</code> HTTP 200 104.726 B. O2: npm <code>@hobui/viui-icons</code> latest <b>1.4.1</b> (khai 1.4.0 — thấp hơn thực). O3: a11y baseline 94 P0 khớp job 42074."
+          "evidence": "Milestone DS-R5 due <b>31/07</b> · <code>#47</code>+<code>#48</code> closed <b>30/07</b>, <code>#49</code> <b>còn mở</b> → 2/3 Objective. O1: 5 template MCP (target ≥4), landing <code>viui.inet.vn/lp/ssl</code> HTTP 200 104.726 B. O2: npm <code>@hobui/viui-icons</code> latest <b>1.4.1</b> (khai 1.4.0 — thấp hơn thực). O3: a11y baseline 94 P0 khớp job 42074.",
+          "novelty": "mới"
         },
         {
           "effort": "L",
           "status": "approved",
           "target": "Cập nhật nội dung & tài liệu website iNET (inet.vn) — #81 mẫu hợp đồng, #82 nội dung sau rà soát",
-          "evidence": "Repo <code>donv/inet.vn</code> — GitLab API trả <b>404</b> với token hiện tại → <b>không kiểm chứng được</b>. Theo lời khai: <code>#81</code> đã closed; <code>#82</code> fix + push 27/07 khi sale/kế toán báo lỗi căn chỉnh, cố ý giữ mở chờ phản hồi."
+          "evidence": "Repo <code>donv/inet.vn</code> — GitLab API trả <b>404</b> với token hiện tại → <b>không kiểm chứng được</b>. Theo lời khai: <code>#81</code> đã closed; <code>#82</code> fix + push 27/07 khi sale/kế toán báo lỗi căn chỉnh, cố ý giữ mở chờ phản hồi.",
+          "novelty": "thường kỳ"
         },
         {
           "effort": "XL",
           "status": "approved",
           "target": "Assets iNET — nền tảng DAM quản trị & phân phối tài nguyên thương hiệu (dựng mới từ 0)",
-          "evidence": "Initial commit 01/07 → <b>242 commit</b> T7 (240 no-merge) → release <b>v1.0.0 created 31/07 17:37 (+07)</b>, trong kỳ · 3 trang live HTTP 200 (/, /icons 105.332 B, /brand-center 217.505 B) · 7 hạng mục security đóng 16/07 + ClamAV 23–24/07 · 2.097 icon entry · merge main <b>03/08</b> (ngoài kỳ)."
+          "evidence": "Initial commit 01/07 → <b>242 commit</b> T7 (240 no-merge) → release <b>v1.0.0 created 31/07 17:37 (+07)</b>, trong kỳ · 3 trang live HTTP 200 (/, /icons 105.332 B, /brand-center 217.505 B) · 7 hạng mục security đóng 16/07 + ClamAV 23–24/07 · 2.097 icon entry · merge main <b>03/08</b> (ngoài kỳ).",
+          "novelty": "mới"
         }
       ],
       "unverified": [

@@ -14,6 +14,7 @@ Runbook lặp lại mỗi tháng: đối chiếu **tự đánh giá (OKR + P2)**
 | **Tiêu chí + trọng số** | `POST .../p2config/list` body `{department}` → mỗi tiêu chí có `label`/`desc`/`weight`/`levels`/`rubric` | Nguồn chuẩn cho text tiêu chí. `rubric: []` = không có rubric chi tiết → chấm theo đúng `desc` |
 | **Số liệu tham chiếu** | `POST .../p2evaluation/metrics` body `{account,period}` → `tasks`/`ticketConversations`/`calendar`/`timekeeping` | Chính là cột "Số liệu tham chiếu" trên form. ⚠️ Xem bẫy `tasks.total=0` ở §3 |
 | **Bằng chứng GitLab** | `gitlabs.inet.vn/api/v4` — `issues`, `merge_requests`, `milestones`, `pipelines`, `jobs/:id/trace`, **`releases`**, `repository/tags`, `users/:id/events` (phân trang!) | Token `GITLABS_ACCESS_TOKEN` trong `.env`. User IDs: dattqh=5, ducnd=27, chuongdt=26, hobv=17. Project IDs ở §4 |
+| **OKR kỳ N-1 (bắt buộc)** | Cùng endpoint, `monthStr` tháng trước | Baseline để gán nhãn `mới`/`mở rộng`/`thường kỳ` ở §2. KHÔNG bỏ bước này |
 | **Code thực tế (local)** | Scout repo local qua git log + đọc source | Bản đồ repo ở mục 4 |
 
 Cookie `sid`/`ssid` + token đọc từ `.env` (privacy-guarded → xin duyệt; nguồn qua Bash `. .env` không bị chặn).
@@ -28,11 +29,32 @@ Cookie `sid`/`ssid` + token đọc từ `.env` (privacy-guarded → xin duyệt;
 
 1. **Hoàn thành cao** — hạng mục đã khai landed trong kỳ, có bằng chứng.
 2. **≥1 deliverable stretch (L–XL)** — nhiều task S/M mà không có stretch → tối đa "Đạt".
-3. **Có khác biệt thật** — dựng mới, đổi kiến trúc, hoặc mở năng lực chưa từng có. **Mở rộng theo khuôn đã có thì tối đa "Đạt", dù khối lượng rất lớn.**
+3. **Có khác biệt so với kỳ trước** — xem mục dưới. **Mở rộng trên nền có sẵn KHÔNG được đánh giá cao, dù khối lượng rất lớn.**
 
-Điều kiện 3 bổ sung 05/08/2026 (quyết định TBP) vì 2 điều kiện đầu chỉ đo *lượng*: T7/2026 ducnd có 596 commit + 2 hạng mục XL nhưng MCP Phase 2–4 lặp lại khuôn Phase 1 đã dựng từ T6 (116 tool cùng một pattern) và Admin Analytics là dashboard trên dữ liệu có sẵn → OKR hạ về "Đạt" (tổng 1.1 → 1.06). Đối chiếu cùng kỳ: hobv dựng mới DAM từ 0, dattqh cutover VictoriaMetrics + CEPH/S3 + APM đa tenant → thoả điều kiện 3.
+### Điều kiện 3 — phân loại tính chất từng hạng mục
 
-⚠️ Điều kiện 3 là **đánh giá tính chất công việc, không phải khối lượng** — nêu rõ trong report vì sao đạt/không đạt, để tháng sau cùng một profile không bị chấm khác.
+Gán cho **mỗi entry OKR** một nhãn, so với **OKR kỳ N-1** (không phải cảm nhận):
+
+| Nhãn | Dấu hiệu | Được tính cho "Tốt"? |
+|---|---|---|
+| **mới** | Dựng từ 0 (repo/module/dịch vụ chưa tồn tại kỳ trước) · đổi kiến trúc hoặc cutover · mở năng lực chưa từng có · giải một lớp vấn đề mới | ✅ có |
+| **mở rộng** | Phase tiếp theo của epic đã mở · thêm instance theo khuôn đã có (thêm tool/trang/endpoint/loại OS) · parity cho nền tảng khác · dashboard mới trên dữ liệu đã có · fix/QA cho bề mặt vừa ship | ❌ không |
+| **thường kỳ** | Việc lặp lại hằng tháng (cập nhật nội dung, nâng version, xử lý ticket, bảo trì) · cùng tên/cùng phạm vi với entry kỳ trước | ❌ không |
+
+**Cách áp:** "Tốt" cần **≥1 hạng mục nhãn `mới`, và hạng mục đó chiếm phần đáng kể của kỳ**. Một entry `mới` cỡ S/M nằm giữa 5 entry `mở rộng` thì chưa đủ — cân theo tỉ trọng effort, không đếm số dòng. Nếu phần `mới` là **hạ tầng/tooling nội bộ chưa thành năng lực dùng được trong kỳ** thì tính nhẹ hơn năng lực đã tới người dùng.
+
+⚠️ **BẮT BUỘC đọc OKR kỳ N-1** (`accountkpi/search` với `monthStr` tháng trước) trước khi gán nhãn — và **kiểm bằng git, đừng suy từ tên hạng mục**. Bài học 05/08/2026: audit ghi "MCP Phase 2–4 lặp lại khuôn Phase 1 đã dựng từ T6" chỉ vì thấy chữ "Phase 1"; kiểm lại thì commit đầu tiên của `onedash-mcp` là `fd195621c` **09/07/2026** và OKR T6 của ducnd **không có hạng mục MCP nào** → Phase 1 dựng ngay trong T7. Sai một fact ở đây là sai luôn căn cứ chấm điểm.
+
+**Ví dụ T7/2026 (đã kiểm chứng bằng git + OKR T6):**
+
+| Người | Nhãn từng entry | OKR |
+|---|---|---|
+| dattqh | 5 `mới` (Web-scanner→VictoriaLogs, cutover VictoriaMetrics, Command Capture, CEPH/S3 Inc.1, APM đa tenant) + 2 `mở rộng` | **Tốt** — phần `mới` chiếm gần hết kỳ |
+| hobv | 1 `mới` (DAM assets.inet.vn dựng từ 0, XL) + 1 `mới` một phần (DS-R5 O1 landing qua MCP) + 1 `thường kỳ` | Đạt vì lý do khác (`#49` quá hạn milestone) |
+| ducnd | 1 `mới` (MCP Phase 1 — nền + transport + device-code CLI) + 5 `mở rộng` (116 tool wrapper quanh endpoint có sẵn, Admin Analytics trên dữ liệu có sẵn, parity systemd, RDP diagnostics, QA 11 lỗi) | **Đạt** — phần `mới` là nền tooling nội bộ, phần lớn khối lượng là lặp khuôn |
+| chuongdt | 2 `mới` (khu CTV, ViUI base kit) + 1 `mở rộng` (Telegram ops report tiếp nối notification đa kênh T6) | Đạt vì lý do khác (deploy prod ngoài kỳ) |
+
+⚠️ Điều kiện 3 là **đánh giá tính chất công việc, không phải khối lượng** — nêu nhãn của từng entry trong report kèm lý do, để tháng sau cùng một profile không bị chấm khác.
 
 **Verdict = đối chiếu self-score vs (hoàn thành × code thật × effort).** Chỉ đề xuất điều chỉnh; **điểm cuối do quản lý khóa** trên my.inet.vn.
 
@@ -122,7 +144,9 @@ Bố cục gợi ý: TL;DR (số người khớp / thổi phồng / điều ch�
 - [ ] Mốc release: `GET /projects/:id/releases` → `created_at` (KHÔNG dùng creatordate của tag lightweight)
 - [ ] Mốc production: `last-modified` bundle prod + pipeline `deploy` thành công; repo deploy thủ công → ghi là không kiểm chứng được
 - [ ] Scout code local từng repo: xác minh code thật + ngày landed vs deadline
-- [ ] Gán effort S/M/L/XL từ code footprint; áp ngưỡng "Tốt" đủ **3 điều kiện** (hoàn thành cao + stretch L–XL + **có khác biệt thật**, không phải mở rộng theo khuôn cũ)
+- [ ] **Lấy OKR kỳ N-1** (`accountkpi/search` + `monthStr` tháng trước) làm baseline so sánh
+- [ ] Gán nhãn `mới` / `mở rộng` / `thường kỳ` cho **từng entry**, kiểm bằng git (ngày commit đầu của module) — KHÔNG suy từ tên hạng mục
+- [ ] Gán effort S/M/L/XL từ code footprint; áp ngưỡng "Tốt" đủ **3 điều kiện** (hoàn thành cao + stretch L–XL + ≥1 hạng mục `mới` chiếm phần đáng kể của kỳ)
 - [ ] Kiểm lại `total`/`grade` bằng công thức, so với `selfComputed`/`computed` server trả về — **đưa công thức vào report**
 - [ ] Viết JSON theo schema v2 → render HTML bằng `build_html_report.py` vào **`okr-kpi/MM-YYYY/`**; lưu cả `.json`
 - [ ] Liệt kê **đủ từng entry OKR** (số dòng khớp `totalElements` của tháng), mỗi entry có effort + bằng chứng + ngày landed

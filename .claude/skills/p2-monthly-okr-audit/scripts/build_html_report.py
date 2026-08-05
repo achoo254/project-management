@@ -47,6 +47,7 @@ khác được escape.
     "criteria":[ {"name":"OKR","weight":"40%","level":"Tốt","levelTone":"ok",
                   "evidence":[{"tone":"y","html":"..."}] } ],
     "entries":[ {"effort":"XL","status":"approved","target":"...",
+                 "novelty":"mới|mở rộng|thường kỳ",   // runbook §2 điều kiện 3 — chỉ `mới` tính cho "Tốt"
                  "evidence":"#204 closed 06/07 ...","tone":"y"} ],
     "unverified":[ "claim ... — repo ngoài scope token, KHÔNG kiểm chứng được" ]
   } ],
@@ -71,6 +72,8 @@ import sys
 
 TONE = {"y": "ok", "n": "err", "q": "warn", "i": "gray",
         "ok": "ok", "err": "err", "warn": "warn", "info": "info", "gray": "gray"}
+
+NOVELTY_TONE = {"mới": "ok", "mở rộng": "warn", "thường kỳ": "gray"}
 
 STATUS_MAP = {
     "empty":  ("gray", "trống · chưa ai chấm"),
@@ -257,12 +260,13 @@ def r_entries(entries):
         return ""
     trs = "".join(
         f'<tr><td>{pill(e.get("effort", "-"), "info")}</td>'
+        f'<td>{pill(e["novelty"], NOVELTY_TONE.get(e["novelty"], "gray")) if e.get("novelty") else "—"}</td>'
         f'<td><code>{esc(e.get("status", ""))}</code></td>'
         f'<td>{esc(e.get("target", ""))}</td>'
         f'<td>{e.get("evidence", "")}</td></tr>'
         for e in entries)
     return f"""<div class="tw" style="margin-top:12px"><table>
-<thead><tr><th>Effort</th><th>Duyệt</th><th>Hạng mục OKR</th><th>Bằng chứng · ngày landed</th></tr></thead>
+<thead><tr><th>Effort</th><th>Tính chất</th><th>Duyệt</th><th>Hạng mục OKR</th><th>Bằng chứng · ngày landed</th></tr></thead>
 <tbody>{trs}</tbody></table></div>"""
 
 

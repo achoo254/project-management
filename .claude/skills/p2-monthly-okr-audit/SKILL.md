@@ -36,7 +36,10 @@ Does NOT handle: đọc/ghi mức đánh giá trong file Excel (Excel chỉ là 
 
 1. **BỎ QUA trạng thái "Đã duyệt/Duyệt"** trên my.inet.vn — đó là việc của cấp quản lý, KHÔNG phản ánh mức hoàn thành công việc. Đánh giá chỉ dựa trên công việc thực (git + KPI shipped).
 2. **KHÔNG dùng folder `weekly meetings/`** làm nguồn OKR — nội dung stale/lịch sử. Baseline OKR = KPI chính thức trên my.inet.vn (hoặc chỉ định trực tiếp của user).
-3. **Thang Delivery:** Chưa đạt `0.8` · Đạt `1.0` · **Tốt `1.2` (trần)**. Không có cấp cao hơn "Tốt". Ngưỡng "Tốt" cho `okr` cần **3 điều kiện đồng thời**: hoàn thành cao + ≥1 stretch L–XL + **có khác biệt thật** (dựng mới / đổi kiến trúc / mở năng lực mới). Mở rộng theo khuôn đã có → tối đa "Đạt" dù khối lượng rất lớn. Chi tiết + ví dụ: runbook §2.
+3. **Thang Delivery:** Chưa đạt `0.8` · Đạt `1.0` · **Tốt `1.2` (trần)**. Không có cấp cao hơn "Tốt". Ngưỡng "Tốt" cho `okr` cần **3 điều kiện đồng thời**: hoàn thành cao + ≥1 stretch L–XL + **có khác biệt so với kỳ trước**.
+   - Gán mỗi entry một nhãn so với **OKR kỳ N-1**: `mới` (dựng từ 0 / đổi kiến trúc / mở năng lực chưa từng có) · `mở rộng` (phase tiếp theo, thêm instance theo khuôn, parity nền tảng khác, dashboard trên dữ liệu có sẵn, QA cho bề mặt vừa ship) · `thường kỳ` (việc lặp lại hằng tháng).
+   - **Chỉ `mới` được tính**, và phải chiếm phần đáng kể của kỳ. **Mở rộng trên nền có sẵn KHÔNG được đánh giá cao dù khối lượng rất lớn.** Phần `mới` là tooling nội bộ chưa dùng được trong kỳ → tính nhẹ hơn.
+   - ⚠️ Kiểm bằng git (ngày commit đầu của module) + OKR kỳ trước, **KHÔNG suy từ tên hạng mục** — chữ "Phase 1" không có nghĩa nền đã dựng từ kỳ trước. Chi tiết + ví dụ T7/2026: runbook §2.
 4. **Trọng số Delivery:** OKR `0.4` · Chất lượng `0.35` · Cam kết `0.25`. **P2+ = Core×0.5 + Delivery×0.5**. Ngưỡng: `<1` Chưa đạt · `=1` Đạt · `>1` Tốt. (Verify lại từ sheet `CẤU TRÚC & TRỌNG SỐ` mỗi kỳ — trọng số có thể đổi.)
 5. **Lọc commit tự động** (semantic-release `chore(release) [skip ci]`, merge) khi đếm "khối lượng thực" — báo cả số tổng và số thực.
 6. **Trung thực, không thổi phồng:** "Chất lượng=Đạt" (không max) là HỢP LÝ khi có sự cố/rework — đó là dấu hiệu đánh giá tốt. Đối chiếu mô tả tiêu chí với bằng chứng, không mặc định max.
@@ -65,7 +68,7 @@ Does NOT handle: đọc/ghi mức đánh giá trong file Excel (Excel chỉ là 
 - Trọng số A/B/C/D **khác nhau theo role** → lấy từ config/`computed.subScores`, KHÔNG hardcode, KHÔNG lấy từ mẫu Excel.
 
 ### Step 2 — Đọc OKR + P2 từ my.inet.vn (API-first) → PHÁT HIỆN project tháng này
-- **OKR:** `POST /api/client/v1/accountkpi/search` body `{api,account,monthStr}` — cookie `sid`/`ssid` từ `.env` (privacy-approved). ⚠️ Endpoint phân trang cứng 30/trang và **bỏ qua `size`** → luôn gửi `monthStr` cho BE lọc, đối chiếu `totalElements` với số dòng thực nhận. **Bỏ qua cột trạng thái duyệt** (`status="waiting"` = chờ duyệt, không phải chưa làm).
+- **OKR kỳ hiện tại VÀ kỳ N-1 (bắt buộc cả hai):** `POST /api/client/v1/accountkpi/search` body `{api,account,monthStr}` — gọi 2 lần, kỳ trước là baseline để gán nhãn tính chất ở rule 3 — cookie `sid`/`ssid` từ `.env` (privacy-approved). ⚠️ Endpoint phân trang cứng 30/trang và **bỏ qua `size`** → luôn gửi `monthStr` cho BE lọc, đối chiếu `totalElements` với số dòng thực nhận. **Bỏ qua cột trạng thái duyệt** (`status="waiting"` = chờ duyệt, không phải chưa làm).
 - **P2 (bắt buộc, đây là nguồn DUY NHẤT của mức đánh giá):** `POST /api/client/v1/p2evaluation/get` body `{account, period:"YYYY-MM"}` → lấy `selfScores`/`selfComputed`/`selfStatus` **và** `scores`/`computed`/`status`, kèm `roles`/`department`/`history[]`. `scores` rỗng = chưa ai chấm; `locked` = đã khoá, sửa phải reopen — nêu rõ trong report.
 - Kiểm lại điểm: `POST /p2evaluation/compute` hoặc tính tay `Delivery = Σ(level×weight)`, `P2+ = Core×0.5 + Delivery×0.5`; so với `selfComputed` server trả về. **Never submit** — read-only.
 - **Suy project từ tên/Mục tiêu mỗi KPI** (vd "...Cloud Panel"→OneDash; "...whois inet.vn"→website inet.vn) → lập danh sách project người đó làm THÁNG NÀY. Tra path/URL trong `team-roster-and-repos.md` §2 (project mới → hỏi user + `git remote get-url`).
