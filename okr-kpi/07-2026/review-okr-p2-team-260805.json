@@ -11,18 +11,18 @@
       "Baseline so sánh: OKR T6/2026",
       "⛔ Ngoài phạm vi: anhtct"
     ],
-    "sourceNote": "Mức đánh giá lấy từ <code>p2evaluation/get</code> trên my.inet.vn — <b>nguồn duy nhất</b>. Tiêu chí + trọng số từ <code>p2config/list</code>. Không dùng file Excel: <code>.xlsx</code> trong repo chỉ giữ mẫu công thức tính P2, không chứa mức đánh giá. · <b>Cập nhật 05/08:</b> ducnd hạ 2 tiêu chí — OKR theo <b>điều kiện 3 “có khác biệt so với kỳ trước”</b> (runbook §2: mở rộng trên nền có sẵn không được đánh giá cao) và Cam kết theo quy tắc <b>“issue closed ≠ dùng được”</b> (runbook §3). Cả hai là quyết định của TBP về tính chất và thời điểm hoàn thành, KHÔNG phải do bằng chứng tự khai thay đổi — mọi số liệu ducnd khai vẫn kiểm chứng được và đều khớp. Mỗi entry OKR nay có nhãn <b>tính chất</b> (<code>mới</code> / <code>mở rộng</code> / <code>thường kỳ</code>) gán bằng cách so với OKR kỳ T6 và kiểm bằng git — cột “Tính chất” trong bảng entry của từng người. · <b>Cập nhật 05/08 chiều:</b> chuongdt <b>chốt 1.025 · Đạt/Đạt/Tốt</b> (khớp portal, <code>status: locked</code>) — TBP giữ Cam kết ở “Tốt” dựa trên phản hồi thật từ khách hàng, audit giữ nguyên bằng chứng đối lập trong hồ sơ."
+    "sourceNote": "Mức đánh giá lấy từ <code>p2evaluation/get</code> trên my.inet.vn — <b>nguồn duy nhất</b>. Tiêu chí + trọng số từ <code>p2config/list</code>. Không dùng file Excel: <code>.xlsx</code> trong repo chỉ giữ mẫu công thức tính P2, không chứa mức đánh giá. · <b>Cập nhật 05/08:</b> ducnd hạ 2 tiêu chí — OKR theo <b>điều kiện 3 “có khác biệt so với kỳ trước”</b> (runbook §2: mở rộng trên nền có sẵn không được đánh giá cao) và Cam kết theo quy tắc <b>“issue closed ≠ dùng được”</b> (runbook §3). Cả hai là quyết định của TBP về tính chất và thời điểm hoàn thành, KHÔNG phải do bằng chứng tự khai thay đổi — mọi số liệu ducnd khai vẫn kiểm chứng được và đều khớp. Mỗi entry OKR nay có nhãn <b>tính chất</b> (<code>mới</code> / <code>mở rộng</code> / <code>thường kỳ</code>) gán bằng cách so với OKR kỳ T6 và kiểm bằng git — cột “Tính chất” trong bảng entry của từng người. · <b>Trạng thái 05/08 cuối ngày:</b> ducnd <b>1.035</b> (Đạt/Tốt/Đạt) · chuongdt <b>1.025</b> (Đạt/Đạt/Tốt) · hobv <b>1.025</b> (Đạt/Đạt/Tốt) — cả 3 đã <code>locked</code>, report khớp portal. dattqh còn <code>scores</code> rỗng vì <code>__permission: self</code>."
   },
   "banners": [
     {
-      "tone": "err",
-      "title": "Còn 1 điểm cần sửa (ducnd) · chuongdt đã chốt 1.025",
-      "html": "<b>chuongdt · đã chốt 1.025 · Đạt / Đạt / Tốt</b> — TBP cân bằng chứng của audit (không có dấu vết deploy production trong kỳ sau 13/07 · CI <code>main</code> đỏ 10/10 cả tháng · 0 issue tự mở · chấm công trễ 4 ngày) với <b>phản hồi thật từ khách hàng</b> (tiếp nhận tốt cả phần refactor portal lẫn trang developers mới) và <b>giữ Cam kết ở “Tốt”</b>. Đã khoá — <code>status: locked</code>.<br><b>ducnd · TBP đã chốt Đạt / Tốt / Đạt = 1.035</b> — OKR hạ vì 5/6 hạng mục là mở rộng trên nền có sẵn; Cam kết hạ vì deliverable XL chỉ dùng được đúng ngày cuối kỳ. Portal vẫn đang khoá ở <b>1.1</b> → cần reopen và chọn lại.<br><b>hobv</b> chưa ai chấm (<code>scores</code> rỗng) · <b>dattqh</b> cần cấp trên chấm (<code>__permission: self</code>)."
+      "tone": "ok",
+      "title": "3/4 đã chốt và khoá trên my.inet.vn · còn dattqh chờ cấp trên chấm",
+      "html": "<b>ducnd · 1.035 · Đạt / Tốt / Đạt</b> — khoá 05/08 11:54 (1.1 → 1.035). OKR hạ vì 5/6 hạng mục là mở rộng trên nền có sẵn; Cam kết hạ vì deliverable XL (116 tool MCP) tuyên bố xong 22/07 nhưng chỉ dùng được đúng ngày cuối kỳ sau khi ra 11 lỗi.<br><b>chuongdt · 1.025 · Đạt / Đạt / Tốt</b> — khoá 05/08 13:15. TBP giữ Cam kết ở “Tốt” theo phản hồi thật từ khách hàng; audit giữ bằng chứng đối lập trong hồ sơ.<br><b>hobv · 1.025 · Đạt / Đạt / Tốt</b> — khoá 05/08 11:25, đúng bằng self-assessment.<br><b>dattqh · chưa chấm</b> — <code>scores</code> rỗng, <code>status: draft</code>, <code>__permission: self</code> nên không tự chấm chính thức được. Self 1.065 · Tốt/Đạt/Tốt, cần cấp trên (CTO / Giám đốc) khoá."
     },
     {
       "tone": "ok",
-      "title": "2 người giữ nguyên — mức tự đánh giá chính xác",
-      "html": "dattqh 1.065 · hobv 1.025. Mọi số liệu tự khai kiểm chứng được đều khớp nguồn độc lập (885 commit / 9 repo, release <code>v1.7.0</code> 27/07, release <code>v1.0.0</code> 31/07, a11y baseline 94 P0 khớp job 42074)."
+      "title": "Kết luận audit: 4/4 tự đánh giá đều kiểm chứng được — 2 mức bị điều chỉnh theo tính chất công việc",
+      "html": "Không ai khai cao hơn thực tế: mọi số liệu tự khai kiểm chứng được đều khớp nguồn độc lập (885 commit / 9 repo của dattqh, 122/116 tool + 13 AI client của ducnd đếm lại từ code, release <code>v1.7.0</code> 27/07, release <code>v1.0.0</code> 31/07, a11y baseline 94 P0 khớp job 42074). Hai điều chỉnh (OKR + Cam kết của ducnd) đến từ <b>tính chất và thời điểm hoàn thành</b> theo 2 quy tắc mới trong runbook §2–§3, không phải do số liệu sai."
     }
   ],
   "summary": [
@@ -46,12 +46,15 @@
       "self": "1.025",
       "selfGrade": "Tốt",
       "selfNote": "submit 31/07 17:04",
-      "status": "empty",
+      "status": "locked",
       "statusNote": "scores={} · status:\"draft\"",
       "delivery": "Đạt / Đạt / Tốt",
-      "proposal": "Giữ nguyên",
+      "proposal": "Đã chốt 1.025",
       "proposalTone": "ok",
-      "proposalNote": "cần chấm chính thức"
+      "proposalNote": "khớp đề xuất audit",
+      "official": "1.025",
+      "officialNote": "khoá 05/08 11:25",
+      "officialGrade": "Tốt"
     },
     {
       "name": "ducnd",
@@ -59,15 +62,14 @@
       "self": "1.1",
       "selfGrade": "Tốt",
       "selfNote": "submit 04/08 18:22",
-      "official": "1.1",
+      "official": "1.035",
       "officialGrade": "Tốt",
-      "officialNote": "khoá 05/08 10:37",
+      "officialNote": "khoá 05/08 11:54 (1.1 → 1.035)",
       "status": "locked",
-      "delivery": "Tốt→Đạt / Tốt / Tốt→Đạt",
-      "proposal": "Hạ OKR + Cam kết → Đạt",
-      "proposalTone": "err",
-      "proposalNote": "tổng 1.1 → 1.035, vẫn Tốt",
-      "flag": true
+      "delivery": "Đạt / Tốt / Đạt",
+      "proposal": "Đã chốt 1.035",
+      "proposalTone": "ok",
+      "proposalNote": "khớp quyết định TBP"
     },
     {
       "name": "chuongdt",
@@ -99,7 +101,7 @@
       },
       {
         "tone": "q",
-        "html": "Khối “ĐÁNH GIÁ CHÍNH THỨC = 0 / Chưa đạt” trên portal (dattqh, hobv) <b>không phải điểm xấu</b> — đó là <code>scores = {}</code> + <code>status: draft</code>, tức chưa ai chấm. Để nguyên thì kỳ T7 nằm mãi ở 0."
+        "html": "Khối “ĐÁNH GIÁ CHÍNH THỨC = 0 / Chưa đạt” trên portal của <b>dattqh</b> <b>không phải điểm xấu</b> — đó là <code>scores = {}</code> + <code>status: draft</code>, tức chưa ai chấm. 3 người còn lại đã <code>locked</code>."
       },
       {
         "tone": "y",
@@ -391,15 +393,15 @@
     },
     {
       "name": "ducnd · Nguyễn Đăng Đức",
-      "score": "1.1 → 1.035",
+      "score": "1.035 · Tốt",
       "pills": [
         {
           "tone": "info",
-          "text": "6 entry · 2×XL + 4×L"
+          "text": "6 entry · 2×XL + 4×L · 1 mới + 5 mở rộng"
         },
         {
-          "tone": "err",
-          "text": "official đã locked ở 1.1 — cần reopen"
+          "tone": "ok",
+          "text": "official đã chốt & khoá ở 1.035"
         },
         {
           "tone": "gray",
@@ -409,18 +411,17 @@
       "formula": {
         "lines": [
           "core     = 1.0×0.30 + 1.0×0.25 + 1.0×0.10 + 1.0×0.35 = 1.00      // trọng số role Frontend",
-          "delivery = 1.2×0.40 + 1.2×0.35 + 1.2×0.25 = 0.48+0.42+0.30 = 1.20  → total = 1.100  (bản đang khoá)",
-          "ĐỀ XUẤT (OKR → Đạt, Cam kết → Đạt):",
-          "delivery = 1.0×0.40 + 1.2×0.35 + 1.0×0.25 = 0.40+0.42+0.25 = 1.07  → total = 1.035 → \"Tốt\""
+          "delivery = 1.0×0.40 + 1.2×0.35 + 1.0×0.25 = 0.40+0.42+0.25 = 1.07",
+          "total    = 1.00×0.5 + 1.07×0.5 = 1.035 → \"Tốt\"          (self ban đầu 1.1)"
         ],
-        "server": "1.100 khớp computed server; 1.035 đã validate qua POST /p2evaluation/compute"
+        "server": "khớp computed server (subScores okr .400 · quality .420 · commitment .250 · total 1.035)"
       },
       "criteria": [
         {
           "name": "Mức độ hoàn thành OKR",
           "weight": "40%",
-          "level": "Tốt → đề xuất Đạt",
-          "levelTone": "err",
+          "level": "Đạt (TBP chốt)",
+          "levelTone": "warn",
           "evidence": [
             {
               "tone": "y",
@@ -479,8 +480,8 @@
         {
           "name": "Cam kết & tiến độ",
           "weight": "25%",
-          "level": "Tốt → đề xuất Đạt",
-          "levelTone": "err",
+          "level": "Đạt (TBP chốt)",
+          "levelTone": "warn",
           "evidence": [
             {
               "tone": "n",
@@ -547,8 +548,7 @@
       ],
       "unverified": [
         "Không có claim nào của ducnd thuộc diện không kiểm chứng được — toàn bộ số liệu đều đối chiếu được từ git object + GitLab API."
-      ],
-      "flag": true
+      ]
     },
     {
       "name": "hobv · Bùi Văn Hổ",
@@ -556,11 +556,11 @@
       "pills": [
         {
           "tone": "info",
-          "text": "3 entry · 1×XL + 2×L"
+          "text": "3 entry · 1×XL + 2×L · 2 mới + 1 thường kỳ"
         },
         {
-          "tone": "warn",
-          "text": "official vẫn trống — chưa chấm"
+          "tone": "ok",
+          "text": "official đã chốt & khoá ở 1.025"
         },
         {
           "tone": "gray",
@@ -704,18 +704,6 @@
     }
   ],
   "todos": [
-    {
-      "task": "Mở lại điểm chính thức của <b>ducnd</b> (đang <code>locked</code> ở 1.1) và hạ <b>OKR → Đạt</b> (điều kiện 3 “có khác biệt thật”, runbook §2) + <b>Cam kết → Đạt</b> (deliverable XL chỉ dùng được ngày cuối kỳ, runbook §3) → tổng <b>1.035</b>, vẫn grade Tốt",
-      "level": "quyết định",
-      "levelTone": "err",
-      "owner": "dattqh"
-    },
-    {
-      "task": "Chấm điểm chính thức cho <b>hobv</b> — hiện <code>scores</code> rỗng, <code>status: draft</code>, để nguyên thì tháng 7 nằm ở 0",
-      "level": "blocker",
-      "levelTone": "err",
-      "owner": "dattqh"
-    },
     {
       "task": "Chỉ định người duyệt cấp trên cho <b>dattqh</b>: 7/7 entry OKR đang <code>waiting</code> và <code>__permission: self</code> nên không tự chấm chính thức được",
       "level": "gap quy trình",
