@@ -11,13 +11,13 @@
       "Baseline so sánh: OKR T6/2026",
       "⛔ Ngoài phạm vi: anhtct"
     ],
-    "sourceNote": "Mức đánh giá lấy từ <code>p2evaluation/get</code> trên my.inet.vn — <b>nguồn duy nhất</b>. Tiêu chí + trọng số từ <code>p2config/list</code>. Không dùng file Excel: <code>.xlsx</code> trong repo chỉ giữ mẫu công thức tính P2, không chứa mức đánh giá. · <b>Cập nhật 05/08:</b> ducnd hạ 2 tiêu chí — OKR theo <b>điều kiện 3 “có khác biệt so với kỳ trước”</b> (runbook §2: mở rộng trên nền có sẵn không được đánh giá cao) và Cam kết theo quy tắc <b>“issue closed ≠ dùng được”</b> (runbook §3). Cả hai là quyết định của TBP về tính chất và thời điểm hoàn thành, KHÔNG phải do bằng chứng tự khai thay đổi — mọi số liệu ducnd khai vẫn kiểm chứng được và đều khớp. Mỗi entry OKR nay có nhãn <b>tính chất</b> (<code>mới</code> / <code>mở rộng</code> / <code>thường kỳ</code>) gán bằng cách so với OKR kỳ T6 và kiểm bằng git — cột “Tính chất” trong bảng entry của từng người."
+    "sourceNote": "Mức đánh giá lấy từ <code>p2evaluation/get</code> trên my.inet.vn — <b>nguồn duy nhất</b>. Tiêu chí + trọng số từ <code>p2config/list</code>. Không dùng file Excel: <code>.xlsx</code> trong repo chỉ giữ mẫu công thức tính P2, không chứa mức đánh giá. · <b>Cập nhật 05/08:</b> ducnd hạ 2 tiêu chí — OKR theo <b>điều kiện 3 “có khác biệt so với kỳ trước”</b> (runbook §2: mở rộng trên nền có sẵn không được đánh giá cao) và Cam kết theo quy tắc <b>“issue closed ≠ dùng được”</b> (runbook §3). Cả hai là quyết định của TBP về tính chất và thời điểm hoàn thành, KHÔNG phải do bằng chứng tự khai thay đổi — mọi số liệu ducnd khai vẫn kiểm chứng được và đều khớp. Mỗi entry OKR nay có nhãn <b>tính chất</b> (<code>mới</code> / <code>mở rộng</code> / <code>thường kỳ</code>) gán bằng cách so với OKR kỳ T6 và kiểm bằng git — cột “Tính chất” trong bảng entry của từng người. · <b>Cập nhật 05/08 chiều:</b> chuongdt chốt Đạt/Tốt/Đạt = 1.035 (Chất lượng nâng theo phản hồi khách hàng thật, Cam kết hạ theo bằng chứng deploy/CI) — portal đọc lúc 13:15 vẫn là Đạt/Đạt/Tốt = 1.025, cần sửa lại."
   },
   "banners": [
     {
       "tone": "err",
-      "title": "2 điểm cần sửa: Cam kết của chuongdt và OKR của ducnd — cả hai đang khoá",
-      "html": "<b>chuongdt · Cam kết “Tốt (1.2)” không có bằng chứng đỡ:</b> không có deploy production nào trong kỳ sau 13/07 · CI <code>main</code> đỏ 10/10 cả tháng không báo · <b>0 issue</b> do chuongdt mở trong T7 · chấm công trễ 4 ngày (79%, thấp nhất phòng). → hạ Cam kết về “Đạt”: tổng <b>1.025 → 1.0</b>, grade <b>Tốt → Đạt</b>.<br><b>ducnd · OKR “Tốt (1.2)” không đủ điều kiện khác biệt:</b> khối lượng rất lớn và số liệu khớp tuyệt đối, nhưng <b>5/6 hạng mục là mở rộng trên nền có sẵn</b> và phần lớn khối lượng nằm ở đó (116 tool wrapper quanh endpoint OneDash đã có; Admin Analytics là dashboard trên dữ liệu đã có; parity systemd; QA cho bề mặt vừa ship). Hạng mục <code>mới</code> duy nhất — MCP server dựng từ 0 ngày 09/07 — là tooling nội bộ, chưa thành năng lực khách dùng được trong kỳ. → hạ OKR về “Đạt”. Đồng thời hạ <b>Cam kết</b> về “Đạt”: deliverable XL lớn nhất (116 tool MCP) tuyên bố xong 22/07 nhưng <b>31/07 mới rà soát bằng lượt gọi thật và ra 11 lỗi, 1 lỗi làm hỏng cả 26 tool đọc</b> — tức chỉ thật sự dùng được vào đúng ngày cuối kỳ. Tổng <b>1.1 → 1.035</b>, vẫn grade Tốt. <i>Quyết định TBP 05/08, kèm 2 quy tắc mới trong runbook §2–§3.</i>"
+      "title": "1 điểm cần sửa lại trên portal (chuongdt) · 1 điểm còn chờ chấm (ducnd)",
+      "html": "<b>chuongdt · TBP đã chốt Đạt / Tốt / Đạt = 1.035</b> — Chất lượng nâng lên “Tốt” (xử lý nhiều yêu cầu trong T7, khách tiếp nhận tốt cả phần refactor portal và trang developers mới), Cam kết hạ về “Đạt” (không có dấu vết deploy production trong kỳ sau 13/07 · CI <code>main</code> đỏ 10/10 cả tháng không báo · 0 issue tự mở · chấm công trễ 4 ngày). ⚠️ <b>Nhưng portal đang giữ Đạt / Đạt / Tốt = 1.025</b> — đọc <code>scores.delivery</code> lúc 05/08: <code>quality=\"Đạt\"</code>, <code>commitment=\"Tốt\"</code>, <code>computed.delivery.subScores</code> = okr .400 · quality .350 · commitment .300. Hai tiêu chí bị <b>đảo ngược</b> so với ý định. Cần reopen và chọn lại.<br><b>ducnd · TBP đã chốt Đạt / Tốt / Đạt = 1.035</b> — OKR hạ vì 5/6 hạng mục là mở rộng trên nền có sẵn; Cam kết hạ vì deliverable XL chỉ dùng được đúng ngày cuối kỳ. Portal vẫn đang khoá ở <b>1.1</b>, cần reopen."
     },
     {
       "tone": "ok",
@@ -78,12 +78,12 @@
       "selfNote": "submit 04/08 17:53",
       "official": "1.025",
       "officialGrade": "Tốt",
-      "officialNote": "khoá 05/08 10:38",
+      "officialNote": "khoá 05/08 13:15 — vẫn Đạt/Đạt/Tốt",
       "status": "locked",
-      "delivery": "Đạt / Đạt / Tốt",
-      "proposal": "Hạ Cam kết → Đạt",
+      "delivery": "Đạt / Đạt→Tốt / Tốt→Đạt",
+      "proposal": "Chốt Đạt/Tốt/Đạt = 1.035",
       "proposalTone": "err",
-      "proposalNote": "tổng về 1.0 “Đạt”",
+      "proposalNote": "portal đang 1.025, chưa khớp",
       "flag": true
     }
   ],
@@ -147,7 +147,7 @@
     {
       "name": "chuongdt · Đinh Tiến Chương",
       "flag": true,
-      "score": "1.025 → 1.0",
+      "score": "1.025 → 1.035",
       "pills": [
         {
           "tone": "gray",
@@ -155,21 +155,22 @@
         },
         {
           "tone": "info",
-          "text": "1×XL + 2×M"
+          "text": "1×XL + 2×M · 2 mới + 1 mở rộng"
         },
         {
           "tone": "err",
-          "text": "official đã locked ở 1.025"
+          "text": "portal đang Đạt/Đạt/Tốt — chưa khớp quyết định"
         }
       ],
       "formula": {
         "lines": [
           "core     = 1.0×0.30 + 1.0×0.25 + 1.0×0.10 + 1.0×0.35 = 1.00      // trọng số role Frontend",
-          "delivery = 1.0×0.40 + 1.0×0.35 + 1.2×0.25 = 0.40+0.35+0.30 = 1.05",
-          "total    = 1.00×0.5 + 1.05×0.5 = 1.025 → \"Tốt\"",
-          "NẾU Cam kết = Đạt: delivery = 1.00 → total = 1.000 → \"Đạt\"   (đã validate qua /p2evaluation/compute)"
+          "PORTAL HIỆN TẠI (Đạt/Đạt/Tốt):",
+          "delivery = 1.0×0.40 + 1.0×0.35 + 1.2×0.25 = 0.40+0.35+0.30 = 1.05  → total = 1.025",
+          "TBP ĐÃ CHỐT (Đạt/Tốt/Đạt):",
+          "delivery = 1.0×0.40 + 1.2×0.35 + 1.0×0.25 = 0.40+0.42+0.25 = 1.07  → total = 1.035 → \"Tốt\""
         ],
-        "server": "khớp computed server trả về (1.025 / Tốt) · subScores A .300 · B .250 · C .100 · D .350"
+        "server": "1.025 khớp computed server hiện tại; 1.035 đã validate qua POST /p2evaluation/compute"
       },
       "criteria": [
         {
@@ -191,23 +192,31 @@
         {
           "name": "Chất lượng kết quả",
           "weight": "35%",
-          "level": "Đạt",
-          "levelTone": "warn",
+          "level": "Đạt → Tốt (TBP chốt)",
+          "levelTone": "ok",
           "evidence": [
             {
               "tone": "y",
-              "html": "Không phát hiện lỗi production hay phải làm lại."
+              "html": "<b>Lý do TBP nâng lên “Tốt” (05/08):</b> xử lý nhiều yêu cầu trong tháng 7, và <b>khách hàng tiếp nhận tốt</b> cả phần refactor portal lẫn trang developers mới. Đây là đánh giá <b>chất lượng cảm nhận từ người dùng thật</b> — thứ mà git/GitLab không đo được."
+            },
+            {
+              "tone": "q",
+              "html": "<b>Không kiểm chứng được từ GitLab:</b> project <code>donv/portal-client</code> (238) có 7 issue closed trong T7 nhưng chỉ <b>1</b> issue assign chuongdt (<code>#128</code>, closed 14/07, closed_by <code>donv</code>); project <code>donv/developers.inet.vn</code> (303) có <b>0</b> issue closed. Khối lượng “xử lý nhiều yêu cầu” nếu đến qua chat/Telegram thì không để lại dấu vết đo được — không phủ nhận, nhưng cũng không xác nhận được."
             },
             {
               "tone": "n",
-              "html": "CI đỏ 10/10 do credential Docker Hub (hạ tầng, không phải code) — nhưng để đỏ cả tháng không xử lý là điểm trừ vận hành, đủ để chặn “Tốt”."
+              "html": "<b>Điểm trừ vẫn giữ nguyên trong hồ sơ:</b> CI <code>main</code> của developers.inet.vn fail <b>10/10</b> pipeline suốt T7 (job <code>build</code> chết ở <code>docker login</code> → <code>unauthorized</code>, job <code>deploy</code> <code>skipped</code>) mà không xử lý, không báo. Trang trả HTTP 200 nhưng không xác định được đang chạy bản nào."
+            },
+            {
+              "tone": "i",
+              "html": "⚠️ Yêu cầu T8 để lần sau đo được: mọi yêu cầu từ khách/bộ phận khác phải đi qua issue (assign đúng người) thay vì chat — nếu không, phần việc lớn nhất của chuongdt sẽ mãi không có dấu vết audit."
             }
           ]
         },
         {
           "name": "Cam kết & tiến độ",
           "weight": "25%",
-          "level": "Tốt → đề xuất Đạt",
+          "level": "Tốt → Đạt (TBP chốt)",
           "levelTone": "err",
           "evidence": [
             {
@@ -716,8 +725,8 @@
   ],
   "todos": [
     {
-      "task": "Mở lại điểm chính thức của <b>chuongdt</b> (đang <code>locked</code>) và hạ Cam kết & tiến độ về <b>Đạt</b> → 1.0 “Đạt”; hoặc yêu cầu chuongdt giải trình mốc deploy production trong kỳ nếu muốn giữ “Tốt”",
-      "level": "quyết định",
+      "task": "<b>chuongdt — sửa lại trên portal:</b> hiện <code>scores.delivery</code> = Đạt/<b>Đạt</b>/<b>Tốt</b> (1.025), cần Đạt/<b>Tốt</b>/<b>Đạt</b> (1.035). Hai tiêu chí Chất lượng và Cam kết bị đảo ngược — reopen rồi chọn lại",
+      "level": "chưa khớp",
       "levelTone": "err",
       "owner": "dattqh"
     },
