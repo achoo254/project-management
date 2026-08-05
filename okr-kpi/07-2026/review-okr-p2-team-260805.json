@@ -1,0 +1,717 @@
+{
+  "meta": {
+    "title": "Audit P2-Delivery — Đối chiếu tự đánh giá với bằng chứng thật",
+    "period": "07/2026",
+    "auditDate": "05/08/2026",
+    "subtitle": "BP Công Nghệ · iNET · 4 thành viên (dattqh · hobv · ducnd · chuongdt)",
+    "chips": [
+      "Audit 05/08/2026",
+      "Chỉ-đọc — không sửa, không khoá điểm",
+      "Nguồn: my.inet.vn API · GitLab API · git local · HTTP production",
+      "⛔ Ngoài phạm vi: anhtct"
+    ],
+    "sourceNote": "Mức đánh giá lấy từ <code>p2evaluation/get</code> trên my.inet.vn — <b>nguồn duy nhất</b>. Tiêu chí + trọng số từ <code>p2config/list</code>. Không dùng file Excel: <code>.xlsx</code> trong repo chỉ giữ mẫu công thức tính P2, không chứa mức đánh giá."
+  },
+  "banners": [
+    {
+      "tone": "err",
+      "title": "1 điểm cần sửa: Cam kết & tiến độ của chuongdt đang khoá ở “Tốt (1.2)” mà không có bằng chứng đỡ",
+      "html": "Không có deploy production nào trong kỳ sau 13/07 · CI <code>main</code> đỏ 10/10 cả tháng không báo · <b>0 issue</b> do chuongdt mở trong T7 · chấm công trễ 4 ngày (đúng giờ 79%, thấp nhất phòng). Hạ về “Đạt” → tổng <b>1.025 → 1.0</b>, grade <b>Tốt → Đạt</b>."
+    },
+    {
+      "tone": "ok",
+      "title": "3 người còn lại: mức tự đánh giá chính xác — giữ nguyên",
+      "html": "dattqh 1.065 · hobv 1.025 · ducnd 1.1. Mọi số liệu tự khai kiểm chứng được đều khớp nguồn độc lập (122/116 tool, 13 AI client, 885 commit, release <code>v1.7.0</code> 27/07, release <code>v1.0.0</code> 31/07)."
+    }
+  ],
+  "summary": [
+    {
+      "name": "dattqh",
+      "role": "Fullstack",
+      "roleNote": "Trưởng phòng Công Nghệ",
+      "self": "1.065",
+      "selfGrade": "Tốt",
+      "selfNote": "submit 31/07 13:26",
+      "status": "empty",
+      "statusNote": "scores={} · status:\"draft\" · __permission: self",
+      "delivery": "Tốt / Đạt / Tốt",
+      "proposal": "Giữ nguyên",
+      "proposalTone": "ok",
+      "proposalNote": "cấp trên khoá điểm"
+    },
+    {
+      "name": "hobv",
+      "role": "Design System",
+      "self": "1.025",
+      "selfGrade": "Tốt",
+      "selfNote": "submit 31/07 17:04",
+      "status": "empty",
+      "statusNote": "scores={} · status:\"draft\"",
+      "delivery": "Đạt / Đạt / Tốt",
+      "proposal": "Giữ nguyên",
+      "proposalTone": "ok",
+      "proposalNote": "cần chấm chính thức"
+    },
+    {
+      "name": "ducnd",
+      "role": "Frontend",
+      "self": "1.1",
+      "selfGrade": "Tốt",
+      "selfNote": "submit 04/08 18:22",
+      "official": "1.1",
+      "officialGrade": "Tốt",
+      "officialNote": "khoá 05/08 10:37",
+      "status": "locked",
+      "delivery": "Tốt / Tốt / Tốt",
+      "proposal": "Giữ nguyên",
+      "proposalTone": "ok"
+    },
+    {
+      "name": "chuongdt",
+      "role": "Frontend",
+      "roleNote": "đã sửa từ Backend 04/08",
+      "self": "1.025",
+      "selfGrade": "Tốt",
+      "selfNote": "submit 04/08 17:53",
+      "official": "1.025",
+      "officialGrade": "Tốt",
+      "officialNote": "khoá 05/08 10:38",
+      "status": "locked",
+      "delivery": "Đạt / Đạt / Tốt",
+      "proposal": "Hạ Cam kết → Đạt",
+      "proposalTone": "err",
+      "proposalNote": "tổng về 1.0 “Đạt”",
+      "flag": true
+    }
+  ],
+  "refMetrics": {
+    "title": "Cột tham chiếu rỗng ở cả 4 người",
+    "items": [
+      {
+        "tone": "n",
+        "html": "<code>tasks.total = 0</code> ở cả 4 → “Task hoàn thành 0/0 (0%)” và “Task đúng hạn 0%” là <b>KHÔNG CÓ DỮ LIỆU</b>, không phải 0% thật. Không được dùng để hạ điểm."
+      },
+      {
+        "tone": "n",
+        "html": "<code>ticketConversations.count = 0</code> → “AI chấm điểm ticket” chưa có dữ liệu cho cả phòng."
+      },
+      {
+        "tone": "q",
+        "html": "Khối “ĐÁNH GIÁ CHÍNH THỨC = 0 / Chưa đạt” trên portal (dattqh, hobv) <b>không phải điểm xấu</b> — đó là <code>scores = {}</code> + <code>status: draft</code>, tức chưa ai chấm. Để nguyên thì kỳ T7 nằm mãi ở 0."
+      },
+      {
+        "tone": "y",
+        "html": "Chỉ <b>chấm công</b> là số thật — và nó phân hoá rõ giữa 4 người (bảng bên)."
+      }
+    ],
+    "source": "<code>POST /api/client/v1/p2evaluation/metrics</code> · từng account · <code>period=2026-07</code>",
+    "timekeeping": {
+      "title": "Chấm công tháng 7 — số duy nhất máy đo được",
+      "rows": [
+        {
+          "who": "dattqh",
+          "approved": 23,
+          "late": 1,
+          "onTimeRate": 96,
+          "tone": "ok"
+        },
+        {
+          "who": "ducnd",
+          "approved": 22,
+          "late": 0,
+          "onTimeRate": 100,
+          "tone": "ok"
+        },
+        {
+          "who": "hobv",
+          "approved": 21,
+          "late": 0,
+          "onTimeRate": 100,
+          "tone": "ok"
+        },
+        {
+          "who": "chuongdt",
+          "approved": 19,
+          "late": 4,
+          "onTimeRate": 79,
+          "tone": "err",
+          "flag": true
+        }
+      ]
+    }
+  },
+  "members": [
+    {
+      "name": "chuongdt · Đinh Tiến Chương",
+      "flag": true,
+      "score": "1.025 → 1.0",
+      "pills": [
+        {
+          "tone": "gray",
+          "text": "3 entry · tất cả approved"
+        },
+        {
+          "tone": "info",
+          "text": "1×XL + 2×M"
+        },
+        {
+          "tone": "err",
+          "text": "official đã locked ở 1.025"
+        }
+      ],
+      "formula": {
+        "lines": [
+          "core     = 1.0×0.30 + 1.0×0.25 + 1.0×0.10 + 1.0×0.35 = 1.00      // trọng số role Frontend",
+          "delivery = 1.0×0.40 + 1.0×0.35 + 1.2×0.25 = 0.40+0.35+0.30 = 1.05",
+          "total    = 1.00×0.5 + 1.05×0.5 = 1.025 → \"Tốt\"",
+          "NẾU Cam kết = Đạt: delivery = 1.00 → total = 1.000 → \"Đạt\"   (đã validate qua /p2evaluation/compute)"
+        ],
+        "server": "khớp computed server trả về (1.025 / Tốt) · subScores A .300 · B .250 · C .100 · D .350"
+      },
+      "criteria": [
+        {
+          "name": "Mức độ hoàn thành OKR",
+          "weight": "40%",
+          "level": "Đạt",
+          "levelTone": "warn",
+          "evidence": [
+            {
+              "tone": "y",
+              "html": "3/3 hạng mục có code thật landed trong kỳ, có 1 stretch XL (ViUI base kit) → về lý có cơ sở bàn “Tốt”."
+            },
+            {
+              "tone": "n",
+              "html": "ViUI chỉ merge sát hạn 31/07 14:45; hạng mục Telegram monitoring không kiểm chứng được mốc production → “Đạt” là mức đúng."
+            }
+          ]
+        },
+        {
+          "name": "Chất lượng kết quả",
+          "weight": "35%",
+          "level": "Đạt",
+          "levelTone": "warn",
+          "evidence": [
+            {
+              "tone": "y",
+              "html": "Không phát hiện lỗi production hay phải làm lại."
+            },
+            {
+              "tone": "n",
+              "html": "CI đỏ 10/10 do credential Docker Hub (hạ tầng, không phải code) — nhưng để đỏ cả tháng không xử lý là điểm trừ vận hành, đủ để chặn “Tốt”."
+            }
+          ]
+        },
+        {
+          "name": "Cam kết & tiến độ",
+          "weight": "25%",
+          "level": "Tốt → đề xuất Đạt",
+          "levelTone": "err",
+          "evidence": [
+            {
+              "tone": "n",
+              "html": "<b>Không có dấu vết deploy production nào trong kỳ sau 13/07.</b> Tag prod cuối của T7 là <code>v2026.07.13</code> (13/07 21:28); tag kế tiếp <code>v2026.08.03</code> (03/08). Bundle <code>portal.inet.vn/assets/index-DPv-TWxL.js</code> có <code>last-modified: 04/08 09:25 GMT</code>. Cả 2 hạng mục portal merge <b>sau</b> mốc 13/07 → chỉ có bằng chứng lên prod từ 03–04/08."
+            },
+            {
+              "tone": "n",
+              "html": "<b>CI <code>main</code> của developers.inet.vn fail 10/10 pipeline suốt T7.</b> Job <code>build</code> failed tại <code>docker login</code> → <code>unauthorized: incorrect username or password</code> (registry-1.docker.io), job <code>deploy</code> <code>skipped</code> (job 41198, pipeline 7612)."
+            },
+            {
+              "tone": "n",
+              "html": "<b>0 issue do chuongdt mở trong T7</b> trên cả <code>donv/portal-client</code> (238) và <code>donv/developers.inet.vn</code> (303) — toàn bộ issue trong kỳ do <code>donv</code> mở. Tiêu chí ghi rõ “chủ động báo sớm rủi ro” → không có dấu vết nào."
+            },
+            {
+              "tone": "n",
+              "html": "<b>Chấm công 19 ngày · trễ 4 · đúng giờ 79%</b> — thấp nhất phòng, chênh rõ so với 96–100% của 3 người còn lại."
+            },
+            {
+              "tone": "n",
+              "html": "<b>Record OKR vẫn chỉ “Đã build lên production” × 3</b>, không ngày landed, không link issue/MR, không phân biệt staging/production — dù audit 04/08 đã yêu cầu bổ sung."
+            },
+            {
+              "tone": "q",
+              "html": "<b>Diễn biến điểm:</b> report 04/08 ghi self là Đạt/Đạt/<b>Đạt</b> = 1.0 (role Backend) và đề xuất giữ “Đạt”. Sau reopen 04/08 17:49 lý do <em>“sai role”</em>, bản resubmit 17:53 thành Đạt/Đạt/<b>Tốt</b> = 1.025 — lần sửa role đã đồng thời nâng Cam kết, nằm ngoài lý do reopen."
+            },
+            {
+              "tone": "y",
+              "html": "Đối trọng: đã sửa role P2 <code>Backend → Frontend</code> theo khuyến nghị (179 commit portal-client + 8 portal-server + 19 developers.inet.vn trong T7, 94% là frontend)."
+            }
+          ]
+        }
+      ],
+      "entries": [
+        {
+          "effort": "M",
+          "status": "approved",
+          "target": "Giao diện trang Cộng tác viên (Affiliate/CTV) trên Portal — gom về 1 trang tổng quan, kho marketing, Học viện CTV",
+          "evidence": "MR <code>!25 chuongdt/affiliate-ctv-menu-stats→master</code> merged <b>23/07 17:38</b> · ~40 commit portal-client + 10 portal-server · record chỉ ghi “Đã build lên production”, <b>không có mốc prod trong kỳ</b> (bundle prod 04/08 09:25). Effort đo lại: <b>L</b> (2 tầng, 5 khu chức năng) — khai thấp hơn thực tế."
+        },
+        {
+          "effort": "M",
+          "status": "approved",
+          "target": "Báo cáo giám sát vận hành tự động qua Telegram (developers.inet.vn)",
+          "evidence": "9 commit 17–22/07 đúng mô tả (telegram alerts abnormal API keys 17/07, daily ops report 20/07, notification-channels 21/07) · <b>CI main FAIL 10/10 trong T7</b>, <code>deploy</code> luôn <code>skipped</code> → mốc production <b>không kiểm chứng được</b>."
+        },
+        {
+          "effort": "XL",
+          "status": "approved",
+          "target": "Bộ base component dùng chung cho Portal theo khung ViUI (Modal/Card/Table/Button/Tabs, namespace CSS riêng)",
+          "evidence": "MR <code>!26 viui-responsive→master</code> merged <b>31/07 14:45 (+07)</b> — trong hạn · 77 commit 25–31/07 · bundle prod chứa <code>BaseSheetRow</code>/<code>BaseActionMenu</code>/<code>BaseCopyText</code> nhưng <b>last-modified 04/08 09:25</b> → deploy prod <b>ngoài kỳ</b>. portal-client có <b>0 pipeline</b> trong T7, <code>.gitlab-ci.yml</code> chỉ deploy nhánh <code>staging</code> → prod deploy thủ công, không để lại dấu vết audit."
+        }
+      ]
+    },
+    {
+      "name": "dattqh · Trịnh Quốc Hoàn Đạt",
+      "score": "1.065 · Tốt",
+      "pills": [
+        {
+          "tone": "info",
+          "text": "7 entry · 4×XL + 3×L"
+        },
+        {
+          "tone": "warn",
+          "text": "7/7 còn waiting — chưa ai duyệt"
+        },
+        {
+          "tone": "gray",
+          "text": "__permission: self → không tự chấm official"
+        }
+      ],
+      "formula": {
+        "lines": [
+          "core     = 1.0×0.30 + 1.0×0.30 + 1.0×0.15 + 1.0×0.25 = 1.00      // trọng số role Fullstack",
+          "delivery = 1.2×0.40 + 1.0×0.35 + 1.2×0.25 = 0.48+0.35+0.30 = 1.13",
+          "total    = 1.00×0.5 + 1.13×0.5 = 1.065 → \"Tốt\""
+        ],
+        "server": "khớp selfComputed server trả về (1.065 / Tốt) · subScores A .300 · B .300 · C .150 · D .250"
+      },
+      "criteria": [
+        {
+          "name": "Mức độ hoàn thành OKR",
+          "weight": "40%",
+          "level": "Tốt",
+          "levelTone": "ok",
+          "evidence": [
+            {
+              "tone": "y",
+              "html": "7/7 hạng mục có bằng chứng độc lập; <b>4 hạng mục XL</b>; 2 hạng mục <b>vượt hẳn cam kết đầu kỳ</b> (VictoriaMetrics cam kết “plan + kickoff” nhưng chạy tới cutover production; Web Traffic cam kết kickoff nhưng ship đủ Tier 2+3 live-fire 07/07)."
+            },
+            {
+              "tone": "y",
+              "html": "Khối lượng: <b>885 commit</b> / 9 repo trong T7; <b>22 issue</b> đóng bởi dattqh trên project 300. Thoả ngưỡng “Tốt = hoàn thành cao + ≥1 stretch L–XL”."
+            }
+          ]
+        },
+        {
+          "name": "Chất lượng kết quả",
+          "weight": "35%",
+          "level": "Đạt",
+          "levelTone": "warn",
+          "evidence": [
+            {
+              "tone": "n",
+              "html": "Sự cố prod thật: backend bị pm2 kill do xung đột ngưỡng heap V8 2.006 MB vs pm2 1.024 MB, <code>restarts 37</code> — <code>#218</code> đóng 27/07."
+            },
+            {
+              "tone": "n",
+              "html": "Bundle prod khách chạy bản cũ ~22 ngày (05/07 → 27/07 16:36) — tự khai trong handoff report. Traces tắt hoàn toàn ở prod khách (0 biến <code>OTEL_*</code>)."
+            },
+            {
+              "tone": "y",
+              "html": "Tự phát hiện, đúng nguyên nhân gốc, fix trong kỳ; cả tháng chỉ 4 commit revert/rollback/hotfix toàn repo → “Đạt” là mức đúng, không phải “Tốt”."
+            }
+          ]
+        },
+        {
+          "name": "Cam kết & tiến độ",
+          "weight": "25%",
+          "level": "Tốt",
+          "levelTone": "ok",
+          "evidence": [
+            {
+              "tone": "y",
+              "html": "22 issue đóng trong kỳ; 2 mốc phát hành đều trong hạn (release <code>v1.7.0</code> 27/07 21:34 · agent <code>v2.3.69</code> 09/07); chấm công 23 ngày · trễ 1 · 96%."
+            },
+            {
+              "tone": "y",
+              "html": "Handoff report 27/07 có số liệu đo trực tiếp trên máy chủ + danh sách file backup để rollback; 2 buổi đào tạo nội bộ + 2 họp CXO trong tháng."
+            },
+            {
+              "tone": "q",
+              "html": "<b>Gap quy trình:</b> <code>__permission = self</code> → dattqh không thể tự chấm chính thức; và 7/7 entry OKR nằm <code>waiting</code> từ khi tạo (3 người kia đều <code>approved</code> bởi dattqh). Cần người duyệt cấp trên (CTO / Giám đốc)."
+            }
+          ]
+        }
+      ],
+      "entries": [
+        {
+          "effort": "L",
+          "status": "waiting",
+          "target": "Web-scanner detection sang đường VictoriaLogs (preset nginx VRL, alert anomaly, dashboard LogsQL, bỏ OSSEC)",
+          "evidence": "<code>#195</code> closed <b>05/07</b> · <code>#188</code> closed <b>06/07</b> · <code>#182</code> closed <b>10/07</b> — live-fire trên traffic thật 07/07. Record ghi “#182 giữ mở cố ý” là <b>lạc hậu</b>: thực tế đã đóng 10/07 → khai <b>thấp hơn</b> thực tế."
+        },
+        {
+          "effort": "XL",
+          "status": "waiting",
+          "target": "VictoriaMetrics thay TimescaleDB: VM ingress sau vmauth, agent dual-write, parity test",
+          "evidence": "commit <code>e15ffa42a</code> 05/07 teardown TimescaleDB · <code>51b3a2650</code> 06/07 “schema dropped, postgres decommissioned both Server C” — khớp claim từng chữ · <code>#188</code> closed 06/07. Chạy hết 6 phase tới cutover, <b>vượt cam kết</b>."
+        },
+        {
+          "effort": "L",
+          "status": "waiting",
+          "target": "Command Capture — audit lệnh shell tập trung (auditd → laurel → Vector VRL → VictoriaLogs)",
+          "evidence": "Release <code>v1.7.0</code> — <b>release object created 27/07 21:34 (+07)</b> qua <code>GET /projects/300/releases</code> (tag là lightweight nên không dùng creatordate) · <code>#190</code> closed <b>28/07</b>. Tự khai rõ: xong giai đoạn 1–3/5, chỉ Linux."
+        },
+        {
+          "effort": "XL",
+          "status": "waiting",
+          "target": "Object Storage S3 trên CEPH — Increment 1 (kiến trúc + CEPH test lab + S3 gateway staging)",
+          "evidence": "Epic <code>#207</code> <b>còn mở</b> — đúng bản chất epic 8 increment, không phải trễ · CEPH Squid 19.2.3 3 node HEALTH_OK + RGW S3 HTTPS + cô lập tenant, kiểm thử PASS · red-team 31 phát hiện → 23 tiếp nhận (nguồn: infra-report nội bộ). Dịch vụ được duyệt 11/07."
+        },
+        {
+          "effort": "L",
+          "status": "waiting",
+          "target": "Thu thập nhật ký tập trung cho máy chủ Windows (parity với Linux)",
+          "evidence": "commit <code>79356d82e</code> <b>09/07 16:18</b> “chore(agent): release v2.3.69 — Windows log collector parity” — khớp cả số hiệu lẫn mô tả · <code>#205</code> closed <b>09/07</b> · E2E staging đạt 4/4 tiêu chí tự khai."
+        },
+        {
+          "effort": "XL",
+          "status": "waiting",
+          "target": "Nền tảng APM đa khách hàng (traces theo tenant, service map, bộ telemetry chuẩn OTel)",
+          "evidence": "Epic <code>#217</code> closed <b>28/07</b> · sửa lỗi phồng chỉ số 9.800 lần bằng <code>service.instance.id</code> + <code>metrics_expiration=10m</code>, thời gian tải 640 ms → 4 ms (nguồn: plan phase-07 nội bộ) · tự khai đã <b>gỡ bỏ hoàn toàn</b> bộ SDK riêng 8 giai đoạn để chuyển sang gói OTel chuẩn."
+        },
+        {
+          "effort": "XL",
+          "status": "waiting",
+          "target": "Object Storage — mở rộng giai đoạn 2→8 thành dịch vụ đủ nghiệp vụ (user/quyền, quản trị bucket, 2-tier lifecycle, cô lập, cảnh báo)",
+          "evidence": "Test count 35/35 · 46/46 · 18/18 tìm thấy trong <code>plan.md</code> + <code>increments/inc6-2tier-storage/plan.md</code> · tự khai chặn 1 lỗ hổng leo quyền nghiêm trọng giữa các tài khoản · trạng thái đúng mức: chạy nội bộ, <b>với khách vẫn ẩn</b>."
+        }
+      ]
+    },
+    {
+      "name": "ducnd · Nguyễn Đăng Đức",
+      "score": "1.1 · Tốt",
+      "pills": [
+        {
+          "tone": "info",
+          "text": "6 entry · 2×XL + 4×L"
+        },
+        {
+          "tone": "ok",
+          "text": "official đã khoá 1.1"
+        },
+        {
+          "tone": "gray",
+          "text": "596 commit T7 · 24 issue đóng"
+        }
+      ],
+      "formula": {
+        "lines": [
+          "core     = 1.0×0.30 + 1.0×0.25 + 1.0×0.10 + 1.0×0.35 = 1.00      // trọng số role Frontend",
+          "delivery = 1.2×0.40 + 1.2×0.35 + 1.2×0.25 = 0.48+0.42+0.30 = 1.20",
+          "total    = 1.00×0.5 + 1.20×0.5 = 1.10 → \"Tốt\""
+        ],
+        "server": "khớp cả selfComputed và computed server trả về (1.1 / Tốt)"
+      },
+      "criteria": [
+        {
+          "name": "Mức độ hoàn thành OKR",
+          "weight": "40%",
+          "level": "Tốt",
+          "levelTone": "ok",
+          "evidence": [
+            {
+              "tone": "y",
+              "html": "7/7 issue mốc khai đóng đúng ngày (bảng entry bên dưới), 2 hạng mục XL."
+            },
+            {
+              "tone": "y",
+              "html": "<b>Đã xử lý 2/3 deliverable lệch kỳ</b> mà audit 04/08 phát hiện: <code>#236</code> và <code>#237</code> được thêm vào kỳ T7 ngày <b>04/08 17:58</b>, đưa T7 từ 4 → 6 hạng mục."
+            },
+            {
+              "tone": "q",
+              "html": "Còn lệch: <code>#215</code> (chuyển toàn bộ icon OneDash sang viui-icons, XL, đóng 31/07) vẫn khai ở <b>T8</b>; <code>#210</code> (File Manager ZIP, đóng 24/07) <b>chưa khai ở đâu</b>."
+            }
+          ]
+        },
+        {
+          "name": "Chất lượng kết quả",
+          "weight": "35%",
+          "level": "Tốt",
+          "levelTone": "ok",
+          "evidence": [
+            {
+              "tone": "y",
+              "html": "<b>Đếm lại từ code, khớp tuyệt đối:</b> tại snapshot <code>d8a0d9f99</code> (31/07 17:25) có 155 file <code>*.tool.ts</code> — webserver 64 + projects 38 + observability 11 + server-management 6 + security 3 = <b>122</b> (đúng số khai); trừ Phase 1 (6) = <b>116 tool mới</b>. Phần không nhận (file-manager 19 + command-templates 8 + organization 5 + shared 1 = 33) phân định đúng."
+            },
+            {
+              "tone": "y",
+              "html": "CLI <code>odmcp</code>: <b>13 slug</b> AI client trong <code>ai-client-registry.ts</code> — khớp số khai."
+            },
+            {
+              "tone": "q",
+              "html": "Điểm trừ: 116 tool ship 22/07, đến 31/07 rà soát bằng lượt gọi thật mới ra 11 lỗi (1 lỗi ảnh hưởng 26 tool đọc). Đối trọng: tự phát hiện, tự tạo issue, sửa hết và đóng trong cùng kỳ trên quy mô 122 tool."
+            }
+          ]
+        },
+        {
+          "name": "Cam kết & tiến độ",
+          "weight": "25%",
+          "level": "Tốt",
+          "levelTone": "ok",
+          "evidence": [
+            {
+              "tone": "y",
+              "html": "596 commit trong T7 (cloud-panel-application), 24 issue đóng — khối lượng cao thứ hai phòng."
+            },
+            {
+              "tone": "y",
+              "html": "Chủ động tự tạo <code>#209</code> (16/07) rồi đóng 21/07; nhận thêm việc ngoài 4 entry đã khai đầu kỳ; chấm công 22 ngày · trễ 0 · 100%."
+            }
+          ]
+        }
+      ],
+      "entries": [
+        {
+          "effort": "L",
+          "status": "approved",
+          "target": "Quản lý Service Linux qua Agent (systemd) — parity với Windows Services + realtime push",
+          "evidence": "<code>#189</code> closed <b>01/07</b> (closed_by ducnd) · CI gate <code>pnpm ci:all</code> + <code>make test/lint</code> theo record."
+        },
+        {
+          "effort": "XL",
+          "status": "approved",
+          "target": "Admin Analytics Dashboard 3-lens (Điều hành / Tăng trưởng / Vận hành) + xlsx export",
+          "evidence": "<code>#204</code> closed <b>06/07</b> · đủ hạng mục checklist trong issue theo record."
+        },
+        {
+          "effort": "L",
+          "status": "approved",
+          "target": "MCP server OneDash kết nối từ AI client — nhóm tool server-management end-to-end",
+          "evidence": "<code>#191</code> closed <b>10/07</b> · <code>#194</code> closed <b>16/07</b> · 6 tool <code>server-management</code> tại snapshot 31/07."
+        },
+        {
+          "effort": "XL",
+          "status": "approved",
+          "target": "Mở rộng MCP sang Project / Webserver / Observability + CLI odmcp device-code flow",
+          "evidence": "<code>#192</code>, <code>#193</code> closed <b>22/07</b> · <code>#209</code> closed <b>21/07</b> · đếm tại <code>d8a0d9f99</code>: 64+38+11+6+3 = <b>122 tool</b>, −6 Phase 1 = <b>116 mới</b> · <b>13</b> slug AI client."
+        },
+        {
+          "effort": "L",
+          "status": "approved",
+          "target": "RDP nói rõ lý do lỗi thật từ guacd — phân loại 7 nhóm nguyên nhân, bỏ mã lỗi tự suy",
+          "evidence": "<code>#237</code> closed <b>31/07</b> · entry KPI <b>tạo 04/08 17:58</b> (chuyển từ T8 về T7 sau audit 04/08)."
+        },
+        {
+          "effort": "L",
+          "status": "approved",
+          "target": "Rà soát toàn bộ bề mặt tool MCP bằng lượt gọi thật trên VPS Linux (77+ lượt, 4 nhóm tool)",
+          "evidence": "<code>#236</code> closed <b>31/07</b> · 11 lỗi thật đã sửa, gồm 1 lỗi ảnh hưởng toàn bộ 26 tool đọc · entry KPI <b>tạo 04/08 17:58</b>."
+        }
+      ],
+      "unverified": [
+        "Không có claim nào của ducnd thuộc diện không kiểm chứng được — toàn bộ số liệu đều đối chiếu được từ git object + GitLab API."
+      ]
+    },
+    {
+      "name": "hobv · Bùi Văn Hổ",
+      "score": "1.025 · Tốt",
+      "pills": [
+        {
+          "tone": "info",
+          "text": "3 entry · 1×XL + 2×L"
+        },
+        {
+          "tone": "warn",
+          "text": "official vẫn trống — chưa chấm"
+        },
+        {
+          "tone": "gray",
+          "text": "242 commit assets + 138 commit design-sys-fe"
+        }
+      ],
+      "formula": {
+        "lines": [
+          "core     = 1.0×0.30 + 1.0×0.25 + 1.0×0.15 + 1.0×0.30 = 1.00      // trọng số role Design System",
+          "delivery = 1.0×0.40 + 1.0×0.35 + 1.2×0.25 = 0.40+0.35+0.30 = 1.05",
+          "total    = 1.00×0.5 + 1.05×0.5 = 1.025 → \"Tốt\""
+        ],
+        "server": "khớp selfComputed server trả về (1.025 / Tốt) · subScores A .300 · B .250 · C .150 · D .300"
+      },
+      "criteria": [
+        {
+          "name": "Mức độ hoàn thành OKR",
+          "weight": "40%",
+          "level": "Đạt",
+          "levelTone": "warn",
+          "evidence": [
+            {
+              "tone": "y",
+              "html": "DS-R5 (milestone due <b>31/07</b>): <code>#47</code>, <code>#48</code> closed <b>30/07 05:29</b> — trước hạn."
+            },
+            {
+              "tone": "n",
+              "html": "<code>#49</code> (O3 — a11y + security verify) <b>vẫn mở đến 05/08</b> → quá hạn milestone; KR3.2 còn 94 P0 (57 color-contrast + 26 aria-required-attr + 11 aria-progressbar-name)."
+            },
+            {
+              "tone": "y",
+              "html": "Bù lại có XL phát sinh hoàn thành: DAM assets.inet.vn dựng mới từ 0 — 242 commit trong T7, rải 19/31 ngày (không dồn cuối kỳ)."
+            }
+          ]
+        },
+        {
+          "name": "Chất lượng kết quả",
+          "weight": "35%",
+          "level": "Đạt",
+          "levelTone": "warn",
+          "evidence": [
+            {
+              "tone": "n",
+              "html": "a11y gate mù 16 ngày: <code>fa23a10e</code> (14/07 09:45) đưa hack <code>channel:'chrome'</code> kèm chính comment “MUST revert before session ends” vào main; <code>0511a248</code> (30/07 11:43) mới fix. <code>allow_failure:true</code> nuốt lỗi runtime, log “Stories scanned: 0” bị hiểu là sạch."
+            },
+            {
+              "tone": "y",
+              "html": "Sự cố ở tầng CI gate, không phải production; tự phát hiện, tự khai chi tiết trong record, tự fix trong kỳ → chặn “Tốt” nhưng giữ “Đạt”."
+            }
+          ]
+        },
+        {
+          "name": "Cam kết & tiến độ",
+          "weight": "25%",
+          "level": "Tốt",
+          "levelTone": "ok",
+          "evidence": [
+            {
+              "tone": "y",
+              "html": "<b>Release <code>v1.0.0</code> created 31/07 17:37 (+07) — trong kỳ</b>, xác minh qua <code>GET /projects/338/releases</code> (tag lightweight nên creatordate không dùng được)."
+            },
+            {
+              "tone": "y",
+              "html": "Sổ rủi ro chủ động, rải đều trong tháng: 19 issue mở trong repo assets (13/07 nhóm X1–X4 + “8 câu hỏi severity”; 16/07 <code>#18</code> “Phase 0 Gate — Intake (CTO điền A/B/D6 prod)” → closed 28/07) + 10 issue triage <code>#50–#59</code> ngày 29/07."
+            },
+            {
+              "tone": "q",
+              "html": "Merge <code>hobv → main</code> thực tế là MR <code>!1</code> lúc <b>03/08 08:34</b> — ngoài kỳ. Release cắt từ nhánh <code>hobv</code>, không từ main; prod dùng cơ chế kéo ngoài repo."
+            }
+          ]
+        }
+      ],
+      "entries": [
+        {
+          "effort": "L",
+          "status": "approved",
+          "target": "DS-R5: MKT Enablement & Ecosystem (O1 landing qua MCP · O2 Icon Ecosystem · O3 Governance)",
+          "evidence": "Milestone DS-R5 due <b>31/07</b> · <code>#47</code>+<code>#48</code> closed <b>30/07</b>, <code>#49</code> <b>còn mở</b> → 2/3 Objective. O1: 5 template MCP (target ≥4), landing <code>viui.inet.vn/lp/ssl</code> HTTP 200 104.726 B. O2: npm <code>@hobui/viui-icons</code> latest <b>1.4.1</b> (khai 1.4.0 — thấp hơn thực). O3: a11y baseline 94 P0 khớp job 42074."
+        },
+        {
+          "effort": "L",
+          "status": "approved",
+          "target": "Cập nhật nội dung & tài liệu website iNET (inet.vn) — #81 mẫu hợp đồng, #82 nội dung sau rà soát",
+          "evidence": "Repo <code>donv/inet.vn</code> — GitLab API trả <b>404</b> với token hiện tại → <b>không kiểm chứng được</b>. Theo lời khai: <code>#81</code> đã closed; <code>#82</code> fix + push 27/07 khi sale/kế toán báo lỗi căn chỉnh, cố ý giữ mở chờ phản hồi."
+        },
+        {
+          "effort": "XL",
+          "status": "approved",
+          "target": "Assets iNET — nền tảng DAM quản trị & phân phối tài nguyên thương hiệu (dựng mới từ 0)",
+          "evidence": "Initial commit 01/07 → <b>242 commit</b> T7 (240 no-merge) → release <b>v1.0.0 created 31/07 17:37 (+07)</b>, trong kỳ · 3 trang live HTTP 200 (/, /icons 105.332 B, /brand-center 217.505 B) · 7 hạng mục security đóng 16/07 + ClamAV 23–24/07 · 2.097 icon entry · merge main <b>03/08</b> (ngoài kỳ)."
+        }
+      ],
+      "unverified": [
+        "<code>#81</code> / <code>#82</code> trên repo <code>donv/inet.vn</code>: API trả 404 (repo ngoài scope token dattqh) → <b>không kết luận</b> theo hướng nào. Cần xin quyền reporter để kỳ sau kiểm chứng được.",
+        "“Bàn giao vận hành cho CTO 20/07”: không có artefact máy đọc được để xác nhận đúng ngày; chỉ có <code>#18</code> “Phase 0 Gate — Intake (CTO điền A/B/D6 prod)” mở 16/07, closed 28/07 làm dấu vết gián tiếp."
+      ]
+    }
+  ],
+  "traps": [
+    {
+      "tag": "Bẫy 1",
+      "title": "Lightweight tag không có ngày tạo",
+      "steps": [
+        {
+          "d": "Cách đọc sai",
+          "bad": true,
+          "html": "<code>git for-each-ref --format='%(creatordate)'</code> trên tag lightweight trả về <b>ngày commit</b>, không phải ngày tạo tag. Tag có thể được tạo muộn rồi trỏ về commit cũ → “phát hành trong kỳ” không chứng minh được."
+        },
+        {
+          "d": "Cách đọc đúng",
+          "html": "Dùng release object: <code>GET /projects/:id/releases</code> → <code>created_at</code>. Kết quả: <code>assets v1.0.0</code> = <code>2026-07-31T10:37:36Z</code> (17:37 +07) · <code>cloud-panel v1.7.0</code> = <code>2026-07-27T14:34:37Z</code> (21:34 +07) → cả hai <b>trong kỳ</b>."
+        },
+        {
+          "d": "Kết luận",
+          "html": "Kết luận không đổi, nhưng chuỗi bằng chứng giờ mới đứng vững. Cả 2 tag đều lightweight (<code>git cat-file -t</code> = <code>commit</code>)."
+        }
+      ]
+    },
+    {
+      "tag": "Bẫy 2",
+      "title": "“Đã lên production” ≠ merge, ≠ tag",
+      "steps": [
+        {
+          "d": "portal-client",
+          "bad": true,
+          "html": "0 pipeline chạy trong T7 · <code>.gitlab-ci.yml</code> chỉ deploy nhánh <code>staging</code> → prod deploy làm tay, không để lại dấu vết audit. Mốc prod duy nhất đo được: bundle <code>last-modified 04/08 09:25 GMT</code>."
+        },
+        {
+          "d": "developers.inet.vn",
+          "bad": true,
+          "html": "10/10 pipeline fail, <code>deploy</code> luôn <code>skipped</code> → không có lần deploy CI thành công nào trong kỳ; site trả 200 nhưng không xác định được đang chạy bản nào."
+        },
+        {
+          "d": "assets.inet.vn",
+          "html": "Release in-period nhưng merge main 03/08; prod dùng cơ chế kéo ngoài repo → phải phân biệt rõ “release”, “merge main” và “tới khách”."
+        }
+      ]
+    }
+  ],
+  "todos": [
+    {
+      "task": "Mở lại điểm chính thức của <b>chuongdt</b> (đang <code>locked</code>) và hạ Cam kết & tiến độ về <b>Đạt</b> → 1.0 “Đạt”; hoặc yêu cầu chuongdt giải trình mốc deploy production trong kỳ nếu muốn giữ “Tốt”",
+      "level": "quyết định",
+      "levelTone": "err",
+      "owner": "dattqh"
+    },
+    {
+      "task": "Chấm điểm chính thức cho <b>hobv</b> — hiện <code>scores</code> rỗng, <code>status: draft</code>, để nguyên thì tháng 7 nằm ở 0",
+      "level": "blocker",
+      "levelTone": "err",
+      "owner": "dattqh"
+    },
+    {
+      "task": "Chỉ định người duyệt cấp trên cho <b>dattqh</b>: 7/7 entry OKR đang <code>waiting</code> và <code>__permission: self</code> nên không tự chấm chính thức được",
+      "level": "gap quy trình",
+      "levelTone": "warn",
+      "owner": "CTO / Giám đốc"
+    },
+    {
+      "task": "Sửa credential Docker Hub trong CI <code>developers.inet.vn</code> (build fail 10/10 T7) + đưa portal-client vào CI có job deploy production để có dấu vết audit",
+      "level": "CI đỏ 1 tháng",
+      "levelTone": "err",
+      "owner": "chuongdt + donv"
+    },
+    {
+      "task": "Chốt kỳ cho <code>#215</code> (đóng 31/07, đang khai T8) và bổ sung <code>#210</code> (đóng 24/07, chưa khai) trước khi chốt KPI T8",
+      "level": "lệch kỳ",
+      "levelTone": "warn",
+      "owner": "ducnd + dattqh"
+    },
+    {
+      "task": "hobv: đóng <code>#49</code> (quá hạn DS-R5) — a11y P0 còn 94; gate phải fail khi <code>stories_scanned == 0</code>",
+      "level": "nợ DS-R6",
+      "levelTone": "warn",
+      "owner": "hobv"
+    },
+    {
+      "task": "Chuẩn ghi nhận OKR từ T8: mỗi entry phải có <b>ngày landed + link issue/MR + số liệu đo được</b>. Không nhận nhãn chung “đã build lên production”",
+      "level": "chuẩn hoá",
+      "levelTone": "info",
+      "owner": "cả phòng"
+    },
+    {
+      "task": "Xin quyền reporter cho dattqh trên repo <code>donv/inet.vn</code> (hiện API trả 404) để kỳ sau kiểm chứng được <code>#81</code>/<code>#82</code> của hobv",
+      "level": "gap audit",
+      "levelTone": "info",
+      "owner": "dattqh"
+    }
+  ],
+  "sourcesHtml": "<b>my.inet.vn</b> — <code>POST /api/client/v1/p2evaluation/{get,compute,metrics}</code> · <code>POST /p2config/list</code> (rubric + trọng số) · <code>POST /accountkpi/search</code> (luôn kèm <code>monthStr=072026</code>; API phân trang cứng 30 entry/trang) · <code>history[]</code> trong <code>/p2evaluation/get</code> (phát hiện thay đổi mức + lý do reopen).<br><b>GitLab</b> <code>gitlabs.inet.vn/api/v4</code> — 256 design-sys-fe · 338 assets.inet.vn · 300 cloud-panel-application · 238 portal-client · 303 developers.inet.vn: issues, milestones, merge_requests, pipelines, job trace, <b>releases</b>, tags.<br><b>git local</b> — design-sys-fe · assets.inet.vn · cloud-panel-application · portal-client · portal-server · developers.inet.vn.<br><b>HTTP production</b> — portal.inet.vn · onedash.inet.vn · developers.inet.vn · assets.inet.vn (header <code>last-modified</code> của bundle).<br>Phương pháp 3 lớp theo <code>docs/monthly-okr-p2-review-guide.md</code>: hoàn thành tự báo × code thật × effort-weighted từ code footprint. Ngưỡng “Tốt” (okr) = hoàn thành cao <b>và</b> ≥1 deliverable stretch L–XL. Tiêu chí Cam kết &amp; tiến độ lấy nguyên văn từ <code>/p2config/list</code>: <em>“Hoàn thành đúng hạn; chủ động báo sớm rủi ro; phối hợp tốt”</em> — trọng số 25%, <code>rubric: []</code> (không có rubric chi tiết trong cấu hình).",
+  "footerHtml": "Audit chỉ-đọc — không sửa, không submit, không khoá điểm P2 trong lượt này. Điểm cuối do quản lý khoá trên my.inet.vn.<br>Render từ <code>okr-kpi/07-2026/review-okr-p2-team-260805.json</code> qua <code>.claude/skills/p2-monthly-okr-audit/scripts/build_html_report.py</code> (schema v2).<br>Report liên quan: <code>plans/reports/review-p2-hobv-260804-thang-07-2026.html</code> · <code>review-p2-chuongdt-ducnd-260804-thang-07-2026.html</code> · <code>review-p2-dattqh-260804-thang-07-2026.html</code>.<br><b>Dữ liệu nhân sự nội bộ — chỉ lưu local, không publish.</b> · Lập 05/08/2026 · BP Công Nghệ iNET"
+}

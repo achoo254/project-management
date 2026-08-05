@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Audit P2-Delivery — BP Công Nghệ — Tháng 07/2026</title>
+<title>Audit P2-Delivery — Đối chiếu tự đánh giá với bằng chứng thật — 07/2026</title>
 <style>
 :root{
   --pri:#0582D4; --pri-2:#619ee9; --red:#E8353C; --cyan:#22D3EE;
@@ -33,43 +33,43 @@ h3{font-size:14px;margin:0 0 8px}
 .banner.err{background:var(--err-bg);border-color:#F3C4C4}
 .banner.ok{background:var(--ok-bg);border-color:#BFE7D5}
 .banner.warn{background:var(--warn-bg);border-color:#F0DCA8}
-.banner b{display:block;font-size:15px;margin-bottom:4px}
+.banner.info{background:var(--info-bg);border-color:#C7D7F5}
+.banner .bt{font-weight:700;font-size:15px;margin-bottom:4px}
 .grid{display:grid;gap:12px}
-.g4{grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}
 .g2{grid-template-columns:repeat(auto-fit,minmax(330px,1fr))}
-.kpi{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:13px 15px}
-.kpi .lbl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px}
-.kpi .val{font-size:26px;font-weight:700;line-height:1.15;margin-top:3px}
-.kpi .note{font-size:12px;color:var(--muted);margin-top:2px}
 .tw{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--card)}
 table{border-collapse:collapse;width:100%;font-size:13px;min-width:640px}
 th{background:#EDF2F7;text-align:left;font-weight:600;font-size:11.5px;text-transform:uppercase;
   letter-spacing:.3px;color:#41536A;padding:9px 12px;border-bottom:1px solid var(--line);white-space:nowrap}
 td{padding:9px 12px;border-bottom:1px solid #E8EEF4;vertical-align:top}
 tr:last-child td{border-bottom:none}
+tr.flag{background:#FFF9F9}
 .pill{display:inline-block;border-radius:999px;padding:1px 9px;font-size:11px;font-weight:600;white-space:nowrap}
 .p-ok{background:var(--ok-bg);color:var(--ok);border:1px solid #BFE7D5}
 .p-err{background:var(--err-bg);color:var(--err);border:1px solid #F3C4C4}
 .p-warn{background:var(--warn-bg);color:var(--warn);border:1px solid #F0DCA8}
 .p-info{background:var(--info-bg);color:var(--info);border:1px solid #C7D7F5}
 .p-gray{background:#EEF3F8;color:#41536A;border:1px solid var(--line)}
-.member{border-left:4px solid var(--pri)}
+.member{border-left:4px solid var(--pri);margin-bottom:12px}
 .member.flag{border-left-color:var(--red)}
 .mhead{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;margin-bottom:12px;
   padding-bottom:10px;border-bottom:1px dashed var(--line)}
 .mhead .nm{font-size:16px;font-weight:700}
 .mhead .sc{font-size:20px;font-weight:700;color:var(--pri);margin-left:auto}
-.crit{display:grid;grid-template-columns:118px 74px 1fr;gap:0;font-size:13px}
+.fx{background:#F8FAFC;border:1px dashed var(--line);border-radius:8px;padding:9px 12px;margin-bottom:12px;
+  font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;font-size:11.8px;color:#33475E;
+  overflow-x:auto;white-space:pre;line-height:1.7}
+.fx .srv{color:var(--ok);font-weight:700}
+.crit{display:grid;grid-template-columns:118px 74px 1fr;font-size:13px}
 .crit>div{padding:8px 10px;border-bottom:1px solid #E8EEF4}
 .crit>div:nth-child(3n+1){font-weight:600;background:#F8FAFC}
-.crit>div:nth-child(3n){}
 .ev{margin:0;padding-left:0;list-style:none}
 .ev li{position:relative;padding-left:20px;margin-bottom:5px}
 .ev li:before{position:absolute;left:0;top:0;font-weight:700}
-.ev li.y:before{content:"✓";color:var(--ok)}
-.ev li.n:before{content:"✗";color:var(--err)}
+.ev li.y:before{content:"\2713";color:var(--ok)}
+.ev li.n:before{content:"\2717";color:var(--err)}
 .ev li.q:before{content:"!";color:var(--warn)}
-.ev li.i:before{content:"·";color:var(--muted);font-size:18px;line-height:1}
+.ev li.i:before{content:"\00B7";color:var(--muted);font-size:18px;line-height:1}
 .tl{list-style:none;margin:0;padding:0;border-left:2px solid var(--line);margin-left:6px}
 .tl li{position:relative;padding:0 0 12px 16px}
 .tl li:before{content:"";position:absolute;left:-6px;top:5px;width:10px;height:10px;border-radius:50%;
@@ -77,278 +77,129 @@ tr:last-child td{border-bottom:none}
 .tl li.bad:before{background:var(--red)}
 .tl .d{font-size:11.5px;color:var(--muted);font-weight:600}
 .small{font-size:12px;color:var(--muted)}
+.unv{background:var(--warn-bg);border:1px solid #F0DCA8;border-radius:8px;padding:8px 12px;
+  font-size:12.5px;margin-top:10px}
+.unv b{color:var(--warn)}
 footer{margin-top:34px;padding-top:16px;border-top:1px solid var(--line);font-size:11.5px;color:var(--muted)}
-.src{background:#F8FAFC;border:1px dashed var(--line);border-radius:8px;padding:10px 12px;font-size:11.5px;color:var(--muted)}
+.src{background:#F8FAFC;border:1px dashed var(--line);border-radius:8px;padding:10px 12px;
+  font-size:11.5px;color:var(--muted)}
 </style>
 </head>
 <body>
-<header>
-  <div class="wrap">
-    <h1>Audit P2-Delivery — Đối chiếu tự đánh giá với bằng chứng thật</h1>
-    <div class="sub">BP Công Nghệ · iNET · Kỳ <b>tháng 07/2026</b> · 4 thành viên (dattqh · hobv · ducnd · chuongdt)</div>
-    <div class="meta">
-      <span>Audit 05/08/2026</span>
-      <span>Chỉ-đọc — không sửa, không khoá điểm</span>
-      <span>Nguồn: my.inet.vn API · GitLab API · git local · HTTP production</span>
-      <span>⛔ Ngoài phạm vi: anhtct</span>
-    </div>
-  </div>
-</header>
-
+<header><div class="wrap">
+  <h1>Audit P2-Delivery — Đối chiếu tự đánh giá với bằng chứng thật</h1>
+  <div class="sub">BP Công Nghệ · iNET · 4 thành viên (dattqh · hobv · ducnd · chuongdt) · Kỳ <b>tháng 07/2026</b></div>
+  <div class="meta"><span>Audit 05/08/2026</span><span>Chỉ-đọc — không sửa, không khoá điểm</span><span>Nguồn: my.inet.vn API · GitLab API · git local · HTTP production</span><span>⛔ Ngoài phạm vi: anhtct</span></div>
+</div></header>
 <div class="wrap">
-
-  <div class="banner err">
-    <b>1 điểm cần sửa: Cam kết &amp; tiến độ của chuongdt đang khoá ở “Tốt (1.2)” mà không có bằng chứng đỡ</b>
-    Không có deploy production nào trong kỳ sau 13/07 · CI <code>main</code> đỏ 10/10 cả tháng không báo ·
-    <b>0 issue</b> do chuongdt mở trong T7 · chấm công trễ 4 ngày (đúng giờ 79%, thấp nhất phòng).
-    Hạ về “Đạt” → tổng <b>1.025 → 1.0</b>, grade <b>Tốt → Đạt</b>.
-  </div>
-  <div class="banner ok">
-    <b>3 người còn lại: mức tự đánh giá chính xác — giữ nguyên</b>
-    dattqh 1.065 · hobv 1.025 · ducnd 1.1. Mọi số liệu tự khai kiểm chứng được đều khớp nguồn độc lập
-    (122/116 tool, 13 AI client, 885 commit, release v1.7.0 27/07, tag v1.0.0 31/07).
-  </div>
-
-  <h2>Bảng chốt — trạng thái &amp; đề xuất</h2>
-  <div class="tw"><table>
-    <thead><tr><th>Người</th><th>Role P2</th><th>Tự đánh giá</th><th>Chính thức</th><th>Trạng thái</th><th>OKR / Chất lượng / Cam kết</th><th>Đề xuất</th></tr></thead>
-    <tbody>
-      <tr>
-        <td><b>dattqh</b><br><span class="small">Fullstack · TBP</span></td><td>Fullstack</td>
-        <td><b>1.065</b> <span class="pill p-ok">Tốt</span><br><span class="small">submit 31/07 13:26</span></td>
-        <td><span class="pill p-gray">trống · 0</span></td>
-        <td><code>draft</code> · <code>__permission: self</code></td>
-        <td>Tốt / Đạt / Tốt</td>
-        <td><span class="pill p-ok">Giữ nguyên</span><br><span class="small">cấp trên khoá điểm</span></td>
-      </tr>
-      <tr>
-        <td><b>hobv</b><br><span class="small">Design System</span></td><td>Design System</td>
-        <td><b>1.025</b> <span class="pill p-ok">Tốt</span><br><span class="small">submit 31/07 17:04</span></td>
-        <td><span class="pill p-gray">trống · 0</span></td>
-        <td><code>draft</code></td>
-        <td>Đạt / Đạt / Tốt</td>
-        <td><span class="pill p-ok">Giữ nguyên</span><br><span class="small">cần chấm chính thức</span></td>
-      </tr>
-      <tr>
-        <td><b>ducnd</b><br><span class="small">Frontend</span></td><td>Frontend</td>
-        <td><b>1.1</b> <span class="pill p-ok">Tốt</span><br><span class="small">submit 04/08 18:22</span></td>
-        <td><b>1.1</b> <span class="pill p-ok">Tốt</span><br><span class="small">khoá 05/08 10:37</span></td>
-        <td><code>locked</code></td>
-        <td>Tốt / Tốt / Tốt</td>
-        <td><span class="pill p-ok">Giữ nguyên</span></td>
-      </tr>
-      <tr style="background:#FFF9F9">
-        <td><b>chuongdt</b><br><span class="small">Frontend</span></td><td>Frontend<br><span class="small">đã sửa từ Backend 04/08</span></td>
-        <td><b>1.025</b> <span class="pill p-ok">Tốt</span><br><span class="small">submit 04/08 17:53</span></td>
-        <td><b>1.025</b> <span class="pill p-ok">Tốt</span><br><span class="small">khoá 05/08 10:38</span></td>
-        <td><code>locked</code></td>
-        <td>Đạt / Đạt / <b>Tốt</b></td>
-        <td><span class="pill p-err">Hạ Cam kết → Đạt</span><br><span class="small">tổng về 1.0 “Đạt”</span></td>
-      </tr>
-    </tbody>
-  </table></div>
-
-  <h2>Cảnh báo phương pháp — “Số liệu tham chiếu” trên form không dùng được</h2>
-  <div class="grid g2">
-    <div class="card">
-      <h3>Cột tham chiếu rỗng ở cả 4 người</h3>
-      <ul class="ev">
-        <li class="n"><code>tasks.total = 0</code> ở cả 4 → “Task hoàn thành 0/0 (0%)” và “Task đúng hạn 0%” là <b>KHÔNG CÓ DỮ LIỆU</b>, không phải 0% thật. Không được dùng để hạ điểm.</li>
-        <li class="n"><code>ticketConversations.count = 0</code> → “AI chấm điểm ticket” chưa có dữ liệu cho cả phòng.</li>
-        <li class="y">Chỉ <b>chấm công</b> là số thật — và nó phân hoá rõ giữa 4 người (bảng bên).</li>
-      </ul>
-      <p class="small" style="margin-bottom:0">Nguồn: <code>POST /api/client/v1/p2evaluation/metrics</code> · từng account · <code>period=2026-07</code></p>
-    </div>
-    <div class="card">
-      <h3>Chấm công tháng 7 — số duy nhất máy đo được</h3>
-      <div class="tw" style="border:none"><table style="min-width:0">
-        <thead><tr><th>Người</th><th>Ngày duyệt</th><th>Trễ</th><th>Đúng giờ</th></tr></thead>
-        <tbody>
-          <tr><td>dattqh</td><td>23</td><td>1</td><td><span class="pill p-ok">96%</span></td></tr>
-          <tr><td>ducnd</td><td>22</td><td>0</td><td><span class="pill p-ok">100%</span></td></tr>
-          <tr><td>hobv</td><td>21</td><td>0</td><td><span class="pill p-ok">100%</span></td></tr>
-          <tr style="background:#FFF9F9"><td><b>chuongdt</b></td><td>19</td><td><b>4</b></td><td><span class="pill p-err">79%</span></td></tr>
-        </tbody>
-      </table></div>
-    </div>
-  </div>
-
-  <h2>chuongdt — 5 bằng chứng phản đối mức “Tốt” cho Cam kết &amp; tiến độ</h2>
-  <div class="card member flag">
-    <div class="mhead">
-      <span class="nm">Đinh Tiến Chương</span>
-      <span class="pill p-gray">3 entry OKR · tất cả <code>approved</code></span>
-      <span class="pill p-info">1 XL (ViUI base kit) + 2 M</span>
-      <span class="sc">1.025 → <span style="color:var(--red)">1.0</span></span>
-    </div>
-    <div class="grid g2">
-      <div>
-        <ul class="ev">
-          <li class="n"><b>Không có dấu vết deploy production nào trong kỳ sau 13/07.</b>
-            Tag prod cuối của T7 là <code>v2026.07.13</code> (13/07 21:28); tag kế tiếp <code>v2026.08.03</code> (03/08).
-            Bundle <code>portal.inet.vn/assets/index-DPv-TWxL.js</code> có <code>last-modified: 04/08 09:25 GMT</code>.
-            Cả 2 hạng mục portal merge <b>sau</b> mốc 13/07 (affiliate 23/07 · ViUI 31/07) → chỉ có bằng chứng lên prod từ 03–04/08.</li>
-          <li class="n"><b>CI <code>main</code> của developers.inet.vn fail 10/10 pipeline suốt tháng 7.</b>
-            Job <code>build</code> failed tại <code>docker login</code> → <code>unauthorized: incorrect username or password</code> (registry-1.docker.io),
-            job <code>deploy</code> <code>skipped</code>. Nguyên nhân là credential CI (hạ tầng), nhưng để đỏ cả tháng, không báo, không sửa.</li>
-          <li class="n"><b>0 issue do chuongdt mở trong T7</b> trên cả <code>donv/portal-client</code> (238) và <code>donv/developers.inet.vn</code> (303) — toàn bộ issue trong kỳ do <code>donv</code> mở.
-            Tiêu chí ghi rõ “chủ động báo sớm rủi ro” → không có dấu vết nào.</li>
-          <li class="n"><b>Chấm công 19 ngày · trễ 4 · đúng giờ 79%</b> — thấp nhất phòng, chênh rõ so với 96–100% của 3 người còn lại.</li>
-          <li class="n"><b>Record OKR vẫn chỉ “Đã build lên production” × 3</b>, không ngày landed, không link issue/MR, không phân biệt staging/production — dù audit 04/08 đã yêu cầu bổ sung.</li>
-        </ul>
-      </div>
-      <div>
-        <div class="card" style="background:#F8FAFC;margin-bottom:10px">
-          <h3>Đối trọng — phần làm được</h3>
-          <ul class="ev">
-            <li class="y">ViUI base kit là <b>stretch XL thật</b>: MR <code>!26 viui-responsive→master</code> merged <b>31/07 14:45</b> (+07) — trong hạn.</li>
-            <li class="y">Affiliate/CTV: MR <code>!25</code> merged <b>23/07 17:38</b>; 179 commit portal-client + 8 portal-server + 19 developers.inet.vn trong T7.</li>
-            <li class="y">Đã sửa role P2 <code>Backend → Frontend</code> theo khuyến nghị audit (94% commit là frontend).</li>
-          </ul>
-        </div>
-        <div class="banner warn" style="margin:0">
-          <b>Lưu ý về diễn biến điểm</b>
-          Report 04/08 ghi self của chuongdt là Đạt/Đạt/<b>Đạt</b> = 1.0 (role Backend) và đề xuất <b>giữ “Đạt”</b> cho Cam kết.
-          Sau khi reopen lúc 04/08 17:49 với lý do <em>“sai role”</em>, bản resubmit 17:53 thành Đạt/Đạt/<b>Tốt</b> = 1.025.
-          Tức lần sửa role đã đồng thời <b>nâng Cam kết</b> — nằm ngoài lý do reopen.
-        </div>
-      </div>
-    </div>
-    <p class="small" style="margin-bottom:0">Kết luận: OKR “Đạt” và Chất lượng “Đạt” là đúng. Riêng Cam kết không đạt ngưỡng “Tốt” ở cả 3 cấu phần
-      (đúng hạn — deploy prod ngoài kỳ · báo sớm rủi ro — 0 dấu vết · phối hợp — không có bằng chứng phản đối nhưng cũng không có bằng chứng ủng hộ mức vượt trội).</p>
-  </div>
-
-  <h2>3 người còn lại — bằng chứng giữ mức</h2>
-
-  <div class="card member" style="margin-bottom:12px">
-    <div class="mhead"><span class="nm">dattqh · Trịnh Quốc Hoàn Đạt</span>
-      <span class="pill p-info">7 entry · 4×XL + 3×L</span>
-      <span class="pill p-warn">7/7 còn <code>waiting</code> — chưa ai duyệt</span>
-      <span class="sc">1.065 · Tốt</span></div>
-    <div class="crit">
-      <div>OKR · 40%</div><div><span class="pill p-ok">Tốt</span></div>
-      <div><ul class="ev">
-        <li class="y">7/7 issue mốc khai đều đóng trong kỳ: <code>#188</code> 06/07 · <code>#195</code> 05/07 · <code>#182</code> 10/07 · <code>#205</code> 09/07 · <code>#218</code> 27/07 · <code>#190</code> 28/07 · <code>#217</code> 28/07 (APM epic). <code>#207</code> (S3 epic) đang mở — đúng bản chất epic 8 increment.</li>
-        <li class="y">Release <code>v1.7.0</code> — <b>release object created 27/07 21:34 (+07)</b>, trong kỳ. Agent <code>v2.3.69</code>: commit <code>79356d82e</code> 09/07 16:18, message khớp từng chữ “Windows log collector parity”.</li>
-        <li class="y">Khối lượng: <b>885 commit</b> / 9 repo trong T7; <b>22 issue</b> đóng bởi dattqh trên project 300. 2 hạng mục vượt cam kết đầu kỳ (VictoriaMetrics chạy tới cutover, Web Traffic ship Tier 2+3).</li>
-      </ul></div>
-      <div>Chất lượng · 35%</div><div><span class="pill p-warn">Đạt</span></div>
-      <div><ul class="ev">
-        <li class="n">Sự cố prod thật: backend bị pm2 kill do xung đột ngưỡng heap V8 2.006 MB vs pm2 1.024 MB — <code>#218</code> đóng 27/07.</li>
-        <li class="n">Bundle prod khách chạy bản cũ ~22 ngày (05/07 → 27/07) — tự khai trong handoff report.</li>
-        <li class="y">Tự phát hiện, đúng nguyên nhân gốc, fix trong kỳ; rất ít phải làm lại → “Đạt” là mức đúng, không phải “Tốt”.</li>
-      </ul></div>
-      <div>Cam kết · 25%</div><div><span class="pill p-ok">Tốt</span></div>
-      <div><ul class="ev">
-        <li class="y">22 issue đóng trong kỳ; 2 release đều trong hạn; chấm công 23 ngày · trễ 1 · 96%.</li>
-        <li class="y">Handoff report 27/07 có số liệu đo trực tiếp trên máy chủ + danh sách file backup để rollback.</li>
-        <li class="q"><b>Gap quy trình:</b> <code>__permission = self</code> → dattqh không thể tự chấm chính thức; và 7/7 entry OKR nằm <code>waiting</code> từ khi tạo. Cần người duyệt cấp trên (CTO / Giám đốc).</li>
-      </ul></div>
-    </div>
-  </div>
-
-  <div class="card member" style="margin-bottom:12px">
-    <div class="mhead"><span class="nm">ducnd · Nguyễn Đăng Đức</span>
-      <span class="pill p-info">6 entry · 2×XL + 4×L</span>
-      <span class="pill p-ok">đã khoá chính thức 1.1</span>
-      <span class="sc">1.1 · Tốt</span></div>
-    <div class="crit">
-      <div>OKR · 40%</div><div><span class="pill p-ok">Tốt</span></div>
-      <div><ul class="ev">
-        <li class="y">7/7 issue đóng đúng ngày khai: <code>#189</code> 01/07 · <code>#204</code> 06/07 · <code>#191</code> 10/07 · <code>#194</code> 16/07 · <code>#209</code> 21/07 · <code>#192</code>+<code>#193</code> 22/07. Thêm <code>#236</code>, <code>#237</code> đóng 31/07.</li>
-        <li class="y"><b>Đã xử lý 2/3 deliverable lệch kỳ</b> mà audit 04/08 phát hiện: <code>#236</code> và <code>#237</code> được thêm vào kỳ T7 ngày 04/08 17:58 (entry mới, đưa T7 từ 4 → 6 hạng mục).</li>
-        <li class="q">Còn lệch: <code>#215</code> (chuyển toàn bộ icon OneDash sang viui-icons, XL, đóng 31/07) vẫn khai ở <b>T8</b>; <code>#210</code> (File Manager ZIP, đóng 24/07) <b>chưa khai ở đâu</b>.</li>
-      </ul></div>
-      <div>Chất lượng · 35%</div><div><span class="pill p-ok">Tốt</span></div>
-      <div><ul class="ev">
-        <li class="y"><b>Đếm lại từ code, khớp tuyệt đối:</b> tại snapshot <code>d8a0d9f99</code> (31/07 17:25) có 155 file <code>*.tool.ts</code> — webserver 64 + projects 38 + observability 11 + server-management 6 + security 3 = <b>122</b> (đúng số khai); trừ Phase 1 (6) = <b>116 tool mới</b>. Phần không nhận (file-manager 19 + command-templates 8 + organization 5 + shared 1 = 33) phân định đúng.</li>
-        <li class="y">CLI <code>odmcp</code>: <b>13 slug</b> AI client trong <code>ai-client-registry.ts</code> — khớp số khai.</li>
-        <li class="q">Điểm trừ: 116 tool ship 22/07, đến 31/07 rà soát bằng lượt gọi thật mới ra 11 lỗi (1 lỗi ảnh hưởng 26 tool đọc). Đối trọng: tự phát hiện, tự tạo issue, sửa hết và đóng trong cùng kỳ trên quy mô 122 tool.</li>
-      </ul></div>
-      <div>Cam kết · 25%</div><div><span class="pill p-ok">Tốt</span></div>
-      <div><ul class="ev">
-        <li class="y">596 commit trong T7 (repo cloud-panel-application), 24 issue đóng — khối lượng cao thứ hai phòng.</li>
-        <li class="y">Chủ động nhận thêm việc ngoài 4 entry đã khai; chấm công 22 ngày · trễ 0 · 100%.</li>
-      </ul></div>
-    </div>
-  </div>
-
-  <div class="card member">
-    <div class="mhead"><span class="nm">hobv · Bùi Văn Hổ</span>
-      <span class="pill p-info">3 entry · 1×XL + 2×L</span>
-      <span class="pill p-warn">chính thức vẫn trống</span>
-      <span class="sc">1.025 · Tốt</span></div>
-    <div class="crit">
-      <div>OKR · 40%</div><div><span class="pill p-warn">Đạt</span></div>
-      <div><ul class="ev">
-        <li class="y">DS-R5 (milestone due 31/07): <code>#47</code>, <code>#48</code> closed 30/07 — trước hạn.</li>
-        <li class="n"><code>#49</code> (O3 — a11y + security verify) <b>vẫn mở đến 05/08</b> → quá hạn milestone; KR3.2 còn 94 P0.</li>
-        <li class="y">Bù lại có XL phát sinh hoàn thành: DAM assets.inet.vn dựng mới từ 0 — 242 commit trong T7, rải 19/31 ngày.</li>
-      </ul></div>
-      <div>Chất lượng · 35%</div><div><span class="pill p-warn">Đạt</span></div>
-      <div><ul class="ev">
-        <li class="n">a11y gate mù 16 ngày: <code>fa23a10e</code> (14/07 09:45) đưa hack <code>channel:'chrome'</code> kèm chính comment “MUST revert before session ends” vào main; <code>0511a248</code> (30/07 11:43) mới fix. <code>allow_failure:true</code> nuốt lỗi runtime, log “Stories scanned: 0” bị hiểu là sạch.</li>
-        <li class="y">Sự cố ở tầng CI gate, không phải production; tự phát hiện, tự khai chi tiết, tự fix trong kỳ → chặn “Tốt” nhưng giữ “Đạt”.</li>
-      </ul></div>
-      <div>Cam kết · 25%</div><div><span class="pill p-ok">Tốt</span></div>
-      <div><ul class="ev">
-        <li class="y"><b>Release v1.0.0 tạo 31/07 17:37 (+07) — trong kỳ</b> (xác minh bằng release object, xem mục “2 bẫy” bên dưới).</li>
-        <li class="y">Sổ rủi ro chủ động, rải đều trong tháng: 19 issue mở trong repo assets (13/07 nhóm X1–X4 + “8 câu hỏi severity”; 16/07 <code>#18</code> “Phase 0 Gate — Intake (CTO điền A/B/D6 prod)” → closed 28/07) + 10 issue triage <code>#50–#59</code> ngày 29/07.</li>
-        <li class="q">Merge <code>hobv → main</code> thực tế là MR <code>!1</code> lúc <b>03/08 08:34</b> — ngoài kỳ. Release cắt từ nhánh <code>hobv</code>, không từ main.</li>
-      </ul></div>
-    </div>
-  </div>
-
-  <h2>2 bẫy kỹ thuật đã vá trong lượt audit này</h2>
-  <div class="grid g2">
-    <div class="card">
-      <h3><span class="pill p-err">Bẫy 1</span> &nbsp;Lightweight tag không có ngày tạo</h3>
-      <ul class="tl">
-        <li><span class="d">Cách đọc sai</span><br><code>git for-each-ref --format='%(creatordate)'</code> trên tag lightweight trả về <b>ngày commit</b>, không phải ngày tạo tag. Tag có thể được tạo muộn rồi trỏ về commit cũ → “phát hành trong kỳ” không chứng minh được.</li>
-        <li><span class="d">Cách đọc đúng</span><br>Dùng release object: <code>GET /projects/:id/releases</code>. Kết quả: <code>assets v1.0.0 created_at 2026-07-31T10:37:36Z</code> (= 17:37 +07) · <code>cloud-panel v1.7.0 created_at 2026-07-27T14:34:37Z</code> (= 21:34 +07) → cả hai <b>trong kỳ</b>.</li>
-        <li><span class="d">Kết luận</span><br>Kết luận không đổi, nhưng chuỗi bằng chứng giờ mới đứng vững. Cả 2 tag đều là lightweight (<code>git cat-file -t</code> = <code>commit</code>).</li>
-      </ul>
-    </div>
-    <div class="card">
-      <h3><span class="pill p-err">Bẫy 2</span> &nbsp;“Đã lên production” ≠ merge, ≠ tag</h3>
-      <ul class="tl">
-        <li class="bad"><span class="d">portal-client</span><br>0 pipeline chạy trong T7 · <code>.gitlab-ci.yml</code> chỉ deploy nhánh <code>staging</code> → prod deploy làm tay, không để lại dấu vết audit. Mốc prod duy nhất đo được: bundle <code>last-modified 04/08 09:25 GMT</code>.</li>
-        <li class="bad"><span class="d">developers.inet.vn</span><br>10/10 pipeline fail, <code>deploy</code> luôn <code>skipped</code> → không có lần deploy CI thành công nào trong kỳ; site trả 200 nhưng không xác định được đang chạy bản nào.</li>
-        <li><span class="d">assets.inet.vn</span><br>Release in-period nhưng merge main 03/08; prod dùng cơ chế kéo ngoài repo → phải phân biệt rõ “release”, “merge main” và “tới khách”.</li>
-      </ul>
-    </div>
-  </div>
-
-  <h2>Việc cần làm</h2>
-  <div class="tw"><table>
-    <thead><tr><th>#</th><th>Việc</th><th>Mức</th><th>Người</th></tr></thead>
-    <tbody>
-      <tr><td>1</td><td>Mở lại điểm chính thức của <b>chuongdt</b> (<code>locked</code>) và hạ Cam kết &amp; tiến độ về <b>Đạt</b> → 1.0 “Đạt”; hoặc yêu cầu chuongdt giải trình mốc deploy production trong kỳ nếu muốn giữ “Tốt”</td><td><span class="pill p-err">quyết định</span></td><td>dattqh</td></tr>
-      <tr><td>2</td><td>Chấm điểm chính thức cho <b>hobv</b> — hiện <code>scores</code> rỗng, <code>status: draft</code>, để nguyên thì tháng 7 nằm ở 0</td><td><span class="pill p-err">blocker</span></td><td>dattqh</td></tr>
-      <tr><td>3</td><td>Chỉ định người duyệt cấp trên cho <b>dattqh</b>: 7/7 entry OKR đang <code>waiting</code> và <code>__permission: self</code> nên không tự chấm chính thức được</td><td><span class="pill p-warn">gap quy trình</span></td><td>CTO / Giám đốc</td></tr>
-      <tr><td>4</td><td>Sửa credential Docker Hub trong CI <code>developers.inet.vn</code> (build fail 10/10 T7) + đưa portal-client vào CI có job deploy production để có dấu vết audit</td><td><span class="pill p-err">CI đỏ 1 tháng</span></td><td>chuongdt + donv</td></tr>
-      <tr><td>5</td><td>Chốt kỳ cho <code>#215</code> (đóng 31/07, đang khai T8) và bổ sung <code>#210</code> (đóng 24/07, chưa khai) trước khi chốt KPI T8</td><td><span class="pill p-warn">lệch kỳ</span></td><td>ducnd + dattqh</td></tr>
-      <tr><td>6</td><td>hobv: đóng <code>#49</code> (quá hạn DS-R5) — a11y P0 còn 94; gate phải fail khi <code>stories_scanned == 0</code></td><td><span class="pill p-warn">nợ DS-R6</span></td><td>hobv</td></tr>
-      <tr><td>7</td><td>Chuẩn ghi nhận OKR từ T8: mỗi entry phải có <b>ngày landed + link issue/MR + số liệu đo được</b>. Không nhận nhãn chung “đã build lên production”</td><td><span class="pill p-info">chuẩn hoá</span></td><td>cả phòng</td></tr>
-      <tr><td>8</td><td>Xin quyền reporter cho dattqh trên repo <code>donv/inet.vn</code> (hiện API trả 404) để tháng sau kiểm chứng được <code>#81</code>/<code>#82</code> của hobv</td><td><span class="pill p-info">gap audit</span></td><td>dattqh</td></tr>
-    </tbody>
-  </table></div>
-
-  <h2>Nguồn &amp; phương pháp</h2>
-  <div class="src">
-    <b>my.inet.vn</b> — <code>POST /api/client/v1/p2evaluation/{get,compute,metrics}</code> · <code>POST /accountkpi/search</code> (luôn kèm <code>monthStr=072026</code>; API phân trang cứng 30 entry/trang).
-    <b>GitLab</b> <code>gitlabs.inet.vn/api/v4</code> — projects 256 (design-sys-fe) · 338 (assets.inet.vn) · 300 (cloud-panel-application) · 238 (portal-client) · 303 (developers.inet.vn): issues, milestones, merge_requests, pipelines, job trace, releases, tags.
-    <b>git local</b> — design-sys-fe · assets.inet.vn · cloud-panel-application · portal-client · portal-server · developers.inet.vn.
-    <b>HTTP production</b> — portal.inet.vn · onedash.inet.vn · developers.inet.vn · assets.inet.vn (header <code>last-modified</code> của bundle).
-    <br>Phương pháp 3 lớp theo <code>docs/monthly-okr-p2-review-guide.md</code>: hoàn thành tự báo × code thật × effort-weighted từ code footprint. Ngưỡng “Tốt” (okr) = hoàn thành cao <b>và</b> ≥1 deliverable stretch L–XL.
-    Tiêu chí Cam kết &amp; tiến độ lấy nguyên văn từ <code>/p2config/list</code>: <em>“Hoàn thành đúng hạn; chủ động báo sớm rủi ro; phối hợp tốt”</em> — trọng số 25%, không có rubric chi tiết trong cấu hình.
-  </div>
-
-  <footer>
-    Audit chỉ-đọc — không sửa, không submit, không khoá điểm P2 trong lượt này. Điểm cuối do quản lý khoá trên my.inet.vn.<br>
-    Report liên quan: <code>plans/reports/review-p2-hobv-260804-thang-07-2026.html</code> · <code>review-p2-chuongdt-ducnd-260804-thang-07-2026.html</code> · <code>review-p2-dattqh-260804-thang-07-2026.html</code>.<br>
-    <b>Dữ liệu nhân sự nội bộ — chỉ lưu local, không publish.</b> · Lập 05/08/2026 · BP Công Nghệ iNET
-  </footer>
+<div class="banner err"><div class="bt">1 điểm cần sửa: Cam kết &amp; tiến độ của chuongdt đang khoá ở “Tốt (1.2)” mà không có bằng chứng đỡ</div>Không có deploy production nào trong kỳ sau 13/07 · CI <code>main</code> đỏ 10/10 cả tháng không báo · <b>0 issue</b> do chuongdt mở trong T7 · chấm công trễ 4 ngày (đúng giờ 79%, thấp nhất phòng). Hạ về “Đạt” → tổng <b>1.025 → 1.0</b>, grade <b>Tốt → Đạt</b>.</div><div class="banner ok"><div class="bt">3 người còn lại: mức tự đánh giá chính xác — giữ nguyên</div>dattqh 1.065 · hobv 1.025 · ducnd 1.1. Mọi số liệu tự khai kiểm chứng được đều khớp nguồn độc lập (122/116 tool, 13 AI client, 885 commit, release <code>v1.7.0</code> 27/07, release <code>v1.0.0</code> 31/07).</div>
+<div class="banner info"><div class="bt">Ghi chú nguồn dữ liệu</div>Mức đánh giá lấy từ <code>p2evaluation/get</code> trên my.inet.vn — <b>nguồn duy nhất</b>. Tiêu chí + trọng số từ <code>p2config/list</code>. Không dùng file Excel: <code>.xlsx</code> trong repo chỉ giữ mẫu công thức tính P2, không chứa mức đánh giá.</div>
+<h2>Bảng chốt — trạng thái &amp; đề xuất</h2>
+<div class="tw"><table>
+<thead><tr><th>Người</th><th>Role P2</th><th>Tự đánh giá</th><th>Chính thức</th>
+<th>Trạng thái</th><th>OKR / Chất lượng / Cam kết</th><th>Đề xuất</th></tr></thead>
+<tbody><tr class="">
+  <td><b>dattqh</b></td>
+  <td>Fullstack<br><span class="small">Trưởng phòng Công Nghệ</span></td>
+  <td><b>1.065</b> <span class="pill p-ok">Tốt</span><br>
+      <span class="small">submit 31/07 13:26</span></td>
+  <td><span class="pill p-gray">trống · 0</span></td>
+  <td><span class="pill p-gray">trống · chưa ai chấm</span> · <code>scores={} · status:&quot;draft&quot; · __permission: self</code></td>
+  <td>Tốt / Đạt / Tốt</td>
+  <td><span class="pill p-ok">Giữ nguyên</span><br><span class="small">cấp trên khoá điểm</span></td>
+</tr><tr class="">
+  <td><b>hobv</b></td>
+  <td>Design System</td>
+  <td><b>1.025</b> <span class="pill p-ok">Tốt</span><br>
+      <span class="small">submit 31/07 17:04</span></td>
+  <td><span class="pill p-gray">trống · 0</span></td>
+  <td><span class="pill p-gray">trống · chưa ai chấm</span> · <code>scores={} · status:&quot;draft&quot;</code></td>
+  <td>Đạt / Đạt / Tốt</td>
+  <td><span class="pill p-ok">Giữ nguyên</span><br><span class="small">cần chấm chính thức</span></td>
+</tr><tr class="">
+  <td><b>ducnd</b></td>
+  <td>Frontend</td>
+  <td><b>1.1</b> <span class="pill p-ok">Tốt</span><br>
+      <span class="small">submit 04/08 18:22</span></td>
+  <td><b>1.1</b> <span class="pill p-ok">Tốt</span><br><span class="small">khoá 05/08 10:37</span></td>
+  <td><span class="pill p-info">locked · phải reopen mới sửa được</span></td>
+  <td>Tốt / Tốt / Tốt</td>
+  <td><span class="pill p-ok">Giữ nguyên</span></td>
+</tr><tr class="flag">
+  <td><b>chuongdt</b></td>
+  <td>Frontend<br><span class="small">đã sửa từ Backend 04/08</span></td>
+  <td><b>1.025</b> <span class="pill p-ok">Tốt</span><br>
+      <span class="small">submit 04/08 17:53</span></td>
+  <td><b>1.025</b> <span class="pill p-ok">Tốt</span><br><span class="small">khoá 05/08 10:38</span></td>
+  <td><span class="pill p-info">locked · phải reopen mới sửa được</span></td>
+  <td>Đạt / Đạt / Tốt</td>
+  <td><span class="pill p-err">Hạ Cam kết → Đạt</span><br><span class="small">tổng về 1.0 “Đạt”</span></td>
+</tr></tbody></table></div>
+<h2>Cảnh báo phương pháp — số liệu tham chiếu trên form</h2>
+<div class="grid g2">
+  <div class="card"><h3>Cột tham chiếu rỗng ở cả 4 người</h3><ul class="ev"><li class="n"><code>tasks.total = 0</code> ở cả 4 → “Task hoàn thành 0/0 (0%)” và “Task đúng hạn 0%” là <b>KHÔNG CÓ DỮ LIỆU</b>, không phải 0% thật. Không được dùng để hạ điểm.</li><li class="n"><code>ticketConversations.count = 0</code> → “AI chấm điểm ticket” chưa có dữ liệu cho cả phòng.</li><li class="q">Khối “ĐÁNH GIÁ CHÍNH THỨC = 0 / Chưa đạt” trên portal (dattqh, hobv) <b>không phải điểm xấu</b> — đó là <code>scores = {}</code> + <code>status: draft</code>, tức chưa ai chấm. Để nguyên thì kỳ T7 nằm mãi ở 0.</li><li class="y">Chỉ <b>chấm công</b> là số thật — và nó phân hoá rõ giữa 4 người (bảng bên).</li></ul><p class="small" style="margin-bottom:0">Nguồn: <code>POST /api/client/v1/p2evaluation/metrics</code> · từng account · <code>period=2026-07</code></p></div>
+  <div class="card"><h3>Chấm công tháng 7 — số duy nhất máy đo được</h3>
+  <div class="tw" style="border:none"><table style="min-width:0">
+  <thead><tr><th>Người</th><th>Ngày duyệt</th><th>Trễ</th><th>Đúng giờ</th></tr></thead>
+  <tbody><tr class=""><td>dattqh</td><td>23</td><td>1</td><td><span class="pill p-ok">96%</span></td></tr><tr class=""><td>ducnd</td><td>22</td><td>0</td><td><span class="pill p-ok">100%</span></td></tr><tr class=""><td>hobv</td><td>21</td><td>0</td><td><span class="pill p-ok">100%</span></td></tr><tr class="flag"><td>chuongdt</td><td>19</td><td>4</td><td><span class="pill p-err">79%</span></td></tr></tbody></table></div></div>
+</div>
+<h2>Từng thành viên — điểm, công thức, bằng chứng từng entry</h2>
+<div class="card member flag">
+  <div class="mhead"><span class="nm">chuongdt · Đinh Tiến Chương</span><span class="pill p-gray">3 entry · tất cả approved</span> <span class="pill p-info">1×XL + 2×M</span> <span class="pill p-err">official đã locked ở 1.025</span> 
+    <span class="sc">1.025 → 1.0</span></div>
+  <div class="fx">core     = 1.0×0.30 + 1.0×0.25 + 1.0×0.10 + 1.0×0.35 = 1.00      // trọng số role Frontend
+delivery = 1.0×0.40 + 1.0×0.35 + 1.2×0.25 = 0.40+0.35+0.30 = 1.05
+total    = 1.00×0.5 + 1.05×0.5 = 1.025 → &quot;Tốt&quot;
+NẾU Cam kết = Đạt: delivery = 1.00 → total = 1.000 → &quot;Đạt&quot;   (đã validate qua /p2evaluation/compute)
+<span class="srv">// khớp computed server trả về (1.025 / Tốt) · subScores A .300 · B .250 · C .100 · D .350</span></div>
+  <div class="crit"><div>Mức độ hoàn thành OKR<br><span class="small">40%</span></div><div><span class="pill p-warn">Đạt</span></div><div><ul class="ev"><li class="y">3/3 hạng mục có code thật landed trong kỳ, có 1 stretch XL (ViUI base kit) → về lý có cơ sở bàn “Tốt”.</li><li class="n">ViUI chỉ merge sát hạn 31/07 14:45; hạng mục Telegram monitoring không kiểm chứng được mốc production → “Đạt” là mức đúng.</li></ul></div><div>Chất lượng kết quả<br><span class="small">35%</span></div><div><span class="pill p-warn">Đạt</span></div><div><ul class="ev"><li class="y">Không phát hiện lỗi production hay phải làm lại.</li><li class="n">CI đỏ 10/10 do credential Docker Hub (hạ tầng, không phải code) — nhưng để đỏ cả tháng không xử lý là điểm trừ vận hành, đủ để chặn “Tốt”.</li></ul></div><div>Cam kết &amp; tiến độ<br><span class="small">25%</span></div><div><span class="pill p-err">Tốt → đề xuất Đạt</span></div><div><ul class="ev"><li class="n"><b>Không có dấu vết deploy production nào trong kỳ sau 13/07.</b> Tag prod cuối của T7 là <code>v2026.07.13</code> (13/07 21:28); tag kế tiếp <code>v2026.08.03</code> (03/08). Bundle <code>portal.inet.vn/assets/index-DPv-TWxL.js</code> có <code>last-modified: 04/08 09:25 GMT</code>. Cả 2 hạng mục portal merge <b>sau</b> mốc 13/07 → chỉ có bằng chứng lên prod từ 03–04/08.</li><li class="n"><b>CI <code>main</code> của developers.inet.vn fail 10/10 pipeline suốt T7.</b> Job <code>build</code> failed tại <code>docker login</code> → <code>unauthorized: incorrect username or password</code> (registry-1.docker.io), job <code>deploy</code> <code>skipped</code> (job 41198, pipeline 7612).</li><li class="n"><b>0 issue do chuongdt mở trong T7</b> trên cả <code>donv/portal-client</code> (238) và <code>donv/developers.inet.vn</code> (303) — toàn bộ issue trong kỳ do <code>donv</code> mở. Tiêu chí ghi rõ “chủ động báo sớm rủi ro” → không có dấu vết nào.</li><li class="n"><b>Chấm công 19 ngày · trễ 4 · đúng giờ 79%</b> — thấp nhất phòng, chênh rõ so với 96–100% của 3 người còn lại.</li><li class="n"><b>Record OKR vẫn chỉ “Đã build lên production” × 3</b>, không ngày landed, không link issue/MR, không phân biệt staging/production — dù audit 04/08 đã yêu cầu bổ sung.</li><li class="q"><b>Diễn biến điểm:</b> report 04/08 ghi self là Đạt/Đạt/<b>Đạt</b> = 1.0 (role Backend) và đề xuất giữ “Đạt”. Sau reopen 04/08 17:49 lý do <em>“sai role”</em>, bản resubmit 17:53 thành Đạt/Đạt/<b>Tốt</b> = 1.025 — lần sửa role đã đồng thời nâng Cam kết, nằm ngoài lý do reopen.</li><li class="y">Đối trọng: đã sửa role P2 <code>Backend → Frontend</code> theo khuyến nghị (179 commit portal-client + 8 portal-server + 19 developers.inet.vn trong T7, 94% là frontend).</li></ul></div></div>
+  <div class="tw" style="margin-top:12px"><table>
+<thead><tr><th>Effort</th><th>Duyệt</th><th>Hạng mục OKR</th><th>Bằng chứng · ngày landed</th></tr></thead>
+<tbody><tr><td><span class="pill p-info">M</span></td><td><code>approved</code></td><td>Giao diện trang Cộng tác viên (Affiliate/CTV) trên Portal — gom về 1 trang tổng quan, kho marketing, Học viện CTV</td><td>MR <code>!25 chuongdt/affiliate-ctv-menu-stats→master</code> merged <b>23/07 17:38</b> · ~40 commit portal-client + 10 portal-server · record chỉ ghi “Đã build lên production”, <b>không có mốc prod trong kỳ</b> (bundle prod 04/08 09:25). Effort đo lại: <b>L</b> (2 tầng, 5 khu chức năng) — khai thấp hơn thực tế.</td></tr><tr><td><span class="pill p-info">M</span></td><td><code>approved</code></td><td>Báo cáo giám sát vận hành tự động qua Telegram (developers.inet.vn)</td><td>9 commit 17–22/07 đúng mô tả (telegram alerts abnormal API keys 17/07, daily ops report 20/07, notification-channels 21/07) · <b>CI main FAIL 10/10 trong T7</b>, <code>deploy</code> luôn <code>skipped</code> → mốc production <b>không kiểm chứng được</b>.</td></tr><tr><td><span class="pill p-info">XL</span></td><td><code>approved</code></td><td>Bộ base component dùng chung cho Portal theo khung ViUI (Modal/Card/Table/Button/Tabs, namespace CSS riêng)</td><td>MR <code>!26 viui-responsive→master</code> merged <b>31/07 14:45 (+07)</b> — trong hạn · 77 commit 25–31/07 · bundle prod chứa <code>BaseSheetRow</code>/<code>BaseActionMenu</code>/<code>BaseCopyText</code> nhưng <b>last-modified 04/08 09:25</b> → deploy prod <b>ngoài kỳ</b>. portal-client có <b>0 pipeline</b> trong T7, <code>.gitlab-ci.yml</code> chỉ deploy nhánh <code>staging</code> → prod deploy thủ công, không để lại dấu vết audit.</td></tr></tbody></table></div>
+  
+</div><div class="card member ">
+  <div class="mhead"><span class="nm">dattqh · Trịnh Quốc Hoàn Đạt</span><span class="pill p-info">7 entry · 4×XL + 3×L</span> <span class="pill p-warn">7/7 còn waiting — chưa ai duyệt</span> <span class="pill p-gray">__permission: self → không tự chấm official</span> 
+    <span class="sc">1.065 · Tốt</span></div>
+  <div class="fx">core     = 1.0×0.30 + 1.0×0.30 + 1.0×0.15 + 1.0×0.25 = 1.00      // trọng số role Fullstack
+delivery = 1.2×0.40 + 1.0×0.35 + 1.2×0.25 = 0.48+0.35+0.30 = 1.13
+total    = 1.00×0.5 + 1.13×0.5 = 1.065 → &quot;Tốt&quot;
+<span class="srv">// khớp selfComputed server trả về (1.065 / Tốt) · subScores A .300 · B .300 · C .150 · D .250</span></div>
+  <div class="crit"><div>Mức độ hoàn thành OKR<br><span class="small">40%</span></div><div><span class="pill p-ok">Tốt</span></div><div><ul class="ev"><li class="y">7/7 hạng mục có bằng chứng độc lập; <b>4 hạng mục XL</b>; 2 hạng mục <b>vượt hẳn cam kết đầu kỳ</b> (VictoriaMetrics cam kết “plan + kickoff” nhưng chạy tới cutover production; Web Traffic cam kết kickoff nhưng ship đủ Tier 2+3 live-fire 07/07).</li><li class="y">Khối lượng: <b>885 commit</b> / 9 repo trong T7; <b>22 issue</b> đóng bởi dattqh trên project 300. Thoả ngưỡng “Tốt = hoàn thành cao + ≥1 stretch L–XL”.</li></ul></div><div>Chất lượng kết quả<br><span class="small">35%</span></div><div><span class="pill p-warn">Đạt</span></div><div><ul class="ev"><li class="n">Sự cố prod thật: backend bị pm2 kill do xung đột ngưỡng heap V8 2.006 MB vs pm2 1.024 MB, <code>restarts 37</code> — <code>#218</code> đóng 27/07.</li><li class="n">Bundle prod khách chạy bản cũ ~22 ngày (05/07 → 27/07 16:36) — tự khai trong handoff report. Traces tắt hoàn toàn ở prod khách (0 biến <code>OTEL_*</code>).</li><li class="y">Tự phát hiện, đúng nguyên nhân gốc, fix trong kỳ; cả tháng chỉ 4 commit revert/rollback/hotfix toàn repo → “Đạt” là mức đúng, không phải “Tốt”.</li></ul></div><div>Cam kết &amp; tiến độ<br><span class="small">25%</span></div><div><span class="pill p-ok">Tốt</span></div><div><ul class="ev"><li class="y">22 issue đóng trong kỳ; 2 mốc phát hành đều trong hạn (release <code>v1.7.0</code> 27/07 21:34 · agent <code>v2.3.69</code> 09/07); chấm công 23 ngày · trễ 1 · 96%.</li><li class="y">Handoff report 27/07 có số liệu đo trực tiếp trên máy chủ + danh sách file backup để rollback; 2 buổi đào tạo nội bộ + 2 họp CXO trong tháng.</li><li class="q"><b>Gap quy trình:</b> <code>__permission = self</code> → dattqh không thể tự chấm chính thức; và 7/7 entry OKR nằm <code>waiting</code> từ khi tạo (3 người kia đều <code>approved</code> bởi dattqh). Cần người duyệt cấp trên (CTO / Giám đốc).</li></ul></div></div>
+  <div class="tw" style="margin-top:12px"><table>
+<thead><tr><th>Effort</th><th>Duyệt</th><th>Hạng mục OKR</th><th>Bằng chứng · ngày landed</th></tr></thead>
+<tbody><tr><td><span class="pill p-info">L</span></td><td><code>waiting</code></td><td>Web-scanner detection sang đường VictoriaLogs (preset nginx VRL, alert anomaly, dashboard LogsQL, bỏ OSSEC)</td><td><code>#195</code> closed <b>05/07</b> · <code>#188</code> closed <b>06/07</b> · <code>#182</code> closed <b>10/07</b> — live-fire trên traffic thật 07/07. Record ghi “#182 giữ mở cố ý” là <b>lạc hậu</b>: thực tế đã đóng 10/07 → khai <b>thấp hơn</b> thực tế.</td></tr><tr><td><span class="pill p-info">XL</span></td><td><code>waiting</code></td><td>VictoriaMetrics thay TimescaleDB: VM ingress sau vmauth, agent dual-write, parity test</td><td>commit <code>e15ffa42a</code> 05/07 teardown TimescaleDB · <code>51b3a2650</code> 06/07 “schema dropped, postgres decommissioned both Server C” — khớp claim từng chữ · <code>#188</code> closed 06/07. Chạy hết 6 phase tới cutover, <b>vượt cam kết</b>.</td></tr><tr><td><span class="pill p-info">L</span></td><td><code>waiting</code></td><td>Command Capture — audit lệnh shell tập trung (auditd → laurel → Vector VRL → VictoriaLogs)</td><td>Release <code>v1.7.0</code> — <b>release object created 27/07 21:34 (+07)</b> qua <code>GET /projects/300/releases</code> (tag là lightweight nên không dùng creatordate) · <code>#190</code> closed <b>28/07</b>. Tự khai rõ: xong giai đoạn 1–3/5, chỉ Linux.</td></tr><tr><td><span class="pill p-info">XL</span></td><td><code>waiting</code></td><td>Object Storage S3 trên CEPH — Increment 1 (kiến trúc + CEPH test lab + S3 gateway staging)</td><td>Epic <code>#207</code> <b>còn mở</b> — đúng bản chất epic 8 increment, không phải trễ · CEPH Squid 19.2.3 3 node HEALTH_OK + RGW S3 HTTPS + cô lập tenant, kiểm thử PASS · red-team 31 phát hiện → 23 tiếp nhận (nguồn: infra-report nội bộ). Dịch vụ được duyệt 11/07.</td></tr><tr><td><span class="pill p-info">L</span></td><td><code>waiting</code></td><td>Thu thập nhật ký tập trung cho máy chủ Windows (parity với Linux)</td><td>commit <code>79356d82e</code> <b>09/07 16:18</b> “chore(agent): release v2.3.69 — Windows log collector parity” — khớp cả số hiệu lẫn mô tả · <code>#205</code> closed <b>09/07</b> · E2E staging đạt 4/4 tiêu chí tự khai.</td></tr><tr><td><span class="pill p-info">XL</span></td><td><code>waiting</code></td><td>Nền tảng APM đa khách hàng (traces theo tenant, service map, bộ telemetry chuẩn OTel)</td><td>Epic <code>#217</code> closed <b>28/07</b> · sửa lỗi phồng chỉ số 9.800 lần bằng <code>service.instance.id</code> + <code>metrics_expiration=10m</code>, thời gian tải 640 ms → 4 ms (nguồn: plan phase-07 nội bộ) · tự khai đã <b>gỡ bỏ hoàn toàn</b> bộ SDK riêng 8 giai đoạn để chuyển sang gói OTel chuẩn.</td></tr><tr><td><span class="pill p-info">XL</span></td><td><code>waiting</code></td><td>Object Storage — mở rộng giai đoạn 2→8 thành dịch vụ đủ nghiệp vụ (user/quyền, quản trị bucket, 2-tier lifecycle, cô lập, cảnh báo)</td><td>Test count 35/35 · 46/46 · 18/18 tìm thấy trong <code>plan.md</code> + <code>increments/inc6-2tier-storage/plan.md</code> · tự khai chặn 1 lỗ hổng leo quyền nghiêm trọng giữa các tài khoản · trạng thái đúng mức: chạy nội bộ, <b>với khách vẫn ẩn</b>.</td></tr></tbody></table></div>
+  
+</div><div class="card member ">
+  <div class="mhead"><span class="nm">ducnd · Nguyễn Đăng Đức</span><span class="pill p-info">6 entry · 2×XL + 4×L</span> <span class="pill p-ok">official đã khoá 1.1</span> <span class="pill p-gray">596 commit T7 · 24 issue đóng</span> 
+    <span class="sc">1.1 · Tốt</span></div>
+  <div class="fx">core     = 1.0×0.30 + 1.0×0.25 + 1.0×0.10 + 1.0×0.35 = 1.00      // trọng số role Frontend
+delivery = 1.2×0.40 + 1.2×0.35 + 1.2×0.25 = 0.48+0.42+0.30 = 1.20
+total    = 1.00×0.5 + 1.20×0.5 = 1.10 → &quot;Tốt&quot;
+<span class="srv">// khớp cả selfComputed và computed server trả về (1.1 / Tốt)</span></div>
+  <div class="crit"><div>Mức độ hoàn thành OKR<br><span class="small">40%</span></div><div><span class="pill p-ok">Tốt</span></div><div><ul class="ev"><li class="y">7/7 issue mốc khai đóng đúng ngày (bảng entry bên dưới), 2 hạng mục XL.</li><li class="y"><b>Đã xử lý 2/3 deliverable lệch kỳ</b> mà audit 04/08 phát hiện: <code>#236</code> và <code>#237</code> được thêm vào kỳ T7 ngày <b>04/08 17:58</b>, đưa T7 từ 4 → 6 hạng mục.</li><li class="q">Còn lệch: <code>#215</code> (chuyển toàn bộ icon OneDash sang viui-icons, XL, đóng 31/07) vẫn khai ở <b>T8</b>; <code>#210</code> (File Manager ZIP, đóng 24/07) <b>chưa khai ở đâu</b>.</li></ul></div><div>Chất lượng kết quả<br><span class="small">35%</span></div><div><span class="pill p-ok">Tốt</span></div><div><ul class="ev"><li class="y"><b>Đếm lại từ code, khớp tuyệt đối:</b> tại snapshot <code>d8a0d9f99</code> (31/07 17:25) có 155 file <code>*.tool.ts</code> — webserver 64 + projects 38 + observability 11 + server-management 6 + security 3 = <b>122</b> (đúng số khai); trừ Phase 1 (6) = <b>116 tool mới</b>. Phần không nhận (file-manager 19 + command-templates 8 + organization 5 + shared 1 = 33) phân định đúng.</li><li class="y">CLI <code>odmcp</code>: <b>13 slug</b> AI client trong <code>ai-client-registry.ts</code> — khớp số khai.</li><li class="q">Điểm trừ: 116 tool ship 22/07, đến 31/07 rà soát bằng lượt gọi thật mới ra 11 lỗi (1 lỗi ảnh hưởng 26 tool đọc). Đối trọng: tự phát hiện, tự tạo issue, sửa hết và đóng trong cùng kỳ trên quy mô 122 tool.</li></ul></div><div>Cam kết &amp; tiến độ<br><span class="small">25%</span></div><div><span class="pill p-ok">Tốt</span></div><div><ul class="ev"><li class="y">596 commit trong T7 (cloud-panel-application), 24 issue đóng — khối lượng cao thứ hai phòng.</li><li class="y">Chủ động tự tạo <code>#209</code> (16/07) rồi đóng 21/07; nhận thêm việc ngoài 4 entry đã khai đầu kỳ; chấm công 22 ngày · trễ 0 · 100%.</li></ul></div></div>
+  <div class="tw" style="margin-top:12px"><table>
+<thead><tr><th>Effort</th><th>Duyệt</th><th>Hạng mục OKR</th><th>Bằng chứng · ngày landed</th></tr></thead>
+<tbody><tr><td><span class="pill p-info">L</span></td><td><code>approved</code></td><td>Quản lý Service Linux qua Agent (systemd) — parity với Windows Services + realtime push</td><td><code>#189</code> closed <b>01/07</b> (closed_by ducnd) · CI gate <code>pnpm ci:all</code> + <code>make test/lint</code> theo record.</td></tr><tr><td><span class="pill p-info">XL</span></td><td><code>approved</code></td><td>Admin Analytics Dashboard 3-lens (Điều hành / Tăng trưởng / Vận hành) + xlsx export</td><td><code>#204</code> closed <b>06/07</b> · đủ hạng mục checklist trong issue theo record.</td></tr><tr><td><span class="pill p-info">L</span></td><td><code>approved</code></td><td>MCP server OneDash kết nối từ AI client — nhóm tool server-management end-to-end</td><td><code>#191</code> closed <b>10/07</b> · <code>#194</code> closed <b>16/07</b> · 6 tool <code>server-management</code> tại snapshot 31/07.</td></tr><tr><td><span class="pill p-info">XL</span></td><td><code>approved</code></td><td>Mở rộng MCP sang Project / Webserver / Observability + CLI odmcp device-code flow</td><td><code>#192</code>, <code>#193</code> closed <b>22/07</b> · <code>#209</code> closed <b>21/07</b> · đếm tại <code>d8a0d9f99</code>: 64+38+11+6+3 = <b>122 tool</b>, −6 Phase 1 = <b>116 mới</b> · <b>13</b> slug AI client.</td></tr><tr><td><span class="pill p-info">L</span></td><td><code>approved</code></td><td>RDP nói rõ lý do lỗi thật từ guacd — phân loại 7 nhóm nguyên nhân, bỏ mã lỗi tự suy</td><td><code>#237</code> closed <b>31/07</b> · entry KPI <b>tạo 04/08 17:58</b> (chuyển từ T8 về T7 sau audit 04/08).</td></tr><tr><td><span class="pill p-info">L</span></td><td><code>approved</code></td><td>Rà soát toàn bộ bề mặt tool MCP bằng lượt gọi thật trên VPS Linux (77+ lượt, 4 nhóm tool)</td><td><code>#236</code> closed <b>31/07</b> · 11 lỗi thật đã sửa, gồm 1 lỗi ảnh hưởng toàn bộ 26 tool đọc · entry KPI <b>tạo 04/08 17:58</b>.</td></tr></tbody></table></div>
+  <div class="unv"><b>Không kiểm chứng được</b> (không đoán theo hướng nào)<ul style="margin:4px 0 0;padding-left:18px"><li>Không có claim nào của ducnd thuộc diện không kiểm chứng được — toàn bộ số liệu đều đối chiếu được từ git object + GitLab API.</li></ul></div>
+</div><div class="card member ">
+  <div class="mhead"><span class="nm">hobv · Bùi Văn Hổ</span><span class="pill p-info">3 entry · 1×XL + 2×L</span> <span class="pill p-warn">official vẫn trống — chưa chấm</span> <span class="pill p-gray">242 commit assets + 138 commit design-sys-fe</span> 
+    <span class="sc">1.025 · Tốt</span></div>
+  <div class="fx">core     = 1.0×0.30 + 1.0×0.25 + 1.0×0.15 + 1.0×0.30 = 1.00      // trọng số role Design System
+delivery = 1.0×0.40 + 1.0×0.35 + 1.2×0.25 = 0.40+0.35+0.30 = 1.05
+total    = 1.00×0.5 + 1.05×0.5 = 1.025 → &quot;Tốt&quot;
+<span class="srv">// khớp selfComputed server trả về (1.025 / Tốt) · subScores A .300 · B .250 · C .150 · D .300</span></div>
+  <div class="crit"><div>Mức độ hoàn thành OKR<br><span class="small">40%</span></div><div><span class="pill p-warn">Đạt</span></div><div><ul class="ev"><li class="y">DS-R5 (milestone due <b>31/07</b>): <code>#47</code>, <code>#48</code> closed <b>30/07 05:29</b> — trước hạn.</li><li class="n"><code>#49</code> (O3 — a11y + security verify) <b>vẫn mở đến 05/08</b> → quá hạn milestone; KR3.2 còn 94 P0 (57 color-contrast + 26 aria-required-attr + 11 aria-progressbar-name).</li><li class="y">Bù lại có XL phát sinh hoàn thành: DAM assets.inet.vn dựng mới từ 0 — 242 commit trong T7, rải 19/31 ngày (không dồn cuối kỳ).</li></ul></div><div>Chất lượng kết quả<br><span class="small">35%</span></div><div><span class="pill p-warn">Đạt</span></div><div><ul class="ev"><li class="n">a11y gate mù 16 ngày: <code>fa23a10e</code> (14/07 09:45) đưa hack <code>channel:'chrome'</code> kèm chính comment “MUST revert before session ends” vào main; <code>0511a248</code> (30/07 11:43) mới fix. <code>allow_failure:true</code> nuốt lỗi runtime, log “Stories scanned: 0” bị hiểu là sạch.</li><li class="y">Sự cố ở tầng CI gate, không phải production; tự phát hiện, tự khai chi tiết trong record, tự fix trong kỳ → chặn “Tốt” nhưng giữ “Đạt”.</li></ul></div><div>Cam kết &amp; tiến độ<br><span class="small">25%</span></div><div><span class="pill p-ok">Tốt</span></div><div><ul class="ev"><li class="y"><b>Release <code>v1.0.0</code> created 31/07 17:37 (+07) — trong kỳ</b>, xác minh qua <code>GET /projects/338/releases</code> (tag lightweight nên creatordate không dùng được).</li><li class="y">Sổ rủi ro chủ động, rải đều trong tháng: 19 issue mở trong repo assets (13/07 nhóm X1–X4 + “8 câu hỏi severity”; 16/07 <code>#18</code> “Phase 0 Gate — Intake (CTO điền A/B/D6 prod)” → closed 28/07) + 10 issue triage <code>#50–#59</code> ngày 29/07.</li><li class="q">Merge <code>hobv → main</code> thực tế là MR <code>!1</code> lúc <b>03/08 08:34</b> — ngoài kỳ. Release cắt từ nhánh <code>hobv</code>, không từ main; prod dùng cơ chế kéo ngoài repo.</li></ul></div></div>
+  <div class="tw" style="margin-top:12px"><table>
+<thead><tr><th>Effort</th><th>Duyệt</th><th>Hạng mục OKR</th><th>Bằng chứng · ngày landed</th></tr></thead>
+<tbody><tr><td><span class="pill p-info">L</span></td><td><code>approved</code></td><td>DS-R5: MKT Enablement &amp; Ecosystem (O1 landing qua MCP · O2 Icon Ecosystem · O3 Governance)</td><td>Milestone DS-R5 due <b>31/07</b> · <code>#47</code>+<code>#48</code> closed <b>30/07</b>, <code>#49</code> <b>còn mở</b> → 2/3 Objective. O1: 5 template MCP (target ≥4), landing <code>viui.inet.vn/lp/ssl</code> HTTP 200 104.726 B. O2: npm <code>@hobui/viui-icons</code> latest <b>1.4.1</b> (khai 1.4.0 — thấp hơn thực). O3: a11y baseline 94 P0 khớp job 42074.</td></tr><tr><td><span class="pill p-info">L</span></td><td><code>approved</code></td><td>Cập nhật nội dung &amp; tài liệu website iNET (inet.vn) — #81 mẫu hợp đồng, #82 nội dung sau rà soát</td><td>Repo <code>donv/inet.vn</code> — GitLab API trả <b>404</b> với token hiện tại → <b>không kiểm chứng được</b>. Theo lời khai: <code>#81</code> đã closed; <code>#82</code> fix + push 27/07 khi sale/kế toán báo lỗi căn chỉnh, cố ý giữ mở chờ phản hồi.</td></tr><tr><td><span class="pill p-info">XL</span></td><td><code>approved</code></td><td>Assets iNET — nền tảng DAM quản trị &amp; phân phối tài nguyên thương hiệu (dựng mới từ 0)</td><td>Initial commit 01/07 → <b>242 commit</b> T7 (240 no-merge) → release <b>v1.0.0 created 31/07 17:37 (+07)</b>, trong kỳ · 3 trang live HTTP 200 (/, /icons 105.332 B, /brand-center 217.505 B) · 7 hạng mục security đóng 16/07 + ClamAV 23–24/07 · 2.097 icon entry · merge main <b>03/08</b> (ngoài kỳ).</td></tr></tbody></table></div>
+  <div class="unv"><b>Không kiểm chứng được</b> (không đoán theo hướng nào)<ul style="margin:4px 0 0;padding-left:18px"><li><code>#81</code> / <code>#82</code> trên repo <code>donv/inet.vn</code>: API trả 404 (repo ngoài scope token dattqh) → <b>không kết luận</b> theo hướng nào. Cần xin quyền reporter để kỳ sau kiểm chứng được.</li><li>“Bàn giao vận hành cho CTO 20/07”: không có artefact máy đọc được để xác nhận đúng ngày; chỉ có <code>#18</code> “Phase 0 Gate — Intake (CTO điền A/B/D6 prod)” mở 16/07, closed 28/07 làm dấu vết gián tiếp.</li></ul></div>
+</div>
+<h2>Bẫy kỹ thuật đã vá trong lượt audit này</h2><div class="grid g2"><div class="card"><h3><span class="pill p-err">Bẫy 1</span> &nbsp;Lightweight tag không có ngày tạo</h3><ul class="tl"><li class="bad"><span class="d">Cách đọc sai</span><br><code>git for-each-ref --format='%(creatordate)'</code> trên tag lightweight trả về <b>ngày commit</b>, không phải ngày tạo tag. Tag có thể được tạo muộn rồi trỏ về commit cũ → “phát hành trong kỳ” không chứng minh được.</li><li class=""><span class="d">Cách đọc đúng</span><br>Dùng release object: <code>GET /projects/:id/releases</code> → <code>created_at</code>. Kết quả: <code>assets v1.0.0</code> = <code>2026-07-31T10:37:36Z</code> (17:37 +07) · <code>cloud-panel v1.7.0</code> = <code>2026-07-27T14:34:37Z</code> (21:34 +07) → cả hai <b>trong kỳ</b>.</li><li class=""><span class="d">Kết luận</span><br>Kết luận không đổi, nhưng chuỗi bằng chứng giờ mới đứng vững. Cả 2 tag đều lightweight (<code>git cat-file -t</code> = <code>commit</code>).</li></ul></div><div class="card"><h3><span class="pill p-err">Bẫy 2</span> &nbsp;“Đã lên production” ≠ merge, ≠ tag</h3><ul class="tl"><li class="bad"><span class="d">portal-client</span><br>0 pipeline chạy trong T7 · <code>.gitlab-ci.yml</code> chỉ deploy nhánh <code>staging</code> → prod deploy làm tay, không để lại dấu vết audit. Mốc prod duy nhất đo được: bundle <code>last-modified 04/08 09:25 GMT</code>.</li><li class="bad"><span class="d">developers.inet.vn</span><br>10/10 pipeline fail, <code>deploy</code> luôn <code>skipped</code> → không có lần deploy CI thành công nào trong kỳ; site trả 200 nhưng không xác định được đang chạy bản nào.</li><li class=""><span class="d">assets.inet.vn</span><br>Release in-period nhưng merge main 03/08; prod dùng cơ chế kéo ngoài repo → phải phân biệt rõ “release”, “merge main” và “tới khách”.</li></ul></div></div>
+<h2>Việc cần làm</h2><div class="tw"><table>
+<thead><tr><th>#</th><th>Việc</th><th>Mức</th><th>Người</th></tr></thead>
+<tbody><tr><td>1</td><td>Mở lại điểm chính thức của <b>chuongdt</b> (đang <code>locked</code>) và hạ Cam kết & tiến độ về <b>Đạt</b> → 1.0 “Đạt”; hoặc yêu cầu chuongdt giải trình mốc deploy production trong kỳ nếu muốn giữ “Tốt”</td><td><span class="pill p-err">quyết định</span></td><td>dattqh</td></tr><tr><td>2</td><td>Chấm điểm chính thức cho <b>hobv</b> — hiện <code>scores</code> rỗng, <code>status: draft</code>, để nguyên thì tháng 7 nằm ở 0</td><td><span class="pill p-err">blocker</span></td><td>dattqh</td></tr><tr><td>3</td><td>Chỉ định người duyệt cấp trên cho <b>dattqh</b>: 7/7 entry OKR đang <code>waiting</code> và <code>__permission: self</code> nên không tự chấm chính thức được</td><td><span class="pill p-warn">gap quy trình</span></td><td>CTO / Giám đốc</td></tr><tr><td>4</td><td>Sửa credential Docker Hub trong CI <code>developers.inet.vn</code> (build fail 10/10 T7) + đưa portal-client vào CI có job deploy production để có dấu vết audit</td><td><span class="pill p-err">CI đỏ 1 tháng</span></td><td>chuongdt + donv</td></tr><tr><td>5</td><td>Chốt kỳ cho <code>#215</code> (đóng 31/07, đang khai T8) và bổ sung <code>#210</code> (đóng 24/07, chưa khai) trước khi chốt KPI T8</td><td><span class="pill p-warn">lệch kỳ</span></td><td>ducnd + dattqh</td></tr><tr><td>6</td><td>hobv: đóng <code>#49</code> (quá hạn DS-R5) — a11y P0 còn 94; gate phải fail khi <code>stories_scanned == 0</code></td><td><span class="pill p-warn">nợ DS-R6</span></td><td>hobv</td></tr><tr><td>7</td><td>Chuẩn ghi nhận OKR từ T8: mỗi entry phải có <b>ngày landed + link issue/MR + số liệu đo được</b>. Không nhận nhãn chung “đã build lên production”</td><td><span class="pill p-info">chuẩn hoá</span></td><td>cả phòng</td></tr><tr><td>8</td><td>Xin quyền reporter cho dattqh trên repo <code>donv/inet.vn</code> (hiện API trả 404) để kỳ sau kiểm chứng được <code>#81</code>/<code>#82</code> của hobv</td><td><span class="pill p-info">gap audit</span></td><td>dattqh</td></tr></tbody></table></div>
+<h2>Nguồn &amp; phương pháp</h2><div class="src"><b>my.inet.vn</b> — <code>POST /api/client/v1/p2evaluation/{get,compute,metrics}</code> · <code>POST /p2config/list</code> (rubric + trọng số) · <code>POST /accountkpi/search</code> (luôn kèm <code>monthStr=072026</code>; API phân trang cứng 30 entry/trang) · <code>history[]</code> trong <code>/p2evaluation/get</code> (phát hiện thay đổi mức + lý do reopen).<br><b>GitLab</b> <code>gitlabs.inet.vn/api/v4</code> — 256 design-sys-fe · 338 assets.inet.vn · 300 cloud-panel-application · 238 portal-client · 303 developers.inet.vn: issues, milestones, merge_requests, pipelines, job trace, <b>releases</b>, tags.<br><b>git local</b> — design-sys-fe · assets.inet.vn · cloud-panel-application · portal-client · portal-server · developers.inet.vn.<br><b>HTTP production</b> — portal.inet.vn · onedash.inet.vn · developers.inet.vn · assets.inet.vn (header <code>last-modified</code> của bundle).<br>Phương pháp 3 lớp theo <code>docs/monthly-okr-p2-review-guide.md</code>: hoàn thành tự báo × code thật × effort-weighted từ code footprint. Ngưỡng “Tốt” (okr) = hoàn thành cao <b>và</b> ≥1 deliverable stretch L–XL. Tiêu chí Cam kết &amp; tiến độ lấy nguyên văn từ <code>/p2config/list</code>: <em>“Hoàn thành đúng hạn; chủ động báo sớm rủi ro; phối hợp tốt”</em> — trọng số 25%, <code>rubric: []</code> (không có rubric chi tiết trong cấu hình).</div>
+<footer>Audit chỉ-đọc — không sửa, không submit, không khoá điểm P2 trong lượt này. Điểm cuối do quản lý khoá trên my.inet.vn.<br>Render từ <code>okr-kpi/07-2026/review-okr-p2-team-260805.json</code> qua <code>.claude/skills/p2-monthly-okr-audit/scripts/build_html_report.py</code> (schema v2).<br>Report liên quan: <code>plans/reports/review-p2-hobv-260804-thang-07-2026.html</code> · <code>review-p2-chuongdt-ducnd-260804-thang-07-2026.html</code> · <code>review-p2-dattqh-260804-thang-07-2026.html</code>.<br><b>Dữ liệu nhân sự nội bộ — chỉ lưu local, không publish.</b> · Lập 05/08/2026 · BP Công Nghệ iNET</footer>
 </div>
 </body>
 </html>
