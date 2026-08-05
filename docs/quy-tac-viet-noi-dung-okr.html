@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quy tắc viết nội dung OKR — my.inet.vn | BP Công Nghệ iNET</title>
+<style>
+  :root{
+    --primary:#0582D4; --primary-light:#619ee9; --accent:#E8353C; --cyan:#22D3EE;
+    --success:#0E9F6E; --success-bg:#ECFDF5;
+    --warning:#D47B0A; --warning-bg:#FFFBEB;
+    --error:#B91C1C;   --error-bg:#FEF2F2;
+    --info:#1E40AF;    --info-bg:#EFF6FF;
+    --bg:#F4F7FA; --surface:#FFFFFF; --text:#0F1E2D; --muted:#5A6B7D; --border:#D0DAE6;
+    --r-sm:4px; --r:8px; --r-md:12px; --r-lg:16px;
+    --shadow:0 1px 3px rgba(15,30,45,.08), 0 1px 2px rgba(15,30,45,.04);
+    --shadow-md:0 4px 12px rgba(15,30,45,.08);
+    --mono:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:"Be Vietnam Pro","Segoe UI",system-ui,-apple-system,sans-serif;
+    background:var(--bg); color:var(--text); line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px 72px}
+
+  /* ── Header ── */
+  header{
+    background:linear-gradient(135deg,#0582D4 0%,#619ee9 100%);
+    color:#fff; padding:40px 24px 48px; margin-bottom:-24px;
+  }
+  header .inner{max-width:1080px;margin:0 auto}
+  .eyebrow{
+    font-size:12px; letter-spacing:.12em; text-transform:uppercase;
+    opacity:.85; font-weight:600; margin-bottom:10px;
+  }
+  header h1{font-size:30px;font-weight:700;line-height:1.25;margin-bottom:10px}
+  header p.sub{font-size:15px;opacity:.92;max-width:760px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+  .meta{
+    background:rgba(255,255,255,.16); border:1px solid rgba(255,255,255,.28);
+    padding:5px 12px; border-radius:999px; font-size:12.5px; font-weight:500;
+    backdrop-filter:blur(4px);
+  }
+
+  /* ── Sections ── */
+  section{margin-top:40px}
+  h2{
+    font-size:20px; font-weight:700; margin-bottom:6px;
+    display:flex; align-items:center; gap:10px;
+  }
+  h2 .num{
+    background:var(--primary); color:#fff; width:28px; height:28px;
+    border-radius:var(--r-sm); display:inline-flex; align-items:center;
+    justify-content:center; font-size:14px; flex-shrink:0;
+  }
+  h2 + .lede{color:var(--muted);font-size:14.5px;margin-bottom:18px;max-width:820px}
+  h3{font-size:15.5px;font-weight:650;margin:22px 0 10px}
+
+  .card{
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:var(--r-md); padding:20px; box-shadow:var(--shadow);
+  }
+  .grid{display:grid;gap:14px}
+  .g3{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+  .g2{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+
+  /* ── TL;DR tiles ── */
+  .tile{
+    background:var(--surface); border:1px solid var(--border);
+    border-left:4px solid var(--primary); border-radius:var(--r);
+    padding:16px 18px; box-shadow:var(--shadow);
+  }
+  .tile .k{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600}
+  .tile .v{font-size:22px;font-weight:700;margin:4px 0 2px;color:var(--primary)}
+  .tile .d{font-size:13px;color:var(--muted)}
+  .tile.warn{border-left-color:var(--warning)} .tile.warn .v{color:var(--warning)}
+  .tile.err{border-left-color:var(--error)}    .tile.err .v{color:var(--error)}
+  .tile.ok{border-left-color:var(--success)}   .tile.ok .v{color:var(--success)}
+
+  /* ── Tables ── */
+  .tbl-scroll{overflow-x:auto;border-radius:var(--r-md);border:1px solid var(--border);background:var(--surface);box-shadow:var(--shadow)}
+  table{width:100%;border-collapse:collapse;font-size:14px;min-width:600px}
+  th{
+    background:#EDF3F9; text-align:left; padding:11px 14px; font-weight:650;
+    font-size:12.5px; text-transform:uppercase; letter-spacing:.04em;
+    color:#2C4A66; border-bottom:1px solid var(--border); white-space:nowrap;
+  }
+  td{padding:12px 14px;border-bottom:1px solid #E8EEF4;vertical-align:top}
+  tr:last-child td{border-bottom:none}
+  code{
+    font-family:var(--mono); font-size:12.5px; background:#EEF3F8;
+    padding:2px 6px; border-radius:var(--r-sm); color:#1B4B73; white-space:nowrap;
+  }
+
+  /* ── Badges ── */
+  .badge{
+    display:inline-block; padding:2px 9px; border-radius:999px;
+    font-size:11.5px; font-weight:650; letter-spacing:.02em; white-space:nowrap;
+  }
+  .b-html{background:var(--info-bg);color:var(--info);border:1px solid #C7D9F5}
+  .b-plain{background:var(--warning-bg);color:var(--warning);border:1px solid #F5E3BE}
+  .b-req{background:var(--error-bg);color:var(--error);border:1px solid #F5CFCF}
+  .b-empty{background:#F1F4F8;color:var(--muted);border:1px solid var(--border)}
+  .b-s{background:#F1F4F8;color:#5A6B7D;border:1px solid var(--border)}
+  .b-m{background:var(--info-bg);color:var(--info);border:1px solid #C7D9F5}
+  .b-l{background:var(--warning-bg);color:var(--warning);border:1px solid #F5E3BE}
+  .b-xl{background:#FDF0F1;color:var(--accent);border:1px solid #F7CFD2}
+
+  /* ── Callouts ── */
+  .callout{
+    border-radius:var(--r); padding:14px 16px; font-size:14px;
+    border:1px solid; display:flex; gap:12px; align-items:flex-start;
+  }
+  .callout .ico{font-size:17px;line-height:1.3;flex-shrink:0}
+  .callout.trap{background:var(--error-bg);border-color:#F5CFCF;color:#7A1616}
+  .callout.tip{background:var(--success-bg);border-color:#BFE8D5;color:#0A5C42}
+  .callout.note{background:var(--info-bg);border-color:#C7D9F5;color:#183A87}
+  .callout.warn{background:var(--warning-bg);border-color:#F5E3BE;color:#7A4708}
+  .callout strong{font-weight:650}
+
+  /* ── Compare good/bad ── */
+  .cmp{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(330px,1fr))}
+  .cmp-box{border-radius:var(--r-md);border:1px solid var(--border);overflow:hidden;background:var(--surface);box-shadow:var(--shadow)}
+  .cmp-head{padding:9px 14px;font-size:12.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;display:flex;align-items:center;gap:7px}
+  .cmp-good .cmp-head{background:var(--success-bg);color:var(--success);border-bottom:1px solid #BFE8D5}
+  .cmp-bad  .cmp-head{background:var(--error-bg);color:var(--error);border-bottom:1px solid #F5CFCF}
+  .cmp-body{padding:14px}
+  pre{
+    font-family:var(--mono); font-size:12.5px; line-height:1.6;
+    background:#0F1E2D; color:#D6E4F0; padding:14px; border-radius:var(--r);
+    overflow-x:auto; white-space:pre-wrap; word-break:break-word;
+  }
+  pre .t{color:#7FD3F7} pre .s{color:#A8E6B8} pre .c{color:#7C8FA3;font-style:italic}
+  .cmp-why{font-size:13px;color:var(--muted);margin-top:10px;padding-top:10px;border-top:1px dashed var(--border)}
+
+  /* ── Checklist ── */
+  ul.chk{list-style:none;display:grid;gap:9px}
+  ul.chk li{
+    display:flex;gap:11px;align-items:flex-start;font-size:14.5px;
+    background:var(--surface);border:1px solid var(--border);
+    border-radius:var(--r);padding:11px 14px;
+  }
+  ul.chk .box{
+    width:17px;height:17px;border:2px solid var(--primary);border-radius:var(--r-sm);
+    flex-shrink:0;margin-top:2px;
+  }
+  ul.plain{list-style:none;display:grid;gap:8px;font-size:14.5px}
+  ul.plain li{display:flex;gap:10px;align-items:flex-start}
+  ul.plain li .dot{color:var(--primary);font-weight:700;flex-shrink:0}
+
+  /* ── Grading scale ── */
+  .scale{display:grid;gap:0;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));border-radius:var(--r-md);overflow:hidden;border:1px solid var(--border);box-shadow:var(--shadow)}
+  .step{padding:16px;background:var(--surface);border-right:1px solid var(--border)}
+  .step:last-child{border-right:none}
+  .step .lvl{font-size:16px;font-weight:700;margin-bottom:5px}
+  .step .cond{font-size:13px;color:var(--muted)}
+  .step.s1{background:#FCFDFE} .step.s1 .lvl{color:var(--error)}
+  .step.s2 .lvl{color:var(--warning)}
+  .step.s3{background:var(--success-bg)} .step.s3 .lvl{color:var(--success)}
+
+  footer{
+    margin-top:48px;padding-top:20px;border-top:1px solid var(--border);
+    font-size:12.5px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 18px;
+  }
+  @media print{body{background:#fff}header{margin-bottom:0}.card,.tile,.tbl-scroll{box-shadow:none}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="inner">
+    <div class="eyebrow">BP Công Nghệ · iNET · Chuẩn nội bộ</div>
+    <h1>Quy tắc viết nội dung OKR trên my.inet.vn</h1>
+    <p class="sub">Tài liệu chuẩn hoá cách khai OKR/KPI hằng tháng: điền trường nào, định dạng gì, viết ra sao để đối chiếu được bằng chứng thật — và những lỗi khiến điểm bị hạ dù công việc đã làm xong.</p>
+    <div class="meta-row">
+      <span class="meta">Phạm vi: dattqh · hobv · ducnd · chuongdt</span>
+      <span class="meta">Áp dụng: OKR hằng tháng</span>
+      <span class="meta">Nguồn: skill <code style="background:none;color:#fff;padding:0">gitlab-okr-kpi</code> + runbook review tháng</span>
+      <span class="meta">Cập nhật: 05/08/2026</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- TL;DR -->
+  <section>
+    <div class="grid g3">
+      <div class="tile">
+        <div class="k">Trường bắt buộc</div>
+        <div class="v">5</div>
+        <div class="d">Chi tiết KPI · Mục tiêu · Kết quả · Độ khó · Tháng</div>
+      </div>
+      <div class="tile warn">
+        <div class="k">Chỉ 1 trường nhận HTML</div>
+        <div class="v">Chi tiết KPI</div>
+        <div class="d">Mục tiêu &amp; Kết quả là plain text — thẻ HTML sẽ hiện ra chữ thô</div>
+      </div>
+      <div class="tile err">
+        <div class="k">Điều kiện đạt "Tốt"</div>
+        <div class="v">Cần stretch</div>
+        <div class="d">Hoàn thành cao <em>và</em> ≥1 deliverable độ khó L–XL</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 1. Field map -->
+  <section>
+    <h2><span class="num">1</span>Mỗi trường điền gì, định dạng nào</h2>
+    <p class="lede">Form KPI trên my.inet.vn là AngularJS. Chỉ cột "Chi tiết KPI" render HTML; các cột còn lại bị escape nên thẻ HTML sẽ hiển thị nguyên văn cho người đọc.</p>
+
+    <div class="tbl-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Trường trên form</th>
+            <th>Field API</th>
+            <th>Định dạng</th>
+            <th>Viết gì</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Chi tiết KPI</strong></td>
+            <td><code>description</code></td>
+            <td><span class="badge b-html">HTML</span></td>
+            <td>Tên KR in đậm ở dòng đầu, mô tả ngắn phạm vi công việc, dòng cuối là link GitLab issue. Dùng được <code>&lt;p&gt; &lt;strong&gt; &lt;em&gt; &lt;ul&gt; &lt;ol&gt;</code>.</td>
+          </tr>
+          <tr>
+            <td><strong>Mục tiêu</strong></td>
+            <td><code>target</code></td>
+            <td><span class="badge b-plain">PLAIN TEXT</span></td>
+            <td>Cam kết đầu tháng, một câu, <strong>có thể kiểm chứng</strong>. Nêu rõ phạm vi + tiêu chí xong.</td>
+          </tr>
+          <tr>
+            <td><strong>Kết quả</strong></td>
+            <td><code>result</code></td>
+            <td><span class="badge b-plain">PLAIN TEXT</span><br><span style="font-size:12.5px;color:var(--muted)">xuống dòng OK</span></td>
+            <td>Kết quả thực tế đã landed, <strong>kèm số đo và mốc thời gian</strong>. Không viết chung chung "Hoàn thành".</td>
+          </tr>
+          <tr>
+            <td><strong>Độ khó / phức tạp</strong></td>
+            <td><code>difficulty</code></td>
+            <td><span class="badge b-req">BẮT BUỘC</span></td>
+            <td>Chọn <span class="badge b-s">S</span> <span class="badge b-m">M</span> <span class="badge b-l">L</span> <span class="badge b-xl">XL</span> — xem mục 3.</td>
+          </tr>
+          <tr>
+            <td><strong>Ghi chú</strong></td>
+            <td><code>note</code></td>
+            <td><span class="badge b-empty">ĐỂ TRỐNG</span></td>
+            <td>Không nhét link GitLab, đường dẫn plan hay effort vào đây. Link nằm trong Chi tiết KPI, effort nằm ở Độ khó.</td>
+          </tr>
+          <tr>
+            <td><em>Tháng</em></td>
+            <td><code>monthStr</code></td>
+            <td><code>MMYYYY</code></td>
+            <td>Tháng 2 chữ số + năm 4 chữ số, ví dụ <code>082026</code>. Sai tháng thì entry biến mất khỏi kỳ review.</td>
+          </tr>
+          <tr>
+            <td><em>Đề xuất thưởng</em></td>
+            <td><code>bonusMoney</code></td>
+            <td><span class="badge b-empty">TRÁNH DÙNG</span></td>
+            <td>Nhập số tiền qua form sẽ <strong>tự ghi đè Kết quả thành "Hoàn thành"</strong>, xoá mất nội dung bạn viết.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 2. Nội dung -->
+  <section>
+    <h2><span class="num">2</span>Sáu quy tắc về nội dung</h2>
+    <p class="lede">OKR được đối chiếu bằng nguồn độc lập không do người khai viết ra: git log, GitLab API (issue closed / MR merged), HTTP production, npm registry. Nội dung viết ra phải chỉ được tới bằng chứng đó.</p>
+
+    <div class="grid g2">
+      <div class="card">
+        <h3 style="margin-top:0">① Tiếng Việt có dấu đầy đủ</h3>
+        <p style="font-size:14px;color:var(--muted)">Toàn bộ nội dung phải có dấu. Giữ nguyên thuật ngữ kỹ thuật tiếng Anh (<em>observability, pipeline, deploy</em>) — không dịch cứng.</p>
+      </div>
+      <div class="card">
+        <h3 style="margin-top:0">② Mục tiêu phải đo được</h3>
+        <p style="font-size:14px;color:var(--muted)">Nêu phạm vi và tiêu chí xong. "100% Design System" không đo được; "Hoàn thành 4/4 Objective DS-R4, publish v1 lên registry" thì đo được.</p>
+      </div>
+      <div class="card">
+        <h3 style="margin-top:0">③ Mỗi OKR gắn một GitLab issue</h3>
+        <p style="font-size:14px;color:var(--muted)">Dòng cuối Chi tiết KPI là anchor <strong>có tiêu đề issue</strong>, không để trơ số <code>#166</code> — người review phải đọc được nội dung mà không cần mở link.</p>
+      </div>
+      <div class="card">
+        <h3 style="margin-top:0">④ Kết quả kèm số đo + mốc ngày</h3>
+        <p style="font-size:14px;color:var(--muted)">Số phase merged, số issue closed, số byte/entry, ngày deploy prod. Con số cho phép audit khớp 1-1 với git object và HTTP response.</p>
+      </div>
+      <div class="card">
+        <h3 style="margin-top:0">⑤ Khai độ khó trung thực</h3>
+        <p style="font-size:14px;color:var(--muted)">Audit đo lại độ khó từ code footprint (số file, LOC, commit, số tầng hệ thống) — <strong>không tin effort tự khai</strong>. Khai vống bị hạ, khai thấp cũng mất điểm stretch.</p>
+      </div>
+      <div class="card">
+        <h3 style="margin-top:0">⑥ Một KR một entry</h3>
+        <p style="font-size:14px;color:var(--muted)">Không gộp nhiều KR vào một entry. Report tháng đối chiếu số entry theo <code>monthStr</code> với số dòng — gộp thì mất dấu công việc.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Difficulty -->
+  <section>
+    <h2><span class="num">3</span>Chọn độ khó S / M / L / XL</h2>
+    <p class="lede">Ước lượng <strong>khách quan từ dấu vết code</strong>, không theo cảm giác mất bao nhiêu thời gian.</p>
+
+    <div class="tbl-scroll">
+      <table>
+        <thead>
+          <tr><th>Mức</th><th>Nhãn trên form</th><th>Dấu hiệu nhận biết</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="badge b-s">S</span></td><td>Đơn giản</td>
+            <td>1–3 file, một tầng, không migration, không đổi contract. Sửa copy, tinh chỉnh một component, bug fix cục bộ.</td>
+          </tr>
+          <tr>
+            <td><span class="badge b-m">M</span></td><td>Trung bình</td>
+            <td>4–10 file trong một module, có chút cross-cutting. Thêm một endpoint kèm UI, refactor một module.</td>
+          </tr>
+          <tr>
+            <td><span class="badge b-l">L</span></td><td>Phức tạp</td>
+            <td>10+ file, nhiều module, đổi schema hoặc contract. Feature xuyên backend + frontend, một chuỗi phân quyền hoàn chỉnh.</td>
+          </tr>
+          <tr>
+            <td><span class="badge b-xl">XL</span></td><td>Rất phức tạp</td>
+            <td>Dịch chuyển kiến trúc, migration, breaking change, dựng stack mới có deploy production.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout note" style="margin-top:14px">
+      <span class="ico">ℹ️</span>
+      <div>Form <strong>bắt buộc</strong> chọn trường này cả khi tạo mới lẫn khi sửa. Bỏ trống, form chặn lưu với thông báo <em>"Vui lòng chọn Độ khó/phức tạp của KPI"</em>.</div>
+    </div>
+  </section>
+
+  <!-- 4. Mẫu chuẩn -->
+  <section>
+    <h2><span class="num">4</span>Mẫu chuẩn — đối chiếu đúng / sai</h2>
+    <p class="lede">Ví dụ dựa trên OKR thật tháng 06/2026 (Observability Victoria stack, Cloud Panel).</p>
+
+    <div class="cmp">
+      <div class="cmp-box cmp-good">
+        <div class="cmp-head"><span>✓</span> Nên viết như thế này</div>
+        <div class="cmp-body">
+<pre><span class="c">// Chi tiết KPI (HTML)</span>
+<span class="t">&lt;p&gt;&lt;strong&gt;</span>KR1: Observability tập trung
+— VictoriaLogs/VictoriaMetrics<span class="t">&lt;/strong&gt;&lt;/p&gt;</span>
+<span class="t">&lt;p&gt;</span>Gom log + metric toàn bộ box Cloud Panel
+về một stack, thay cơ chế đọc log rời rạc
+trên từng agent.<span class="t">&lt;/p&gt;</span>
+<span class="t">&lt;p&gt;&lt;strong&gt;</span>GitLab:<span class="t">&lt;/strong&gt;</span>
+ <span class="t">&lt;a href=</span><span class="s">"https://gitlabs.inet.vn/server-tools/
+ cloud-panel-application/-/issues/166"</span><span class="t">&gt;</span>
+ #166 — Observability tập trung cho Cloud Panel
+<span class="t">&lt;/a&gt;&lt;/p&gt;</span>
+
+<span class="c">// Mục tiêu (plain text)</span>
+Nghiên cứu Victoria stack và lập plan audit log
+tập trung cho Cloud Panel, chốt kiến trúc thu log
+
+<span class="c">// Kết quả (plain text)</span>
+Vượt cam kết: impl + merge 7 phase observability;
+deploy production 2 box; rollout khách 22/06.
+Issue #166, #167 closed trong tháng.
+
+<span class="c">// Độ khó</span>
+L</pre>
+          <div class="cmp-why"><strong>Vì sao đạt:</strong> tên KR cụ thể · mục tiêu có tiêu chí xong · kết quả có số phase, số box, ngày rollout, issue closed → audit khớp được với git log và GitLab API.</div>
+        </div>
+      </div>
+
+      <div class="cmp-box cmp-bad">
+        <div class="cmp-head"><span>✕</span> Tránh viết như thế này</div>
+        <div class="cmp-body">
+<pre><span class="c">// Chi tiết KPI</span>
+Làm observability
+
+<span class="c">// Mục tiêu — HTML bị escape thành chữ thô</span>
+<span class="t">&lt;p&gt;</span>Cải thiện hệ thống monitoring<span class="t">&lt;/p&gt;</span>
+
+<span class="c">// Kết quả — không đo được gì</span>
+Đã hoàn thành, đã build lên production
+
+<span class="c">// Ghi chú — nhét metadata sai chỗ</span>
+#166, effort L, plan tại plans/dattqh/obsv
+
+<span class="c">// Độ khó</span>
+<span class="c">(bỏ trống → form chặn lưu)</span></pre>
+          <div class="cmp-why"><strong>Hậu quả:</strong> người review thấy raw <code>&lt;p&gt;</code> trên form · "đã hoàn thành" không phải bằng chứng · link nằm ở Ghi chú nên không render thành anchor · thiếu độ khó nên không tính được stretch.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Cách chấm -->
+  <section>
+    <h2><span class="num">5</span>Cách chấm — viết thế nào để không bị hạ điểm</h2>
+    <p class="lede">Mức OKR trong P2-Delivery được chấm theo <strong>effort-weighted completion</strong>, không phải theo số lượng task.</p>
+
+    <div class="scale">
+      <div class="step s1">
+        <div class="lvl">Chưa đạt</div>
+        <div class="cond">Phần lớn cam kết không landed trong tháng, hoặc kết quả không có bằng chứng độc lập.</div>
+      </div>
+      <div class="step s2">
+        <div class="lvl">Đạt</div>
+        <div class="cond">Hoàn thành cam kết nhưng <strong>toàn bộ là S/M</strong>. Làm nhiều task nhỏ vẫn tối đa ở mức này.</div>
+      </div>
+      <div class="step s3">
+        <div class="lvl">Tốt</div>
+        <div class="cond">Hoàn thành cao <strong>và</strong> có ít nhất một deliverable stretch mức <span class="badge b-l">L</span>–<span class="badge b-xl">XL</span>.</div>
+      </div>
+    </div>
+
+    <h3>Bốn điểm dễ mất điểm nhất</h3>
+    <div class="grid" style="gap:11px">
+      <div class="callout trap">
+        <span class="ico">⛔</span>
+        <div><strong>Landed sau ngày cuối tháng = trễ.</strong> OKR tháng N phải merge vào main hoặc close issue <strong>≤ ngày cuối tháng N</strong>. Code xong ngày 30 nhưng merge ngày 2 tháng sau vẫn tính là trễ của tháng N.</div>
+      </div>
+      <div class="callout trap">
+        <span class="ico">⛔</span>
+        <div><strong>"Đã build lên production" không phải bằng chứng.</strong> Phải chỉ ra mốc deploy thật: tag release, <code>last-modified</code> của bundle prod, hoặc pipeline <code>deploy</code> chạy thành công. Đã có trường hợp merge main đúng hạn nhưng deploy prod sang tháng sau, và trường hợp job <code>deploy</code> bị <code>skipped</code> cả tháng vì <code>build</code> fail.</div>
+      </div>
+      <div class="callout warn">
+        <span class="ico">⚠️</span>
+        <div><strong>Toàn task S/M thì không lên "Tốt".</strong> Liệt kê thật nhiều việc nhỏ không thay cho một deliverable stretch. Nếu trong tháng có việc khó, hãy khai đúng mức L/XL kèm bằng chứng thay vì chia nhỏ ra nhiều entry S.</div>
+      </div>
+      <div class="callout tip">
+        <span class="ico">✓</span>
+        <div><strong>Trạng thái "Chờ duyệt" không phải là chưa làm.</strong> Entry mới tạo có <code>status = waiting</code> — nghĩa là chờ quản lý duyệt, công việc đã xong. Không cần sửa hay tạo lại entry vì thấy nhãn này.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. Checklist -->
+  <section>
+    <h2><span class="num">6</span>Checklist trước khi lưu entry</h2>
+    <ul class="chk">
+      <li><span class="box"></span><div>Chi tiết KPI: dòng đầu là <strong>tên KR in đậm</strong>, dòng cuối là <strong>anchor GitLab kèm tiêu đề issue</strong>.</div></li>
+      <li><span class="box"></span><div>Mục tiêu và Kết quả <strong>không chứa thẻ HTML</strong> nào.</div></li>
+      <li><span class="box"></span><div>Kết quả có <strong>số đo cụ thể</strong> và <strong>mốc ngày</strong>, không phải "đã hoàn thành".</div></li>
+      <li><span class="box"></span><div>Đã chọn <strong>Độ khó</strong>, và mức chọn tương ứng được với code footprint thật.</div></li>
+      <li><span class="box"></span><div>Ghi chú <strong>để trống</strong>; không có link hay effort nhét vào đó.</div></li>
+      <li><span class="box"></span><div>Tháng đúng định dạng <code>MMYYYY</code> và đúng kỳ đang khai.</div></li>
+      <li><span class="box"></span><div>Toàn bộ tiếng Việt <strong>có dấu</strong>.</div></li>
+      <li><span class="box"></span><div>Trong tháng có <strong>ít nhất một entry L hoặc XL</strong> nếu đang nhắm mức "Tốt".</div></li>
+      <li><span class="box"></span><div>Việc đã <strong>landed trong tháng</strong> (merge main / issue closed), và nếu khai deploy thì có mốc deploy chứng minh được.</div></li>
+    </ul>
+  </section>
+
+  <!-- 7. Phụ lục -->
+  <section>
+    <h2><span class="num">7</span>Phụ lục — cho người nhập qua API</h2>
+    <p class="lede">Áp dụng khi tạo/sửa OKR bằng script hoặc skill <code>gitlab-okr-kpi</code> thay vì gõ tay trên form.</p>
+
+    <div class="grid" style="gap:11px">
+      <div class="callout trap">
+        <span class="ico">⛔</span>
+        <div><strong><code>update</code> là FULL REPLACE, không merge.</strong> Field nào không truyền trong payload sẽ bị set null — mất sạch nội dung cũ. Luôn theo thứ tự: gọi <code>/accountkpi/search</code> lấy entry hiện tại → merge field mới vào (giữ cả <code>difficulty</code>) → mới gửi <code>update</code>.</div>
+      </div>
+      <div class="callout warn">
+        <span class="ico">⚠️</span>
+        <div><strong><code>search</code> phân trang cứng 30 entry mỗi trang và bỏ qua tham số <code>size</code>.</strong> Luôn gửi kèm <code>monthStr</code> để backend lọc theo tháng; đừng lấy một trang rồi lọc phía client — người có nhiều entry lịch sử sẽ mất hết entry của tháng cần xem. Đối chiếu <code>totalElements</code> với số dòng thực nhận trước khi tin kết quả.</div>
+      </div>
+      <div class="callout trap">
+        <span class="ico">⛔</span>
+        <div><strong><code>delete</code> là hard delete, không có undo.</strong> Verify <code>_id</code> qua <code>search</code> và xác nhận với người sở hữu trước khi gọi.</div>
+      </div>
+      <div class="callout note">
+        <span class="ico">ℹ️</span>
+        <div><strong>Cookie <code>sid</code> sống khoảng một ngày.</strong> Pre-flight trả về 302 hoặc 401 nghĩa là hết hạn — phải login lại my.inet.vn trên browser rồi cập nhật <code>sid</code>/<code>ssid</code> trong <code>.env</code>. Không có cách tự refresh từ script.</div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span><strong>Nguồn quy tắc:</strong> <code>.claude/skills/gitlab-okr-kpi/</code> (SKILL.md + references/api-direct-guide.md)</span>
+    <span><strong>Cách chấm:</strong> <code>docs/monthly-okr-p2-review-guide.md</code></span>
+    <span><strong>Ví dụ:</strong> OKR tháng 06/2026 trong <code>plans/reports/</code></span>
+    <span>Tài liệu nội bộ BP Công Nghệ — không phát hành ra ngoài</span>
+  </footer>
+
+</div>
+</body>
+</html>
