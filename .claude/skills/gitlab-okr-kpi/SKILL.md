@@ -111,7 +111,7 @@ Draft monthly P2+ performance evaluations on my.inet.vn via JSON API (curl-first
 **Workflow:**
 1. **Pre-flight**: read `.env` → `sid`+`ssid` (validate); xác định SSO account (email) + period (`YYYY-MM`).
 2. **Load baseline + quyền (POST `/get`)**: body `{account, period}`. Nếu đã có record → trả full object (`roles`, `department`, `scores`, `__permission`...). Nếu chưa → chỉ `{__permission}` (lấy role từ page/user; `department` mặc định `"technology"`). Giữ nguyên mọi field, chỉ sửa `scores`.
-3. **Xác định mức** (ưu tiên): đọc file Excel `members/{năm}/T{thang}/P2_Form_BP_Cong_Nghe - {TênNgắn}.xlsx` (folder năm chứa folder tháng; `2026/T5`=2026-05) sheet `ĐÁNH GIÁ HIỆU SUẤT P2` — ô B4=role, C8-C11=Core A/B/C/D, C17-C19=Delivery. Không có Excel → user cung cấp / `AskUserQuestion`, KHÔNG tự suy diễn. GitLab (Mode 1) chỉ khi user yêu cầu rõ. Chi tiết: `references/p2-evaluation-automation.md`.
+3. **Xác định mức** (ưu tiên): (a) mức user cung cấp trực tiếp trong chat; (b) `selfScores` đã có trên portal (nếu chỉ cần chấm official theo self); (c) không có → `AskUserQuestion` hỏi từng hạng mục, **KHÔNG tự suy diễn**. ⛔ KHÔNG đọc file Excel — `.xlsx` trong repo chỉ giữ mẫu công thức, không chứa mức đánh giá. GitLab (Mode 1) chỉ khi user yêu cầu rõ. Chi tiết: `references/p2-evaluation-automation.md`.
 4. **Compute (POST `/compute`)**: validate, lấy `total`+`grade`, hiển thị cho user xác nhận.
 5. **Lưu nháp (POST, draft)** — chọn theo `__permission`:
    - `"manager"` → `/save` với `scores` + `status:"draft"`

@@ -44,7 +44,7 @@ Sizing uses complexity tiers, not hours: **S** = 1–3 files isolated · **M** =
 **Goal:** see how a member moves across months instead of re-reading one period at a time
 
 #### Tasks
-1. Aggregate P2 scores across `members/{năm}/T*/` plus the portal's `p2evaluation/history`
+1. Aggregate P2 scores across periods from the portal (`p2evaluation/get` + `history[]`)
 2. Aggregate OKR completion and difficulty mix per member per month
 3. Render one self-contained HTML view: score trajectory, difficulty mix, verdict history
 
@@ -114,7 +114,7 @@ Sizing uses complexity tiers, not hours: **S** = 1–3 files isolated · **M** =
 - Capacity planning from historical landed-work velocity
 
 ### Tool Modernization
-- Move P2 from Excel to a structured store, with the portal remaining the system of record
+- ~~Move P2 from Excel to a structured store~~ — done 08/2026: the portal is the only store; workbooks keep the scoring formula only
 - Generate the monthly report end-to-end from API data with no manual assembly
 
 ---
@@ -211,7 +211,7 @@ Sizing uses complexity tiers, not hours: **S** = 1–3 files isolated · **M** =
 | 2026-07-09 | Make `difficulty` (`S`/`M`/`L`/`XL`) mandatory in every payload | The form requires it, and effort-weighted grading needs an objective input | Đạt |
 | 2026-08-04 | Harden the runbook against three verification traps | Each trap had already produced a wrong conclusion in a real review | Đạt |
 | 2026-08-05 | Publish the OKR content rules; realign all docs with the actual repo | Docs still referenced a deleted folder, a renamed skill, and wrong env vars — enough to send work down a dead end | Đạt |
-| TBD | Move P2 storage off Excel | Modernize the evaluation platform | Đạt (TBD) |
+| 2026-08-05 | Drop Excel as a P2 data source entirely — workbooks keep the scoring formula only, levels live on my.inet.vn | Two sources for the same score drift apart; audits reconciled a file nobody kept current | Đạt |
 
 ---
 

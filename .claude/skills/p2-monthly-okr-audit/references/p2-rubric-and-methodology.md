@@ -1,6 +1,8 @@
 # P2+ Rubric & Scoring — chi tiết
 
-> Nguồn chuẩn: sheet `CẤU TRÚC & TRỌNG SỐ` + `ĐÁNH GIÁ HIỆU SUẤT P2` trong mỗi file P2 Excel. **Verify lại mỗi kỳ** (trọng số có thể đổi theo giai đoạn).
+> **Nguồn chuẩn: `POST /api/client/v1/p2config/list` body `{department}`** trên my.inet.vn — mỗi tiêu chí trả `label`/`desc`/`weight`/`levels`/`rubric`. **Verify lại mỗi kỳ** (trọng số có thể đổi theo giai đoạn).
+>
+> ⛔ **KHÔNG đọc file Excel.** File `.xlsx` trong repo chỉ giữ **mẫu công thức tính P2**, không chứa mức đánh giá — không phải nguồn dữ liệu của audit.
 
 ## Cấu trúc P2+
 - **P2-Core** (Năng lực, thang 0.8–1.0): A. Năng lực kỹ thuật · B. Ownership & trách nhiệm · C. DevOps & vận hành · D. AI Agent & cải tiến.
@@ -25,21 +27,23 @@
 ## Trọng số P2-Delivery (sheet CẤU TRÚC, B64:B66)
 - OKR/KPI: **0.40** · Chất lượng: **0.35** · Cam kết: **0.25**
 
-## Công thức Excel (verify)
-- Delivery `C20` = VLOOKUP(C17)×0.4 + VLOOKUP(C18)×0.35 + VLOOKUP(C19)×0.25
-- Core `D12` = Σ(weight_i × level_i/100)
-- Tổng `C23` = D12×0.5 + C20×0.5
-- Xếp loại `C24`: `ROUND(C23,2)<1`→Chưa đạt · `=1`→Đạt · `>1`→**Tốt**
+## Công thức (kiểm chứng lại, luôn đưa vào report)
+- `delivery` = Σ(score(level) × weight) — OKR ×0.40 · Chất lượng ×0.35 · Cam kết ×0.25
+- `core` = Σ(weight_i × level_i) — trọng số A/B/C/D **khác nhau theo role**, lấy từ `computed.subScores` / `p2config/list`
+- `total` = core×0.5 + delivery×0.5
+- `grade`: `<1` → Chưa đạt · `=1` → Đạt · `>1` → **Tốt**
+- Validate bằng `POST /p2evaluation/compute` (không submit) rồi so với `selfComputed`/`computed` server trả về.
 
-## Ô Excel cần đọc (sheet `ĐÁNH GIÁ HIỆU SUẤT P2`)
-| Ô | Nội dung |
+## Field cần đọc (`POST /p2evaluation/get` body `{account, period}`)
+| Field | Nội dung |
 |---|---|
-| B3 | Họ tên · B4 Vai trò |
-| C3 | label "Kỳ đánh giá" → **giá trị ở D3** (hay trống) |
-| C4 | label "Người đánh giá" → giá trị ở D4 (hay trống) |
-| C8–C11 | mức P2-Core 4 nhóm |
-| C17 / C18 / C19 | **mức Delivery: OKR / Chất lượng / Cam kết** |
-| C20 | tổng Delivery · C23 tổng P2+ · C24 xếp loại |
+| `roles[]` | `{role, weight}` — role thực tế của kỳ, tổng weight = 1 |
+| `selfScores.core[<role>].A..D` · `selfScores.delivery.{okr,quality,commitment}` | mức **tự đánh giá** |
+| `scores.core` · `scores.delivery` | mức **quản lý chấm**. Rỗng = chưa ai chấm |
+| `selfStatus` · `status` | `draft` / `submitted` / `locked` — `locked` phải reopen mới sửa |
+| `selfComputed` · `computed` | `subScores` · `total` · `grade` do server tính |
+| `history[]` | `action`/`modifiedBy`/`oldTotal→newTotal`/`reason` — phát hiện mức bị đổi sau reopen |
+| `__permission` | `self` (tự đánh giá) / `manager` (chấm cấp dưới) |
 
 ## Mô tả tiêu chí Delivery (đối chiếu khi verdict)
 - **Mức độ hoàn thành OKR:** "Tỷ lệ hoàn thành các mục tiêu đã cam kết". → đối chiếu: các KPI/OKR đã ship chưa (git + Kết quả my.inet.vn).

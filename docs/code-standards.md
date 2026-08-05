@@ -9,20 +9,10 @@
 - **Deliverable naming:** describe the content, not the date or a plan ID — `Bien_ban_hop_CXO_7_7_2026_Update.html`, `docker-phan-1-nen-tang.html`
 - There is no `weekly meetings/` directory; it was removed. Monthly OKR/KPI data lives on my.inet.vn, not in repo notes.
 
-### P2 Evaluation Files (`members/`)
-- **Master Template:** `P2_Form_BP_Cong_Nghe.xlsx` (root, immutable)
-- **Authoritative layout:** `members/{năm}/T{tháng}/P2_Form_BP_Cong_Nghe - {TênNgắn}.xlsx`
-  - Example: `members/2026/T5/P2_Form_BP_Cong_Nghe - Ho.xlsx` = period 2026-05
-  - `members/*.xlsx` at the top level and `members/T5/` are legacy copies from before this layout; do not add new files there
-- **Naming Pattern:**
-  - Short Vietnamese first name (Dat, Duc, Ho, Chuong) — ASCII, no diacritics in filenames
-  - Space before and after the hyphen (` - `)
-  - `.xlsx` extension (Excel 2007+)
-- **Examples:**
-  - `P2_Form_BP_Cong_Nghe - Dat.xlsx` ✓
-  - `P2_Form_BP_Cong_Nghe-Duc.xlsx` ✗ (missing spaces)
-  - `P2-Duc.xlsx` ✗ (incomplete prefix)
-- Period folders may also contain generated audit reports (`p2-delivery-evidence-audit-*.html`).
+### P2 Evaluation Data — portal only
+- **Evaluation levels live on my.inet.vn**, never in a repo file. Read them with `POST /api/client/v1/p2evaluation/get` body `{account, period}`; criteria + weights with `POST /p2config/list`.
+- `P2_Form_BP_Cong_Nghe.xlsx` (root, immutable) is the **scoring formula template only** — weights and VLOOKUP wiring, no levels. Owned by the department head.
+- `members/` holds historical workbooks up to T5/2026. ⛔ **Not a data source**: do not read levels from them, do not create new per-member workbooks, do not reconcile portal against them.
 
 ### Monthly OKR/P2 Audit Reports (`okr-kpi/`)
 - **Location:** `okr-kpi/MM-YYYY/review-okr-p2-<scope>-<YYMMDD>.html`
@@ -30,7 +20,8 @@
   - `<scope>` = `team` for a whole-team roll-up, or a username when split per member
   - `<YYMMDD>` = the date the audit ran, so re-auditing a period never overwrites the earlier run
   - An accompanying `.md` detail record sits in the same folder under the same base name
-- **Required content:** both `selfScores` and `scores` (state explicitly when the manager has not scored yet), `total`/`grade` re-verified against the formula, each OKR with an S/M/L/XL effort badge plus evidence (path/SHA + landed date), a suggested-adjustment column, and any claim that could not be verified marked as such
+- **Source JSON is mandatory** and sits beside the report under the same base name (`.json`); the HTML is rendered from it by `.claude/skills/p2-monthly-okr-audit/scripts/build_html_report.py` (schema v2). Never hand-write the HTML.
+- **Required content:** both `selfScores` and `scores` (state explicitly when the manager has not scored yet, and whether `status` is empty / `draft` / `locked`), `total`/`grade` re-verified against the formula, **every** OKR entry with an S/M/L/XL effort badge plus evidence (path/SHA or issue + landed date), a suggested-adjustment column, and any claim that could not be verified marked as such
 - See `okr-kpi/README.md` for the full convention. Reports for T5–T7 2026 predate it and stay where they are (`plans/reports/`, `plans/dattqh/reports/`, `members/2026/T5/`).
 
 ### Other Reports & Plans
@@ -81,33 +72,25 @@ Full rules with worked examples: [`quy-tac-viet-noi-dung-okr.html`](./quy-tac-vi
 - "Đã build lên production" is not evidence. Point at a release tag, the prod bundle's `last-modified`, or a successful `deploy` pipeline job.
 - `status = "waiting"` means awaiting manager approval, **not** unfinished work.
 
-## Excel (P2 Evaluation) Conventions
+## P2 Scoring Conventions
 
-### Master Template (`P2_Form_BP_Cong_Nghe.xlsx`)
-- **Ownership:** Immutable. Only the department head updates it.
-- **Use:** Template source for member-specific copies
-- **Preservation:** Never modify directly; create member-specific files instead
+### Where the data lives
+- **Levels:** my.inet.vn only (`p2evaluation/get` → `selfScores` / `scores`). Entered on the portal form, drafted via API, locked by the manager.
+- **Criteria, weights, level→score:** `p2config/list` (per department). Verify each period — weights can change.
+- **Formula reference:** `P2_Form_BP_Cong_Nghe.xlsx` at root. Read-only reference for how the score is composed; ⛔ never a place to record an evaluation.
 
-### Member Evaluation Files
-- **Creation:** Copy master template into `members/{năm}/T{tháng}/`, rename to `P2_Form_BP_Cong_Nghe - {TênNgắn}.xlsx`
-- **Personalization:**
-  - Update member name, period, and role
-  - Preserve all formulas and cell references
-  - Do not reorganize columns or sheets
-- **Data Entry:**
-  - P2-Core and P2-Delivery are scored separately
-  - **Công thức tổng:** `P2+ Tổng = (P2-Core × coreWeight) + (P2-Delivery × deliveryWeight)`
-  - A/B/C/D weights **differ per role** — never hard-code them; the server computes the official score
-  - Summary cells: auto-calculate via formulas (do not hard-code)
-  - Notes/Comments: plain text in designated cells
-- **Review:** before finalizing, check formulas calculate correctly, no circular references, scores in valid range, required fields completed
+### Formula (re-verify every report)
+- `delivery = Σ(score(level) × weight)` — OKR ×0.40 · quality ×0.35 · commitment ×0.25
+- `core = Σ(weight_i × level_i)` — A/B/C/D weights **differ per role**; take them from `computed.subScores` / `p2config/list`, never hard-code
+- `total = core×0.5 + delivery×0.5` · `grade`: `<1` Chưa đạt · `=1` Đạt · `>1` Tốt
+- Validate with `POST /p2evaluation/compute` (read-only, never submit) and compare against `selfComputed` / `computed` from the server.
 
-### Excel File Organization (verified structure)
+### Formula template structure (`P2_Form_BP_Cong_Nghe.xlsx`, reference only)
 | Sheet | Purpose |
 |-------|---------|
 | `TỔNG QUAN & LƯU Ý` | Overview and usage notes |
 | `CẤU TRÚC & TRỌNG SỐ` | Criteria structure and per-role weights |
-| `ĐÁNH GIÁ HIỆU SUẤT P2` | **The scoring sheet** — B4 = role, C8:C11 = Core A/B/C/D, C17:C19 = Delivery okr/quality/commitment |
+| `ĐÁNH GIÁ HIỆU SUẤT P2` | Formula layout for the scoring sheet — kept so the composition can be checked; levels are **not** filled in here |
 | `MÔ TẢ - PHỤ LỤC` | Criteria descriptions / appendix |
 | `NHÂN SỰ` | Personnel reference data |
 | `Summary_Ranking` | Aggregated ranking |
@@ -177,13 +160,13 @@ GITLABS_ACCESS_TOKEN=<token>
 ## Python Scripts
 
 ### Location: `scripts/`
-Read-only helpers that dump P2 Excel content to text for inspection (`openpyxl`). They do not write to the workbooks.
+Read-only helpers that dump workbook content to text so the **formula template** can be inspected (`openpyxl`). They do not write to any workbook, and they are **not** part of the audit flow — audits read the portal API, never a workbook.
 
 | Script | Purpose |
 |--------|---------|
-| `dump_p2_member.py` | Dump the P2 sheet plus metadata for any member file — `dump_p2_member.py <xlsx_path> <out_txt>` |
+| `dump_p2_member.py` | Dump a workbook's P2 sheet plus metadata — `dump_p2_member.py <xlsx_path> <out_txt>` |
 | `dump_p2_all_sheets.py` | Dump every sheet of a workbook |
-| `dump_p2_dat.py` | Convenience wrapper for one member file |
+| `dump_p2_dat.py` | Convenience wrapper for one file |
 
 ### Conventions
 - **Python:** 3.8+; dependency `openpyxl` (not installed system-wide — use a venv)
@@ -219,13 +202,12 @@ Before committing changes:
 - [ ] At least one `L`/`XL` entry in the month if aiming for "Tốt"
 - [ ] Work landed within the month; deploy claims backed by a verifiable marker
 
-### P2 Evaluation Files
-- [ ] Placed in `members/{năm}/T{tháng}/`, named `P2_Form_BP_Cong_Nghe - {TênNgắn}.xlsx`
-- [ ] Copied from the master template (formulas preserved)
-- [ ] Member name, period, and role filled in
-- [ ] Scores use exact values (`Đạt` / `Chưa đạt` / `Tốt`)
-- [ ] Summary formulas calculate without errors; no hard-coded totals
-- [ ] No circular references
+### P2 Evaluation (portal)
+- [ ] Levels entered on my.inet.vn, not in any file — exact values (`Đạt` / `Chưa đạt` for Core; `Chưa đạt` / `Đạt` / `Tốt` for Delivery)
+- [ ] `roles[]` matches the member's actual work for that period (A/B/C/D weights differ per role)
+- [ ] `total`/`grade` from the server matches the formula re-computed by hand or via `/p2evaluation/compute`
+- [ ] Agent saved `draft` only; the manager locks the final score
+- [ ] `status` reported correctly: empty (nobody scored) / `draft` / `locked` (needs reopen to change)
 
 ### Documentation
 - [ ] UTF-8 encoding, LF line endings
@@ -268,8 +250,8 @@ Before committing changes:
 3. **OKR content:** omitting `Độ khó` → the form blocks the save with *"Vui lòng chọn Độ khó/phức tạp của KPI"*
 4. **API:** sending only the changed fields to `update` → every other field is wiped to null
 5. **API:** fetching one page from `search` and filtering client-side → entries of the target month get lost for anyone with history
-6. **File naming:** inconsistent P2 file names, or adding new files to the legacy flat `members/` root instead of `members/{năm}/T{tháng}/`
-7. **Excel:** modifying the master template, or hard-coding values into summary cells
+6. **P2 source:** reading evaluation levels from an `.xlsx`, or creating a new per-member workbook — levels exist only on my.inet.vn
+7. **Excel:** modifying the formula template, or hard-coding values into summary cells
 8. **Environment:** committing `.env`, or assuming `sid` lasts a month — it lasts about a day
 9. **Deliverables:** shipping HTML that pulls fonts or CSS from a CDN → breaks offline and outside the network
 10. **Documentation:** hard-coding facts that drift → link to the source file instead

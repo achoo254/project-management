@@ -4,19 +4,18 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Internal project management repo for iNET Tech Department. Tracks monthly OKR/KPI targets, performance evaluations (P2+ forms), meeting minutes, and internal training material. **Not a software codebase** - primarily data files (Excel) and documentation (Markdown/HTML).
+Internal project management repo for iNET Tech Department. Tracks monthly OKR/KPI targets, performance evaluations (P2+ forms), meeting minutes, and internal training material. **Not a software codebase** - primarily documentation (Markdown/HTML) plus audit reports. OKR/KPI and P2 evaluation data live on my.inet.vn, not in the repo.
 
 ## Repository Structure
 
-- `members/{năm}/T{tháng}/` - Per-member P2 evaluation Excel files by period (`P2_Form_BP_Cong_Nghe - {TênNgắn}.xlsx`, e.g. `members/2026/T5/`)
-- `members/*.xlsx` + `members/T5/` - Legacy copies before the year/month layout; `members/{năm}/T{tháng}/` is authoritative
-- `P2_Form_BP_Cong_Nghe.xlsx` - Master P2 evaluation template (root, immutable)
+- `P2_Form_BP_Cong_Nghe.xlsx` - **P2 scoring formula template only** (root, immutable). Holds weights + VLOOKUP wiring, **no evaluation levels**
+- `members/` - Historical P2 workbooks (up to T5/2026). ⛔ **Never a data source** - evaluation levels live only on my.inet.vn
 - `docs/` - Standards, PDR, roadmap, runbooks (`monthly-okr-p2-review-guide.md`), ADRs in `docs/decisions/`
 - `okr-kpi/MM-YYYY/` - Monthly OKR+P2 audit reports, one folder per period under review (see `okr-kpi/README.md`)
 - `plans/<user>/` - Per-person plans; `plans/reports/` - other reports plus the T5–T7 2026 audits
 - `hop-cxo/DD-MM-YYYY/` - CXO meeting minutes + transcripts
 - `dao-tao/DD-MM-YYYY/` - Internal training material (HTML slides, transcripts)
-- `scripts/` - Python read-only dump helpers for P2 Excel inspection (`dump_p2_*.py`, openpyxl)
+- `scripts/` - Python read-only helpers to inspect the P2 formula template (`dump_p2_*.py`, openpyxl)
 - `.claude/skills/` - Local skills: `gitlab-okr-kpi` (write), `p2-monthly-okr-audit` (read-only audit)
 - `.env` - my.inet.vn session cookies (`sid`/`ssid`, lowercase) + GitLab tokens - **never commit**
 
@@ -45,14 +44,14 @@ Two traps: `update` is **full replace** (untransmitted fields get wiped - always
 Runbook: `docs/monthly-okr-p2-review-guide.md`. Runs early month N+1 to review month N - cross-checks self-reported OKR/P2 against real evidence (git log, GitLab MRs/issues, prod deploy markers). Read-only audit via `/p2-monthly-okr-audit`; agent only ever saves P2 as `draft`, the manager locks final scores.
 
 ### P2+ Evaluation
-Two parts on my.inet.vn: **P2-Core** (năng lực nền tảng, per role A/B/C/D → Đạt/Chưa đạt) and **P2-Delivery** (kết quả công việc: okr/quality/commitment → Chưa đạt/Đạt/Tốt). Levels are sourced from the member Excel file (sheet `ĐÁNH GIÁ HIỆU SUẤT P2`), then drafted via the `p2evaluation` API.
+Two parts on my.inet.vn: **P2-Core** (năng lực nền tảng, per role A/B/C/D → Đạt/Chưa đạt) and **P2-Delivery** (kết quả công việc: okr/quality/commitment → Chưa đạt/Đạt/Tốt). ⛔ **Levels come only from the portal** (`p2evaluation/get`) or directly from the user - never from an Excel file. Criteria + weights come from `p2config/list`; the agent only ever saves `draft`.
 
 ### Meetings & Training
 Minutes and training material live in dated folders (`hop-cxo/DD-MM-YYYY/`, `dao-tao/DD-MM-YYYY/`), each holding source transcripts plus a self-contained HTML deliverable.
 
 ## Working with Excel Files
 
-Scripts use `openpyxl`. When modifying P2 forms, preserve existing formulas and sheet structure - never hard-code values into summary cells. Each member file mirrors the master template with individual data.
+The only remaining role of `.xlsx` here is the **P2 scoring formula template**. When touching it, preserve existing formulas and sheet structure - never hard-code values into summary cells. Do **not** read evaluation levels from any workbook: they are not there, and the portal is authoritative.
 
 ## Language
 

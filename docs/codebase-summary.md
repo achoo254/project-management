@@ -7,7 +7,7 @@
 **Language:** Vietnamese (team communication), English for technical terms
 **Platform:** Cloned on several developer machines (macOS / Windows) + the my.inet.vn portal (web)
 
-Monthly OKR/KPI data itself lives on **my.inet.vn**, not in this repo. What lives here: P2 Excel forms, standards, runbooks, audit reports, meeting minutes, and training material.
+Monthly OKR/KPI data **and P2 evaluation levels** live on **my.inet.vn**, not in this repo. What lives here: standards, runbooks, audit reports, meeting minutes, training material, and the P2 scoring formula template.
 
 ## Directory Structure
 
@@ -15,7 +15,7 @@ Monthly OKR/KPI data itself lives on **my.inet.vn**, not in this repo. What live
 project-management/
 ├── README.md                              # Entry point: structure, workflows, team
 ├── CLAUDE.md                              # Claude Code instructions + change-logging conventions
-├── P2_Form_BP_Cong_Nghe.xlsx              # Master P2 evaluation template (immutable)
+├── P2_Form_BP_Cong_Nghe.xlsx              # P2 scoring FORMULA template only (immutable, no levels)
 ├── .env.example                           # Template: sid, ssid, GITLABS_*
 ├── .gitignore                             # Ignores all .env* plus editor dirs
 │
@@ -35,7 +35,7 @@ project-management/
 │   │   ├── T3/  T4/                       # P2 forms for 2026-03, 2026-04
 │   │   └── T5/                            # P2 forms + evidence audit report (HTML)
 │   ├── T5/                                # Legacy copies (pre year/month layout)
-│   └── P2_Form_BP_Cong_Nghe - *.xlsx      # Legacy flat copies (4 members)
+│   └── P2_Form_BP_Cong_Nghe - *.xlsx      # Historical workbooks — NOT a data source
 │
 ├── okr-kpi/                               # Monthly OKR+P2 audit reports (from period 07-2026 on)
 │   ├── README.md                          # Location, naming and content convention
@@ -54,7 +54,7 @@ project-management/
 ├── dao-tao/
 │   └── DD-MM-YYYY/                        # Training sessions: HTML slides, transcripts, notes
 │
-├── scripts/                               # Read-only P2 Excel dump helpers (openpyxl)
+├── scripts/                               # Read-only dump helpers for the formula template (openpyxl)
 │   ├── dump_p2_member.py
 │   ├── dump_p2_all_sheets.py
 │   └── dump_p2_dat.py
@@ -83,7 +83,7 @@ project-management/
 |------|---------|----------|
 | `docs/quy-tac-viet-noi-dung-okr.html` | How to write OKR content: field formats, difficulty scale, grading thresholds, common mistakes | All team members |
 | `docs/monthly-okr-p2-review-guide.md` | Monthly review runbook: data sources, 3-layer method, verification traps, report format | Department head |
-| `docs/code-standards.md` | File naming, OKR/KPI content standards, Excel conventions, API automation rules | All team members |
+| `docs/code-standards.md` | File naming, OKR/KPI content standards, P2 scoring conventions, API automation rules | All team members |
 | `docs/codebase-summary.md` | Repository structure & file descriptions (this file) | All team members |
 | `docs/project-overview-pdr.md` | Project purpose, processes, success metrics | Department head, developers |
 | `docs/project-roadmap.md` | Current initiatives, planned improvements, decision log | Department head, developers |
@@ -93,10 +93,10 @@ project-management/
 ### Evaluation Data
 | Path | Purpose | Format | Owner |
 |------|---------|--------|-------|
-| `P2_Form_BP_Cong_Nghe.xlsx` | Master template — scoring structure, per-role weights, formulas | Excel | Department head |
-| `members/{năm}/T{tháng}/*.xlsx` | Per-member P2 form for that period (4 members) | Excel | Individual + department head |
+| `P2_Form_BP_Cong_Nghe.xlsx` | Scoring formula template — structure, per-role weights, formulas. No levels | Excel | Department head |
+| `members/{năm}/T{tháng}/*.xlsx` | Historical per-member workbooks (up to T5/2026). ⛔ Not read by any workflow | Excel | — |
 | `members/{năm}/T{tháng}/*.html` | Evidence audit report for the period | HTML | Department head |
-| `members/*.xlsx`, `members/T5/` | Legacy copies from before the period layout — do not add new files | Excel | — |
+| `members/*.xlsx`, `members/T5/` | Older flat copies — do not add new files | Excel | — |
 
 ### Meeting Minutes & Training
 | Path | Purpose | Format |
@@ -109,7 +109,7 @@ project-management/
 |------|---------|--------|--------|
 | `.claude/skills/gitlab-okr-kpi/` | Create/update OKR entries, draft P2+ evaluations, GitLab API operations | Direct JSON API over `curl` | Active |
 | `.claude/skills/p2-monthly-okr-audit/` | Audit P2-Delivery against git commits and official KPI | Read-only, `curl` + git | Active |
-| `scripts/dump_p2_*.py` | Dump P2 Excel sheets to text for inspection | Python 3 + openpyxl, read-only | Active |
+| `scripts/dump_p2_*.py` | Dump workbook sheets to text to inspect the formula template | Python 3 + openpyxl, read-only | Active |
 
 ## Data Flow
 
@@ -130,8 +130,8 @@ project-management/
 
 ### P2+ Evaluation Flow
 ```
-1. End of month: copy master template into members/{năm}/T{tháng}/
-2. Fill sheet "ĐÁNH GIÁ HIỆU SUẤT P2"
+1. End of month: open the P2 form on my.inet.vn for the period
+2. Fill P2-Core (A/B/C/D) + P2-Delivery (okr/quality/commitment) on the portal
    - B4 = role · C8:C11 = Core A/B/C/D · C17:C19 = Delivery okr/quality/commitment
 3. POST /p2evaluation/get to load the baseline (preserve every existing field)
 4. POST /p2evaluation/compute to get total + grade, confirm with the user

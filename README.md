@@ -12,17 +12,18 @@ Hệ thống quản lý nội bộ theo dõi **OKR/KPI hàng tháng**, **đánh 
 - **`plans/<user>/`** - Kế hoạch theo từng người; **`plans/reports/`** - báo cáo khác + audit kỳ T5–T7/2026
 - **`hop-cxo/DD-MM-YYYY/`** - Biên bản họp CXO kèm transcript
 - **`dao-tao/DD-MM-YYYY/`** - Tài liệu đào tạo nội bộ (slide HTML, transcript)
-- **`scripts/`** - Script Python đọc/dump file P2 Excel (`dump_p2_*.py`, chỉ đọc)
-- **`P2_Form_BP_Cong_Nghe.xlsx`** - Mẫu đánh giá P2 chính (ở root, không sửa trực tiếp)
+- **`scripts/`** - Script Python đọc/dump mẫu công thức P2 (`dump_p2_*.py`, chỉ đọc)
+- **`P2_Form_BP_Cong_Nghe.xlsx`** - **Chỉ là mẫu công thức tính P2** (ở root, không sửa trực tiếp) — không chứa mức đánh giá
+- **`members/`** - Workbook P2 lịch sử (đến T5/2026). ⛔ Không dùng làm nguồn dữ liệu
 - **`.env`** - Cookie my.inet.vn (`sid`/`ssid`) + token GitLab (bí mật, không commit)
 
-Dữ liệu OKR/KPI hàng tháng nằm trên **my.inet.vn**, không lưu trong repo. Repo này chỉ chứa tài liệu, biểu mẫu P2 và báo cáo đối chiếu.
+Dữ liệu OKR/KPI **và mức đánh giá P2** đều nằm trên **my.inet.vn**, không lưu trong repo. Repo này chỉ chứa tài liệu, mẫu công thức P2 và báo cáo đối chiếu.
 
 ### Quy Trình Chính
 
 1. **Khai OKR đầu tháng** → nhập trên my.inet.vn theo [Quy tắc viết nội dung OKR](./docs/quy-tac-viet-noi-dung-okr.html)
 2. **Tự động hóa OKR/KPI** → skill `/gitlab-okr-kpi` gọi API my.inet.vn trực tiếp (curl)
-3. **Đánh giá P2+ cuối tháng** → điền mức trong file Excel thành viên, lưu nháp lên my.inet.vn
+3. **Đánh giá P2+ cuối tháng** → điền mức trực tiếp trên my.inet.vn (P2-Core + P2-Delivery); agent chỉ lưu `draft`, quản lý khoá điểm cuối
 4. **Review đầu tháng sau** → đối chiếu tự đánh giá với bằng chứng thật, xuất báo cáo HTML vào `okr-kpi/MM-YYYY/`
 
 ### Tài Liệu Tham Khảo
@@ -56,10 +57,10 @@ Phạm vi đánh giá P2 của dattqh: **dattqh, hobv, ducnd, chuongdt**. Không
 4. Xác nhận entry trên my.inet.vn
 
 **Cập nhật đánh giá P2:**
-1. Mở file thành viên trong `members/{năm}/T{tháng}/`
-2. Điền mức ở sheet `ĐÁNH GIÁ HIỆU SUẤT P2` (P2-Core A/B/C/D và P2-Delivery)
-3. Kiểm tra công thức tổng tính đúng, không hard-code ô tổng hợp
-4. Lưu nháp lên my.inet.vn; điểm cuối do quản lý khóa
+1. Mở form trên my.inet.vn: `/account/p2/evaluation?account={email}&period=YYYY-MM`
+2. Điền mức P2-Core (A/B/C/D) và P2-Delivery (OKR / Chất lượng / Cam kết)
+3. Đối chiếu `total`/`grade` server tính với công thức trong runbook
+4. Lưu **nháp**; điểm cuối do quản lý khoá. ⛔ Không điền vào file Excel — Excel chỉ còn giữ mẫu công thức
 
 **Review OKR + P2 tháng trước:**
 1. Theo runbook [monthly-okr-p2-review-guide.md](./docs/monthly-okr-p2-review-guide.md)

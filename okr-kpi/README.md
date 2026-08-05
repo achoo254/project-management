@@ -8,6 +8,7 @@ Quy trình và phương pháp: [`../docs/monthly-okr-p2-review-guide.md`](../doc
 
 ```
 okr-kpi/MM-YYYY/
+├── review-okr-p2-<scope>-<YYMMDD>.json    # dữ liệu nguồn (bắt buộc) — render lại được
 ├── review-okr-p2-<scope>-<YYMMDD>.html    # bản tổng hợp (bắt buộc)
 └── review-okr-p2-<scope>-<YYMMDD>.md      # bản chi tiết đi kèm (tuỳ chọn)
 ```
@@ -19,8 +20,19 @@ okr-kpi/MM-YYYY/
 
 ## Quy tắc
 
-- **HTML self-contained**: inline hết CSS/JS, không CDN, không font ngoài, không dẫn file ngoài. Mở được offline.
-- **Style theo iNET Design System (viui)** — token trong runbook mục 5.
+- **Render bằng script, KHÔNG viết HTML tay** — `.claude/skills/p2-monthly-okr-audit/scripts/build_html_report.py` (schema v2 ở docstring đầu file):
+
+  ```bash
+  python3 .claude/skills/p2-monthly-okr-audit/scripts/build_html_report.py \
+    --data okr-kpi/MM-YYYY/review-okr-p2-team-YYMMDD.json \
+    --out  okr-kpi/MM-YYYY/review-okr-p2-team-YYMMDD.html
+  ```
+
+  Cần khối nội dung schema chưa có → mở rộng script + docstring, đừng viết tay một bản riêng.
+- **HTML self-contained**: inline hết CSS/JS, không CDN, không font ngoài, không dẫn file ngoài. Mở được offline (`open <path>` trên macOS).
+- **Style theo iNET Design System (viui)** — token trong runbook mục 5; script đã cài sẵn bộ token light.
+- **Nội dung tối thiểu** (runbook §5): self ↔ official + `status` (rỗng / `draft` / `locked`) · công thức kiểm chứng `total`/`grade` · **đủ từng entry OKR** kèm effort S/M/L/XL + bằng chứng + ngày landed · điều chỉnh đề xuất · claim không kiểm chứng được phải ghi rõ.
+- **Nguồn mức đánh giá = my.inet.vn (`p2evaluation/get`), KHÔNG phải Excel.** File `.xlsx` trong repo chỉ giữ mẫu công thức tính P2, không chứa mức nào → không đọc, không đối chiếu.
 - **Dữ liệu nhân sự — để local.** Không publish, không deploy, không gửi ra ngoài công ty.
 - **Chỉ-đọc với điểm P2**: report chỉ nêu điều chỉnh đề xuất. Điểm cuối do quản lý khoá trên my.inet.vn; agent chỉ lưu `draft`.
 - **Phạm vi**: dattqh, hobv, ducnd, chuongdt. Không bao gồm `anhtct` (quản lý khác phụ trách).

@@ -50,27 +50,18 @@ Mỗi người có vai trò khác nhau. Giá trị `role` hợp lệ (đúng nh�
 
 ## Nguồn mức đánh giá
 
-**Ưu tiên đọc file Excel P2 trong repo. Chỉ điền khi có sẵn dữ liệu, KHÔNG tự suy diễn.**
+⛔ **KHÔNG có nguồn Excel.** File `.xlsx` trong repo (kể cả `members/{năm}/T{tháng}/`) chỉ giữ **mẫu công thức tính P2** — không chứa mức đánh giá nào. Không đọc, không suy diễn từ đó.
 
-1. **File Excel P2 (nguồn CHÍNH)** — `members/{năm}/T{thang}/P2_Form_BP_Cong_Nghe - {TênNgắn}.xlsx`
-   - **Folder năm chứa folder tháng** `T{số tháng}`: `members/2026/T5/` = period `2026-05`, `members/2026/T4/` = `2026-04`, ... (năm lấy từ `period` `YYYY-MM`).
-   - Tên ngắn file: `Dat`=dattqh, `Duc`=ducnd, `Ho`=hobv, `Chuong`=chuongdt.
-   - ⛔ **KHÔNG làm P2 cho `anhtct`** (Trần Công Tuấn Anh) — do quản lý khác phụ trách. Bỏ qua kể cả khi có file Excel. Phạm vi P2 của dattqh: dattqh, hobv, ducnd, chuongdt.
-   - Đọc sheet **`ĐÁNH GIÁ HIỆU SUẤT P2`** (cần `openpyxl`, `data_only=True`):
+Thứ tự nguồn:
 
-   | Ô | Nội dung | → API |
-   |----|----------|-------|
-   | `B3` | Họ tên | — |
-   | `B4` | Vai trò | `roles[].role` + key `scores.core` |
-   | `C8` / `C9` / `C10` / `C11` | Core A / B / C / D | `scores.core[role].A..D` |
-   | `C17` / `C18` / `C19` | Delivery OKR / Chất lượng / Cam kết | `scores.delivery.okr/quality/commitment` |
+1. **User cung cấp trực tiếp** (nguồn CHÍNH) → dùng đúng giá trị user gửi.
+2. **`selfScores` đã có trên portal** — khi việc cần làm là chấm official theo đúng self, hoặc để hiển thị đối chiếu. Lấy từ `p2evaluation/get`; role lấy từ `roles[]` cùng response, KHÔNG tự gõ lại.
+3. **User không cung cấp** → `AskUserQuestion` hỏi từng hạng mục (A/B/C/D + okr/quality/commitment), **KHÔNG tự suy diễn**.
+4. **Phân tích GitLab (chỉ khi user yêu cầu RÕ)**: dùng Mode 1 lấy commits/MRs/issues/pipelines trong `period`, đối chiếu tiêu chí lấy từ `p2config/list` → đề xuất mức + bằng chứng → **luôn cho user xác nhận trước khi save**.
 
-   - **Chuẩn hóa giá trị** (Excel → API): `chưa đạt`→`"Chưa đạt"`, `đạt`→`"Đạt"`, `tốt`→`"Tốt"` (lower-case rồi map; tránh sai hoa/thường như `"Chưa Đạt"` trong sheet CẤU TRÚC).
-   - Sheet `NHÂN SỰ` (cột A=tên, B=vai trò) và `CẤU TRÚC & TRỌNG SỐ` (mục IV — trọng số theo vai trò) để đối chiếu role.
-   - ⚠️ File `.xlsx` ở **`members/` (root)** là **template/mẫu** (giữ để cập nhật công thức) — **KHÔNG** dùng làm nguồn điểm. Chỉ đọc trong `members/{năm}/T{tháng}/`.
-2. **User cung cấp trực tiếp** → dùng đúng giá trị user gửi.
-3. **Không có Excel + user không cung cấp** → `AskUserQuestion` hỏi từng hạng mục.
-4. **Phân tích GitLab (chỉ khi user yêu cầu RÕ)**: dùng Mode 1 lấy commits/MRs/issues/pipelines trong `period`, đối chiếu rubric ("Xem" trên page) → đề xuất mức + bằng chứng → **luôn cho user xác nhận trước khi save**.
+⛔ **KHÔNG làm P2 cho `anhtct`** (Trần Công Tuấn Anh) — do quản lý khác phụ trách. Phạm vi P2 của dattqh: dattqh, hobv, ducnd, chuongdt.
+
+**Giá trị hợp lệ gửi API** (khớp chính xác dấu + hoa/thường): Core `"Đạt"` / `"Chưa đạt"` · Delivery `"Chưa đạt"` / `"Đạt"` / `"Tốt"` — gửi label KHÔNG kèm hệ số.
 
 ## API contract (đã verify thực tế)
 

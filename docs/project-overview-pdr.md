@@ -22,17 +22,16 @@ Internal project management system for the iNET Tech Department. Centralized tra
 
 ### 2. Performance Evaluation (P2+)
 - **Two parts:** P2-Core (năng lực nền tảng, per role A/B/C/D) and P2-Delivery (kết quả công việc: okr / quality / commitment)
-- **Excel side:** master template `P2_Form_BP_Cong_Nghe.xlsx` at root; member forms in `members/{năm}/T{tháng}/`
-- **Scoring sheet:** `ĐÁNH GIÁ HIỆU SUẤT P2` — B4 = role, C8:C11 = Core, C17:C19 = Delivery
+- **Single source:** my.inet.vn. Levels live in `p2evaluation/get` (`selfScores` / `scores`); criteria + weights in `p2config/list`. ⛔ No Excel involved — `P2_Form_BP_Cong_Nghe.xlsx` at root is only the scoring **formula template** and holds no levels.
 - **Formula:** `P2+ Tổng = (P2-Core × coreWeight) + (P2-Delivery × deliveryWeight)`; A/B/C/D weights differ per role and are computed server-side
-- **Portal side:** drafted via the `p2evaluation` API. The agent only ever saves `draft`; the manager reviews and locks the official score.
+- **Write path:** drafted via the `p2evaluation` API. The agent only ever saves `draft`; the manager reviews and locks the official score.
 
 ### 3. Monthly Review & Audit
 - **Cadence:** early month N+1, reviewing month N
 - **Runbook:** [`monthly-okr-p2-review-guide.md`](./monthly-okr-p2-review-guide.md)
 - **Method:** three layers — self-reported completion, real code (git + GitLab + production), then effort-weighting from code footprint
 - **Output:** self-contained HTML report in `okr-kpi/MM-YYYY/` (the period under review), kept local — personnel data
-- **Evidence rule:** P2 on my.inet.vn is authoritative, not the Excel file. Read both `selfScores` and `scores` and report any divergence; `scores` empty with `status="draft"` means unscored, not a bad score.
+- **Evidence rule:** my.inet.vn is the only source of levels — no Excel to reconcile. Read both `selfScores` and `scores`; empty `scores` means unscored (not a bad score), and `locked` means the score must be reopened before it can change.
 
 ### 4. Meetings & Training
 - **CXO meetings:** minutes in `hop-cxo/DD-MM-YYYY/`, kept alongside the raw transcripts they were derived from
@@ -58,9 +57,9 @@ Verify: POST /accountkpi/search with monthStr, reconcile totalElements vs rows r
 
 ### P2+ Evaluation Flow
 ```
-Master template (root)
+Levels from the user, or self-scores already on the portal
            ↓
-Copy into members/{năm}/T{tháng}/, fill sheet "ĐÁNH GIÁ HIỆU SUẤT P2"
+POST /p2config/list — criteria, weights, valid level names
            ↓
 POST /p2evaluation/get — load baseline, preserve every existing field
            ↓
@@ -103,7 +102,7 @@ Active OKR/KPI per member is **not duplicated here** — it changes monthly and 
 
 - **Authentication:** `sid` is a JWT with TTL ≈ 1 day; it must be refreshed manually from the browser almost every working session. There is no client-side refresh path — SSO exposes no token endpoint for it.
 - **API is authoritative, not the form:** `accountkpi/update` fully replaces the record, and `accountkpi/search` pages at 30 while ignoring `size`. Both require deliberate handling.
-- **Excel files:** no real-time sync with the portal; the Excel level and the portal level are entered separately and must agree.
+- **No offline copy of levels:** evaluations exist only on the portal, so an audit is impossible without a live `sid`/`ssid` session. Nothing in the repo can stand in for it.
 - **Evidence access:** GitLab tokens are project-scoped, so repos outside the token's scope cannot be verified (has already blocked one claim).
 - **Vietnamese UI:** all portal forms are Vietnamese; score values must match exactly including diacritics and casing.
 - **Multi-machine:** the repo is cloned on several machines, so the reason for a change must travel with `git pull` — commit body, ADR, or plan file, never a local agent session.
@@ -117,7 +116,7 @@ Active OKR/KPI per member is **not duplicated here** — it changes monthly and 
 | Trusting page 1 of `accountkpi/search` | Wrong conclusion that a member declared no OKR | Always send `monthStr`; reconcile `totalElements` against rows received |
 | Self-declared effort taken at face value | Inflated OKR grade | Difficulty re-derived from code footprint during the audit |
 | "Deployed to production" without a marker | Late work counted as on-time | Require release tag, prod bundle `last-modified`, or a successful `deploy` job |
-| Excel formula errors | P2 scoring inaccurate | Preserve template formulas; never hard-code summary cells; compare against server-computed total |
+| Score arithmetic taken on trust | P2 total wrong in the report | Re-compute `total`/`grade` by hand and via `/p2evaluation/compute`; put the formula in the report |
 | Leaked `.env` in git | Credential exposure | All `.env*` ignored; rotate immediately if one ever lands in history |
 | Personnel report published externally | Data exposure | Reports stay local in `okr-kpi/` and `plans/reports/`, never deployed or shared outside |
 
@@ -125,6 +124,6 @@ Active OKR/KPI per member is **not duplicated here** — it changes monthly and 
 
 1. Keep documentation aligned with the repo as conventions change — stale docs have already misdirected work
 2. Track OKR content quality: how many entries need rework because of format or evidence gaps
-3. Build a P2 trend view across periods (`members/{năm}/T*/`) instead of reading each period in isolation
+3. Build a P2 trend view across periods from the portal (`p2evaluation/get` per period + `history[]`) instead of reading each period in isolation
 4. Document the P2 evaluation criteria well enough that a second evaluator can apply them consistently
 5. Reduce the manual cookie refresh friction in the write path if the portal ever exposes a supported alternative

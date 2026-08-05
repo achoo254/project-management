@@ -5,15 +5,15 @@
 
 ## §1. Danh tính thành viên (ỔN ĐỊNH)
 
-| Tên | username/email | Vai trò mặc định | KPI URL (my.inet.vn) | File P2 | git author identities (regex) |
-|---|---|---|---|---|---|
-| Trịnh Quốc Hoàn Đạt | `dattqh` / dattqh@inet.vn | Fullstack · Trưởng phòng | /account/kpi/detail/dattqh@inet.vn | `...- Dat.xlsx` | `dattqh\|DatTQH\|Dat Tran\|quocdat254` |
-| Nguyễn Đăng Đức | `ducnd` / ducnd@inet.vn | Frontend | /account/kpi/detail/ducnd@inet.vn | `...- Duc.xlsx` | `ducnd\|Ducnd` |
-| Bùi Văn Hổ | `hobv` / hobv@inet.vn | Design System | /account/kpi/detail/hobv@inet.vn | `...- Ho.xlsx` | `hobv\|HoBV` |
-| Đinh Tiến Chương | `chuongdt` / chuongdt@inet.vn | Frontend | /account/kpi/detail/chuongdt@inet.vn | `...- Chuong.xlsx` | `chuongdt\|23august\|Chương` |
-| Trần Công Tuấn Anh | `anhtct` / anhtct@inet.vn | AI Research | /account/kpi/detail/anhtct@inet.vn | `...- TuanAnh.xlsx` (nếu có) | (chưa biết — lấy bằng `git shortlog -sne`) |
+| Tên | username/email | Vai trò mặc định | KPI URL (my.inet.vn) | git author identities (regex) |
+| --- | --- | --- | --- | --- |
+| Trịnh Quốc Hoàn Đạt | `dattqh` / dattqh@inet.vn | Fullstack · Trưởng phòng | /account/kpi/detail/dattqh@inet.vn  | `dattqh\|DatTQH\|Dat Tran\|quocdat254` |
+| Nguyễn Đăng Đức | `ducnd` / ducnd@inet.vn | Frontend | /account/kpi/detail/ducnd@inet.vn  | `ducnd\|Ducnd` |
+| Bùi Văn Hổ | `hobv` / hobv@inet.vn | Design System | /account/kpi/detail/hobv@inet.vn  | `hobv\|HoBV` |
+| Đinh Tiến Chương | `chuongdt` / chuongdt@inet.vn | Frontend | /account/kpi/detail/chuongdt@inet.vn  | `chuongdt\|23august\|Chương` |
+| Trần Công Tuấn Anh | `anhtct` / anhtct@inet.vn | AI Research | /account/kpi/detail/anhtct@inet.vn  | (chưa biết — lấy bằng `git shortlog -sne`) |
 
-- File P2 trong `D:\CONG VIEC\project-management\members\T{n}\` (T{n}=tháng, vd `T5`). `Vai trò mặc định` chỉ là gợi ý — vai trò thực đọc từ ô B4 file P2.
+- `Vai trò mặc định` chỉ là gợi ý — **vai trò thực của kỳ lấy từ `roles[]` trong `p2evaluation/get`** (có người đổi role giữa các kỳ). ⛔ KHÔNG đọc file Excel: `.xlsx` trong repo chỉ giữ mẫu công thức, không có mức đánh giá.
 - 1 người có thể có nhiều git identity (email công ty + email cá nhân + tên hiển thị). Đạt từng commit dưới `quocdat254@gmail.com`. Verify mỗi repo: `git shortlog -sne --all`.
 
 ## §2. Catalog repo đã biết (tra cứu path→URL)
