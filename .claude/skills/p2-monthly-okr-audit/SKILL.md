@@ -36,7 +36,7 @@ Does NOT handle: đọc/ghi mức đánh giá trong file Excel (Excel chỉ là 
 
 1. **BỎ QUA trạng thái "Đã duyệt/Duyệt"** trên my.inet.vn — đó là việc của cấp quản lý, KHÔNG phản ánh mức hoàn thành công việc. Đánh giá chỉ dựa trên công việc thực (git + KPI shipped).
 2. **KHÔNG dùng folder `weekly meetings/`** làm nguồn OKR — nội dung stale/lịch sử. Baseline OKR = KPI chính thức trên my.inet.vn (hoặc chỉ định trực tiếp của user).
-3. **Thang Delivery:** Chưa đạt `0.8` · Đạt `1.0` · **Tốt `1.2` (trần)**. Không có cấp cao hơn "Tốt".
+3. **Thang Delivery:** Chưa đạt `0.8` · Đạt `1.0` · **Tốt `1.2` (trần)**. Không có cấp cao hơn "Tốt". Ngưỡng "Tốt" cho `okr` cần **3 điều kiện đồng thời**: hoàn thành cao + ≥1 stretch L–XL + **có khác biệt thật** (dựng mới / đổi kiến trúc / mở năng lực mới). Mở rộng theo khuôn đã có → tối đa "Đạt" dù khối lượng rất lớn. Chi tiết + ví dụ: runbook §2.
 4. **Trọng số Delivery:** OKR `0.4` · Chất lượng `0.35` · Cam kết `0.25`. **P2+ = Core×0.5 + Delivery×0.5**. Ngưỡng: `<1` Chưa đạt · `=1` Đạt · `>1` Tốt. (Verify lại từ sheet `CẤU TRÚC & TRỌNG SỐ` mỗi kỳ — trọng số có thể đổi.)
 5. **Lọc commit tự động** (semantic-release `chore(release) [skip ci]`, merge) khi đếm "khối lượng thực" — báo cả số tổng và số thực.
 6. **Trung thực, không thổi phồng:** "Chất lượng=Đạt" (không max) là HỢP LÝ khi có sự cố/rework — đó là dấu hiệu đánh giá tốt. Đối chiếu mô tả tiêu chí với bằng chứng, không mặc định max.

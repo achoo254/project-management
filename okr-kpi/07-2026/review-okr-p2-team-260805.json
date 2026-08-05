@@ -10,18 +10,18 @@
       "Nguồn: my.inet.vn API · GitLab API · git local · HTTP production",
       "⛔ Ngoài phạm vi: anhtct"
     ],
-    "sourceNote": "Mức đánh giá lấy từ <code>p2evaluation/get</code> trên my.inet.vn — <b>nguồn duy nhất</b>. Tiêu chí + trọng số từ <code>p2config/list</code>. Không dùng file Excel: <code>.xlsx</code> trong repo chỉ giữ mẫu công thức tính P2, không chứa mức đánh giá."
+    "sourceNote": "Mức đánh giá lấy từ <code>p2evaluation/get</code> trên my.inet.vn — <b>nguồn duy nhất</b>. Tiêu chí + trọng số từ <code>p2config/list</code>. Không dùng file Excel: <code>.xlsx</code> trong repo chỉ giữ mẫu công thức tính P2, không chứa mức đánh giá. · <b>Cập nhật 05/08:</b> OKR của ducnd hạ từ Tốt → Đạt theo <b>điều kiện 3 “có khác biệt thật”</b> mới bổ sung vào ngưỡng “Tốt” (runbook §2) — quyết định của TBP về tính chất công việc, không phải do bằng chứng thay đổi."
   },
   "banners": [
     {
       "tone": "err",
-      "title": "1 điểm cần sửa: Cam kết & tiến độ của chuongdt đang khoá ở “Tốt (1.2)” mà không có bằng chứng đỡ",
-      "html": "Không có deploy production nào trong kỳ sau 13/07 · CI <code>main</code> đỏ 10/10 cả tháng không báo · <b>0 issue</b> do chuongdt mở trong T7 · chấm công trễ 4 ngày (đúng giờ 79%, thấp nhất phòng). Hạ về “Đạt” → tổng <b>1.025 → 1.0</b>, grade <b>Tốt → Đạt</b>."
+      "title": "2 điểm cần sửa: Cam kết của chuongdt và OKR của ducnd — cả hai đang khoá",
+      "html": "<b>chuongdt · Cam kết “Tốt (1.2)” không có bằng chứng đỡ:</b> không có deploy production nào trong kỳ sau 13/07 · CI <code>main</code> đỏ 10/10 cả tháng không báo · <b>0 issue</b> do chuongdt mở trong T7 · chấm công trễ 4 ngày (79%, thấp nhất phòng). → hạ Cam kết về “Đạt”: tổng <b>1.025 → 1.0</b>, grade <b>Tốt → Đạt</b>.<br><b>ducnd · OKR “Tốt (1.2)” không đủ điều kiện khác biệt:</b> khối lượng rất lớn và số liệu khớp tuyệt đối, nhưng công việc là <b>mở rộng theo khuôn đã có</b> (MCP Phase 2–4 lặp lại nền Phase 1 từ T6; Admin Analytics là dashboard trên dữ liệu có sẵn) — không có deliverable dựng mới hay đổi kiến trúc. → hạ OKR về “Đạt”: tổng <b>1.1 → 1.06</b>, vẫn grade Tốt. <i>Quyết định TBP 05/08, đồng thời bổ sung điều kiện 3 vào ngưỡng “Tốt” trong runbook §2.</i>"
     },
     {
       "tone": "ok",
-      "title": "3 người còn lại: mức tự đánh giá chính xác — giữ nguyên",
-      "html": "dattqh 1.065 · hobv 1.025 · ducnd 1.1. Mọi số liệu tự khai kiểm chứng được đều khớp nguồn độc lập (122/116 tool, 13 AI client, 885 commit, release <code>v1.7.0</code> 27/07, release <code>v1.0.0</code> 31/07)."
+      "title": "2 người giữ nguyên — mức tự đánh giá chính xác",
+      "html": "dattqh 1.065 · hobv 1.025. Mọi số liệu tự khai kiểm chứng được đều khớp nguồn độc lập (885 commit / 9 repo, release <code>v1.7.0</code> 27/07, release <code>v1.0.0</code> 31/07, a11y baseline 94 P0 khớp job 42074)."
     }
   ],
   "summary": [
@@ -62,9 +62,11 @@
       "officialGrade": "Tốt",
       "officialNote": "khoá 05/08 10:37",
       "status": "locked",
-      "delivery": "Tốt / Tốt / Tốt",
-      "proposal": "Giữ nguyên",
-      "proposalTone": "ok"
+      "delivery": "Tốt → Đạt / Tốt / Tốt",
+      "proposal": "Hạ OKR → Đạt",
+      "proposalTone": "err",
+      "proposalNote": "tổng 1.1 → 1.06, vẫn Tốt",
+      "flag": true
     },
     {
       "name": "chuongdt",
@@ -389,15 +391,15 @@
     },
     {
       "name": "ducnd · Nguyễn Đăng Đức",
-      "score": "1.1 · Tốt",
+      "score": "1.1 → 1.06",
       "pills": [
         {
           "tone": "info",
           "text": "6 entry · 2×XL + 4×L"
         },
         {
-          "tone": "ok",
-          "text": "official đã khoá 1.1"
+          "tone": "err",
+          "text": "official đã locked ở 1.1 — cần reopen"
         },
         {
           "tone": "gray",
@@ -407,21 +409,30 @@
       "formula": {
         "lines": [
           "core     = 1.0×0.30 + 1.0×0.25 + 1.0×0.10 + 1.0×0.35 = 1.00      // trọng số role Frontend",
-          "delivery = 1.2×0.40 + 1.2×0.35 + 1.2×0.25 = 0.48+0.42+0.30 = 1.20",
-          "total    = 1.00×0.5 + 1.20×0.5 = 1.10 → \"Tốt\""
+          "delivery = 1.2×0.40 + 1.2×0.35 + 1.2×0.25 = 0.48+0.42+0.30 = 1.20  → total = 1.10  (bản đang khoá)",
+          "ĐỀ XUẤT (OKR → Đạt):",
+          "delivery = 1.0×0.40 + 1.2×0.35 + 1.2×0.25 = 0.40+0.42+0.30 = 1.12  → total = 1.06 → \"Tốt\""
         ],
-        "server": "khớp cả selfComputed và computed server trả về (1.1 / Tốt)"
+        "server": "1.10 khớp computed server; 1.06 đã validate qua POST /p2evaluation/compute"
       },
       "criteria": [
         {
           "name": "Mức độ hoàn thành OKR",
           "weight": "40%",
-          "level": "Tốt",
-          "levelTone": "ok",
+          "level": "Tốt → đề xuất Đạt",
+          "levelTone": "err",
           "evidence": [
             {
               "tone": "y",
-              "html": "7/7 issue mốc khai đóng đúng ngày (bảng entry bên dưới), 2 hạng mục XL."
+              "html": "Bằng chứng <b>hoàn thành</b> vững: 7/7 issue mốc khai đóng đúng ngày, 2 hạng mục XL, 596 commit trong kỳ — thoả điều kiện 1 và 2 của ngưỡng “Tốt”."
+            },
+            {
+              "tone": "n",
+              "html": "<b>Không thoả điều kiện 3 (có khác biệt thật)</b> — quyết định TBP 05/08. Công việc T7 là <b>mở rộng theo khuôn đã có</b>: MCP Phase 2–4 lặp lại nền Phase 1 đã dựng từ T6 (116 tool cùng một pattern, không phải 116 bài toán khác nhau); Admin Analytics 3-lens là dashboard trên dữ liệu đã có. Không có deliverable dựng mới từ 0 hay đổi kiến trúc. Đối chiếu cùng kỳ: hobv dựng DAM từ 0, dattqh cutover VictoriaMetrics + CEPH/S3 + APM đa tenant."
+            },
+            {
+              "tone": "i",
+              "html": "⚠️ Đây là <b>đánh giá tính chất công việc, không phải phủ nhận bằng chứng</b> — mọi số liệu ducnd tự khai vẫn kiểm chứng được và đều khớp. Điều kiện 3 vừa được ghi vào runbook §2 để tháng sau áp nhất quán cho cả 4 người."
             },
             {
               "tone": "y",
@@ -510,7 +521,8 @@
       ],
       "unverified": [
         "Không có claim nào của ducnd thuộc diện không kiểm chứng được — toàn bộ số liệu đều đối chiếu được từ git object + GitLab API."
-      ]
+      ],
+      "flag": true
     },
     {
       "name": "hobv · Bùi Văn Hổ",
@@ -665,6 +677,12 @@
   "todos": [
     {
       "task": "Mở lại điểm chính thức của <b>chuongdt</b> (đang <code>locked</code>) và hạ Cam kết & tiến độ về <b>Đạt</b> → 1.0 “Đạt”; hoặc yêu cầu chuongdt giải trình mốc deploy production trong kỳ nếu muốn giữ “Tốt”",
+      "level": "quyết định",
+      "levelTone": "err",
+      "owner": "dattqh"
+    },
+    {
+      "task": "Mở lại điểm chính thức của <b>ducnd</b> (đang <code>locked</code> ở 1.1) và hạ OKR về <b>Đạt</b> → tổng <b>1.06</b> (vẫn grade Tốt) — theo điều kiện 3 “có khác biệt thật” vừa chốt trong runbook §2",
       "level": "quyết định",
       "levelTone": "err",
       "owner": "dattqh"

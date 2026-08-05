@@ -67,7 +67,7 @@ Full rules with worked examples: [`quy-tac-viet-noi-dung-okr.html`](./quy-tac-vi
 6. **Difficulty is re-derived from code during audit** — self-declared effort is not trusted.
 
 ### Grading thresholds
-- **"Tốt"** requires high completion **and** at least one stretch deliverable at `L`–`XL`. Many `S`/`M` tasks cap out at "Đạt".
+- **"Tốt"** requires three conditions at once: high completion, at least one stretch deliverable at `L`–`XL`, **and genuine novelty** — something built from scratch, an architectural change, or a new capability. Extending an existing pattern caps out at "Đạt" no matter the volume; many `S`/`M` tasks also cap at "Đạt".
 - OKR for month N must land (merged to main / issue closed) **on or before the last day of month N**. Landing the next month counts as late.
 - "Đã build lên production" is not evidence. Point at a release tag, the prod bundle's `last-modified`, or a successful `deploy` pipeline job.
 - `status = "waiting"` means awaiting manager approval, **not** unfinished work.

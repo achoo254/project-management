@@ -24,7 +24,15 @@ Cookie `sid`/`ssid` + token đọc từ `.env` (privacy-guarded → xin duyệt;
 2. **Code thật** — scout repo local + GitLab (issue closed / MR merged) để xác minh KHÔNG chỉ tin status "done". Ghi bằng chứng: path/symbol + ngày landed.
 3. **Effort-weighted** — gán **S/M/L/XL cho từng OKR**, ước lượng **KHÁCH QUAN từ code footprint** (số tầng/hệ thống/độ phức tạp), **KHÔNG tin effort tự khai** (tránh liệt kê toàn task S/M để luôn "Tốt").
 
-**Ngưỡng "Tốt" (okr) đã chốt:** hoàn thành cao **VÀ** ≥1 deliverable **stretch (L–XL)**. Hoàn thành nhiều task S/M mà không có stretch → tối đa "Đạt".
+**Ngưỡng "Tốt" (okr) đã chốt — 3 điều kiện ĐỒNG THỜI:**
+
+1. **Hoàn thành cao** — hạng mục đã khai landed trong kỳ, có bằng chứng.
+2. **≥1 deliverable stretch (L–XL)** — nhiều task S/M mà không có stretch → tối đa "Đạt".
+3. **Có khác biệt thật** — dựng mới, đổi kiến trúc, hoặc mở năng lực chưa từng có. **Mở rộng theo khuôn đã có thì tối đa "Đạt", dù khối lượng rất lớn.**
+
+Điều kiện 3 bổ sung 05/08/2026 (quyết định TBP) vì 2 điều kiện đầu chỉ đo *lượng*: T7/2026 ducnd có 596 commit + 2 hạng mục XL nhưng MCP Phase 2–4 lặp lại khuôn Phase 1 đã dựng từ T6 (116 tool cùng một pattern) và Admin Analytics là dashboard trên dữ liệu có sẵn → OKR hạ về "Đạt" (tổng 1.1 → 1.06). Đối chiếu cùng kỳ: hobv dựng mới DAM từ 0, dattqh cutover VictoriaMetrics + CEPH/S3 + APM đa tenant → thoả điều kiện 3.
+
+⚠️ Điều kiện 3 là **đánh giá tính chất công việc, không phải khối lượng** — nêu rõ trong report vì sao đạt/không đạt, để tháng sau cùng một profile không bị chấm khác.
 
 **Verdict = đối chiếu self-score vs (hoàn thành × code thật × effort).** Chỉ đề xuất điều chỉnh; **điểm cuối do quản lý khóa** trên my.inet.vn.
 
@@ -111,7 +119,7 @@ Bố cục gợi ý: TL;DR (số người khớp / thổi phồng / điều ch�
 - [ ] Mốc release: `GET /projects/:id/releases` → `created_at` (KHÔNG dùng creatordate của tag lightweight)
 - [ ] Mốc production: `last-modified` bundle prod + pipeline `deploy` thành công; repo deploy thủ công → ghi là không kiểm chứng được
 - [ ] Scout code local từng repo: xác minh code thật + ngày landed vs deadline
-- [ ] Gán effort S/M/L/XL từ code footprint; áp ngưỡng "Tốt = + stretch"
+- [ ] Gán effort S/M/L/XL từ code footprint; áp ngưỡng "Tốt" đủ **3 điều kiện** (hoàn thành cao + stretch L–XL + **có khác biệt thật**, không phải mở rộng theo khuôn cũ)
 - [ ] Kiểm lại `total`/`grade` bằng công thức, so với `selfComputed`/`computed` server trả về — **đưa công thức vào report**
 - [ ] Viết JSON theo schema v2 → render HTML bằng `build_html_report.py` vào **`okr-kpi/MM-YYYY/`**; lưu cả `.json`
 - [ ] Liệt kê **đủ từng entry OKR** (số dòng khớp `totalElements` của tháng), mỗi entry có effort + bằng chứng + ngày landed
