@@ -1,0 +1,1496 @@
+<!DOCTYPE html>
+<html lang="vi" id="top">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OxMail · Chốt định hướng sản phẩm 07/08/2026</title>
+<meta name="description" content="Biên bản buổi review OxMail ngày 07/08/2026 tại Cầu Giấy 2: quyết định không thay hệ thống mail hiện tại, cấp môi trường thí điểm cho ngách, 22 vấn đề hội đồng nêu ra và việc phải làm kèm chủ sở hữu.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   TOKENS
+   ============================================================ */
+:root,
+:root[data-theme="light"]{
+  color-scheme: light;
+
+  --bg:        oklch(0.985 0.003 250);
+  --bg-sunk:   oklch(0.962 0.004 250);
+  --bg-raise:  oklch(0.998 0.002 250);
+  --rule:      oklch(0.885 0.007 252);
+  --rule-firm: oklch(0.775 0.010 252);
+  --text:      oklch(0.215 0.016 254);
+  --text-2:    oklch(0.365 0.014 253);
+  --muted:     oklch(0.460 0.012 252);
+
+  --accent:      oklch(0.470 0.170 262);
+  --accent-soft: oklch(0.935 0.030 262);
+
+  --idx:       oklch(0.550 0.012 252);
+
+  --sev-1: oklch(0.480 0.160 28);
+  --sev-2: oklch(0.520 0.110 78);
+  --sev-3: oklch(0.500 0.030 252);
+
+  --series-a: #1D4ED8;
+  --series-b: #C2410C;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]):not([data-theme="dark"]){
+    color-scheme: dark;
+    --bg:        oklch(0.170 0.012 258);
+    --bg-sunk:   oklch(0.205 0.013 258);
+    --bg-raise:  oklch(0.228 0.014 258);
+    --rule:      oklch(0.305 0.015 258);
+    --rule-firm: oklch(0.440 0.018 258);
+    --text:      oklch(0.945 0.008 258);
+    --text-2:    oklch(0.800 0.012 258);
+    --muted:     oklch(0.700 0.014 258);
+    --idx:       oklch(0.540 0.014 258);
+    --accent:      oklch(0.720 0.140 262);
+    --accent-soft: oklch(0.300 0.055 262);
+    --sev-1: oklch(0.680 0.150 30);
+    --sev-2: oklch(0.760 0.115 84);
+    --sev-3: oklch(0.640 0.028 258);
+    --series-a: #5B80E6;
+    --series-b: #D97448;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme: dark;
+  --bg:        oklch(0.170 0.012 258);
+  --bg-sunk:   oklch(0.205 0.013 258);
+  --bg-raise:  oklch(0.228 0.014 258);
+  --rule:      oklch(0.305 0.015 258);
+  --rule-firm: oklch(0.440 0.018 258);
+  --text:      oklch(0.945 0.008 258);
+  --text-2:    oklch(0.800 0.012 258);
+  --muted:     oklch(0.700 0.014 258);
+  --idx:       oklch(0.540 0.014 258);
+  --accent:      oklch(0.720 0.140 262);
+  --accent-soft: oklch(0.300 0.055 262);
+  --sev-1: oklch(0.680 0.150 30);
+  --sev-2: oklch(0.760 0.115 84);
+  --sev-3: oklch(0.640 0.028 258);
+  --series-a: #5B80E6;
+  --series-b: #D97448;
+}
+
+:root{
+  --font: "Archivo", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+
+  --t--2: 0.6875rem;
+  --t--1: 0.8125rem;
+  --t-0:  1rem;
+  --t-1:  1.1875rem;
+  --t-2:  1.4375rem;
+  --t-3:  1.75rem;
+  --t-4:  clamp(1.75rem, 1.2rem + 1.6vw, 2.375rem);
+  --t-5:  clamp(2.125rem, 1.3rem + 2.6vw, 3rem);
+  --t-hero: clamp(1.875rem, 1rem + 3.2vw, 3.5rem);
+  --t-index: clamp(2.25rem, 1.4rem + 2.4vw, 3.5rem);
+
+  --s1: 4px;  --s2: 8px;  --s3: 12px; --s4: 16px;
+  --s5: 24px; --s6: 32px; --s7: 48px; --s8: 64px; --s9: 96px;
+
+  --gut: 6rem;
+  --pad: clamp(20px, 4vw, 64px);
+  --wrap: 1280px;
+
+  --ease: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-q: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+*,*::before,*::after{ box-sizing: border-box; }
+html{ -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce){ html{ scroll-behavior: auto; } }
+body{
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: var(--t-0);
+  font-weight: 400;
+  font-stretch: 100%;
+  line-height: 1.6;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+h1,h2,h3,h4{
+  margin: 0;
+  font-stretch: 112%;
+  font-weight: 800;
+  letter-spacing: -0.024em;
+  line-height: 1.14;
+  text-wrap: balance;
+}
+h1{ font-size: var(--t-hero); letter-spacing: -0.03em; line-height: 1.1; }
+h2{ font-size: var(--t-5); }
+h3{ font-size: var(--t-2); letter-spacing: -0.018em; }
+h4{ font-size: var(--t-1); letter-spacing: -0.014em; font-weight: 700; }
+p{ margin: 0; text-wrap: pretty; }
+ul,ol{ margin: 0; padding: 0; list-style: none; }
+a{ color: inherit; }
+strong{ font-weight: 700; }
+:focus-visible{
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+::selection{ background: var(--accent-soft); }
+
+.num{ font-variant-numeric: tabular-nums; font-feature-settings: "tnum" 1; }
+.wrap{ max-width: var(--wrap); margin-inline: auto; padding-inline: var(--pad); }
+.note{ font-size: var(--t--1); color: var(--muted); line-height: 1.55; max-width: 78ch; }
+.sub-h3{ font-size: var(--t-2); margin-bottom: var(--s4); }
+.sub-h3.tight{ margin-bottom: var(--s3); }
+.tcap{ font-size: var(--t--1); color: var(--muted); padding: var(--s3) var(--s4); }
+.fcap{ margin-top: var(--s3); }
+
+/* ============================================================
+   NAV
+   ============================================================ */
+.nav{
+  position: sticky; top: 0; z-index: 40;
+  background: color-mix(in oklab, var(--bg) 88%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--rule);
+}
+.nav-in{
+  max-width: var(--wrap); margin-inline: auto; padding-inline: var(--pad);
+  min-height: 64px;
+  display: flex; align-items: center; gap: var(--s5);
+}
+.brand{
+  text-decoration: none;
+  font-stretch: 118%; font-weight: 800; letter-spacing: -0.02em;
+  font-size: var(--t-0);
+  display: inline-flex; align-items: baseline; gap: 8px;
+  padding: 12px 0; min-height: 44px;
+}
+.brand i{
+  font-style: normal; font-weight: 400; font-stretch: 100%;
+  font-size: var(--t--1); color: var(--muted); letter-spacing: 0;
+}
+.navlinks{
+  display: flex; gap: 2px; margin-inline-start: auto;
+  overflow-x: auto; scrollbar-width: none;
+}
+.navlinks::-webkit-scrollbar{ display: none; }
+.navlinks a{
+  position: relative;
+  display: inline-flex; align-items: center;
+  min-height: 44px; padding: 0 12px;
+  font-size: var(--t--1); color: var(--muted); text-decoration: none;
+  white-space: nowrap;
+  transition: color 200ms var(--ease);
+}
+.navlinks a::after{
+  content: ""; position: absolute; left: 12px; right: 12px; bottom: 12px;
+  height: 1.5px; background: currentColor;
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 220ms var(--ease);
+}
+.navlinks a:hover{ color: var(--text); }
+.navlinks a:hover::after{ transform: scaleX(1); }
+.navlinks a:active{ transform: translateY(1px); }
+.navlinks a[aria-current="true"]{ color: var(--text); font-weight: 700; }
+.navlinks a[aria-current="true"]::after{ transform: scaleX(1); background: var(--accent); }
+
+.theme{
+  display: flex; border: 1px solid var(--rule); flex: none;
+}
+.theme button{
+  appearance: none; background: none; border: 0; cursor: pointer;
+  width: 44px; height: 44px;
+  display: grid; place-items: center;
+  color: var(--muted);
+  transition: color 180ms var(--ease), background 180ms var(--ease);
+}
+.theme button + button{ border-inline-start: 1px solid var(--rule); }
+.theme button:hover{ color: var(--text); background: var(--bg-sunk); }
+.theme button:active{ transform: translateY(1px); }
+.theme button[aria-pressed="true"]{ color: var(--bg); background: var(--text); }
+.theme svg{ width: 17px; height: 17px; }
+
+.icon{
+  width: 1em; height: 1em; flex: none;
+  fill: none; stroke: currentColor; stroke-width: 1.5;
+  stroke-linecap: round; stroke-linejoin: round;
+}
+
+/* ============================================================
+   LEDGER GRID
+   ============================================================ */
+.sec{ border-top: 1px solid var(--rule); }
+.sec-in{
+  max-width: var(--wrap); margin-inline: auto; padding-inline: var(--pad);
+  padding-block: var(--s9) var(--s9);
+  display: grid; grid-template-columns: var(--gut) minmax(0, 1fr);
+  column-gap: var(--s6);
+}
+.sec-idx{
+  font-stretch: 118%; font-weight: 800;
+  font-size: var(--t-index); line-height: 0.85;
+  letter-spacing: -0.04em;
+  color: var(--idx);
+  position: sticky; top: 96px; align-self: start;
+}
+.sec-body{ min-width: 0; }
+.sec-head{ margin-bottom: var(--s7); max-width: 30ch; }
+.sec-head p{ margin-top: var(--s4); max-width: 58ch; color: var(--text-2); font-size: var(--t-0); }
+@media (max-width: 900px){
+  .sec-in{ grid-template-columns: 1fr; padding-block: var(--s8); row-gap: var(--s4); }
+  .sec-idx{ position: static; font-size: var(--t-3); line-height: 1; }
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{
+  min-height: calc(100dvh - 64px);
+  display: flex; flex-direction: column; justify-content: space-between;
+  padding-block: var(--s8) 0;
+}
+.hero-top{
+  flex: 1;
+  max-width: var(--wrap); margin-inline: auto; padding-inline: var(--pad); width: 100%;
+  display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(240px, 0.8fr);
+  gap: var(--s7) var(--s8); align-items: start; align-content: center;
+  padding-bottom: var(--s7);
+}
+.kicker{
+  font-size: var(--t--2); text-transform: uppercase; letter-spacing: 0.11em;
+  font-weight: 700; color: var(--muted);
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: var(--s5);
+}
+.kicker::before{
+  content: ""; width: 24px; height: 1.5px; background: var(--accent);
+}
+.hero h1{ max-width: 27ch; }
+.hero-sub{
+  margin-top: var(--s5); max-width: 52ch;
+  font-size: var(--t-1); line-height: 1.5; color: var(--text-2);
+}
+.verdict{
+  border-inline-start: 2px solid var(--accent);
+  padding-inline-start: var(--s4);
+  margin-top: var(--s6);
+  max-width: 46ch;
+  font-size: var(--t-0); font-weight: 500; line-height: 1.5;
+}
+.hero-meta{ display: grid; gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
+.hero-meta div{ background: var(--bg); padding: var(--s3) var(--s4); }
+.hero-meta dt{ font-size: var(--t--2); text-transform: uppercase; letter-spacing: 0.09em; color: var(--muted); font-weight: 700; }
+.hero-meta dd{ margin: 4px 0 0; font-size: var(--t--1); font-weight: 500; }
+
+.kpis{
+  border-top: 1px solid var(--rule-firm);
+  background: var(--bg-sunk);
+}
+.kpis-in{
+  max-width: var(--wrap); margin-inline: auto; padding-inline: var(--pad);
+  display: grid; grid-template-columns: repeat(4, 1fr);
+}
+.kpi{ padding: var(--s5) 0 var(--s6); }
+.kpi + .kpi{ border-inline-start: 1px solid var(--rule); padding-inline-start: var(--s5); }
+.kpi:not(:last-child){ padding-inline-end: var(--s5); }
+.kpi b{
+  display: block;
+  font-stretch: 118%; font-weight: 800; letter-spacing: -0.035em;
+  font-size: clamp(2rem, 1rem + 3.2vw, 3.25rem); line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.kpi span{ display: block; margin-top: var(--s3); font-size: var(--t--1); color: var(--muted); line-height: 1.45; max-width: 24ch; }
+.kpi.is-hot b{ color: var(--sev-1); }
+@media (max-width: 860px){
+  .hero-top{ grid-template-columns: 1fr; align-items: start; }
+  .kpis-in{ grid-template-columns: repeat(2, 1fr); }
+  .kpi{ padding: var(--s4) 0; }
+  .kpi:nth-child(odd){ padding-inline-end: var(--s4); }
+  .kpi:nth-child(even){ border-inline-start: 1px solid var(--rule); padding-inline-start: var(--s4); }
+  .kpi:nth-child(3), .kpi:nth-child(4){ border-top: 1px solid var(--rule); }
+}
+
+/* ============================================================
+   §01 TWO TRACKS
+   ============================================================ */
+.tracks{
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1px; background: var(--rule);
+  border: 1px solid var(--rule);
+}
+.track{ background: var(--bg); padding: var(--s6); display: flex; flex-direction: column; gap: var(--s4); }
+.track-tag{
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: var(--t--1); font-weight: 700; font-stretch: 112%;
+  color: var(--accent);
+}
+.track-tag .icon{ width: 16px; height: 16px; }
+.track h3{ max-width: 24ch; }
+.track ul{ display: grid; gap: var(--s3); }
+.track li{ display: grid; grid-template-columns: 14px 1fr; gap: 8px; font-size: var(--t--1); line-height: 1.5; color: var(--text-2); }
+.track li .icon{ width: 14px; height: 14px; margin-top: 4px; }
+.track-foot{
+  margin-top: auto; padding-top: var(--s4); border-top: 1px solid var(--rule);
+  font-size: var(--t--1); color: var(--muted);
+}
+.track-foot b{ color: var(--text); }
+@media (max-width: 820px){ .tracks{ grid-template-columns: 1fr; } .track{ padding: var(--s5); } }
+
+.flag{
+  margin-top: var(--s6);
+  position: relative;
+  border: 1px solid var(--rule-firm);
+  background: var(--bg-raise);
+  padding: var(--s6);
+  display: grid; grid-template-columns: 24px minmax(0,1fr); gap: var(--s4);
+}
+.flag::before, .flag::after{
+  content: ""; position: absolute; width: 10px; height: 10px;
+  border: 2px solid var(--sev-1);
+}
+.flag::before{ top: -1px; left: -1px; border-inline-end: 0; border-block-end: 0; }
+.flag::after{ bottom: -1px; right: -1px; border-inline-start: 0; border-block-start: 0; }
+.flag > .icon{ width: 22px; height: 22px; color: var(--sev-1); margin-top: 4px; }
+.flag--ok{ border-color: var(--rule); }
+.flag--ok::before, .flag--ok::after{ border-color: var(--accent); }
+.flag--ok > .icon{ color: var(--accent); }
+.flag h4{ margin-bottom: var(--s3); }
+.flag p{ font-size: var(--t--1); color: var(--text-2); line-height: 1.6; max-width: 74ch; }
+.flag p + p{ margin-top: var(--s3); }
+
+.rail{ margin-top: var(--s8); }
+.rail-track{
+  display: grid; grid-auto-flow: column; grid-auto-columns: minmax(152px, 1fr);
+  border-top: 1.5px solid var(--rule-firm);
+  overflow-x: auto; scrollbar-width: thin;
+}
+.stop{ padding: var(--s4) var(--s4) var(--s5) 0; position: relative; }
+.stop::before{
+  content: ""; position: absolute; top: -1.5px; left: 0;
+  width: 9px; height: 9px; background: var(--rule-firm);
+  transform: translateY(-50%);
+}
+.stop.is-now::before{ background: var(--accent); width: 11px; height: 11px; }
+.stop.is-due::before{ background: var(--sev-1); }
+.stop dt{ font-size: var(--t--1); font-weight: 800; font-stretch: 112%; font-variant-numeric: tabular-nums; }
+.stop dd{ margin: 8px 0 0; font-size: var(--t--2); color: var(--muted); line-height: 1.5; padding-inline-end: var(--s4); }
+.stop.is-now dt{ color: var(--accent); }
+.stop.is-due dt{ color: var(--sev-1); }
+
+/* ============================================================
+   §02 CAPABILITY + CHARTS
+   ============================================================ */
+.caps{ display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
+.cap{ background: var(--bg); padding: var(--s5); }
+.cap:first-child{ padding: var(--s6); }
+.cap h4{ display: flex; align-items: center; gap: 8px; margin-bottom: var(--s3); }
+.cap h4 .icon{ width: 18px; height: 18px; color: var(--accent); }
+.cap p{ font-size: var(--t--1); color: var(--text-2); line-height: 1.55; }
+.cap dl{ margin: var(--s4) 0 0; display: grid; gap: var(--s2); }
+.cap dl div{ display: flex; justify-content: space-between; gap: var(--s3); font-size: var(--t--1); border-top: 1px solid var(--rule); padding-top: var(--s2); }
+.cap dl dt{ color: var(--muted); }
+.cap dl dd{ margin: 0; font-weight: 700; font-variant-numeric: tabular-nums; text-align: end; }
+@media (max-width: 980px){ .caps{ grid-template-columns: 1fr 1fr; } .cap:first-child{ grid-column: 1 / -1; } }
+@media (max-width: 620px){ .caps{ grid-template-columns: 1fr; } }
+
+.ai3{ display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin-top: var(--s6); }
+.ai3 article{ background: var(--bg); padding: var(--s5); display: flex; flex-direction: column; gap: var(--s3); }
+.ai3 article:first-child{ grid-column: 1 / -1; padding: var(--s6); }
+.ai3 article:first-child h4{ font-size: var(--t-2); }
+.ai3 article:first-child > p:not(.state){ max-width: 82ch; }
+.ai3 h4{ font-size: var(--t-0); }
+.ai3 p{ font-size: var(--t--1); color: var(--text-2); line-height: 1.55; }
+.state{
+  display: inline-flex; align-items: center; gap: 8px; align-self: start;
+  font-size: var(--t--2); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+  border: 1px solid var(--rule-firm); padding: 4px 8px;
+  margin-top: auto; color: var(--text);
+}
+.state .dot{ width: 8px; height: 8px; flex: none; }
+.state.on .dot{ background: var(--accent); }
+.state.off .dot{ background: transparent; border: 1.5px solid var(--sev-1); }
+@media (max-width: 700px){ .ai3{ grid-template-columns: 1fr; } .ai3 article:first-child{ padding: var(--s5); } }
+
+.fig{ margin: var(--s8) 0 0; }
+.fig-head{ display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--s3); margin-bottom: var(--s4); }
+.fig-head h3{ font-size: var(--t-2); }
+.legend{ display: flex; gap: var(--s4); font-size: var(--t--1); color: var(--text-2); }
+.legend span{ display: inline-flex; align-items: center; gap: 8px; }
+.swatch{ width: 11px; height: 11px; flex: none; }
+.sw-a{ background: var(--series-a); }
+.sw-b{ background: var(--series-b); }
+
+.tablewrap{ overflow-x: auto; border: 1px solid var(--rule); }
+table{ width: 100%; border-collapse: collapse; font-size: var(--t--1); }
+caption{ text-align: start; font-size: var(--t--1); color: var(--muted); padding-bottom: var(--s3); }
+th, td{ text-align: start; padding: 10px var(--s4); border-bottom: 1px solid var(--rule); vertical-align: middle; }
+thead th{
+  font-size: var(--t--2); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700;
+  color: var(--muted); background: var(--bg-sunk); white-space: nowrap;
+}
+tbody th{ font-weight: 600; white-space: nowrap; }
+td.n{ text-align: end; font-variant-numeric: tabular-nums; font-weight: 600; white-space: nowrap; }
+tbody tr:last-child th, tbody tr:last-child td{ border-bottom: 0; }
+tfoot th, tfoot td{ border-top: 1.5px solid var(--rule-firm); border-bottom: 0; font-weight: 800; background: var(--bg-sunk); }
+tfoot td.n{ font-variant-numeric: tabular-nums; }
+td.plot{ width: 42%; min-width: 192px; padding-inline-end: var(--s5); }
+.bars{ display: grid; gap: 2px; }
+.bar{ height: 9px; background: var(--series-a); width: var(--w); }
+.bar.b{ background: var(--series-b); }
+.grp-row th{ background: var(--bg-sunk); font-size: var(--t--2); text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+
+.mini{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
+.mini section{ background: var(--bg); padding: var(--s5); }
+.mini h4{ font-size: var(--t-0); }
+.mini .cnt{ font-size: var(--t--2); color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700; margin-bottom: var(--s4); display: block; }
+.mrow{ display: grid; gap: 4px; margin-bottom: var(--s4); }
+.mrow .lbl{ display: flex; justify-content: space-between; font-size: var(--t--1); }
+.mrow .lbl b{ font-variant-numeric: tabular-nums; }
+.ratio{
+  margin-top: var(--s4); padding-top: var(--s3); border-top: 1px solid var(--rule);
+  font-size: var(--t--1); color: var(--muted);
+}
+.ratio b{ color: var(--text); font-stretch: 112%; font-weight: 800; font-variant-numeric: tabular-nums; }
+@media (max-width: 760px){ .mini{ grid-template-columns: 1fr; } }
+
+/* ============================================================
+   §03 FINDINGS LEDGER
+   ============================================================ */
+.sevkey{
+  display: flex; flex-wrap: wrap; gap: var(--s5);
+  padding: var(--s4) 0; margin-bottom: var(--s6);
+  border-block: 1px solid var(--rule);
+  font-size: var(--t--1);
+}
+.sevkey > div{ display: inline-flex; align-items: center; gap: 8px; }
+.mk{ width: 12px; height: 12px; flex: none; }
+.mk-1{ background: var(--sev-1); }
+.mk-2{ background: linear-gradient(135deg, var(--sev-2) 0 50%, transparent 50% 100%); border: 1.5px solid var(--sev-2); }
+.mk-3{ border: 1.5px solid var(--sev-3); }
+.sevkey b{ font-variant-numeric: tabular-nums; }
+
+.grp{ border: 1px solid var(--rule); }
+.grp + .grp{ border-top: 0; }
+.grp > summary{
+  list-style: none; cursor: pointer;
+  min-height: 60px; padding: var(--s3) var(--s5);
+  display: flex; align-items: center; gap: var(--s4); flex-wrap: wrap;
+  background: var(--bg-sunk);
+  transition: background 180ms var(--ease);
+}
+.grp > summary::-webkit-details-marker{ display: none; }
+.grp > summary:hover{ background: var(--accent-soft); }
+.grp > summary:active{ transform: translateY(1px); }
+.grp-key{
+  font-stretch: 118%; font-weight: 800; font-size: var(--t-1);
+  width: 1.35em; color: var(--accent);
+}
+.grp-name{ font-weight: 700; font-stretch: 108%; }
+.grp-tally{ margin-inline-start: auto; display: flex; align-items: center; gap: var(--s4); font-size: var(--t--1); color: var(--muted); }
+.grp-tally .marks{ display: flex; gap: 4px; }
+.chev{ width: 16px; height: 16px; color: var(--muted); transition: transform 260ms var(--ease); }
+.grp[open] > summary .chev{ transform: rotate(180deg); }
+.grp[open] > summary{ border-bottom: 1px solid var(--rule); }
+
+.find{
+  display: grid; grid-template-columns: 3.5rem minmax(0,1fr) 9.5rem;
+  gap: var(--s4);
+  padding: var(--s5);
+  position: relative;
+}
+.find + .find{ border-top: 1px solid var(--rule); }
+.find::before{
+  content: ""; position: absolute; inset-block: 0; inset-inline-start: 0;
+  width: 2px; background: var(--accent); transform: scaleY(0); transform-origin: top;
+  transition: transform 240ms var(--ease);
+}
+.find:hover::before{ transform: scaleY(1); }
+.find-id{
+  font-stretch: 118%; font-weight: 800; font-size: var(--t-1);
+  color: var(--idx); line-height: 1.2;
+}
+.find h4{ margin-bottom: var(--s3); max-width: 46ch; }
+.find p{ font-size: var(--t--1); color: var(--text-2); line-height: 1.6; max-width: 76ch; }
+.find p + p{ margin-top: var(--s3); }
+.find .said{
+  border-inline-start: 1.5px solid var(--rule-firm);
+  padding-inline-start: var(--s3);
+  color: var(--muted);
+}
+.find .said b{
+  display: block; color: var(--text-2);
+  font-size: var(--t--2); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px;
+}
+.sev{
+  display: inline-flex; align-items: flex-start; gap: 8px; align-self: start;
+  font-size: var(--t--1); font-weight: 600; line-height: 1.3;
+}
+.sev .mk{ margin-top: 4px; }
+@media (max-width: 840px){
+  .find{ grid-template-columns: 2.75rem minmax(0,1fr); }
+  .sev{ grid-column: 2; order: -1; margin-bottom: 2px; }
+  .find-id{ grid-row: span 2; }
+}
+
+/* ============================================================
+   §04 READINESS + CHECKLIST
+   ============================================================ */
+.two{ display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: var(--s8); align-items: start; }
+@media (max-width: 940px){ .two{ grid-template-columns: 1fr; gap: var(--s7); } }
+
+.rd{ border-top: 1px solid var(--rule); }
+.rd li{
+  display: grid; grid-template-columns: minmax(0,1fr) 96px minmax(120px, 9.5rem);
+  gap: var(--s4); align-items: center;
+  padding: var(--s3) 0;
+  border-bottom: 1px solid var(--rule);
+  font-size: var(--t--1);
+}
+.rd .rd-name{ font-weight: 600; }
+.rd .rd-state{ color: var(--muted); font-size: var(--t--2); line-height: 1.4; }
+.meter{ display: grid; grid-template-columns: repeat(5, 1fr); gap: 2px; }
+.meter i{ height: 14px; border: 1px solid var(--rule-firm); background: var(--bg-sunk); }
+.meter i.on{ background: var(--accent); border-color: var(--accent); }
+.meter.lvl-1 i.on, .meter.lvl-2 i.on{ background: var(--sev-1); border-color: var(--sev-1); }
+.meter.lvl-3 i.on{ background: var(--sev-2); border-color: var(--sev-2); }
+@media (max-width: 560px){
+  .rd li{ grid-template-columns: minmax(0,1fr) 80px; row-gap: 4px; }
+  .rd .rd-state{ grid-column: 1 / -1; }
+}
+
+.check{ display: grid; gap: var(--s5); }
+.check section{ border: 1px solid var(--rule); }
+.check h4{
+  padding: var(--s3) var(--s4); background: var(--bg-sunk);
+  border-bottom: 1px solid var(--rule);
+  display: flex; align-items: center; gap: 8px;
+  font-size: var(--t-0);
+}
+.check h4 .icon{ width: 17px; height: 17px; color: var(--accent); }
+.check ul{ padding: var(--s3) var(--s4) var(--s4); display: grid; gap: var(--s3); }
+.check li{ display: grid; grid-template-columns: 16px 1fr; gap: 8px; font-size: var(--t--1); line-height: 1.5; color: var(--text-2); }
+.box{ width: 13px; height: 13px; border: 1.5px solid var(--rule-firm); margin-top: 4px; }
+
+/* ============================================================
+   §05 DECISIONS
+   ============================================================ */
+.dec{ display: grid; gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
+.dec article{
+  background: var(--bg); padding: var(--s6);
+  display: grid; grid-template-columns: 3.5rem minmax(0,1fr); gap: var(--s4) var(--s5);
+}
+.dec-n{
+  font-stretch: 118%; font-weight: 800; font-size: var(--t-4);
+  line-height: 0.9; color: var(--accent); letter-spacing: -0.04em;
+}
+.dec h3{ font-size: var(--t-2); max-width: 34ch; }
+.dec-opts{ display: flex; flex-wrap: wrap; gap: var(--s2); margin-top: var(--s4); }
+.opt{
+  font-size: var(--t--1); border: 1px solid var(--rule-firm); padding: 4px 12px;
+  color: var(--text-2);
+}
+.cost{
+  margin-top: var(--s4); padding-top: var(--s3); border-top: 1px solid var(--rule);
+  font-size: var(--t--1); color: var(--text-2); max-width: 72ch;
+}
+.cost b{ color: var(--sev-1); font-weight: 700; }
+@media (max-width: 700px){ .dec article{ grid-template-columns: 1fr; padding: var(--s5); } }
+
+.next{ margin-top: var(--s7); border: 1px solid var(--rule-firm); background: var(--bg-sunk); padding: var(--s6); }
+.next h3{ font-size: var(--t-2); margin-bottom: var(--s4); }
+.next ol{ display: grid; gap: var(--s3); counter-reset: n; }
+.next li{
+  counter-increment: n;
+  display: grid; grid-template-columns: 2rem 1fr; gap: var(--s3);
+  font-size: var(--t-0); color: var(--text-2); line-height: 1.5;
+}
+.next li::before{
+  content: counter(n, decimal-leading-zero);
+  font-variant-numeric: tabular-nums; font-weight: 800; font-stretch: 112%;
+  color: var(--accent);
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.foot{ border-top: 1px solid var(--rule-firm); background: var(--bg-sunk); }
+.foot-in{
+  max-width: var(--wrap); margin-inline: auto; padding: var(--s8) var(--pad) var(--s9);
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--s7);
+}
+.foot h4{ font-size: var(--t-0); margin-bottom: var(--s4); }
+.foot ul{ display: grid; gap: var(--s3); }
+.foot li, .foot p{ font-size: var(--t--1); color: var(--muted); line-height: 1.6; }
+.foot a{ color: var(--text-2); text-decoration: underline; text-decoration-color: var(--rule-firm); text-underline-offset: 3px; word-break: break-word; }
+.foot a:hover{ color: var(--accent); text-decoration-color: currentColor; }
+.foot .sig{ border-top: 1px solid var(--rule); margin-top: var(--s3); padding-top: var(--s3); }
+
+/* ============================================================
+   MOTION
+   Content is ALWAYS visible at its natural value. The .in class
+   only plays an entrance animation on top of it, so a hidden tab,
+   a failed observer, print or a headless renderer can never ship
+   a blank section.
+   ============================================================ */
+@keyframes reveal{ from{ opacity: 0; transform: translateY(8px); } to{ opacity: 1; transform: none; } }
+@keyframes grow{ from{ width: 0; } to{ width: var(--w); } }
+@keyframes rise{ from{ opacity: 0; transform: translateY(4px); } to{ opacity: 1; transform: none; } }
+
+.js-reveal [data-reveal].in{
+  animation: reveal 520ms var(--ease-q) both;
+  animation-delay: calc(var(--i, 0) * 45ms);
+}
+.js-reveal .in .bar{
+  animation: grow 720ms var(--ease-q) both;
+  animation-delay: calc(var(--i, 0) * 40ms);
+}
+.grp[open] .find{ animation: rise 240ms var(--ease-q) both; }
+.nav.stuck{ border-bottom-color: var(--rule-firm); }
+
+@media (prefers-reduced-motion: reduce){
+  .js-reveal [data-reveal].in,
+  .js-reveal .in .bar,
+  .grp[open] .find{ animation: none; }
+  *{ transition-duration: 1ms !important; }
+}
+
+/* ============================================================
+   PRINT
+   ============================================================ */
+@media print{
+  :root, :root[data-theme="dark"], :root[data-theme="light"]{
+    color-scheme: light;
+    --bg: #fff; --bg-sunk: #f4f4f6; --bg-raise: #fff;
+    --rule: #cfd2d8; --rule-firm: #9aa0aa;
+    --text: #14161c; --text-2: #33373f; --muted: #4b5058; --idx: #6b7079;
+  }
+  .nav{ display: none; }
+  .hero{ min-height: auto; padding-block: 0 var(--s5); }
+  .sec-idx{ position: static; }
+  .grp > summary .chev{ display: none; }
+  .find, .dec article, .flag, figure, details{ break-inside: avoid; }
+  .sec{ break-before: page; }
+  a{ text-decoration: none; }
+  .js-reveal [data-reveal].in, .js-reveal .in .bar, .grp[open] .find{ animation: none; }
+}
+
+/* ============================================================
+   Điều chỉnh riêng cho báo cáo này
+   ============================================================ */
+
+/* Mục 01 có ba làn định hướng thay vì hai. */
+@media (min-width: 980px){ .tracks{ grid-template-columns: repeat(3, 1fr); } }
+
+/* Tiêu đề các mục ở đây dài hơn, nếu giữ nguyên khuôn 30ch thì
+   chữ vỡ thành sáu dòng và nửa phải bỏ trống. Trên màn rộng, đặt
+   tiêu đề và đoạn dẫn thành hai cột ngang hàng. */
+@media (min-width: 900px){
+  .sec-head{
+    max-width: none;
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    column-gap: var(--s8);
+    align-items: end;
+  }
+  .sec-head h2{ font-size: var(--t-4); }
+  .sec-head p{ margin-top: 0; max-width: 54ch; }
+}
+</style>
+</head>
+<body>
+
+<!-- ICON SPRITE -->
+<svg width="0" height="0" aria-hidden="true" style="position:absolute">
+  <defs>
+    <g id="i-sun"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/></g>
+    <g id="i-moon"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z"/></g>
+    <g id="i-auto"><rect x="2.5" y="4" width="19" height="13" rx="1"/><path d="M8 20.5h8M12 17v3.5"/></g>
+    <g id="i-chev"><path d="M6 9.5l6 6 6-6"/></g>
+    <g id="i-alert"><path d="M12 3.5 22 20H2L12 3.5Z"/><path d="M12 10v4.5M12 17.2v.3"/></g>
+    <g id="i-check"><path d="M4 12.5l5 5L20 6.5"/></g>
+    <g id="i-dash"><path d="M5 12h14"/></g>
+    <g id="i-server"><rect x="3" y="3.5" width="18" height="7" rx="1"/><rect x="3" y="13.5" width="18" height="7" rx="1"/><path d="M7 7h.3M7 17h.3"/></g>
+    <g id="i-shield"><path d="M12 3l8 3v6c0 5-3.4 8-8 9.5C7.4 20 4 17 4 12V6l8-3Z"/><path d="M8.8 12.2l2.2 2.2 4.2-4.4"/></g>
+    <g id="i-db"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></g>
+    <g id="i-graph"><path d="M4 20V9M10 20V4M16 20v-7M22 20H2"/></g>
+    <g id="i-net"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 3 2.6 15 0 18M12 3c-2.6 3-2.6 15 0 18"/></g>
+    <g id="i-box"><path d="M12 2.8 21 7v10l-9 4.2L3 17V7l9-4.2Z"/><path d="M3 7l9 4.2L21 7M12 11.2V21"/></g>
+  </defs>
+</svg>
+
+<!-- ===================== NAV ===================== -->
+<header class="nav" id="nav">
+  <div class="nav-in">
+    <a class="brand" href="#top">OxMail <i>review 07/08/2026</i></a>
+    <nav class="navlinks" aria-label="Mục lục">
+      <a href="#quyet-dinh">01 Quyết định</a>
+      <a href="#da-demo">02 Đã demo</a>
+      <a href="#phan-hoi">03 Phản hồi</a>
+      <a href="#san-sang">04 Mức sẵn sàng</a>
+      <a href="#viec-lam">05 Việc phải làm</a>
+    </nav>
+    <div class="theme" role="group" aria-label="Chủ đề hiển thị">
+      <button type="button" data-set="system" aria-pressed="true" aria-label="Chủ đề theo hệ thống" title="Theo hệ thống"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-auto"/></svg></button>
+      <button type="button" data-set="light" aria-pressed="false" aria-label="Chủ đề sáng" title="Sáng"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-sun"/></svg></button>
+      <button type="button" data-set="dark" aria-pressed="false" aria-label="Chủ đề tối" title="Tối"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-moon"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero" id="hero">
+  <div class="hero-top">
+    <div>
+      <p class="kicker" data-reveal style="--i:0">Biên bản review sản phẩm</p>
+      <h1 data-reveal style="--i:1">Được cấp sân thật để chạy. Chưa được chạm vào hệ thống đang sống.</h1>
+      <p class="hero-sub" data-reveal style="--i:2">Câu hỏi treo từ buổi 04/08 đã có trả lời: OxMail không thay Zimbra bây giờ, mà đi ngách thí điểm và phát triển song song cho tới khi đủ trưởng thành.</p>
+      <p class="verdict" data-reveal style="--i:3">Lãnh đạo chủ trì kết luận sẽ duyệt một môi trường thật cho một số ngách khách hàng, và không đặt vấn đề thay hệ thống mail hiện nay. Hội đồng kỹ thuật đổi trọng tâm từ "có tính năng gì" sang "mô hình nào, chịu tải ra sao, hỏng thì phục hồi thế nào".</p>
+    </div>
+    <dl class="hero-meta" data-reveal style="--i:4">
+      <div><dt>Thời gian</dt><dd>07/08/2026, phòng Cầu Giấy 2, độ dài 1 giờ 06 phút</dd></div>
+      <div><dt>Trình bày</dt><dd>Hưng (mail server) và Vũ</dd></div>
+      <div><dt>Phản biện chính</dt><dd>anh Cường (kiến trúc), anh Kiên, lãnh đạo chủ trì</dd></div>
+      <div><dt>Buổi trước</dt><dd>04/08/2026, khi đó chưa chốt vị trí sản phẩm</dd></div>
+    </dl>
+  </div>
+
+  <div class="kpis">
+    <div class="kpis-in">
+      <div class="kpi" data-reveal style="--i:0"><b class="num">22</b><span>vấn đề và yêu cầu hội đồng nêu ra trong buổi này</span></div>
+      <div class="kpi is-hot" data-reveal style="--i:1"><b class="num">7</b><span>hạng mục chặn bước thí điểm với người dùng thật</span></div>
+      <div class="kpi" data-reveal style="--i:2"><b class="num">3</b><span>ngách khách hàng được gợi mở để thí điểm</span></div>
+      <div class="kpi" data-reveal style="--i:3"><b class="num">0</b><span>phương án thay hệ thống mail hiện tại được duyệt</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== §01 ===================== -->
+<section class="sec" id="quyet-dinh">
+  <div class="sec-in">
+    <p class="sec-idx num" aria-hidden="true">01</p>
+    <div class="sec-body">
+      <div class="sec-head" data-reveal>
+        <h2>Vị trí sản phẩm đã được chốt, theo hướng thứ ba</h2>
+        <p>Buổi 04/08 để lửng giữa hai hướng loại trừ nhau: thay Zimbra nội bộ, hay giao khách tự vận hành. Buổi này không chọn hướng nào trong hai hướng đó, mà mở hướng thứ ba: chạy thật ở ngách nhỏ trước, phát triển song song với Zimbra, đủ trưởng thành thì mới bàn thay thế.</p>
+      </div>
+
+      <div class="tracks" data-reveal>
+        <article class="track">
+          <p class="track-tag"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-alert"/></svg>Không duyệt</p>
+          <h3>Thay hệ thống mail đang chạy</h3>
+          <p class="note">Bị gạt khỏi bàn ngay trong buổi này, không phải vì kỹ thuật kém mà vì chưa trả lời được các câu hỏi vận hành.</p>
+          <ul>
+            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-dash"/></svg>"Không đặt ra vấn đề thay hệ thống hiện nay đâu."</li>
+            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-dash"/></svg>Hệ thống hiện tại đã chạy nhiều năm, rất ổn định trong dịch vụ đang bán.</li>
+            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-dash"/></svg>Chưa chứng minh được nó giải quyết nỗi đau nào của vận hành.</li>
+          </ul>
+          <p class="track-foot">Điều kiện mở lại: <b>trả lời được nhóm câu hỏi kiến trúc, backup và tải thật</b></p>
+        </article>
+        <article class="track">
+          <p class="track-tag"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg>Đã duyệt về nguyên tắc</p>
+          <h3>Thí điểm trên ngách nhỏ</h3>
+          <p class="note">Lãnh đạo chủ trì cam kết cấp một môi trường thật để chạy dịch vụ thật, chờ đề xuất cụ thể để duyệt.</p>
+          <ul>
+            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-net"/></svg>Hệ thống của các tỉnh thành và dự án chuyển đổi số.</li>
+            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-net"/></svg>Hệ thống giáo dục và đào tạo.</li>
+            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-net"/></svg>Tập khách hàng sinh viên, quy mô vừa và nhỏ.</li>
+          </ul>
+          <p class="track-foot">Lý do: <b>không thể triển khai các nhu cầu này trên hệ thống email thương mại hiện có</b></p>
+        </article>
+        <article class="track">
+          <p class="track-tag"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-box"/></svg>Vượt thẩm quyền nhóm</p>
+          <h3>Mã nguồn mở và cộng đồng</h3>
+          <p class="note">Được đánh giá là hướng có giá trị, nhưng là quyết định đầu tư ở cấp công ty, không phải quyết định của nhóm phát triển.</p>
+          <ul>
+            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-dash"/></svg>Cần văn hóa phát triển mở, ngân sách hằng năm, hệ thống lab.</li>
+            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-dash"/></svg>Cần tuyển đầu vào sinh viên liên tục, không chỉ dựa vào hai người.</li>
+            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-dash"/></svg>Nếu public thì sản phẩm phải generic, phải bỏ logic riêng của iNET.</li>
+          </ul>
+          <p class="track-foot">Nguyên văn: <b>"Cái này các cháu không trả lời được, mà phải là iNET"</b></p>
+        </article>
+      </div>
+
+      <div class="flag flag--ok" data-reveal>
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg>
+        <div>
+          <h4>Lộ trình được chốt: song song, rồi thay dần, không thay một phát</h4>
+          <p>"Mình sẽ phát triển dự án này song song với sử dụng Zimbra. Đến một điểm nó đủ trưởng thành thì mình bắt đầu thay thế." Việc thay thế là quyết định của lãnh đạo, không phải của nhóm phát triển. Đi kèm là một kỳ vọng để mở: rất có thể đến lúc nào đó sản phẩm vượt qua cả suy nghĩ hiện nay của người phê duyệt, nhưng điều đó phải để thực tế chứng minh.</p>
+          <p>Hệ quả cho tech stack: sức ép "phải bằng Zimbra ngay" được dỡ bỏ, nhưng đổi lại phải sống được với tải thật ở ngách nhỏ và phải có bằng chứng đo đạc. Đây là điểm khác căn bản so với kết luận treo của buổi 04/08.</p>
+        </div>
+      </div>
+
+      <div class="flag" data-reveal>
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-alert"/></svg>
+        <div>
+          <h4>Hai hướng khai thác vẫn còn xung đột và chưa ai chọn</h4>
+          <p>Một hướng: may đo sâu cho hệ sinh thái iNET, làm platform-as-a-service, đáp ứng đúng tập khách hàng của mình, đi được vào các đặc thù riêng. Một hướng khác: đi ngách bên cạnh hệ sinh thái, public ra ngoài, khi đó phải đủ generic cho ai cũng dùng được và phải xóa những logic riêng đi.</p>
+          <p>Hai hướng này dẫn tới hai tập tính năng khác nhau, nên vẫn là câu hỏi mở sau buổi họp. Kết luận trong họp chỉ tách rõ rằng đó là hai việc khác nhau, chưa chọn.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== §02 ===================== -->
+<section class="sec" id="da-demo">
+  <div class="sec-in">
+    <p class="sec-idx num" aria-hidden="true">02</p>
+    <div class="sec-body">
+      <div class="sec-head" data-reveal>
+        <h2>Bề mặt sản phẩm đã demo được trực tiếp</h2>
+        <p>Toàn bộ phần demo chạy qua webmail sau Nginx trên một node. Đây là điểm được ghi nhận rõ ràng: "các bạn làm được như thế này cũng là xịn xò rồi", và về bộ công nghệ thì "các bạn đã dùng những giao thức mới nhất, hiện đại nhất".</p>
+      </div>
+
+      <div class="caps" data-reveal>
+        <section class="cap">
+          <h4><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-net"/></svg>Tầng người dùng</h4>
+          <p>Thư mục và gắn nhãn như hộp thư quen dùng. Thư HTML được bọc qua proxy, mỗi lần click link là link được viết lại. Theo dõi thư có phân biệt gửi trực tiếp qua SMTP và gửi qua gateway, để người dùng tự tra vì sao thư chưa đến hoặc vào spam thay vì gửi ticket.</p>
+          <dl>
+            <div><dt>Xác thực</dt><dd>2FA, quản lý phiên</dd></div>
+            <div><dt>Client thư</dt><dd>mật khẩu ứng dụng cho Thunderbird, Outlook, Apple Mail</dd></div>
+            <div><dt>Danh tính</dt><dd>alias, chữ ký, HTML, chuyển tiếp</dd></div>
+            <div><dt>Tự động</dt><dd>trả lời tự động, script lọc thư nâng cao</dd></div>
+          </dl>
+        </section>
+        <section class="cap">
+          <h4><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-server"/></svg>Quản trị theo domain</h4>
+          <p>Mỗi domain có một tài khoản admin riêng, xem được giá trị các bản ghi DNS cần đặt, bật chính sách bảo mật, quản lý phiên của người dùng trong domain, đặt giới hạn gửi ở phạm vi toàn domain.</p>
+          <dl>
+            <div><dt>Bí danh</dt><dd>cấp domain và cấp user</dd></div>
+            <div><dt>Thống kê</dt><dd>quota và gói đang dùng</dd></div>
+            <div><dt>Hộp thư chung</dt><dd>có phân quyền truy cập</dd></div>
+            <div><dt>Báo cáo DMARC</dt><dd>còn ở trạng thái beta</dd></div>
+          </dl>
+        </section>
+        <section class="cap">
+          <h4><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-shield"/></svg>Quản trị hệ thống</h4>
+          <p>Trang tình trạng service và monitoring, tự động phát hành chứng chỉ kèm bản ghi cần thiết. Hàng đợi thư cấu hình được ngưỡng để tự retry hoặc buffer khi nghẽn. Nguồn DNSBL đang dùng Spamhaus và Barracuda, có log tra cứu trong delivery trace.</p>
+          <dl>
+            <div><dt>Tham số queue</dt><dd>queue tối đa, lifetime, break threshold, cooldown, max concurrency</dd></div>
+            <div><dt>Danh sách chặn</dt><dd>xem được, retry hoặc cho qua</dd></div>
+            <div><dt>Nhật ký</dt><dd>audit log ai đã làm gì</dd></div>
+          </dl>
+        </section>
+      </div>
+
+      <h3 class="sub-h3 tight" style="margin-top:var(--s8)" data-reveal>Lớp phòng thủ và các thành phần chưa bật</h3>
+      <p class="note" data-reveal>Một phần đáng kể của phần trình bày là tính năng đã có nhưng đang tắt hoặc chưa lên trên instance demo. Đây chính là chỗ hội đồng bấm vào, vì tính năng tắt thì không tính là bằng chứng.</p>
+      <div class="ai3" data-reveal>
+        <article>
+          <h4>Chống thư rác và mã độc</h4>
+          <p>Rspamd và ClamAV làm lõi, thêm danh sách chặn, Safe Links và Google API để quét thêm các trang bị báo đỏ rồi cảnh báo người dùng. Kế hoạch tối ưu ngay sau buổi: chỉ quét IP khi có mail đến, tránh tra DNSBL không cần thiết.</p>
+          <p class="state on"><span class="dot"></span>Đang bật</p>
+        </article>
+        <article>
+          <h4>DLP chặn rò rỉ dữ liệu</h4>
+          <p>Chặn thư ra ngoài khi có thông tin bảo mật hoặc thông tin nhạy cảm. Có chỗ cấu hình để dùng model AI cho bước xét, nhưng phần AI hiện đã tắt.</p>
+          <p class="state off"><span class="dot"></span>Phần model AI đang tắt</p>
+        </article>
+        <article>
+          <h4>Gateway và cluster</h4>
+          <p>Gateway quyết định theo từng domain: domain nào đi qua gateway, domain nào chạy độc lập. Test connect trong buổi cho kết quả hoạt động, nhưng instance demo chưa bật gateway. Cơ chế copy cấu hình từ một node sang các node khác thì chưa có, mới là dự tính theo đề xuất buổi trước.</p>
+          <p class="state off"><span class="dot"></span>Chưa lên trên bản demo</p>
+        </article>
+      </div>
+
+      <div class="mini" data-reveal>
+        <section>
+          <span class="cnt">RAM của binary</span>
+          <div class="mrow"><span class="lbl">Khi rảnh<b class="num">~30 MB</b></span><i class="bar" style="--w:30%;--i:0"></i></div>
+          <div class="mrow"><span class="lbl">Khi đầy tải<b class="num">~100 MB</b></span><i class="bar" style="--w:100%;--i:1"></i></div>
+          <p class="ratio">Số nêu miệng trong buổi, <b>chưa qua benchmark</b> có tiêu chí</p>
+        </section>
+        <section>
+          <span class="cnt">Tốn tài nguyên nhất</span>
+          <h4 style="font-size:var(--t-2)">Rspamd và ClamAV</h4>
+          <p class="ratio">Không phải bản thân mail server, mà là <b>hai thành phần quét</b> đi kèm</p>
+        </section>
+        <section>
+          <span class="cnt">Số node chạy như một hệ thống</span>
+          <h4 class="num" style="font-size:var(--t-4)">1</h4>
+          <p class="ratio">Clone sang server khác thì chạy được, nhưng <b>dữ liệu độc lập</b>, không liên quan nhau</p>
+        </section>
+      </div>
+
+      <div class="flag" data-reveal>
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-alert"/></svg>
+        <div>
+          <h4>Mô hình hiện tại là single node, chưa phải cluster</h4>
+          <p>Xác nhận trong buổi: mô hình đang chạy là single. Clone sang server khác thì vẫn chạy bình thường, nhưng hai node chạy dữ liệu độc lập, không liên quan gì tới nhau. Một file setup là cài được, và đó cũng là điểm mạnh về mặt triển khai, nhưng không đồng nghĩa với khả năng chạy nhiều node như một hệ thống.</p>
+          <p>Đây là lý do hội đồng liên tục phân biệt hai khái niệm bị dùng lẫn trong buổi: cluster theo nghĩa nhân bản node, và microservice theo nghĩa bóc tách service để scale từng phần. Hai mô hình khác nhau, giải hai bài toán khác nhau.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== §03 ===================== -->
+<section class="sec" id="phan-hoi">
+  <div class="sec-in">
+    <p class="sec-idx num" aria-hidden="true">03</p>
+    <div class="sec-body">
+      <div class="sec-head" data-reveal>
+        <h2>22 vấn đề hội đồng đặt lên bàn</h2>
+        <p>Nhóm theo chủ đề, mở từng nhóm để đọc chi tiết. Mức ưu tiên là đánh giá của người soạn báo cáo, không phải xếp loại chính thức trong họp. Tinh thần buổi họp được nói thẳng: "áp lực càng tốt, bị đấm càng nhiều càng tốt", và "góp ý không phải là chê, bản thân góp ý là phát triển hơn".</p>
+      </div>
+
+      <div class="sevkey" data-reveal>
+        <div><i class="mk mk-1"></i>Chặn thí điểm thật: <b class="num">7</b></div>
+        <div><i class="mk mk-2"></i>Chặn mở rộng: <b class="num">11</b></div>
+        <div><i class="mk mk-3"></i>Cần làm rõ: <b class="num">4</b></div>
+      </div>
+
+      <div data-reveal>
+      <details class="grp" open>
+        <summary>
+          <span class="grp-key">A</span>
+          <span class="grp-name">Kiến trúc và khả năng mở rộng</span>
+          <span class="grp-tally">
+            <span class="marks"><i class="mk mk-1"></i><i class="mk mk-2"></i><i class="mk mk-2"></i><i class="mk mk-2"></i><i class="mk mk-3"></i></span>
+            <span class="num">5 vấn đề</span>
+            <svg class="icon chev" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chev"/></svg>
+          </span>
+        </summary>
+        <article class="find">
+          <span class="find-id num">A1</span>
+          <div>
+            <h4>Chưa có cluster thật, hai node không biết nhau</h4>
+            <p>Mô hình hiện tại là single node. Clone sang server khác chạy được, nhưng dữ liệu hai node độc lập hoàn toàn. Với một dịch vụ mail bán ra ngoài, đây là điểm chặn: không có node thứ hai chia tải hay đỡ khi node chính chết.</p>
+            <p class="said"><b>Trong họp</b>Xác nhận "hiện tại nó đang là single". Cơ chế copy cấu hình sang node khác mới là dự tính, chưa làm.</p>
+          </div>
+          <span class="sev"><i class="mk mk-1"></i>Chặn thí điểm thật</span>
+        </article>
+        <article class="find">
+          <span class="find-id num">A2</span>
+          <div>
+            <h4>Đóng tất cả trong một binary: một module lỗi kéo cả service chết</h4>
+            <p>Giả sử có một lỗi trong một giao thức, cả service đi luôn. Các listener giao thức khác về bản chất không liên quan, nhưng một khi tiến trình crash thì mọi giao thức khác cũng bị kéo theo. Đó là hệ quả trực tiếp của việc gộp tất cả vào một khối.</p>
+            <p class="said"><b>Trả lời trong họp</b>Chấp nhận nhược điểm, và lý do chọn: nhiều tiến trình liên đới nhau thì rất khó quản lý, một binary thì quản lý gọn hơn. "Em biết cái nhược điểm đấy và em chấp nhận nó."</p>
+            <p class="said"><b>Phản biện</b>Khi đã xác định bán platform-as-a-service và phải bảo đảm SLA thì sự tiện lợi của người phát triển không được đánh đổi bằng SLA. Các công ty lớn cũng bắt đầu bằng monolith, nhưng lớn lên thì buộc phải tách.</p>
+          </div>
+          <span class="sev"><i class="mk mk-2"></i>Chặn mở rộng</span>
+        </article>
+        <article class="find">
+          <span class="find-id num">A3</span>
+          <div>
+            <h4>Nâng cấp không giữ được kết nối, chưa có zero downtime</h4>
+            <p>Đóng gói thành một service systemd nên nâng cấp là dừng, thay binary, restart. Mọi kết nối đang chạy bị drop vì không có cơ chế bàn giao socket. Mô hình tách service thì rollout từng node một, kèm graceful shutdown, nên không mất kết nối.</p>
+            <p class="said"><b>Trong họp</b>Xác nhận nâng cấp là phải chạy lại toàn bộ. Đây là hệ quả kèm theo của A2, được nêu như một ý riêng.</p>
+          </div>
+          <span class="sev"><i class="mk mk-2"></i>Chặn mở rộng</span>
+        </article>
+        <article class="find">
+          <span class="find-id num">A4</span>
+          <div>
+            <h4>Cần bóc tách service để scale ngang thay vì mua server to hơn</h4>
+            <p>Đề xuất không phải microservice triệt để, mà bóc tách đủ để scale từng thành phần độc lập: thêm khách thì thêm bản copy hoặc nâng riêng lớp lưu trữ. Nếu giữ một khối, khi server không chịu được nữa thì chỉ còn cách mua server to hơn. So sánh cụ thể nêu trong buổi: nhiều server nhỏ khoảng 4 GB cho từng phần, thay vì một server hàng trăm GB gánh tất cả service bên trong.</p>
+            <p class="said"><b>Kèm theo</b>Nếu compute là stateless và trạng thái nằm ở database thì chỉ cần HA cho database, không cần cluster theo nghĩa nhân bản cả node.</p>
+          </div>
+          <span class="sev"><i class="mk mk-2"></i>Chặn mở rộng</span>
+        </article>
+        <article class="find">
+          <span class="find-id num">A5</span>
+          <div>
+            <h4>Phân quyền và chia tài nguyên theo tiến trình</h4>
+            <p>Gộp bảy giao thức vào một đầu vào thì các tiến trình có yêu cầu phân quyền khác nhau và cách chia sẻ tài nguyên khác nhau bị trộn lẫn. Hệ quả không chỉ nằm ở lúc debug sự cố mà cả ở lúc nâng cấp. Trả lời trong buổi là "tách được hết", nhưng chưa có thiết kế kèm theo.</p>
+          </div>
+          <span class="sev"><i class="mk mk-3"></i>Cần làm rõ</span>
+        </article>
+      </details>
+
+      <details class="grp">
+        <summary>
+          <span class="grp-key">B</span>
+          <span class="grp-name">Vận hành và dữ liệu</span>
+          <span class="grp-tally">
+            <span class="marks"><i class="mk mk-1"></i><i class="mk mk-1"></i><i class="mk mk-2"></i></span>
+            <span class="num">3 vấn đề</span>
+            <svg class="icon chev" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chev"/></svg>
+          </span>
+        </summary>
+        <article class="find">
+          <span class="find-id num">B1</span>
+          <div>
+            <h4>Chưa có backup, chưa có dự phòng</h4>
+            <p>Nêu ngắn và dứt khoát trong buổi: không có backup, không có dự phòng. Đây là vấn đề đã được nêu ở buổi 04/08 và sau ba ngày vẫn chưa có câu trả lời khác, nên mức độ không giảm.</p>
+            <p class="said"><b>Vì sao chặn</b>Không có backup thì không thể cấp môi trường có người dùng thật, kể cả ngách sinh viên, vì mất thư là mất không hồi lại được.</p>
+          </div>
+          <span class="sev"><i class="mk mk-1"></i>Chặn thí điểm thật</span>
+        </article>
+        <article class="find">
+          <span class="find-id num">B2</span>
+          <div>
+            <h4>Safe Link chết trước email, vì lưu theo TTL của phiên</h4>
+            <p>Link trong thư HTML được viết lại và lưu ở Dragonfly với TTL theo phiên, còn email thì tồn tại trong hộp thư nhiều năm. Một thời gian dài sau, người dùng mở lại thư và click thì link đã chết. Không có cách nào biết trước thư nào là quan trọng với người nhận, nên link phải sống đồng đời với email.</p>
+            <p class="said"><b>Trong họp</b>Được phân loại rõ là vấn đề kiến trúc, không phải góp ý bề mặt, và được giao trực tiếp cho Vũ.</p>
+          </div>
+          <span class="sev"><i class="mk mk-1"></i>Chặn thí điểm thật</span>
+        </article>
+        <article class="find">
+          <span class="find-id num">B3</span>
+          <div>
+            <h4>Lưu trữ nên hai lớp và nên dùng hạ tầng S3 đang dư của iNET</h4>
+            <p>Object storage lưu thì tốt, nhưng cách scale mới là câu hỏi: một lớp local cho dữ liệu gần và một lớp S3 cho dữ liệu xa. Kèm ghi nhận thực tế là hạ tầng S3 của công ty đang dư, nên dùng luôn thay vì tính hạ tầng mới.</p>
+            <p class="said"><b>Bối cảnh</b>Cùng nội dung đã trao đổi ở buổi trước; buổi này được nhắc lại như một điểm chưa đóng, đi kèm nhận định lưu trữ và dự phòng là hai nỗi đau mà sản phẩm mới có cơ giải quyết được.</p>
+          </div>
+          <span class="sev"><i class="mk mk-2"></i>Chặn mở rộng</span>
+        </article>
+      </details>
+
+      <details class="grp">
+        <summary>
+          <span class="grp-key">C</span>
+          <span class="grp-name">Bằng chứng và kiểm thử</span>
+          <span class="grp-tally">
+            <span class="marks"><i class="mk mk-1"></i><i class="mk mk-2"></i><i class="mk mk-2"></i><i class="mk mk-3"></i></span>
+            <span class="num">4 vấn đề</span>
+            <svg class="icon chev" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chev"/></svg>
+          </span>
+        </summary>
+        <article class="find">
+          <span class="find-id num">C1</span>
+          <div>
+            <h4>Số SLO trong tài liệu bị đánh giá là "hơi điêu"</h4>
+            <p>Chưa benchmark thật mà đã công bố con số hơn sản phẩm đối chiếu. Câu hỏi kèm theo rất cụ thể: benchmark theo tiêu chí nào, chỉ chạy local, chỉ gửi một số email nhất định, hay dùng công cụ benchmark để bơm tải thật vào.</p>
+            <p class="said"><b>Trả lời trong họp</b>Thừa nhận chưa đo kỹ, dự kiến đo lại theo tiêu chí và gửi report sau. Đây là lần thứ hai điểm này bị nêu, sau buổi 04/08.</p>
+          </div>
+          <span class="sev"><i class="mk mk-1"></i>Chặn thí điểm thật</span>
+        </article>
+        <article class="find">
+          <span class="find-id num">C2</span>
+          <div>
+            <h4>Phải bơm hàng trăm triệu bản ghi vào rồi xem hệ thống sống thế nào</h4>
+            <p>Bản chất kiến trúc chỉ bộc lộ khi có khối lượng lớn. Đề nghị đẩy vài trăm triệu bản ghi vào hệ thống, rồi quan sát vận hành ở mức đó, thay vì kết luận từ demo.</p>
+          </div>
+          <span class="sev"><i class="mk mk-2"></i>Chặn mở rộng</span>
+        </article>
+        <article class="find">
+          <span class="find-id num">C3</span>
+          <div>
+            <h4>Chi phí hạ tầng ở khối lượng lớn phải hợp lý</h4>
+            <p>Tiêu chí so sánh được nêu thẳng: khối lượng dữ liệu rất lớn mà vẫn tốt và chi phí hạ tầng không quá nhiều. "Chứ không phải mình sẽ đắp server vào để" giải quyết bài toán tải.</p>
+          </div>
+          <span class="sev"><i class="mk mk-2"></i>Chặn mở rộng</span>
+        </article>
+        <article class="find">
+          <span class="find-id num">C4</span>
+          <div>
+            <h4>Email phải chịu rất nhiều tiêu chuẩn, chỉ thực tế mới đánh giá được</h4>
+            <p>Hệ thống mail thật có những lúc rất chậm hoặc treo, và những tình huống đó không xuất hiện trong môi trường thử. Đây cũng là lập luận củng cố cho quyết định cấp môi trường thật ở ngách nhỏ.</p>
+          </div>
+          <span class="sev"><i class="mk mk-3"></i>Cần làm rõ</span>
+        </article>
+      </details>
+
+      <details class="grp">
+        <summary>
+          <span class="grp-key">D</span>
+          <span class="grp-name">Tương thích và di sản</span>
+          <span class="grp-tally">
+            <span class="marks"><i class="mk mk-1"></i><i class="mk mk-3"></i></span>
+            <span class="num">2 vấn đề</span>
+            <svg class="icon chev" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chev"/></svg>
+          </span>
+        </summary>
+        <article class="find">
+          <span class="find-id num">D1</span>
+          <div>
+            <h4>Không được bỏ giao thức và client cũ</h4>
+            <p>Có khách hàng vẫn dùng Windows cũ và client cũ, cần các phiên bản giao thức cũ. Nhận định kèm theo: email khác các hệ thống khác vì còn vô số hệ thống cũ đang dùng ở rất nhiều nơi, nên "mình không có khái niệm là hôm nay ra bản mới nhất, nâng cấp lên rồi bỏ cái cũ đi". Hướng đúng là cải tiến để phục vụ tốt hơn, không phải cắt bỏ.</p>
+          </div>
+          <span class="sev"><i class="mk mk-1"></i>Chặn thí điểm thật</span>
+        </article>
+        <article class="find">
+          <span class="find-id num">D2</span>
+          <div>
+            <h4>Bỏ LDAP sau khi migrate được ghi nhận là hướng hay</h4>
+            <p>Dự tính chỉ dùng LDAP để migrate dữ liệu từ Zimbra, sau đó tìm cách bỏ hẳn. Đây là một trong ít điểm kiến trúc được khen trực tiếp trong buổi. Việc còn lại là chốt cách migrate không phụ thuộc LDAP về dài hạn.</p>
+          </div>
+          <span class="sev"><i class="mk mk-3"></i>Cần làm rõ</span>
+        </article>
+      </details>
+
+      <details class="grp">
+        <summary>
+          <span class="grp-key">E</span>
+          <span class="grp-name">Định vị và cách trình bày</span>
+          <span class="grp-tally">
+            <span class="marks"><i class="mk mk-1"></i><i class="mk mk-2"></i><i class="mk mk-2"></i><i class="mk mk-2"></i><i class="mk mk-3"></i></span>
+            <span class="num">5 vấn đề</span>
+            <svg class="icon chev" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chev"/></svg>
+          </span>
+        </summary>
+        <article class="find">
+          <span class="find-id num">E1</span>
+          <div>
+            <h4>Chưa nói được sản phẩm giải quyết bài toán gì cho khách và cho công ty</h4>
+            <p>Khi thiết kế một hệ thống thay thế thì phải có đối chiếu: đang muốn giải quyết cái gì trên hệ thống hiện có, cho khách hàng và cho công ty. Có bản đó thì đội marketing và sale mới hình dung được, thay vì nghe trình bày kỹ thuật mà không biết kỹ thuật đó dùng cho mục đích gì.</p>
+            <p class="said"><b>Lý do được nêu ban đầu</b>Zimbra hết hỗ trợ, lỗ hổng khi dùng Java, và mình không control được nó. Nhận định đáp lại: những cái đấy đã chạy rất ổn định trong dịch vụ của mình nhiều năm, nên lý do đó một mình chưa đủ để đầu tư thay thế.</p>
+            <p class="said"><b>Hướng gợi ý</b>Nhắm vào các nỗi đau đã có sẵn: quản lý lưu trữ, dự phòng. Đây là những chỗ mà người phê duyệt tin là sản phẩm mới giải quyết được khá nhiều.</p>
+          </div>
+          <span class="sev"><i class="mk mk-1"></i>Chặn thí điểm thật</span>
+        </article>
+        <article class="find">
+          <span class="find-id num">E2</span>
+          <div>
+            <h4>Trình bày thiên về tính năng, phải bắt đầu từ mô hình</h4>
+            <p>Một bài trình bày kỹ thuật phải bắt nguồn từ mô hình: đi theo mô hình tập trung, gộp hết vào một khối, hay đi theo mô hình phân tán. Định hướng phải nằm ngay ở đó. Cảnh báo kèm theo: nếu trình bày trước các giáo sư hoặc trước cộng đồng theo cách hiện tại thì sẽ bị đánh rất nặng, vì mô hình tập trung có cực kỳ nhiều ưu điểm nhưng cũng cực kỳ nhiều nhược điểm.</p>
+          </div>
+          <span class="sev"><i class="mk mk-2"></i>Chặn mở rộng</span>
+        </article>
+        <article class="find">
+          <span class="find-id num">E3</span>
+          <div>
+            <h4>May đo cho iNET hay generic để public: chọn một</h4>
+            <p>Các dịch vụ trước làm cho iNET dễ hơn vì may đo đúng nhu cầu. Nếu đi platform-as-a-service may đo cho iNET thì có thể đi sâu vào các đặc thù riêng. Nếu public ra ngoài thì phải đủ generic cho ai cũng dùng được, và phải xóa những logic riêng đi. Không làm được cả hai cùng lúc.</p>
+          </div>
+          <span class="sev"><i class="mk mk-2"></i>Chặn mở rộng</span>
+        </article>
+        <article class="find">
+          <span class="find-id num">E4</span>
+          <div>
+            <h4>Câu hỏi gốc chưa được trả lời: giải quyết bài toán nào của mail</h4>
+            <p>Quay lại chỗ dễ bắt đầu nhất: với hệ thống email này thì vấn đề là gì, vấn đề năng lực xử lý, vấn đề lưu trữ, hay vấn đề quản lý người dùng. Đây là câu hỏi đã đặt từ buổi thứ Ba và vẫn chưa có câu trả lời gọn trong buổi này.</p>
+          </div>
+          <span class="sev"><i class="mk mk-2"></i>Chặn mở rộng</span>
+        </article>
+        <article class="find">
+          <span class="find-id num">E5</span>
+          <div>
+            <h4>Thiếu hướng tiếp cận cho SEO và marketing</h4>
+            <p>Công ty có khá nhiều đối tượng làm SEO và marketing, gồm cả những người không thuận về kỹ thuật. Khi dựng dự án lên thì phải cho thấy cách tiếp cận để nhóm này hiểu được sản phẩm đang muốn làm. Việc này chờ đề xuất từ anh Đô và anh Kiên.</p>
+          </div>
+          <span class="sev"><i class="mk mk-3"></i>Cần làm rõ</span>
+        </article>
+      </details>
+
+      <details class="grp">
+        <summary>
+          <span class="grp-key">F</span>
+          <span class="grp-name">Rủi ro con người và AI</span>
+          <span class="grp-tally">
+            <span class="marks"><i class="mk mk-1"></i><i class="mk mk-2"></i><i class="mk mk-2"></i></span>
+            <span class="num">3 vấn đề</span>
+            <svg class="icon chev" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chev"/></svg>
+          </span>
+        </summary>
+        <article class="find">
+          <span class="find-id num">F1</span>
+          <div>
+            <h4>99% code do AI sinh, Rust khó đọc, sự cố thì debug tay được không</h4>
+            <p>Câu hỏi trực tiếp trong buổi: sản phẩm gần như toàn bộ do AI sinh code, mà Rust vốn khó học và khó đọc. Khi có sự cố mà không kịp nhờ AI, phải debug thủ công, thì có cover được không.</p>
+            <p class="said"><b>Trả lời trong họp</b>"Cover được." Được ghi nhận nhưng kèm nhận xét về mức độ tự tin, và điều kiện duy nhất người hỏi muốn biết là khả năng tự debug khi có sự cố.</p>
+          </div>
+          <span class="sev"><i class="mk mk-1"></i>Chặn thí điểm thật</span>
+        </article>
+        <article class="find">
+          <span class="find-id num">F2</span>
+          <div>
+            <h4>Dùng AI để build hệ thống lớn thì phải có lớp kiểm soát</h4>
+            <p>Bản thân AI có thể mắc sai lầm, mà hệ thống được build ra thì rất lớn, nên phải xác định trước cách giám sát và kiểm soát chất lượng, không dựa vào việc xoay xở lúc có sự cố.</p>
+            <p class="said"><b>Bối cảnh tích cực</b>Cũng chính vì AI mà buổi họp ghi nhận sự bất ngờ: các kiến trúc mail đã được mô tả rất rõ từ nhiều chục năm trước nhưng không ai làm nổi, còn giờ thì làm được.</p>
+          </div>
+          <span class="sev"><i class="mk mk-2"></i>Chặn mở rộng</span>
+        </article>
+        <article class="find">
+          <span class="find-id num">F3</span>
+          <div>
+            <h4>Cam kết dài hạn của nhóm quyết định giá trị dự án</h4>
+            <p>Vấn đề luôn nằm sâu bên trong và cần thời gian mới lộ ra, nên giá trị của dự án phụ thuộc phần nhiều vào ý chí theo nó lâu dài. Nếu nhóm xác định dài hạn và đầu tư nghiêm túc thì đó là hướng tốt cho cả người làm và cho công ty; nếu chóng chán thì dự án mất giá trị.</p>
+          </div>
+          <span class="sev"><i class="mk mk-2"></i>Chặn mở rộng</span>
+        </article>
+      </details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== §04 ===================== -->
+<section class="sec" id="san-sang">
+  <div class="sec-in">
+    <p class="sec-idx num" aria-hidden="true">04</p>
+    <div class="sec-body">
+      <div class="sec-head" data-reveal>
+        <h2>Mức sẵn sàng cho một môi trường có người dùng thật</h2>
+        <p>Sắp theo mức sẵn sàng tăng dần, phần thiếu nằm ở trên. Thang 5 bước là đánh giá định tính của người soạn báo cáo dựa trên nội dung buổi họp, không phải số đo.</p>
+      </div>
+
+      <div class="two">
+        <div data-reveal>
+          <ul class="rd">
+            <li><span class="rd-name">Backup và restore</span><span class="meter lvl-1" role="img" aria-label="Mức 1 trên 5"><i class="on"></i><i></i><i></i><i></i><i></i></span><span class="rd-state">Chưa có</span></li>
+            <li><span class="rd-name">Dự phòng khi node chết</span><span class="meter lvl-1" role="img" aria-label="Mức 1 trên 5"><i class="on"></i><i></i><i></i><i></i><i></i></span><span class="rd-state">Chưa có</span></li>
+            <li><span class="rd-name">Cluster nhiều node</span><span class="meter lvl-1" role="img" aria-label="Mức 1 trên 5"><i class="on"></i><i></i><i></i><i></i><i></i></span><span class="rd-state">Single node, dữ liệu độc lập</span></li>
+            <li><span class="rd-name">Nâng cấp không mất kết nối</span><span class="meter lvl-1" role="img" aria-label="Mức 1 trên 5"><i class="on"></i><i></i><i></i><i></i><i></i></span><span class="rd-state">Restart cả binary</span></li>
+            <li><span class="rd-name">Benchmark tải thật</span><span class="meter lvl-1" role="img" aria-label="Mức 1 trên 5"><i class="on"></i><i></i><i></i><i></i><i></i></span><span class="rd-state">Chưa đo, số lấy từ tài liệu</span></li>
+            <li><span class="rd-name">Bản mô tả bài toán cho sale và marketing</span><span class="meter lvl-1" role="img" aria-label="Mức 1 trên 5"><i class="on"></i><i></i><i></i><i></i><i></i></span><span class="rd-state">Chưa có</span></li>
+            <li><span class="rd-name">Safe Link sống đồng đời với email</span><span class="meter lvl-2" role="img" aria-label="Mức 2 trên 5"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span><span class="rd-state">Có nhưng TTL theo phiên</span></li>
+            <li><span class="rd-name">Lưu trữ hai lớp local và S3</span><span class="meter lvl-2" role="img" aria-label="Mức 2 trên 5"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span><span class="rd-state">Đang lưu qua MinIO dạng S3</span></li>
+            <li><span class="rd-name">Bóc tách service để scale ngang</span><span class="meter lvl-2" role="img" aria-label="Mức 2 trên 5"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span><span class="rd-state">Nhận trade-off, chưa có kế hoạch</span></li>
+            <li><span class="rd-name">Ma trận tương thích client cũ</span><span class="meter lvl-2" role="img" aria-label="Mức 2 trên 5"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span><span class="rd-state">Chưa có tài liệu</span></li>
+            <li><span class="rd-name">Migration từ Zimbra</span><span class="meter lvl-2" role="img" aria-label="Mức 2 trên 5"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span><span class="rd-state">Dựa vào LDAP, dự tính bỏ sau</span></li>
+            <li><span class="rd-name">Gateway theo domain</span><span class="meter lvl-3" role="img" aria-label="Mức 3 trên 5"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span><span class="rd-state">Test connect chạy, chưa bật trên demo</span></li>
+            <li><span class="rd-name">DLP chặn rò rỉ dữ liệu</span><span class="meter lvl-3" role="img" aria-label="Mức 3 trên 5"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span><span class="rd-state">Đang bật, phần model AI tắt</span></li>
+            <li><span class="rd-name">Hàng đợi thư có ngưỡng tự retry</span><span class="meter lvl-4" role="img" aria-label="Mức 4 trên 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span><span class="rd-state">Đã cấu hình, queue đang rỗng</span></li>
+            <li><span class="rd-name">Chống thư rác, mã độc và DNSBL</span><span class="meter lvl-4" role="img" aria-label="Mức 4 trên 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span><span class="rd-state">Rspamd, ClamAV, Spamhaus, Barracuda</span></li>
+            <li><span class="rd-name">SSL tự động và audit log</span><span class="meter lvl-4" role="img" aria-label="Mức 4 trên 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span><span class="rd-state">Chạy trên node demo</span></li>
+            <li><span class="rd-name">Bề mặt người dùng và quản trị domain</span><span class="meter lvl-5" role="img" aria-label="Mức 5 trên 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span><span class="rd-state">Demo đầy đủ, gồm CalDAV và CardDAV</span></li>
+          </ul>
+          <p class="note" style="margin-top:var(--s4)">Thang đo: 1 chưa có, 2 mới một phần, 3 có nhưng chưa đủ, 4 đã chạy và cần hoàn thiện, 5 demo được đầy đủ.</p>
+        </div>
+
+        <div class="check" data-reveal>
+          <section>
+            <h4><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-server"/></svg>Trước khi nhận môi trường thật</h4>
+            <ul>
+              <li><i class="box"></i>Backup incremental và diễn tập restore, cho cả single node</li>
+              <li><i class="box"></i>Kịch bản xử lý khi node chết, kèm thời gian phục hồi cam kết</li>
+              <li><i class="box"></i>Safe Link tồn tại lâu dài, bỏ TTL theo phiên</li>
+              <li><i class="box"></i>Ma trận client và giao thức cũ được hỗ trợ</li>
+            </ul>
+          </section>
+          <section>
+            <h4><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-graph"/></svg>Bằng chứng phải có</h4>
+            <ul>
+              <li><i class="box"></i>Benchmark có tiêu chí, dùng công cụ bơm tải, không chỉ gửi vài thư</li>
+              <li><i class="box"></i>Thử với vài trăm triệu bản ghi rồi ghi lại hành vi hệ thống</li>
+              <li><i class="box"></i>Chi phí hạ tầng trên mỗi nghìn hộp thư ở tải cao</li>
+              <li><i class="box"></i>Đo lại số RAM và CPU trong điều kiện tải, thay số nêu miệng</li>
+            </ul>
+          </section>
+          <section>
+            <h4><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-box"/></svg>Định vị và truyền thông</h4>
+            <ul>
+              <li><i class="box"></i>Một trang: bài toán giải quyết cho khách và cho công ty</li>
+              <li><i class="box"></i>Tài liệu chọn mô hình tập trung hay phân tán, kèm lý do</li>
+              <li><i class="box"></i>Chọn giữa may đo cho iNET và generic để public</li>
+              <li><i class="box"></i>Cách diễn giải sản phẩm cho SEO và marketing</li>
+            </ul>
+          </section>
+          <section>
+            <h4><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-shield"/></svg>Kiến trúc trung hạn</h4>
+            <ul>
+              <li><i class="box"></i>Kế hoạch bóc tách service để scale từng phần</li>
+              <li><i class="box"></i>Rollout từng node kèm graceful shutdown</li>
+              <li><i class="box"></i>Phân quyền và giới hạn tài nguyên theo từng giao thức</li>
+              <li><i class="box"></i>Lưu trữ hai lớp, có mốc phân lớp theo tuổi thư</li>
+            </ul>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== §05 ===================== -->
+<section class="sec" id="viec-lam">
+  <div class="sec-in">
+    <p class="sec-idx num" aria-hidden="true">05</p>
+    <div class="sec-body">
+      <div class="sec-head" data-reveal>
+        <h2>Việc phải làm sau buổi họp, kèm người chịu trách nhiệm</h2>
+        <p>Buổi họp kết thúc bằng một quyết định mở đường và một hàng đợi việc rõ ràng. Ba việc đầu chặn phần lớn các vấn đề ở mục 03.</p>
+      </div>
+
+      <div class="dec" data-reveal>
+        <article>
+          <p class="dec-n num">01</p>
+          <div>
+            <h3>Đề xuất môi trường thí điểm</h3>
+            <div class="dec-opts">
+              <span class="opt">Chủ sở hữu: anh Đô và anh Kiên</span>
+              <span class="opt">Người duyệt: lãnh đạo chủ trì</span>
+            </div>
+            <p class="cost">Nội dung cần có: chọn ngách, quy mô người dùng, mức dịch vụ cam kết, cách hỗ trợ khi lỗi. <b>Chặn:</b> mọi việc chạy thật đều chờ bước này, vì môi trường chỉ được cấp sau khi đề xuất được duyệt.</p>
+          </div>
+        </article>
+        <article>
+          <p class="dec-n num">02</p>
+          <div>
+            <h3>Benchmark thật và báo cáo lại</h3>
+            <div class="dec-opts">
+              <span class="opt">Chủ sở hữu: Hưng</span>
+              <span class="opt">Đã cam kết trong họp</span>
+            </div>
+            <p class="cost">Cần tiêu chí đo, công cụ bơm tải, mức tải, và đo trên cùng cấu hình hạ tầng với hệ thống đối chiếu. <b>Chặn:</b> C1, C2, C3, và mọi lập luận so sánh với Zimbra. Số hiện tại trong tài liệu đã bị hội đồng bác một lần.</p>
+          </div>
+        </article>
+        <article>
+          <p class="dec-n num">03</p>
+          <div>
+            <h3>Safe Link sống đồng đời với email</h3>
+            <div class="dec-opts">
+              <span class="opt">Chủ sở hữu: Vũ</span>
+              <span class="opt">Được giao trực tiếp trong họp</span>
+            </div>
+            <p class="cost">Bỏ phụ thuộc TTL của phiên, chọn nơi lưu bền cho bản đồ link. <b>Chặn:</b> B2. Không sửa thì mọi thư HTML đã gửi đều có link chết theo thời gian, và lỗi này chỉ lộ ra sau nhiều tháng.</p>
+          </div>
+        </article>
+        <article>
+          <p class="dec-n num">04</p>
+          <div>
+            <h3>Backup, restore và dự phòng</h3>
+            <div class="dec-opts">
+              <span class="opt">Chủ sở hữu: Hưng và Vũ</span>
+              <span class="opt">Tồn từ buổi 04/08</span>
+            </div>
+            <p class="cost">Backup dữ liệu và cấu hình, kịch bản phục hồi cho single node, phục hồi tài khoản đã xóa. <b>Chặn:</b> B1 và điều kiện tiên quyết để nhận môi trường có người dùng thật.</p>
+          </div>
+        </article>
+        <article>
+          <p class="dec-n num">05</p>
+          <div>
+            <h3>Bản mô tả bài toán và mô hình</h3>
+            <div class="dec-opts">
+              <span class="opt">Chủ sở hữu: Hưng</span>
+              <span class="opt">Người đọc: lãnh đạo, sale, marketing</span>
+            </div>
+            <p class="cost">Một tài liệu trả lời: giải quyết bài toán gì cho khách và công ty, chọn mô hình tập trung hay phân tán và vì sao. <b>Chặn:</b> E1, E2, E4, và cách trình bày ở các buổi sau.</p>
+          </div>
+        </article>
+        <article>
+          <p class="dec-n num">06</p>
+          <div>
+            <h3>Quyết định đầu tư mã nguồn mở</h3>
+            <div class="dec-opts">
+              <span class="opt">Chủ sở hữu: cấp công ty</span>
+              <span class="opt">Chưa có mốc thời gian</span>
+            </div>
+            <p class="cost">Ngân sách hằng năm, hệ thống lab, tuyển sinh viên, danh mục sản phẩm mở khác. <b>Chặn:</b> E3, vì nếu public thì sản phẩm phải generic và phải bỏ logic riêng của iNET.</p>
+          </div>
+        </article>
+      </div>
+
+      <div class="next" data-reveal>
+        <h3>Câu hỏi còn mở sau buổi họp</h3>
+        <ol>
+          <li>Chọn ngách nào trước trong ba ngách được gợi mở, và quy mô người dùng tối đa cho lần thí điểm đầu.</li>
+          <li>May đo cho hệ sinh thái iNET hay làm generic để public: hai hướng vẫn song song, chưa ai chọn.</li>
+          <li>Mốc "đủ trưởng thành để bắt đầu thay thế" được đo bằng tiêu chí gì, vì hiện chỉ là nhận định định tính.</li>
+          <li>Bóc tách service ở mức nào là đủ: giữ một binary, tách vài service, hay đi hẳn microservice.</li>
+          <li>Mức dịch vụ cam kết cho ngách thí điểm, khi chưa có backup và chưa có dự phòng.</li>
+          <li>Ai đứng ra chịu trách nhiệm vận hành ca đêm và sự cố cho môi trường thí điểm.</li>
+          <li>Ngày Zimbra kết thúc hỗ trợ nêu trong buổi là 2028, cần đối chiếu lại với phiên bản đang chạy và tài liệu công khai của nhà cung cấp.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="foot">
+  <div class="foot-in">
+    <div>
+      <h4>Nguồn</h4>
+      <ul>
+        <li>Bản ghi buổi họp 07/08/2026, phòng Cầu Giấy 2, độ dài 1:06:11. Nội dung chính bắt đầu từ phút 4:44.</li>
+        <li>Báo cáo buổi trước: <a href="../04-08-2026/oxmail-architecture-review-04-08-2026.html">Review kiến trúc OxMail 04/08/2026</a>, nơi vị trí sản phẩm còn để mở.</li>
+        <li>Toàn bộ số liệu tài nguyên trong báo cáo này được nêu miệng trong buổi, chưa qua benchmark có tiêu chí.</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Phần ngoài lề đầu buổi</h4>
+      <p>Trước phần trình bày mail server, cuộc họp có một mục ngắn về IP gửi thư: cần dùng IP sạch và nuôi IP, tránh tái sử dụng IP đã dùng cho khách hoặc cho nhà mạng khác vì dễ rơi vào spam, và nên đăng ký IP theo tháng thay vì theo năm để giảm chi phí.</p>
+      <p>Kèm theo là một nhắc việc về phối hợp giữa các bộ phận chưa khớp: đã có thông báo từ kỹ thuật nhưng vẫn đăng ký cả năm, phần này được yêu cầu xem lại.</p>
+    </div>
+    <div>
+      <h4>Lưu ý về phương pháp</h4>
+      <p>Bản ghi được tạo bằng nhận dạng giọng nói tự động, sai tên riêng rất nhiều và có nhiều đoạn lặp vô nghĩa do khoảng lặng. Ví dụ Zimbra bị nhận thành Zeebrand, Zebra, Zingra, Zimra, Zima và Vibra; OxMail thành OXMAL; Rspamd thành R2D và LSPAN; ClamAV thành CloudWave và Clam3V; jemalloc thành Zmalloc; JMAP thành LMPP; Dragonfly thành "run and fly"; MinIO thành PNIO; LDAP thành Eldrack và LRAP; SLA thành SOLA; monolith thành Oliven; Safe Link thành "xếp link"; benchmark thành Bedmask. Bản ghi còn chèn cả câu quảng cáo của một kênh video, đó là nhiễu của công cụ, không phải nội dung họp.</p>
+      <p class="sig">Mọi tên riêng và thuật ngữ đã được suy luận lại theo ngữ cảnh kỹ thuật trước khi trích dẫn. Xếp mức ưu tiên cho 22 vấn đề và thang mức sẵn sàng là đánh giá của người soạn báo cáo, không phải kết luận chính thức của hội đồng. Một số tên người trong bản ghi không rõ nên báo cáo chỉ nêu những tên xuất hiện nhất quán.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var root = document.documentElement;
+  var KEY = "oxmail-review-theme";
+
+  /* ---------- theme ---------- */
+  var buttons = Array.prototype.slice.call(document.querySelectorAll(".theme button"));
+  function paint(mode){
+    if (mode === "system") root.removeAttribute("data-theme");
+    else root.setAttribute("data-theme", mode);
+    buttons.forEach(function(b){
+      b.setAttribute("aria-pressed", String(b.dataset.set === mode));
+    });
+  }
+  var stored = "system";
+  try { stored = localStorage.getItem(KEY) || "system"; } catch(e){}
+  paint(stored);
+  buttons.forEach(function(b){
+    b.addEventListener("click", function(){
+      paint(b.dataset.set);
+      try { localStorage.setItem(KEY, b.dataset.set); } catch(e){}
+    });
+  });
+
+  /* ---------- reveal ----------
+     Entrance animation only. The CSS keeps every element at its natural
+     opacity/width, so if this never runs (hidden tab, no JS, print) the
+     report still reads completely. */
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if ("IntersectionObserver" in window && !reduce){
+    root.classList.add("js-reveal");
+    var mark = function(entries, obs){
+      entries.forEach(function(en){
+        if (!en.isIntersecting) return;
+        en.target.classList.add("in");
+        obs.unobserve(en.target);
+      });
+    };
+    var io = new IntersectionObserver(mark, { rootMargin: "0px 0px -8% 0px", threshold: 0.08 });
+    document.querySelectorAll("[data-reveal]").forEach(function(el){ io.observe(el); });
+
+    /* bars live inside tables/figures that are not [data-reveal] themselves */
+    var barHost = new IntersectionObserver(mark, { threshold: 0.12 });
+    document.querySelectorAll(".tablewrap, .mini section").forEach(function(el){ barHost.observe(el); });
+  }
+
+  /* ---------- print: expand every accordion ---------- */
+  var opened = [];
+  window.addEventListener("beforeprint", function(){
+    opened = [];
+    document.querySelectorAll("details:not([open])").forEach(function(d){
+      opened.push(d); d.open = true;
+    });
+  });
+  window.addEventListener("afterprint", function(){
+    opened.forEach(function(d){ d.open = false; });
+    opened = [];
+  });
+
+  /* ---------- sticky nav border ---------- */
+  var nav = document.getElementById("nav");
+  var onScroll = function(){ nav.classList.toggle("stuck", window.scrollY > 8); };
+  onScroll();
+  window.addEventListener("scroll", onScroll, { passive: true });
+
+  /* ---------- scrollspy ---------- */
+  var links = Array.prototype.slice.call(document.querySelectorAll(".navlinks a"));
+  var targets = links.map(function(a){ return document.querySelector(a.getAttribute("href")); }).filter(Boolean);
+  if ("IntersectionObserver" in window && targets.length){
+    var spy = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (!en.isIntersecting) return;
+        links.forEach(function(a){
+          a.setAttribute("aria-current", String(a.getAttribute("href") === "#" + en.target.id));
+        });
+      });
+    }, { rootMargin: "-45% 0px -50% 0px" });
+    targets.forEach(function(t){ spy.observe(t); });
+  }
+})();
+</script>
+</body>
+</html>
