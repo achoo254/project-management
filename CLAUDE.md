@@ -14,6 +14,7 @@ Internal project management repo for iNET Tech Department. Tracks monthly OKR/KP
 - `okr-kpi/MM-YYYY/` - Monthly OKR+P2 audit reports, one folder per period under review (see `okr-kpi/README.md`)
 - `plans/<user>/` - Per-person plans; `plans/reports/` - other reports plus the T5–T7 2026 audits
 - `hop-cxo/DD-MM-YYYY/` - CXO meeting minutes + transcripts
+- `review-services/DD-MM-YYYY/` - Internal product/architecture review minutes (`.srt` transcript + self-contained HTML report per session)
 - `dao-tao/DD-MM-YYYY/` - Internal training material (HTML slides, transcripts)
 - `scripts/` - Python read-only helpers to inspect the P2 formula template (`dump_p2_*.py`, openpyxl)
 - `.claude/skills/` - Local skills: `gitlab-okr-kpi` (write), `p2-monthly-okr-audit` (read-only audit)
