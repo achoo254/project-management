@@ -1,0 +1,1388 @@
+<!doctype html>
+<html lang="vi" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Thực hành Docker cơ bản trên Ubuntu Server 24.04</title>
+<meta name="description" content="Thực hành Docker cơ bản trên Ubuntu Server 24.04 — tài liệu thực hành, có mục lục, nút sao chép lệnh và checklist nghiệm thu.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Sans+Condensed:wght@600&family=IBM+Plex+Sans:wght@400;600&display=swap&subset=vietnamese,latin-ext" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box}
+:root{
+  --bg:#E9EDF2; --surface:#FFFFFF; --surface-2:#F4F7FB;
+  --ink:#0E1729; --ink-2:#465773; --ink-3:#7D8CA6;
+  --rule:#C8D2DF; --rule-soft:#DFE6EE;
+  --accent:#2F4BD1; --accent-soft:#DFE4FB; --accent-ink:#2F4BD1;
+  --warn:#A6491B; --warn-soft:#F8E7DB;
+  --ok:#0B6152; --ok-soft:#DCEEE9;
+  --code-bg:#0F1829; --code-fg:#C6D4EA;
+  --shadow:0 1px 0 rgba(14,23,41,.05), 0 8px 24px -18px rgba(14,23,41,.45);
+  --rail-w:296px;
+  --f-body:"IBM Plex Sans","Segoe UI",system-ui,-apple-system,sans-serif;
+  --f-disp:"IBM Plex Sans Condensed","IBM Plex Sans","Segoe UI",system-ui,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Consolas,monospace;
+}
+html[data-theme="dark"]{
+  --bg:#080E1A; --surface:#101928; --surface-2:#16202F;
+  --ink:#DFE7F3; --ink-2:#95A6C0; --ink-3:#6C7E9B;
+  --rule:#243146; --rule-soft:#1B2536;
+  --accent:#8098FF; --accent-soft:#1A2545; --accent-ink:#A6B6FF;
+  --warn:#E29161; --warn-soft:#2C1F16;
+  --ok:#57C4AA; --ok-soft:#0E2620;
+  --code-bg:#040913; --code-fg:#C6D4EA;
+  --shadow:0 1px 0 rgba(0,0,0,.3), 0 10px 30px -20px #000;
+}
+html{scroll-behavior:smooth;scroll-padding-top:88px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}
+  *{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);
+  font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+
+/* ---------- masthead ---------- */
+.masthead{position:sticky;top:0;z-index:40;background:var(--surface);
+  border-bottom:1px solid var(--rule);}
+.masthead__in{max-width:1400px;margin:0 auto;padding:14px 24px;
+  display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.brand{display:flex;align-items:baseline;gap:12px;min-width:0}
+.brand__eyebrow{font-family:var(--f-mono);font-size:11px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--accent-ink);white-space:nowrap}
+.brand__title{font-family:var(--f-disp);font-weight:600;font-size:19px;
+  letter-spacing:-.01em;margin:0;white-space:nowrap;overflow:hidden;
+  text-overflow:ellipsis}
+.masthead__tools{margin-left:auto;display:flex;align-items:center;gap:8px}
+.btn{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--ink-2);background:var(--surface-2);
+  border:1px solid var(--rule);border-radius:3px;padding:7px 11px;cursor:pointer;
+  text-decoration:none;display:inline-flex;align-items:center;gap:7px;
+  transition:border-color .15s,color .15s,background .15s}
+.btn:hover{border-color:var(--accent);color:var(--accent-ink)}
+.btn:focus-visible,a:focus-visible,button:focus-visible,input:focus-visible{
+  outline:2px solid var(--accent);outline-offset:2px}
+.progress{font-family:var(--f-mono);font-size:11.5px;color:var(--ink-2);
+  border:1px solid var(--rule);border-radius:3px;padding:7px 11px;
+  display:inline-flex;gap:8px;align-items:center;white-space:nowrap}
+.progress b{color:var(--ok);font-weight:600}
+.nav-toggle{display:none}
+
+/* ---------- shell ---------- */
+.shell{max-width:1400px;margin:0 auto;display:grid;
+  grid-template-columns:var(--rail-w) minmax(0,1fr);gap:44px;padding:0 24px}
+
+/* ---------- layer rail (signature) ---------- */
+.rail{position:sticky;top:63px;align-self:start;height:calc(100vh - 63px);
+  display:flex;flex-direction:column;padding:22px 0 12px;overflow:hidden}
+.rail__head{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink-3);margin-bottom:10px}
+.search{position:relative;margin-bottom:14px}
+.search input{width:100%;font-family:var(--f-mono);font-size:12.5px;
+  background:var(--surface);border:1px solid var(--rule);border-radius:3px;
+  padding:9px 11px;color:var(--ink)}
+.search input::placeholder{color:var(--ink-3)}
+.nav{overflow-y:auto;flex:1;padding-right:6px;scrollbar-width:thin}
+.nav::-webkit-scrollbar{width:6px}
+.nav::-webkit-scrollbar-thumb{background:var(--rule);border-radius:3px}
+.nav__part{font-family:var(--f-mono);font-size:10px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink-3);padding:16px 0 7px 15px;
+  border-top:1px solid var(--rule-soft);margin-top:8px;display:flex;gap:8px;
+  flex-wrap:wrap}
+.nav__part:first-child{border-top:0;margin-top:0;padding-top:2px}
+.nav__part-num{color:var(--accent-ink)}
+.nav__row{display:grid;grid-template-columns:3px 22px 1fr;align-items:start;
+  gap:10px;padding:5px 0;text-decoration:none;color:var(--ink-2);
+  font-size:13.5px;line-height:1.35;border-radius:2px}
+.nav__bar{height:100%;min-height:19px;background:var(--rule);border-radius:2px;
+  transition:background .2s,transform .2s;transform-origin:center}
+.nav__num{font-family:var(--f-mono);font-size:11px;color:var(--ink-3);
+  letter-spacing:.02em;padding-top:1px}
+.nav__label{overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;
+  -webkit-box-orient:vertical;line-clamp:2}
+.nav__row:hover{color:var(--ink)}
+.nav__row:hover .nav__bar{background:var(--ink-3)}
+.nav__row.is-past .nav__bar{background:var(--accent);opacity:.35}
+.nav__row.is-active{color:var(--ink)}
+.nav__row.is-active .nav__label{font-weight:600}
+.nav__row.is-active .nav__num{color:var(--accent-ink)}
+.nav__row.is-active .nav__bar{background:var(--accent);transform:scaleX(2.2)}
+.nav__row.is-hidden{display:none}
+
+/* ---------- article ---------- */
+.doc{padding:34px 0 120px;max-width:80ch;min-width:0}
+.lede{border-left:3px solid var(--accent);padding:2px 0 2px 20px;margin-bottom:34px}
+.lede h1{font-family:var(--f-disp);font-size:clamp(28px,4vw,40px);line-height:1.12;
+  font-weight:600;letter-spacing:-.015em;margin:0 0 12px}
+.chips{display:flex;flex-wrap:wrap;gap:7px}
+.chip{font-family:var(--f-mono);font-size:11px;letter-spacing:.04em;
+  color:var(--ink-2);border:1px solid var(--rule);border-radius:99px;
+  padding:4px 11px;background:var(--surface)}
+
+.doc h2.part{font-family:var(--f-mono);font-size:12px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--accent-ink);margin:64px 0 6px;
+  padding-top:26px;border-top:2px solid var(--accent);
+  display:flex;gap:12px;flex-wrap:wrap;align-items:baseline}
+.doc h2.part .part__name{color:var(--ink-2);letter-spacing:.1em}
+.doc h2:not(.part){font-family:var(--f-disp);font-size:25px;font-weight:600;
+  letter-spacing:-.01em;line-height:1.25;margin:52px 0 14px;padding-bottom:9px;
+  border-bottom:1px solid var(--rule)}
+.doc h3{font-family:var(--f-disp);font-size:18px;font-weight:600;
+  margin:34px 0 10px;color:var(--ink)}
+.doc h2:not(.part)::before{content:"";display:block;height:0}
+.doc p{margin:0 0 15px}
+.doc a{color:var(--accent-ink);text-decoration:none;
+  border-bottom:1px solid color-mix(in srgb,var(--accent) 40%,transparent)}
+.doc a:hover{border-bottom-color:var(--accent)}
+.doc ul,.doc ol{margin:0 0 16px;padding-left:22px}
+.doc li{margin:5px 0}
+.doc li::marker{color:var(--ink-3)}
+.doc hr{border:0;border-top:1px solid var(--rule-soft);margin:40px 0}
+.doc strong{font-weight:600}
+.doc :not(pre)>code{font-family:var(--f-mono);font-size:.865em;
+  background:var(--accent-soft);color:var(--accent-ink);padding:1.5px 5px;
+  border-radius:3px;white-space:nowrap}
+html[data-theme="dark"] .doc :not(pre)>code{color:#C3CEFF}
+
+/* ---------- tables ---------- */
+.table-wrap{overflow-x:auto;margin:0 0 22px;border:1px solid var(--rule);
+  border-radius:4px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--rule-soft);
+  vertical-align:top}
+thead th{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink-2);background:var(--surface-2);
+  border-bottom:1px solid var(--rule);white-space:nowrap}
+tbody tr:last-child td{border-bottom:0}
+tbody tr:hover{background:var(--surface-2)}
+td code{white-space:nowrap}
+
+/* ---------- code ---------- */
+.code{margin:0 0 22px;border-radius:5px;overflow:hidden;background:var(--code-bg);
+  border:1px solid transparent;box-shadow:var(--shadow)}
+html[data-theme="dark"] .code{border-color:var(--rule)}
+.code figcaption{display:flex;align-items:center;gap:10px;
+  padding:7px 12px 7px 14px;background:rgba(255,255,255,.04);
+  border-bottom:1px solid rgba(255,255,255,.07)}
+.code__lang{font-family:var(--f-mono);font-size:10px;letter-spacing:.16em;
+  text-transform:uppercase;color:#7D93B8}
+.code__copy{margin-left:auto;font-family:var(--f-mono);font-size:10.5px;
+  letter-spacing:.08em;text-transform:uppercase;color:#8DA3C6;background:transparent;
+  border:1px solid rgba(255,255,255,.14);border-radius:3px;padding:4px 9px;
+  cursor:pointer;display:inline-flex;align-items:center;gap:6px;
+  transition:color .15s,border-color .15s}
+.code__copy:hover{color:#DCE7FA;border-color:rgba(255,255,255,.34)}
+.code__copy.is-done{color:#6FD3B4;border-color:#2E6B58}
+.code__copy-icon{width:9px;height:9px;border:1.4px solid currentColor;
+  border-radius:1.5px;position:relative;flex:none}
+.code__copy-icon::after{content:"";position:absolute;inset:-3.5px -3.5px auto auto;
+  width:9px;height:9px;border:1.4px solid currentColor;border-radius:1.5px;
+  border-left:0;border-bottom:0}
+.code__copy.is-done .code__copy-icon{border-radius:50%}
+.code pre{margin:0;padding:15px 16px;overflow-x:auto}
+.code code{font-family:var(--f-mono);font-size:13.2px;line-height:1.62;
+  color:var(--code-fg);white-space:pre;display:block}
+.code--plain pre{background:var(--code-bg)}
+.code--plain code{color:#93A8C8}
+/* pygments */
+.code .c,.code .c1,.code .cm,.code .cp{color:#5E779E;font-style:italic}
+.code .s,.code .s1,.code .s2,.code .sb,.code .se,.code .sd{color:#94D6B4}
+.code .k,.code .kd,.code .kn,.code .kr,.code .kt{color:#E0A45E}
+.code .nb,.code .nf{color:#7FB2F0}
+.code .nv,.code .vg{color:#D9A2E8}
+.code .o,.code .p{color:#8CA2C4}
+.code .m,.code .mi{color:#E0A45E}
+
+/* ---------- callouts ---------- */
+.callout{position:relative;margin:0 0 22px;padding:15px 18px 15px 17px;
+  border-radius:4px;border:1px solid var(--rule);border-left:3px solid var(--ink-3);
+  background:var(--surface)}
+.callout__tag{font-family:var(--f-mono);font-size:10px;letter-spacing:.16em;
+  text-transform:uppercase;display:block;margin-bottom:7px;color:var(--ink-3)}
+.callout__body>*:last-child{margin-bottom:0}
+.callout__body p{margin:0 0 10px;font-size:15px}
+.callout__body .code{margin:12px 0 4px}
+.callout--note{border-left-color:var(--accent);background:var(--surface)}
+.callout--note .callout__tag{color:var(--accent-ink)}
+.callout--danger{border-left-color:var(--warn);background:var(--warn-soft);
+  border-color:color-mix(in srgb,var(--warn) 26%,transparent)}
+.callout--danger .callout__tag{color:var(--warn)}
+.callout--fix{border-left-color:var(--ok);background:var(--ok-soft);
+  border-color:color-mix(in srgb,var(--ok) 24%,transparent)}
+.callout--fix .callout__tag{color:var(--ok)}
+/* code shown inside a "sửa so với bản gốc" note is the BROKEN original:
+   never offer to copy it, and mark it as such */
+.callout--fix .code__copy{display:none}
+.callout--fix .code__lang::after{content:" · bản gốc, không chạy";color:var(--warn)}
+.callout--fix .code{opacity:.92;border:1px dashed color-mix(in srgb,var(--warn) 45%,transparent)}
+
+/* ---------- tasklist ---------- */
+.tasklist{list-style:none;padding:0;margin:0 0 22px;border:1px solid var(--rule);
+  border-radius:4px;background:var(--surface);overflow:hidden}
+.task{margin:0;border-bottom:1px solid var(--rule-soft)}
+.task:last-child{border-bottom:0}
+.task label{display:flex;gap:12px;align-items:flex-start;padding:10px 15px;
+  cursor:pointer;font-size:14.5px}
+.task label:hover{background:var(--surface-2)}
+.task__box{margin:4px 0 0;width:15px;height:15px;accent-color:var(--ok);flex:none}
+.task__box:checked+.task__text{color:var(--ink-3);text-decoration:line-through;
+  text-decoration-color:var(--ok)}
+
+/* ---------- footer ---------- */
+.doc__foot{margin-top:70px;padding-top:22px;border-top:1px solid var(--rule);
+  display:flex;gap:14px;flex-wrap:wrap;align-items:center;
+  font-family:var(--f-mono);font-size:11.5px;color:var(--ink-3);
+  letter-spacing:.04em}
+.totop{margin-left:auto}
+
+/* ---------- responsive ---------- */
+@media (max-width:1080px){
+  :root{--rail-w:250px}
+  .shell{gap:30px}
+}
+@media (max-width:860px){
+  .shell{grid-template-columns:1fr;padding:0 18px}
+  .nav-toggle{display:inline-flex}
+  .rail{position:fixed;inset:63px auto 0 0;width:300px;max-width:86vw;height:auto;
+    background:var(--surface);border-right:1px solid var(--rule);z-index:35;
+    padding:20px 16px;transform:translateX(-102%);transition:transform .22s ease;
+    box-shadow:12px 0 40px -30px #000}
+  .rail.is-open{transform:none}
+  .brand__title{font-size:16px}
+  .brand__eyebrow{display:none}
+  .doc{padding-top:26px}
+  .doc h2:not(.part){font-size:21px}
+  .code code{font-size:12.4px}
+}
+.scrim{display:none}
+@media (max-width:860px){
+  .scrim{display:block;position:fixed;inset:0;background:rgba(6,11,22,.5);
+    opacity:0;pointer-events:none;transition:opacity .22s;z-index:30}
+  .scrim.is-open{opacity:1;pointer-events:auto}
+}
+
+/* ---------- print ---------- */
+@media print{
+  .masthead,.rail,.scrim,.code__copy,.doc__foot{display:none!important}
+  .shell{display:block;padding:0;max-width:none}
+  body{background:#fff;color:#000;font-size:11pt}
+  .doc{max-width:none;padding:0}
+  .code{border:1px solid #bbb;box-shadow:none;background:#f6f7f9}
+  .code code{color:#111}
+  .code .c,.code .c1{color:#555}
+  .code .s,.code .s1,.code .s2{color:#111}
+  .code .k,.code .nb,.code .nv,.code .o,.code .p,.code .m,.code .mi{color:#111}
+  .doc h2{break-after:avoid}
+  .code,.table-wrap,.callout{break-inside:avoid}
+}
+</style>
+</head>
+<body data-doc="01">
+<header class="masthead">
+  <div class="masthead__in">
+    <button class="btn nav-toggle" id="navtoggle" type="button">Mục lục</button>
+    <div class="brand">
+      <span class="brand__eyebrow">Lab 01 · Cơ bản</span>
+      <h1 class="brand__title">Thực hành Docker cơ bản trên Ubuntu Server 24.04</h1>
+    </div>
+    <div class="masthead__tools">
+      <span class="progress" id="progress">Nghiệm thu <b>0</b>/0</span>
+      <a class="btn" href="02-docker-nang-cao-dockerhub-compose-victorialogs-vector.html">Lab 02 · Nâng cao</a>
+      <button class="btn" id="theme" type="button">Tối</button>
+    </div>
+  </div>
+</header>
+
+<div class="scrim"></div>
+
+<div class="shell">
+  <aside class="rail">
+    <div class="rail__head">Lớp thực hành · 31 mục</div>
+    <div class="search"><input id="q" type="search" placeholder="Lọc mục — nhấn /" autocomplete="off"></div>
+    <nav class="nav">
+<a class="nav__row" href="#1-muc-tieu" data-target="1-muc-tieu"><span class="nav__bar" aria-hidden="true"></span><span class="nav__num">01</span><span class="nav__label">Mục tiêu</span></a>
+<a class="nav__row" href="#2-mo-hinh-lab" data-target="2-mo-hinh-lab"><span class="nav__bar" aria-hidden="true"></span><span class="nav__num">02</span><span class="nav__label">Mô hình lab</span></a>
+<a class="nav__row" href="#3-docker-hoat-dong-nhu-the-nao" data-target="3-docker-hoat-dong-nhu-the-nao"><span class="nav__bar" aria-hidden="true"></span><span class="nav__num">03</span><span class="nav__label">Docker hoạt động như thế nào?</span></a>
+<div class="nav__part"><span class="nav__part-num">Phần I</span><span class="nav__part-label">Cài Đặt Docker</span></div>
+<a class="nav__row" href="#4-go-cac-package-co-the-gay-xung-dot" data-target="4-go-cac-package-co-the-gay-xung-dot"><span class="nav__bar" aria-hidden="true"></span><span class="nav__num">04</span><span class="nav__label">Gỡ các package có thể gây xung đột</span></a>
+<a class="nav__row" href="#5-cau-hinh-docker-apt-repository" data-target="5-cau-hinh-docker-apt-repository"><span class="nav__bar" aria-hidden="true"></span><span class="nav__num">05</span><span class="nav__label">Cấu hình Docker APT repository</span></a>
+<a class="nav__row" href="#6-cai-docker-engine" data-target="6-cai-docker-engine"><span class="nav__bar" aria-hidden="true"></span><span class="nav__num">06</span><span class="nav__label">Cài Docker Engine</span></a>
+<a class="nav__row" href="#7-kiem-tra-docker-daemon" data-target="7-kiem-tra-docker-daemon"><span class="nav__bar" aria-hidden="true"></span><span class="nav__num">07</span><span class="nav__label">Kiểm tra Docker daemon</span></a>
+<a class="nav__row" href="#8-cho-phep-user-chay-docker-khong-can-sudo" data-target="8-cho-phep-user-chay-docker-khong-can-sudo"><span class="nav__bar" aria-hidden="true"></span><span class="nav__num">08</span><span class="nav__label">Cho phép user chạy Docker không cần sudo</span></a>
+<div class="nav__part"><span class="nav__part-num">Phần II</span><span class="nav__part-label">Image Và Container</span></div>
+<a class="nav__row" href="#9-quan-ly-image" data-target="9-quan-ly-image"><span class="nav__bar" aria-hidden="true"></span><span class="nav__num">09</span><span class="nav__label">Quản lý image</span></a>
+<a class="nav__row" href="#10-chay-container-dau-tien" data-target="10-chay-container-dau-tien"><span class="nav__bar" aria-hidden="true"></span><span class="nav__num">10</span><span class="nav__label">Chạy container đầu tiên</span></a>
+<a class="nav__row" href="#11-vong-doi-container" data-target="11-vong-doi-container"><span class="nav__bar" aria-hidden="true"></span><span class="nav__num">11</span><span class="nav__label">Vòng đời container</span></a>
+<a class="nav__row" href="#12-thuc-thi-lenh-ben-trong-container" data-target="12-thuc-thi-lenh-ben-trong-container"><span class="nav__bar" aria-hidden="true"></span><span class="nav__num">12</span><span class="nav__label">Thực thi lệnh bên trong container</span></a>
+<a class="nav__row" href="#13-inspect-container" data-target="13-inspect-container"><span class="nav__bar" aria-hidden="true"></span><span class="nav__num">13</span><span class="nav__label">Inspect container</span></a>
+<div class="nav__part"><span class="nav__part-num">Phần III</span><span class="nav__part-label">Log Và Giám Sát</span></div>
+<a class="nav__row" href="#14-theo-doi-log-container" data-target="14-theo-doi-log-container"><span class="nav__bar" aria-hidden="true"></span><span class="nav__num">14</span><span class="nav__label">Theo dõi log container</span></a>
+<a class="nav__row" href="#15-theo-doi-tai-nguyen" data-target="15-theo-doi-tai-nguyen"><span class="nav__bar" aria-hidden="true"></span><span class="nav__num">15</span><span class="nav__label">Theo dõi tài nguyên</span></a>
+<a class="nav__row" href="#16-theo-doi-su-kien-docker" data-target="16-theo-doi-su-kien-docker"><span class="nav__bar" aria-hidden="true"></span><span class="nav__num">16</span><span class="nav__label">Theo dõi sự kiện Docker</span></a>
+<a class="nav__row" href="#17-xem-muc-su-dung-dung-luong" data-target="17-xem-muc-su-dung-dung-luong"><span class="nav__bar" aria-hidden="true"></span><span class="nav__num">17</span><span class="nav__label">Xem mức sử dụng dung lượng</span></a>
+<div class="nav__part"><span class="nav__part-num">Phần IV</span><span class="nav__part-label">Lưu Trữ Dữ Liệu</span></div>
+<a class="nav__row" href="#18-named-volume" data-target="18-named-volume"><span class="nav__bar" aria-hidden="true"></span><span class="nav__num">18</span><span class="nav__label">Named volume</span></a>
+<a class="nav__row" href="#19-bind-mount" data-target="19-bind-mount"><span class="nav__bar" aria-hidden="true"></span><span class="nav__num">19</span><span class="nav__label">Bind mount</span></a>
+<div class="nav__part"><span class="nav__part-num">Phần V</span><span class="nav__part-label">Docker Network</span></div>
+<a class="nav__row" href="#20-user-defined-bridge-network" data-target="20-user-defined-bridge-network"><span class="nav__bar" aria-hidden="true"></span><span class="nav__num">20</span><span class="nav__label">User-defined bridge network</span></a>
+<div class="nav__part"><span class="nav__part-num">Phần VI</span><span class="nav__part-label">Tạo Image Bằng Dockerfile</span></div>
+<a class="nav__row" href="#21-chuan-bi-ung-dung" data-target="21-chuan-bi-ung-dung"><span class="nav__bar" aria-hidden="true"></span><span class="nav__num">21</span><span class="nav__label">Chuẩn bị ứng dụng</span></a>
+<a class="nav__row" href="#22-build-image" data-target="22-build-image"><span class="nav__bar" aria-hidden="true"></span><span class="nav__num">22</span><span class="nav__label">Build image</span></a>
+<a class="nav__row" href="#23-chay-image-vua-tao" data-target="23-chay-image-vua-tao"><span class="nav__bar" aria-hidden="true"></span><span class="nav__num">23</span><span class="nav__label">Chạy image vừa tạo</span></a>
+<div class="nav__part"><span class="nav__part-num">Phần VII</span><span class="nav__part-label">Docker Compose</span></div>
+<a class="nav__row" href="#24-ung-dung-compose-don-gian" data-target="24-ung-dung-compose-don-gian"><span class="nav__bar" aria-hidden="true"></span><span class="nav__num">24</span><span class="nav__label">Ứng dụng Compose đơn giản</span></a>
+<div class="nav__part"><span class="nav__part-num">Phần VIII</span><span class="nav__part-label">Kiểm Thử End-To-End</span></div>
+<a class="nav__row" href="#25-bai-thuc-hanh-tong-hop" data-target="25-bai-thuc-hanh-tong-hop"><span class="nav__bar" aria-hidden="true"></span><span class="nav__num">25</span><span class="nav__label">Bài thực hành tổng hợp</span></a>
+<div class="nav__part"><span class="nav__part-num">Phần IX</span><span class="nav__part-label">Dọn Dẹp Và Troubleshooting</span></div>
+<a class="nav__row" href="#26-don-tai-nguyen-lab" data-target="26-don-tai-nguyen-lab"><span class="nav__bar" aria-hidden="true"></span><span class="nav__num">26</span><span class="nav__label">Dọn tài nguyên lab</span></a>
+<a class="nav__row" href="#27-loi-thuong-gap" data-target="27-loi-thuong-gap"><span class="nav__bar" aria-hidden="true"></span><span class="nav__num">27</span><span class="nav__label">Lỗi thường gặp</span></a>
+<a class="nav__row" href="#28-checklist-nghiem-thu" data-target="28-checklist-nghiem-thu"><span class="nav__bar" aria-hidden="true"></span><span class="nav__num">28</span><span class="nav__label">Checklist nghiệm thu</span></a>
+<a class="nav__row" href="#29-ghi-chu-khi-chuyen-sang-production" data-target="29-ghi-chu-khi-chuyen-sang-production"><span class="nav__bar" aria-hidden="true"></span><span class="nav__num">29</span><span class="nav__label">Ghi chú khi chuyển sang Production</span></a>
+<a class="nav__row" href="#30-nguon-tham-khao-chinh-thuc" data-target="30-nguon-tham-khao-chinh-thuc"><span class="nav__bar" aria-hidden="true"></span><span class="nav__num">30</span><span class="nav__label">Nguồn tham khảo chính thức</span></a>
+<a class="nav__row" href="#phu-luc-a-nhung-diem-da-sua-so-voi-ban-goc" data-target="phu-luc-a-nhung-diem-da-sua-so-voi-ban-goc"><span class="nav__bar" aria-hidden="true"></span><span class="nav__num">·</span><span class="nav__label">Phụ lục A — Những điểm đã sửa so với bản gốc</span></a>
+    </nav>
+  </aside>
+
+  <article class="doc">
+    <div class="lede">
+      <h1>Thực hành Docker cơ bản trên Ubuntu Server 24.04</h1>
+      <div class="chips"><span class="chip">Ubuntu Server 24.04 LTS</span><span class="chip">Docker Engine</span><span class="chip">Không dùng biến shell</span></div>
+    </div>
+<aside class="callout callout--note"><span class="callout__tag">Lưu ý</span><div class="callout__body"><p><strong>Quy ước của tài liệu này</strong></p>
+<ul>
+<li><strong>Không dùng biến môi trường.</strong> Mọi giá trị đều được viết thẳng (<code>8080</code>, <code>lab-web</code>, <code>~/docker-lab</code>…). Học viên đóng terminal, mở lại vẫn chạy tiếp được từ bất kỳ mục nào.</li>
+<li>Mỗi bài dùng <strong>tên container riêng, cố định</strong>. Không đổi tên container giữa chừng.</li>
+<li>Khối lệnh nào cũng chạy được độc lập bằng cách copy–paste.</li>
+</ul></div></aside>
+<hr />
+<h2 id="1-muc-tieu">1. Mục tiêu</h2>
+<p>Sau khi hoàn thành, học viên có thể:</p>
+<ul>
+<li>Hiểu các thành phần cơ bản của Docker.</li>
+<li>Cài Docker Engine trên Ubuntu Server 24.04 từ repository chính thức.</li>
+<li>Tải, tạo, chạy và quản lý image/container.</li>
+<li>Publish port và truy cập ứng dụng trong container.</li>
+<li>Sử dụng volume, bind mount và user-defined network.</li>
+<li>Theo dõi log, sự kiện và tài nguyên container.</li>
+<li>Tạo image bằng <code>Dockerfile</code>.</li>
+<li>Quản lý ứng dụng bằng Docker Compose.</li>
+<li>Dọn dẹp tài nguyên Docker an toàn.</li>
+</ul>
+<hr />
+<h2 id="2-mo-hinh-lab">2. Mô hình lab</h2>
+<h3 id="21-gia-dinh">2.1 Giả định</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Thuộc tính</th>
+<th>Giá trị</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Môi trường</td>
+<td>Lab</td>
+</tr>
+<tr>
+<td>Số node</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Hệ điều hành</td>
+<td>Ubuntu Server 24.04 LTS (Noble), 64-bit</td>
+</tr>
+<tr>
+<td>Kết nối</td>
+<td>Có Internet</td>
+</tr>
+<tr>
+<td>Kiểu cài đặt</td>
+<td>Docker APT repository chính thức</td>
+</tr>
+<tr>
+<td>Người dùng</td>
+<td>Có quyền <code>sudo</code></td>
+</tr>
+<tr>
+<td>Docker data</td>
+<td><code>/var/lib/docker</code></td>
+</tr>
+<tr>
+<td>Docker config</td>
+<td><code>/etc/docker</code></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="22-bang-tai-nguyen-dung-trong-toan-bo-tai-lieu">2.2 Bảng tài nguyên dùng trong toàn bộ tài liệu</h3>
+<p>Thay vì khai báo biến, học viên tra bảng này khi cần:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Hạng mục</th>
+<th>Giá trị cố định</th>
+<th>Dùng ở mục</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Thư mục lab</td>
+<td><code>~/docker-lab</code></td>
+<td>19, 21, 24</td>
+</tr>
+<tr>
+<td>Port web trên host</td>
+<td><code>8080</code></td>
+<td>10 → 25</td>
+</tr>
+<tr>
+<td>Container web đầu tiên</td>
+<td><code>lab-web</code></td>
+<td>10 – 17</td>
+</tr>
+<tr>
+<td>Container bind mount</td>
+<td><code>lab-web-bind</code></td>
+<td>19</td>
+</tr>
+<tr>
+<td>Container server trong network</td>
+<td><code>web-server</code></td>
+<td>20</td>
+</tr>
+<tr>
+<td>Container chạy image tự build</td>
+<td><code>lab-web-custom</code></td>
+<td>23</td>
+</tr>
+<tr>
+<td>Container do Compose tạo</td>
+<td><code>compose-web</code></td>
+<td>24, 25</td>
+</tr>
+<tr>
+<td>Image tự build</td>
+<td><code>docker-lab-web:1.0</code></td>
+<td>21 – 23</td>
+</tr>
+<tr>
+<td>Network</td>
+<td><code>lab-network</code></td>
+<td>20, 23</td>
+</tr>
+<tr>
+<td>Volume</td>
+<td><code>lab-nginx-data</code></td>
+<td>18</td>
+</tr>
+</tbody>
+</table></div>
+<aside class="callout callout--note"><span class="callout__tag">Lưu ý</span><div class="callout__body"><p>Nếu port <code>8080</code> đã bận trên máy của bạn, hãy chọn một port khác <strong>một lần duy nhất</strong> và thay tất cả chỗ xuất hiện <code>8080</code> trong tài liệu.</p></div></aside>
+<h3 id="23-kiem-tra-moi-truong-truoc-khi-bat-dau">2.3 Kiểm tra môi trường trước khi bắt đầu</h3>
+<figure class="code" data-idx="1"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="1"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-1">hostnamectl
+ip<span class="w"> </span>-brief<span class="w"> </span>address
+lsb_release<span class="w"> </span>-a
+uname<span class="w"> </span>-m</code></pre></figure>
+<p>Kết quả cần xác nhận:</p>
+<ul>
+<li>Ubuntu 24.04 LTS.</li>
+<li>Kiến trúc 64-bit (<code>x86_64</code> hoặc <code>aarch64</code>).</li>
+<li>Máy truy cập được Internet.</li>
+</ul>
+<p>Kiểm tra port <code>8080</code> còn trống:</p>
+<figure class="code" data-idx="2"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="2"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-2">sudo<span class="w"> </span>ss<span class="w"> </span>-lntp<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s1">&#39;:8080 &#39;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Port 8080 dang trong&quot;</span></code></pre></figure>
+<hr />
+<h2 id="3-docker-hoat-dong-nhu-the-nao">3. Docker hoạt động như thế nào?</h2>
+<figure class="code code--plain" data-idx="3"><figcaption><span class="code__lang">output</span><button class="code__copy" type="button" data-copy="3"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-3">Docker CLI
+    |
+    | Unix socket: /var/run/docker.sock
+    v
+Docker daemon (dockerd)
+    |
+    +-- Images
+    +-- Containers
+    +-- Networks
+    +-- Volumes</code></pre></figure>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Thành phần</th>
+<th>Mô tả</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Docker CLI</td>
+<td>Lệnh <code>docker</code> được người dùng thực thi</td>
+</tr>
+<tr>
+<td>Docker daemon</td>
+<td>Tiến trình <code>dockerd</code> quản lý tài nguyên Docker</td>
+</tr>
+<tr>
+<td>Image</td>
+<td>Mẫu chỉ đọc dùng để tạo container</td>
+</tr>
+<tr>
+<td>Container</td>
+<td>Một tiến trình được tạo từ image</td>
+</tr>
+<tr>
+<td>Registry</td>
+<td>Nơi lưu trữ và phân phối image</td>
+</tr>
+<tr>
+<td>Volume</td>
+<td>Vùng dữ liệu do Docker quản lý</td>
+</tr>
+<tr>
+<td>Network</td>
+<td>Kết nối giữa các container và bên ngoài</td>
+</tr>
+</tbody>
+</table></div>
+<p>Container <strong>không phải</strong> máy ảo đầy đủ. Container chia sẻ kernel với Docker host nhưng có filesystem, process và network namespace riêng.</p>
+<hr />
+<h2 class="part" id="phan-i-cai-dat-docker"><span class="part__num">Phần I</span><span class="part__name">Cài Đặt Docker</span></h2>
+<h2 id="4-go-cac-package-co-the-gay-xung-dot">4. Gỡ các package có thể gây xung đột</h2>
+<p>Kiểm tra package hiện có:</p>
+<figure class="code" data-idx="4"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="4"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-4">dpkg<span class="w"> </span>-l<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">&#39;docker|containerd|runc|podman&#39;</span></code></pre></figure>
+<p>Gỡ các package xung đột (chạy được cả khi package không tồn tại):</p>
+<figure class="code" data-idx="5"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="5"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-5"><span class="k">for</span><span class="w"> </span>pkg<span class="w"> </span><span class="k">in</span><span class="w"> </span>docker.io<span class="w"> </span>docker-doc<span class="w"> </span>docker-compose<span class="w"> </span>docker-compose-v2<span class="w"> </span>podman-docker<span class="w"> </span>containerd<span class="w"> </span>runc<span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">  </span>sudo<span class="w"> </span>apt-get<span class="w"> </span>remove<span class="w"> </span>-y<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$pkg</span><span class="s2">&quot;</span>
+<span class="k">done</span></code></pre></figure>
+<p>Lệnh trên <strong>không</strong> xóa dữ liệu trong <code>/var/lib/docker</code>.</p>
+<aside class="callout callout--danger"><span class="callout__tag">Cảnh báo</span><div class="callout__body"><p><strong>CẢNH BÁO:</strong> Không xóa <code>/var/lib/docker</code> trên máy đã có container hoặc volume cần giữ lại.</p></div></aside>
+<hr />
+<h2 id="5-cau-hinh-docker-apt-repository">5. Cấu hình Docker APT repository</h2>
+<p>Cài dependency:</p>
+<figure class="code" data-idx="6"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="6"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-6">sudo<span class="w"> </span>apt-get<span class="w"> </span>update
+sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>ca-certificates<span class="w"> </span>curl</code></pre></figure>
+<p>Tạo thư mục keyring và tải GPG key:</p>
+<figure class="code" data-idx="7"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="7"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-7">sudo<span class="w"> </span>install<span class="w"> </span>-m<span class="w"> </span><span class="m">0755</span><span class="w"> </span>-d<span class="w"> </span>/etc/apt/keyrings
+
+sudo<span class="w"> </span>curl<span class="w"> </span>-fsSL<span class="w"> </span>https://download.docker.com/linux/ubuntu/gpg<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-o<span class="w"> </span>/etc/apt/keyrings/docker.asc
+
+sudo<span class="w"> </span>chmod<span class="w"> </span>a+r<span class="w"> </span>/etc/apt/keyrings/docker.asc</code></pre></figure>
+<p>Khai báo repository (định dạng deb822, chuẩn của Ubuntu 24.04):</p>
+<figure class="code" data-idx="8"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="8"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-8">sudo<span class="w"> </span>tee<span class="w"> </span>/etc/apt/sources.list.d/docker.sources<span class="w"> </span>&gt;/dev/null<span class="w"> </span><span class="s">&lt;&lt;EOF</span>
+<span class="s">Types: deb</span>
+<span class="s">URIs: https://download.docker.com/linux/ubuntu</span>
+<span class="s">Suites: $(. /etc/os-release &amp;&amp; echo &quot;${UBUNTU_CODENAME:-$VERSION_CODENAME}&quot;)</span>
+<span class="s">Components: stable</span>
+<span class="s">Architectures: $(dpkg --print-architecture)</span>
+<span class="s">Signed-By: /etc/apt/keyrings/docker.asc</span>
+<span class="s">EOF</span></code></pre></figure>
+<aside class="callout callout--note"><span class="callout__tag">Lưu ý</span><div class="callout__body"><p>Ở đây <code>EOF</code> <strong>không</strong> đặt trong dấu nháy, nên hai lệnh <code>$( ... )</code> được shell thực thi trước khi ghi file. Trên Ubuntu 24.04 kết quả là <code>noble</code> và <code>amd64</code> (hoặc <code>arm64</code>).</p></div></aside>
+<p>Kiểm tra file vừa tạo và cập nhật metadata:</p>
+<figure class="code" data-idx="9"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="9"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-9">cat<span class="w"> </span>/etc/apt/sources.list.d/docker.sources
+sudo<span class="w"> </span>apt-get<span class="w"> </span>update
+apt-cache<span class="w"> </span>policy<span class="w"> </span>docker-ce</code></pre></figure>
+<hr />
+<h2 id="6-cai-docker-engine">6. Cài Docker Engine</h2>
+<p>Xem các phiên bản đang có:</p>
+<figure class="code" data-idx="10"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="10"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-10">apt<span class="w"> </span>list<span class="w"> </span>--all-versions<span class="w"> </span>docker-ce</code></pre></figure>
+<p>Cài bản stable hiện hành:</p>
+<figure class="code" data-idx="11"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="11"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-11">sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>docker-ce<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>docker-ce-cli<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>containerd.io<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>docker-buildx-plugin<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>docker-compose-plugin</code></pre></figure>
+<p>Kiểm tra:</p>
+<figure class="code" data-idx="12"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="12"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-12">dpkg<span class="w"> </span>-l<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">&#39;docker-ce|containerd.io|docker-buildx|docker-compose&#39;</span>
+sudo<span class="w"> </span>docker<span class="w"> </span>version
+sudo<span class="w"> </span>docker<span class="w"> </span>compose<span class="w"> </span>version
+sudo<span class="w"> </span>docker<span class="w"> </span>buildx<span class="w"> </span>version</code></pre></figure>
+<hr />
+<h2 id="7-kiem-tra-docker-daemon">7. Kiểm tra Docker daemon</h2>
+<figure class="code" data-idx="13"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="13"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-13">sudo<span class="w"> </span>systemctl<span class="w"> </span>status<span class="w"> </span>docker<span class="w"> </span>--no-pager
+sudo<span class="w"> </span>systemctl<span class="w"> </span>status<span class="w"> </span>containerd<span class="w"> </span>--no-pager
+
+sudo<span class="w"> </span>systemctl<span class="w"> </span>is-enabled<span class="w"> </span>docker
+sudo<span class="w"> </span>systemctl<span class="w"> </span>is-enabled<span class="w"> </span>containerd</code></pre></figure>
+<p>Bật và khởi động service:</p>
+<figure class="code" data-idx="14"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="14"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-14">sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>--now<span class="w"> </span>docker.service
+sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>--now<span class="w"> </span>containerd.service</code></pre></figure>
+<p>Kiểm tra process và socket:</p>
+<figure class="code" data-idx="15"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="15"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-15">pgrep<span class="w"> </span>-a<span class="w"> </span>dockerd
+pgrep<span class="w"> </span>-a<span class="w"> </span>containerd
+sudo<span class="w"> </span>ls<span class="w"> </span>-l<span class="w"> </span>/var/run/docker.sock
+sudo<span class="w"> </span>docker<span class="w"> </span>info</code></pre></figure>
+<aside class="callout callout--note"><span class="callout__tag">Lưu ý</span><div class="callout__body"><p><strong>Không kết luận Docker hoạt động chỉ vì service ở trạng thái <code>active</code>.</strong> Phải chạy container kiểm thử:</p></div></aside>
+<figure class="code" data-idx="16"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="16"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-16">sudo<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>hello-world</code></pre></figure>
+<p>Kết quả kỳ vọng:</p>
+<ul>
+<li>Image <code>hello-world</code> được tải về.</li>
+<li>Container được tạo và chạy.</li>
+<li>Thông báo xác nhận Docker hoạt động được hiển thị.</li>
+<li>Container tự xóa nhờ <code>--rm</code>.</li>
+</ul>
+<hr />
+<h2 id="8-cho-phep-user-chay-docker-khong-can-sudo">8. Cho phép user chạy Docker không cần sudo</h2>
+<aside class="callout callout--danger"><span class="callout__tag">Cảnh báo</span><div class="callout__body"><p><strong>CẢNH BÁO BẢO MẬT:</strong> Thành viên nhóm <code>docker</code> có quyền tương đương <code>root</code> trên Docker host. Chỉ thêm tài khoản quản trị được tin cậy.</p></div></aside>
+<figure class="code" data-idx="17"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="17"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-17">getent<span class="w"> </span>group<span class="w"> </span>docker<span class="w"> </span>&gt;/dev/null<span class="w"> </span><span class="o">||</span><span class="w"> </span>sudo<span class="w"> </span>groupadd<span class="w"> </span>docker
+sudo<span class="w"> </span>usermod<span class="w"> </span>-aG<span class="w"> </span>docker<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$USER</span><span class="s2">&quot;</span></code></pre></figure>
+<p>Áp dụng group:</p>
+<figure class="code" data-idx="18"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="18"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-18">newgrp<span class="w"> </span>docker</code></pre></figure>
+<aside class="callout callout--note"><span class="callout__tag">Lưu ý</span><div class="callout__body"><p><code>newgrp</code> chỉ mở một shell con đã có group <code>docker</code>. Để áp dụng vĩnh viễn cho mọi phiên, hãy <strong>đăng xuất và đăng nhập lại</strong> (hoặc <code>sudo reboot</code>).</p></div></aside>
+<p>Kiểm tra:</p>
+<figure class="code" data-idx="19"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="19"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-19">id
+docker<span class="w"> </span>version
+docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>hello-world</code></pre></figure>
+<p>Từ mục này trở đi, tài liệu không dùng <code>sudo</code> với lệnh <code>docker</code> nữa.</p>
+<hr />
+<h2 class="part" id="phan-ii-image-va-container"><span class="part__num">Phần II</span><span class="part__name">Image Và Container</span></h2>
+<h2 id="9-quan-ly-image">9. Quản lý image</h2>
+<h3 id="91-tai-image">9.1 Tải image</h3>
+<figure class="code" data-idx="20"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="20"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-20">docker<span class="w"> </span>pull<span class="w"> </span>nginx:alpine
+docker<span class="w"> </span>pull<span class="w"> </span>ubuntu:24.04</code></pre></figure>
+<h3 id="92-liet-ke">9.2 Liệt kê</h3>
+<figure class="code" data-idx="21"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="21"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-21">docker<span class="w"> </span>image<span class="w"> </span>ls</code></pre></figure>
+<h3 id="93-xem-chi-tiet">9.3 Xem chi tiết</h3>
+<figure class="code" data-idx="22"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="22"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-22">docker<span class="w"> </span>image<span class="w"> </span>inspect<span class="w"> </span>nginx:alpine
+
+docker<span class="w"> </span>image<span class="w"> </span>inspect<span class="w"> </span>nginx:alpine<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--format<span class="w"> </span><span class="s1">&#39;OS={{.Os}} Architecture={{.Architecture}}&#39;</span>
+
+docker<span class="w"> </span>image<span class="w"> </span><span class="nb">history</span><span class="w"> </span>nginx:alpine</code></pre></figure>
+<h3 id="94-tao-tag-moi">9.4 Tạo tag mới</h3>
+<figure class="code" data-idx="23"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="23"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-23">docker<span class="w"> </span>image<span class="w"> </span>tag<span class="w"> </span>nginx:alpine<span class="w"> </span>nginx:lab
+docker<span class="w"> </span>image<span class="w"> </span>ls<span class="w"> </span>nginx</code></pre></figure>
+<p>Hai dòng kết quả có cùng <code>IMAGE ID</code>: tag chỉ là một cái tên trỏ vào cùng một image.</p>
+<h3 id="95-xoa-tag-thu-nghiem">9.5 Xóa tag thử nghiệm</h3>
+<figure class="code" data-idx="24"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="24"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-24">docker<span class="w"> </span>image<span class="w"> </span>rm<span class="w"> </span>nginx:lab</code></pre></figure>
+<p>Lệnh này chỉ gỡ tag <code>nginx:lab</code>, image gốc <code>nginx:alpine</code> vẫn còn.</p>
+<hr />
+<h2 id="10-chay-container-dau-tien">10. Chạy container đầu tiên</h2>
+<figure class="code" data-idx="25"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="25"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-25">docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--name<span class="w"> </span>lab-web<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--hostname<span class="w"> </span>lab-web<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--restart<span class="w"> </span>unless-stopped<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-p<span class="w"> </span><span class="m">127</span>.0.0.1:8080:80<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>nginx:alpine</code></pre></figure>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Tham số</th>
+<th>Mục đích</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-d</code></td>
+<td>Chạy dưới nền</td>
+</tr>
+<tr>
+<td><code>--name lab-web</code></td>
+<td>Đặt tên container</td>
+</tr>
+<tr>
+<td><code>--hostname lab-web</code></td>
+<td>Đặt hostname bên trong container</td>
+</tr>
+<tr>
+<td><code>--restart unless-stopped</code></td>
+<td>Tự khởi động lại trừ khi bị dừng thủ công</td>
+</tr>
+<tr>
+<td><code>-p 127.0.0.1:8080:80</code></td>
+<td>Ánh xạ port 8080 của host sang port 80 của container</td>
+</tr>
+</tbody>
+</table></div>
+<aside class="callout callout--note"><span class="callout__tag">Lưu ý</span><div class="callout__body"><p>Dạng <code>127.0.0.1:8080:80</code> chỉ cho phép truy cập <strong>từ chính Docker host</strong>. Nếu viết <code>8080:80</code>, Docker publish trên mọi địa chỉ của host và máy khác trong mạng có thể truy cập được.</p></div></aside>
+<p>Kiểm tra:</p>
+<figure class="code" data-idx="26"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="26"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-26">docker<span class="w"> </span>container<span class="w"> </span>ls
+docker<span class="w"> </span>container<span class="w"> </span>ls<span class="w"> </span>--all
+docker<span class="w"> </span>container<span class="w"> </span>port<span class="w"> </span>lab-web
+sudo<span class="w"> </span>ss<span class="w"> </span>-lntp<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s1">&#39;:8080 &#39;</span>
+curl<span class="w"> </span>--fail<span class="w"> </span>--show-error<span class="w"> </span>http://127.0.0.1:8080/</code></pre></figure>
+<p>Kết quả kỳ vọng: trả về trang HTML mặc định của Nginx.</p>
+<hr />
+<h2 id="11-vong-doi-container">11. Vòng đời container</h2>
+<h3 id="111-dung-container">11.1 Dừng container</h3>
+<figure class="code" data-idx="27"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="27"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-27">docker<span class="w"> </span>container<span class="w"> </span>stop<span class="w"> </span>lab-web
+docker<span class="w"> </span>container<span class="w"> </span>ls<span class="w"> </span>--all</code></pre></figure>
+<p>Kiểm tra HTTP — <strong>lần này lỗi mới là đúng</strong>:</p>
+<figure class="code" data-idx="28"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="28"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-28">curl<span class="w"> </span>--fail<span class="w"> </span>--show-error<span class="w"> </span>http://127.0.0.1:8080/<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="o">||</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Ket qua dung: container da dung nen khong con ai lang nghe port 8080&quot;</span></code></pre></figure>
+<aside class="callout callout--note"><span class="callout__tag">Lưu ý</span><div class="callout__body"><p><code>curl</code> trả exit code <code>7</code> (không kết nối được). Đây là kết quả mong đợi, không phải sự cố.</p></div></aside>
+<h3 id="112-khoi-dong-lai">11.2 Khởi động lại</h3>
+<figure class="code" data-idx="29"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="29"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-29">docker<span class="w"> </span>container<span class="w"> </span>start<span class="w"> </span>lab-web
+docker<span class="w"> </span>container<span class="w"> </span>ls
+curl<span class="w"> </span>--fail<span class="w"> </span>--show-error<span class="w"> </span>http://127.0.0.1:8080/</code></pre></figure>
+<h3 id="113-restart">11.3 Restart</h3>
+<figure class="code" data-idx="30"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="30"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-30">docker<span class="w"> </span>container<span class="w"> </span>restart<span class="w"> </span>lab-web</code></pre></figure>
+<h3 id="114-tam-dung-tien-trinh">11.4 Tạm dừng tiến trình</h3>
+<figure class="code" data-idx="31"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="31"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-31">docker<span class="w"> </span>container<span class="w"> </span>pause<span class="w"> </span>lab-web
+docker<span class="w"> </span>container<span class="w"> </span>ls
+docker<span class="w"> </span>container<span class="w"> </span>unpause<span class="w"> </span>lab-web</code></pre></figure>
+<h3 id="115-doi-ten-container">11.5 Đổi tên container</h3>
+<figure class="code" data-idx="32"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="32"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-32">docker<span class="w"> </span>container<span class="w"> </span>rename<span class="w"> </span>lab-web<span class="w"> </span>lab-web-tam
+docker<span class="w"> </span>container<span class="w"> </span>ls
+
+<span class="c1"># Đổi lại tên cũ để các mục sau vẫn dùng đúng tên &quot;lab-web&quot;</span>
+docker<span class="w"> </span>container<span class="w"> </span>rename<span class="w"> </span>lab-web-tam<span class="w"> </span>lab-web
+docker<span class="w"> </span>container<span class="w"> </span>ls</code></pre></figure>
+<aside class="callout callout--fix"><span class="callout__tag">Sửa so với bản gốc</span><div class="callout__body"><p>Tài liệu gốc đổi tên rồi giữ nguyên tên mới cho các mục sau. Ở đây ta đổi và trả lại ngay, để tên container luôn khớp với bảng ở mục 2.2.</p></div></aside>
+<hr />
+<h2 id="12-thuc-thi-lenh-ben-trong-container">12. Thực thi lệnh bên trong container</h2>
+<figure class="code" data-idx="33"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="33"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-33">docker<span class="w"> </span>container<span class="w"> </span>top<span class="w"> </span>lab-web
+docker<span class="w"> </span>container<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>lab-web<span class="w"> </span>hostname
+docker<span class="w"> </span>container<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>lab-web<span class="w"> </span>ls<span class="w"> </span>-la<span class="w"> </span>/usr/share/nginx/html</code></pre></figure>
+<p>Mở shell:</p>
+<figure class="code" data-idx="34"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="34"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-34">docker<span class="w"> </span>container<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>lab-web<span class="w"> </span>/bin/sh</code></pre></figure>
+<p>Trong container, thử:</p>
+<figure class="code" data-idx="35"><figcaption><span class="code__lang">sh</span><button class="code__copy" type="button" data-copy="35"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-35">id
+hostname
+ps
+cat<span class="w"> </span>/etc/os-release
+cat<span class="w"> </span>/usr/share/nginx/html/index.html
+<span class="nb">exit</span></code></pre></figure>
+<aside class="callout callout--note"><span class="callout__tag">Lưu ý</span><div class="callout__body"><p>Không nên sửa ứng dụng trực tiếp trong container đang chạy. Thay đổi sẽ mất khi container bị xóa và tạo lại.</p></div></aside>
+<hr />
+<h2 id="13-inspect-container">13. Inspect container</h2>
+<figure class="code" data-idx="36"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="36"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-36">docker<span class="w"> </span>container<span class="w"> </span>inspect<span class="w"> </span>lab-web
+
+docker<span class="w"> </span>container<span class="w"> </span>inspect<span class="w"> </span>lab-web<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--format<span class="w"> </span><span class="s1">&#39;Status={{.State.Status}} StartedAt={{.State.StartedAt}}&#39;</span>
+
+docker<span class="w"> </span>container<span class="w"> </span>inspect<span class="w"> </span>lab-web<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--format<span class="w"> </span><span class="s1">&#39;HostPID={{.State.Pid}}&#39;</span>
+
+docker<span class="w"> </span>container<span class="w"> </span>inspect<span class="w"> </span>lab-web<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--format<span class="w"> </span><span class="s1">&#39;{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}&#39;</span>
+
+docker<span class="w"> </span>container<span class="w"> </span>inspect<span class="w"> </span>lab-web<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--format<span class="w"> </span><span class="s1">&#39;RestartPolicy={{.HostConfig.RestartPolicy.Name}}&#39;</span></code></pre></figure>
+<hr />
+<h2 class="part" id="phan-iii-log-va-giam-sat"><span class="part__num">Phần III</span><span class="part__name">Log Và Giám Sát</span></h2>
+<h2 id="14-theo-doi-log-container">14. Theo dõi log container</h2>
+<figure class="code" data-idx="37"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="37"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-37">docker<span class="w"> </span>container<span class="w"> </span>logs<span class="w"> </span>lab-web
+docker<span class="w"> </span>container<span class="w"> </span>logs<span class="w"> </span>--tail<span class="w"> </span><span class="m">20</span><span class="w"> </span>lab-web
+docker<span class="w"> </span>container<span class="w"> </span>logs<span class="w"> </span>--follow<span class="w"> </span>lab-web</code></pre></figure>
+<p>Nhấn <code>Ctrl+C</code> để thoát chế độ theo dõi — container <strong>không</strong> bị dừng.</p>
+<p>Sinh access log:</p>
+<figure class="code" data-idx="38"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="38"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-38"><span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">5</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">  </span>curl<span class="w"> </span>--silent<span class="w"> </span>--output<span class="w"> </span>/dev/null<span class="w"> </span><span class="s2">&quot;http://127.0.0.1:8080/?request_id=</span><span class="nv">$i</span><span class="s2">&quot;</span>
+<span class="k">done</span></code></pre></figure>
+<p>Đọc lại log kèm timestamp:</p>
+<figure class="code" data-idx="39"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="39"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-39">docker<span class="w"> </span>container<span class="w"> </span>logs<span class="w"> </span>--timestamps<span class="w"> </span>--since<span class="w"> </span>5m<span class="w"> </span>lab-web</code></pre></figure>
+<aside class="callout callout--note"><span class="callout__tag">Lưu ý</span><div class="callout__body"><p><code>docker logs</code> đọc dữ liệu mà tiến trình chính trong container ghi ra <code>stdout</code> và <code>stderr</code>.</p></div></aside>
+<p>Kiểm tra logging driver và đường dẫn file log:</p>
+<figure class="code" data-idx="40"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="40"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-40">docker<span class="w"> </span>container<span class="w"> </span>inspect<span class="w"> </span>lab-web<span class="w"> </span>--format<span class="w"> </span><span class="s1">&#39;LogDriver={{.HostConfig.LogConfig.Type}}&#39;</span>
+docker<span class="w"> </span>container<span class="w"> </span>inspect<span class="w"> </span>lab-web<span class="w"> </span>--format<span class="w"> </span><span class="s1">&#39;LogPath={{.LogPath}}&#39;</span></code></pre></figure>
+<aside class="callout callout--note"><span class="callout__tag">Lưu ý</span><div class="callout__body"><p>Không chỉnh sửa trực tiếp file log trong <code>/var/lib/docker</code>.</p></div></aside>
+<hr />
+<h2 id="15-theo-doi-tai-nguyen">15. Theo dõi tài nguyên</h2>
+<figure class="code" data-idx="41"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="41"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-41">docker<span class="w"> </span>stats
+docker<span class="w"> </span>stats<span class="w"> </span>lab-web
+docker<span class="w"> </span>stats<span class="w"> </span>--no-stream<span class="w"> </span>lab-web
+
+docker<span class="w"> </span>stats<span class="w"> </span>--no-stream<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--format<span class="w"> </span><span class="s1">&#39;table {{.Name}}\t{{.CPUPerc}}\t{{.MemUsage}}\t{{.NetIO}}\t{{.BlockIO}}&#39;</span></code></pre></figure>
+<hr />
+<h2 id="16-theo-doi-su-kien-docker">16. Theo dõi sự kiện Docker</h2>
+<p>Mục này cần <strong>hai terminal</strong>.</p>
+<p>Terminal 1 — theo dõi:</p>
+<figure class="code" data-idx="42"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="42"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-42">docker<span class="w"> </span>events<span class="w"> </span>--filter<span class="w"> </span><span class="nv">container</span><span class="o">=</span>lab-web</code></pre></figure>
+<p>Terminal 2 — sinh sự kiện:</p>
+<figure class="code" data-idx="43"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="43"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-43">docker<span class="w"> </span>container<span class="w"> </span>restart<span class="w"> </span>lab-web
+docker<span class="w"> </span>container<span class="w"> </span>stop<span class="w"> </span>lab-web
+docker<span class="w"> </span>container<span class="w"> </span>start<span class="w"> </span>lab-web</code></pre></figure>
+<p>Quan sát ở Terminal 1 các event: <code>stop</code>, <code>die</code>, <code>start</code>, <code>restart</code>. Nhấn <code>Ctrl+C</code> để kết thúc.</p>
+<hr />
+<h2 id="17-xem-muc-su-dung-dung-luong">17. Xem mức sử dụng dung lượng</h2>
+<figure class="code" data-idx="44"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="44"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-44">docker<span class="w"> </span>system<span class="w"> </span>df
+docker<span class="w"> </span>system<span class="w"> </span>df<span class="w"> </span>--verbose
+docker<span class="w"> </span>info<span class="w"> </span>--format<span class="w"> </span><span class="s1">&#39;DockerRootDir={{.DockerRootDir}}&#39;</span>
+sudo<span class="w"> </span>du<span class="w"> </span>-sh<span class="w"> </span>/var/lib/docker</code></pre></figure>
+<hr />
+<h2 class="part" id="phan-iv-luu-tru-du-lieu"><span class="part__num">Phần IV</span><span class="part__name">Lưu Trữ Dữ Liệu</span></h2>
+<h2 id="18-named-volume">18. Named volume</h2>
+<p>Volume là vùng lưu trữ do Docker quản lý, vẫn tồn tại sau khi container bị xóa.</p>
+<figure class="code" data-idx="45"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="45"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-45">docker<span class="w"> </span>volume<span class="w"> </span>create<span class="w"> </span>lab-nginx-data
+docker<span class="w"> </span>volume<span class="w"> </span>ls
+docker<span class="w"> </span>volume<span class="w"> </span>inspect<span class="w"> </span>lab-nginx-data</code></pre></figure>
+<p>Ghi dữ liệu bằng container thứ nhất:</p>
+<figure class="code" data-idx="46"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="46"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-46">docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--mount<span class="w"> </span><span class="nv">type</span><span class="o">=</span>volume,source<span class="o">=</span>lab-nginx-data,target<span class="o">=</span>/data<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>alpine:3.22<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>sh<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;date -Iseconds &gt; /data/created-at.txt &amp;&amp; cat /data/created-at.txt&#39;</span></code></pre></figure>
+<p>Đọc lại bằng container thứ hai (mount chỉ đọc):</p>
+<figure class="code" data-idx="47"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="47"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-47">docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--mount<span class="w"> </span><span class="nv">type</span><span class="o">=</span>volume,source<span class="o">=</span>lab-nginx-data,target<span class="o">=</span>/data,readonly<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>alpine:3.22<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>cat<span class="w"> </span>/data/created-at.txt</code></pre></figure>
+<p>Kết quả kỳ vọng: container thứ hai đọc được dữ liệu do container thứ nhất tạo, dù cả hai đều đã bị xóa.</p>
+<hr />
+<h2 id="19-bind-mount">19. Bind mount</h2>
+<p>Tạo thư mục và trang web trên host:</p>
+<figure class="code" data-idx="48"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="48"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-48">mkdir<span class="w"> </span>-p<span class="w"> </span>~/docker-lab/html
+
+cat<span class="w"> </span>&gt;<span class="w"> </span>~/docker-lab/html/index.html<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39;</span>
+<span class="s">&lt;!doctype html&gt;</span>
+<span class="s">&lt;html lang=&quot;vi&quot;&gt;</span>
+<span class="s">&lt;head&gt;</span>
+<span class="s">  &lt;meta charset=&quot;utf-8&quot;&gt;</span>
+<span class="s">  &lt;title&gt;Docker Lab&lt;/title&gt;</span>
+<span class="s">&lt;/head&gt;</span>
+<span class="s">&lt;body&gt;</span>
+<span class="s">  &lt;h1&gt;Docker Lab tren Ubuntu 24.04&lt;/h1&gt;</span>
+<span class="s">  &lt;p&gt;Noi dung duoc cung cap tu bind mount.&lt;/p&gt;</span>
+<span class="s">&lt;/body&gt;</span>
+<span class="s">&lt;/html&gt;</span>
+<span class="s">EOF</span></code></pre></figure>
+<p>Dừng container cũ để giải phóng port <code>8080</code>:</p>
+<figure class="code" data-idx="49"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="49"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-49">docker<span class="w"> </span>container<span class="w"> </span>rm<span class="w"> </span>--force<span class="w"> </span>lab-web</code></pre></figure>
+<p>Chạy container mới với bind mount chỉ đọc:</p>
+<figure class="code" data-idx="50"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="50"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-50">docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--name<span class="w"> </span>lab-web-bind<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--restart<span class="w"> </span>unless-stopped<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-p<span class="w"> </span><span class="m">127</span>.0.0.1:8080:80<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--mount<span class="w"> </span><span class="nv">type</span><span class="o">=</span>bind,source<span class="o">=</span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/docker-lab/html&quot;</span>,target<span class="o">=</span>/usr/share/nginx/html,readonly<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>nginx:alpine</code></pre></figure>
+<aside class="callout callout--note"><span class="callout__tag">Lưu ý</span><div class="callout__body"><p><code>--mount type=bind</code> bắt buộc <code>source</code> là <strong>đường dẫn tuyệt đối</strong>, nên ở đây dùng <code>$HOME</code> thay vì <code>~</code>.</p></div></aside>
+<p>Kiểm tra:</p>
+<figure class="code" data-idx="51"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="51"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-51">curl<span class="w"> </span>--fail<span class="w"> </span>--show-error<span class="w"> </span>http://127.0.0.1:8080/</code></pre></figure>
+<p>Sửa file trên host rồi đọc lại (không restart container):</p>
+<figure class="code" data-idx="52"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="52"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-52">sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">&#39;s/Noi dung duoc cung cap tu bind mount./Noi dung da duoc cap nhat tren Docker host./&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>~/docker-lab/html/index.html
+
+curl<span class="w"> </span>--fail<span class="w"> </span>--show-error<span class="w"> </span>http://127.0.0.1:8080/</code></pre></figure>
+<aside class="callout callout--note"><span class="callout__tag">Lưu ý</span><div class="callout__body"><p>Bind mount phù hợp khi cần quản lý file trực tiếp từ Docker host. Volume phù hợp hơn khi muốn Docker quản lý nơi lưu dữ liệu.</p></div></aside>
+<hr />
+<h2 class="part" id="phan-v-docker-network"><span class="part__num">Phần V</span><span class="part__name">Docker Network</span></h2>
+<h2 id="20-user-defined-bridge-network">20. User-defined bridge network</h2>
+<p>User-defined bridge network cung cấp DNS nội bộ: các container gọi nhau bằng <strong>tên service</strong>, không cần IP.</p>
+<figure class="code" data-idx="53"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="53"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-53">docker<span class="w"> </span>network<span class="w"> </span>create<span class="w"> </span>--driver<span class="w"> </span>bridge<span class="w"> </span>lab-network
+docker<span class="w"> </span>network<span class="w"> </span>ls
+docker<span class="w"> </span>network<span class="w"> </span>inspect<span class="w"> </span>lab-network</code></pre></figure>
+<p>Dọn container đang chiếm port <code>8080</code> và chạy Nginx trong network:</p>
+<figure class="code" data-idx="54"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="54"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-54">docker<span class="w"> </span>container<span class="w"> </span>rm<span class="w"> </span>--force<span class="w"> </span>lab-web-bind
+
+docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--name<span class="w"> </span>web-server<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--network<span class="w"> </span>lab-network<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>nginx:alpine</code></pre></figure>
+<aside class="callout callout--note"><span class="callout__tag">Lưu ý</span><div class="callout__body"><p>Container <code>web-server</code> <strong>không publish port</strong> ra host. Nó chỉ được truy cập từ trong <code>lab-network</code>.</p></div></aside>
+<p>Gọi Nginx từ một container client:</p>
+<figure class="code" data-idx="55"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="55"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-55">docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--network<span class="w"> </span>lab-network<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>busybox:1.37<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>wget<span class="w"> </span>-qO-<span class="w"> </span>http://web-server/</code></pre></figure>
+<p>Kiểm tra DNS nội bộ:</p>
+<figure class="code" data-idx="56"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="56"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-56">docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--network<span class="w"> </span>lab-network<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>busybox:1.37<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>nslookup<span class="w"> </span>web-server</code></pre></figure>
+<p>Xem danh sách container trong network:</p>
+<figure class="code" data-idx="57"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="57"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-57">docker<span class="w"> </span>network<span class="w"> </span>inspect<span class="w"> </span>lab-network<span class="w"> </span>--format<span class="w"> </span><span class="s1">&#39;{{range .Containers}}{{.Name}} {{end}}&#39;</span></code></pre></figure>
+<p>Kết quả kỳ vọng:</p>
+<ul>
+<li><code>web-server</code> xuất hiện trong network.</li>
+<li>Client phân giải được tên <code>web-server</code>.</li>
+<li>Client nhận được HTML từ Nginx.</li>
+<li>Không cần publish port vì hai container cùng network.</li>
+</ul>
+<hr />
+<h2 class="part" id="phan-vi-tao-image-bang-dockerfile"><span class="part__num">Phần VI</span><span class="part__name">Tạo Image Bằng Dockerfile</span></h2>
+<h2 id="21-chuan-bi-ung-dung">21. Chuẩn bị ứng dụng</h2>
+<figure class="code" data-idx="58"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="58"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-58">mkdir<span class="w"> </span>-p<span class="w"> </span>~/docker-lab/image-lab
+<span class="nb">cd</span><span class="w"> </span>~/docker-lab/image-lab</code></pre></figure>
+<p>Nội dung web:</p>
+<figure class="code" data-idx="59"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="59"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-59">cat<span class="w"> </span>&gt;<span class="w"> </span>index.html<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39;</span>
+<span class="s">&lt;!doctype html&gt;</span>
+<span class="s">&lt;html lang=&quot;vi&quot;&gt;</span>
+<span class="s">&lt;head&gt;</span>
+<span class="s">  &lt;meta charset=&quot;utf-8&quot;&gt;</span>
+<span class="s">  &lt;title&gt;Custom Docker Image&lt;/title&gt;</span>
+<span class="s">&lt;/head&gt;</span>
+<span class="s">&lt;body&gt;</span>
+<span class="s">  &lt;h1&gt;Image duoc build bang Dockerfile&lt;/h1&gt;</span>
+<span class="s">&lt;/body&gt;</span>
+<span class="s">&lt;/html&gt;</span>
+<span class="s">EOF</span></code></pre></figure>
+<p><code>Dockerfile</code>:</p>
+<figure class="code" data-idx="60"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="60"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-60">cat<span class="w"> </span>&gt;<span class="w"> </span>Dockerfile<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39;</span>
+<span class="s">FROM nginx:alpine</span>
+
+<span class="s">LABEL org.opencontainers.image.title=&quot;docker-lab-web&quot;</span>
+<span class="s">LABEL org.opencontainers.image.description=&quot;Image thuc hanh Docker co ban&quot;</span>
+
+<span class="s">COPY index.html /usr/share/nginx/html/index.html</span>
+
+<span class="s">EXPOSE 80</span>
+<span class="s">EOF</span></code></pre></figure>
+<p><code>.dockerignore</code>:</p>
+<figure class="code" data-idx="61"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="61"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-61">cat<span class="w"> </span>&gt;<span class="w"> </span>.dockerignore<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39;</span>
+<span class="s">.git</span>
+<span class="s">*.log</span>
+<span class="s">EOF</span></code></pre></figure>
+<hr />
+<h2 id="22-build-image">22. Build image</h2>
+<figure class="code" data-idx="62"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="62"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-62"><span class="nb">cd</span><span class="w"> </span>~/docker-lab/image-lab
+cat<span class="w"> </span>Dockerfile
+cat<span class="w"> </span>.dockerignore
+
+docker<span class="w"> </span>build<span class="w"> </span>--pull<span class="w"> </span>--tag<span class="w"> </span>docker-lab-web:1.0<span class="w"> </span>.</code></pre></figure>
+<p>Kiểm tra:</p>
+<figure class="code" data-idx="63"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="63"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-63">docker<span class="w"> </span>image<span class="w"> </span>ls<span class="w"> </span>docker-lab-web
+docker<span class="w"> </span>image<span class="w"> </span>inspect<span class="w"> </span>docker-lab-web:1.0
+docker<span class="w"> </span>image<span class="w"> </span><span class="nb">history</span><span class="w"> </span>docker-lab-web:1.0</code></pre></figure>
+<hr />
+<h2 id="23-chay-image-vua-tao">23. Chạy image vừa tạo</h2>
+<p>Xóa container <code>web-server</code> để giải phóng tên và tài nguyên của bài trước:</p>
+<figure class="code" data-idx="64"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="64"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-64">docker<span class="w"> </span>container<span class="w"> </span>rm<span class="w"> </span>--force<span class="w"> </span>web-server<span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="o">||</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Container web-server khong ton tai&quot;</span></code></pre></figure>
+<p>Chạy container mới:</p>
+<figure class="code" data-idx="65"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="65"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-65">docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--name<span class="w"> </span>lab-web-custom<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--network<span class="w"> </span>lab-network<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-p<span class="w"> </span><span class="m">127</span>.0.0.1:8080:80<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>docker-lab-web:1.0</code></pre></figure>
+<p>Kiểm tra:</p>
+<figure class="code" data-idx="66"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="66"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-66">docker<span class="w"> </span>container<span class="w"> </span>ls<span class="w"> </span>--filter<span class="w"> </span><span class="nv">name</span><span class="o">=</span>lab-web-custom
+docker<span class="w"> </span>container<span class="w"> </span>logs<span class="w"> </span>lab-web-custom
+curl<span class="w"> </span>--fail<span class="w"> </span>--show-error<span class="w"> </span>http://127.0.0.1:8080/</code></pre></figure>
+<aside class="callout callout--note"><span class="callout__tag">Lưu ý</span><div class="callout__body"><p>Không dừng lại ở việc container ở trạng thái <code>running</code>. <strong>Phản hồi HTTP mới chứng minh ứng dụng đang phục vụ yêu cầu.</strong></p></div></aside>
+<hr />
+<h2 class="part" id="phan-vii-docker-compose"><span class="part__num">Phần VII</span><span class="part__name">Docker Compose</span></h2>
+<h2 id="24-ung-dung-compose-don-gian">24. Ứng dụng Compose đơn giản</h2>
+<figure class="code" data-idx="67"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="67"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-67">mkdir<span class="w"> </span>-p<span class="w"> </span>~/docker-lab/compose-lab/html
+<span class="nb">cd</span><span class="w"> </span>~/docker-lab/compose-lab</code></pre></figure>
+<p>Trang web:</p>
+<figure class="code" data-idx="68"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="68"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-68">cat<span class="w"> </span>&gt;<span class="w"> </span>html/index.html<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39;</span>
+<span class="s">&lt;!doctype html&gt;</span>
+<span class="s">&lt;html lang=&quot;vi&quot;&gt;</span>
+<span class="s">&lt;head&gt;</span>
+<span class="s">  &lt;meta charset=&quot;utf-8&quot;&gt;</span>
+<span class="s">  &lt;title&gt;Docker Compose Lab&lt;/title&gt;</span>
+<span class="s">&lt;/head&gt;</span>
+<span class="s">&lt;body&gt;</span>
+<span class="s">  &lt;h1&gt;Ung dung duoc quan ly bang Docker Compose&lt;/h1&gt;</span>
+<span class="s">&lt;/body&gt;</span>
+<span class="s">&lt;/html&gt;</span>
+<span class="s">EOF</span></code></pre></figure>
+<p><code>compose.yaml</code> — dùng <code>'EOF'</code> có nháy đơn nên file được ghi <strong>nguyên văn</strong>, không phụ thuộc biến shell nào:</p>
+<figure class="code" data-idx="69"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="69"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-69">cat<span class="w"> </span>&gt;<span class="w"> </span>compose.yaml<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39;</span>
+<span class="s">services:</span>
+<span class="s">  web:</span>
+<span class="s">    image: nginx:alpine</span>
+<span class="s">    container_name: compose-web</span>
+<span class="s">    restart: unless-stopped</span>
+<span class="s">    ports:</span>
+<span class="s">      - &quot;127.0.0.1:8080:80&quot;</span>
+<span class="s">    volumes:</span>
+<span class="s">      - ./html:/usr/share/nginx/html:ro</span>
+<span class="s">    networks:</span>
+<span class="s">      - app-network</span>
+
+<span class="s">networks:</span>
+<span class="s">  app-network:</span>
+<span class="s">    driver: bridge</span>
+<span class="s">EOF</span></code></pre></figure>
+<p>Validate cấu hình:</p>
+<figure class="code" data-idx="70"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="70"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-70">docker<span class="w"> </span>compose<span class="w"> </span>config</code></pre></figure>
+<p>Giải phóng port <code>8080</code> khỏi container của bài trước:</p>
+<figure class="code" data-idx="71"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="71"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-71">docker<span class="w"> </span>container<span class="w"> </span>rm<span class="w"> </span>--force<span class="w"> </span>lab-web-custom<span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="o">||</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Container lab-web-custom khong ton tai&quot;</span></code></pre></figure>
+<p>Khởi động và kiểm tra:</p>
+<figure class="code" data-idx="72"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="72"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-72">docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d
+docker<span class="w"> </span>compose<span class="w"> </span>ps
+docker<span class="w"> </span>compose<span class="w"> </span>logs
+curl<span class="w"> </span>--fail<span class="w"> </span>--show-error<span class="w"> </span>http://127.0.0.1:8080/</code></pre></figure>
+<p>Vòng đời Compose:</p>
+<figure class="code" data-idx="73"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="73"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-73">docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"> </span>--follow<span class="w"> </span>web<span class="w">   </span><span class="c1"># Ctrl+C de thoat</span>
+docker<span class="w"> </span>compose<span class="w"> </span>stop<span class="w">                </span><span class="c1"># dung nhung giu container</span>
+docker<span class="w"> </span>compose<span class="w"> </span>start<span class="w">               </span><span class="c1"># chay lai container da co</span>
+docker<span class="w"> </span>compose<span class="w"> </span>down<span class="w">                </span><span class="c1"># xoa container va network cua project</span></code></pre></figure>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Lệnh</th>
+<th>Container</th>
+<th>Network</th>
+<th>Dữ liệu bind mount</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>docker compose stop</code></td>
+<td>Giữ (đã dừng)</td>
+<td>Giữ</td>
+<td>Giữ</td>
+</tr>
+<tr>
+<td><code>docker compose down</code></td>
+<td>Xóa</td>
+<td>Xóa</td>
+<td>Giữ</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 class="part" id="phan-viii-kiem-thu-end-to-end"><span class="part__num">Phần VIII</span><span class="part__name">Kiểm Thử End-To-End</span></h2>
+<h2 id="25-bai-thuc-hanh-tong-hop">25. Bài thực hành tổng hợp</h2>
+<figure class="code" data-idx="74"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="74"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-74"><span class="nb">cd</span><span class="w"> </span>~/docker-lab/compose-lab
+docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d</code></pre></figure>
+<p><strong>Bước 1 — Docker daemon phản hồi</strong></p>
+<figure class="code" data-idx="75"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="75"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-75">docker<span class="w"> </span>info<span class="w"> </span>&gt;/dev/null<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Docker daemon phan hoi thanh cong&quot;</span></code></pre></figure>
+<p><strong>Bước 2 — Container</strong></p>
+<figure class="code" data-idx="76"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="76"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-76">docker<span class="w"> </span>compose<span class="w"> </span>ps</code></pre></figure>
+<p><strong>Bước 3 — Port</strong></p>
+<figure class="code" data-idx="77"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="77"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-77">sudo<span class="w"> </span>ss<span class="w"> </span>-lntp<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s1">&#39;:8080 &#39;</span></code></pre></figure>
+<p><strong>Bước 4 — HTTP request</strong></p>
+<figure class="code" data-idx="78"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="78"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-78">curl<span class="w"> </span>--silent<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--output<span class="w"> </span>/tmp/docker-lab-response.html<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--write-out<span class="w"> </span><span class="s1">&#39;HTTP status: %{http_code}\n&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>http://127.0.0.1:8080/
+
+cat<span class="w"> </span>/tmp/docker-lab-response.html</code></pre></figure>
+<p>Kết quả kỳ vọng:</p>
+<figure class="code code--plain" data-idx="79"><figcaption><span class="code__lang">output</span><button class="code__copy" type="button" data-copy="79"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-79">HTTP status: 200</code></pre></figure>
+<p><strong>Bước 5 — Access log</strong></p>
+<figure class="code" data-idx="80"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="80"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-80">docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"> </span>--since<span class="w"> </span>2m<span class="w"> </span>web</code></pre></figure>
+<p><strong>Bước 6 — Tài nguyên</strong></p>
+<figure class="code" data-idx="81"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="81"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-81">docker<span class="w"> </span>stats<span class="w"> </span>--no-stream<span class="w"> </span>compose-web</code></pre></figure>
+<aside class="callout callout--fix"><span class="callout__tag">Sửa so với bản gốc</span><div class="callout__body"><p>Tài liệu gốc dùng <code>docker compose stats</code>. Lệnh này chỉ có ở các bản Compose plugin mới và dễ báo lỗi <code>unknown command</code>. Dùng <code>docker stats &lt;ten-container&gt;</code> cho chắc chắn.</p></div></aside>
+<p><strong>Bước 7 — Mount</strong></p>
+<figure class="code" data-idx="82"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="82"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-82">docker<span class="w"> </span>container<span class="w"> </span>inspect<span class="w"> </span>compose-web<span class="w"> </span>--format<span class="w"> </span><span class="s1">&#39;{{json .Mounts}}&#39;</span></code></pre></figure>
+<p><strong>Bước 8 — Restart</strong></p>
+<figure class="code" data-idx="83"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="83"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-83">docker<span class="w"> </span>container<span class="w"> </span>restart<span class="w"> </span>compose-web
+sleep<span class="w"> </span><span class="m">2</span>
+curl<span class="w"> </span>--fail<span class="w"> </span>--show-error<span class="w"> </span>http://127.0.0.1:8080/</code></pre></figure>
+<p>Luồng đã kiểm thử:</p>
+<figure class="code code--plain" data-idx="84"><figcaption><span class="code__lang">output</span><button class="code__copy" type="button" data-copy="84"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-84">curl
+  -&gt; Port 127.0.0.1:8080 tren Docker host
+  -&gt; Docker port mapping
+  -&gt; Nginx container
+  -&gt; Bind-mounted index.html
+  -&gt; HTTP response
+  -&gt; Nginx access log</code></pre></figure>
+<hr />
+<h2 class="part" id="phan-ix-don-dep-va-troubleshooting"><span class="part__num">Phần IX</span><span class="part__name">Dọn Dẹp Và Troubleshooting</span></h2>
+<h2 id="26-don-tai-nguyen-lab">26. Dọn tài nguyên lab</h2>
+<p>Thứ tự bắt buộc: <strong>container → image → network → volume</strong>.</p>
+<p>Dừng ứng dụng Compose:</p>
+<figure class="code" data-idx="85"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="85"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-85"><span class="nb">cd</span><span class="w"> </span>~/docker-lab/compose-lab
+docker<span class="w"> </span>compose<span class="w"> </span>down</code></pre></figure>
+<p>Xóa các container lab còn lại:</p>
+<figure class="code" data-idx="86"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="86"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-86">docker<span class="w"> </span>container<span class="w"> </span>rm<span class="w"> </span>--force<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>lab-web<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>lab-web-bind<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>web-server<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>lab-web-custom<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>compose-web<span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="o">||</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Khong con container lab can xoa&quot;</span></code></pre></figure>
+<p>Xóa image tự build (phải xóa sau khi container dùng nó đã biến mất):</p>
+<figure class="code" data-idx="87"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="87"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-87">docker<span class="w"> </span>image<span class="w"> </span>rm<span class="w"> </span>docker-lab-web:1.0</code></pre></figure>
+<p>Xóa network:</p>
+<figure class="code" data-idx="88"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="88"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-88">docker<span class="w"> </span>network<span class="w"> </span>rm<span class="w"> </span>lab-network<span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="o">||</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Network lab-network khong ton tai hoac dang duoc su dung&quot;</span></code></pre></figure>
+<p>Xóa volume:</p>
+<aside class="callout callout--danger"><span class="callout__tag">Cảnh báo</span><div class="callout__body"><p><strong>CẢNH BÁO:</strong> Lệnh sau xóa vĩnh viễn dữ liệu trong volume lab.</p></div></aside>
+<figure class="code" data-idx="89"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="89"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-89">docker<span class="w"> </span>volume<span class="w"> </span>inspect<span class="w"> </span>lab-nginx-data
+docker<span class="w"> </span>volume<span class="w"> </span>rm<span class="w"> </span>lab-nginx-data</code></pre></figure>
+<p>Kiểm tra phần còn lại:</p>
+<figure class="code" data-idx="90"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="90"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-90">docker<span class="w"> </span>container<span class="w"> </span>ls<span class="w"> </span>--all
+docker<span class="w"> </span>image<span class="w"> </span>ls
+docker<span class="w"> </span>volume<span class="w"> </span>ls
+docker<span class="w"> </span>network<span class="w"> </span>ls
+docker<span class="w"> </span>system<span class="w"> </span>df</code></pre></figure>
+<aside class="callout callout--note"><span class="callout__tag">Lưu ý</span><div class="callout__body"><p>Không chạy <code>docker system prune --all --volumes</code> trên hệ thống dùng chung hoặc Production khi chưa kiểm tra kỹ — lệnh này xóa image, network, cache và volume không còn được tham chiếu.</p></div></aside>
+<hr />
+<h2 id="27-loi-thuong-gap">27. Lỗi thường gặp</h2>
+<h3 id="271-permission-denied-voi-docker-socket">27.1 Permission denied với Docker socket</h3>
+<figure class="code code--plain" data-idx="91"><figcaption><span class="code__lang">output</span><button class="code__copy" type="button" data-copy="91"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-91">permission denied while trying to connect to the Docker daemon socket</code></pre></figure>
+<p>Kiểm tra và khắc phục:</p>
+<figure class="code" data-idx="92"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="92"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-92">id
+ls<span class="w"> </span>-l<span class="w"> </span>/var/run/docker.sock
+
+sudo<span class="w"> </span>usermod<span class="w"> </span>-aG<span class="w"> </span>docker<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$USER</span><span class="s2">&quot;</span>
+newgrp<span class="w"> </span>docker
+docker<span class="w"> </span>version</code></pre></figure>
+<p>Nếu vẫn lỗi ở terminal khác: đăng xuất và đăng nhập lại.</p>
+<h3 id="272-docker-daemon-khong-phan-hoi">27.2 Docker daemon không phản hồi</h3>
+<figure class="code" data-idx="93"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="93"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-93">sudo<span class="w"> </span>systemctl<span class="w"> </span>status<span class="w"> </span>docker<span class="w"> </span>--no-pager
+sudo<span class="w"> </span>journalctl<span class="w"> </span>-u<span class="w"> </span>docker<span class="w"> </span>--since<span class="w"> </span><span class="s2">&quot;15 minutes ago&quot;</span><span class="w"> </span>--no-pager
+sudo<span class="w"> </span>systemctl<span class="w"> </span>status<span class="w"> </span>containerd<span class="w"> </span>--no-pager
+
+sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>containerd
+sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>docker
+
+docker<span class="w"> </span>info
+docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>hello-world</code></pre></figure>
+<h3 id="273-port-8080-da-duoc-su-dung">27.3 Port 8080 đã được sử dụng</h3>
+<figure class="code" data-idx="94"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="94"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-94">sudo<span class="w"> </span>ss<span class="w"> </span>-lntp<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s1">&#39;:8080 &#39;</span>
+docker<span class="w"> </span>container<span class="w"> </span>ls<span class="w"> </span>--format<span class="w"> </span><span class="s1">&#39;table {{.Names}}\t{{.Ports}}&#39;</span></code></pre></figure>
+<p>Xử lý theo một trong hai hướng:</p>
+<ul>
+<li>Xóa container đang chiếm port: <code>docker container rm --force &lt;ten-container&gt;</code>.</li>
+<li>Hoặc chọn port khác và thay <strong>toàn bộ</strong> <code>8080</code> trong tài liệu bằng port mới.</li>
+</ul>
+<h3 id="274-container-thoat-ngay-sau-khi-chay">27.4 Container thoát ngay sau khi chạy</h3>
+<figure class="code" data-idx="95"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="95"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-95">docker<span class="w"> </span>container<span class="w"> </span>ls<span class="w"> </span>--all
+docker<span class="w"> </span>container<span class="w"> </span>logs<span class="w"> </span>&lt;ten-container&gt;
+docker<span class="w"> </span>container<span class="w"> </span>inspect<span class="w"> </span>&lt;ten-container&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--format<span class="w"> </span><span class="s1">&#39;ExitCode={{.State.ExitCode}} Error={{.State.Error}}&#39;</span></code></pre></figure>
+<p>Container chỉ tồn tại trong khi tiến trình chính (PID 1) còn chạy. Khi tiến trình chính kết thúc, container chuyển sang <code>exited</code>.</p>
+<h3 id="275-khong-truy-cap-duoc-ung-dung">27.5 Không truy cập được ứng dụng</h3>
+<p>Kiểm tra theo đúng thứ tự:</p>
+<figure class="code" data-idx="96"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="96"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-96">docker<span class="w"> </span>container<span class="w"> </span>ls
+docker<span class="w"> </span>container<span class="w"> </span>port<span class="w"> </span>&lt;ten-container&gt;
+docker<span class="w"> </span>container<span class="w"> </span>logs<span class="w"> </span>&lt;ten-container&gt;
+sudo<span class="w"> </span>ss<span class="w"> </span>-lntp<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s1">&#39;:8080 &#39;</span>
+curl<span class="w"> </span>--verbose<span class="w"> </span>http://127.0.0.1:8080/</code></pre></figure>
+<p>Nếu cần truy cập từ máy khác, phải publish port trên IP phù hợp (bỏ <code>127.0.0.1:</code>) và kiểm tra firewall. Không mở port ra toàn mạng khi chưa xác định phạm vi truy cập.</p>
+<hr />
+<h2 id="28-checklist-nghiem-thu">28. Checklist nghiệm thu</h2>
+<ul class="tasklist">
+<li class="task"><label><input type="checkbox" class="task__box" data-task="1"><span class="task__text">Ubuntu Server 24.04 được xác nhận.</span></label></li>
+<li class="task"><label><input type="checkbox" class="task__box" data-task="2"><span class="task__text">Docker được cài từ repository chính thức.</span></label></li>
+<li class="task"><label><input type="checkbox" class="task__box" data-task="3"><span class="task__text"><code>docker version</code> hiển thị cả Client và Server.</span></label></li>
+<li class="task"><label><input type="checkbox" class="task__box" data-task="4"><span class="task__text"><code>docker run --rm hello-world</code> thành công.</span></label></li>
+<li class="task"><label><input type="checkbox" class="task__box" data-task="5"><span class="task__text">Tải và inspect được image.</span></label></li>
+<li class="task"><label><input type="checkbox" class="task__box" data-task="6"><span class="task__text">Tạo, dừng, chạy lại và xóa được container.</span></label></li>
+<li class="task"><label><input type="checkbox" class="task__box" data-task="7"><span class="task__text">Truy cập được ứng dụng qua published port.</span></label></li>
+<li class="task"><label><input type="checkbox" class="task__box" data-task="8"><span class="task__text">Sử dụng được <code>docker exec</code>.</span></label></li>
+<li class="task"><label><input type="checkbox" class="task__box" data-task="9"><span class="task__text">Đọc được log bằng <code>docker logs</code>.</span></label></li>
+<li class="task"><label><input type="checkbox" class="task__box" data-task="10"><span class="task__text">Theo dõi được CPU và memory bằng <code>docker stats</code>.</span></label></li>
+<li class="task"><label><input type="checkbox" class="task__box" data-task="11"><span class="task__text">Sử dụng được named volume.</span></label></li>
+<li class="task"><label><input type="checkbox" class="task__box" data-task="12"><span class="task__text">Sử dụng được bind mount.</span></label></li>
+<li class="task"><label><input type="checkbox" class="task__box" data-task="13"><span class="task__text">Hai container giao tiếp qua user-defined network bằng tên.</span></label></li>
+<li class="task"><label><input type="checkbox" class="task__box" data-task="14"><span class="task__text">Build được image từ <code>Dockerfile</code>.</span></label></li>
+<li class="task"><label><input type="checkbox" class="task__box" data-task="15"><span class="task__text">Validate và chạy được <code>docker compose</code>.</span></label></li>
+<li class="task"><label><input type="checkbox" class="task__box" data-task="16"><span class="task__text">Kiểm thử HTTP end-to-end trả về mã <code>200</code>.</span></label></li>
+<li class="task"><label><input type="checkbox" class="task__box" data-task="17"><span class="task__text">Access log ghi nhận request thử nghiệm.</span></label></li>
+<li class="task"><label><input type="checkbox" class="task__box" data-task="18"><span class="task__text">Tài nguyên lab được dọn dẹp đúng phạm vi.</span></label></li>
+</ul>
+<hr />
+<h2 id="29-ghi-chu-khi-chuyen-sang-production">29. Ghi chú khi chuyển sang Production</h2>
+<ul>
+<li>Cố định và quản lý phiên bản Docker Engine.</li>
+<li>Có chính sách cập nhật bản vá bảo mật.</li>
+<li>Không cấp quyền nhóm <code>docker</code> đại trà.</li>
+<li>Giới hạn CPU và memory cho container.</li>
+<li>Cấu hình log rotation (<code>/etc/docker/daemon.json</code>).</li>
+<li>Backup và <strong>kiểm thử restore</strong> volume.</li>
+<li>Quản lý secret thay vì ghi secret trong image hoặc Compose file.</li>
+<li>Chỉ bind service trên IP cần thiết.</li>
+<li>Thiết lập firewall và kiểm tra chuỗi <code>DOCKER-USER</code> của iptables.</li>
+<li>Sử dụng registry riêng và image scanning.</li>
+<li>Theo dõi daemon, container, filesystem và dung lượng.</li>
+<li>Thiết lập health check cho ứng dụng.</li>
+<li>Có quy trình rollback image.</li>
+<li>Không dùng tag không cố định như <code>latest</code> trong quy trình phát hành.</li>
+</ul>
+<hr />
+<h2 id="30-nguon-tham-khao-chinh-thuc">30. Nguồn tham khảo chính thức</h2>
+<ul>
+<li>Docker Engine — Install on Ubuntu: <a href="https://docs.docker.com/engine/install/ubuntu/">https://docs.docker.com/engine/install/ubuntu/</a></li>
+<li>Docker Engine — Linux post-installation steps: <a href="https://docs.docker.com/engine/install/linux-postinstall/">https://docs.docker.com/engine/install/linux-postinstall/</a></li>
+<li>Docker — Port publishing: <a href="https://docs.docker.com/engine/network/#published-ports">https://docs.docker.com/engine/network/#published-ports</a></li>
+<li>Docker — Volumes: <a href="https://docs.docker.com/engine/storage/volumes/">https://docs.docker.com/engine/storage/volumes/</a></li>
+<li>Docker — Bridge network driver: <a href="https://docs.docker.com/engine/network/drivers/bridge/">https://docs.docker.com/engine/network/drivers/bridge/</a></li>
+<li>Docker Compose: <a href="https://docs.docker.com/compose/">https://docs.docker.com/compose/</a></li>
+</ul>
+<hr />
+<h2 id="phu-luc-a-nhung-diem-da-sua-so-voi-ban-goc">Phụ lục A — Những điểm đã sửa so với bản gốc</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Vấn đề trong bản gốc</th>
+<th>Xử lý</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>9 biến <code>export</code> (<code>APP_DIR</code>, <code>CONTAINER_NAME</code>, <code>WEB_PORT</code>…); mất khi đóng terminal</td>
+<td>Bỏ hoàn toàn, dùng giá trị literal + bảng tra cứu ở mục 2.2</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>export CONTAINER_NAME="${CONTAINER_NAME}-renamed"</code> rồi đổi tiếp thành <code>lab-web-bind</code> — tên container thay đổi ngầm giữa các mục</td>
+<td>Mỗi bài một tên cố định; mục rename đổi và trả lại tên cũ ngay</td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>LAB_HOSTNAME</code>, <code>LAB_IP</code> khai báo nhưng gần như không dùng</td>
+<td>Bỏ</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Khối <code>dpkg --get-selections \| awk</code> để gỡ package xung đột — dài và khó đọc</td>
+<td>Thay bằng vòng <code>for</code> đơn giản theo Docker docs</td>
+</tr>
+<tr>
+<td>5</td>
+<td><code>docker compose stats --no-stream</code> (mục 25, Bước 6) — không có ở nhiều bản Compose plugin</td>
+<td>Đổi sang <code>docker stats --no-stream compose-web</code></td>
+</tr>
+<tr>
+<td>6</td>
+<td>Danh sách dọn container liệt kê <code>lab-web-renamed</code> <strong>hai lần</strong></td>
+<td>Sửa lại danh sách, bỏ trùng</td>
+</tr>
+<tr>
+<td>7</td>
+<td>"Dọn container cũ có thể chiếm port: <code>docker container rm web-server</code>" — <code>web-server</code> chạy <strong>không</strong> publish port nào</td>
+<td>Sửa lại lý do và dọn đúng container đang giữ port 8080</td>
+</tr>
+<tr>
+<td>8</td>
+<td><code>curl --fail</code> sau khi stop container → exit code 7, học viên tưởng hỏng</td>
+<td>Thêm <code>\|\| echo</code> và giải thích đây là kết quả đúng</td>
+</tr>
+<tr>
+<td>9</td>
+<td><code>curlimages/curl:8.17.0</code> — pin một tag rất dễ lệch, lại thêm 1 image chỉ để gọi HTTP</td>
+<td>Dùng <code>busybox:1.37</code> + <code>wget -qO-</code> (đã dùng busybox cho <code>nslookup</code>)</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Xóa image tự build trước khi chắc chắn container dùng nó đã bị xóa</td>
+<td>Ghi rõ thứ tự dọn: container → image → network → volume</td>
+</tr>
+<tr>
+<td>11</td>
+<td><code>--mount type=bind,source=${APP_DIR}/html</code> — nếu biến rỗng thì <code>source</code> thành đường dẫn tương đối và Docker báo lỗi</td>
+<td>Dùng <code>$HOME/docker-lab/html</code> và ghi chú <code>source</code> phải tuyệt đối</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Checklist bị chèn đầy <code>&lt;!-- --&gt;</code> khi xuất từ Word</td>
+<td>Viết lại thành checkbox markdown</td>
+</tr>
+<tr>
+<td>13</td>
+<td><code>newgrp docker</code> không được giải thích là chỉ có tác dụng trong shell con</td>
+<td>Thêm ghi chú đăng xuất/đăng nhập lại</td>
+</tr>
+<tr>
+<td>14</td>
+<td><code>compose.yaml</code> ghi bằng heredoc <strong>không</strong> quote, phụ thuộc <code>${WEB_PORT}</code></td>
+<td>Dùng <code>&lt;&lt;'EOF'</code> để ghi nguyên văn</td>
+</tr>
+</tbody>
+</table></div>
+    <footer class="doc__foot">
+      <span>Lab 01 · Cơ bản</span>
+      <span>Ctrl/Cmd + P để in</span>
+      <a class="btn totop" href="#top">Lên đầu trang</a>
+    </footer>
+  </article>
+</div>
+
+<script>
+(function(){
+  var root=document.documentElement, KEY_T='dockerlab-theme', KEY_C='dockerlab-checks-';
+  var store={get:function(k){try{return localStorage.getItem(k)}catch(e){return null}},
+             set:function(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+
+  /* theme */
+  var saved=store.get(KEY_T);
+  if(saved){root.setAttribute('data-theme',saved);}
+  else if(window.matchMedia&&matchMedia('(prefers-color-scheme:dark)').matches){
+    root.setAttribute('data-theme','dark');}
+  var tbtn=document.getElementById('theme');
+  function paintTheme(){tbtn.textContent=root.getAttribute('data-theme')==='dark'?'Sáng':'Tối';}
+  paintTheme();
+  tbtn.addEventListener('click',function(){
+    var next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);store.set(KEY_T,next);paintTheme();});
+
+  /* copy buttons */
+  document.querySelectorAll('.code__copy').forEach(function(b){
+    b.addEventListener('click',function(){
+      var code=document.getElementById('code-'+b.dataset.copy);
+      var txt=code.innerText.replace(/\n+$/,'');
+      var done=function(){
+        b.classList.add('is-done');
+        b.querySelector('.code__copy-text').textContent='Đã chép';
+        setTimeout(function(){b.classList.remove('is-done');
+          b.querySelector('.code__copy-text').textContent='Sao chép';},1600);};
+      if(navigator.clipboard&&navigator.clipboard.writeText){
+        navigator.clipboard.writeText(txt).then(done,fallback);
+      } else {fallback();}
+      function fallback(){
+        var ta=document.createElement('textarea');ta.value=txt;
+        ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);
+        ta.select();try{document.execCommand('copy');done();}catch(e){}
+        document.body.removeChild(ta);}
+    });
+  });
+
+  /* scrollspy */
+  var rows=[].slice.call(document.querySelectorAll('.nav__row'));
+  var targets=rows.map(function(r){return document.getElementById(r.dataset.target);});
+  function spy(){
+    var y=window.scrollY+120, active=-1;
+    for(var i=0;i<targets.length;i++){
+      if(targets[i]&&targets[i].offsetTop<=y){active=i;}else{break;}
+    }
+    rows.forEach(function(r,i){
+      r.classList.toggle('is-active',i===active);
+      r.classList.toggle('is-past',i<active);
+    });
+    if(active>=0){
+      var el=rows[active], nav=document.querySelector('.nav');
+      var top=el.offsetTop-nav.offsetTop;
+      if(top<nav.scrollTop||top>nav.scrollTop+nav.clientHeight-60){
+        nav.scrollTop=top-nav.clientHeight/2;}
+    }
+  }
+  var ticking=false;
+  window.addEventListener('scroll',function(){
+    if(!ticking){requestAnimationFrame(function(){spy();ticking=false;});ticking=true;}
+  },{passive:true});
+  spy();
+
+  /* search filter */
+  var q=document.getElementById('q');
+  q.addEventListener('input',function(){
+    var v=q.value.trim().toLowerCase();
+    rows.forEach(function(r){
+      var t=(r.querySelector('.nav__label').textContent+' '+
+             r.querySelector('.nav__num').textContent).toLowerCase();
+      r.classList.toggle('is-hidden', v!=='' && t.indexOf(v)===-1);
+    });
+    document.querySelectorAll('.nav__part').forEach(function(p){
+      p.style.display = v!=='' ? 'none' : '';
+    });
+  });
+  q.addEventListener('keydown',function(e){
+    if(e.key==='Escape'){q.value='';q.dispatchEvent(new Event('input'));q.blur();}
+  });
+  document.addEventListener('keydown',function(e){
+    if(e.key==='/'&&document.activeElement!==q){e.preventDefault();q.focus();}
+  });
+
+  /* checklist progress */
+  var boxes=[].slice.call(document.querySelectorAll('.task__box'));
+  var out=document.getElementById('progress');
+  var key=KEY_C+document.body.dataset.doc;
+  var savedC=store.get(key);
+  if(savedC){savedC.split('').forEach(function(c,i){if(boxes[i])boxes[i].checked=c==='1';});}
+  function paintProgress(){
+    var n=boxes.filter(function(b){return b.checked;}).length;
+    if(out){out.innerHTML='Nghiệm thu <b>'+n+'</b>/'+boxes.length;}
+    store.set(key,boxes.map(function(b){return b.checked?'1':'0';}).join(''));
+  }
+  boxes.forEach(function(b){b.addEventListener('change',paintProgress);});
+  paintProgress();
+
+  /* mobile rail */
+  var rail=document.querySelector('.rail'), scrim=document.querySelector('.scrim'),
+      nbtn=document.getElementById('navtoggle');
+  function closeRail(){rail.classList.remove('is-open');scrim.classList.remove('is-open');}
+  nbtn.addEventListener('click',function(){
+    rail.classList.toggle('is-open');scrim.classList.toggle('is-open');});
+  scrim.addEventListener('click',closeRail);
+  rail.addEventListener('click',function(e){
+    if(e.target.closest('.nav__row')) closeRail();});
+})();
+</script>
+</body>
+</html>

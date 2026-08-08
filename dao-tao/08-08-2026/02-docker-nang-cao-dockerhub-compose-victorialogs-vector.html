@@ -1,0 +1,1327 @@
+<!doctype html>
+<html lang="vi" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Thực hành Docker nâng cao — Image, Docker Hub, Compose, VictoriaLogs và Vector</title>
+<meta name="description" content="Thực hành Docker nâng cao — Image, Docker Hub, Compose, VictoriaLogs và Vector — tài liệu thực hành, có mục lục, nút sao chép lệnh và checklist nghiệm thu.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Sans+Condensed:wght@600&family=IBM+Plex+Sans:wght@400;600&display=swap&subset=vietnamese,latin-ext" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box}
+:root{
+  --bg:#E9EDF2; --surface:#FFFFFF; --surface-2:#F4F7FB;
+  --ink:#0E1729; --ink-2:#465773; --ink-3:#7D8CA6;
+  --rule:#C8D2DF; --rule-soft:#DFE6EE;
+  --accent:#2F4BD1; --accent-soft:#DFE4FB; --accent-ink:#2F4BD1;
+  --warn:#A6491B; --warn-soft:#F8E7DB;
+  --ok:#0B6152; --ok-soft:#DCEEE9;
+  --code-bg:#0F1829; --code-fg:#C6D4EA;
+  --shadow:0 1px 0 rgba(14,23,41,.05), 0 8px 24px -18px rgba(14,23,41,.45);
+  --rail-w:296px;
+  --f-body:"IBM Plex Sans","Segoe UI",system-ui,-apple-system,sans-serif;
+  --f-disp:"IBM Plex Sans Condensed","IBM Plex Sans","Segoe UI",system-ui,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Consolas,monospace;
+}
+html[data-theme="dark"]{
+  --bg:#080E1A; --surface:#101928; --surface-2:#16202F;
+  --ink:#DFE7F3; --ink-2:#95A6C0; --ink-3:#6C7E9B;
+  --rule:#243146; --rule-soft:#1B2536;
+  --accent:#8098FF; --accent-soft:#1A2545; --accent-ink:#A6B6FF;
+  --warn:#E29161; --warn-soft:#2C1F16;
+  --ok:#57C4AA; --ok-soft:#0E2620;
+  --code-bg:#040913; --code-fg:#C6D4EA;
+  --shadow:0 1px 0 rgba(0,0,0,.3), 0 10px 30px -20px #000;
+}
+html{scroll-behavior:smooth;scroll-padding-top:88px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}
+  *{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);
+  font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+
+/* ---------- masthead ---------- */
+.masthead{position:sticky;top:0;z-index:40;background:var(--surface);
+  border-bottom:1px solid var(--rule);}
+.masthead__in{max-width:1400px;margin:0 auto;padding:14px 24px;
+  display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.brand{display:flex;align-items:baseline;gap:12px;min-width:0}
+.brand__eyebrow{font-family:var(--f-mono);font-size:11px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--accent-ink);white-space:nowrap}
+.brand__title{font-family:var(--f-disp);font-weight:600;font-size:19px;
+  letter-spacing:-.01em;margin:0;white-space:nowrap;overflow:hidden;
+  text-overflow:ellipsis}
+.masthead__tools{margin-left:auto;display:flex;align-items:center;gap:8px}
+.btn{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--ink-2);background:var(--surface-2);
+  border:1px solid var(--rule);border-radius:3px;padding:7px 11px;cursor:pointer;
+  text-decoration:none;display:inline-flex;align-items:center;gap:7px;
+  transition:border-color .15s,color .15s,background .15s}
+.btn:hover{border-color:var(--accent);color:var(--accent-ink)}
+.btn:focus-visible,a:focus-visible,button:focus-visible,input:focus-visible{
+  outline:2px solid var(--accent);outline-offset:2px}
+.progress{font-family:var(--f-mono);font-size:11.5px;color:var(--ink-2);
+  border:1px solid var(--rule);border-radius:3px;padding:7px 11px;
+  display:inline-flex;gap:8px;align-items:center;white-space:nowrap}
+.progress b{color:var(--ok);font-weight:600}
+.nav-toggle{display:none}
+
+/* ---------- shell ---------- */
+.shell{max-width:1400px;margin:0 auto;display:grid;
+  grid-template-columns:var(--rail-w) minmax(0,1fr);gap:44px;padding:0 24px}
+
+/* ---------- layer rail (signature) ---------- */
+.rail{position:sticky;top:63px;align-self:start;height:calc(100vh - 63px);
+  display:flex;flex-direction:column;padding:22px 0 12px;overflow:hidden}
+.rail__head{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink-3);margin-bottom:10px}
+.search{position:relative;margin-bottom:14px}
+.search input{width:100%;font-family:var(--f-mono);font-size:12.5px;
+  background:var(--surface);border:1px solid var(--rule);border-radius:3px;
+  padding:9px 11px;color:var(--ink)}
+.search input::placeholder{color:var(--ink-3)}
+.nav{overflow-y:auto;flex:1;padding-right:6px;scrollbar-width:thin}
+.nav::-webkit-scrollbar{width:6px}
+.nav::-webkit-scrollbar-thumb{background:var(--rule);border-radius:3px}
+.nav__part{font-family:var(--f-mono);font-size:10px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink-3);padding:16px 0 7px 15px;
+  border-top:1px solid var(--rule-soft);margin-top:8px;display:flex;gap:8px;
+  flex-wrap:wrap}
+.nav__part:first-child{border-top:0;margin-top:0;padding-top:2px}
+.nav__part-num{color:var(--accent-ink)}
+.nav__row{display:grid;grid-template-columns:3px 22px 1fr;align-items:start;
+  gap:10px;padding:5px 0;text-decoration:none;color:var(--ink-2);
+  font-size:13.5px;line-height:1.35;border-radius:2px}
+.nav__bar{height:100%;min-height:19px;background:var(--rule);border-radius:2px;
+  transition:background .2s,transform .2s;transform-origin:center}
+.nav__num{font-family:var(--f-mono);font-size:11px;color:var(--ink-3);
+  letter-spacing:.02em;padding-top:1px}
+.nav__label{overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;
+  -webkit-box-orient:vertical;line-clamp:2}
+.nav__row:hover{color:var(--ink)}
+.nav__row:hover .nav__bar{background:var(--ink-3)}
+.nav__row.is-past .nav__bar{background:var(--accent);opacity:.35}
+.nav__row.is-active{color:var(--ink)}
+.nav__row.is-active .nav__label{font-weight:600}
+.nav__row.is-active .nav__num{color:var(--accent-ink)}
+.nav__row.is-active .nav__bar{background:var(--accent);transform:scaleX(2.2)}
+.nav__row.is-hidden{display:none}
+
+/* ---------- article ---------- */
+.doc{padding:34px 0 120px;max-width:80ch;min-width:0}
+.lede{border-left:3px solid var(--accent);padding:2px 0 2px 20px;margin-bottom:34px}
+.lede h1{font-family:var(--f-disp);font-size:clamp(28px,4vw,40px);line-height:1.12;
+  font-weight:600;letter-spacing:-.015em;margin:0 0 12px}
+.chips{display:flex;flex-wrap:wrap;gap:7px}
+.chip{font-family:var(--f-mono);font-size:11px;letter-spacing:.04em;
+  color:var(--ink-2);border:1px solid var(--rule);border-radius:99px;
+  padding:4px 11px;background:var(--surface)}
+
+.doc h2.part{font-family:var(--f-mono);font-size:12px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--accent-ink);margin:64px 0 6px;
+  padding-top:26px;border-top:2px solid var(--accent);
+  display:flex;gap:12px;flex-wrap:wrap;align-items:baseline}
+.doc h2.part .part__name{color:var(--ink-2);letter-spacing:.1em}
+.doc h2:not(.part){font-family:var(--f-disp);font-size:25px;font-weight:600;
+  letter-spacing:-.01em;line-height:1.25;margin:52px 0 14px;padding-bottom:9px;
+  border-bottom:1px solid var(--rule)}
+.doc h3{font-family:var(--f-disp);font-size:18px;font-weight:600;
+  margin:34px 0 10px;color:var(--ink)}
+.doc h2:not(.part)::before{content:"";display:block;height:0}
+.doc p{margin:0 0 15px}
+.doc a{color:var(--accent-ink);text-decoration:none;
+  border-bottom:1px solid color-mix(in srgb,var(--accent) 40%,transparent)}
+.doc a:hover{border-bottom-color:var(--accent)}
+.doc ul,.doc ol{margin:0 0 16px;padding-left:22px}
+.doc li{margin:5px 0}
+.doc li::marker{color:var(--ink-3)}
+.doc hr{border:0;border-top:1px solid var(--rule-soft);margin:40px 0}
+.doc strong{font-weight:600}
+.doc :not(pre)>code{font-family:var(--f-mono);font-size:.865em;
+  background:var(--accent-soft);color:var(--accent-ink);padding:1.5px 5px;
+  border-radius:3px;white-space:nowrap}
+html[data-theme="dark"] .doc :not(pre)>code{color:#C3CEFF}
+
+/* ---------- tables ---------- */
+.table-wrap{overflow-x:auto;margin:0 0 22px;border:1px solid var(--rule);
+  border-radius:4px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--rule-soft);
+  vertical-align:top}
+thead th{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink-2);background:var(--surface-2);
+  border-bottom:1px solid var(--rule);white-space:nowrap}
+tbody tr:last-child td{border-bottom:0}
+tbody tr:hover{background:var(--surface-2)}
+td code{white-space:nowrap}
+
+/* ---------- code ---------- */
+.code{margin:0 0 22px;border-radius:5px;overflow:hidden;background:var(--code-bg);
+  border:1px solid transparent;box-shadow:var(--shadow)}
+html[data-theme="dark"] .code{border-color:var(--rule)}
+.code figcaption{display:flex;align-items:center;gap:10px;
+  padding:7px 12px 7px 14px;background:rgba(255,255,255,.04);
+  border-bottom:1px solid rgba(255,255,255,.07)}
+.code__lang{font-family:var(--f-mono);font-size:10px;letter-spacing:.16em;
+  text-transform:uppercase;color:#7D93B8}
+.code__copy{margin-left:auto;font-family:var(--f-mono);font-size:10.5px;
+  letter-spacing:.08em;text-transform:uppercase;color:#8DA3C6;background:transparent;
+  border:1px solid rgba(255,255,255,.14);border-radius:3px;padding:4px 9px;
+  cursor:pointer;display:inline-flex;align-items:center;gap:6px;
+  transition:color .15s,border-color .15s}
+.code__copy:hover{color:#DCE7FA;border-color:rgba(255,255,255,.34)}
+.code__copy.is-done{color:#6FD3B4;border-color:#2E6B58}
+.code__copy-icon{width:9px;height:9px;border:1.4px solid currentColor;
+  border-radius:1.5px;position:relative;flex:none}
+.code__copy-icon::after{content:"";position:absolute;inset:-3.5px -3.5px auto auto;
+  width:9px;height:9px;border:1.4px solid currentColor;border-radius:1.5px;
+  border-left:0;border-bottom:0}
+.code__copy.is-done .code__copy-icon{border-radius:50%}
+.code pre{margin:0;padding:15px 16px;overflow-x:auto}
+.code code{font-family:var(--f-mono);font-size:13.2px;line-height:1.62;
+  color:var(--code-fg);white-space:pre;display:block}
+.code--plain pre{background:var(--code-bg)}
+.code--plain code{color:#93A8C8}
+/* pygments */
+.code .c,.code .c1,.code .cm,.code .cp{color:#5E779E;font-style:italic}
+.code .s,.code .s1,.code .s2,.code .sb,.code .se,.code .sd{color:#94D6B4}
+.code .k,.code .kd,.code .kn,.code .kr,.code .kt{color:#E0A45E}
+.code .nb,.code .nf{color:#7FB2F0}
+.code .nv,.code .vg{color:#D9A2E8}
+.code .o,.code .p{color:#8CA2C4}
+.code .m,.code .mi{color:#E0A45E}
+
+/* ---------- callouts ---------- */
+.callout{position:relative;margin:0 0 22px;padding:15px 18px 15px 17px;
+  border-radius:4px;border:1px solid var(--rule);border-left:3px solid var(--ink-3);
+  background:var(--surface)}
+.callout__tag{font-family:var(--f-mono);font-size:10px;letter-spacing:.16em;
+  text-transform:uppercase;display:block;margin-bottom:7px;color:var(--ink-3)}
+.callout__body>*:last-child{margin-bottom:0}
+.callout__body p{margin:0 0 10px;font-size:15px}
+.callout__body .code{margin:12px 0 4px}
+.callout--note{border-left-color:var(--accent);background:var(--surface)}
+.callout--note .callout__tag{color:var(--accent-ink)}
+.callout--danger{border-left-color:var(--warn);background:var(--warn-soft);
+  border-color:color-mix(in srgb,var(--warn) 26%,transparent)}
+.callout--danger .callout__tag{color:var(--warn)}
+.callout--fix{border-left-color:var(--ok);background:var(--ok-soft);
+  border-color:color-mix(in srgb,var(--ok) 24%,transparent)}
+.callout--fix .callout__tag{color:var(--ok)}
+/* code shown inside a "sửa so với bản gốc" note is the BROKEN original:
+   never offer to copy it, and mark it as such */
+.callout--fix .code__copy{display:none}
+.callout--fix .code__lang::after{content:" · bản gốc, không chạy";color:var(--warn)}
+.callout--fix .code{opacity:.92;border:1px dashed color-mix(in srgb,var(--warn) 45%,transparent)}
+
+/* ---------- tasklist ---------- */
+.tasklist{list-style:none;padding:0;margin:0 0 22px;border:1px solid var(--rule);
+  border-radius:4px;background:var(--surface);overflow:hidden}
+.task{margin:0;border-bottom:1px solid var(--rule-soft)}
+.task:last-child{border-bottom:0}
+.task label{display:flex;gap:12px;align-items:flex-start;padding:10px 15px;
+  cursor:pointer;font-size:14.5px}
+.task label:hover{background:var(--surface-2)}
+.task__box{margin:4px 0 0;width:15px;height:15px;accent-color:var(--ok);flex:none}
+.task__box:checked+.task__text{color:var(--ink-3);text-decoration:line-through;
+  text-decoration-color:var(--ok)}
+
+/* ---------- footer ---------- */
+.doc__foot{margin-top:70px;padding-top:22px;border-top:1px solid var(--rule);
+  display:flex;gap:14px;flex-wrap:wrap;align-items:center;
+  font-family:var(--f-mono);font-size:11.5px;color:var(--ink-3);
+  letter-spacing:.04em}
+.totop{margin-left:auto}
+
+/* ---------- responsive ---------- */
+@media (max-width:1080px){
+  :root{--rail-w:250px}
+  .shell{gap:30px}
+}
+@media (max-width:860px){
+  .shell{grid-template-columns:1fr;padding:0 18px}
+  .nav-toggle{display:inline-flex}
+  .rail{position:fixed;inset:63px auto 0 0;width:300px;max-width:86vw;height:auto;
+    background:var(--surface);border-right:1px solid var(--rule);z-index:35;
+    padding:20px 16px;transform:translateX(-102%);transition:transform .22s ease;
+    box-shadow:12px 0 40px -30px #000}
+  .rail.is-open{transform:none}
+  .brand__title{font-size:16px}
+  .brand__eyebrow{display:none}
+  .doc{padding-top:26px}
+  .doc h2:not(.part){font-size:21px}
+  .code code{font-size:12.4px}
+}
+.scrim{display:none}
+@media (max-width:860px){
+  .scrim{display:block;position:fixed;inset:0;background:rgba(6,11,22,.5);
+    opacity:0;pointer-events:none;transition:opacity .22s;z-index:30}
+  .scrim.is-open{opacity:1;pointer-events:auto}
+}
+
+/* ---------- print ---------- */
+@media print{
+  .masthead,.rail,.scrim,.code__copy,.doc__foot{display:none!important}
+  .shell{display:block;padding:0;max-width:none}
+  body{background:#fff;color:#000;font-size:11pt}
+  .doc{max-width:none;padding:0}
+  .code{border:1px solid #bbb;box-shadow:none;background:#f6f7f9}
+  .code code{color:#111}
+  .code .c,.code .c1{color:#555}
+  .code .s,.code .s1,.code .s2{color:#111}
+  .code .k,.code .nb,.code .nv,.code .o,.code .p,.code .m,.code .mi{color:#111}
+  .doc h2{break-after:avoid}
+  .code,.table-wrap,.callout{break-inside:avoid}
+}
+</style>
+</head>
+<body data-doc="02">
+<header class="masthead">
+  <div class="masthead__in">
+    <button class="btn nav-toggle" id="navtoggle" type="button">Mục lục</button>
+    <div class="brand">
+      <span class="brand__eyebrow">Lab 02 · Nâng cao</span>
+      <h1 class="brand__title">Thực hành Docker nâng cao</h1>
+    </div>
+    <div class="masthead__tools">
+      <span class="progress" id="progress">Nghiệm thu <b>0</b>/0</span>
+      <a class="btn" href="01-docker-co-ban-ubuntu-24.04.html">Lab 01 · Cơ bản</a>
+      <button class="btn" id="theme" type="button">Tối</button>
+    </div>
+  </div>
+</header>
+
+<div class="scrim"></div>
+
+<div class="shell">
+  <aside class="rail">
+    <div class="rail__head">Lớp thực hành · 29 mục</div>
+    <div class="search"><input id="q" type="search" placeholder="Lọc mục — nhấn /" autocomplete="off"></div>
+    <nav class="nav">
+<a class="nav__row" href="#1-muc-tieu" data-target="1-muc-tieu"><span class="nav__bar" aria-hidden="true"></span><span class="nav__num">01</span><span class="nav__label">Mục tiêu</span></a>
+<a class="nav__row" href="#2-pham-vi-va-gia-dinh" data-target="2-pham-vi-va-gia-dinh"><span class="nav__bar" aria-hidden="true"></span><span class="nav__num">02</span><span class="nav__label">Phạm vi và giả định</span></a>
+<div class="nav__part"><span class="nav__part-num">Phần I</span><span class="nav__part-label">Build Web Image, Chạy Bằng Compose Và Push Docker Hub</span></div>
+<a class="nav__row" href="#3-bai-1-tao-web-image-bang-dockerfile" data-target="3-bai-1-tao-web-image-bang-dockerfile"><span class="nav__bar" aria-hidden="true"></span><span class="nav__num">03</span><span class="nav__label">Bài 1 — Tạo web image bằng Dockerfile</span></a>
+<a class="nav__row" href="#4-bai-2-chay-image-bang-compose-bind-mount-thu-muc-hien-tai" data-target="4-bai-2-chay-image-bang-compose-bind-mount-thu-muc-hien-tai"><span class="nav__bar" aria-hidden="true"></span><span class="nav__num">04</span><span class="nav__label">Bài 2 — Chạy image bằng Compose + bind mount thư mục hiện tại</span></a>
+<a class="nav__row" href="#5-bai-3-push-image-len-docker-hub" data-target="5-bai-3-push-image-len-docker-hub"><span class="nav__bar" aria-hidden="true"></span><span class="nav__num">05</span><span class="nav__label">Bài 3 — Push image lên Docker Hub</span></a>
+<div class="nav__part"><span class="nav__part-num">Phần II</span><span class="nav__part-label">Docker Compose Cho Ứng Dụng Web Cơ Bản</span></div>
+<a class="nav__row" href="#6-bai-4-web-application-doc-lap-bang-compose" data-target="6-bai-4-web-application-doc-lap-bang-compose"><span class="nav__bar" aria-hidden="true"></span><span class="nav__num">06</span><span class="nav__label">Bài 4 — Web application độc lập bằng Compose</span></a>
+<div class="nav__part"><span class="nav__part-num">Phần III</span><span class="nav__part-label">Docker Compose Với Victorialogs Và Vector</span></div>
+<a class="nav__row" href="#7-kien-truc-bai-lab" data-target="7-kien-truc-bai-lab"><span class="nav__bar" aria-hidden="true"></span><span class="nav__num">07</span><span class="nav__label">Kiến trúc bài lab</span></a>
+<a class="nav__row" href="#8-bai-5-chuan-bi-victorialogs-vector" data-target="8-bai-5-chuan-bi-victorialogs-vector"><span class="nav__bar" aria-hidden="true"></span><span class="nav__num">08</span><span class="nav__label">Bài 5 — Chuẩn bị VictoriaLogs + Vector</span></a>
+<a class="nav__row" href="#9-bai-6-validate-va-khoi-dong-stack" data-target="9-bai-6-validate-va-khoi-dong-stack"><span class="nav__bar" aria-hidden="true"></span><span class="nav__num">09</span><span class="nav__label">Bài 6 — Validate và khởi động stack</span></a>
+<a class="nav__row" href="#10-bai-7-gui-log-vao-vector-va-kiem-tra-tren-victorialogs" data-target="10-bai-7-gui-log-vao-vector-va-kiem-tra-tren-victorialogs"><span class="nav__bar" aria-hidden="true"></span><span class="nav__num">10</span><span class="nav__label">Bài 7 — Gửi log vào Vector và kiểm tra trên VictoriaLogs</span></a>
+<a class="nav__row" href="#11-bai-8-kiem-thu-persistence" data-target="11-bai-8-kiem-thu-persistence"><span class="nav__bar" aria-hidden="true"></span><span class="nav__num">11</span><span class="nav__label">Bài 8 — Kiểm thử persistence</span></a>
+<a class="nav__row" href="#12-bai-9-quan-sat-network-va-mount" data-target="12-bai-9-quan-sat-network-va-mount"><span class="nav__bar" aria-hidden="true"></span><span class="nav__num">12</span><span class="nav__label">Bài 9 — Quan sát network và mount</span></a>
+<a class="nav__row" href="#13-bai-10-theo-doi-log-va-tai-nguyen" data-target="13-bai-10-theo-doi-log-va-tai-nguyen"><span class="nav__bar" aria-hidden="true"></span><span class="nav__num">13</span><span class="nav__label">Bài 10 — Theo dõi log và tài nguyên</span></a>
+<div class="nav__part"><span class="nav__part-num">Phần IV</span><span class="nav__part-label">Bài Tập Tổng Hợp</span></div>
+<a class="nav__row" href="#14-bai-tap-1-thay-doi-web-bang-bind-mount" data-target="14-bai-tap-1-thay-doi-web-bang-bind-mount"><span class="nav__bar" aria-hidden="true"></span><span class="nav__num">14</span><span class="nav__label">Bài tập 1 — Thay đổi web bằng bind mount</span></a>
+<a class="nav__row" href="#15-bai-tap-2-build-va-push-phien-ban-11" data-target="15-bai-tap-2-build-va-push-phien-ban-11"><span class="nav__bar" aria-hidden="true"></span><span class="nav__num">15</span><span class="nav__label">Bài tập 2 — Build và push phiên bản 1.1</span></a>
+<a class="nav__row" href="#16-bai-tap-3-kiem-thu-end-to-end-vector-victorialogs" data-target="16-bai-tap-3-kiem-thu-end-to-end-vector-victorialogs"><span class="nav__bar" aria-hidden="true"></span><span class="nav__num">16</span><span class="nav__label">Bài tập 3 — Kiểm thử end-to-end Vector → VictoriaLogs</span></a>
+<a class="nav__row" href="#17-bai-tap-4-thay-doi-port-public" data-target="17-bai-tap-4-thay-doi-port-public"><span class="nav__bar" aria-hidden="true"></span><span class="nav__num">17</span><span class="nav__label">Bài tập 4 — Thay đổi port public</span></a>
+<div class="nav__part"><span class="nav__part-num">Phần V</span><span class="nav__part-label">Troubleshooting</span></div>
+<a class="nav__row" href="#18-port-da-duoc-su-dung" data-target="18-port-da-duoc-su-dung"><span class="nav__bar" aria-hidden="true"></span><span class="nav__num">18</span><span class="nav__label">Port đã được sử dụng</span></a>
+<a class="nav__row" href="#19-vector-khong-khoi-dong" data-target="19-vector-khong-khoi-dong"><span class="nav__bar" aria-hidden="true"></span><span class="nav__num">19</span><span class="nav__label">Vector không khởi động</span></a>
+<a class="nav__row" href="#20-vector-chay-nhung-victorialogs-khong-co-log" data-target="20-vector-chay-nhung-victorialogs-khong-co-log"><span class="nav__bar" aria-hidden="true"></span><span class="nav__num">20</span><span class="nav__label">Vector chạy nhưng VictoriaLogs không có log</span></a>
+<a class="nav__row" href="#21-victorialogs-khong-ghi-duoc-vao-victoria-logs-data" data-target="21-victorialogs-khong-ghi-duoc-vao-victoria-logs-data"><span class="nav__bar" aria-hidden="true"></span><span class="nav__num">21</span><span class="nav__label">VictoriaLogs không ghi được vào ./victoria-logs-data</span></a>
+<a class="nav__row" href="#22-bind-mount-khong-cap-nhat" data-target="22-bind-mount-khong-cap-nhat"><span class="nav__bar" aria-hidden="true"></span><span class="nav__num">22</span><span class="nav__label">Bind mount không cập nhật</span></a>
+<a class="nav__row" href="#23-docker-hub-push-bi-denied" data-target="23-docker-hub-push-bi-denied"><span class="nav__bar" aria-hidden="true"></span><span class="nav__num">23</span><span class="nav__label">Docker Hub push bị denied</span></a>
+<div class="nav__part"><span class="nav__part-num">Phần VI</span><span class="nav__part-label">Dọn Dẹp Và Checklist</span></div>
+<a class="nav__row" href="#24-don-tai-nguyen-web-lab" data-target="24-don-tai-nguyen-web-lab"><span class="nav__bar" aria-hidden="true"></span><span class="nav__num">24</span><span class="nav__label">Dọn tài nguyên web lab</span></a>
+<a class="nav__row" href="#25-don-victorialogs-vector" data-target="25-don-victorialogs-vector"><span class="nav__bar" aria-hidden="true"></span><span class="nav__num">25</span><span class="nav__label">Dọn VictoriaLogs + Vector</span></a>
+<a class="nav__row" href="#26-checklist-nghiem-thu" data-target="26-checklist-nghiem-thu"><span class="nav__bar" aria-hidden="true"></span><span class="nav__num">26</span><span class="nav__label">Checklist nghiệm thu</span></a>
+<a class="nav__row" href="#27-ghi-chu-khi-chuyen-tu-lab-sang-production" data-target="27-ghi-chu-khi-chuyen-tu-lab-sang-production"><span class="nav__bar" aria-hidden="true"></span><span class="nav__num">27</span><span class="nav__label">Ghi chú khi chuyển từ Lab sang Production</span></a>
+<a class="nav__row" href="#28-nguon-tham-khao-chinh-thuc" data-target="28-nguon-tham-khao-chinh-thuc"><span class="nav__bar" aria-hidden="true"></span><span class="nav__num">28</span><span class="nav__label">Nguồn tham khảo chính thức</span></a>
+<a class="nav__row" href="#phu-luc-a-nhung-diem-da-sua-so-voi-ban-goc" data-target="phu-luc-a-nhung-diem-da-sua-so-voi-ban-goc"><span class="nav__bar" aria-hidden="true"></span><span class="nav__num">·</span><span class="nav__label">Phụ lục A — Những điểm đã sửa so với bản gốc</span></a>
+    </nav>
+  </aside>
+
+  <article class="doc">
+    <div class="lede">
+      <h1>Thực hành Docker nâng cao — Image, Docker Hub, Compose, VictoriaLogs và Vector</h1>
+      <div class="chips"><span class="chip">Docker Hub</span><span class="chip">Compose</span><span class="chip">VictoriaLogs + Vector</span></div>
+    </div>
+<p><em>Tài liệu bổ sung cho “Thực hành Docker cơ bản trên Ubuntu Server 24.04”.</em></p>
+<aside class="callout callout--note"><span class="callout__tag">Lưu ý</span><div class="callout__body"><p><strong>Quy ước của tài liệu này</strong></p>
+<ul>
+<li><strong>Chỉ còn đúng một biến shell:</strong> <code>DOCKERHUB_USER</code> (vì username Docker Hub của mỗi người khác nhau). Mọi giá trị còn lại được viết thẳng.</li>
+<li>Ba bài lab nằm ở ba thư mục riêng: <code>web-image</code>, <code>compose-web</code>, <code>observability-lab</code>.</li>
+<li><strong>Ba bài lab đầu đều dùng port <code>8080</code>.</strong> Phải <code>docker compose down</code> bài trước rồi mới sang bài sau.</li>
+</ul></div></aside>
+<hr />
+<h2 id="1-muc-tieu">1. Mục tiêu</h2>
+<p>Sau khi hoàn thành, học viên có thể:</p>
+<ul>
+<li>Tạo web image bằng <code>Dockerfile</code> và chạy thử image.</li>
+<li>Sử dụng bind mount từ thư mục hiện tại vào container.</li>
+<li>Publish port của web application ra Docker host.</li>
+<li>Đăng nhập Docker Hub, tag image và push image lên repository cá nhân.</li>
+<li>Phân biệt và dùng đúng <code>docker compose up</code> / <code>stop</code> / <code>down</code>.</li>
+<li>Tạo một ứng dụng web cơ bản bằng Docker Compose.</li>
+<li>Triển khai VictoriaLogs và Vector bằng Docker Compose.</li>
+<li>Publish port <code>9428</code> (VictoriaLogs), <code>8686</code> (Vector API) và <code>9000</code> (Vector HTTP source).</li>
+<li>Gửi log vào Vector và xác minh log được chuyển tiếp sang VictoriaLogs.</li>
+<li>Kiểm tra container, port, bind mount, log và luồng kết nối end-to-end.</li>
+</ul>
+<hr />
+<h2 id="2-pham-vi-va-gia-dinh">2. Phạm vi và giả định</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Thuộc tính</th>
+<th>Giá trị</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hệ điều hành</td>
+<td>Ubuntu Server 24.04 LTS</td>
+</tr>
+<tr>
+<td>Docker</td>
+<td>Đã cài Docker Engine + Compose plugin</td>
+</tr>
+<tr>
+<td>Thư mục lab</td>
+<td><code>~/docker-practice</code></td>
+</tr>
+<tr>
+<td>Web public port</td>
+<td><code>8080/TCP</code></td>
+</tr>
+<tr>
+<td>VictoriaLogs public port</td>
+<td><code>9428/TCP</code></td>
+</tr>
+<tr>
+<td>Vector API public port</td>
+<td><code>8686/TCP</code></td>
+</tr>
+<tr>
+<td>Vector HTTP input port</td>
+<td><code>9000/TCP</code></td>
+</tr>
+<tr>
+<td>Internet</td>
+<td>Cần để pull image và push Docker Hub</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="21-bang-tai-nguyen">2.1 Bảng tài nguyên</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Bài</th>
+<th>Thư mục</th>
+<th>Container</th>
+<th>Image</th>
+<th>Port host</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1–3</td>
+<td><code>~/docker-practice/web-image</code></td>
+<td><code>web-lab</code></td>
+<td><code>docker-web-lab:1.0</code> (tự build)</td>
+<td>8080</td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>~/docker-practice/compose-web</code></td>
+<td><code>compose-basic-web</code></td>
+<td><code>nginx:alpine</code></td>
+<td>8080</td>
+</tr>
+<tr>
+<td>5–10</td>
+<td><code>~/docker-practice/observability-lab</code></td>
+<td><code>victorialogs-lab</code>, <code>vector-lab</code></td>
+<td><code>victoria-logs:v1.52.0</code>, <code>vector:0.57.0-debian</code></td>
+<td>9428, 8686, 9000</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="22-chuan-bi">2.2 Chuẩn bị</h3>
+<figure class="code" data-idx="1"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="1"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-1">mkdir<span class="w"> </span>-p<span class="w"> </span>~/docker-practice
+<span class="nb">cd</span><span class="w"> </span>~/docker-practice
+
+docker<span class="w"> </span>version
+docker<span class="w"> </span>compose<span class="w"> </span>version
+sudo<span class="w"> </span>ss<span class="w"> </span>-lntp<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">&#39;:(8080|9428|8686|9000) &#39;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Cac port deu dang trong&quot;</span></code></pre></figure>
+<aside class="callout callout--note"><span class="callout__tag">Lưu ý</span><div class="callout__body"><p><strong>LƯU Ý:</strong> Docker không có lệnh <code>docker up</code>. Với Docker Compose, lệnh đúng là <code>docker compose up</code>. Trong tài liệu này, "up" luôn nghĩa là <code>docker compose up</code>.</p></div></aside>
+<hr />
+<h2 class="part" id="phan-i-build-web-image-chay-bang-compose-va-push-docker-hub"><span class="part__num">Phần I</span><span class="part__name">Build Web Image, Chạy Bằng Compose Và Push Docker Hub</span></h2>
+<h2 id="3-bai-1-tao-web-image-bang-dockerfile">3. Bài 1 — Tạo web image bằng Dockerfile</h2>
+<h3 id="31-cau-truc-thu-muc">3.1 Cấu trúc thư mục</h3>
+<figure class="code" data-idx="2"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="2"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-2">mkdir<span class="w"> </span>-p<span class="w"> </span>~/docker-practice/web-image/html
+<span class="nb">cd</span><span class="w"> </span>~/docker-practice/web-image
+<span class="nb">pwd</span></code></pre></figure>
+<p>Cấu trúc mong muốn sau khi làm xong mục 4.1:</p>
+<figure class="code code--plain" data-idx="3"><figcaption><span class="code__lang">output</span><button class="code__copy" type="button" data-copy="3"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-3">web-image/
+├── Dockerfile
+├── compose.yaml
+├── .dockerignore
+└── html/
+    └── index.html</code></pre></figure>
+<h3 id="32-tao-trang-web">3.2 Tạo trang web</h3>
+<figure class="code" data-idx="4"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="4"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-4">cat<span class="w"> </span>&gt;<span class="w"> </span>html/index.html<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39;</span>
+<span class="s">&lt;!doctype html&gt;</span>
+<span class="s">&lt;html lang=&quot;vi&quot;&gt;</span>
+<span class="s">&lt;head&gt;</span>
+<span class="s">  &lt;meta charset=&quot;utf-8&quot;&gt;</span>
+<span class="s">  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;</span>
+<span class="s">  &lt;title&gt;Docker Web Lab&lt;/title&gt;</span>
+<span class="s">&lt;/head&gt;</span>
+<span class="s">&lt;body&gt;</span>
+<span class="s">  &lt;h1&gt;Docker Web Lab&lt;/h1&gt;</span>
+<span class="s">  &lt;p&gt;Trang web dang chay tu image tu build.&lt;/p&gt;</span>
+<span class="s">  &lt;p&gt;Bind mount cho phep thay doi noi dung truc tiep tu Docker host.&lt;/p&gt;</span>
+<span class="s">&lt;/body&gt;</span>
+<span class="s">&lt;/html&gt;</span>
+<span class="s">EOF</span></code></pre></figure>
+<h3 id="33-tao-dockerfile">3.3 Tạo Dockerfile</h3>
+<figure class="code" data-idx="5"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="5"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-5">cat<span class="w"> </span>&gt;<span class="w"> </span>Dockerfile<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39;</span>
+<span class="s">FROM nginx:alpine</span>
+
+<span class="s">LABEL org.opencontainers.image.title=&quot;docker-web-lab&quot;</span>
+<span class="s">LABEL org.opencontainers.image.description=&quot;Basic web image for Docker practice&quot;</span>
+
+<span class="s">COPY html/ /usr/share/nginx/html/</span>
+
+<span class="s">EXPOSE 80</span>
+<span class="s">EOF</span></code></pre></figure>
+<h3 id="34-tao-dockerignore">3.4 Tạo .dockerignore</h3>
+<figure class="code" data-idx="6"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="6"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-6">cat<span class="w"> </span>&gt;<span class="w"> </span>.dockerignore<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39;</span>
+<span class="s">.git</span>
+<span class="s">*.log</span>
+<span class="s">compose.yaml</span>
+<span class="s">EOF</span></code></pre></figure>
+<h3 id="35-build-image">3.5 Build image</h3>
+<figure class="code" data-idx="7"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="7"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-7"><span class="nb">cd</span><span class="w"> </span>~/docker-practice/web-image
+docker<span class="w"> </span>build<span class="w"> </span>--pull<span class="w"> </span>--tag<span class="w"> </span>docker-web-lab:1.0<span class="w"> </span>.
+
+docker<span class="w"> </span>image<span class="w"> </span>ls<span class="w"> </span>docker-web-lab
+docker<span class="w"> </span>image<span class="w"> </span><span class="nb">history</span><span class="w"> </span>docker-web-lab:1.0</code></pre></figure>
+<hr />
+<h2 id="4-bai-2-chay-image-bang-compose-bind-mount-thu-muc-hien-tai">4. Bài 2 — Chạy image bằng Compose + bind mount thư mục hiện tại</h2>
+<h3 id="41-tao-composeyaml">4.1 Tạo compose.yaml</h3>
+<p>Compose dùng image vừa build, publish port <code>8080</code> và mount <code>./html</code> vào Nginx.</p>
+<figure class="code" data-idx="8"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="8"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-8"><span class="nb">cd</span><span class="w"> </span>~/docker-practice/web-image
+
+cat<span class="w"> </span>&gt;<span class="w"> </span>compose.yaml<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39;</span>
+<span class="s">services:</span>
+<span class="s">  web:</span>
+<span class="s">    image: docker-web-lab:1.0</span>
+<span class="s">    container_name: web-lab</span>
+<span class="s">    restart: unless-stopped</span>
+<span class="s">    ports:</span>
+<span class="s">      - &quot;8080:80&quot;</span>
+<span class="s">    volumes:</span>
+<span class="s">      - ./html:/usr/share/nginx/html:ro</span>
+<span class="s">EOF</span></code></pre></figure>
+<aside class="callout callout--fix"><span class="callout__tag">Sửa so với bản gốc</span><div class="callout__body"><p>Bản gốc đặt <code>container_name: docker-web-lab</code> trùng với tên image, rất dễ nhầm khi đọc log và lệnh <code>docker inspect</code>. Ở đây container tên <code>web-lab</code>, image tên <code>docker-web-lab:1.0</code>.</p></div></aside>
+<h3 id="42-validate">4.2 Validate</h3>
+<figure class="code" data-idx="9"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="9"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-9">docker<span class="w"> </span>compose<span class="w"> </span>config</code></pre></figure>
+<h3 id="43-khoi-dong">4.3 Khởi động</h3>
+<figure class="code" data-idx="10"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="10"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-10">docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d</code></pre></figure>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Thành phần</th>
+<th>Ý nghĩa</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>docker compose</code></td>
+<td>Gọi Docker Compose plugin</td>
+</tr>
+<tr>
+<td><code>up</code></td>
+<td>Tạo/cập nhật container, network và khởi động service</td>
+</tr>
+<tr>
+<td><code>-d</code></td>
+<td>Chạy dưới nền (detached mode)</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="44-kiem-tra-web-va-port">4.4 Kiểm tra web và port</h3>
+<figure class="code" data-idx="11"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="11"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-11">docker<span class="w"> </span>compose<span class="w"> </span>ps
+docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"> </span>--tail<span class="w"> </span><span class="m">20</span><span class="w"> </span>web
+sudo<span class="w"> </span>ss<span class="w"> </span>-lntp<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s1">&#39;:8080 &#39;</span>
+curl<span class="w"> </span>--fail<span class="w"> </span>--show-error<span class="w"> </span>http://127.0.0.1:8080/</code></pre></figure>
+<p>Truy cập từ máy khác trong mạng lab: <code>http://&lt;IP_DOCKER_HOST&gt;:8080/</code></p>
+<figure class="code" data-idx="12"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="12"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-12">ip<span class="w"> </span>-brief<span class="w"> </span>address<span class="w">   </span><span class="c1"># xem IP cua Docker host</span></code></pre></figure>
+<aside class="callout callout--note"><span class="callout__tag">Lưu ý</span><div class="callout__body"><p>Publish dạng <code>"8080:80"</code> bind trên <strong>mọi interface</strong> của Docker host. Chỉ dùng trong mạng lab hoặc khi firewall đã được kiểm soát. Muốn giới hạn về localhost, viết <code>"127.0.0.1:8080:80"</code>.</p></div></aside>
+<h3 id="45-kiem-chung-bind-mount">4.5 Kiểm chứng bind mount</h3>
+<figure class="code" data-idx="13"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="13"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-13">sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">&#39;s/Trang web dang chay tu image tu build./Noi dung da duoc thay doi tu Docker host qua bind mount./&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>html/index.html
+
+curl<span class="w"> </span>--fail<span class="w"> </span>--show-error<span class="w"> </span>http://127.0.0.1:8080/</code></pre></figure>
+<p>Không cần build lại image: Nginx đọc trực tiếp nội dung từ <code>./html</code> trên host.</p>
+<h3 id="46-vong-doi-compose">4.6 Vòng đời Compose</h3>
+<figure class="code" data-idx="14"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="14"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-14">docker<span class="w"> </span>compose<span class="w"> </span>stop<span class="w">        </span><span class="c1"># dung service nhung giu container</span>
+docker<span class="w"> </span>compose<span class="w"> </span>ps<span class="w"> </span>--all
+
+docker<span class="w"> </span>compose<span class="w"> </span>start<span class="w">       </span><span class="c1"># chay lai container da ton tai</span>
+
+docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"> </span>--follow<span class="w"> </span>web<span class="w">   </span><span class="c1"># Ctrl+C de thoat</span>
+
+docker<span class="w"> </span>compose<span class="w"> </span>down<span class="w">        </span><span class="c1"># xoa container va network do Compose tao</span></code></pre></figure>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Lệnh</th>
+<th>Container</th>
+<th>Network</th>
+<th>Thư mục <code>./html</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>stop</code></td>
+<td>Giữ (đã dừng)</td>
+<td>Giữ</td>
+<td>Giữ</td>
+</tr>
+<tr>
+<td><code>down</code></td>
+<td>Xóa</td>
+<td>Xóa</td>
+<td>Giữ</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="5-bai-3-push-image-len-docker-hub">5. Bài 3 — Push image lên Docker Hub</h2>
+<h3 id="51-khai-bao-username">5.1 Khai báo username</h3>
+<p>Tạo repository trên Docker Hub (ví dụ <code>docker-web-lab</code>), sau đó:</p>
+<figure class="code" data-idx="15"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="15"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-15"><span class="nb">export</span><span class="w"> </span><span class="nv">DOCKERHUB_USER</span><span class="o">=</span><span class="s2">&quot;&lt;dockerhub-username-cua-ban&gt;&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$DOCKERHUB_USER</span><span class="s2">&quot;</span></code></pre></figure>
+<aside class="callout callout--note"><span class="callout__tag">Lưu ý</span><div class="callout__body"><p>Đây là <strong>biến duy nhất</strong> của tài liệu. Nếu mở terminal mới, hãy chạy lại dòng <code>export</code> này.</p></div></aside>
+<h3 id="52-dang-nhap">5.2 Đăng nhập</h3>
+<figure class="code" data-idx="16"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="16"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-16">docker<span class="w"> </span>login</code></pre></figure>
+<aside class="callout callout--note"><span class="callout__tag">Lưu ý</span><div class="callout__body"><p>Nên dùng Personal Access Token của Docker Hub thay cho mật khẩu. Không ghi credential vào <code>Dockerfile</code> hay <code>compose.yaml</code>.</p></div></aside>
+<h3 id="53-tag-image-theo-namespace-docker-hub">5.3 Tag image theo namespace Docker Hub</h3>
+<figure class="code" data-idx="17"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="17"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-17">docker<span class="w"> </span>tag<span class="w"> </span>docker-web-lab:1.0<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$DOCKERHUB_USER</span><span class="s2">/docker-web-lab:1.0&quot;</span>
+docker<span class="w"> </span>image<span class="w"> </span>ls<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>docker-web-lab</code></pre></figure>
+<p>Định dạng bắt buộc: <code>&lt;username&gt;/&lt;repository&gt;:&lt;tag&gt;</code>.</p>
+<h3 id="54-push">5.4 Push</h3>
+<figure class="code" data-idx="18"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="18"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-18">docker<span class="w"> </span>push<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$DOCKERHUB_USER</span><span class="s2">/docker-web-lab:1.0&quot;</span></code></pre></figure>
+<h3 id="55-kiem-thu-pull-lai">5.5 Kiểm thử pull lại</h3>
+<p>Muốn kiểm thử <strong>thật sự</strong>, phải xóa cả hai tag đang trỏ vào cùng image ID, nếu không Docker chỉ dùng lại layer đã có trong máy:</p>
+<figure class="code" data-idx="19"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="19"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-19"><span class="nb">cd</span><span class="w"> </span>~/docker-practice/web-image
+docker<span class="w"> </span>compose<span class="w"> </span>down
+
+docker<span class="w"> </span>image<span class="w"> </span>rm<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$DOCKERHUB_USER</span><span class="s2">/docker-web-lab:1.0&quot;</span><span class="w"> </span>docker-web-lab:1.0
+docker<span class="w"> </span>image<span class="w"> </span>ls<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>docker-web-lab<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Da xoa het tag local&quot;</span></code></pre></figure>
+<aside class="callout callout--fix"><span class="callout__tag">Sửa so với bản gốc</span><div class="callout__body"><p><strong>Đây là điểm bản gốc bỏ sót.</strong> Bản gốc chỉ xóa tag Docker Hub, còn tag local <code>docker-web-lab:1.0</code> vẫn giữ image trong máy, nên lệnh <code>docker pull</code> sau đó không tải gì cả và bài kiểm thử mất ý nghĩa.</p></div></aside>
+<p>Pull về và chạy thử:</p>
+<figure class="code" data-idx="20"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="20"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-20">docker<span class="w"> </span>pull<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$DOCKERHUB_USER</span><span class="s2">/docker-web-lab:1.0&quot;</span>
+
+docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--name<span class="w"> </span>dockerhub-web-test<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-p<span class="w"> </span><span class="m">8081</span>:80<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s2">&quot;</span><span class="nv">$DOCKERHUB_USER</span><span class="s2">/docker-web-lab:1.0&quot;</span>
+
+curl<span class="w"> </span>--fail<span class="w"> </span>--show-error<span class="w"> </span>http://127.0.0.1:8081/
+docker<span class="w"> </span>logs<span class="w"> </span>dockerhub-web-test
+docker<span class="w"> </span>rm<span class="w"> </span>-f<span class="w"> </span>dockerhub-web-test</code></pre></figure>
+<aside class="callout callout--fix"><span class="callout__tag">Sửa so với bản gốc</span><div class="callout__body"><p>Bản gốc dùng <code>docker run --rm -d</code>. Khi container lỗi, <code>--rm</code> xóa nó ngay và mất luôn log để chẩn đoán. Ở đây chạy không <code>--rm</code> rồi xóa thủ công.</p></div></aside>
+<h3 id="56-ket-qua-can-dat">5.6 Kết quả cần đạt</h3>
+<ul>
+<li>Image build thành công từ <code>Dockerfile</code>.</li>
+<li>Container web truy cập được qua port <code>8080</code>.</li>
+<li>Thay đổi <code>./html/index.html</code> được phản ánh ngay qua bind mount.</li>
+<li>Sử dụng được <code>docker compose up -d</code>.</li>
+<li>Image được tag đúng <code>&lt;username&gt;/&lt;repository&gt;:&lt;tag&gt;</code>.</li>
+<li>Push lên Docker Hub thành công và pull lại chạy được.</li>
+</ul>
+<hr />
+<h2 class="part" id="phan-ii-docker-compose-cho-ung-dung-web-co-ban"><span class="part__num">Phần II</span><span class="part__name">Docker Compose Cho Ứng Dụng Web Cơ Bản</span></h2>
+<h2 id="6-bai-4-web-application-doc-lap-bang-compose">6. Bài 4 — Web application độc lập bằng Compose</h2>
+<p>Bài này <strong>không</strong> phụ thuộc image tự build ở phần trước: dùng <code>nginx:alpine</code> chính thức và bind mount nội dung web.</p>
+<h3 id="61-chuan-bi">6.1 Chuẩn bị</h3>
+<aside class="callout callout--note"><span class="callout__tag">Lưu ý</span><div class="callout__body"><p>Trước tiên đảm bảo bài 2 đã tắt để trả lại port <code>8080</code>:</p>
+<figure class="code" data-idx="21"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="21"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-21"><span class="nb">cd</span><span class="w"> </span>~/docker-practice/web-image<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>docker<span class="w"> </span>compose<span class="w"> </span>down</code></pre></figure></div></aside>
+<figure class="code" data-idx="22"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="22"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-22">mkdir<span class="w"> </span>-p<span class="w"> </span>~/docker-practice/compose-web/html
+<span class="nb">cd</span><span class="w"> </span>~/docker-practice/compose-web
+
+cat<span class="w"> </span>&gt;<span class="w"> </span>html/index.html<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39;</span>
+<span class="s">&lt;!doctype html&gt;</span>
+<span class="s">&lt;html lang=&quot;vi&quot;&gt;</span>
+<span class="s">&lt;head&gt;</span>
+<span class="s">  &lt;meta charset=&quot;utf-8&quot;&gt;</span>
+<span class="s">  &lt;title&gt;Compose Web App&lt;/title&gt;</span>
+<span class="s">&lt;/head&gt;</span>
+<span class="s">&lt;body&gt;</span>
+<span class="s">  &lt;h1&gt;Web application bang Docker Compose&lt;/h1&gt;</span>
+<span class="s">  &lt;p&gt;Source duoc mount tu ./html tren Docker host.&lt;/p&gt;</span>
+<span class="s">&lt;/body&gt;</span>
+<span class="s">&lt;/html&gt;</span>
+<span class="s">EOF</span></code></pre></figure>
+<h3 id="62-tao-composeyaml">6.2 Tạo compose.yaml</h3>
+<figure class="code" data-idx="23"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="23"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-23">cat<span class="w"> </span>&gt;<span class="w"> </span>compose.yaml<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39;</span>
+<span class="s">services:</span>
+<span class="s">  web:</span>
+<span class="s">    image: nginx:alpine</span>
+<span class="s">    container_name: compose-basic-web</span>
+<span class="s">    restart: unless-stopped</span>
+<span class="s">    ports:</span>
+<span class="s">      - &quot;8080:80&quot;</span>
+<span class="s">    volumes:</span>
+<span class="s">      - ./html:/usr/share/nginx/html:ro</span>
+<span class="s">    networks:</span>
+<span class="s">      - web-net</span>
+
+<span class="s">networks:</span>
+<span class="s">  web-net:</span>
+<span class="s">    driver: bridge</span>
+<span class="s">EOF</span></code></pre></figure>
+<h3 id="63-khoi-dong-va-kiem-thu">6.3 Khởi động và kiểm thử</h3>
+<figure class="code" data-idx="24"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="24"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-24">docker<span class="w"> </span>compose<span class="w"> </span>config
+docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d
+docker<span class="w"> </span>compose<span class="w"> </span>ps
+curl<span class="w"> </span>--fail<span class="w"> </span>--show-error<span class="w"> </span>http://127.0.0.1:8080/
+docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"> </span>--tail<span class="w"> </span><span class="m">20</span><span class="w"> </span>web</code></pre></figure>
+<h3 id="64-thay-doi-noi-dung-khong-restart-container">6.4 Thay đổi nội dung, không restart container</h3>
+<figure class="code" data-idx="25"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="25"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-25">cat<span class="w"> </span>&gt;&gt;<span class="w"> </span>html/index.html<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39;</span>
+<span class="s">&lt;p&gt;Noi dung moi duoc cap nhat tu host.&lt;/p&gt;</span>
+<span class="s">EOF</span>
+
+curl<span class="w"> </span>--fail<span class="w"> </span>--show-error<span class="w"> </span>http://127.0.0.1:8080/</code></pre></figure>
+<h3 id="65-don-bai-lab">6.5 Dọn bài lab</h3>
+<figure class="code" data-idx="26"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="26"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-26">docker<span class="w"> </span>compose<span class="w"> </span>down</code></pre></figure>
+<hr />
+<h2 class="part" id="phan-iii-docker-compose-voi-victorialogs-va-vector"><span class="part__num">Phần III</span><span class="part__name">Docker Compose Với Victorialogs Và Vector</span></h2>
+<h2 id="7-kien-truc-bai-lab">7. Kiến trúc bài lab</h2>
+<figure class="code code--plain" data-idx="27"><figcaption><span class="code__lang">output</span><button class="code__copy" type="button" data-copy="27"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-27">curl / ung dung test
+        |
+        | HTTP :9000
+        v
++-------------------+
+| Vector            |
+| API        :8686  |
+| HTTP source:9000  |
++---------+---------+
+          |
+          | HTTP JSON qua Docker network
+          | http://victorialogs:9428/insert/jsonline
+          v
++-------------------+
+| VictoriaLogs      |
+| HTTP       :9428  |
++---------+---------+
+          |
+          v
+./victoria-logs-data  (bind mount tren Docker host)</code></pre></figure>
+<p>Trong Docker network, Vector gửi log tới <strong>tên service</strong> <code>victorialogs:9428</code>, không dùng IP container.</p>
+<hr />
+<h2 id="8-bai-5-chuan-bi-victorialogs-vector">8. Bài 5 — Chuẩn bị VictoriaLogs + Vector</h2>
+<h3 id="81-cau-truc-thu-muc">8.1 Cấu trúc thư mục</h3>
+<figure class="code" data-idx="28"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="28"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-28">mkdir<span class="w"> </span>-p<span class="w"> </span>~/docker-practice/observability-lab/victoria-logs-data
+<span class="nb">cd</span><span class="w"> </span>~/docker-practice/observability-lab</code></pre></figure>
+<p>Cấu trúc mong muốn:</p>
+<figure class="code code--plain" data-idx="29"><figcaption><span class="code__lang">output</span><button class="code__copy" type="button" data-copy="29"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-29">observability-lab/
+├── compose.yaml
+├── vector.yaml
+└── victoria-logs-data/</code></pre></figure>
+<h3 id="82-cau-hinh-vector">8.2 Cấu hình Vector</h3>
+<p>Vector mở API quản trị ở <code>8686</code> và một HTTP source ở <code>9000</code>. Log nhận tại HTTP source được gửi sang VictoriaLogs qua JSON line API.</p>
+<figure class="code" data-idx="30"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="30"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-30">cat<span class="w"> </span>&gt;<span class="w"> </span>vector.yaml<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39;</span>
+<span class="s">api:</span>
+<span class="s">  enabled: true</span>
+<span class="s">  address: 0.0.0.0:8686</span>
+
+<span class="s">sources:</span>
+<span class="s">  http_input:</span>
+<span class="s">    type: http_server</span>
+<span class="s">    address: 0.0.0.0:9000</span>
+<span class="s">    decoding:</span>
+<span class="s">      codec: json</span>
+
+<span class="s">transforms:</span>
+<span class="s">  normalize:</span>
+<span class="s">    type: remap</span>
+<span class="s">    inputs:</span>
+<span class="s">      - http_input</span>
+<span class="s">    source: |</span>
+<span class="s">      .timestamp = now()</span>
+<span class="s">      .host = &quot;docker-lab&quot;</span>
+<span class="s">      .source = &quot;vector-http&quot;</span>
+<span class="s">      if !exists(.message) {</span>
+<span class="s">        .message = encode_json(.)</span>
+<span class="s">      }</span>
+
+<span class="s">sinks:</span>
+<span class="s">  victorialogs:</span>
+<span class="s">    type: http</span>
+<span class="s">    inputs:</span>
+<span class="s">      - normalize</span>
+<span class="s">    uri: http://victorialogs:9428/insert/jsonline?_stream_fields=host,source&amp;_msg_field=message&amp;_time_field=timestamp</span>
+<span class="s">    compression: gzip</span>
+<span class="s">    encoding:</span>
+<span class="s">      codec: json</span>
+<span class="s">    framing:</span>
+<span class="s">      method: newline_delimited</span>
+<span class="s">    healthcheck:</span>
+<span class="s">      enabled: false</span>
+<span class="s">EOF</span></code></pre></figure>
+<p>Giải thích ba tham số quan trọng trên <code>uri</code>:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Tham số</th>
+<th>Ý nghĩa</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>_msg_field=message</code></td>
+<td>Trường <code>message</code> của event trở thành <code>_msg</code> trong VictoriaLogs</td>
+</tr>
+<tr>
+<td><code>_time_field=timestamp</code></td>
+<td>Trường <code>timestamp</code> trở thành <code>_time</code></td>
+</tr>
+<tr>
+<td><code>_stream_fields=host,source</code></td>
+<td>Hai trường này định danh log stream</td>
+</tr>
+</tbody>
+</table></div>
+<aside class="callout callout--fix"><span class="callout__tag">Sửa so với bản gốc</span><div class="callout__body"><p><strong>Hai điểm cần chú ý</strong></p>
+<ol>
+<li>Bản gốc dùng <code>encoding: json</code> cho <code>http_server</code> source. Đây là tên tùy chọn cũ, đã được thay bằng <code>decoding.codec</code> — bản trên dùng cú pháp hiện hành.</li>
+<li><code>.timestamp = now()</code> <strong>ghi đè</strong> trường <code>timestamp</code> nếu client tự gửi lên. Trong lab thì đúng ý (mọi log lấy thời gian nhận). Ở môi trường thật, thường phải giữ timestamp gốc của ứng dụng.</li>
+</ol></div></aside>
+<h3 id="83-tao-composeyaml">8.3 Tạo compose.yaml</h3>
+<figure class="code" data-idx="31"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="31"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-31">cat<span class="w"> </span>&gt;<span class="w"> </span>compose.yaml<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39;</span>
+<span class="s">services:</span>
+<span class="s">  victorialogs:</span>
+<span class="s">    image: docker.io/victoriametrics/victoria-logs:v1.52.0</span>
+<span class="s">    container_name: victorialogs-lab</span>
+<span class="s">    restart: unless-stopped</span>
+<span class="s">    command:</span>
+<span class="s">      - -storageDataPath=/victoria-logs-data</span>
+<span class="s">      - -retentionPeriod=7d</span>
+<span class="s">    ports:</span>
+<span class="s">      - &quot;9428:9428&quot;</span>
+<span class="s">    volumes:</span>
+<span class="s">      - ./victoria-logs-data:/victoria-logs-data</span>
+<span class="s">    networks:</span>
+<span class="s">      - observability-net</span>
+
+<span class="s">  vector:</span>
+<span class="s">    image: timberio/vector:0.57.0-debian</span>
+<span class="s">    container_name: vector-lab</span>
+<span class="s">    restart: unless-stopped</span>
+<span class="s">    depends_on:</span>
+<span class="s">      - victorialogs</span>
+<span class="s">    ports:</span>
+<span class="s">      - &quot;8686:8686&quot;</span>
+<span class="s">      - &quot;9000:9000&quot;</span>
+<span class="s">    volumes:</span>
+<span class="s">      - ./vector.yaml:/etc/vector/vector.yaml:ro</span>
+<span class="s">    networks:</span>
+<span class="s">      - observability-net</span>
+
+<span class="s">networks:</span>
+<span class="s">  observability-net:</span>
+<span class="s">    driver: bridge</span>
+<span class="s">EOF</span></code></pre></figure>
+<aside class="callout callout--note"><span class="callout__tag">Lưu ý</span><div class="callout__body"><p>Phiên bản được cố định để bài lab tái lập được. Khi đổi tag, đọc release notes trước.</p>
+<p><code>-retentionPeriod=7d</code> là giá trị mặc định của VictoriaLogs, ghi tường minh để học viên biết chỗ điều chỉnh.</p></div></aside>
+<hr />
+<h2 id="9-bai-6-validate-va-khoi-dong-stack">9. Bài 6 — Validate và khởi động stack</h2>
+<h3 id="91-validate-compose">9.1 Validate Compose</h3>
+<figure class="code" data-idx="32"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="32"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-32"><span class="nb">cd</span><span class="w"> </span>~/docker-practice/observability-lab
+docker<span class="w"> </span>compose<span class="w"> </span>config</code></pre></figure>
+<h3 id="92-validate-cau-hinh-vector-bang-container-tam">9.2 Validate cấu hình Vector bằng container tạm</h3>
+<figure class="code" data-idx="33"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="33"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-33">docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-v<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PWD</span><span class="s2">/vector.yaml:/etc/vector/vector.yaml:ro&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>timberio/vector:0.57.0-debian<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>validate<span class="w"> </span>/etc/vector/vector.yaml</code></pre></figure>
+<p>Bước này bắt lỗi cú pháp <strong>trước khi</strong> khởi động stack — rất đáng làm mỗi lần sửa <code>vector.yaml</code>.</p>
+<h3 id="93-khoi-dong">9.3 Khởi động</h3>
+<figure class="code" data-idx="34"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="34"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-34">docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d
+docker<span class="w"> </span>compose<span class="w"> </span>ps
+sudo<span class="w"> </span>ss<span class="w"> </span>-lntp<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">&#39;:(9428|8686|9000) &#39;</span></code></pre></figure>
+<h3 id="94-kiem-tra-victorialogs">9.4 Kiểm tra VictoriaLogs</h3>
+<figure class="code" data-idx="35"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="35"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-35">curl<span class="w"> </span>--fail<span class="w"> </span>--show-error<span class="w"> </span>http://127.0.0.1:9428/</code></pre></figure>
+<p>Web UI tích hợp sẵn (mở bằng trình duyệt):</p>
+<figure class="code code--plain" data-idx="36"><figcaption><span class="code__lang">output</span><button class="code__copy" type="button" data-copy="36"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-36">http://&lt;IP_DOCKER_HOST&gt;:9428/select/vmui</code></pre></figure>
+<h3 id="95-kiem-tra-vector-api">9.5 Kiểm tra Vector API</h3>
+<figure class="code" data-idx="37"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="37"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-37">curl<span class="w"> </span>--fail<span class="w"> </span>--show-error<span class="w"> </span>http://127.0.0.1:8686/health</code></pre></figure>
+<aside class="callout callout--note"><span class="callout__tag">Lưu ý</span><div class="callout__body"><p>Vector API <strong>không có authentication</strong>. Chỉ publish port <code>8686</code> trong mạng lab hoặc vùng mạng tin cậy.</p></div></aside>
+<hr />
+<h2 id="10-bai-7-gui-log-vao-vector-va-kiem-tra-tren-victorialogs">10. Bài 7 — Gửi log vào Vector và kiểm tra trên VictoriaLogs</h2>
+<h3 id="101-gui-mot-ban-tin-json">10.1 Gửi một bản tin JSON</h3>
+<figure class="code" data-idx="38"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="38"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-38">curl<span class="w"> </span>--fail<span class="w"> </span>--show-error<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-X<span class="w"> </span>POST<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s1">&#39;Content-Type: application/json&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;message&quot;:&quot;hello from docker vector lab&quot;,&quot;level&quot;:&quot;info&quot;,&quot;app&quot;:&quot;demo-web&quot;}&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>http://127.0.0.1:9000/</code></pre></figure>
+<h3 id="102-gui-nhieu-ban-tin">10.2 Gửi nhiều bản tin</h3>
+<figure class="code" data-idx="39"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="39"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-39"><span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">5</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">  </span>curl<span class="w"> </span>--silent<span class="w"> </span>--show-error<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-X<span class="w"> </span>POST<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-H<span class="w"> </span><span class="s1">&#39;Content-Type: application/json&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-d<span class="w"> </span><span class="s2">&quot;{\&quot;message\&quot;:\&quot;docker lab event </span><span class="nv">$i</span><span class="s2">\&quot;,\&quot;level\&quot;:\&quot;info\&quot;,\&quot;app\&quot;:\&quot;demo-web\&quot;}&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>http://127.0.0.1:9000/
+<span class="k">done</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Da gui 5 ban tin&quot;</span></code></pre></figure>
+<aside class="callout callout--fix"><span class="callout__tag">Sửa so với bản gốc</span><div class="callout__body"><p><strong>Đây là lỗi nặng nhất của bản gốc.</strong> Bản gốc viết:</p>
+<figure class="code" data-idx="40"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="40"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-40">-d<span class="w"> </span><span class="s2">&quot;{&quot;</span>message<span class="s2">&quot;:&quot;</span>docker<span class="w"> </span>lab<span class="w"> </span>event<span class="w"> </span><span class="si">${</span><span class="nv">i</span><span class="si">}</span><span class="s2">&quot;, ...}&quot;</span></code></pre></figure>
+<p>Nháy kép lồng trong nháy kép làm shell "nuốt" mất dấu nháy, Vector nhận về chuỗi không phải JSON hợp lệ. Cách sửa: escape thành <code>\"</code> như trên (bắt buộc dùng nháy kép ngoài vì cần khai triển <code>$i</code>).</p></div></aside>
+<h3 id="103-kiem-tra-log-cua-vector">10.3 Kiểm tra log của Vector</h3>
+<figure class="code" data-idx="41"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="41"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-41">docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"> </span>--tail<span class="w"> </span><span class="m">50</span><span class="w"> </span>vector</code></pre></figure>
+<p>Không được có dòng <code>ERROR</code> liên quan tới sink <code>victorialogs</code>.</p>
+<h3 id="104-query-log-tren-victorialogs">10.4 Query log trên VictoriaLogs</h3>
+<p>Toàn bộ log gần đây:</p>
+<figure class="code" data-idx="42"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="42"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-42">curl<span class="w"> </span>--get<span class="w"> </span>--fail<span class="w"> </span>--show-error<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>http://127.0.0.1:9428/select/logsql/query<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--data-urlencode<span class="w"> </span><span class="s1">&#39;query=*&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--data-urlencode<span class="w"> </span><span class="s1">&#39;limit=20&#39;</span></code></pre></figure>
+<p>Lọc theo nội dung message:</p>
+<figure class="code" data-idx="43"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="43"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-43">curl<span class="w"> </span>--get<span class="w"> </span>--fail<span class="w"> </span>--show-error<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>http://127.0.0.1:9428/select/logsql/query<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--data-urlencode<span class="w"> </span><span class="s1">&#39;query=_msg:&quot;docker lab&quot;&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--data-urlencode<span class="w"> </span><span class="s1">&#39;limit=20&#39;</span></code></pre></figure>
+<p>Lọc theo log stream:</p>
+<figure class="code" data-idx="44"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="44"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-44">curl<span class="w"> </span>--get<span class="w"> </span>--fail<span class="w"> </span>--show-error<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>http://127.0.0.1:9428/select/logsql/query<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--data-urlencode<span class="w"> </span><span class="s1">&#39;query={host=&quot;docker-lab&quot;}&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--data-urlencode<span class="w"> </span><span class="s1">&#39;limit=20&#39;</span></code></pre></figure>
+<h3 id="105-kiem-chung-du-lieu-nam-tren-bind-mount">10.5 Kiểm chứng dữ liệu nằm trên bind mount</h3>
+<figure class="code" data-idx="45"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="45"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-45">du<span class="w"> </span>-sh<span class="w"> </span>./victoria-logs-data
+find<span class="w"> </span>./victoria-logs-data<span class="w"> </span>-maxdepth<span class="w"> </span><span class="m">2</span><span class="w"> </span>-type<span class="w"> </span>d<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-30</code></pre></figure>
+<p>Thư mục dữ liệu nằm ngay trong project và <strong>vẫn tồn tại</strong> sau <code>docker compose down</code>.</p>
+<hr />
+<h2 id="11-bai-8-kiem-thu-persistence">11. Bài 8 — Kiểm thử persistence</h2>
+<h3 id="111-ghi-log-truoc-khi-recreate">11.1 Ghi log trước khi recreate</h3>
+<figure class="code" data-idx="46"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="46"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-46">curl<span class="w"> </span>--fail<span class="w"> </span>--show-error<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-X<span class="w"> </span>POST<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s1">&#39;Content-Type: application/json&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;message&quot;:&quot;persistent-log-before-recreate&quot;,&quot;level&quot;:&quot;info&quot;}&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>http://127.0.0.1:9000/
+
+sleep<span class="w"> </span><span class="m">3</span></code></pre></figure>
+<h3 id="112-xoa-va-tao-lai-container">11.2 Xóa và tạo lại container</h3>
+<figure class="code" data-idx="47"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="47"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-47">docker<span class="w"> </span>compose<span class="w"> </span>down
+docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d
+sleep<span class="w"> </span><span class="m">5</span></code></pre></figure>
+<h3 id="113-query-lai">11.3 Query lại</h3>
+<figure class="code" data-idx="48"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="48"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-48">curl<span class="w"> </span>--get<span class="w"> </span>--fail<span class="w"> </span>--show-error<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>http://127.0.0.1:9428/select/logsql/query<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--data-urlencode<span class="w"> </span><span class="s1">&#39;query=_msg:&quot;persistent-log-before-recreate&quot;&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--data-urlencode<span class="w"> </span><span class="s1">&#39;limit=20&#39;</span></code></pre></figure>
+<p>Kỳ vọng: log vẫn truy vấn được, vì dữ liệu VictoriaLogs nằm trong <code>./victoria-logs-data</code> trên Docker host chứ không nằm trong lớp ghi của container.</p>
+<hr />
+<h2 id="12-bai-9-quan-sat-network-va-mount">12. Bài 9 — Quan sát network và mount</h2>
+<h3 id="121-network-do-compose-tao">12.1 Network do Compose tạo</h3>
+<p>Compose đặt tên network theo dạng <code>&lt;ten-thu-muc&gt;_&lt;ten-network&gt;</code>, ở đây là <code>observability-lab_observability-net</code>:</p>
+<figure class="code" data-idx="49"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="49"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-49">docker<span class="w"> </span>network<span class="w"> </span>ls<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>observability-net
+docker<span class="w"> </span>network<span class="w"> </span>inspect<span class="w"> </span>observability-lab_observability-net</code></pre></figure>
+<p>Xem container nào đang nằm trong network:</p>
+<figure class="code" data-idx="50"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="50"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-50">docker<span class="w"> </span>network<span class="w"> </span>inspect<span class="w"> </span>observability-lab_observability-net<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--format<span class="w"> </span><span class="s1">&#39;{{range .Containers}}{{.Name}} {{end}}&#39;</span></code></pre></figure>
+<aside class="callout callout--fix"><span class="callout__tag">Sửa so với bản gốc</span><div class="callout__body"><p>Bản gốc dùng <code>docker network inspect "$(docker network ls --format '{{.Name}}' | grep observability | head -1)"</code>. Lệnh này chạy được nhưng khó đọc và sẽ chọn nhầm nếu máy có nhiều network chứa chữ "observability".</p></div></aside>
+<h3 id="122-kiem-tra-mount">12.2 Kiểm tra mount</h3>
+<figure class="code" data-idx="51"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="51"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-51">docker<span class="w"> </span>inspect<span class="w"> </span>victorialogs-lab<span class="w"> </span>--format<span class="w"> </span><span class="s1">&#39;{{json .Mounts}}&#39;</span>
+docker<span class="w"> </span>inspect<span class="w"> </span>vector-lab<span class="w"> </span>--format<span class="w"> </span><span class="s1">&#39;{{json .Mounts}}&#39;</span></code></pre></figure>
+<h3 id="123-dns-noi-bo-giua-cac-container">12.3 DNS nội bộ giữa các container</h3>
+<figure class="code" data-idx="52"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="52"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-52">docker<span class="w"> </span>compose<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>vector<span class="w"> </span>getent<span class="w"> </span>hosts<span class="w"> </span>victorialogs</code></pre></figure>
+<aside class="callout callout--note"><span class="callout__tag">Lưu ý</span><div class="callout__body"><p>Chỉ chạy được trên container <code>vector</code> (base image Debian). Container <code>victorialogs</code> dùng base image <strong>distroless — không có shell</strong>, nên <code>docker compose exec victorialogs sh</code> sẽ luôn báo lỗi. Đó là thiết kế của image, không phải sự cố.</p>
+<p>Thực chất, việc Vector gửi log thành công sang VictoriaLogs đã là bằng chứng DNS/network nội bộ hoạt động.</p></div></aside>
+<hr />
+<h2 id="13-bai-10-theo-doi-log-va-tai-nguyen">13. Bài 10 — Theo dõi log và tài nguyên</h2>
+<figure class="code" data-idx="53"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="53"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-53">docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"> </span>--tail<span class="w"> </span><span class="m">50</span>
+docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"> </span>--follow<span class="w"> </span>vector<span class="w">    </span><span class="c1"># Ctrl+C de thoat</span>
+
+docker<span class="w"> </span>stats<span class="w"> </span>--no-stream<span class="w"> </span>victorialogs-lab<span class="w"> </span>vector-lab</code></pre></figure>
+<hr />
+<h2 class="part" id="phan-iv-bai-tap-tong-hop"><span class="part__num">Phần IV</span><span class="part__name">Bài Tập Tổng Hợp</span></h2>
+<h2 id="14-bai-tap-1-thay-doi-web-bang-bind-mount">14. Bài tập 1 — Thay đổi web bằng bind mount</h2>
+<ol>
+<li>Vào <code>~/docker-practice/compose-web</code>, khởi động bằng <code>docker compose up -d</code>.</li>
+<li>Truy cập web qua port <code>8080</code>.</li>
+<li>Sửa <code>html/index.html</code> trên Docker host mà <strong>không</strong> restart container.</li>
+<li>Xác minh nội dung mới xuất hiện qua <code>curl</code> hoặc trình duyệt.</li>
+<li>Dùng <code>docker inspect compose-basic-web --format '{{json .Mounts}}'</code> để chỉ ra <code>Source</code> và <code>Destination</code> của bind mount.</li>
+</ol>
+<h2 id="15-bai-tap-2-build-va-push-phien-ban-11">15. Bài tập 2 — Build và push phiên bản 1.1</h2>
+<ol>
+<li>Sửa giao diện trang web trong <code>~/docker-practice/web-image/html/index.html</code>.</li>
+<li>Build image với tag <code>1.1</code>.</li>
+<li>Chạy container từ tag <code>1.1</code> trên port <code>8081</code>.</li>
+<li>Tag theo namespace Docker Hub và push.</li>
+<li>Pull lại image và xác minh HTTP trả về nội dung mới.</li>
+</ol>
+<figure class="code" data-idx="54"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="54"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-54"><span class="nb">cd</span><span class="w"> </span>~/docker-practice/web-image<span class="w">      </span><span class="c1"># buoc nay ban goc bo sot</span>
+
+docker<span class="w"> </span>build<span class="w"> </span>--tag<span class="w"> </span>docker-web-lab:1.1<span class="w"> </span>.
+docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--name<span class="w"> </span>web-lab-11<span class="w"> </span>-p<span class="w"> </span><span class="m">8081</span>:80<span class="w"> </span>docker-web-lab:1.1
+curl<span class="w"> </span>--fail<span class="w"> </span>--show-error<span class="w"> </span>http://127.0.0.1:8081/
+
+docker<span class="w"> </span>tag<span class="w"> </span>docker-web-lab:1.1<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$DOCKERHUB_USER</span><span class="s2">/docker-web-lab:1.1&quot;</span>
+docker<span class="w"> </span>push<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$DOCKERHUB_USER</span><span class="s2">/docker-web-lab:1.1&quot;</span>
+
+docker<span class="w"> </span>rm<span class="w"> </span>-f<span class="w"> </span>web-lab-11</code></pre></figure>
+<aside class="callout callout--fix"><span class="callout__tag">Sửa so với bản gốc</span><div class="callout__body"><p><code>docker build</code> bắt buộc phải chạy từ đúng thư mục chứa <code>Dockerfile</code> (build context là dấu <code>.</code>). Bản gốc đưa thẳng lệnh <code>docker build</code> mà không có bước <code>cd</code>.</p></div></aside>
+<h2 id="16-bai-tap-3-kiem-thu-end-to-end-vector-victorialogs">16. Bài tập 3 — Kiểm thử end-to-end Vector → VictoriaLogs</h2>
+<ol>
+<li>Khởi động observability stack bằng <code>docker compose up -d</code>.</li>
+<li>Xác minh port <code>9428</code>, <code>8686</code>, <code>9000</code> đang listen.</li>
+<li>Gửi 10 log JSON có trường <code>app</code>, <code>level</code>, <code>message</code> vào Vector port <code>9000</code>.</li>
+<li>Dùng <code>docker compose logs vector</code> xác minh không có lỗi gửi dữ liệu.</li>
+<li>Query VictoriaLogs tìm các message vừa gửi.</li>
+<li>Chạy <code>docker compose down</code> rồi <code>docker compose up -d</code>.</li>
+<li>Xác minh log cũ vẫn còn nhờ bind mount <code>./victoria-logs-data</code>.</li>
+</ol>
+<h2 id="17-bai-tap-4-thay-doi-port-public">17. Bài tập 4 — Thay đổi port public</h2>
+<p>Đổi port host, giữ nguyên port container:</p>
+<figure class="code code--plain" data-idx="55"><figcaption><span class="code__lang">output</span><button class="code__copy" type="button" data-copy="55"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-55">Web:          18080 -&gt; 80
+VictoriaLogs: 19428 -&gt; 9428
+Vector API:   18686 -&gt; 8686
+Vector HTTP:  19000 -&gt; 9000</code></pre></figure>
+<p>Sửa <code>compose.yaml</code>, chạy lại <code>docker compose up -d</code> và xác minh bằng <code>ss</code> và <code>curl</code>.</p>
+<aside class="callout callout--note"><span class="callout__tag">Lưu ý</span><div class="callout__body"><p>Chỉ sửa <strong>vế trái</strong> của <code>ports</code>. Nếu đổi vế phải, phải sửa cả <code>vector.yaml</code> (<code>address: 0.0.0.0:9000</code>) và <code>uri</code> trỏ tới VictoriaLogs.</p></div></aside>
+<hr />
+<h2 class="part" id="phan-v-troubleshooting"><span class="part__num">Phần V</span><span class="part__name">Troubleshooting</span></h2>
+<h2 id="18-port-da-duoc-su-dung">18. Port đã được sử dụng</h2>
+<figure class="code" data-idx="56"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="56"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-56">sudo<span class="w"> </span>ss<span class="w"> </span>-lntp<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">&#39;:(8080|9428|8686|9000) &#39;</span>
+docker<span class="w"> </span>ps<span class="w"> </span>--format<span class="w"> </span><span class="s1">&#39;table {{.Names}}\t{{.Ports}}&#39;</span></code></pre></figure>
+<p>Xử lý: đổi host port trong <code>compose.yaml</code>, hoặc <code>docker compose down</code> project đang chiếm port.</p>
+<aside class="callout callout--note"><span class="callout__tag">Lưu ý</span><div class="callout__body"><p>Lỗi hay gặp nhất trong tài liệu này: quên tắt bài 2 (<code>web-image</code>) trước khi chạy bài 4 (<code>compose-web</code>) — cả hai đều dùng <code>8080</code>.</p></div></aside>
+<h2 id="19-vector-khong-khoi-dong">19. Vector không khởi động</h2>
+<figure class="code" data-idx="57"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="57"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-57">docker<span class="w"> </span>compose<span class="w"> </span>ps<span class="w"> </span>--all
+docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"> </span>vector
+
+docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-v<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PWD</span><span class="s2">/vector.yaml:/etc/vector/vector.yaml:ro&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>timberio/vector:0.57.0-debian<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>validate<span class="w"> </span>/etc/vector/vector.yaml</code></pre></figure>
+<h2 id="20-vector-chay-nhung-victorialogs-khong-co-log">20. Vector chạy nhưng VictoriaLogs không có log</h2>
+<figure class="code" data-idx="58"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="58"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-58">docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"> </span>--tail<span class="w"> </span><span class="m">100</span><span class="w"> </span>vector
+docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"> </span>--tail<span class="w"> </span><span class="m">100</span><span class="w"> </span>victorialogs
+curl<span class="w"> </span>--fail<span class="w"> </span>--show-error<span class="w"> </span>http://127.0.0.1:9428/
+curl<span class="w"> </span>--fail<span class="w"> </span>--show-error<span class="w"> </span>http://127.0.0.1:8686/health</code></pre></figure>
+<p>Kiểm tra <code>uri</code> trong <code>vector.yaml</code> phải dùng hostname service <code>victorialogs</code>, <strong>không</strong> dùng <code>127.0.0.1</code>. Bên trong container Vector, <code>127.0.0.1</code> chính là container Vector.</p>
+<p>Bật debug phía VictoriaLogs bằng cách thêm <code>&amp;debug=1</code> vào cuối <code>uri</code>, rồi xem <code>docker compose logs victorialogs</code> để biết VictoriaLogs hiểu các trường như thế nào.</p>
+<h2 id="21-victorialogs-khong-ghi-duoc-vao-victoria-logs-data">21. VictoriaLogs không ghi được vào <code>./victoria-logs-data</code></h2>
+<p>Triệu chứng: container <code>victorialogs-lab</code> restart liên tục, log có <code>permission denied</code>.</p>
+<figure class="code" data-idx="59"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="59"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-59">docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"> </span>victorialogs
+ls<span class="w"> </span>-ld<span class="w"> </span>./victoria-logs-data</code></pre></figure>
+<p>Xử lý: cấp quyền ghi cho thư mục bind mount trên host.</p>
+<figure class="code" data-idx="60"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="60"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-60">sudo<span class="w"> </span>chown<span class="w"> </span>-R<span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>id<span class="w"> </span>-u<span class="k">)</span><span class="s2">:</span><span class="k">$(</span>id<span class="w"> </span>-g<span class="k">)</span><span class="s2">&quot;</span><span class="w"> </span>./victoria-logs-data
+chmod<span class="w"> </span><span class="m">755</span><span class="w"> </span>./victoria-logs-data
+docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d</code></pre></figure>
+<h2 id="22-bind-mount-khong-cap-nhat">22. Bind mount không cập nhật</h2>
+<figure class="code" data-idx="61"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="61"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-61"><span class="nb">pwd</span>
+ls<span class="w"> </span>-la
+cat<span class="w"> </span>compose.yaml
+docker<span class="w"> </span>inspect<span class="w"> </span>web-lab<span class="w"> </span>--format<span class="w"> </span><span class="s1">&#39;{{json .Mounts}}&#39;</span></code></pre></figure>
+<p>Đảm bảo chạy <code>docker compose</code> từ <strong>đúng thư mục project</strong> — đường dẫn <code>./...</code> trong <code>compose.yaml</code> được tính tương đối so với vị trí file <code>compose.yaml</code>.</p>
+<h2 id="23-docker-hub-push-bi-denied">23. Docker Hub push bị denied</h2>
+<figure class="code" data-idx="62"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="62"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-62">docker<span class="w"> </span><span class="nb">logout</span>
+docker<span class="w"> </span>login
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$DOCKERHUB_USER</span><span class="s2">/docker-web-lab:1.0&quot;</span>
+docker<span class="w"> </span>image<span class="w"> </span>ls<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>docker-web-lab</code></pre></figure>
+<p>Kiểm tra: username có đúng không, repository đã tồn tại chưa, tài khoản có quyền push không, và tag image đã đúng dạng <code>&lt;username&gt;/&lt;repository&gt;:&lt;tag&gt;</code> chưa.</p>
+<hr />
+<h2 class="part" id="phan-vi-don-dep-va-checklist"><span class="part__num">Phần VI</span><span class="part__name">Dọn Dẹp Và Checklist</span></h2>
+<h2 id="24-don-tai-nguyen-web-lab">24. Dọn tài nguyên web lab</h2>
+<figure class="code" data-idx="63"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="63"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-63"><span class="nb">cd</span><span class="w"> </span>~/docker-practice/web-image
+docker<span class="w"> </span>compose<span class="w"> </span>down<span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span>
+
+<span class="nb">cd</span><span class="w"> </span>~/docker-practice/compose-web
+docker<span class="w"> </span>compose<span class="w"> </span>down<span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span>
+
+docker<span class="w"> </span>rm<span class="w"> </span>-f<span class="w"> </span>dockerhub-web-test<span class="w"> </span>web-lab-11<span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span></code></pre></figure>
+<h2 id="25-don-victorialogs-vector">25. Dọn VictoriaLogs + Vector</h2>
+<figure class="code" data-idx="64"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="64"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-64"><span class="nb">cd</span><span class="w"> </span>~/docker-practice/observability-lab
+docker<span class="w"> </span>compose<span class="w"> </span>down</code></pre></figure>
+<aside class="callout callout--note"><span class="callout__tag">Lưu ý</span><div class="callout__body"><p><code>docker compose down</code> <strong>không</strong> xóa thư mục bind mount <code>./victoria-logs-data</code>. Muốn xóa dữ liệu lab phải xóa thủ công, sau khi chắc chắn không cần nữa:</p></div></aside>
+<figure class="code" data-idx="65"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="65"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-65"><span class="c1"># CHI dung khi chac chan muon xoa toan bo du lieu lab</span>
+<span class="c1"># rm -rf ~/docker-practice/observability-lab/victoria-logs-data</span></code></pre></figure>
+<p>Xóa image nếu muốn thu hồi dung lượng:</p>
+<figure class="code" data-idx="66"><figcaption><span class="code__lang">bash</span><button class="code__copy" type="button" data-copy="66"><span class="code__copy-icon" aria-hidden="true"></span><span class="code__copy-text">Sao chép</span></button></figcaption><pre><code id="code-66">docker<span class="w"> </span>image<span class="w"> </span>rm<span class="w"> </span>docker-web-lab:1.0<span class="w"> </span>docker-web-lab:1.1<span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span>
+docker<span class="w"> </span>system<span class="w"> </span>df</code></pre></figure>
+<hr />
+<h2 id="26-checklist-nghiem-thu">26. Checklist nghiệm thu</h2>
+<ul class="tasklist">
+<li class="task"><label><input type="checkbox" class="task__box" data-task="1"><span class="task__text">Build được web image từ <code>Dockerfile</code>.</span></label></li>
+<li class="task"><label><input type="checkbox" class="task__box" data-task="2"><span class="task__text">Chạy được web bằng <code>docker compose up -d</code>.</span></label></li>
+<li class="task"><label><input type="checkbox" class="task__box" data-task="3"><span class="task__text">Web truy cập được qua public port <code>8080</code>.</span></label></li>
+<li class="task"><label><input type="checkbox" class="task__box" data-task="4"><span class="task__text">Bind mount <code>./html</code> hoạt động (sửa file, không restart, nội dung đổi ngay).</span></label></li>
+<li class="task"><label><input type="checkbox" class="task__box" data-task="5"><span class="task__text">Tag và push image lên Docker Hub thành công.</span></label></li>
+<li class="task"><label><input type="checkbox" class="task__box" data-task="6"><span class="task__text">Xóa cả tag local, pull lại từ Docker Hub và chạy được.</span></label></li>
+<li class="task"><label><input type="checkbox" class="task__box" data-task="7"><span class="task__text">Compose web cơ bản hoạt động độc lập với image tự build.</span></label></li>
+<li class="task"><label><input type="checkbox" class="task__box" data-task="8"><span class="task__text">VictoriaLogs chạy và public port <code>9428</code>.</span></label></li>
+<li class="task"><label><input type="checkbox" class="task__box" data-task="9"><span class="task__text">Vector API chạy và public port <code>8686</code>.</span></label></li>
+<li class="task"><label><input type="checkbox" class="task__box" data-task="10"><span class="task__text">Vector HTTP source chạy và public port <code>9000</code>.</span></label></li>
+<li class="task"><label><input type="checkbox" class="task__box" data-task="11"><span class="task__text"><code>vector.yaml</code> được bind mount từ thư mục hiện tại.</span></label></li>
+<li class="task"><label><input type="checkbox" class="task__box" data-task="12"><span class="task__text"><code>vector validate</code> chạy sạch, không lỗi cú pháp.</span></label></li>
+<li class="task"><label><input type="checkbox" class="task__box" data-task="13"><span class="task__text">Dữ liệu VictoriaLogs nằm trong <code>./victoria-logs-data</code>.</span></label></li>
+<li class="task"><label><input type="checkbox" class="task__box" data-task="14"><span class="task__text">Gửi log vào Vector thành công (một bản tin và vòng lặp 5 bản tin).</span></label></li>
+<li class="task"><label><input type="checkbox" class="task__box" data-task="15"><span class="task__text">Vector chuyển log sang VictoriaLogs, log Vector không có <code>ERROR</code>.</span></label></li>
+<li class="task"><label><input type="checkbox" class="task__box" data-task="16"><span class="task__text">Query được log bằng LogsQL, cả <code>_msg:</code> và <code>{host="..."}</code>.</span></label></li>
+<li class="task"><label><input type="checkbox" class="task__box" data-task="17"><span class="task__text">Log vẫn tồn tại sau <code>docker compose down</code> rồi <code>up -d</code>.</span></label></li>
+</ul>
+<hr />
+<h2 id="27-ghi-chu-khi-chuyen-tu-lab-sang-production">27. Ghi chú khi chuyển từ Lab sang Production</h2>
+<ul>
+<li><strong>Không</strong> public Vector API <code>8686</code> ra mạng không tin cậy — API không có authentication.</li>
+<li>Không publish mọi service trên <code>0.0.0.0</code> nếu không có nhu cầu; bind về IP cụ thể.</li>
+<li>Dùng firewall/ACL giới hạn nguồn truy cập.</li>
+<li>Pin version image thay vì <code>latest</code>.</li>
+<li>Thiết lập giới hạn CPU/memory và <code>healthcheck</code>.</li>
+<li>Thiết lập retention, dung lượng và backup cho VictoriaLogs (<code>-retentionPeriod</code>, <code>-storage.minFreeDiskSpaceBytes</code>).</li>
+<li>Quản lý credential Docker Hub bằng cơ chế secret phù hợp.</li>
+<li>Không đưa password, token, secret vào <code>Dockerfile</code>/image.</li>
+<li>Cân nhắc named volume hoặc storage chuyên dụng thay cho bind mount.</li>
+<li>Bổ sung TLS/authentication hoặc reverse proxy khi service ra mạng không tin cậy.</li>
+<li>Cân nhắc giữ timestamp gốc của ứng dụng thay vì <code>now()</code> trong <code>remap</code>.</li>
+</ul>
+<hr />
+<h2 id="28-nguon-tham-khao-chinh-thuc">28. Nguồn tham khảo chính thức</h2>
+<ul>
+<li>Docker — Dockerfile / Build / Port publishing / Bind mounts / Compose: <a href="https://docs.docker.com/">https://docs.docker.com/</a></li>
+<li>VictoriaLogs — Quick Start (bao gồm lệnh Docker chuẩn): <a href="https://docs.victoriametrics.com/victorialogs/quickstart/">https://docs.victoriametrics.com/victorialogs/quickstart/</a></li>
+<li>VictoriaLogs — Data Ingestion: Vector Setup: <a href="https://docs.victoriametrics.com/victorialogs/data-ingestion/vector/">https://docs.victoriametrics.com/victorialogs/data-ingestion/vector/</a></li>
+<li>VictoriaLogs — LogsQL: <a href="https://docs.victoriametrics.com/victorialogs/logsql/">https://docs.victoriametrics.com/victorialogs/logsql/</a></li>
+<li>Vector — Install on Docker: <a href="https://vector.dev/docs/setup/installation/platforms/docker/">https://vector.dev/docs/setup/installation/platforms/docker/</a></li>
+<li>Vector — <code>http_server</code> source: <a href="https://vector.dev/docs/reference/configuration/sources/http_server/">https://vector.dev/docs/reference/configuration/sources/http_server/</a></li>
+</ul>
+<hr />
+<h2 id="phu-luc-a-nhung-diem-da-sua-so-voi-ban-goc">Phụ lục A — Những điểm đã sửa so với bản gốc</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Vấn đề trong bản gốc</th>
+<th>Mức độ</th>
+<th>Xử lý</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Vòng lặp gửi log: <code>-d "{"message":"docker lab event ${i}", ...}"</code> — nháy kép lồng nhau, shell phá vỡ JSON</td>
+<td><strong>Nghiêm trọng</strong></td>
+<td>Escape thành <code>\"</code> (mục 10.2)</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Bài tập 2 gọi <code>docker build -t ... .</code> mà không có bước <code>cd</code> vào <code>web-image</code></td>
+<td><strong>Nghiêm trọng</strong></td>
+<td>Thêm <code>cd ~/docker-practice/web-image</code></td>
+</tr>
+<tr>
+<td>3</td>
+<td>Kiểm thử pull lại chỉ xóa tag Docker Hub, tag local <code>docker-web-lab:1.0</code> vẫn giữ image → <code>docker pull</code> không tải gì, bài kiểm thử vô nghĩa</td>
+<td>Cao</td>
+<td>Xóa cả hai tag trước khi pull</td>
+</tr>
+<tr>
+<td>4</td>
+<td>7 biến <code>export</code> (<code>LAB_DIR</code>, <code>WEB_PORT</code>, <code>VLOGS_PORT</code>…) — mất khi mở terminal mới</td>
+<td>Cao</td>
+<td>Bỏ hết, chỉ giữ <code>DOCKERHUB_USER</code></td>
+</tr>
+<tr>
+<td>5</td>
+<td>Ba bài lab đều dùng port <code>8080</code> nhưng không có cảnh báo phải <code>down</code> bài trước</td>
+<td>Cao</td>
+<td>Thêm cảnh báo ở đầu tài liệu, mục 6.1 và mục 18</td>
+</tr>
+<tr>
+<td>6</td>
+<td><code>sources.http_input.encoding: json</code> — tùy chọn cũ của <code>http_server</code></td>
+<td>Trung bình</td>
+<td>Đổi sang <code>decoding.codec: json</code></td>
+</tr>
+<tr>
+<td>7</td>
+<td><code>docker ps --format 'table {{.Names}}&lt;TAB&gt;{{.Ports}}'</code> — ký tự tab thật, hỏng khi copy</td>
+<td>Trung bình</td>
+<td>Đổi thành <code>\t</code></td>
+</tr>
+<tr>
+<td>8</td>
+<td><code>container_name: docker-web-lab</code> trùng tên image</td>
+<td>Trung bình</td>
+<td>Đổi container thành <code>web-lab</code></td>
+</tr>
+<tr>
+<td>9</td>
+<td><code>docker network inspect "$(docker network ls ... \| grep ... \| head -1)"</code> — khó đọc, dễ chọn nhầm</td>
+<td>Trung bình</td>
+<td>Dùng thẳng tên <code>observability-lab_observability-net</code> + giải thích quy tắc đặt tên</td>
+</tr>
+<tr>
+<td>10</td>
+<td><code>docker run --rm -d</code> cho container test: lỗi là mất luôn log</td>
+<td>Thấp</td>
+<td>Bỏ <code>--rm</code>, xóa thủ công sau khi xem log</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Không nhắc image VictoriaLogs là <strong>distroless</strong> (không có shell) → <code>exec sh</code> luôn thất bại</td>
+<td>Thấp</td>
+<td>Ghi chú ở mục 12.3</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Không có mục xử lý lỗi permission trên bind mount <code>./victoria-logs-data</code></td>
+<td>Thấp</td>
+<td>Thêm mục 21</td>
+</tr>
+<tr>
+<td>13</td>
+<td>Không nhắc <code>.timestamp = now()</code> ghi đè timestamp gốc của ứng dụng</td>
+<td>Thấp</td>
+<td>Thêm ghi chú ở mục 8.2 và phần Production</td>
+</tr>
+<tr>
+<td>14</td>
+<td>Không giới thiệu Web UI <code>/select/vmui</code> của VictoriaLogs</td>
+<td>Thấp</td>
+<td>Bổ sung ở mục 9.4</td>
+</tr>
+<tr>
+<td>15</td>
+<td>Compose file ghi bằng heredoc không quote, phụ thuộc biến shell</td>
+<td>Thấp</td>
+<td>Dùng <code>&lt;&lt;'EOF'</code> ghi nguyên văn</td>
+</tr>
+<tr>
+<td>16</td>
+<td>Danh sách mục tiêu và checklist bị vỡ định dạng khi xuất từ Word</td>
+<td>Thấp</td>
+<td>Viết lại thành list/checkbox markdown</td>
+</tr>
+</tbody>
+</table></div>
+    <footer class="doc__foot">
+      <span>Lab 02 · Nâng cao</span>
+      <span>Ctrl/Cmd + P để in</span>
+      <a class="btn totop" href="#top">Lên đầu trang</a>
+    </footer>
+  </article>
+</div>
+
+<script>
+(function(){
+  var root=document.documentElement, KEY_T='dockerlab-theme', KEY_C='dockerlab-checks-';
+  var store={get:function(k){try{return localStorage.getItem(k)}catch(e){return null}},
+             set:function(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+
+  /* theme */
+  var saved=store.get(KEY_T);
+  if(saved){root.setAttribute('data-theme',saved);}
+  else if(window.matchMedia&&matchMedia('(prefers-color-scheme:dark)').matches){
+    root.setAttribute('data-theme','dark');}
+  var tbtn=document.getElementById('theme');
+  function paintTheme(){tbtn.textContent=root.getAttribute('data-theme')==='dark'?'Sáng':'Tối';}
+  paintTheme();
+  tbtn.addEventListener('click',function(){
+    var next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);store.set(KEY_T,next);paintTheme();});
+
+  /* copy buttons */
+  document.querySelectorAll('.code__copy').forEach(function(b){
+    b.addEventListener('click',function(){
+      var code=document.getElementById('code-'+b.dataset.copy);
+      var txt=code.innerText.replace(/\n+$/,'');
+      var done=function(){
+        b.classList.add('is-done');
+        b.querySelector('.code__copy-text').textContent='Đã chép';
+        setTimeout(function(){b.classList.remove('is-done');
+          b.querySelector('.code__copy-text').textContent='Sao chép';},1600);};
+      if(navigator.clipboard&&navigator.clipboard.writeText){
+        navigator.clipboard.writeText(txt).then(done,fallback);
+      } else {fallback();}
+      function fallback(){
+        var ta=document.createElement('textarea');ta.value=txt;
+        ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);
+        ta.select();try{document.execCommand('copy');done();}catch(e){}
+        document.body.removeChild(ta);}
+    });
+  });
+
+  /* scrollspy */
+  var rows=[].slice.call(document.querySelectorAll('.nav__row'));
+  var targets=rows.map(function(r){return document.getElementById(r.dataset.target);});
+  function spy(){
+    var y=window.scrollY+120, active=-1;
+    for(var i=0;i<targets.length;i++){
+      if(targets[i]&&targets[i].offsetTop<=y){active=i;}else{break;}
+    }
+    rows.forEach(function(r,i){
+      r.classList.toggle('is-active',i===active);
+      r.classList.toggle('is-past',i<active);
+    });
+    if(active>=0){
+      var el=rows[active], nav=document.querySelector('.nav');
+      var top=el.offsetTop-nav.offsetTop;
+      if(top<nav.scrollTop||top>nav.scrollTop+nav.clientHeight-60){
+        nav.scrollTop=top-nav.clientHeight/2;}
+    }
+  }
+  var ticking=false;
+  window.addEventListener('scroll',function(){
+    if(!ticking){requestAnimationFrame(function(){spy();ticking=false;});ticking=true;}
+  },{passive:true});
+  spy();
+
+  /* search filter */
+  var q=document.getElementById('q');
+  q.addEventListener('input',function(){
+    var v=q.value.trim().toLowerCase();
+    rows.forEach(function(r){
+      var t=(r.querySelector('.nav__label').textContent+' '+
+             r.querySelector('.nav__num').textContent).toLowerCase();
+      r.classList.toggle('is-hidden', v!=='' && t.indexOf(v)===-1);
+    });
+    document.querySelectorAll('.nav__part').forEach(function(p){
+      p.style.display = v!=='' ? 'none' : '';
+    });
+  });
+  q.addEventListener('keydown',function(e){
+    if(e.key==='Escape'){q.value='';q.dispatchEvent(new Event('input'));q.blur();}
+  });
+  document.addEventListener('keydown',function(e){
+    if(e.key==='/'&&document.activeElement!==q){e.preventDefault();q.focus();}
+  });
+
+  /* checklist progress */
+  var boxes=[].slice.call(document.querySelectorAll('.task__box'));
+  var out=document.getElementById('progress');
+  var key=KEY_C+document.body.dataset.doc;
+  var savedC=store.get(key);
+  if(savedC){savedC.split('').forEach(function(c,i){if(boxes[i])boxes[i].checked=c==='1';});}
+  function paintProgress(){
+    var n=boxes.filter(function(b){return b.checked;}).length;
+    if(out){out.innerHTML='Nghiệm thu <b>'+n+'</b>/'+boxes.length;}
+    store.set(key,boxes.map(function(b){return b.checked?'1':'0';}).join(''));
+  }
+  boxes.forEach(function(b){b.addEventListener('change',paintProgress);});
+  paintProgress();
+
+  /* mobile rail */
+  var rail=document.querySelector('.rail'), scrim=document.querySelector('.scrim'),
+      nbtn=document.getElementById('navtoggle');
+  function closeRail(){rail.classList.remove('is-open');scrim.classList.remove('is-open');}
+  nbtn.addEventListener('click',function(){
+    rail.classList.toggle('is-open');scrim.classList.toggle('is-open');});
+  scrim.addEventListener('click',closeRail);
+  rail.addEventListener('click',function(e){
+    if(e.target.closest('.nav__row')) closeRail();});
+})();
+</script>
+</body>
+</html>
