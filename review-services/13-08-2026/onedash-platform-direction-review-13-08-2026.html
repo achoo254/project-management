@@ -113,7 +113,7 @@
 
   --pad: clamp(20px, 4vw, 56px);
   --wrap: 1240px;
-  --measure: 74ch;
+  --measure: 88ch;
 
   --ease: cubic-bezier(0.25, 1, 0.5, 1);
 }
@@ -205,15 +205,26 @@ nav{
 }
 .kicker b{ color: var(--accent); font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; }
 .kicker i{ font-style: normal; opacity: .45; }
-.hero h1{ font-size: var(--t-hero); max-width: 26ch; margin-bottom: var(--s5); font-weight: 700; }
+/* hero dùng hết chiều rộng: tiêu đề bên trái, kết luận bên phải */
+.hero-grid{
+  display: grid;
+  grid-template-columns: minmax(0, 1.02fr) minmax(0, 1fr);
+  gap: clamp(28px, 3.2vw, 60px);
+  align-items: start;
+  margin-bottom: var(--s6);
+}
+@media (max-width: 1000px){
+  .hero-grid{ grid-template-columns: 1fr; gap: var(--s5); }
+}
+.hero h1{ font-size: var(--t-hero); max-width: 20ch; margin-bottom: 0; font-weight: 700; }
 .hero h1 em{ font-style: normal; color: var(--accent); }
 .verdict{
   border-left: 3px solid var(--accent);
   background: var(--accent-soft);
-  padding: var(--s4) var(--s5);
+  padding: var(--s5) var(--s5);
   border-radius: 0 10px 10px 0;
-  max-width: 72ch;
-  margin-bottom: var(--s6);
+  max-width: none;
+  margin-bottom: 0;
 }
 .verdict p{ color: var(--text); font-size: var(--t-1); margin: 0; }
 .hero-meta{
@@ -259,7 +270,7 @@ nav{
 .sec-head h2{ font-size: var(--t-4); max-width: 30ch; }
 .sec-head .sub{
   margin-top: var(--s3); font-size: var(--t-1); color: var(--muted);
-  max-width: 68ch; line-height: 1.5;
+  max-width: 84ch; line-height: 1.5;
 }
 @media (max-width: 640px){
   .sec-head{ grid-template-columns: 1fr; gap: var(--s3); }
@@ -459,14 +470,27 @@ td .who{ display: inline-flex; align-items: center; gap: var(--s2); white-space:
 .c-risk h4, .c-warn h4, .c-info h4{ color: var(--text); }
 .c-risk p, .c-warn p, .c-info p, .c-risk li, .c-warn li, .c-info li{ color: var(--text); }
 
-/* quote */
+/* quote — chiếm hết chiều rộng hàng, không để hở phải */
 .said{
-  border-left: 2px solid var(--rule-firm);
-  padding-left: var(--s4); margin: var(--s4) 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(200px, 22ch);
+  gap: var(--s4) clamp(24px, 3vw, 56px);
+  align-items: end;
+  border-left: 3px solid var(--rule-firm);
+  background: var(--bg-sunk);
+  border-radius: 0 12px 12px 0;
+  padding: var(--s5); margin: var(--s5) 0;
   font-size: var(--t-1); font-style: italic; color: var(--text);
-  max-width: 62ch; line-height: 1.5;
+  max-width: none; line-height: 1.5;
 }
-.said cite{ display: block; font-style: normal; font-size: var(--t--1); color: var(--muted); margin-top: var(--s2); }
+@media (max-width: 760px){
+  .said{ grid-template-columns: 1fr; align-items: start; }
+}
+.said cite{
+  font-style: normal; font-size: var(--t--1); color: var(--muted);
+  line-height: 1.45; text-align: right;
+}
+@media (max-width: 760px){ .said cite{ text-align: left; } }
 
 /* ============================================================
    METRIC ROWS
@@ -572,6 +596,15 @@ footer{ padding: var(--s7) 0 var(--s8); }
 .mt4{ margin-top: var(--s4); }
 .mt5{ margin-top: var(--s5); }
 .narrow{ max-width: var(--measure); }
+/* đoạn dẫn dài: chia 2 cột để lấp hết hàng mà vẫn giữ độ dài dòng dễ đọc */
+.lead2{
+  max-width: none;
+  columns: 2;
+  column-gap: clamp(28px, 3vw, 56px);
+  font-size: var(--t-1);
+  line-height: 1.6;
+}
+@media (max-width: 900px){ .lead2{ columns: 1; max-width: var(--measure); } }
 @media print{
   nav, .theme{ display: none; }
   .sec{ break-inside: avoid; }
@@ -608,9 +641,11 @@ footer{ padding: var(--s7) 0 var(--s8); }
       <span>Thời lượng <span class="num">1g29p</span></span><i>/</i>
       <span>Nguồn: <code>Cầu Giấy.srt</code></span>
     </div>
-    <h1>OneDash xoay trục: từ <em>chuẩn hoá &amp; quản trị</em> sang <em>detect &amp; điều khiển</em></h1>
-    <div class="verdict">
-      <p><strong>Kết luận xuyên suốt buổi họp:</strong> ép khách hàng chuẩn hoá project vào khuôn của OneDash chính là nguyên nhân nền tảng không được dùng. Từ nay OneDash <strong>đọc hiện trạng có sẵn trên server và cho điều khiển qua UI</strong>, thay vì bắt cài lại theo wizard. Docker được bổ sung như <strong>option song song</strong> — không thay thế project native.</p>
+    <div class="hero-grid">
+      <h1>OneDash xoay trục: từ <em>chuẩn hoá &amp; quản trị</em> sang <em>detect &amp; điều khiển</em></h1>
+      <div class="verdict">
+        <p><strong>Kết luận xuyên suốt buổi họp:</strong> ép khách hàng chuẩn hoá project vào khuôn của OneDash chính là nguyên nhân nền tảng không được dùng. Từ nay OneDash <strong>đọc hiện trạng có sẵn trên server và cho điều khiển qua UI</strong>, thay vì bắt cài lại theo wizard. Docker được bổ sung như <strong>option song song</strong> — không thay thế project native.</p>
+      </div>
     </div>
     <div class="hero-meta">
       <span><b>Dự họp (6):</b>
@@ -678,7 +713,7 @@ footer{ padding: var(--s7) 0 var(--s8); }
       </div>
     </div>
 
-    <p class="mb5 narrow">Hiện trạng bị chỉ ra là nguyên nhân trực tiếp khiến khách hàng chạy thật không dùng OneDash: nền tảng <strong>bắt khách hàng chuẩn hoá theo mình</strong> — project phải nằm trong folder cố định của OneDash, phải chạy dưới user cô lập, phải để OneDash quản Nginx và domain, phải đi hết wizard từng bước. Trong khi khách hàng chạy thật thì <strong>đã có sẵn tất cả</strong>: source, web server, DB, service.</p>
+    <p class="mb5 lead2">Hiện trạng bị chỉ ra là nguyên nhân trực tiếp khiến khách hàng chạy thật không dùng OneDash: nền tảng <strong>bắt khách hàng chuẩn hoá theo mình</strong> — project phải nằm trong folder cố định của OneDash, phải chạy dưới user cô lập, phải để OneDash quản Nginx và domain, phải đi hết wizard từng bước. Trong khi khách hàng chạy thật thì <strong>đã có sẵn tất cả</strong>: source, web server, DB, service.</p>
 
     <div class="pivot mb6">
       <div class="pivot-col was">
@@ -1075,7 +1110,7 @@ footer{ padding: var(--s7) 0 var(--s8); }
       </div>
     </div>
 
-    <p class="mb5 narrow">Bài toán: OneDash cần thao tác OpenStack (list host, quản lý cloud server) nhưng <strong>không có credential</strong>. Trong khi đó Portal thì đã auth sẵn với OpenStack rồi. Câu hỏi là OneDash lấy quyền ở đâu, và ai đứng giữa.</p>
+    <p class="mb5 lead2">Bài toán: OneDash cần thao tác OpenStack (list host, quản lý cloud server) nhưng <strong>không có credential</strong>. Trong khi đó Portal thì đã auth sẵn với OpenStack rồi. Câu hỏi là OneDash lấy quyền ở đâu, và ai đứng giữa.</p>
 
     <div class="opts mb5">
       <div class="opt">
