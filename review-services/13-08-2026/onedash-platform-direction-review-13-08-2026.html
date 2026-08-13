@@ -1,0 +1,1484 @@
+<!DOCTYPE html>
+<html lang="vi" id="top">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OneDash · Chốt định hướng nền tảng 13/08/2026</title>
+<meta name="description" content="Biên bản buổi review OneDash ngày 13/08/2026 tại Cầu Giấy: xoay trục từ chuẩn hoá & quản trị sang detect & điều khiển, Docker làm option song song, phân vai OneDash ↔ Portal, và các vấn đề chưa chốt của dịch vụ F3 Object Storage.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   TOKENS — đồng bộ với review-services/07-08-2026
+   ============================================================ */
+:root,
+:root[data-theme="light"]{
+  color-scheme: light;
+
+  --bg:        oklch(0.985 0.003 250);
+  --bg-sunk:   oklch(0.962 0.004 250);
+  --bg-raise:  oklch(0.998 0.002 250);
+  --rule:      oklch(0.885 0.007 252);
+  --rule-firm: oklch(0.775 0.010 252);
+  --text:      oklch(0.215 0.016 254);
+  --text-2:    oklch(0.365 0.014 253);
+  --muted:     oklch(0.460 0.012 252);
+
+  --accent:      oklch(0.470 0.170 262);
+  --accent-soft: oklch(0.935 0.030 262);
+
+  --idx:       oklch(0.550 0.012 252);
+
+  --ok:        oklch(0.480 0.120 155);
+  --ok-soft:   oklch(0.940 0.040 155);
+  --warn:      oklch(0.520 0.110 78);
+  --warn-soft: oklch(0.950 0.045 82);
+  --risk:      oklch(0.480 0.160 28);
+  --risk-soft: oklch(0.950 0.035 28);
+  --neutral:   oklch(0.500 0.030 252);
+
+  --series-a: #1D4ED8;
+  --series-b: #C2410C;
+
+  --shadow: 0 1px 2px oklch(0.2 0.02 254 / 0.05), 0 8px 24px -12px oklch(0.2 0.02 254 / 0.14);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]):not([data-theme="dark"]){
+    color-scheme: dark;
+    --bg:        oklch(0.170 0.012 258);
+    --bg-sunk:   oklch(0.205 0.013 258);
+    --bg-raise:  oklch(0.228 0.014 258);
+    --rule:      oklch(0.305 0.015 258);
+    --rule-firm: oklch(0.440 0.018 258);
+    --text:      oklch(0.945 0.008 258);
+    --text-2:    oklch(0.800 0.012 258);
+    --muted:     oklch(0.700 0.014 258);
+    --idx:       oklch(0.540 0.014 258);
+    --accent:      oklch(0.720 0.140 262);
+    --accent-soft: oklch(0.300 0.055 262);
+    --ok:        oklch(0.740 0.130 158);
+    --ok-soft:   oklch(0.285 0.050 158);
+    --warn:      oklch(0.780 0.115 84);
+    --warn-soft: oklch(0.300 0.048 84);
+    --risk:      oklch(0.700 0.150 30);
+    --risk-soft: oklch(0.295 0.055 30);
+    --neutral:   oklch(0.650 0.028 258);
+    --series-a: #5B80E6;
+    --series-b: #D97448;
+    --shadow: 0 1px 2px oklch(0 0 0 / 0.30), 0 10px 28px -14px oklch(0 0 0 / 0.55);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme: dark;
+  --bg:        oklch(0.170 0.012 258);
+  --bg-sunk:   oklch(0.205 0.013 258);
+  --bg-raise:  oklch(0.228 0.014 258);
+  --rule:      oklch(0.305 0.015 258);
+  --rule-firm: oklch(0.440 0.018 258);
+  --text:      oklch(0.945 0.008 258);
+  --text-2:    oklch(0.800 0.012 258);
+  --muted:     oklch(0.700 0.014 258);
+  --idx:       oklch(0.540 0.014 258);
+  --accent:      oklch(0.720 0.140 262);
+  --accent-soft: oklch(0.300 0.055 262);
+  --ok:        oklch(0.740 0.130 158);
+  --ok-soft:   oklch(0.285 0.050 158);
+  --warn:      oklch(0.780 0.115 84);
+  --warn-soft: oklch(0.300 0.048 84);
+  --risk:      oklch(0.700 0.150 30);
+  --risk-soft: oklch(0.295 0.055 30);
+  --neutral:   oklch(0.650 0.028 258);
+  --series-a: #5B80E6;
+  --series-b: #D97448;
+  --shadow: 0 1px 2px oklch(0 0 0 / 0.30), 0 10px 28px -14px oklch(0 0 0 / 0.55);
+}
+
+:root{
+  --font: "Archivo", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --mono: ui-monospace, "SF Mono", "Cascadia Mono", "JetBrains Mono", Consolas, monospace;
+
+  --t--2: 0.6875rem;
+  --t--1: 0.8125rem;
+  --t-0:  1rem;
+  --t-1:  1.125rem;
+  --t-2:  1.375rem;
+  --t-3:  1.75rem;
+  --t-4:  clamp(1.625rem, 1.15rem + 1.5vw, 2.25rem);
+  --t-hero: clamp(1.75rem, 1rem + 3vw, 3.25rem);
+  --t-index: clamp(2rem, 1.3rem + 2.2vw, 3.25rem);
+
+  --s1: 4px;  --s2: 8px;  --s3: 12px; --s4: 16px;
+  --s5: 24px; --s6: 32px; --s7: 48px; --s8: 64px; --s9: 96px;
+
+  --pad: clamp(20px, 4vw, 56px);
+  --wrap: 1240px;
+  --measure: 74ch;
+
+  --ease: cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+*,*::before,*::after{ box-sizing: border-box; }
+html{ -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce){ html{ scroll-behavior: auto; } }
+body{
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: var(--t-0);
+  line-height: 1.65;
+  font-synthesis-weight: none;
+  overflow-x: hidden;
+}
+h1,h2,h3,h4{ margin: 0; line-height: 1.16; letter-spacing: -0.018em; font-weight: 650; text-wrap: balance; }
+p{ margin: 0 0 var(--s4); max-width: var(--measure); color: var(--text-2); }
+p:last-child{ margin-bottom: 0; }
+ul,ol{ margin: 0 0 var(--s4); padding-left: 1.35em; max-width: var(--measure); color: var(--text-2); }
+ul:last-child, ol:last-child{ margin-bottom: 0; }
+li{ margin-bottom: var(--s2); }
+li:last-child{ margin-bottom: 0; }
+strong{ color: var(--text); font-weight: 640; }
+a{ color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+code, kbd{
+  font-family: var(--mono);
+  font-size: 0.875em;
+  background: var(--bg-sunk);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 0.1em 0.36em;
+  white-space: nowrap;
+}
+hr{ border: 0; border-top: 1px solid var(--rule); margin: var(--s6) 0; }
+.wrap{ max-width: var(--wrap); margin-inline: auto; padding-inline: var(--pad); }
+.num{ font-variant-numeric: tabular-nums; font-feature-settings: "tnum" 1; }
+
+/* ============================================================
+   NAV
+   ============================================================ */
+nav{
+  position: sticky; top: 0; z-index: 50;
+  background: color-mix(in oklab, var(--bg) 88%, transparent);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--rule);
+}
+.nav-in{
+  max-width: var(--wrap); margin-inline: auto; padding: var(--s3) var(--pad);
+  display: flex; align-items: center; gap: var(--s5);
+}
+.brand{
+  font-size: var(--t--1); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--text); text-decoration: none; white-space: nowrap;
+}
+.brand span{ color: var(--muted); font-weight: 500; }
+.navlinks{
+  display: flex; gap: var(--s4); margin-left: auto; overflow-x: auto;
+  scrollbar-width: none; -ms-overflow-style: none;
+}
+.navlinks::-webkit-scrollbar{ display: none; }
+.navlinks a{
+  font-size: var(--t--1); color: var(--muted); text-decoration: none;
+  white-space: nowrap; padding: 2px 0; border-bottom: 1.5px solid transparent;
+  transition: color .18s var(--ease), border-color .18s var(--ease);
+}
+.navlinks a:hover{ color: var(--text); border-color: var(--accent); }
+.theme{
+  flex: 0 0 auto;
+  background: var(--bg-raise); color: var(--text-2);
+  border: 1px solid var(--rule); border-radius: 999px;
+  font: inherit; font-size: var(--t--2); font-weight: 600;
+  padding: 5px 11px; cursor: pointer; white-space: nowrap;
+}
+.theme:hover{ border-color: var(--rule-firm); color: var(--text); }
+@media (max-width: 860px){ .navlinks{ display: none; } .theme{ margin-left: auto; } }
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{ padding: clamp(40px, 7vw, 92px) 0 var(--s7); border-bottom: 1px solid var(--rule); }
+.kicker{
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--s3);
+  font-size: var(--t--1); color: var(--muted); margin-bottom: var(--s5);
+}
+.kicker b{ color: var(--accent); font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; }
+.kicker i{ font-style: normal; opacity: .45; }
+.hero h1{ font-size: var(--t-hero); max-width: 26ch; margin-bottom: var(--s5); font-weight: 700; }
+.hero h1 em{ font-style: normal; color: var(--accent); }
+.verdict{
+  border-left: 3px solid var(--accent);
+  background: var(--accent-soft);
+  padding: var(--s4) var(--s5);
+  border-radius: 0 10px 10px 0;
+  max-width: 72ch;
+  margin-bottom: var(--s6);
+}
+.verdict p{ color: var(--text); font-size: var(--t-1); margin: 0; }
+.hero-meta{
+  display: flex; flex-wrap: wrap; gap: var(--s2) var(--s5);
+  font-size: var(--t--1); color: var(--muted); padding-top: var(--s4);
+  border-top: 1px solid var(--rule);
+}
+.hero-meta span b{ color: var(--text-2); font-weight: 600; }
+
+/* KPI strip */
+.kpis{ background: var(--bg-sunk); border-bottom: 1px solid var(--rule); }
+.kpis-in{
+  max-width: var(--wrap); margin-inline: auto; padding-inline: var(--pad);
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(154px, 1fr));
+}
+.kpi{
+  padding: var(--s5) var(--s4) var(--s5) 0;
+  border-right: 1px solid var(--rule);
+}
+.kpi:last-child{ border-right: 0; }
+@media (max-width: 720px){
+  .kpi{ border-right: 0; border-bottom: 1px solid var(--rule); padding: var(--s4) 0; }
+  .kpi:last-child{ border-bottom: 0; }
+}
+.kpi .cnt{ font-size: var(--t-3); font-weight: 700; letter-spacing: -0.03em; display: block; line-height: 1.1; }
+.kpi .cap{ font-size: var(--t--1); color: var(--muted); display: block; margin-top: 2px; }
+.kpi.is-hot .cnt{ color: var(--risk); }
+.kpi.is-ok .cnt{ color: var(--ok); }
+
+/* ============================================================
+   SECTION SHELL
+   ============================================================ */
+.sec{ border-bottom: 1px solid var(--rule); padding: clamp(40px, 5.5vw, 76px) 0; }
+.sec-in{ max-width: var(--wrap); margin-inline: auto; padding-inline: var(--pad); }
+.sec-head{
+  display: grid; grid-template-columns: minmax(0,auto) 1fr; gap: var(--s5);
+  align-items: start; margin-bottom: var(--s6);
+}
+.sec-idx{
+  font-size: var(--t-index); font-weight: 750; color: var(--idx);
+  line-height: 0.82; letter-spacing: -0.05em; opacity: .38;
+}
+.sec-head h2{ font-size: var(--t-4); max-width: 30ch; }
+.sec-head .sub{
+  margin-top: var(--s3); font-size: var(--t-1); color: var(--muted);
+  max-width: 68ch; line-height: 1.5;
+}
+@media (max-width: 640px){
+  .sec-head{ grid-template-columns: 1fr; gap: var(--s3); }
+  .sec-idx{ font-size: var(--t-3); }
+}
+.sec--sunk{ background: var(--bg-sunk); }
+
+/* ============================================================
+   BADGES
+   ============================================================ */
+.badge{
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: var(--t--2); font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
+  padding: 3px 9px; border-radius: 999px; border: 1px solid;
+  white-space: nowrap; vertical-align: middle;
+}
+.badge::before{ content:""; width: 5px; height: 5px; border-radius: 50%; background: currentColor; flex: 0 0 auto; }
+.b-ok{   color: var(--ok);      border-color: color-mix(in oklab, var(--ok) 40%, transparent);      background: var(--ok-soft); }
+.b-warn{ color: var(--warn);    border-color: color-mix(in oklab, var(--warn) 40%, transparent);    background: var(--warn-soft); }
+.b-risk{ color: var(--risk);    border-color: color-mix(in oklab, var(--risk) 40%, transparent);    background: var(--risk-soft); }
+.b-neu{  color: var(--muted);   border-color: var(--rule);                                         background: var(--bg-raise); }
+
+/* ============================================================
+   CARDS
+   ============================================================ */
+.grid{ display: grid; gap: var(--s4); }
+.g2{ grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+.g3{ grid-template-columns: repeat(auto-fit, minmax(258px, 1fr)); }
+.card{
+  background: var(--bg-raise);
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  padding: var(--s5);
+  box-shadow: var(--shadow);
+  min-width: 0;
+}
+.card > h3{
+  font-size: var(--t-1); margin-bottom: var(--s3);
+  display: flex; align-items: center; gap: var(--s3); flex-wrap: wrap;
+}
+.card p, .card ul, .card ol{ max-width: none; }
+.card .lead{ font-size: var(--t--1); color: var(--muted); margin-bottom: var(--s3); }
+.card--flat{ box-shadow: none; background: transparent; }
+
+/* decision card */
+.dec{ border-left: 3px solid var(--ok); }
+.dec.is-open{ border-left-color: var(--warn); }
+.dec.is-risk{ border-left-color: var(--risk); }
+.dec-head{ display: flex; align-items: baseline; gap: var(--s3); margin-bottom: var(--s3); flex-wrap: wrap; }
+.dec-id{
+  font-family: var(--mono); font-size: var(--t--2); font-weight: 700;
+  color: var(--muted); letter-spacing: 0.04em;
+}
+
+/* ============================================================
+   PIVOT (before / after)
+   ============================================================ */
+.pivot{
+  display: grid; gap: var(--s4);
+  grid-template-columns: 1fr auto 1fr;
+  align-items: stretch;
+}
+@media (max-width: 900px){ .pivot{ grid-template-columns: 1fr; } }
+.pivot-col{
+  border: 1px solid var(--rule); border-radius: 12px; padding: var(--s5);
+  background: var(--bg-raise); min-width: 0;
+}
+.pivot-col.was{ background: var(--bg-sunk); }
+.pivot-col.now{ border-color: color-mix(in oklab, var(--accent) 45%, var(--rule)); }
+.pivot-tag{
+  display: inline-block; font-size: var(--t--2); font-weight: 700;
+  letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: var(--s3);
+}
+.was .pivot-tag{ color: var(--muted); }
+.now .pivot-tag{ color: var(--accent); }
+.pivot-col h3{ font-size: var(--t-2); margin-bottom: var(--s4); }
+.pivot-col ul{ list-style: none; padding: 0; margin: 0; }
+.pivot-col li{
+  padding: var(--s3) 0; border-top: 1px solid var(--rule);
+  font-size: var(--t--1); line-height: 1.55;
+}
+.pivot-col li:first-child{ border-top: 0; padding-top: 0; }
+.pivot-arrow{
+  display: grid; place-items: center; color: var(--accent);
+  font-size: var(--t-3); font-weight: 700; padding: 0 var(--s2);
+}
+@media (max-width: 900px){ .pivot-arrow{ transform: rotate(90deg); padding: var(--s2) 0; } }
+
+/* ============================================================
+   FLOW (steps)
+   ============================================================ */
+.flow{ display: flex; flex-wrap: wrap; align-items: stretch; gap: var(--s2); margin-bottom: var(--s4); }
+.step{
+  flex: 1 1 130px; min-width: 0;
+  border: 1px solid var(--rule); border-radius: 10px;
+  background: var(--bg-raise); padding: var(--s3) var(--s4);
+  display: flex; flex-direction: column; gap: 2px;
+}
+.step .n{ font-size: var(--t--2); font-weight: 700; color: var(--muted); font-family: var(--mono); }
+.step .t{ font-size: var(--t--1); font-weight: 620; color: var(--text); line-height: 1.35; }
+.step .o{ font-size: var(--t--2); color: var(--muted); }
+.step.req{ border-color: color-mix(in oklab, var(--risk) 40%, var(--rule)); background: var(--risk-soft); }
+.step.opt{ border-style: dashed; }
+.step.key{ border-color: color-mix(in oklab, var(--ok) 45%, var(--rule)); background: var(--ok-soft); }
+.flow-sep{ display: grid; place-items: center; color: var(--muted); font-size: var(--t-0); padding: 0 2px; }
+.flow-label{
+  font-size: var(--t--2); font-weight: 700; letter-spacing: 0.07em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: var(--s3);
+}
+
+/* ============================================================
+   DEBATE (two voices)
+   ============================================================ */
+.debate{ display: grid; gap: var(--s4); grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); }
+.voice{
+  border: 1px solid var(--rule); border-radius: 12px; padding: var(--s5);
+  background: var(--bg-raise); min-width: 0; position: relative;
+}
+.voice-who{
+  display: flex; align-items: center; gap: var(--s3); margin-bottom: var(--s4);
+  padding-bottom: var(--s3); border-bottom: 1px solid var(--rule);
+}
+.av{
+  width: 30px; height: 30px; border-radius: 50%; flex: 0 0 auto;
+  display: grid; place-items: center;
+  font-size: var(--t--2); font-weight: 750; letter-spacing: 0.02em;
+  background: var(--accent-soft); color: var(--accent);
+  border: 1px solid color-mix(in oklab, var(--accent) 32%, transparent);
+}
+.av.b{ background: var(--warn-soft); color: var(--warn); border-color: color-mix(in oklab, var(--warn) 32%, transparent); }
+.voice-who .nm{ font-weight: 650; font-size: var(--t-0); }
+.voice-who .rl{ font-size: var(--t--2); color: var(--muted); }
+.voice ul{ margin: 0; padding-left: 1.2em; }
+.resolve{
+  margin-top: var(--s4);
+  border: 1px solid color-mix(in oklab, var(--ok) 35%, var(--rule));
+  background: var(--ok-soft); border-radius: 12px; padding: var(--s4) var(--s5);
+}
+.resolve h4{ font-size: var(--t-0); margin-bottom: var(--s2); color: var(--text); }
+.resolve p{ color: var(--text); max-width: none; }
+
+/* ============================================================
+   OPTIONS / TRADEOFF
+   ============================================================ */
+.opts{ display: grid; gap: var(--s4); grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+.opt{
+  border: 1px solid var(--rule); border-radius: 12px; padding: var(--s5);
+  background: var(--bg-raise); min-width: 0;
+}
+.opt.picked{ border-color: color-mix(in oklab, var(--ok) 50%, var(--rule)); background: var(--ok-soft); }
+.opt-k{ font-family: var(--mono); font-size: var(--t--2); font-weight: 700; color: var(--muted); letter-spacing: 0.06em; }
+.opt h4{ font-size: var(--t-1); margin: var(--s2) 0 var(--s3); }
+.pc{ display: grid; gap: var(--s2); margin-top: var(--s3); font-size: var(--t--1); }
+.pc div{ display: flex; gap: var(--s2); align-items: flex-start; }
+.pc .s{ font-weight: 700; flex: 0 0 1.1em; }
+.pc .plus .s{ color: var(--ok); }
+.pc .minus .s{ color: var(--risk); }
+
+/* ============================================================
+   TABLE
+   ============================================================ */
+.tbl-scroll{ overflow-x: auto; border: 1px solid var(--rule); border-radius: 12px; background: var(--bg-raise); }
+table{ border-collapse: collapse; width: 100%; min-width: 620px; font-size: var(--t--1); }
+th, td{ text-align: left; padding: var(--s3) var(--s4); border-bottom: 1px solid var(--rule); vertical-align: top; }
+thead th{
+  font-size: var(--t--2); text-transform: uppercase; letter-spacing: 0.06em;
+  color: var(--muted); font-weight: 700; background: var(--bg-sunk);
+  position: sticky; top: 0; white-space: nowrap;
+}
+tbody tr:last-child td{ border-bottom: 0; }
+tbody tr:hover{ background: color-mix(in oklab, var(--accent) 4%, transparent); }
+td .who{ display: inline-flex; align-items: center; gap: var(--s2); white-space: nowrap; font-weight: 620; color: var(--text); }
+.dot{ width: 7px; height: 7px; border-radius: 50%; flex: 0 0 auto; }
+.d-viet{ background: var(--series-a); }
+.d-kien{ background: var(--series-b); }
+.d-duc{  background: var(--ok); }
+.d-dat{  background: var(--accent); }
+.d-infra{ background: var(--muted); }
+
+/* ============================================================
+   CALLOUT
+   ============================================================ */
+.callout{
+  border: 1px solid var(--rule); border-left-width: 3px; border-radius: 0 12px 12px 0;
+  padding: var(--s4) var(--s5); background: var(--bg-raise);
+}
+.callout h4{
+  font-size: var(--t-0); margin-bottom: var(--s2);
+  display: flex; align-items: center; gap: var(--s2); flex-wrap: wrap;
+}
+.callout p, .callout ul{ max-width: none; }
+.c-risk{ border-left-color: var(--risk); background: var(--risk-soft); }
+.c-warn{ border-left-color: var(--warn); background: var(--warn-soft); }
+.c-info{ border-left-color: var(--accent); background: var(--accent-soft); }
+.c-risk h4, .c-warn h4, .c-info h4{ color: var(--text); }
+.c-risk p, .c-warn p, .c-info p, .c-risk li, .c-warn li, .c-info li{ color: var(--text); }
+
+/* quote */
+.said{
+  border-left: 2px solid var(--rule-firm);
+  padding-left: var(--s4); margin: var(--s4) 0;
+  font-size: var(--t-1); font-style: italic; color: var(--text);
+  max-width: 62ch; line-height: 1.5;
+}
+.said cite{ display: block; font-style: normal; font-size: var(--t--1); color: var(--muted); margin-top: var(--s2); }
+
+/* ============================================================
+   METRIC ROWS
+   ============================================================ */
+.mrow{
+  display: grid; grid-template-columns: 1fr; gap: var(--s3);
+  border: 1px solid var(--rule); border-radius: 12px; overflow: hidden; background: var(--bg-raise);
+}
+.mitem{ padding: var(--s4) var(--s5); border-bottom: 1px solid var(--rule); }
+.mitem:last-child{ border-bottom: 0; }
+.mitem h4{ font-size: var(--t-0); margin-bottom: var(--s2); display: flex; gap: var(--s3); align-items: center; flex-wrap: wrap; }
+.mitem p{ max-width: none; font-size: var(--t--1); margin: 0; }
+
+/* bad-vs-good inline compare */
+.vs{ display: grid; gap: var(--s3); grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); margin-top: var(--s3); }
+.vs > div{ border: 1px solid var(--rule); border-radius: 10px; padding: var(--s3) var(--s4); background: var(--bg); }
+.vs .lbl{ font-size: var(--t--2); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 4px; }
+.vs .bad .lbl{ color: var(--risk); }
+.vs .good .lbl{ color: var(--ok); }
+.vs .val{ font-family: var(--mono); font-size: var(--t-1); font-weight: 700; color: var(--text); }
+.vs .exp{ font-size: var(--t--2); color: var(--muted); margin-top: 2px; }
+
+/* ============================================================
+   SPLIT ROLE (OneDash vs Portal)
+   ============================================================ */
+.split{ display: grid; gap: var(--s4); grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+.side{ border: 1px solid var(--rule); border-radius: 12px; overflow: hidden; background: var(--bg-raise); min-width: 0; }
+.side-h{
+  padding: var(--s3) var(--s4); background: var(--bg-sunk);
+  border-bottom: 1px solid var(--rule);
+  font-weight: 700; font-size: var(--t-0);
+  display: flex; align-items: center; justify-content: space-between; gap: var(--s3);
+}
+.side-h .tag{ font-size: var(--t--2); font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+.side ul{ list-style: none; margin: 0; padding: 0; }
+.side li{
+  padding: var(--s3) var(--s4); border-bottom: 1px solid var(--rule);
+  font-size: var(--t--1); display: flex; gap: var(--s3); align-items: flex-start;
+}
+.side li:last-child{ border-bottom: 0; }
+.side li::before{ content: "▪"; color: var(--accent); flex: 0 0 auto; line-height: 1.4; }
+.side.portal li::before{ color: var(--series-b); }
+
+/* ============================================================
+   SVG DIAGRAM
+   ============================================================ */
+.diagram{
+  border: 1px solid var(--rule); border-radius: 12px;
+  background: var(--bg-raise); padding: var(--s5);
+  overflow-x: auto;
+}
+.diagram svg{ display: block; min-width: 640px; width: 100%; height: auto; }
+.dg-cap{ font-size: var(--t--1); color: var(--muted); margin-top: var(--s3); max-width: 70ch; }
+.sv-box{ fill: var(--bg-sunk); stroke: var(--rule-firm); }
+.sv-box-ok{ fill: var(--ok-soft); stroke: var(--ok); }
+.sv-box-new{ fill: var(--accent-soft); stroke: var(--accent); }
+.sv-box-bad{ fill: var(--risk-soft); stroke: var(--risk); }
+.sv-t{ fill: var(--text); font-family: var(--font); font-size: 13px; font-weight: 640; }
+.sv-s{ fill: var(--muted); font-family: var(--mono); font-size: 11px; }
+.sv-l{ stroke: var(--rule-firm); fill: none; }
+.sv-l-ok{ stroke: var(--ok); fill: none; }
+.sv-l-bad{ stroke: var(--risk); fill: none; stroke-dasharray: 5 4; }
+.sv-lt{ fill: var(--muted); font-family: var(--font); font-size: 11px; }
+
+/* ============================================================
+   OPEN QUESTIONS
+   ============================================================ */
+.oq{ display: grid; gap: var(--s4); counter-reset: oq; }
+.oqi{
+  display: grid; grid-template-columns: auto 1fr; gap: var(--s4);
+  border: 1px solid var(--rule); border-left: 3px solid var(--warn);
+  border-radius: 0 12px 12px 0; padding: var(--s4) var(--s5);
+  background: var(--bg-raise);
+}
+.oqi .qn{
+  font-size: var(--t-2); font-weight: 750; color: var(--warn);
+  line-height: 1; font-variant-numeric: tabular-nums;
+}
+.oqi h4{ font-size: var(--t-1); margin-bottom: var(--s2); }
+.oqi p{ max-width: none; font-size: var(--t--1); margin: 0; }
+.oqi .need{
+  margin-top: var(--s3); font-size: var(--t--2); color: var(--muted);
+  display: flex; gap: var(--s2); align-items: baseline; flex-wrap: wrap;
+}
+.oqi .need b{ color: var(--text-2); font-weight: 650; }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer{ padding: var(--s7) 0 var(--s8); }
+.foot{
+  display: flex; flex-wrap: wrap; gap: var(--s5); justify-content: space-between;
+  font-size: var(--t--1); color: var(--muted);
+}
+.foot a{ color: var(--muted); }
+.legend{ display: flex; flex-wrap: wrap; gap: var(--s4); }
+.legend span{ display: inline-flex; align-items: center; gap: 6px; }
+
+/* utility */
+.mb4{ margin-bottom: var(--s4); }
+.mb5{ margin-bottom: var(--s5); }
+.mb6{ margin-bottom: var(--s6); }
+.mt4{ margin-top: var(--s4); }
+.mt5{ margin-top: var(--s5); }
+.narrow{ max-width: var(--measure); }
+@media print{
+  nav, .theme{ display: none; }
+  .sec{ break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-in">
+    <a class="brand" href="#top">OneDash <span>· 13/08/2026</span></a>
+    <div class="navlinks">
+      <a href="#pivot">Trục xoay</a>
+      <a href="#project">Project</a>
+      <a href="#docker">Docker</a>
+      <a href="#webserver">Web server</a>
+      <a href="#metrics">Thống kê</a>
+      <a href="#roles">OneDash ↔ Portal</a>
+      <a href="#voto">Key Voto</a>
+      <a href="#market">Marketplace</a>
+      <a href="#f3">F3 Storage</a>
+      <a href="#tasks">Việc giao</a>
+      <a href="#open">Câu hỏi mở</a>
+    </div>
+    <button class="theme" id="themeBtn" type="button" aria-label="Đổi chủ đề sáng/tối">◐ Chủ đề</button>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="kicker">
+      <b>Review nội bộ</b><i>/</i>
+      <span>Cầu Giấy · 13/08/2026</span><i>/</i>
+      <span>Thời lượng <span class="num">1g29p</span></span><i>/</i>
+      <span>Nguồn: <code>Cầu Giấy.srt</code></span>
+    </div>
+    <h1>OneDash xoay trục: từ <em>chuẩn hoá &amp; quản trị</em> sang <em>detect &amp; điều khiển</em></h1>
+    <div class="verdict">
+      <p><strong>Kết luận xuyên suốt buổi họp:</strong> ép khách hàng chuẩn hoá project vào khuôn của OneDash chính là nguyên nhân nền tảng không được dùng. Từ nay OneDash <strong>đọc hiện trạng có sẵn trên server và cho điều khiển qua UI</strong>, thay vì bắt cài lại theo wizard. Docker được bổ sung như <strong>option song song</strong> — không thay thế project native.</p>
+    </div>
+    <div class="hero-meta">
+      <span><b>Dự họp:</b> anh Chí (sản phẩm/kinh doanh) · anh Đạt (TBP Công Nghệ) · Việt (module Project) · kienvt (vận hành cụm Ceph prod)</span>
+      <span><b>Giao thêm:</b> Đức — ducnd (bin-link Portal)</span>
+    </div>
+  </div>
+</header>
+
+<section class="kpis">
+  <div class="kpis-in">
+    <div class="kpi"><span class="cnt num">1g29p</span><span class="cap">Thời lượng buổi review</span></div>
+    <div class="kpi is-ok"><span class="cnt num">18</span><span class="cap">Quyết định đã chốt</span></div>
+    <div class="kpi is-hot"><span class="cnt num">5</span><span class="cap">Câu hỏi còn treo</span></div>
+    <div class="kpi"><span class="cnt num">9</span><span class="cap">Hạng mục review</span></div>
+    <div class="kpi"><span class="cnt num">4</span><span class="cap">Người nhận việc</span></div>
+  </div>
+</section>
+
+<!-- ========== 00 · Lưu ý nguồn ========== -->
+<section class="sec sec--sunk" id="source">
+  <div class="sec-in">
+    <div class="callout c-warn">
+      <h4>⚠︎ Lưu ý về nguồn <span class="badge b-warn">Độ tin cậy có giới hạn</span></h4>
+      <p>Báo cáo dựng từ transcript ASR (<span class="num">1.284</span> cue). Chất lượng nhận dạng kém ở nhiều đoạn: có khối nhiễu lặp (<code>Hover là gì?</code>, <code>cái… cái…</code>, <code>mục mục mục</code>, chuỗi <code>000.000</code>) và tên riêng bị đọc sai liên tục:</p>
+      <ul>
+        <li><strong>OneDash</strong> → “Undap / Wandax / OneDart / 1DAP / Monodict / WANDAX”</li>
+        <li><strong>Portal · Voto</strong> → “Foto / Photo / bottle / Voto”</li>
+        <li><strong>RadosGW</strong> → “DDoS / ra dốt gateway / Rados xây”</li>
+        <li><strong>Nginx</strong> → “Endinix / ENGENIC / engine mix / S&amp;X”</li>
+      </ul>
+      <p class="mt4"><strong>Phân vai đã hiệu chỉnh thủ công theo chủ đề</strong> (ASR gọi cả hai người là “Việt”): phần <em>Project của OneDash</em> → <strong>Việt</strong>; phần <em>F3 / Ceph / RadosGW</em> → <strong>kienvt</strong> (phụ trách vận hành cụm Ceph prod). Các con số và tên miền cụ thể trong báo cáo cần đối chiếu lại trước khi dùng làm căn cứ triển khai.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 01 · TRỤC XOAY ========== -->
+<section class="sec" id="pivot">
+  <div class="sec-in">
+    <div class="sec-head">
+      <div class="sec-idx num">01</div>
+      <div>
+        <h2>Trục xoay: OneDash thôi làm “khuôn”, chuyển sang làm “tấm kính”</h2>
+        <p class="sub">Đây là quyết định lớn nhất buổi họp và là gốc của mọi thay đổi ở các mục sau.</p>
+      </div>
+    </div>
+
+    <p class="mb5 narrow">Hiện trạng bị chỉ ra là nguyên nhân trực tiếp khiến khách hàng chạy thật không dùng OneDash: nền tảng <strong>bắt khách hàng chuẩn hoá theo mình</strong> — project phải nằm trong folder cố định của OneDash, phải chạy dưới user cô lập, phải để OneDash quản Nginx và domain, phải đi hết wizard từng bước. Trong khi khách hàng chạy thật thì <strong>đã có sẵn tất cả</strong>: source, web server, DB, service.</p>
+
+    <div class="pivot mb6">
+      <div class="pivot-col was">
+        <span class="pivot-tag">Hiện trạng — vì sao không ai dùng</span>
+        <h3>Chuẩn hoá &amp; quản trị</h3>
+        <ul>
+          <li>Project bị ép nằm trong <strong>một folder cố định</strong> của OneDash (<code>/opt/…</code>)</li>
+          <li>Bắt chạy dưới <strong>user cô lập</strong> → chặn các tác vụ cần <code>root</code>/<code>sudo</code></li>
+          <li><strong>Nginx + domain</strong> do OneDash quản, theo form chuẩn của OneDash</li>
+          <li>Wizard <strong>tuyến tính bắt buộc</strong>: runtime → dependency → source</li>
+          <li>Chỉ có <strong>một kiểu đầu vào</strong>: upload project mới</li>
+          <li>Muốn dùng thì <strong>phải copy source vào thư mục của OneDash</strong> và cài lại môi trường</li>
+        </ul>
+      </div>
+      <div class="pivot-arrow" aria-hidden="true">→</div>
+      <div class="pivot-col now">
+        <span class="pivot-tag">Chốt — hướng mới</span>
+        <h3>Detect &amp; điều khiển</h3>
+        <ul>
+          <li><strong>Gán path/URL của source có sẵn</strong> → OneDash tự detect, tự xử lý cấu trúc</li>
+          <li><strong>User/group thành optional</strong>, không còn là trục quản lý</li>
+          <li>Khách dùng Nginx/Caddy/Apache của họ → OneDash chỉ <strong>detect &amp; show trạng thái</strong></li>
+          <li><strong>Source là bước đầu tiên</strong>; dependency và runtime là <strong>optional</strong></li>
+          <li><strong>Bốn kiểu đầu vào</strong>: Existing · New · từ Docker · từ Template</li>
+          <li>Module rời nhưng <strong>hiển thị tập trung một màn hình</strong>: click là sửa port, sửa firewall, start/stop</li>
+        </ul>
+      </div>
+    </div>
+
+    <blockquote class="said">
+      “Có gì dưới server thì nó show lên để cho anh thấy. Và để anh sửa. Chứ không phải là anh sẽ phải vào trong server để anh tìm cái file để anh sửa nữa.”
+      <cite>— anh Đạt, mô tả triết lý mới (tương tự module File Manager)</cite>
+    </blockquote>
+
+    <div class="grid g2 mt5">
+      <div class="card dec">
+        <div class="dec-head"><span class="dec-id">CHỐT-01</span><span class="badge b-ok">Đã chốt</span></div>
+        <h3>Bỏ ép chuẩn hoá, chuyển sang detect</h3>
+        <p>Thay vì bắt cấu hình long dòng, khách chỉ cần <strong>gán path/URL của source đang có</strong> — bấm một phát là OneDash tự detect và tự xử lý.</p>
+      </div>
+      <div class="card dec">
+        <div class="dec-head"><span class="dec-id">CHỐT-02</span><span class="badge b-ok">Đã chốt</span></div>
+        <h3>User/group hạ xuống optional</h3>
+        <p>Quản lý project không còn lấy user làm trục. Khách đã có sẵn source, web server, DB — OneDash chỉ show lên để họ quản service.</p>
+        <div class="callout c-warn mt4">
+          <h4>Kéo theo rủi ro chưa xử lý</h4>
+          <p>Buổi họp đã nêu chạy dưới quyền user thì bị hạn chế các tác vụ cần <code>root</code>/<code>sudo</code>, nhưng <strong>chưa chốt cơ chế thay thế</strong> khi user/group không còn bắt buộc. Cũng có nhắc tới lỗ hổng bypass quyền root của Node.js như lý do phải cẩn trọng.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 02 · PROJECT ========== -->
+<section class="sec sec--sunk" id="project">
+  <div class="sec-in">
+    <div class="sec-head">
+      <div class="sec-idx num">02</div>
+      <div>
+        <h2>Module Project: đổi thứ tự bước, mở thêm đầu vào, thêm clone</h2>
+        <p class="sub">Phụ trách: <strong>Việt</strong>. Đây là phần chịu thay đổi nhiều nhất từ quyết định ở mục 01.</p>
+      </div>
+    </div>
+
+    <h3 class="mb4" style="font-size:var(--t-2)">Luồng tạo project — trước và sau</h3>
+
+    <div class="mb5">
+      <div class="flow-label">Hiện tại · runtime bắt buộc, source cuối</div>
+      <div class="flow">
+        <div class="step req"><span class="n">01</span><span class="t">Chọn runtime</span><span class="o">bắt buộc</span></div>
+        <div class="flow-sep" aria-hidden="true">→</div>
+        <div class="step req"><span class="n">02</span><span class="t">Cài dependency</span><span class="o">bắt buộc</span></div>
+        <div class="flow-sep" aria-hidden="true">→</div>
+        <div class="step req"><span class="n">03</span><span class="t">Đưa source vào</span><span class="o">đúng folder OneDash</span></div>
+        <div class="flow-sep" aria-hidden="true">→</div>
+        <div class="step req"><span class="n">04</span><span class="t">Cấu hình user + Nginx + domain</span><span class="o">bắt buộc</span></div>
+        <div class="flow-sep" aria-hidden="true">→</div>
+        <div class="step req"><span class="n">05</span><span class="t">Chạy</span><span class="o">—</span></div>
+      </div>
+      <blockquote class="said">
+        “Không có source thì cài dependency, runtime thì cũng chả là gì. Nên step đầu tiên là lúc nào cũng phải upload source lên đã.”
+        <cite>— anh Đạt</cite>
+      </blockquote>
+    </div>
+
+    <div class="mb6">
+      <div class="flow-label" style="color:var(--ok)">Chốt · source-first, phần còn lại optional</div>
+      <div class="flow">
+        <div class="step key"><span class="n">01</span><span class="t">Có source</span><span class="o">upload / chọn path có sẵn</span></div>
+        <div class="flow-sep" aria-hidden="true">→</div>
+        <div class="step key"><span class="n">02</span><span class="t">Auto-detect cấu trúc</span><span class="o">framework, port, service</span></div>
+        <div class="flow-sep" aria-hidden="true">→</div>
+        <div class="step opt"><span class="n">03</span><span class="t">Dependency</span><span class="o">optional</span></div>
+        <div class="flow-sep" aria-hidden="true">→</div>
+        <div class="step opt"><span class="n">04</span><span class="t">Runtime</span><span class="o">optional</span></div>
+        <div class="flow-sep" aria-hidden="true">→</div>
+        <div class="step opt"><span class="n">05</span><span class="t">Domain / Nginx</span><span class="o">optional</span></div>
+        <div class="flow-sep" aria-hidden="true">→</div>
+        <div class="step key"><span class="n">06</span><span class="t">Start / Stop</span><span class="o">điều khiển qua UI</span></div>
+      </div>
+    </div>
+
+    <h3 class="mb4" style="font-size:var(--t-2)">Bốn kiểu đầu vào phải hỗ trợ ngay từ bước đầu</h3>
+    <div class="grid g2 mb6">
+      <div class="card">
+        <h3>① Existing Project <span class="badge b-ok">Chốt · ưu tiên</span></h3>
+        <p class="lead">Project đã tồn tại sẵn trên server.</p>
+        <p>Hoạt động như file browser: mở lên, <strong>click đúng folder chứa project</strong> là import. Không chuẩn hoá lại theo form của OneDash. Đây là kiểu đầu vào quan trọng nhất vì đúng với khách hàng chạy thật.</p>
+      </div>
+      <div class="card">
+        <h3>② New Project <span class="badge b-neu">Giữ nguyên</span></h3>
+        <p class="lead">Luồng tạo mới hiện có, nhưng đổi thứ tự bước theo sơ đồ trên.</p>
+        <p>Dành cho khách mới hoặc VPS cài trắng lại. Thực tế nhóm này chỉ upload source rồi chạy, xong là không quay lại phần quản trị nữa.</p>
+      </div>
+      <div class="card">
+        <h3>③ Từ Docker <span class="badge b-warn">Option, xem mục 03</span></h3>
+        <p class="lead">Sinh project từ container / compose.</p>
+        <p>Kèm yêu cầu mới: OneDash phải <strong>detect được máy chủ đã cài Docker hay chưa</strong>, và nếu chưa thì xử lý ra sao.</p>
+      </div>
+      <div class="card">
+        <h3>④ Từ Template <span class="badge b-ok">Chốt</span></h3>
+        <p class="lead">Chọn thể loại project là tạo được ngay.</p>
+        <p>Nguyên tắc: <strong>tối đa 2 input</strong>, lý tưởng chỉ cần chọn template. “Bấm xong rồi không phải nhiều input ngay từ đầu tiên đâu.”</p>
+      </div>
+    </div>
+
+    <h3 class="mb4" style="font-size:var(--t-2)">Clone project — có; Move — không</h3>
+    <div class="opts mb5">
+      <div class="opt picked">
+        <span class="opt-k">PHƯƠNG ÁN A</span>
+        <h4>Clone <span class="badge b-ok">Chốt</span></h4>
+        <p>Copy folder A sang B, chạy trên B. Đúng nhu cầu “nhân bản” — giống mấy ông dùng website muốn nhân bản site lên.</p>
+        <div class="pc">
+          <div class="plus"><span class="s">+</span><span>Giữ nguyên bản gốc, không mất gì</span></div>
+          <div class="plus"><span class="s">+</span><span>Không phá luồng gia hạn của bản cũ</span></div>
+        </div>
+      </div>
+      <div class="opt">
+        <span class="opt-k">PHƯƠNG ÁN B</span>
+        <h4>Move <span class="badge b-risk">Không đồng ý</span></h4>
+        <p>Cắt project khỏi chỗ cũ, chuyển sang chỗ mới.</p>
+        <div class="pc">
+          <div class="minus"><span class="s">−</span><span>Cắt ở đây thì khách muốn gia hạn lấy thông tin ở đâu</span></div>
+          <div class="minus"><span class="s">−</span><span>Mất dữ liệu/liên kết ở nơi cũ</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout c-warn">
+      <h4>Cảnh báo kỹ thuật từ Việt <span class="badge b-warn">Chưa chốt phạm vi</span></h4>
+      <p>Existing project <strong>không theo form chuẩn nào</strong>, nên khi clone thì OneDash không đọc/sửa được để can thiệp — lúc đó khách vẫn phải tự thao tác dưới shell. <strong>Phạm vi clone hỗ trợ tới đâu vẫn chưa được chốt.</strong> Ngoài ra: source static cần kiểm tra thêm; port thì khai báo hết trong source nên phải tách được cấu hình port/IP khi detect.</p>
+    </div>
+
+    <div class="grid g3 mt5">
+      <div class="card dec card--flat">
+        <div class="dec-head"><span class="dec-id">CHỐT-03</span><span class="badge b-ok">Đã chốt</span></div>
+        <h3>Source-first, runtime optional</h3>
+      </div>
+      <div class="card dec card--flat">
+        <div class="dec-head"><span class="dec-id">CHỐT-04</span><span class="badge b-ok">Đã chốt</span></div>
+        <h3>Bốn kiểu đầu vào</h3>
+      </div>
+      <div class="card dec card--flat">
+        <div class="dec-head"><span class="dec-id">CHỐT-05</span><span class="badge b-ok">Đã chốt</span></div>
+        <h3>Clone có · Move không</h3>
+      </div>
+      <div class="card dec card--flat">
+        <div class="dec-head"><span class="dec-id">CHỐT-06</span><span class="badge b-ok">Đã chốt</span></div>
+        <h3>Module rời, hiển thị tập trung</h3>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 03 · DOCKER ========== -->
+<section class="sec" id="docker">
+  <div class="sec-in">
+    <div class="sec-head">
+      <div class="sec-idx num">03</div>
+      <div>
+        <h2>Docker: support song song, không thay thế native</h2>
+        <p class="sub">Hạng mục tranh luận dài nhất buổi họp. Hai phía đều có lý, và kết luận là không chọn một bên.</p>
+      </div>
+    </div>
+
+    <div class="debate mb5">
+      <div class="voice">
+        <div class="voice-who">
+          <span class="av">V</span>
+          <span><span class="nm">Việt</span><br><span class="rl">Đề xuất: dockerize toàn bộ</span></span>
+        </div>
+        <ul>
+          <li><strong>Thoát dependency hell</strong> — mỗi khách một kiểu, source mỗi ông một kiểu dependency, native rất hay vỡ</li>
+          <li><strong>Bỏ được rất nhiều service phải cài</strong> trên máy chủ — cho cả web server lẫn project</li>
+          <li><strong>Remove/xoá dễ</strong>, gọn gàng</li>
+          <li>Người dùng gen app bằng AI <strong>không cần biết Docker</strong> — Docker chạy ẩn bên dưới, họ chỉ quan tâm chạy được</li>
+          <li>Môi trường cô lập, <strong>chạy nhanh hơn</strong></li>
+        </ul>
+      </div>
+      <div class="voice">
+        <div class="voice-who">
+          <span class="av b">Đ</span>
+          <span><span class="nm">anh Đạt</span><br><span class="rl">Phản biện: đừng bỏ native</span></span>
+        </div>
+        <ul>
+          <li><strong>Docker sinh thêm tài nguyên phải quản lý</strong>: image, container, và đặc biệt là <strong>volume/data</strong></li>
+          <li>Khách chạy dữ liệu thật thì <strong>phải giữ volume</strong> — xoá lung tung là mất dữ liệu, phải làm cả module quản lý volume + container</li>
+          <li>Dữ liệu import vào cho khách <strong>khó tái sử dụng</strong> — cô lập tốt nhưng không tái dụng được</li>
+          <li>Thực tế <strong>nhiều dev thích native thuần</strong>: “người ta cài đến đâu người ta biết người ta chạy đến đấy”</li>
+          <li>Project hiện tại đang dùng PM2 và link vào từng project — đổi phương án phải tính rất kỹ</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="resolve">
+      <h4>⟶ Chốt <span class="badge b-ok">CHỐT-07</span></h4>
+      <p><strong>Giữ project native hiện tại + bổ sung Docker như một option</strong>, cho khách chọn, rồi <strong>đo tỷ lệ dùng</strong> mới quyết hướng chính. Không bỏ toàn bộ project hiện tại để thay hoàn toàn bằng Docker.</p>
+    </div>
+
+    <blockquote class="said">
+      “Thế nên mình bảo nhanh gọn nó chết chắc với người dùng.”
+      <cite>— anh Đạt, chốt lại việc không đánh đổi độ phủ để lấy sự gọn gàng</cite>
+    </blockquote>
+
+    <div class="callout c-warn mt4">
+      <h4>Còn treo <span class="badge b-warn">Chưa chốt</span></h4>
+      <p>Đã chốt “làm song song rồi đo”, nhưng <strong>chưa định nghĩa ngưỡng nào thì chọn hướng nào</strong>, và <strong>chưa chốt cách quản lý volume / container / image</strong> nếu Docker được chọn làm hướng chính.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 04 · WEB SERVER ========== -->
+<section class="sec sec--sunk" id="webserver">
+  <div class="sec-in">
+    <div class="sec-head">
+      <div class="sec-idx num">04</div>
+      <div>
+        <h2>Web server: hạ kỳ vọng, chỉ còn detect</h2>
+        <p class="sub">Số liệu thực tế trên hệ thống cho thấy module này gần như không được dùng.</p>
+      </div>
+    </div>
+
+    <div class="grid g2 mb5">
+      <div class="card">
+        <h3>Vì sao tỷ lệ dùng thấp</h3>
+        <ul>
+          <li>Lượt setup web server trên hệ thống <strong>rất thấp</strong> khi xem thống kê tại buổi họp</li>
+          <li>Khách hàng chạy thật <strong>đã có Nginx / panel khác</strong> — “không bao giờ họ tạo mới trên cái của mình”</li>
+          <li>Khách hàng hiện tại phần lớn <strong>không có nhu cầu</strong> dùng web server của OneDash</li>
+          <li>Web server khá đặc thù (version, cấu hình riêng) nên càng khó ép chuẩn</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Phạm vi mới <span class="badge b-ok">CHỐT-08</span></h3>
+        <ul>
+          <li>Chỉ quản lý ở mức <strong>config Nginx / proxy</strong></li>
+          <li>Khách dùng <strong>Caddy hoặc Apache</strong> → OneDash <strong>chỉ detect service active/off</strong> và show trạng thái, không quản lý sâu</li>
+          <li>Gán URL/đường dẫn source là <strong>tự detect</strong>, không cấu hình long dòng</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout c-info">
+      <h4>Danh sách service — lọc lại <span class="badge b-ok">CHỐT-09</span></h4>
+      <p>Chỉ liệt kê <strong>service đang chạy và liên quan trực tiếp đến khách hàng</strong>: DB, firewall, web, app, receiver… <strong>Bỏ các service hệ thống gây nhiễu</strong>. Full list service của cả máy thì vô dụng với khách.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 05 · METRICS ========== -->
+<section class="sec" id="metrics">
+  <div class="sec-in">
+    <div class="sec-head">
+      <div class="sec-idx num">05</div>
+      <div>
+        <h2>Thống kê: phải đo được ai còn thật sự dùng OneDash</h2>
+        <p class="sub">Mọi quyết định “làm song song rồi đo” ở các mục trên đều phụ thuộc vào phần này chạy đúng.</p>
+      </div>
+    </div>
+
+    <div class="mrow mb5">
+      <div class="mitem">
+        <h4>① Pair audit log SSH <span class="badge b-ok">CHỐT-10</span></h4>
+        <p>Đối chiếu <strong>audit log SSH thu qua agent OneDash</strong> với SSH đi bằng đường khác, để ra được <strong>tỷ lệ khách SSH vào server mà không qua OneDash</strong>. Điều kiện: agent phải được cài (một lần đầu) mới thu được lớp log SSH; SSH thuần không qua agent thì không có vết. Cần phân biệt rõ: khách <em>dùng agent để thao tác việc khác</em> khác với <em>SSH vào server</em> — không gộp làm một chỉ số.</p>
+      </div>
+      <div class="mitem">
+        <h4>② Tách hai nhóm người dùng <span class="badge b-ok">CHỐT-11</span></h4>
+        <p><strong>User mới</strong> — chắc chắn phải qua OneDash để cài, nhóm này bắt được đầy đủ. <strong>User đang duy trì</strong> — không cần biết SSH, chỉ cần đếm qua agent. Hai nhóm này phải là hai số liệu riêng, không trộn.</p>
+      </div>
+      <div class="mitem">
+        <h4>③ Hiển thị số tuyệt đối, không chỉ phần trăm <span class="badge b-ok">CHỐT-12</span></h4>
+        <p>Dashboard hiện chỉ hiện %, không biết mẫu số nên vô nghĩa — thấy 27% mà không biết 27% của bao nhiêu.</p>
+        <div class="vs">
+          <div class="bad">
+            <div class="lbl">Hiện tại</div>
+            <div class="val">27%</div>
+            <div class="exp">không biết tử số / mẫu số → không ra quyết định được</div>
+          </div>
+          <div class="good">
+            <div class="lbl">Cần đổi thành</div>
+            <div class="val">U / max <span style="color:var(--muted);font-weight:500">(27%)</span></div>
+            <div class="exp">số tuyệt đối trước, phần trăm là phụ</div>
+          </div>
+        </div>
+      </div>
+      <div class="mitem">
+        <h4>④ Khung thời gian <span class="badge b-ok">CHỐT-13</span></h4>
+        <p>Tần suất dùng tính <strong>theo tháng — mặc định 30 ngày</strong>, có filter <strong>90 ngày</strong> để so sánh. Không để dạng cộng dồn toàn lịch sử vì không thấy được xu hướng.</p>
+      </div>
+      <div class="mitem">
+        <h4>⑤ Thống kê theo module / tính năng <span class="badge b-ok">CHỐT-14</span></h4>
+        <p>Đo <strong>tỷ lệ cài và tỷ lệ xoá</strong> theo từng module (web server, project…) để biết cái nào đáng đầu tư. Đây chính là số liệu để quyết Docker vs native, và để đánh giá module web server. Bảng “Tổng quan → Tính năng” cần <strong>phóng to font số lượng</strong> cho dễ đọc.</p>
+      </div>
+    </div>
+
+    <blockquote class="said">
+      “Khách hàng đôi khi người ta vào một lần, xong là người ta chạy thôi, người ta quay lại cái của mình làm gì. Cái OneDash này nó khác — nó là control.”
+      <cite>— anh Chí, lý giải vì sao OneDash phải đo retention khác với portal bán hàng</cite>
+    </blockquote>
+  </div>
+</section>
+
+<!-- ========== 06 · ROLES ========== -->
+<section class="sec sec--sunk" id="roles">
+  <div class="sec-in">
+    <div class="sec-head">
+      <div class="sec-idx num">06</div>
+      <div>
+        <h2>Phân vai OneDash ↔ Portal</h2>
+        <p class="sub">Nguyên tắc: quản trị dồn về OneDash, tiền dồn về Portal. Không lẫn.</p>
+      </div>
+    </div>
+
+    <div class="split mb5">
+      <div class="side">
+        <div class="side-h">OneDash <span class="tag">Quản trị / vận hành</span></div>
+        <ul>
+          <li>Quản lý cloud server — <strong>clone sang</strong>, không move</li>
+          <li>Quản lý project, web server, service, port, firewall</li>
+          <li>Quản lý F3 Object Storage (toàn bộ phần quản lý)</li>
+          <li>Xem tất cả project của mọi server trên <strong>một màn hình chung</strong></li>
+          <li>Có thể có <strong>nút</strong> thanh toán, nhưng bấm là nhảy về Portal</li>
+        </ul>
+      </div>
+      <div class="side portal">
+        <div class="side-h">Portal · my.inet.vn <span class="tag">Kinh doanh / tiền</span></div>
+        <ul>
+          <li><strong>Toàn bộ thanh toán</strong> — mọi luồng bin-link về đây</li>
+          <li>Gia hạn, nâng cấp gói</li>
+          <li>Bán gói F3, quản lý tài khoản dịch vụ</li>
+          <li>Bin-link ngược lại sang OneDash cho phần quản trị</li>
+          <li><strong>Ngừng bổ sung tính năng quản trị mới</strong> — chỉ giữ phần cơ bản</li>
+        </ul>
+      </div>
+    </div>
+
+    <blockquote class="said">
+      “Chứ đừng có cái phần thanh toán đẩy sang OneDash gì nhé, bỏ hết nhé.”
+      <cite>— anh Đạt</cite>
+    </blockquote>
+
+    <div class="grid g2 mt5">
+      <div class="card dec">
+        <div class="dec-head"><span class="dec-id">CHỐT-15</span><span class="badge b-ok">Đã chốt</span></div>
+        <h3>Cloud server: clone sang OneDash, không move</h3>
+        <p>Move bị bác vì cắt thông tin ở Portal thì luồng gia hạn mất chỗ dựa. Clone giữ cả hai bên, Portal vẫn gia hạn/nâng cấp bình thường; các tính năng nâng cao thì đẩy sang OneDash.</p>
+      </div>
+      <div class="card dec">
+        <div class="dec-head"><span class="dec-id">CHỐT-16</span><span class="badge b-ok">Đã chốt</span></div>
+        <h3>Email đăng ký cloud server: thêm link thứ hai</h3>
+        <p>Sau khi đăng ký thành công, email gửi khách phải có <strong>2 link</strong>:</p>
+        <ol>
+          <li><strong>Link thanh toán đơn hàng</strong> → Portal</li>
+          <li><strong>Link quản trị</strong> → vào thẳng OneDash</li>
+        </ol>
+        <p class="mt4">Mục đích: khách tiếp cận OneDash ngay từ lần đầu, không phải tự tìm.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 07 · VOTO KEY ========== -->
+<section class="sec" id="voto">
+  <div class="sec-in">
+    <div class="sec-head">
+      <div class="sec-idx num">07</div>
+      <div>
+        <h2>Key/auth cho OpenStack (Voto): gọi thẳng, bỏ hop qua Portal</h2>
+        <p class="sub">Bài toán: OneDash cần credential để list host / thao tác OpenStack. Đánh đổi giữa bảo mật và số hop.</p>
+      </div>
+    </div>
+
+    <div class="opts mb5">
+      <div class="opt">
+        <span class="opt-k">PHƯƠNG ÁN A</span>
+        <h4>Cấp key riêng cho OneDash gọi thẳng Voto</h4>
+        <div class="pc">
+          <div class="plus"><span class="s">+</span><span>Ít hop, nhanh</span></div>
+          <div class="minus"><span class="s">−</span><span><strong>Key leak là mất toàn bộ</strong> — “lấy được hết, auth được hết”</span></div>
+        </div>
+      </div>
+      <div class="opt">
+        <span class="opt-k">PHƯƠNG ÁN B</span>
+        <h4>Đi qua Portal làm proxy, auth tập trung ở Portal</h4>
+        <div class="pc">
+          <div class="plus"><span class="s">+</span><span>Auth tập trung, OneDash không giữ key gốc</span></div>
+          <div class="minus"><span class="s">−</span><span>Thêm một hop proxy → chậm</span></div>
+          <div class="minus"><span class="s">−</span><span>Backend Portal phải làm thêm việc, sinh hai đường log</span></div>
+        </div>
+      </div>
+      <div class="opt picked">
+        <span class="opt-k">PHƯƠNG ÁN C — CHỐT</span>
+        <h4>Mở allowlist domain OneDash ở backend Voto <span class="badge b-ok">CHỐT-17</span></h4>
+        <div class="pc">
+          <div class="plus"><span class="s">+</span><span>OneDash gọi thẳng API Voto, <strong>bỏ hop qua backend Portal</strong></span></div>
+          <div class="plus"><span class="s">+</span><span>Voto thêm endpoint là OneDash dùng được ngay — backend Portal không phải làm gì</span></div>
+          <div class="plus"><span class="s">+</span><span>Lý do nền: “hai thằng là một” — cùng hệ thống, không cần proxy nội bộ</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout c-warn">
+      <h4>Cần làm rõ trước khi gửi yêu cầu mở allowlist</h4>
+      <ul>
+        <li><strong>Tên domain chính xác</strong> — transcript ASR đọc ra <code>wandart.innet.vn</code>, gần như chắc chắn sai. Phải xác nhận lại domain thật của OneDash trước khi gửi yêu cầu cho phía Voto.</li>
+        <li><strong>Truyền SLID/LID</strong> để biết user nào đang gọi vào server nào — phục vụ audit, tránh mất dấu khi bỏ hop Portal.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 08 · MARKETPLACE ========== -->
+<section class="sec sec--sunk" id="market">
+  <div class="sec-in">
+    <div class="sec-head">
+      <div class="sec-idx num">08</div>
+      <div>
+        <h2>Marketplace app / image / template</h2>
+        <p class="sub">Làm giàu template để đa dạng sản phẩm, và biến việc mua server thành “chọn app là xong”.</p>
+      </div>
+    </div>
+
+    <div class="grid g2 mb5">
+      <div class="card">
+        <h3>Catalog cần bổ sung</h3>
+        <ul>
+          <li><strong>Image phổ biến</strong> của các nhà cung cấp (thêm menu chọn image)</li>
+          <li><strong>Ứng dụng dựng sẵn</strong>: n8n, OpenWebUI, Hermes… — build thành image hoặc script cài</li>
+          <li>Tận dụng phần “Ứng dụng” đã có sẵn trong OneDash, mở rộng thành template setup cho khách</li>
+        </ul>
+        <p class="mt4">Bối cảnh: khách hàng cài lên hạ tầng của nhà cung cấp khác (kể cả Viettel) — mình không bán hạ tầng đó, nên giá trị nằm ở lớp template + quản trị.</p>
+      </div>
+      <div class="card">
+        <h3>Luồng bán mong muốn</h3>
+        <ol>
+          <li>Chọn server → chọn gói</li>
+          <li><strong>Chọn app/image cài sẵn</strong> — mỗi loại một giá</li>
+          <li>Bin-link → thanh toán tại <strong>Portal</strong></li>
+          <li>Thanh toán thành công → gửi email kèm <strong>link quản trị OneDash</strong></li>
+          <li>Khách vào OneDash cấu hình tiếp</li>
+        </ol>
+        <div class="callout c-info mt4">
+          <h4>Nguyên tắc UX</h4>
+          <p>Tạo project <strong>tối đa 2 input</strong> — lý tưởng chỉ cần chọn template là tạo được máy chủ.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout c-info">
+      <h4>Lợi thế cần khai thác trong marketing</h4>
+      <p>Khách xem được <strong>toàn bộ project của mọi server trên một màn hình chung</strong>, thay vì phải SSH vào từng con server để kiểm tra đang chạy project nào. Đây là lý do rõ ràng nhất để khách chọn dịch vụ của mình.</p>
+    </div>
+
+    <div class="callout c-warn mt4">
+      <h4>Trang chủ — việc kèm theo <span class="badge b-ok">Chốt</span></h4>
+      <p>Cập nhật trang chủ: <strong>bỏ ảnh sản phẩm cũ</strong> (“nhìn như sản phẩm gần chục năm, chả biết còn kinh doanh không”), <strong>đưa OneDash và các module quản trị mới lên trước</strong>. Việc này đã nhắc từ trước nhưng chưa làm.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 09 · F3 ========== -->
+<section class="sec" id="f3">
+  <div class="sec-in">
+    <div class="sec-head">
+      <div class="sec-idx num">09</div>
+      <div>
+        <h2>F3 Object Storage — dịch vụ mới, còn vướng phần gói</h2>
+        <p class="sub">Vận hành cụm Ceph prod: <strong>kienvt</strong>. Trạng thái: đang <strong>test nội bộ, chưa chạy</strong>. Áp lực: có yêu cầu triển khai trong tháng này.</p>
+      </div>
+    </div>
+
+    <div class="split mb6">
+      <div class="side">
+        <div class="side-h">OneDash <span class="tag">Toàn bộ quản lý</span></div>
+        <ul>
+          <li>Quản lý bucket, account, policy</li>
+          <li>Console quản trị F3 cho khách</li>
+          <li>Tích hợp vào giao diện OneDash sẵn có</li>
+        </ul>
+      </div>
+      <div class="side portal">
+        <div class="side-h">Portal / INS <span class="tag">Kinh doanh</span></div>
+        <ul>
+          <li>Bán gói, quản lý gói của tài khoản</li>
+          <li>Hiển thị tên gói, giá, thông tin gói</li>
+          <li><strong>Bin-link</strong> sang OneDash để quản trị</li>
+          <li>Không làm phần quản lý trên Voto</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 class="mb4" style="font-size:var(--t-2)">⚠︎ Vấn đề nghiệp vụ chưa chốt: giới hạn băng thông</h3>
+
+    <div class="callout c-risk mb5">
+      <h4>Cái bán được và cái không bán được <span class="badge b-risk">Blocker của gói dịch vụ</span></h4>
+      <ul>
+        <li><strong>Không cap tổng theo gói được</strong> đối với băng thông. Rate limit chỉ áp được <strong>cho từng IAM user</strong>, không áp cho cả gói.</li>
+        <li>Cap tổng theo gói <strong>chỉ có quota + số bucket</strong>.</li>
+        <li>Về bản chất hệ thống tính theo <strong>lưu lượng / lượt request</strong>, <strong>không giới hạn được tốc độ tải</strong>: mạng khách càng cao thì kéo càng full, đã test.</li>
+      </ul>
+    </div>
+
+    <div class="grid g2 mb5">
+      <div class="card">
+        <h3>Rủi ro truyền thông giá <span class="badge b-risk">Phải sửa</span></h3>
+        <p>Bảng giá hiện ghi mức băng thông ở <strong>cấp gói</strong>. Khách sẽ hiểu đó là hạn mức cho cả gói, trong khi thực tế nó chỉ áp cho <strong>từng user con</strong>.</p>
+        <div class="vs">
+          <div class="bad">
+            <div class="lbl">Khách hiểu</div>
+            <div class="val">500M / gói</div>
+            <div class="exp">tổng hạn mức của toàn bộ gói</div>
+          </div>
+          <div class="good">
+            <div class="lbl">Thực tế</div>
+            <div class="val">500M / IAM user</div>
+            <div class="exp">10 user thì mỗi user một mức riêng</div>
+          </div>
+        </div>
+        <p class="mt4">Buổi họp có nêu ví dụ điều chỉnh xuống 100–200M cho mỗi user, nhưng <strong>chưa chốt con số</strong>.</p>
+      </div>
+      <div class="card">
+        <h3>Nếu bán theo lưu lượng vượt mức</h3>
+        <p>Mô hình được nêu: cho <strong>100GB output miễn phí</strong>, từ GB thứ 101 tính theo đơn giá (ví dụ ~280đ/GB).</p>
+        <div class="callout c-warn mt4">
+          <h4>Hệ quả bắt buộc</h4>
+          <p>Phải chuyển sang <strong>pay-as-you-go + nạp tiền / cắm thẻ trước</strong> — giống cách trừ token. <strong>Thu tiền cuối tháng là điểm rất dở</strong>: khách dùng xong mới đòi tiền thì rất khó thu.</p>
+        </div>
+        <p class="mt4">Toàn bộ phần tính vượt mức này phải nằm ở <strong>quản trị Portal</strong> và show cho người dùng thấy.</p>
+      </div>
+    </div>
+
+    <div class="callout c-warn mb6">
+      <h4>Còn tranh luận chưa dứt: “limit speed” nghĩa là gì</h4>
+      <p>Hai phía hiểu khác nhau và đến cuối đoạn vẫn chưa thống nhất — một bên hiểu là chặn tốc độ tải xuống của user (mạng 300M mà user limit 200M thì chỉ kéo 200M), bên kia khẳng định hệ thống không limit được tốc độ, mạng cao thì kéo full. <strong>Giao việc: rà lại file bảng giá / file catalog gửi gần nhất, test lại và làm rõ định nghĩa trước khi chốt bán.</strong></p>
+      <p class="mt4">Kết luận tạm của kienvt: <em>“Account và bucket thì ok, chỗ băng thông hơi cẩn thận.”</em></p>
+    </div>
+
+    <h3 class="mb4" style="font-size:var(--t-2)">Kiến trúc endpoint — đã chốt</h3>
+
+    <div class="diagram mb4">
+      <svg viewBox="0 0 900 340" role="img" aria-label="Sơ đồ endpoint F3: node admin bổ sung một RadosGW client riêng cho CLI/API, ba node client chạy RadosGW qua Nginx">
+        <!-- OneDash -->
+        <rect class="sv-box-new" x="14" y="128" width="140" height="72" rx="10" stroke-width="1.5"/>
+        <text class="sv-t" x="84" y="158" text-anchor="middle">OneDash</text>
+        <text class="sv-s" x="84" y="178" text-anchor="middle">S3 CLI / Admin API</text>
+
+        <!-- node 1 admin -->
+        <rect class="sv-box" x="250" y="34" width="250" height="120" rx="10" stroke-width="1.5"/>
+        <text class="sv-t" x="266" y="60">Node 1 — ADMIN</text>
+        <text class="sv-s" x="266" y="78">Rados Admin / CLI</text>
+        <rect class="sv-box-ok" x="266" y="92" width="218" height="46" rx="8" stroke-width="1.5"/>
+        <text class="sv-t" x="278" y="112">+ RadosGW client (mới)</text>
+        <text class="sv-s" x="278" y="128">deploy riêng cho CLI/API</text>
+
+        <!-- nginx + 3 clients -->
+        <rect class="sv-box" x="250" y="196" width="250" height="122" rx="10" stroke-width="1.5"/>
+        <text class="sv-t" x="266" y="222">Nginx (driver hiện tại)</text>
+        <rect class="sv-box" x="266" y="238" width="66" height="62" rx="8" stroke-width="1.5"/>
+        <text class="sv-s" x="299" y="264" text-anchor="middle">RGW</text>
+        <text class="sv-s" x="299" y="280" text-anchor="middle">client</text>
+        <rect class="sv-box" x="342" y="238" width="66" height="62" rx="8" stroke-width="1.5"/>
+        <text class="sv-s" x="375" y="264" text-anchor="middle">RGW</text>
+        <text class="sv-s" x="375" y="280" text-anchor="middle">client</text>
+        <rect class="sv-box" x="418" y="238" width="66" height="62" rx="8" stroke-width="1.5"/>
+        <text class="sv-s" x="451" y="264" text-anchor="middle">RGW</text>
+        <text class="sv-s" x="451" y="280" text-anchor="middle">client</text>
+
+        <!-- ceph -->
+        <rect class="sv-box" x="600" y="110" width="286" height="108" rx="10" stroke-width="1.5"/>
+        <text class="sv-t" x="616" y="138">Cụm Ceph prod</text>
+        <text class="sv-s" x="616" y="158">1 cụm = nhiều kho trên các node</text>
+        <text class="sv-s" x="616" y="176">vận hành: kienvt</text>
+        <text class="sv-s" x="616" y="200">bucket policy phải qua endpoint F3</text>
+
+        <!-- links -->
+        <path class="sv-l-ok" d="M154 152 C 200 152, 205 115, 250 115" stroke-width="2"/>
+        <text class="sv-lt" x="168" y="112">chốt: gọi thẳng</text>
+        <path class="sv-l-bad" d="M154 178 C 200 178, 205 250, 250 250" stroke-width="2"/>
+        <text class="sv-lt" x="14" y="252">tránh: ra ngoài rồi vào lại</text>
+        <path class="sv-l" d="M500 94 L 600 140" stroke-width="1.5"/>
+        <path class="sv-l" d="M500 258 L 600 196" stroke-width="1.5"/>
+      </svg>
+      <p class="dg-cap">Node 1 là node admin nên vốn không chạy RadosGW cho client — sơ đồ do AI vẽ trước đó bị sai chính chỗ này.</p>
+    </div>
+
+    <div class="grid g2 mb5">
+      <div class="card">
+        <h3>Ràng buộc kỹ thuật</h3>
+        <ul>
+          <li><code>:8090</code> là <strong>port agent</strong> đang dùng — không phải endpoint S3</li>
+          <li><code>:8000</code> là <strong>RadosGW client</strong>, dành cho client, không phải admin</li>
+          <li><strong>Bucket policy bắt buộc gọi qua endpoint F3 (RadosGW)</strong></li>
+          <li><strong>Rados Admin API chỉ đủ cho quản lý tài khoản</strong>, không làm được bucket policy</li>
+          <li>Node 1 là admin → không cần chạy RadosGW client cho khách</li>
+        </ul>
+      </div>
+      <div class="card dec">
+        <div class="dec-head"><span class="dec-id">CHỐT-18</span><span class="badge b-ok">Đã chốt</span></div>
+        <h3>Thêm một RadosGW client trên node admin</h3>
+        <p><strong>kienvt deploy thêm 1 RadosGW client riêng trên node admin</strong> để phục vụ CLI/API. Kết quả: phía OneDash <strong>chỉ cần khai báo URL endpoint</strong>, code y như cũ; hạ tầng <strong>giữ nguyên cấu hình hiện tại, không phải sửa gì</strong>.</p>
+        <p class="mt4">Lý do bác phương án gọi qua endpoint public của 3 client: “lại bắt đi một vòng ra ngoài rồi đi vào” — trong khi đã nằm sẵn bên dưới thì gọi xuống trực tiếp là xong.</p>
+      </div>
+    </div>
+
+    <div class="callout c-info">
+      <h4>Ghi nhận thêm</h4>
+      <p>F3 sẽ tích hợp vào OneDash tương tự các dịch vụ S3 khác. Bản thảo đã gửi trước đó cho phía kinh doanh. Có nhắc tới việc <strong>login bằng Google Authenticator/OAuth</strong> cho phần console — không cần allow thêm gì, auth xong là vào.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 10 · TASKS ========== -->
+<section class="sec sec--sunk" id="tasks">
+  <div class="sec-in">
+    <div class="sec-head">
+      <div class="sec-idx num">10</div>
+      <div>
+        <h2>Việc giao</h2>
+        <p class="sub">Trích từ transcript. Deadline chỉ được nêu rõ cho phần F3 (“trong tháng này”).</p>
+      </div>
+    </div>
+
+    <div class="tbl-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Chủ sở hữu</th>
+            <th>Việc</th>
+            <th>Hạng mục</th>
+            <th>Trạng thái</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="who"><span class="dot d-viet"></span>Việt</span></td>
+            <td>Đổi step tạo project: <strong>source-first</strong>, dependency + runtime thành optional</td>
+            <td>Project</td>
+            <td><span class="badge b-ok">Đã chốt</span></td>
+          </tr>
+          <tr>
+            <td><span class="who"><span class="dot d-viet"></span>Việt</span></td>
+            <td>Thêm <strong>Existing Project</strong> + <strong>clone</strong>; xác định phạm vi clone hỗ trợ tới đâu</td>
+            <td>Project</td>
+            <td><span class="badge b-warn">Phạm vi chưa rõ</span></td>
+          </tr>
+          <tr>
+            <td><span class="who"><span class="dot d-viet"></span>Việt</span></td>
+            <td>Chuyển project + web server sang cơ chế <strong>detect</strong>; user/group thành optional; hiển thị tập trung một màn hình</td>
+            <td>Project · Web server</td>
+            <td><span class="badge b-ok">Đã chốt</span></td>
+          </tr>
+          <tr>
+            <td><span class="who"><span class="dot d-viet"></span>Việt</span></td>
+            <td>Detect <strong>Docker đã cài trên máy chủ</strong> hay chưa; support Docker song song với native</td>
+            <td>Project</td>
+            <td><span class="badge b-warn">Cần thiết kế</span></td>
+          </tr>
+          <tr>
+            <td><span class="who"><span class="dot d-viet"></span>Việt</span></td>
+            <td>Bổ sung thống kê: pair audit log SSH, tách user mới/duy trì, <strong>U/max</strong> thay %, 30 ngày, theo module</td>
+            <td>Thống kê</td>
+            <td><span class="badge b-ok">Đã chốt</span></td>
+          </tr>
+          <tr>
+            <td><span class="who"><span class="dot d-kien"></span>kienvt</span></td>
+            <td><strong>Deploy thêm 1 RadosGW client trên node admin</strong> cho CLI/API</td>
+            <td>F3 / Ceph prod</td>
+            <td><span class="badge b-ok">Đã chốt</span></td>
+          </tr>
+          <tr>
+            <td><span class="who"><span class="dot d-kien"></span>kienvt</span></td>
+            <td>Rà lại <strong>file bảng giá / catalog F3</strong>: xác nhận speed vs băng thông, test lại, chốt cách hiển thị limit per-user</td>
+            <td>F3 — gói dịch vụ</td>
+            <td><span class="badge b-risk">Blocker</span></td>
+          </tr>
+          <tr>
+            <td><span class="who"><span class="dot d-duc"></span>Đức · ducnd</span></td>
+            <td><strong>Bin-link Portal ↔ OneDash</strong>: hiển thị thông tin gói F3, giá, luồng thanh toán</td>
+            <td>Portal</td>
+            <td><span class="badge b-ok">Đã chốt</span></td>
+          </tr>
+          <tr>
+            <td><span class="who"><span class="dot d-duc"></span>Đức · ducnd</span></td>
+            <td>Email đăng ký cloud server: thêm <strong>link quản trị OneDash</strong> bên cạnh link thanh toán</td>
+            <td>Portal</td>
+            <td><span class="badge b-ok">Đã chốt</span></td>
+          </tr>
+          <tr>
+            <td><span class="who"><span class="dot d-infra"></span>Backend Voto</span></td>
+            <td>Mở <strong>allowlist domain OneDash</strong> để gọi thẳng API, bỏ hop qua backend Portal</td>
+            <td>Hạ tầng</td>
+            <td><span class="badge b-warn">Chờ xác nhận domain</span></td>
+          </tr>
+          <tr>
+            <td><span class="who"><span class="dot d-dat"></span>anh Đạt</span></td>
+            <td>Bổ sung <strong>catalog app/image/template</strong> (n8n, OpenWebUI, Hermes…) làm giàu marketplace</td>
+            <td>Marketplace</td>
+            <td><span class="badge b-ok">Đã chốt</span></td>
+          </tr>
+          <tr>
+            <td><span class="who"><span class="dot d-dat"></span>anh Đạt</span></td>
+            <td>Cập nhật <strong>trang chủ</strong>: bỏ ảnh sản phẩm cũ, đưa OneDash và module quản trị lên trước</td>
+            <td>Marketing</td>
+            <td><span class="badge b-warn">Nhắc lại lần 2</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 11 · OPEN ========== -->
+<section class="sec" id="open">
+  <div class="sec-in">
+    <div class="sec-head">
+      <div class="sec-idx num">11</div>
+      <div>
+        <h2>Câu hỏi chưa có lời giải</h2>
+        <p class="sub">Năm điểm này đến hết buổi họp vẫn treo. Cần chốt trước khi triển khai phần liên quan.</p>
+      </div>
+    </div>
+
+    <div class="oq">
+      <div class="oqi">
+        <div class="qn num">1</div>
+        <div>
+          <h4>F3 — bán theo speed hay theo lưu lượng?</h4>
+          <p>Chưa chốt mô hình bán, chưa chốt cách hiển thị để khách không hiểu sai “500M cho cả gói”. Trong khi đó <strong>có yêu cầu triển khai ngay trong tháng này</strong> mà gói dịch vụ (quota / băng thông / số user) chưa chốt. Đây là blocker nghiêm trọng nhất.</p>
+          <div class="need"><b>Cần:</b> <span>kết quả test băng thông + bản bảng giá đã sửa + quyết định pay-as-you-go hay không</span></div>
+        </div>
+      </div>
+
+      <div class="oqi">
+        <div class="qn num">2</div>
+        <div>
+          <h4>Docker vs native — ngưỡng nào thì chọn hướng nào?</h4>
+          <p>Đã chốt “làm song song rồi đo”, nhưng chưa định nghĩa số liệu nào và ngưỡng bao nhiêu thì kết luận. Cũng chưa chốt cách quản lý volume / container / image nếu Docker thành hướng chính — mà đây chính là phản biện mạnh nhất chống lại Docker.</p>
+          <div class="need"><b>Cần:</b> <span>định nghĩa chỉ số quyết định + thiết kế quản lý volume/container</span></div>
+        </div>
+      </div>
+
+      <div class="oqi">
+        <div class="qn num">3</div>
+        <div>
+          <h4>Clone existing project — hỗ trợ tới đâu?</h4>
+          <p>Việt cảnh báo existing project không theo form chuẩn nên clone xong OneDash không đọc/sửa được. Chưa chốt: clone chỉ copy thô rồi để khách tự thao tác dưới shell, hay OneDash phải parse và can thiệp được?</p>
+          <div class="need"><b>Cần:</b> <span>chốt phạm vi clone + hành vi khi không parse được</span></div>
+        </div>
+      </div>
+
+      <div class="oqi">
+        <div class="qn num">4</div>
+        <div>
+          <h4>Bỏ user/group bắt buộc thì xử lý quyền root/sudo ra sao?</h4>
+          <p>Đã nêu chạy dưới quyền user bị hạn chế các tác vụ cần root/sudo, và có nhắc lỗ hổng bypass quyền root của Node.js. Nhưng khi user/group hạ xuống optional thì <strong>chưa có cơ chế thay thế</strong> để vừa chạy được vừa an toàn.</p>
+          <div class="need"><b>Cần:</b> <span>mô hình quyền mới cho chế độ detect</span></div>
+        </div>
+      </div>
+
+      <div class="oqi">
+        <div class="qn num">5</div>
+        <div>
+          <h4>Domain OneDash cần mở allowlist ở Voto là gì?</h4>
+          <p>Transcript ASR đọc ra <code>wandart.innet.vn</code> — gần như chắc chắn sai. Phải xác nhận domain chính xác trước khi gửi yêu cầu mở allowlist, nếu không sẽ mở sai hoặc bị từ chối.</p>
+          <div class="need"><b>Cần:</b> <span>xác nhận domain thật + thống nhất cách truyền SLID/LID cho audit</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <strong style="color:var(--text-2)">OneDash · Review định hướng nền tảng</strong><br>
+        Cầu Giấy · 13/08/2026 · dựng từ <code>Cầu Giấy.srt</code> (<span class="num">1.284</span> cue, <span class="num">1g29p</span>)<br>
+        <a href="#top">↑ Về đầu trang</a>
+      </div>
+      <div class="legend">
+        <span><span class="dot d-viet"></span>Việt — Project</span>
+        <span><span class="dot d-kien"></span>kienvt — Ceph prod</span>
+        <span><span class="dot d-duc"></span>ducnd — Portal</span>
+        <span><span class="dot d-dat"></span>anh Đạt — TBP Công Nghệ</span>
+        <span><span class="dot d-infra"></span>Hạ tầng / Voto</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var btn = document.getElementById('themeBtn');
+  var root = document.documentElement;
+  btn.addEventListener('click', function(){
+    var cur = root.getAttribute('data-theme');
+    if (!cur) {
+      var sysDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      cur = sysDark ? 'dark' : 'light';
+    }
+    root.setAttribute('data-theme', cur === 'dark' ? 'light' : 'dark');
+  });
+})();
+</script>
+</body>
+</html>

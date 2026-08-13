@@ -1,0 +1,5641 @@
+1
+00:00:01,950 --> 00:00:05,970
+Cả trên OPT rồi.
+
+2
+00:00:06,950 --> 00:00:11,100
+Bây giờ tạo project, tạo thư mục mới.
+
+3
+00:00:12,680 --> 00:00:13,380
+Chuyển sang.
+
+4
+00:00:15,790 --> 00:00:17,730
+Nó tự tạo thư mục mới.
+
+5
+00:00:18,510 --> 00:00:21,510
+Tức là cái cũ đã chạy ở trên rồi rồi.
+
+6
+00:00:22,940 --> 00:00:27,240
+Thực tụ xíu bây giờ mua kiểu
+gì, đau về óc lên, có kia xa.
+
+7
+00:00:31,460 --> 00:00:36,600
+Ý là cái án đấy nó chạy đến
+tư mục OPT, cụ rồi đúng không?
+
+8
+00:00:39,010 --> 00:00:42,230
+Tên Landad tạo project mới,
+nó sẽ tạo thương mục mới.
+
+9
+00:00:42,470 --> 00:00:43,050
+Đúng chưa?
+
+10
+00:00:44,380 --> 00:00:44,620
+Đấy.
+
+11
+00:00:44,740 --> 00:00:48,780
+Thì tạo thương mục mới thì
+em phải có cái cụ sản, cụ sản
+
+12
+00:00:50,540 --> 00:00:51,500
+cụ từ Vô đến V.
+
+13
+00:00:51,540 --> 00:00:52,540
+Em đang chạy rồi em tạo một.
+
+14
+00:00:53,230 --> 00:00:54,050
+Chỉ muốn test.
+
+15
+00:00:55,340 --> 00:00:56,160
+Em kéo một dòng.
+
+16
+00:00:56,200 --> 00:00:59,160
+Coi như là em muốn copy từ vô sách
+này sang project kia đúng không?
+
+17
+00:00:59,400 --> 00:01:00,500
+Từ A sang B đấy vậy?
+
+18
+00:01:01,550 --> 00:01:03,230
+Thế phải thêm chúng đang clone thôi.
+
+19
+00:01:04,070 --> 00:01:04,950
+Chỉ nó...
+
+20
+00:01:05,020 --> 00:01:05,440
+Chỉ nó...
+
+21
+00:01:05,440 --> 00:01:07,520
+Chỉ nó không có mu.
+
+22
+00:01:10,830 --> 00:01:14,230
+Ví dụ như khách hàng trước đã chạy đến
+cái thương mục rồi thì nó sẽ không dùng.
+
+23
+00:01:22,860 --> 00:01:27,920
+Đơn giản là anh muốn copy folder
+A, folder B, chạy trên folder B.
+
+24
+00:01:29,320 --> 00:01:32,200
+Vì sao hỏi anh đề xuất
+thêm tính năng clone?
+
+25
+00:01:33,680 --> 00:01:37,840
+Tại vì thực tế hiện tại mình đang đi theo
+kiểu upload project bản thân những dịch
+
+26
+00:01:37,840 --> 00:01:39,040
+vụ khác cũng không cho mình clone.
+
+27
+00:01:39,950 --> 00:01:41,290
+Anh đang bó là anh clone.
+
+28
+00:01:42,010 --> 00:01:45,670
+Theo đúng, khách hàng mới ban
+đầu thì đạo project nó sẽ...
+
+29
+00:01:46,470 --> 00:01:52,410
+Nhưng mà khách hàng cũ ấy...
+
+30
+00:01:52,410 --> 00:01:53,210
+Cho nó tự detect.
+
+31
+00:01:55,140 --> 00:01:56,680
+Vì dạo tính năng nhân bản...
+
+32
+00:01:56,700 --> 00:01:58,100
+Không sai các thứ này.
+
+33
+00:01:58,220 --> 00:02:04,060
+Nên mà phần project ở chỗ Việt này là tất
+cả em đang cố định một trong cái folder
+
+34
+00:02:04,060 --> 00:02:05,500
+ondark, không gì đúng không?
+
+35
+00:02:06,650 --> 00:02:09,750
+Đừng dẫn nó ondark, ondark, hôn ondark.
+
+36
+00:02:09,750 --> 00:02:10,110
+Cái gì?
+
+37
+00:02:10,550 --> 00:02:11,590
+Cô PT cũng không...
+
+38
+00:02:11,590 --> 00:02:17,390
+Cái trong phần hiển thị
+project này thì cứ tôi chỉ
+
+39
+00:02:17,390 --> 00:02:22,070
+biết ông có folder trong đấy và ông có
+suột trong đấy thì tôi tự hiển thị lên là nó
+
+40
+00:02:22,070 --> 00:02:22,710
+là project luôn.
+
+41
+00:02:23,050 --> 00:02:23,210
+Đúng không?
+
+42
+00:02:23,630 --> 00:02:24,330
+Thế phải tiện là...
+
+43
+00:02:24,330 --> 00:02:24,970
+Chỉ phải quét hết.
+
+44
+00:02:25,090 --> 00:02:26,610
+Nhưng biết có đời hầu hết đúng rồi anh.
+
+45
+00:02:27,850 --> 00:02:32,110
+Tất cả nó chỉ là hiển thị dạng kiểu
+Black folder ở trên trang hiển thị thôi.
+
+46
+00:02:32,270 --> 00:02:34,210
+Chứ nó không phải là có...
+
+47
+00:02:34,690 --> 00:02:36,550
+Nó không đạt ra gì cả.
+
+48
+00:02:37,710 --> 00:02:40,270
+Nhưng mà anh không xin được
+việc thiên lớn cái gì...
+
+49
+00:02:40,270 --> 00:02:45,290
+Đấy là để đeo project có thể đeo
+anh, vì họ đeo trong khách tin...
+
+50
+00:02:45,290 --> 00:02:50,950
+Thì việc tôi nói là nó trong cái phần quản
+lý project là cố định ở trong một folder
+
+51
+00:02:50,950 --> 00:02:51,490
+rồi mà...
+
+52
+00:02:51,490 --> 00:02:56,490
+Tất cả của mình, của mình, của khách
+trước đó, mình sao mà đeo cho...
+
+53
+00:02:56,810 --> 00:03:02,030
+Thì bây giờ khách chỉ việc họ copy cái
+sổng họ đưa vào trong thư mục project của
+
+54
+00:03:02,030 --> 00:03:02,250
+mình.
+
+55
+00:03:02,670 --> 00:03:03,190
+Đúng không?
+
+56
+00:03:03,310 --> 00:03:04,710
+Thì có nghĩa là nó lên rồi.
+
+57
+00:03:05,110 --> 00:03:06,090
+Đúng không?
+
+58
+00:03:06,130 --> 00:03:10,630
+Thì bản thân cái project của mình là câu
+trái nó vang là mình đang set trong câu
+
+59
+00:03:10,630 --> 00:03:11,670
+trái nó một user mà.
+
+60
+00:03:12,910 --> 00:03:18,910
+Mình đang set theo user mà để nó cô lập,
+nó cô lập với nhau mà chứ không phải để mà
+
+61
+00:03:18,910 --> 00:03:21,150
+ta gong ý dùng chung ở dưới một tài khoản.
+
+62
+00:03:22,640 --> 00:03:23,900
+Mình đang set cô lập mà.
+
+63
+00:03:24,450 --> 00:03:28,590
+Mình sẽ cô lập thì nó an toàn, ví dụ trong
+trường hợp nó có bị virus khác thì nó sẽ
+
+64
+00:03:28,590 --> 00:03:28,690
+không bị...
+
+65
+00:03:28,690 --> 00:03:33,110
+Bây giờ em có một project cũ
+rồi, ở trên một cơ tay đấy.
+
+66
+00:03:33,990 --> 00:03:34,910
+Xong bây giờ em...
+
+67
+00:03:34,910 --> 00:03:40,520
+Để để tí nữa ở phần sau về tính
+năng, em muốn nghe đến phần view về
+
+68
+00:03:40,520 --> 00:03:44,220
+chỗ đánh giá, ở chỗ hệ
+sinh tái hoạt tát trước.
+
+69
+00:03:44,960 --> 00:03:49,840
+Xong anh em mình trao đổi những
+vấn đề mà mình cần cải thiện.
+
+70
+00:03:50,790 --> 00:03:55,540
+Xong đánh giá trước mình sẽ có dự
+kiến là mình thay đổi những gì để...
+
+71
+00:05:05,730 --> 00:05:07,450
+Máy chủ hay agent?
+
+72
+00:05:10,650 --> 00:05:15,100
+Các bạn có thể tìm ra
+
+73
+00:05:15,100 --> 00:05:19,150
+những video hấp dẫn
+
+74
+00:05:52,860 --> 00:05:55,760
+Có người dùng tức là người ta không truy
+cập vào dịch vụ của mình như thế nào?
+
+75
+00:05:56,400 --> 00:05:57,060
+Hover là gì?
+
+76
+00:05:57,300 --> 00:05:57,560
+Hover là gì?
+
+77
+00:05:57,560 --> 00:05:57,560
+Hover là gì?
+
+78
+00:05:57,560 --> 00:05:57,560
+Hover là gì?
+
+79
+00:05:57,560 --> 00:05:57,560
+Hover là gì?
+
+80
+00:05:57,560 --> 00:05:57,560
+Hover là gì?
+
+81
+00:05:57,560 --> 00:05:57,560
+Hover là gì?
+
+82
+00:05:57,560 --> 00:05:57,560
+Hover là gì?
+
+83
+00:05:57,560 --> 00:05:57,560
+Hover là gì?
+
+84
+00:05:57,560 --> 00:05:57,560
+Hover là gì?
+
+85
+00:05:57,560 --> 00:05:57,560
+Hover là gì?
+
+86
+00:05:57,560 --> 00:05:57,560
+Hover là gì?
+
+87
+00:05:57,560 --> 00:05:57,560
+Hover là gì?
+
+88
+00:05:57,560 --> 00:05:57,580
+Hover là gì?
+
+89
+00:05:57,580 --> 00:05:57,580
+Hover là gì?
+
+90
+00:05:57,580 --> 00:05:57,580
+Hover là gì?
+
+91
+00:05:57,580 --> 00:05:57,580
+Hover là gì?
+
+92
+00:05:57,580 --> 00:05:57,580
+Hover là gì?
+
+93
+00:05:57,580 --> 00:05:57,620
+Hover là gì?
+
+94
+00:05:57,620 --> 00:05:57,620
+Hover là gì?
+
+95
+00:05:57,620 --> 00:05:57,620
+Hover là gì?
+
+96
+00:05:57,620 --> 00:05:57,760
+Hover là gì?
+
+97
+00:05:57,760 --> 00:05:57,760
+Hover là gì?
+
+98
+00:05:57,760 --> 00:05:57,800
+Hover là gì?
+
+99
+00:05:57,800 --> 00:05:57,800
+Hover là gì?
+
+100
+00:05:57,800 --> 00:05:57,880
+Hover là gì?
+
+101
+00:05:58,180 --> 00:06:01,150
+Hover là gì?
+
+102
+00:06:01,270 --> 00:06:01,690
+Hover là gì?
+
+103
+00:06:01,690 --> 00:06:01,810
+Hover là gì?
+
+104
+00:06:01,810 --> 00:06:01,810
+Hover là gì?
+
+105
+00:06:01,810 --> 00:06:01,810
+Hover là gì?
+
+106
+00:06:01,810 --> 00:06:01,930
+Hover là gì?
+
+107
+00:06:01,930 --> 00:06:01,930
+Hover là gì?
+
+108
+00:06:01,930 --> 00:06:01,970
+Hover là gì?
+
+109
+00:06:02,170 --> 00:06:02,470
+Hover là gì?
+
+110
+00:06:02,470 --> 00:06:02,990
+Hover là gì?
+
+111
+00:06:17,010 --> 00:06:17,410
+Hover là gì?
+
+112
+00:06:19,160 --> 00:06:19,560
+Hover là gì?
+
+113
+00:06:20,540 --> 00:06:21,420
+Hover là gì?
+
+114
+00:06:25,460 --> 00:06:30,880
+Hover là
+
+115
+00:06:31,840 --> 00:06:33,060
+gì Đây là còn phiên đúng không?
+
+116
+00:06:33,260 --> 00:06:36,900
+Còn phiên tức là mình vẫn out there được
+và JSON nó vẫn hoạt động trên đấy đúng
+
+117
+00:06:36,900 --> 00:06:37,000
+không?
+
+118
+00:06:37,360 --> 00:06:40,060
+Chỉ là người ta không vào cái trang quản
+lý này của mình người ta dùng đúng không?
+
+119
+00:06:40,780 --> 00:06:41,560
+Theo doanh hiểu như thế.
+
+120
+00:06:42,160 --> 00:06:47,810
+Rồi kích hoạt được 4 tháng này tức
+là vẫn đang còn nhưng mà không...
+
+121
+00:06:48,350 --> 00:06:49,990
+Thế là người ta không dùng qua đúng không?
+
+122
+00:06:50,690 --> 00:06:54,950
+Vậy thì mình lại để tống kê xem là người
+ta có out there qua thương thức khác mà
+
+123
+00:06:54,950 --> 00:06:55,930
+không out there qua mình không?
+
+124
+00:06:56,500 --> 00:06:58,220
+Tại vì mình có phần log mà.
+
+125
+00:06:59,920 --> 00:07:00,080
+Đúng không?
+
+126
+00:07:00,180 --> 00:07:00,740
+Ok theo hôm nay.
+
+127
+00:07:24,440 --> 00:07:27,880
+Cái này là SH, chứ không
+phải dùng agent đâu.
+
+128
+00:07:28,080 --> 00:07:29,460
+Dùng agent đâu phải là tỷ số.
+
+129
+00:07:29,480 --> 00:07:30,440
+Tuy cập chứ.
+
+130
+00:07:34,710 --> 00:07:39,130
+Không phải là dùng agent, tại vì có thể
+người ta dùng agent để đó, người ta thao
+
+131
+00:07:39,130 --> 00:07:41,490
+tác những cái khác.
+
+132
+00:07:43,420 --> 00:07:46,620
+Dùng agent mà không tính SH,
+thì làm sao mình tính là ấy?
+
+133
+00:07:47,020 --> 00:07:51,050
+Thì thế anh mới nói, lúc
+mà em phải kiểm tra lại ấy.
+
+134
+00:07:51,430 --> 00:07:56,090
+Tại vì nếu mà chỉ SH thuần túy kia
+thì mình đâu có log để mình biết được.
+
+135
+00:07:56,610 --> 00:08:01,010
+Ngoài log qua, em phải cài agent mà.
+
+136
+00:08:02,210 --> 00:08:06,530
+Nhưng mà bằng thứ hai thì có cài một
+lần lần đầu thôi thì nó chạy qua.
+
+137
+00:08:07,130 --> 00:08:12,520
+Thứ hai bản chất cái này là miễn người ta
+sử dụng qua nền tảng của mình, nó sẽ phải
+
+138
+00:08:12,520 --> 00:08:13,560
+có hai cái so sánh đúng không?
+
+139
+00:08:14,160 --> 00:08:17,880
+Một là người ta sẽ dùng qua Undap, qua
+Undap người ta kết nối bằng EH hay bằng cái
+
+140
+00:08:17,880 --> 00:08:18,380
+nào cũng được.
+
+141
+00:08:18,980 --> 00:08:21,380
+Nhưng mà miễn là nó phải có
+agent của mình nữa đúng không?
+
+142
+00:08:21,800 --> 00:08:24,100
+Thì mình mới thu tập được
+cái lớp EH đúng không?
+
+143
+00:08:24,480 --> 00:08:26,580
+Thì mình mới so sánh được việc là...
+
+144
+00:08:26,460 --> 00:08:30,100
+Cái LogSH đấy nó có truy cập qua cái LogSH
+của mình không hay người ta truy cập qua
+
+145
+00:08:30,100 --> 00:08:30,780
+phương thức LogSH?
+
+146
+00:08:30,860 --> 00:08:36,380
+Thưa cái này nó có thể tách
+ra 2 dạng người dùng mới,
+
+147
+00:08:36,640 --> 00:08:40,340
+người dùng đang duy trì.
+
+148
+00:08:40,990 --> 00:08:45,190
+Người dùng mới ở đây thì
+chắc chắn là phải LogSH rồi.
+
+149
+00:08:45,430 --> 00:08:46,450
+Thì cái đó là mình bắt được cái này.
+
+150
+00:08:47,030 --> 00:08:51,750
+Và người dùng duy trì thì không cần
+biết LH agent là mình đếm hết, cao hết.
+
+151
+00:08:52,490 --> 00:08:55,410
+Có thể anh nghĩ là tách ra
+2 số liệu như thế nhưng rõ.
+
+152
+00:08:56,300 --> 00:09:01,100
+Cái quan trọng là cái JSON mình sẽ
+có pair lại với dữ liệu SH qua đâu.
+
+153
+00:09:02,000 --> 00:09:07,860
+Mình sẽ có vết vi nhận và sẽ sử dụng
+qua terminal của mình hay người ta sẽ
+
+154
+00:09:07,860 --> 00:09:10,160
+sử dụng qua SH qua công cụ của họ.
+
+155
+00:09:10,500 --> 00:09:12,420
+Bởi vì lúc đấy mình sẽ
+bị take thông tin audit.
+
+156
+00:09:18,370 --> 00:09:23,070
+Có thể đếm được tỷ lệ người ta SH
+vào mà không dùng 1DAT cũng được.
+
+157
+00:09:23,590 --> 00:09:25,330
+Mình có audit lock.
+
+158
+00:09:30,360 --> 00:09:32,240
+Thêm cái phần đấy để mình thống kê.
+
+159
+00:09:36,300 --> 00:09:39,520
+Bởi vì cái này nó cũng
+như portal của mình đấy.
+
+160
+00:09:39,720 --> 00:09:42,840
+Khách hàng đôi khi người ta vào một
+lần, nó cũng chả được người ta mà nữa.
+
+161
+00:09:43,410 --> 00:09:48,270
+Dĩ nhiên, mua đơn hàng thì mua xong, cài
+xong, người ta cứ thế, người ta chạy thôi,
+
+162
+00:09:48,470 --> 00:09:49,890
+người ta quay lại cái của mình làm gì.
+
+163
+00:09:53,830 --> 00:09:56,230
+Cái văn đáp này nó khác, cái control lên.
+
+164
+00:09:57,960 --> 00:09:58,980
+Thấy cái bắn nóc nhiều lắm.
+
+165
+00:09:59,480 --> 00:10:02,820
+Trên thống kê thấy bắn nóc, thấy
+người ta dùng bắn nóc nhiều lắm.
+
+166
+00:10:03,060 --> 00:10:05,730
+Thì vậy, thay dường toàn lịch sử.
+
+167
+00:10:05,910 --> 00:10:08,910
+Thấy cái này này, toàn
+lịch sử ở như thế nào?
+
+168
+00:10:12,690 --> 00:10:15,690
+Cái này mình chỉ tính phần trăm, mình
+không biết là bao nhiêu cho bao nhiêu.
+
+169
+00:10:17,250 --> 00:10:19,310
+Cái trên này, có số liệu phải chia.
+
+170
+00:10:19,510 --> 00:10:22,490
+Em nghĩ là cái này mọi
+người để theo cái...
+
+171
+00:10:23,650 --> 00:10:24,250
+U-max đấy.
+
+172
+00:10:24,430 --> 00:10:28,410
+U-max sẽ hợp lý hơn là để phần trăm.
+
+173
+00:10:31,010 --> 00:10:33,890
+U-max thì mở ngoài cả bao
+nhiêu phần trăm đấy thì ok.
+
+174
+00:10:34,150 --> 00:10:37,860
+Nhưng mà nếu chỉ để mỗi phần
+trăm thôi thì sẽ hơi khó.
+
+175
+00:10:39,360 --> 00:10:40,300
+Hơi khó để nhìn.
+
+176
+00:10:41,190 --> 00:10:42,450
+Đứng trên có số phần trăm.
+
+177
+00:10:44,860 --> 00:10:49,600
+Ví dụ lấy như này, cái nào là U, cái
+nào là mắc để chia ra là được 27%.
+
+178
+00:10:50,850 --> 00:10:51,910
+Nhìn này cũng rất khó.
+
+179
+00:10:52,870 --> 00:10:53,690
+Rất khó đúng không?
+
+180
+00:10:54,720 --> 00:11:00,570
+Cái này trên cái
+
+181
+00:11:00,570 --> 00:11:00,890
+này à?
+
+182
+00:11:06,470 --> 00:11:07,310
+Cái này là off đúng không?
+
+183
+00:11:09,570 --> 00:11:11,810
+Cái này cộng cái này trên cái này.
+
+184
+00:11:13,650 --> 00:11:14,450
+Vậy thì...
+
+185
+00:11:14,480 --> 00:11:19,990
+Ở cái phần ondap thì
+
+186
+00:11:19,990 --> 00:11:23,850
+mình cũng xác định là sau nó sẽ làm các
+cái phần liên quan đến quản lý dịch vụ
+
+187
+00:11:23,850 --> 00:11:24,830
+cloud của mình đúng không?
+
+188
+00:11:25,960 --> 00:11:30,780
+Ở cái phần portal này thì con em đang
+tính là tháng ngày để mình sẽ move.
+
+189
+00:11:31,640 --> 00:11:34,140
+Mua phần quản lý cloud server này.
+
+190
+00:11:34,870 --> 00:11:38,590
+Anh đồng ý, mỗi cái là move hay copy thôi.
+
+191
+00:11:39,210 --> 00:11:41,540
+Move thì anh không đồng ý.
+
+192
+00:11:41,900 --> 00:11:42,920
+Thế là clone sang đúng không?
+
+193
+00:11:43,040 --> 00:11:43,540
+Clone sang.
+
+194
+00:11:43,560 --> 00:11:45,280
+Còn move thì ở đây có gì mất đúng không?
+
+195
+00:11:45,920 --> 00:11:47,460
+Em tính move là cắt ở đây đúng không?
+
+196
+00:11:47,720 --> 00:11:48,000
+Đúng không?
+
+197
+00:11:48,380 --> 00:11:50,200
+Cắt ở đây bây giờ khách
+hàng muốn gia hạn gì nào?
+
+198
+00:11:50,920 --> 00:11:54,040
+Không, mình chỉ ít cắt thông tin ở
+đây, cái thông tin thì qua thì gia hạn.
+
+199
+00:11:54,060 --> 00:11:54,900
+Thế là clone thôi.
+
+200
+00:11:55,000 --> 00:11:56,520
+Vì giá gia hạn luôn thôi.
+
+201
+00:11:57,180 --> 00:11:58,300
+Còn những cái thông tin...
+
+202
+00:11:58,300 --> 00:12:00,440
+Còn các tính download
+cao thì để nó không phải.
+
+203
+00:12:01,630 --> 00:12:03,930
+Anh đồng ý là phải đẩy sang WANDAX.
+
+204
+00:12:04,070 --> 00:12:06,690
+Chứ ở đây này có gì thì
+ở đấy WANDAX có thấy.
+
+205
+00:12:07,140 --> 00:12:11,250
+Chứ ở đây có cái camera không
+phải ép thủ công như tại nữa.
+
+206
+00:12:12,670 --> 00:12:16,930
+Còn cái cơ bản như giai hạn vừa
+thử nâng cấp thì phải ở đây.
+
+207
+00:12:17,360 --> 00:12:20,240
+Đúng rồi, thì những phần đấy
+nó sẽ bin link ngược lại.
+
+208
+00:12:20,860 --> 00:12:25,260
+Chứ đừng có cái phần thanh toán
+đẩy sang WANDAX gì nhé, bỏ hết nhé.
+
+209
+00:12:26,970 --> 00:12:29,430
+Ok, em đồng ý tức là nó sẽ sang bên này.
+
+210
+00:12:29,830 --> 00:12:34,590
+Tức là khi mà mình vào những phần thanh
+toán các thứ thì nó sẽ link về phần của
+
+211
+00:12:34,590 --> 00:12:34,850
+portal.
+
+212
+00:12:36,660 --> 00:12:40,840
+Có thể ở đây có nút thanh toán nhưng vẫn
+phải sang bên portal mới thanh toán được.
+
+213
+00:12:41,960 --> 00:12:43,720
+Tất cả, tất cả.
+
+214
+00:12:43,800 --> 00:12:45,160
+Nên portal là bin link.
+
+215
+00:12:45,640 --> 00:12:47,700
+Bin link các thứ là nó
+sẽ quay về hết portal.
+
+216
+00:12:48,020 --> 00:12:49,340
+Ok, cái đấy thì anh nghĩ là đơn giản thôi.
+
+217
+00:12:49,560 --> 00:12:49,940
+Anh nghe đều thôi.
+
+218
+00:12:50,080 --> 00:12:51,420
+Tránh được vừa mua được.
+
+219
+00:12:52,350 --> 00:12:55,070
+Các tính năng anh sẽ không
+update thêm ở trên này nữa.
+
+220
+00:12:55,170 --> 00:12:56,410
+Tức là trừ những tính năng ở...
+
+221
+00:12:56,490 --> 00:13:00,780
+Bắt đầu phải có những portal thì
+mới phải cư bản trước đấy cho 1 đáp.
+
+222
+00:13:00,900 --> 00:13:02,340
+Cái này là cái đầu tiên này.
+
+223
+00:13:02,580 --> 00:13:08,010
+Cái thứ hai là trong phần đăng ký
+các dịch vụ cloud server thì mình sẽ
+
+224
+00:13:08,010 --> 00:13:09,590
+có hai link.
+
+225
+00:13:10,090 --> 00:13:12,310
+Một link liên quan đến thanh toán.
+
+226
+00:13:14,550 --> 00:13:19,050
+Sau khi đăng ký thành công thì mình thường
+sẽ có cái phần gửi mail để quản trị đúng
+
+227
+00:13:19,050 --> 00:13:19,190
+không?
+
+228
+00:13:19,550 --> 00:13:23,490
+Mình sẽ có thêm một cái
+cho 1 đáp nữa được không?
+
+229
+00:13:23,810 --> 00:13:24,070
+Được.
+
+230
+00:13:24,750 --> 00:13:26,450
+Thì sẽ link trong phần quản trị.
+
+231
+00:13:28,090 --> 00:13:31,690
+Nó sẽ có một cái phần thanh toán, một
+link này liên quan đến thanh toán đơn hàng
+
+232
+00:13:31,690 --> 00:13:32,030
+đúng không?
+
+233
+00:13:32,230 --> 00:13:35,470
+Còn một link nó sẽ liên quan
+đến quản trị của cloud đấy.
+
+234
+00:13:35,890 --> 00:13:37,550
+Thì nó sẽ link trực tiếp
+trong an app này luôn.
+
+235
+00:13:37,710 --> 00:13:38,470
+Thế thay vì...
+
+236
+00:13:38,470 --> 00:13:40,610
+Thế hàng người ta sẽ tiếp
+cận cái này với mình luôn.
+
+237
+00:13:41,520 --> 00:13:42,460
+Ok, cái này đơn giản.
+
+238
+00:13:42,640 --> 00:13:45,920
+Nhưng bây giờ cái khó nhất của anh, bây
+giờ anh chốt, muốn chốt đi cả chỗ đạt.
+
+239
+00:13:46,100 --> 00:13:49,420
+Bây giờ anh em đang không
+biết lấy ở đâu đúng không?
+
+240
+00:13:49,760 --> 00:13:50,840
+Cái key đúng không?
+
+241
+00:13:51,870 --> 00:13:52,490
+Cái key.
+
+242
+00:13:53,290 --> 00:13:54,130
+Nói đi anh, cái nào đi.
+
+243
+00:13:54,680 --> 00:13:59,860
+Ngày trước anh đang định có một
+cái key chỉ cho riêng mô hình.
+
+244
+00:14:00,890 --> 00:14:01,610
+Mô hình thế này.
+
+245
+00:14:02,030 --> 00:14:06,690
+Mô hình này để vẽ để cho có
+nghĩ nhiều hơn nhưng mà chốt.
+
+246
+00:14:27,770 --> 00:14:28,110
+Có đi.
+
+247
+00:14:28,890 --> 00:14:33,230
+Thứ là cái này để out-hand, tư
+hợp quản lý OpenStack cái gì đó.
+
+248
+00:14:34,350 --> 00:14:40,110
+Thứ là, Auto đang gặp ở đây
+để biết được danh sách, biết
+
+249
+00:14:40,110 --> 00:14:41,010
+về cái hạt.
+
+250
+00:14:43,220 --> 00:14:45,360
+Yên giờ là anh đang phải
+đẩy lên đây để tiền.
+
+251
+00:14:45,660 --> 00:14:47,400
+Nhưng mà OneDap thì bây
+giờ là có hai hướng.
+
+252
+00:14:47,760 --> 00:14:49,780
+Một là anh chào thẳng một con.
+
+253
+00:14:51,360 --> 00:14:57,030
+Cái này hôm đó anh với đây phải cấp một
+cái key riêng, có action cho ra thôi.
+
+254
+00:14:58,350 --> 00:15:02,040
+Có 2 cách, thứ 2, cái on-up
+này sẽ đẩy vào portal.
+
+255
+00:15:04,520 --> 00:15:06,300
+Anh ấy nên nghiêm như cái này.
+
+256
+00:15:09,690 --> 00:15:11,030
+Kéo về thì sẽ đẩy.
+
+257
+00:15:11,230 --> 00:15:13,390
+Ừ thì kéo, tức là dùng
+nó đây tay của portal.
+
+258
+00:15:14,550 --> 00:15:16,150
+Portal này nó thực hiện outhand hết rồi.
+
+259
+00:15:17,460 --> 00:15:20,820
+Vì nếu em đẩy cái này thì anh
+ở đây cũng phải biết một cái.
+
+260
+00:15:21,870 --> 00:15:22,690
+Anh không thể để cho
+
+261
+00:15:27,840 --> 00:15:29,200
+email đấy, anh không biết anh.
+
+262
+00:15:36,630 --> 00:15:41,310
+Anh không bảo là anh không bảo vậy nhưng
+mà đôi khi nữa thì cái ông này chẳng nên
+
+263
+00:15:41,310 --> 00:15:43,810
+leak ra cái.
+
+264
+00:15:44,660 --> 00:15:45,460
+Chẳng nên leak nha.
+
+265
+00:15:45,820 --> 00:15:48,420
+Thì ông ấy lấy được hết đồn
+co, lấy được hết tất cả.
+
+266
+00:15:48,560 --> 00:15:51,790
+Ông có thể outhand rồi.
+
+267
+00:15:51,930 --> 00:15:57,860
+Nhưng ở đây qua bottle thì ông
+bắt buộc phải qua trên này đi
+
+268
+00:16:07,240 --> 00:16:08,440
+thêm một proxy.
+
+269
+00:16:09,990 --> 00:16:11,370
+Thì như thế không phải là gì cả.
+
+270
+00:16:17,710 --> 00:16:19,850
+Anh cái này lại lắp lên thêm cho anh.
+
+271
+00:16:19,990 --> 00:16:24,270
+Cái này là để đoạn SLID đúng không?
+
+272
+00:16:25,020 --> 00:16:28,620
+Để xem người dùng nào
+đang gọi vào server này.
+
+273
+00:16:28,720 --> 00:16:32,770
+Tức là anh ở đây phải đựa vào phần coi.
+
+274
+00:16:34,940 --> 00:16:37,400
+Thì coi như là cái thằng
+Wondack nó chính là Wondack.
+
+275
+00:16:37,890 --> 00:16:40,370
+Cái len giống như bottle, cái len đó.
+
+276
+00:16:41,650 --> 00:16:43,510
+Thì nó chỉ qua mỗi thằng proxy này.
+
+277
+00:16:44,250 --> 00:16:45,570
+Anh không biết nó chậm.
+
+278
+00:16:50,940 --> 00:16:52,500
+Thì em gọi thằng đây, tại sao?
+
+279
+00:17:01,810 --> 00:17:03,690
+Vì hiện tại, Voto cũng đang có một cái...
+
+280
+00:17:26,950 --> 00:17:27,570
+Thôi đứa này,
+
+281
+00:17:33,080 --> 00:17:37,830
+Voto thôi, mới là cách Oxy đấy.
+
+282
+00:17:38,190 --> 00:17:41,240
+Thế thì anh mở luôn được không nhỉ?
+
+283
+00:17:41,400 --> 00:17:47,200
+Cho allowwandart.innet.vn ở bên backend
+
+284
+00:17:47,200 --> 00:17:51,940
+của Voto ấy để em gọi thẳng API sang, chứ
+không phải gọi qua backend của Voto nữa.
+
+285
+00:17:53,660 --> 00:17:55,060
+Hai thằng là một mà.
+
+286
+00:17:55,120 --> 00:17:56,340
+Ừ, hai thằng là một mà.
+
+287
+00:17:56,920 --> 00:17:57,440
+Đúng không?
+
+288
+00:17:57,660 --> 00:18:01,100
+Thế tội gạ gì em còn phải đi
+qua backend của Voto gì nữa.
+
+289
+00:18:02,000 --> 00:18:03,220
+Em xem cái đấy có đủ.
+
+290
+00:18:04,680 --> 00:18:07,120
+Thì có mỗi LID thì thôi thì có gì nào?
+
+291
+00:18:07,120 --> 00:18:08,600
+Em chỉ chỉ có LID với LID mà thôi.
+
+292
+00:18:08,680 --> 00:18:08,980
+Ừ.
+
+293
+00:18:09,060 --> 00:18:10,720
+Ừ thì cho thẳng vãi nên tự tính.
+
+294
+00:18:11,280 --> 00:18:14,400
+Nhưng mà anh đang nghĩ là em
+đang đẩy cho bách em thằng đấy.
+
+295
+00:18:15,140 --> 00:18:16,580
+Bách em 2 cái bách em non đất.
+
+296
+00:18:16,760 --> 00:18:20,400
+Tức là em sẽ không đẩy cho bách em của
+Wanda nữa chứ mất công nó sinh 2 đường lóc.
+
+297
+00:18:20,880 --> 00:18:21,640
+Thì em đẩy luôn.
+
+298
+00:18:22,120 --> 00:18:22,480
+Ừ.
+
+299
+00:18:22,600 --> 00:18:22,600
+Ừ.
+
+300
+00:18:23,900 --> 00:18:24,260
+Ừ.
+
+301
+00:18:24,340 --> 00:18:24,340
+Ừ.
+
+302
+00:18:24,400 --> 00:18:24,400
+Ừ.
+
+303
+00:18:25,370 --> 00:18:25,730
+Ừ.
+
+304
+00:18:25,850 --> 00:18:25,850
+Ừ.
+
+305
+00:18:25,870 --> 00:18:25,870
+Ừ.
+
+306
+00:18:25,870 --> 00:18:25,870
+Ừ.
+
+307
+00:18:25,870 --> 00:18:25,870
+Ừ.
+
+308
+00:18:25,910 --> 00:18:25,910
+Ừ.
+
+309
+00:18:25,930 --> 00:18:25,930
+Ừ.
+
+310
+00:18:25,930 --> 00:18:25,930
+Ừ.
+
+311
+00:18:26,030 --> 00:18:26,030
+Ừ.
+
+312
+00:18:26,030 --> 00:18:26,030
+Ừ.
+
+313
+00:18:26,030 --> 00:18:26,030
+Ừ.
+
+314
+00:18:26,030 --> 00:18:26,030
+Ừ.
+
+315
+00:18:26,030 --> 00:18:26,030
+Ừ.
+
+316
+00:18:26,030 --> 00:18:26,030
+Ừ.
+
+317
+00:18:26,030 --> 00:18:26,030
+Ừ.
+
+318
+00:18:26,090 --> 00:18:26,090
+Ừ.
+
+319
+00:18:26,090 --> 00:18:26,090
+Ừ.
+
+320
+00:18:26,090 --> 00:18:26,090
+Ừ.
+
+321
+00:18:26,310 --> 00:18:26,310
+Ừ.
+
+322
+00:18:26,310 --> 00:18:26,310
+Ừ.
+
+323
+00:18:26,310 --> 00:18:26,310
+Ừ.
+
+324
+00:18:26,310 --> 00:18:26,310
+Ừ.
+
+325
+00:18:26,310 --> 00:18:26,310
+Ừ.
+
+326
+00:18:26,310 --> 00:18:26,310
+Ừ.
+
+327
+00:18:27,010 --> 00:18:27,010
+Ừ.
+
+328
+00:18:27,290 --> 00:18:27,390
+Ừ.
+
+329
+00:18:27,390 --> 00:18:27,490
+Ừ.
+
+330
+00:18:27,650 --> 00:18:27,730
+Ừ.
+
+331
+00:18:32,440 --> 00:18:32,800
+Ừ.
+
+332
+00:18:37,470 --> 00:18:37,830
+Ừ.
+
+333
+00:18:38,470 --> 00:18:44,400
+Ừ Sau này, Photo thêm endpoint nữa thì
+
+334
+00:18:44,400 --> 00:18:45,180
+con đang dùng luôn.
+
+335
+00:18:46,440 --> 00:18:48,400
+Thì backend của con đã
+cũng không phải làm gì cả.
+
+336
+00:18:49,080 --> 00:18:51,460
+Thứ này rất là tiệm.
+
+337
+00:18:56,000 --> 00:18:56,760
+Còn gì nữa không?
+
+338
+00:18:58,560 --> 00:18:59,420
+Còn gì cả nãy nữa.
+
+339
+00:19:00,910 --> 00:19:04,080
+Chút cái đấy đấy.
+
+340
+00:19:04,220 --> 00:19:05,760
+Cái trang chủ này mình
+có update được không?
+
+341
+00:19:05,920 --> 00:19:10,960
+Tại vì là bây giờ mình cũng có các sản
+phẩm như con đến những phần quản lý, các thứ
+
+342
+00:19:10,960 --> 00:19:11,160
+ấy.
+
+343
+00:19:12,820 --> 00:19:13,500
+Thì ý là...
+
+344
+00:19:13,500 --> 00:19:17,850
+Thì mình sẽ đẩy những thông
+tin đấy lên cho kích hà ở đây.
+
+345
+00:19:19,000 --> 00:19:20,640
+Tí em đo dàng thử.
+
+346
+00:19:21,400 --> 00:19:26,500
+Em xem cái phần bình, nguyên, ines
+
+347
+00:19:42,530 --> 00:19:48,430
+.vn, xem nó cần gì
+
+348
+00:19:48,430 --> 00:19:48,550
+đi.
+
+349
+00:19:53,540 --> 00:19:59,100
+Chạy local, lên page nó mình sẽ giới thiệu
+
+350
+00:19:59,100 --> 00:20:00,200
+sở đủ hết.
+
+351
+00:20:01,150 --> 00:20:05,910
+Mình kể ở trang chủ, cả phần
+ngoài này không nói kia đó ý.
+
+352
+00:20:06,170 --> 00:20:12,170
+Bây giờ mình có những tính
+năng rồi, mình đẩy những
+
+353
+00:20:12,170 --> 00:20:14,310
+quản trị của mình đến đây.
+
+354
+00:20:15,620 --> 00:20:17,380
+Bỏ những hình ảnh thuần túy đi bây giờ.
+
+355
+00:20:17,460 --> 00:20:19,280
+Người ta ghét là thả cái
+sản phẩm gần chục năm.
+
+356
+00:20:20,810 --> 00:20:23,410
+Cái ông này nhìn giống
+như ông nào gần chục năm.
+
+357
+00:20:26,380 --> 00:20:29,140
+Ông này nhìn rất là
+chục năm vẫn có ông này.
+
+358
+00:20:29,320 --> 00:20:32,620
+Ông này giờ chả biết còn
+kinh doanh bằng này không.
+
+359
+00:20:37,160 --> 00:20:38,040
+Đấy, mấy cái đợt ẩn.
+
+360
+00:20:42,960 --> 00:20:45,940
+Hãy ưu tiên những sản phẩm,
+những cái xìu, ngay trước lên.
+
+361
+00:20:47,670 --> 00:20:50,390
+Ngày trước cũng bảo rồi nhưng
+em đang chưa tập trung luôn.
+
+362
+00:20:55,680 --> 00:20:55,960
+Bây giờ,
+
+363
+00:21:03,750 --> 00:21:06,130
+nói chung là cứ gửi ý
+tưởng là cái hồi vẽ hết.
+
+364
+00:21:54,010 --> 00:21:55,910
+Thôi coi xong rồi đấy, next đi.
+
+365
+00:22:09,770 --> 00:22:15,230
+Nói chung là 1 series để đến đây.
+
+366
+00:22:35,500 --> 00:22:40,920
+Sau này khi bán Cloud
+server, OneDash server,
+
+367
+00:22:41,220 --> 00:22:47,120
+nó giống như một số bọn nước
+ngoài thì bản thân là nó sẽ
+
+368
+00:22:47,120 --> 00:22:49,480
+có các ông đứng bán info riêng.
+
+369
+00:22:50,090 --> 00:22:55,530
+Tức là thằng chủ nó sẽ bán info riêng và
+nó sẽ có các hệ thống vệ tinh để nó chuyên
+
+370
+00:22:55,530 --> 00:23:00,460
+làm bán những sản phẩm
+riêng trong các thị trường.
+
+371
+00:23:07,800 --> 00:23:10,000
+Có, sáng nay anh mới nói
+chuyện với anh Đạt xong.
+
+372
+00:23:10,980 --> 00:23:13,220
+Mấy cái AzureMet hay những cái OpenClaw á.
+
+373
+00:23:15,200 --> 00:23:20,860
+Bây giờ thì mình sẽ múc thêm một cái
+menu ở đây, một số loại Azure cổ biến.
+
+374
+00:23:21,560 --> 00:23:22,240
+Ý anh không?
+
+375
+00:23:22,420 --> 00:23:25,540
+Ý anh bên Client ý, mình có
+làm cho cố hình các kiểu không?
+
+376
+00:23:26,230 --> 00:23:28,090
+Thì sau mình sẽ phải
+tích hợp và un-dub này.
+
+377
+00:23:29,700 --> 00:23:32,000
+Thì mình sẽ phải webhook
+vào được cái image của họ.
+
+378
+00:23:32,360 --> 00:23:36,880
+Cái đặc thù là mình không phải dặn xe,
+mà mình là khách hàng người ta cài lên
+
+379
+00:23:36,880 --> 00:23:37,800
+con...
+
+380
+00:23:37,940 --> 00:23:38,660
+Viettel của họ.
+
+381
+00:23:39,280 --> 00:23:40,260
+Nó sẽ như này.
+
+382
+00:23:44,800 --> 00:23:50,540
+Sau lý do tại sao em bảo vệ thì sao em
+sẽ muốn ở bên cái OneDash này của mình.
+
+383
+00:23:50,900 --> 00:23:54,740
+Như cái application mà sao anh em build
+thành image hoặc là có các script.
+
+384
+00:23:55,280 --> 00:23:55,640
+Đúng không?
+
+385
+00:23:56,020 --> 00:24:00,300
+Nhưng tại mình đang có ở cái phần
+ứng dụng các thứ này đúng không?
+
+386
+00:24:01,870 --> 00:24:06,510
+Sau là mình sẽ mình sẽ múc sang những
+cái dạng để setup cho khách hàng.
+
+387
+00:24:06,970 --> 00:24:10,490
+Khi người ta chọn các cái gói ở
+trên cái OneDash này đúng không?
+
+388
+00:24:11,050 --> 00:24:17,040
+Chọn server, chọn gói, người ta
+sẽ muốn cài cho cái image nào, cài
+
+389
+00:24:17,040 --> 00:24:18,520
+image nào cho gói nào.
+
+390
+00:24:19,160 --> 00:24:22,560
+Ví dụ như thằng này,
+cái logic của thằng này,
+
+391
+00:24:31,530 --> 00:24:32,450
+người ta chọn một cái ứng dụng.
+
+392
+00:24:36,990 --> 00:24:40,510
+Thì nó sẽ nhảy luôn vào cái phần
+thông tin này, nó sẽ chọn luôn ở đây.
+
+393
+00:24:42,160 --> 00:24:43,640
+Nó sẽ chọn luôn ở đây để cài.
+
+394
+00:24:44,900 --> 00:24:50,780
+Sau kể cả những cái liên quan đến những
+cái ứng dụng kiểu của mình ấy, những
+
+395
+00:24:50,780 --> 00:24:55,340
+cái ứng dụng về Hermes,
+OpenClone, 8N các thứ.
+
+396
+00:24:56,300 --> 00:24:58,220
+Mình chỉ cần có một hệ thống thôi.
+
+397
+00:24:58,780 --> 00:25:02,490
+Ứng dụng người ta chọn là
+người ta chỉnh khai thôi.
+
+398
+00:25:07,410 --> 00:25:10,210
+Sau đó nó sẽ chọn ở thông tin
+trên này nó chỉnh khai thôi.
+
+399
+00:25:13,440 --> 00:25:14,280
+Ý anh là thế.
+
+400
+00:25:14,700 --> 00:25:19,280
+Sau những cái đấy thì những ứng dụng này
+mình sẽ bổ sung vào để mình làm giàu cho
+
+401
+00:25:19,280 --> 00:25:25,180
+cái template này của mình sẽ ok hơn.
+
+402
+00:25:25,400 --> 00:25:28,280
+Mình sẽ đa dạng được sản phẩm.
+
+403
+00:25:28,540 --> 00:25:33,100
+Ở trên này mình sẽ có loại
+nai nước của Google này.
+
+404
+00:25:34,520 --> 00:25:36,260
+Ở đây nó sẽ có giá cho từng loại.
+
+405
+00:25:37,690 --> 00:25:40,490
+Thì lúc mà phần bin link
+thanh toán này thì...
+
+406
+00:25:40,560 --> 00:25:41,060
+Thì đấy thôi.
+
+407
+00:25:41,260 --> 00:25:42,740
+Thì mình sẽ link về pinpattle thôi.
+
+408
+00:25:44,550 --> 00:25:46,750
+Thì khách hàng canh toán
+thành công thì đấy thôi.
+
+409
+00:25:47,210 --> 00:25:51,370
+Thì nó sẽ gửi thông tin về email của
+khách hàng và nó truy cập ở đây bảo lý.
+
+410
+00:25:51,840 --> 00:25:52,980
+Cấu hình phát hứng này kia.
+
+411
+00:25:53,200 --> 00:25:56,110
+Mình sẽ theo dùng.
+
+412
+00:25:57,770 --> 00:25:58,130
+Ok.
+
+413
+00:25:59,090 --> 00:26:01,210
+Về phần đấy thì đã thống nhất được rồi.
+
+414
+00:26:01,330 --> 00:26:05,750
+Thì mình sẽ xem tỷ lệ kích
+cầu sử dụng ondap như thế nào.
+
+415
+00:26:07,100 --> 00:26:12,370
+Mình sẽ xem tỷ lệ kích cầu sử dụng
+ondap sau việc mình thay đổi ở đấy.
+
+416
+00:26:12,770 --> 00:26:15,770
+Với lại là mình sẽ check
+lại một số phát tích chỉ số.
+
+417
+00:26:16,140 --> 00:26:19,550
+Thuật ngữ thống kê
+
+418
+00:26:33,280 --> 00:26:34,060
+web không anh ạ?
+
+419
+00:26:37,550 --> 00:26:40,580
+Web server hả?
+
+420
+00:26:40,900 --> 00:26:45,340
+Cái web server, các thứ web có
+bao nhiêu lượt setup không nhỉ?
+
+421
+00:26:45,560 --> 00:26:49,500
+Anh nhớ trước mình có bảo mình
+sẽ làm một số cái để lưu tiên.
+
+422
+00:26:49,500 --> 00:26:53,900
+Cái project có nhưng mà không...
+
+423
+00:26:54,250 --> 00:26:57,590
+Thống kê ngược sử dụng mới
+thôi, cái web server em lấy ít.
+
+424
+00:26:57,870 --> 00:27:02,810
+Vận hành, xem bấm hình vận
+hành, vận hành cục to gì.
+
+425
+00:27:09,360 --> 00:27:11,380
+Thống kê sử dụng tính
+năng nhé, module nhé.
+
+426
+00:27:12,020 --> 00:27:12,280
+Ừ.
+
+427
+00:27:12,700 --> 00:27:14,280
+Có, có một cái bản đấy.
+
+428
+00:27:19,180 --> 00:27:20,980
+Bấm về cho hộ anh điều hành.
+
+429
+00:27:26,440 --> 00:27:27,540
+Bấm vào cái bảng này.
+
+430
+00:27:28,660 --> 00:27:29,720
+Bấm vào chữ tổng quan.
+
+431
+00:27:33,510 --> 00:27:33,770
+Bấm vào chữ tổng quan.
+
+432
+00:27:33,770 --> 00:27:34,650
+Bấm vào cái bảng này.
+
+433
+00:27:37,360 --> 00:27:38,760
+Cái menu thứ 2 sản phẩm này.
+
+434
+00:27:41,660 --> 00:27:43,340
+Đây này, tính năng.
+
+435
+00:27:43,660 --> 00:27:44,140
+Bấm vào tính năng.
+
+436
+00:27:53,330 --> 00:27:58,690
+Bấm số lượng cho nó to, size to to.
+
+437
+00:28:20,600 --> 00:28:22,680
+Cái này mình
+
+438
+00:28:22,680 --> 00:28:30,720
+đang
+
+439
+00:28:31,200 --> 00:28:37,200
+tính là khách hàng vào trang
+
+440
+00:28:37,200 --> 00:28:40,000
+của mình, click vào truy
+cập sang hay như nào.
+
+441
+00:28:40,720 --> 00:28:46,440
+Trái này nó lên đến
+870.000.000.000.000.000.000.000.000.000.000.000.000
+
+442
+00:28:48,240 --> 00:28:48,680
+.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000
+
+
+443
+00:28:48,680 --> 00:28:48,680
+.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000
+
+
+444
+00:28:48,680 --> 00:28:48,680
+.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000
+
+
+445
+00:28:48,680 --> 00:28:48,380
+.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000
+Cảm ơn
+
+446
+00:28:48,380 --> 00:28:54,280
+các bạn đã theo
+
+447
+00:28:54,280 --> 00:28:56,360
+dõi.
+
+448
+00:29:28,830 --> 00:29:32,790
+Tần suất dùng thì mình sẽ
+phải tính theo tháng không?
+
+449
+00:29:34,500 --> 00:29:35,880
+Không cái này cao hết.
+
+450
+00:29:35,980 --> 00:29:37,060
+Không cái này cao hết đúng không?
+
+451
+00:29:37,100 --> 00:29:38,100
+Cái này mình phải tính theo tháng.
+
+452
+00:29:40,420 --> 00:29:44,920
+Thế thì anh chuyển đến chiến đấu, nó
+có cái mục bằng ngày đấy đúng rồi.
+
+453
+00:29:45,240 --> 00:29:47,120
+Bằng 90 ngày xem nào,
+xem số nó có đổi không?
+
+454
+00:29:47,940 --> 00:29:48,160
+90 ngày.
+
+455
+00:29:55,080 --> 00:29:59,840
+Không nỗ trợi thì mình là 30 thôi.
+
+456
+00:30:04,330 --> 00:30:06,190
+Nói chung mà wessover tỉ lệ là ít lắm.
+
+457
+00:30:07,110 --> 00:30:09,990
+Tức là cái nhu kiểu cơ bản
+gấp server thì tạo ra ít này.
+
+458
+00:30:10,250 --> 00:30:12,190
+Thì mình làm sao mình kì
+vọng cái project cao được.
+
+459
+00:30:15,830 --> 00:30:21,280
+Cái web server gần như là bây giờ nó
+là một trong những cái mà thay thế
+
+460
+00:30:21,280 --> 00:30:24,080
+khá nhiều của các cái
+panel khác, đúng không?
+
+461
+00:30:24,420 --> 00:30:25,420
+Ở cái hàng cải.
+
+462
+00:30:28,000 --> 00:30:31,740
+Nhưng mà chỗ này mình cũng
+phải xem thêm nữa anh Chí.
+
+463
+00:30:32,620 --> 00:30:38,350
+Cái web server hay là cái project
+ấy thì đấy giống như anh nói rồi.
+
+464
+00:30:38,370 --> 00:30:40,890
+Tức là cái khách hàng ấy, nhưng
+mà khách hàng họ chạy thật ấy.
+
+465
+00:30:41,070 --> 00:30:45,100
+Thì không bao giờ họ tạo
+mới trên cái của mình.
+
+466
+00:30:45,310 --> 00:30:46,750
+Họ toàn là có sẵn rồi.
+
+467
+00:30:46,950 --> 00:30:48,050
+Có hình sẵn rồi.
+
+468
+00:30:52,050 --> 00:30:53,230
+Thì đây, có rồi.
+
+469
+00:30:53,390 --> 00:30:58,970
+Thế nên là trên cái thằng OneDart
+của mình là chỉ có detect lên thôi.
+
+470
+00:31:01,050 --> 00:31:04,630
+Tức là thay vì bây giờ anh có sẵn
+rồi, anh chỉ muốn nó chạy lên thôi.
+
+471
+00:31:04,730 --> 00:31:07,550
+Anh không có muốn phải cài gì lại nữa.
+
+472
+00:31:18,060 --> 00:31:21,820
+VPS người ta cài trắng lại, người ta muốn
+sử dụng những vụ web server, người ta
+
+473
+00:31:21,820 --> 00:31:22,640
+cũng sử dụng của mình.
+
+474
+00:31:24,820 --> 00:31:29,670
+Có thể ý là cũng đăng ký
+mới, người ta tự chạy,
+
+475
+00:31:30,810 --> 00:31:36,720
+tức là họ chỉ upload suộc lên một
+cái, xong rồi cái thôi, xong rồi
+
+476
+00:31:36,720 --> 00:31:38,280
+cái chạy.
+
+477
+00:31:39,660 --> 00:31:44,940
+Tức là họ chạy thành công, nhưng họ sẽ
+không quay lại phần quản trị của mình nữa.
+
+478
+00:31:45,860 --> 00:31:48,340
+Nhờ cái quan trọng là mình sẽ đo xem là...
+
+479
+00:31:49,290 --> 00:31:52,550
+Tỷ lệ người ta sẽ có cài như
+các server của mình hay không?
+
+480
+00:31:53,550 --> 00:31:55,890
+Tỷ lệ cài, tỷ lệ xóa này.
+
+481
+00:31:56,440 --> 00:32:00,890
+Thì cách hàng mới, chứ còn cách
+hàng cũ gần như không khẩu hết.
+
+482
+00:32:02,580 --> 00:32:05,930
+Nếu mà tỷ lệ mới, không dùng ít thì mình
+
+483
+00:32:09,540 --> 00:32:10,120
+như ý.
+
+484
+00:32:10,850 --> 00:32:15,030
+Như ý anh là chỉ cần mình detect thông
+tin thôi, mình đâu còn chỉ thay người ta.
+
+485
+00:32:15,210 --> 00:32:21,210
+Ví dụ như bây giờ, em có cái cũ, bây giờ
+em cài một cái mới thì nó lại nằm ở hai
+
+486
+00:32:21,210 --> 00:32:21,870
+thứ bụng khác nhau.
+
+487
+00:32:23,220 --> 00:32:24,320
+Một cái thì nằm trên cái...
+
+488
+00:32:34,270 --> 00:32:39,570
+Thì đấy thì anh chỉ đơn giản là bây giờ
+cái module của WebSphere này anh chỉ anh
+
+489
+00:32:39,570 --> 00:32:45,030
+gắn cái URL của cái đường
+dẫn suộc này là xong.
+
+490
+00:32:45,350 --> 00:32:50,170
+Một phát một cái bấm lên cái là nó tự
+detect nó tự xử lý hết kiểu kiểu kiểu thế.
+
+491
+00:32:50,620 --> 00:32:56,220
+Thay vì bây giờ anh cứ phải cấu hình long
+song, anh chỉ cần gán cái bạc mà, cái
+
+492
+00:32:56,220 --> 00:32:57,420
+suộc mà anh đang có.
+
+493
+00:32:57,980 --> 00:33:03,040
+Thế nhu cầu thực sự anh chạy web server
+chỉ có như thế thôi chứ bây giờ bắt anh còn
+
+494
+00:33:03,040 --> 00:33:04,960
+phải copy vào đúng cái
+thư mục của thằng Wanda.
+
+495
+00:33:07,080 --> 00:33:08,960
+Chả hoài, không khó làm.
+
+496
+00:33:10,880 --> 00:33:13,200
+Ví dụ như là liên quan
+đến version các thứ.
+
+497
+00:33:13,680 --> 00:33:18,280
+Nhưng web server nó khá đặc thù, tại vì
+web server thì những cái liên quan đến...
+
+498
+00:33:18,480 --> 00:33:22,560
+Còn thường thích web server
+không, nó khá là thù đấy.
+
+499
+00:33:22,640 --> 00:33:26,900
+Nếu thế thì em sẽ không dùng Monodict
+làm gì cả kể cả nó cũng có project mới.
+
+500
+00:33:27,120 --> 00:33:32,840
+Thì thế anh mới nói là trước mình đang
+hướng dùng OneDat để quản trị thì bây giờ
+
+501
+00:33:32,840 --> 00:33:35,360
+mình chỉ dùng OneDat để kiểu detect thôi.
+
+502
+00:33:35,840 --> 00:33:39,880
+Thứ nhất là người ta đang có
+sẵn thì người ta còn dùng.
+
+503
+00:33:40,360 --> 00:33:41,360
+Chứ bây giờ bắt người ta...
+
+504
+00:33:41,360 --> 00:33:46,640
+Bây giờ em vào OneDat nhưng lại vào
+Monodict không phải cái project của em.
+
+505
+00:33:47,310 --> 00:33:49,650
+Em lại phải vào bên kia để vào OPT.
+
+506
+00:34:15,220 --> 00:34:19,840
+User mình clear với khách hàng ngoài, chứ
+mình đâu có bắt hàng để tạo từng cái đâu.
+
+507
+00:34:20,120 --> 00:34:22,030
+Mình tự tạo rồi.
+
+508
+00:34:23,370 --> 00:34:24,750
+Có default root không?
+
+509
+00:34:25,490 --> 00:34:26,550
+Hình như đâu có default root không?
+
+510
+00:34:27,090 --> 00:34:28,870
+Bắt buộc phải cấp chạy dưới user.
+
+511
+00:34:29,730 --> 00:34:35,670
+Mà trong khi chạy dưới quyền user thì
+nó sẽ bị hạn chế nhiều cái mà cần root
+
+512
+00:34:35,670 --> 00:34:36,810
+pseudo, nó chạy được.
+
+513
+00:34:37,090 --> 00:34:37,510
+Mình
+
+514
+00:34:43,870 --> 00:34:46,450
+đi check môi trường của
+khách hàng liệu có cấn không?
+
+515
+00:34:47,190 --> 00:34:49,090
+Đâu phải ông nào cũng biết
+cài môi trường rồi không?
+
+516
+00:34:52,450 --> 00:34:55,950
+Không bây giờ theo hướng chạy
+cài xưa cho nó Docker đi.
+
+517
+00:34:59,250 --> 00:35:00,750
+Em chỉ muốn theo Docker.
+
+518
+00:35:02,960 --> 00:35:05,760
+Theo Docker có những
+cái tài năng nó bỏ hết.
+
+519
+00:35:06,760 --> 00:35:08,400
+Đỡ phải cài nhiều chiếc máy.
+
+520
+00:35:09,100 --> 00:35:10,380
+Remove nó cũng dễ nữa.
+
+521
+00:35:10,760 --> 00:35:11,760
+Xóa Docker quá là sao?
+
+522
+00:35:13,140 --> 00:35:13,860
+Được không?
+
+523
+00:35:19,360 --> 00:35:22,040
+Tại vì nếu mà mình mà
+off Docker thì mẹo ạ.
+
+524
+00:35:22,320 --> 00:35:27,360
+Off Docker là coi như là mình đỡ được
+cái phần chạy service nhiều lắm đấy.
+
+525
+00:35:28,200 --> 00:35:30,980
+Ốc luôn cho cả thằng WebSriver,
+ốc luôn cho cả thằng Project này.
+
+526
+00:35:31,800 --> 00:35:32,520
+Khỏe đắm đấy.
+
+527
+00:35:32,720 --> 00:35:33,940
+WebSriver, ai biết được Docker?
+
+528
+00:35:35,220 --> 00:35:39,720
+Thì bây giờ đang muốn cho nó nhanh
+gọn lẹ rồi, giờ chỉ có Docker thôi.
+
+529
+00:35:43,760 --> 00:35:49,160
+Nhà Project, người dùng bình thường người
+ta build em gen bằng AI, có ai biết gen
+
+530
+00:35:49,160 --> 00:35:49,940
+bằng Docker đâu.
+
+531
+00:35:50,060 --> 00:35:51,320
+Có tí nó tự mình xử lý mà.
+
+532
+00:35:51,520 --> 00:35:53,560
+Docker chạy bên dưới thôi, mình biết thôi.
+
+533
+00:35:54,430 --> 00:35:55,630
+Người dùng người ta không biết.
+
+534
+00:35:55,710 --> 00:35:57,050
+Chỉ quan tâm nó chạy được lên thôi.
+
+535
+00:36:00,170 --> 00:36:05,790
+Tại vì cái dở của thằng Tố rách cái là cái
+dependency ý, như cái chỗ rồi Việt bị vớ
+
+536
+00:36:05,790 --> 00:36:05,990
+mắt.
+
+537
+00:36:06,210 --> 00:36:09,930
+Tại vì mỗi ông một kiểu, cái suột mỗi
+ông một kiểu dependency chứ chắc là nó sẽ
+
+538
+00:36:09,930 --> 00:36:11,770
+chạy được ngay trong
+cái môi trường native.
+
+539
+00:36:12,410 --> 00:36:16,960
+Mà nó thà mình ép nó chạy bằng
+nút cơ thôi thì nó sẽ đỡ hơn.
+
+540
+00:36:18,550 --> 00:36:24,460
+Thế nên mới nói là dùng sẵn cái phim quốc
+
+541
+00:36:24,460 --> 00:36:27,320
+có sẵn ở phần suột cái kia
+để xử lý thay vì tự control.
+
+542
+00:36:30,900 --> 00:36:32,660
+Còn người dùng bây giờ
+người ta chỉ muốn...
+
+543
+00:36:33,320 --> 00:36:39,040
+Nhanh gọn lẹ, chủ yếu là nó phải
+cài cắm kia, nó không chịu cài đâu.
+
+544
+00:36:39,600 --> 00:36:44,280
+Suốt thời gian đây đã chứng minh được
+nghĩa Web server nhưng bây giờ chả có ai
+
+545
+00:36:44,280 --> 00:36:44,540
+dùng.
+
+546
+00:36:47,100 --> 00:36:49,580
+Web server bây giờ khách hàng
+người ta có nhiều lựa chọn mà.
+
+547
+00:36:52,100 --> 00:36:56,520
+Không phải khách hàng nào mới hiện tại
+của mình, người ta có nhu cầu dùng Web
+
+548
+00:36:56,520 --> 00:36:57,140
+server hôm nay.
+
+549
+00:36:57,480 --> 00:37:02,770
+Ông, DevOps cái gì đấy
+ông bảo, ông tụi mình nói.
+
+550
+00:37:13,270 --> 00:37:13,570
+Chứ.
+
+551
+00:37:14,780 --> 00:37:16,740
+Tức là mình xử lý lại cái phần...
+
+552
+00:37:19,330 --> 00:37:24,790
+Cái lõi của agent tất thi
+để làm sao cho nó easy
+
+553
+00:37:25,400 --> 00:37:26,440
+thôi, đơn giản thôi.
+
+554
+00:37:28,310 --> 00:37:31,970
+Chứ nếu mà để mình cứ dưới nguyên hiện
+trạng này dù có marketing đằng giờ thì nó
+
+555
+00:37:31,970 --> 00:37:32,470
+chẳng dùng.
+
+556
+00:38:14,920 --> 00:38:16,460
+copy sang có gì đủ bọn.
+
+557
+00:39:16,700 --> 00:39:21,260
+Cái dvnc đấy, cái hàng view như bố dịch
+nó chạy cùng dvnc đấy thì nó sẽ khác.
+
+558
+00:39:24,110 --> 00:39:29,450
+Nhưng mà nếu mà mình view Docker thì nó
+sẽ gặp đi gặp lại, nó có phải tái sử dụng.
+
+559
+00:39:29,450 --> 00:39:32,840
+Đúng không?
+
+560
+00:39:33,280 --> 00:39:34,060
+Môi trường có tái lương.
+
+561
+00:39:37,490 --> 00:39:40,730
+Tức là lúc đấy một người phải
+đi tối ưu ở những cái đấy nữa.
+
+562
+00:39:42,850 --> 00:39:46,780
+Nó kéo ra và sinh đích nhiều đấy.
+
+563
+00:39:47,560 --> 00:39:51,570
+Rồi, nó sinh tái lương,
+tái nguyên khá là nhiều.
+
+564
+00:39:52,650 --> 00:39:54,070
+Sinh tái nguyên eBay nhá.
+
+565
+00:39:54,340 --> 00:39:56,720
+sinh thành nguyên của volume nhé.
+
+566
+00:39:57,120 --> 00:39:57,360
+Đúng không?
+
+567
+00:39:57,560 --> 00:40:01,600
+Tại vì khách hàng chạy dữ hiệu lên mà
+chạy Docker thì phải giữ volume, giữ data,
+
+568
+00:40:02,030 --> 00:40:05,730
+container và không biết
+xóa là có nhiêu tài.
+
+569
+00:40:07,380 --> 00:40:07,680
+Đúng không?
+
+570
+00:40:08,410 --> 00:40:13,970
+Thì lại phải làm quản lý liên quan đến
+phần quản lý của volume và quản lý của
+
+571
+00:40:13,970 --> 00:40:14,350
+container.
+
+572
+00:40:17,580 --> 00:40:18,120
+Đúng không?
+
+573
+00:40:18,780 --> 00:40:22,100
+Và nếu mà import vào cho
+khách hàng, đúng không?
+
+574
+00:40:22,770 --> 00:40:28,690
+Thì cái dữ hiệu nó sẽ down tpc
+về là Cách hàng sẽ không tái
+
+575
+00:40:28,690 --> 00:40:29,210
+sử dụng được.
+
+576
+00:40:30,560 --> 00:40:36,050
+Nó đúng là nó sẽ cô lập và nó sẽ chạy
+nhanh hơn nhưng mà nó sẽ không tái sử dụng
+
+577
+00:40:36,050 --> 00:40:36,690
+được cái...
+
+578
+00:40:36,690 --> 00:40:37,890
+cái...
+
+579
+00:40:37,890 --> 00:40:38,530
+cái...
+
+580
+00:40:38,530 --> 00:40:38,690
+cái...
+
+581
+00:40:38,690 --> 00:40:38,750
+cái...
+
+582
+00:40:38,750 --> 00:40:38,970
+cái...
+
+583
+00:40:38,970 --> 00:40:39,010
+cái...
+
+584
+00:40:39,010 --> 00:40:39,030
+cái...
+
+585
+00:40:39,030 --> 00:40:39,030
+cái...
+
+586
+00:40:39,030 --> 00:40:39,030
+cái...
+
+587
+00:40:39,030 --> 00:40:39,030
+cái...
+
+588
+00:40:39,030 --> 00:40:39,030
+cái...
+
+589
+00:40:39,030 --> 00:40:39,050
+cái...
+
+590
+00:40:39,050 --> 00:40:39,110
+cái...
+
+591
+00:40:39,110 --> 00:40:39,110
+cái...
+
+592
+00:40:39,110 --> 00:40:39,110
+cái...
+
+593
+00:40:39,110 --> 00:40:39,110
+cái...
+
+594
+00:40:39,110 --> 00:40:39,110
+cái...
+
+595
+00:40:39,110 --> 00:40:39,110
+cái...
+
+596
+00:40:39,110 --> 00:40:39,110
+cái...
+
+597
+00:40:39,110 --> 00:40:39,110
+cái...
+
+598
+00:40:39,110 --> 00:40:39,110
+cái...
+
+599
+00:40:39,110 --> 00:40:39,110
+cái...
+
+600
+00:40:39,110 --> 00:40:39,110
+cái...
+
+601
+00:40:39,110 --> 00:40:39,110
+cái...
+
+602
+00:40:39,110 --> 00:40:39,110
+cái...
+
+603
+00:40:39,110 --> 00:40:39,110
+cái...
+
+604
+00:40:39,110 --> 00:40:39,110
+cái...
+
+605
+00:40:39,110 --> 00:40:39,110
+cái...
+
+606
+00:40:39,110 --> 00:40:39,110
+cái...
+
+607
+00:40:39,110 --> 00:40:39,110
+cái...
+
+608
+00:40:39,110 --> 00:40:39,110
+cái...
+
+609
+00:40:39,110 --> 00:40:39,110
+cái...
+
+610
+00:40:39,110 --> 00:40:39,150
+cái...
+
+611
+00:40:39,150 --> 00:40:39,150
+cái...
+
+612
+00:40:39,150 --> 00:40:39,150
+cái...
+
+613
+00:40:39,150 --> 00:40:39,150
+cái...
+
+614
+00:40:39,150 --> 00:40:39,150
+cái...
+
+615
+00:40:39,150 --> 00:40:39,150
+cái...
+
+616
+00:40:39,150 --> 00:40:39,150
+cái...
+
+617
+00:40:39,150 --> 00:40:39,310
+cái...
+
+618
+00:40:39,310 --> 00:40:39,390
+cái...
+
+619
+00:40:39,390 --> 00:40:39,390
+cái...
+
+620
+00:40:39,390 --> 00:40:39,410
+cái...
+
+621
+00:40:39,410 --> 00:40:39,410
+cái...
+
+622
+00:40:39,410 --> 00:40:39,410
+cái...
+
+623
+00:40:39,410 --> 00:40:39,410
+cái...
+
+624
+00:40:39,410 --> 00:40:39,550
+cái...
+
+625
+00:40:39,550 --> 00:40:39,570
+cái...
+
+626
+00:40:39,570 --> 00:40:39,570
+cái...
+
+627
+00:40:39,570 --> 00:40:39,710
+cái...
+
+628
+00:40:39,710 --> 00:40:40,050
+cái...
+
+629
+00:40:40,050 --> 00:40:40,050
+cái...
+
+630
+00:40:40,050 --> 00:40:42,890
+cái...
+
+631
+00:40:42,890 --> 00:40:42,890
+cái...
+
+632
+00:40:42,890 --> 00:40:42,950
+cái...
+
+633
+00:40:42,950 --> 00:40:43,070
+cái...
+
+634
+00:40:43,070 --> 00:40:43,070
+cái...
+
+635
+00:40:43,070 --> 00:40:43,070
+cái...
+
+636
+00:40:43,070 --> 00:40:43,070
+cái...
+
+637
+00:40:43,070 --> 00:40:43,070
+cái...
+
+638
+00:40:43,070 --> 00:40:43,110
+cái...
+
+639
+00:40:43,110 --> 00:40:43,130
+cái...
+
+640
+00:40:43,130 --> 00:40:43,130
+cái...
+
+641
+00:40:43,130 --> 00:40:43,130
+cái...
+
+642
+00:40:43,130 --> 00:40:43,150
+cái...
+
+643
+00:40:43,150 --> 00:40:43,150
+cái...
+
+644
+00:40:43,150 --> 00:40:43,150
+cái...
+
+645
+00:40:43,150 --> 00:40:43,150
+cái...
+
+646
+00:40:43,150 --> 00:40:43,670
+cái...
+
+647
+00:40:43,930 --> 00:40:44,650
+cái...
+
+648
+00:40:44,650 --> 00:40:44,650
+cái...
+
+649
+00:40:44,650 --> 00:40:44,650
+cái...
+
+650
+00:40:44,650 --> 00:40:44,650
+cái...
+
+651
+00:40:44,650 --> 00:40:44,650
+cái...
+
+652
+00:40:44,650 --> 00:40:44,650
+cái...
+
+653
+00:40:44,650 --> 00:40:44,650
+cái...
+
+654
+00:40:44,650 --> 00:40:44,650
+cái...
+
+655
+00:40:44,650 --> 00:40:46,010
+cái...
+
+656
+00:40:46,010 --> 00:40:46,990
+cái...
+
+657
+00:40:47,020 --> 00:40:48,000
+cái...
+
+658
+00:40:48,000 --> 00:40:48,080
+cái...
+
+659
+00:40:48,080 --> 00:40:48,080
+cái...
+
+660
+00:40:48,080 --> 00:40:48,920
+cái...
+
+661
+00:40:48,920 --> 00:40:49,980
+cái...
+
+662
+00:40:57,760 --> 00:40:59,100
+cái...
+
+663
+00:40:59,100 --> 00:40:59,120
+cái...
+
+664
+00:40:59,150 --> 00:41:02,730
+cái...
+
+665
+00:41:02,730 --> 00:41:08,670
+cái Nếu mà hiện tại mình đang
+định hướng trên cái project
+
+666
+00:41:08,670 --> 00:41:14,640
+hiện tại của mình này đang mặc định dùng
+PayIPM thì nó sẽ in tồ vào một cái chỗ
+
+667
+00:41:14,640 --> 00:41:17,480
+là có link vào từng vào project
+thôi, nó đỡ tốn hơn một tí thôi.
+
+668
+00:41:19,060 --> 00:41:23,160
+Nhưng em sẽ phải tính nếu mà mình có ý
+định chuyển đổi phương án thì cái đấy là mọi
+
+669
+00:41:23,160 --> 00:41:23,800
+người phải tính kỹ.
+
+670
+00:41:29,170 --> 00:41:32,810
+Tại vì thực tế người dùng DeepLog nó có
+nhiều kiểu có những ông thì thích thẻ
+
+671
+00:41:32,810 --> 00:41:35,210
+thuần, có những ông thì thích Docker.
+
+672
+00:41:37,210 --> 00:41:40,590
+Nhưng có những người người ta không
+thích Docker vì người ta dùng thuần tí.
+
+673
+00:41:41,290 --> 00:41:43,450
+Người ta cài đến đâu người ta
+biết người ta chạy đến đấy.
+
+674
+00:41:46,330 --> 00:41:49,030
+Nên phải cân nhắc trừ khi
+mình cho người ta option thôi.
+
+675
+00:41:50,240 --> 00:41:55,460
+Ví dụ như hiện tại mình vẫn tối ưu và giữ
+cái project hiện tại nhưng mà mình sẽ có
+
+676
+00:41:55,460 --> 00:41:56,700
+support thêm cho Docker không?
+
+677
+00:41:57,650 --> 00:42:00,130
+Rồi sẽ xem tỷ lệ cái nào
+người ta sử dụng nhiều hơn.
+
+678
+00:42:00,510 --> 00:42:01,070
+Đúng không?
+
+679
+00:42:03,620 --> 00:42:09,580
+Thì nó sẽ hợp lý hơn thay việc bây giờ
+mình bỏ toàn bộ cái project hiện tại đi để
+
+680
+00:42:09,580 --> 00:42:12,680
+mình thay thế hoàn toàn bằng cái
+phương thức Docker cho nhanh gọn.
+
+681
+00:42:13,020 --> 00:42:15,080
+Thế nên mình bảo nhanh gọn
+nó chết chắc với người dùng.
+
+682
+00:42:16,220 --> 00:42:18,600
+Không biết người ta đã
+qua đấy nhanh vọng đâu.
+
+683
+00:42:22,750 --> 00:42:25,110
+Mở lại của anh cái chỗ
+phần project xem nào.
+
+684
+00:42:26,270 --> 00:42:28,730
+Có hình là cloud đấy.
+
+685
+00:42:29,770 --> 00:42:31,010
+Này, trang admin rồi.
+
+686
+00:42:43,650 --> 00:42:44,590
+Mở project ấy.
+
+687
+00:42:53,240 --> 00:42:54,180
+Cứ thử bắt nó cho.
+
+688
+00:42:58,950 --> 00:43:01,070
+Cái nhà sâu trong củng đó.
+
+689
+00:43:16,390 --> 00:43:16,790
+Vâng.
+
+690
+00:43:21,880 --> 00:43:22,780
+Server ra ngoài tuyến rồi.
+
+691
+00:43:25,900 --> 00:43:27,780
+Cái nhà đi thẳng trong ốc giữa luôn.
+
+692
+00:43:27,900 --> 00:43:29,140
+Trong củng đó có cái biển.
+
+693
+00:43:31,880 --> 00:43:32,680
+Thế em...
+
+694
+00:43:33,100 --> 00:43:34,980
+Mình quan tâm vào cái
+step này của mình này.
+
+695
+00:43:35,540 --> 00:43:37,830
+Bây giờ cái step của mình như thế nào?
+
+696
+00:43:38,470 --> 00:43:39,890
+Thế là mình có cần đổi step không?
+
+697
+00:43:40,350 --> 00:43:41,350
+Ví dụ như là...
+
+698
+00:43:42,660 --> 00:43:48,440
+Mình có cần thêm cái phần upload luôn,
+
+699
+00:43:48,580 --> 00:43:49,760
+suột lên lúc mà...
+
+700
+00:43:49,760 --> 00:43:50,280
+Đúng rồi.
+
+701
+00:43:51,430 --> 00:43:54,190
+Nó sẽ tự tải lên, nó tự detect luôn thôi.
+
+702
+00:43:55,150 --> 00:43:57,210
+Bước đầu thì sẽ là...
+
+703
+00:43:57,210 --> 00:43:58,650
+Quan trọng là phải có suột trước.
+
+704
+00:43:58,930 --> 00:43:59,950
+Suột là cái đầu tiên.
+
+705
+00:44:00,950 --> 00:44:02,050
+Dependency cái sau.
+
+706
+00:44:02,510 --> 00:44:03,950
+Run time cái sau.
+
+707
+00:44:04,610 --> 00:44:05,210
+Đúng không?
+
+708
+00:44:05,650 --> 00:44:06,350
+Không phải như thế.
+
+709
+00:44:06,490 --> 00:44:07,470
+Từ nhất là có suộc.
+
+710
+00:44:08,090 --> 00:44:11,090
+Không có suộc thì cài dependency,
+run time thì cũng chả là gì.
+
+711
+00:44:12,260 --> 00:44:15,280
+Nên step đầu tiên là lúc nào
+cũng phải upload, suộc lên đã.
+
+712
+00:44:15,840 --> 00:44:16,620
+Có suộc đã.
+
+713
+00:44:17,410 --> 00:44:21,650
+Còn cái việc cài run time
+sẽ là option, optional thôi.
+
+714
+00:44:21,930 --> 00:44:22,750
+Không phải bắt buộc.
+
+715
+00:44:26,330 --> 00:44:31,110
+Còn như hiện tại là bây giờ là đang bắt
+buộc phải có run time đúng không Việt?
+
+716
+00:44:31,550 --> 00:44:31,950
+Đây.
+
+717
+00:44:36,880 --> 00:44:39,260
+Ví dụ như là kiểu step này đúng không?
+
+718
+00:44:40,640 --> 00:44:41,220
+Ở đây anh.
+
+719
+00:44:47,190 --> 00:44:52,030
+Cứu up lên đá, thì mình sẽ có detect luôn.
+
+720
+00:44:55,740 --> 00:44:59,060
+Thì nó sẽ detect luôn, cấu trúc này.
+
+721
+00:45:00,590 --> 00:45:03,900
+Xong rồi bắt đầu mình để gán.
+
+722
+00:45:26,440 --> 00:45:32,280
+Các bạn có thể nhận
+
+723
+00:45:32,280 --> 00:45:38,140
+thêm thông tin từ bước sau đó.
+
+724
+00:45:58,920 --> 00:46:04,830
+Thứ hai, trước khi mình đến được
+bước này, mình sẽ phim luôn thông
+
+725
+00:46:04,830 --> 00:46:05,470
+tin cho khách hàng.
+
+726
+00:46:05,730 --> 00:46:10,670
+Lần trước,
+
+727
+00:46:20,620 --> 00:46:23,870
+anh Bạc bảo trưa trưa một lần nữa
+
+728
+00:46:26,720 --> 00:46:28,260
+thì nó sẽ giống kiểu thằng này.
+
+729
+00:46:38,700 --> 00:46:40,100
+Gọi là new project này.
+
+730
+00:46:40,580 --> 00:46:41,280
+New đây đúng không?
+
+731
+00:46:42,080 --> 00:46:47,360
+Nó sẽ cho chọn MT này,
+muốn chọn thằng nào này,
+
+732
+00:46:48,570 --> 00:46:50,050
+list của MT các thứ này.
+
+733
+00:46:56,790 --> 00:47:02,020
+Import sẵn cái của ông Hà,
+import từ template này.
+
+734
+00:47:17,110 --> 00:47:19,170
+Thực ra mình sẽ chọn cái
+phương thức đầu tiên.
+
+735
+00:47:22,260 --> 00:47:25,680
+Thì mình đưa ra các
+options cho khách hàng.
+
+736
+00:47:29,270 --> 00:47:31,410
+Thì lúc mà new project của mình thì
+mình cứ đưa option cho khách hàng thôi.
+
+737
+00:47:34,070 --> 00:47:35,830
+Thì mình cứ đưa option
+cho khách hàng chọn thôi.
+
+738
+00:47:37,420 --> 00:47:38,580
+Thì hiểu vấn đề gì không?
+
+739
+00:47:42,570 --> 00:47:46,050
+Tại vì những project này người ta đã phải
+truy cập trực tiếp tại cái máy chủ của họ
+
+740
+00:47:46,050 --> 00:47:46,250
+rồi.
+
+741
+00:47:46,930 --> 00:47:50,560
+Tại cái máy chủ mà người
+ta muốn sử dụng là...
+
+742
+00:47:50,850 --> 00:47:51,550
+Project chưa?
+
+743
+00:48:01,430 --> 00:48:05,890
+Cái project này có dính
+đến Web server nữa ạ?
+
+744
+00:48:06,800 --> 00:48:10,180
+Vâng, có phần khai báo domain.
+
+745
+00:48:12,850 --> 00:48:17,340
+Nhưng mà tưởng cái project này thì nó
+
+746
+00:48:17,340 --> 00:48:23,110
+phải bắt anh phải control ở
+
+747
+00:48:23,110 --> 00:48:24,210
+trên ondas à?
+
+748
+00:48:24,410 --> 00:48:25,690
+Chứ không...
+
+749
+00:48:26,330 --> 00:48:30,910
+Tức là giống kiểu anh có suộc, anh đang
+chạy bình thường rồi, anh đã có engine mix
+
+750
+00:48:30,910 --> 00:48:31,490
+quá nhiều rồi.
+
+751
+00:48:32,260 --> 00:48:37,740
+Anh chỉ muốn quản lý Start-Stop,
+project service này thôi.
+
+752
+00:48:39,780 --> 00:48:42,880
+Còn nó có ENGIC kia anh không
+muốn quản lý chế nó ăn đát.
+
+753
+00:48:43,700 --> 00:48:45,000
+Thì có nhiều thằng này là chết rồi.
+
+754
+00:48:45,200 --> 00:48:46,620
+Có nghĩa là anh không dùng được.
+
+755
+00:48:46,960 --> 00:48:50,890
+Tại vì nó sẽ bắt anh phải giống
+như cái trường hợp ứng trí ấy.
+
+756
+00:48:51,170 --> 00:48:53,010
+Nó bắt anh phải cài lại.
+
+757
+00:49:08,080 --> 00:49:10,500
+Nhưng mà anh có chạy dưới
+quyền user, chạy quyền host mà?
+
+758
+00:49:12,010 --> 00:49:13,330
+Em chỉ định nó chạy từ worker.
+
+759
+00:49:14,810 --> 00:49:18,770
+Tức là cái worker của nó chỉ hoạt động
+là worker anh chạy dưới quyền user thôi.
+
+760
+00:49:19,450 --> 00:49:23,410
+Còn em Linux là nó sẽ đọc full tất cả
+các user mà nó nằm trong worker đấy mà.
+
+761
+00:49:24,460 --> 00:49:24,860
+Tất cả?
+
+762
+00:49:26,810 --> 00:49:27,470
+Vẫn được hay gì?
+
+763
+00:49:28,010 --> 00:49:31,820
+Chẳng quá là anh khai báo
+mỗi cái bản của nó thôi.
+
+764
+00:49:32,140 --> 00:49:34,480
+Cái bản, cái cấu hình phân
+tích của nó vào Docker thôi.
+
+765
+00:49:35,080 --> 00:49:37,040
+Còn nó chạy dưới quyền user thì như...
+
+766
+00:49:37,210 --> 00:49:40,930
+Thì Analytics nó sẽ tự import user vào
+để nó khai báo mà, đúng không Việt?
+
+767
+00:49:42,610 --> 00:49:44,150
+Đây, nó khai báo thôi để user.
+
+768
+00:49:51,120 --> 00:49:52,480
+Cái đấy nó không phải vấn đề ấy.
+
+769
+00:49:52,540 --> 00:49:55,020
+Em nghĩ là vấn đề hiện tại của
+mình là cái lùa người dùi ngôi.
+
+770
+00:49:56,230 --> 00:49:59,770
+Là cái việc từ lúc mà họ upload, thì
+nó sụp lên để chạy các thứ, đúng không?
+
+771
+00:50:00,570 --> 00:50:02,630
+Thì đấy là cái vấn đề chính hiện tại.
+
+772
+00:50:08,890 --> 00:50:13,250
+Thế là cái đầu vào bây giờ
+mình đang hỗ trợ ít dạng quá.
+
+773
+00:50:13,990 --> 00:50:16,410
+Bây giờ thứ nhất là phải
+có hỗ trợ dạng exit.
+
+774
+00:50:16,710 --> 00:50:19,690
+Existing Project, tức là
+Project đã có tồn tại sẵn rồi.
+
+775
+00:50:20,540 --> 00:50:26,470
+New Project và sinh từ Project Docker gì
+
+776
+00:50:26,470 --> 00:50:27,850
+đó giống như cái màn hình nãy.
+
+777
+00:50:29,870 --> 00:50:35,330
+Có nhiều thể loại, ngay từ
+ban đầu luôn thì người ta sẽ
+
+778
+00:50:35,330 --> 00:50:39,130
+có nhiều cách để sử dụng.
+
+779
+00:50:39,280 --> 00:50:39,840
+Đúng không?
+
+780
+00:50:48,650 --> 00:50:54,650
+Ví dụ những cái app liên quan những
+kiểu mode-rs các thứ mình cài làm sao
+
+781
+00:50:54,650 --> 00:50:57,930
+biết nó quạt lên theo quạt là mình đọc.
+
+782
+00:50:57,930 --> 00:51:00,290
+Nếu dạ sử anh đọc từ project sẵn có...
+
+783
+00:51:00,290 --> 00:51:05,400
+Đấy là anh phải đi quét project còn ý là
+nó đang văn linh thì làm sao anh ấy được.
+
+784
+00:51:07,210 --> 00:51:07,810
+Đúng không?
+
+785
+00:51:09,030 --> 00:51:10,750
+Nó đang văn linh làm sao anh biết được.
+
+786
+00:51:11,520 --> 00:51:16,020
+Ý là anh sẽ truyền cái part
+của project ấy đơ đơ lên đây.
+
+787
+00:51:16,020 --> 00:51:17,240
+Đấy là cái tựa phai đó của công.
+
+788
+00:51:20,580 --> 00:51:25,640
+Tức là như vậy anh phải đứng ở trên 1DAP,
+anh phải đi chọn là project đã tồn tại.
+
+789
+00:51:26,040 --> 00:51:28,060
+Xong rồi anh gọi nó lên để nó loát.
+
+790
+00:51:29,180 --> 00:51:34,920
+Ví dụ kiểu file browser, mở project
+new lên thì nó sẽ có project
+
+791
+00:51:34,920 --> 00:51:35,620
+đã tồn tại.
+
+792
+00:51:36,420 --> 00:51:39,680
+Xong rồi anh sẽ kéo cái...
+
+793
+00:51:39,940 --> 00:51:44,460
+Kiểu kiểu này thì tạo project đây.
+
+794
+00:51:44,800 --> 00:51:47,880
+Thay vậy anh chọn ở đây
+là project đã có ở đây.
+
+795
+00:51:48,240 --> 00:51:50,320
+Còn import project đã có vào thôi.
+
+796
+00:52:16,740 --> 00:52:22,710
+Nếu mà suộc static thì phải kiểm tra
+
+797
+00:52:22,710 --> 00:52:22,950
+thêm.
+
+798
+00:52:24,320 --> 00:52:27,200
+Mà nó có port thì nó sẽ
+khai báo hết ở trong suộc.
+
+799
+00:52:29,110 --> 00:52:31,350
+Port thì tách kiểu IP các thứ.
+
+800
+00:52:31,910 --> 00:52:32,390
+Bây
+
+801
+00:52:44,960 --> 00:52:45,620
+giờ là cái này nhá.
+
+802
+00:52:46,250 --> 00:52:50,270
+Chỗ hiện tại là mình đang có...
+
+803
+00:52:50,430 --> 00:52:56,040
+Hiện tại đầu tiên là cái mình đang có
+là mình đang phản lý theo kiểu user
+
+804
+00:52:56,040 --> 00:53:00,380
+cho kể cả web và app, project,
+
+805
+00:53:00,820 --> 00:53:04,960
+web server, project và tất cả...
+
+806
+00:53:05,000 --> 00:53:10,970
+Quản lý domain của tất cả những ứng dụng
+này mình đều quản lý dưới dạng là user và
+
+807
+00:53:14,750 --> 00:53:16,390
+mình hỗ trợ là Endinix.
+
+808
+00:53:16,510 --> 00:53:22,510
+Nếu mà khách hàng muốn
+dùng theo kiểu domain cho
+
+809
+00:53:25,160 --> 00:53:26,020
+các công dụng đấy.
+
+810
+00:53:27,730 --> 00:53:33,290
+Còn nếu mà như thay đổi theo của anh Đạt
+là việc phải clean toàn bộ phần quản lý
+
+811
+00:53:33,290 --> 00:53:35,660
+user đi hay như này?
+
+812
+00:53:35,820 --> 00:53:41,380
+Option sẽ không phải là bắt buộc về user.
+
+813
+00:53:42,560 --> 00:53:46,280
+Nên là không có những cái phần user
+hay là group nó không quan trọng nữa.
+
+814
+00:53:52,620 --> 00:53:56,660
+Các bạn có thể nhận thêm những
+
+815
+00:53:56,660 --> 00:54:01,440
+mục mục mục mục mục mục mục mục mục mục
+mục mục mục mục mục mục mục mục mục mục mục
+
+816
+00:54:01,440 --> 00:54:01,620
+mục mục mục mục mục mục mục mục mục mục
+mục mục mục mục mục mục mục mục mục mục mục
+
+817
+00:54:01,620 --> 00:54:02,840
+mục mục mục mục mục mục mục mục mục mục
+mục mục mục mục mục mục mục mục mục mục mục
+
+818
+00:54:02,840 --> 00:54:08,600
+mục mục mục mục mục mục mục mục mục
+mục mục mục mục mục mục mục mục mục
+
+819
+00:54:08,600 --> 00:54:10,340
+mục mục mục mục mục mục mục mục mục mục
+mục mục mục mục mục mục mục mục mục mục mục
+
+820
+00:54:10,340 --> 00:54:14,480
+mục mục mục mục mục
+
+821
+00:54:20,400 --> 00:54:23,960
+Anh start stop service để nó
+chạy cái ứng dụng của anh thôi.
+
+822
+00:55:08,780 --> 00:55:13,820
+Tức là bây giờ cái của mình thì nó đang
+project hay là web server nó đều được quản
+
+823
+00:55:13,820 --> 00:55:19,130
+lý chung, sử dụng chung là hình
+thức là ENGENIC và dưới dạng
+
+824
+00:55:19,130 --> 00:55:20,590
+user đúng không?
+
+825
+00:55:21,290 --> 00:55:26,740
+Nếu mà quét như kiểu của anh là Việt nó sẽ
+phải bỏ cái phần liên quan đến thông tin
+
+826
+00:55:26,740 --> 00:55:27,340
+user đi.
+
+827
+00:55:29,700 --> 00:55:30,380
+Quét hết á?
+
+828
+00:55:31,380 --> 00:55:35,620
+Anh chọn project, project của
+anh nằm ở cái group đúng không?
+
+829
+00:55:36,550 --> 00:55:37,450
+Thì vậy là vấn đề.
+
+830
+00:55:39,020 --> 00:55:41,600
+Thường ví dụ như là anh
+mà triển khai app thì...
+
+831
+00:55:42,300 --> 00:55:45,740
+Mỗi một app anh sẽ cho một
+chỉ định port khác nhau chứ.
+
+832
+00:55:46,660 --> 00:55:52,500
+Thực tế người ta vẫn quan định
+tất cả các app liên quan đến Node
+
+833
+00:55:52,500 --> 00:55:54,960
+.js hay Python đều hình
+để tạo dưới quyền user.
+
+834
+00:55:55,500 --> 00:55:58,860
+Điện hướng luôn luôn phải
+tạo user xong với Internet.
+
+835
+00:56:00,900 --> 00:56:02,680
+Mình ấu cung là fan rút rồi.
+
+836
+00:56:03,180 --> 00:56:04,860
+Chẳng phát mọi người fan rút thôi.
+
+837
+00:56:05,020 --> 00:56:07,620
+Nhưng vụ vừa trước vừa hồi
+chính là cái lỗ hồng của...
+
+838
+00:56:07,860 --> 00:56:12,560
+Node.js mà nó bypass quyền root ấy.
+
+839
+00:56:15,190 --> 00:56:20,950
+Không, anh đã nói về quyền thì anh
+cho là option, tức là nó không phải là
+
+840
+00:56:20,950 --> 00:56:23,630
+quan trọng khi anh quản lý project nữa.
+
+841
+00:56:24,070 --> 00:56:29,690
+Mà cái quan trọng là project anh đã có sẵn
+rồi và anh chỉ muốn quản lý cái service
+
+842
+00:56:29,690 --> 00:56:32,570
+của project đó thôi.
+
+843
+00:56:33,750 --> 00:56:38,870
+Anh muốn sửa gì thì anh sửa nhưng anh sẽ
+sửa trên giao diện chứ không phải anh vào
+
+844
+00:56:38,870 --> 00:56:39,990
+trong server để anh sửa nữa.
+
+845
+00:56:40,740 --> 00:56:42,680
+Tức là anh có sẵn hết rồi.
+
+846
+00:56:44,120 --> 00:56:48,400
+WebSaver anh có rồi, suộc anh có rồi,
+DB này kia anh có hình sẵn hết rồi.
+
+847
+00:56:49,140 --> 00:56:52,280
+Và trên thằng Wondat chỉ show
+lên cho anh để anh quản lý thôi.
+
+848
+00:56:52,900 --> 00:56:53,300
+Kiểu như thế.
+
+849
+00:56:54,820 --> 00:57:00,660
+Thế nên là anh đang chạy dưới port nào
+
+850
+00:57:00,660 --> 00:57:01,260
+của thằng...
+
+851
+00:57:01,220 --> 00:57:03,560
+S&X này kia ấy, nó show lên đây cho anh.
+
+852
+00:57:04,000 --> 00:57:04,840
+Đấy, để anh biết.
+
+853
+00:57:05,040 --> 00:57:08,000
+Xong rồi anh muốn sửa port nào thì
+anh chỉ việc, lên on that anh sửa.
+
+854
+00:57:08,320 --> 00:57:09,040
+Kiểu như thế.
+
+855
+00:57:09,680 --> 00:57:10,180
+Điều không?
+
+856
+00:57:10,920 --> 00:57:16,060
+Nó giống như kiểu cái module mà bên
+trong của máy chủ có cái phần quản lý
+
+857
+00:57:16,060 --> 00:57:19,280
+file vua ấy.
+
+858
+00:57:19,440 --> 00:57:20,400
+Đấy, kiểu như thế.
+
+859
+00:57:20,560 --> 00:57:23,480
+Tức là có cái gì dưới server
+thì nó show lên để cho anh thấy.
+
+860
+00:57:23,900 --> 00:57:24,500
+Và để anh sửa.
+
+861
+00:57:27,230 --> 00:57:33,140
+Chứ không phải là anh sẽ phải vào trong
+server để anh tìm cái file để anh sửa
+
+862
+00:57:33,140 --> 00:57:33,340
+nữa.
+
+863
+00:57:33,720 --> 00:57:35,280
+Mà trên OneDash này cũng sở luôn.
+
+864
+00:57:47,790 --> 00:57:53,280
+Thì thực ra là tự import
+
+865
+00:57:53,280 --> 00:57:58,760
+cái project nó giống kiểu file manager
+rồi chọn đúng cái folder của project đấy
+
+866
+00:57:58,760 --> 00:57:59,000
+thôi.
+
+867
+00:58:01,980 --> 00:58:07,180
+Ví dụ như file manager sâu lên phần quản
+lý file người ta sẽ phải tự click đúng cái
+
+868
+00:58:07,180 --> 00:58:08,380
+folder chứa project đấy.
+
+869
+00:58:11,420 --> 00:58:13,940
+Tức là lúc đấy nó sẽ không
+chuẩn hóa theo cái của mình nữa.
+
+870
+00:58:21,110 --> 00:58:25,350
+Tức là hiện tại là mình giống kiểu mình
+đang step by step, kiểu từng bước từng bước
+
+871
+00:58:25,350 --> 00:58:27,230
+từng bước để setup ra một cái project.
+
+872
+00:58:27,660 --> 00:58:31,800
+Còn đây là cái hướng là tức là có thể là
+mỗi một module nó rời ràng nhưng mà nó
+
+873
+00:58:31,800 --> 00:58:34,780
+hiển thị tập trung ở trên cái
+mặt hình Quản lý tô dắt này.
+
+874
+00:58:35,000 --> 00:58:39,620
+Anh muốn sửa port thì anh sẽ
+click vào mở lên cái port anh sửa.
+
+875
+00:58:39,620 --> 00:58:44,440
+Anh muốn sửa firewall thì anh kích lên mở
+anh sửa firewall để cho nó không bị chặn
+
+876
+00:58:44,440 --> 00:58:45,020
+port của anh.
+
+877
+00:58:45,850 --> 00:58:49,290
+Sau đó anh muốn Start Stop
+đấy thì anh bấm Start Stop.
+
+878
+00:58:49,550 --> 00:58:50,170
+Kiểu kiểu thế.
+
+879
+00:58:51,390 --> 00:58:55,070
+Thì không gò bắt anh là phải
+làm từng bước từng bước.
+
+880
+00:58:55,980 --> 00:58:58,440
+Thì mới ra được cái, chạy
+được cái project này.
+
+881
+00:59:04,750 --> 00:59:08,710
+Cài đặt sẵn, chứ còn mới.
+
+882
+00:59:15,550 --> 00:59:16,790
+Existing project này.
+
+883
+01:00:07,870 --> 01:00:08,590
+Cấu hình...
+
+884
+01:00:10,320 --> 01:00:12,600
+Đúng rồi, nhưng mà đấy,
+người ta sẽ là domain tài.
+
+885
+01:00:13,730 --> 01:00:18,170
+Còn không thì họ phải tự chạy web server
+của họ nếu mà họ đang có, đúng không?
+
+886
+01:00:18,570 --> 01:00:20,930
+Thế mà họ sẽ phải tự cấu hình
+thủ công web server của họ.
+
+887
+01:00:22,650 --> 01:00:26,430
+Phần đấy mình đang chỉ làm tầm quản lý
+nơi quan trong file Nginx, POSI thôi, đúng
+
+888
+01:00:26,430 --> 01:00:26,570
+không?
+
+889
+01:00:27,730 --> 01:00:33,050
+Nhưng mà ví dụ người ta không dùng cái
+Nginx POSI, người ta dùng CADD hoặc là dùng
+
+890
+01:00:33,050 --> 01:00:34,730
+Apache chẳng hạn, đúng không?
+
+891
+01:00:34,870 --> 01:00:38,150
+Để quản lý những cái application
+đấy, domain đấy, đúng không?
+
+892
+01:00:39,410 --> 01:00:40,470
+Thì nó sẽ...
+
+893
+01:00:40,920 --> 01:00:41,980
+Thì kia mình không quản lý nữa.
+
+894
+01:00:43,380 --> 01:00:47,980
+Lúc đấy nó chỉ là Active Service ở trên
+hệ thống và nó sẽ có trạng thái đang
+
+895
+01:00:47,980 --> 01:00:51,280
+hoạt động, đang off thôi đúng không?
+
+896
+01:00:51,900 --> 01:00:52,560
+Đúng không anh này?
+
+897
+01:00:54,480 --> 01:00:57,580
+Thì nó sẽ chỉ detect thông tin
+service dạng on-off thôi đúng không?
+
+898
+01:00:58,760 --> 01:00:59,980
+Nó giống kiểu này,
+
+899
+01:01:10,570 --> 01:01:13,850
+show on những thông tin đầy
+
+900
+01:01:50,330 --> 01:01:50,590
+đúng không?
+
+901
+01:01:51,050 --> 01:01:55,910
+Có như lúc đấy khách hàng người ta sẽ chỉ
+có thông tin liên quan đến kiểu service
+
+902
+01:01:55,910 --> 01:01:57,910
+đang Active và đang thấy này thôi.
+
+903
+01:02:05,610 --> 01:02:09,690
+Các thông tin liên quan đến import của
+
+904
+01:02:11,070 --> 01:02:30,190
+ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
+
+
+905
+01:02:31,600 --> 01:02:36,700
+Ví dụ nó không nằm trong cái file của
+mình, tức là mình phải biết nó đang chạy dưới
+
+906
+01:02:36,700 --> 01:02:41,020
+quyền hàng, nó chạy root hay
+nó chạy project, đúng không?
+
+907
+01:02:42,940 --> 01:02:45,760
+Thì mình sẽ phải detect thông tin đấy nữa.
+
+908
+01:02:46,160 --> 01:02:51,710
+Tại vì nếu trong cái project của Node.js
+hay là các ứng dụng mà nó không detect
+
+909
+01:02:51,710 --> 01:02:53,670
+thêm cái user sử dụng ấy.
+
+910
+01:02:54,530 --> 01:02:54,990
+Đúng không?
+
+911
+01:02:55,070 --> 01:02:58,690
+Bình thường là bọn anh phải gắn user sử
+dụng vào thì nó mới chạy dưới quyền user
+
+912
+01:02:58,690 --> 01:02:58,830
+đấy.
+
+913
+01:02:59,710 --> 01:03:01,070
+Còn không thì nó đâu có chạy đâu.
+
+914
+01:03:02,840 --> 01:03:04,500
+Mình sẽ phải thêm cái...
+
+915
+01:03:04,990 --> 01:03:06,530
+Mới cái này ViệtNode rồi nhé.
+
+916
+01:03:06,550 --> 01:03:08,370
+Liên quan đến cái project này.
+
+917
+01:03:10,450 --> 01:03:12,110
+Thì cái nào mình đáp
+ứng được, cái nào không.
+
+918
+01:03:14,010 --> 01:03:18,630
+Còn về phía service thì chắc là cái
+service tâm linh này thì mình sẽ theo những cái
+
+919
+01:03:18,630 --> 01:03:20,910
+mà đang active ở trên hệ thống nhỉ?
+
+920
+01:03:22,210 --> 01:03:24,390
+Tức là những service mà
+nó đang running port ấy.
+
+921
+01:03:25,560 --> 01:03:26,740
+Có, cái đấy mình có rồi.
+
+922
+01:03:26,940 --> 01:03:27,200
+Đúng không?
+
+923
+01:03:28,380 --> 01:03:30,260
+Chỗ dịch vụ, mấy lớp gì gì đấy.
+
+924
+01:03:31,880 --> 01:03:34,140
+Thành ra trong một con bóng
+với những icon server đi.
+
+925
+01:03:34,810 --> 01:03:38,510
+Thống đất nó cho full
+list service của trại anh.
+
+926
+01:03:38,570 --> 01:03:39,970
+Trên đấy có thì cho 2 đấy.
+
+927
+01:03:48,020 --> 01:03:53,960
+Các bạn có thể nhận thêm những con
+
+928
+01:03:53,960 --> 01:03:54,160
+trong những con trong những con trong
+những con trong những con trong những con
+
+929
+01:03:54,160 --> 01:03:54,780
+trong những con trong những con trong
+những con trong những con trong những con
+
+930
+01:03:54,780 --> 01:03:54,780
+trong những con trong những con trong
+những con trong những con trong những con
+
+931
+01:03:54,780 --> 01:03:54,840
+trong những con trong những con trong
+những con trong những con trong những con
+
+932
+01:03:54,840 --> 01:03:54,840
+trong những con trong những con trong
+những con trong những con trong những con
+
+933
+01:03:54,840 --> 01:03:54,880
+trong những con trong những con trong
+những con trong những con trong những con
+
+934
+01:03:54,880 --> 01:03:54,880
+trong những con trong những con trong
+những con trong những con trong những con
+
+935
+01:03:54,880 --> 01:03:54,880
+trong những con trong những con trong
+những con trong những con trong những con
+
+936
+01:03:54,880 --> 01:03:56,810
+trong những con trong những
+con trong những con trong
+
+937
+01:04:09,960 --> 01:04:13,040
+những con trong những con trong những
+con trong những con trong những con trong
+
+938
+01:04:13,040 --> 01:04:16,290
+những con trong những con trong những
+con trong những con trong những con trong
+
+939
+01:04:16,290 --> 01:04:16,330
+những con trong những con trong những
+con trong những con trong những con trong
+
+940
+01:04:16,330 --> 01:04:17,590
+những con trong những con trong những
+con trong những con trong những con trong
+
+941
+01:04:17,590 --> 01:04:23,280
+những con trong những con trong
+những con trong những con trong
+
+942
+01:04:33,000 --> 01:04:37,140
+những con trong những con trong những
+
+943
+01:04:37,140 --> 01:04:41,800
+con trong những
+
+944
+01:04:43,200 --> 01:04:49,160
+con chỉ lót những service đang chạy
+còn những service xí tuần đi của hệ
+
+945
+01:04:49,160 --> 01:04:53,700
+thống không trực tiếp liên quan
+đến các cải thắng của khách hàng.
+
+946
+01:04:54,450 --> 01:04:59,210
+Tất cả các service liên
+quan như DB, Firewall,
+
+947
+01:05:00,120 --> 01:05:02,460
+receiver, mọi bà ở cái đấy.
+
+948
+01:05:04,670 --> 01:05:06,210
+Đấy là những cái mình cần quan tâm vô.
+
+949
+01:05:37,020 --> 01:05:40,620
+Vậy thì cái này chốt lại chỗ
+của bốn sách này như thế nhé.
+
+950
+01:05:41,570 --> 01:05:47,550
+Sau mình sẽ bổ sung phần ứng
+dụng tương tự như kiểu này.
+
+951
+01:05:47,790 --> 01:05:51,370
+Sau mình cài đặt cho server luôn.
+
+952
+01:05:51,650 --> 01:05:53,450
+Khách hàng người ta sẽ
+cho Úc sừng trọng luôn.
+
+953
+01:05:54,770 --> 01:05:57,670
+Em chụp mặt hình của người
+cho ông Đức biết sau.
+
+954
+01:05:58,170 --> 01:06:00,770
+Anh em login bằng Google Authent luôn.
+
+955
+01:06:01,010 --> 01:06:06,550
+Thằng này nó không cần
+phải allow sắp thực gì cả.
+
+956
+01:06:07,110 --> 01:06:08,130
+Authent xong là xong.
+
+957
+01:06:08,290 --> 01:06:13,390
+Đoạn này của bọn là Dubai.
+
+958
+01:06:17,930 --> 01:06:19,210
+Đi anh gửi với Đức này.
+
+959
+01:06:19,520 --> 01:06:20,840
+Các bạn có thể tham khảo nhé.
+
+960
+01:06:23,730 --> 01:06:29,230
+Cloud server thì sau chỗ xếp xong thì
+mình sẽ bổ sung thêm cả phần blog.
+
+961
+01:06:31,620 --> 01:06:35,340
+Project thì chắc Việt sẽ xem
+thêm theo những ý hướng lúc nãy.
+
+962
+01:06:39,000 --> 01:06:42,220
+Thứ nhất là cái step thì có
+thể mình sẽ phải thay đổi.
+
+963
+01:06:44,080 --> 01:06:48,320
+Step là mình sẽ thay đổi nguyên quan đến
+việc upload file xong rồi cái bước cài
+
+964
+01:06:48,320 --> 01:06:48,500
+đặt.
+
+965
+01:06:48,580 --> 01:06:50,820
+Thứ hai là mình sẽ chọn
+từ cái project đã có.
+
+966
+01:06:57,400 --> 01:07:01,640
+Đừng quay lại cái tục,
+theo anh cứ có gì phán hết.
+
+967
+01:07:01,960 --> 01:07:05,920
+Bấm một phát một là mở
+project, có sâu lên project.
+
+968
+01:07:06,440 --> 01:07:11,700
+Trong cái cạp của project đấy,
+muốn làm gì thì kích mở lên không?
+
+969
+01:07:12,950 --> 01:07:17,350
+Với lại có một phần nữa liên quan đến việc
+nếu mà sử dụng Docker, nếu mà mọi người
+
+970
+01:07:17,350 --> 01:07:23,220
+vẫn muốn hỗ trợ khách hàng cho Docker kiểu
+này thì lúc đấy là việc lại phải detect
+
+971
+01:07:23,220 --> 01:07:25,920
+thêm một cái là phải cài
+Docker ở trên consumer ấy nữa.
+
+972
+01:07:31,330 --> 01:07:32,830
+Thì tức là phải detect thêm.
+
+973
+01:07:34,130 --> 01:07:36,490
+Những phần này mình phải import thêm.
+
+974
+01:07:40,650 --> 01:07:44,470
+Thì đây, việc cứ xem thêm là
+mình sẽ hỗ trợ những cái nào.
+
+975
+01:07:47,570 --> 01:07:48,590
+Cho những nhà dùng.
+
+976
+01:07:48,790 --> 01:07:52,830
+Tại vì những cái này thì sao nó cũng
+là những dạng application này của mình.
+
+977
+01:07:52,930 --> 01:07:53,690
+Mình búp sang đây mà.
+
+978
+01:07:55,590 --> 01:07:57,150
+Giống kiểu như là...
+
+979
+01:07:57,150 --> 01:07:59,970
+Tức là ví dụ như là anh hòa chọn.
+
+980
+01:08:01,620 --> 01:08:04,620
+Bấm xong rồi không phải nhiều
+input ngay từ đầu tiên đâu.
+
+981
+01:08:04,820 --> 01:08:10,620
+Thậm chí là chỉ cần chọn được template,
+template từ project thể loại gì.
+
+982
+01:08:12,890 --> 01:08:14,250
+Có khi chỉ là như thế thôi.
+
+983
+01:08:14,750 --> 01:08:18,490
+Là có thể tạo được cái máy chủ động đấy.
+
+984
+01:08:18,570 --> 01:08:20,430
+Ừ, tối đa là 2 cái đấy thôi.
+
+985
+01:08:20,850 --> 01:08:23,410
+Máy chủ mình đang đứng trong máy
+chủ đấy, mình mới tạo project.
+
+986
+01:08:23,550 --> 01:08:25,610
+Mặt hình ngoài.
+
+987
+01:08:25,870 --> 01:08:26,710
+Mặt hình ngoài.
+
+988
+01:08:28,750 --> 01:08:31,620
+Thì đấy mình...tách ra 2 trường hợp thôi.
+
+989
+01:08:31,920 --> 01:08:33,040
+Đứng ở trong...
+
+990
+01:08:33,060 --> 01:08:34,840
+Đó là đứng ngoài máy chủ thôi.
+
+991
+01:08:36,810 --> 01:08:40,550
+Tại vì mình hình như có phần đồng
+kế all project của máy chủ nào.
+
+992
+01:08:40,990 --> 01:08:41,510
+Có hết.
+
+993
+01:08:41,750 --> 01:08:42,870
+Đấy là phần mê hô chính của máy.
+
+994
+01:08:43,550 --> 01:08:46,790
+Thì đấy là một lợi thế quản lý
+chung của mình với khách hàng.
+
+995
+01:08:48,180 --> 01:08:51,620
+Thay vì khách hàng phải vào từng con
+server kiểm tra nó đang làm project nào, bây
+
+996
+01:08:51,620 --> 01:08:53,600
+giờ khách hàng chỉ cần nhìn
+trên một quản lý chung của mình.
+
+997
+01:08:56,320 --> 01:09:01,400
+Như vậy rõ ràng đấy là lợi thế để
+khách hàng sử dụng dịch vụ của mình.
+
+998
+01:09:10,290 --> 01:09:11,130
+Không cho chạy nhiều.
+
+999
+01:09:17,780 --> 01:09:19,880
+Thực tế là khách hàng người ta cần dùng.
+
+1000
+01:09:20,020 --> 01:09:21,360
+Bây giờ hỗ trợ tìm tính năng clone.
+
+1001
+01:09:23,500 --> 01:09:26,040
+Là accepting project clone là gì nữa.
+
+1002
+01:09:27,020 --> 01:09:29,740
+Thế bảo những cái mà mình đang support mà.
+
+1003
+01:09:30,980 --> 01:09:32,340
+Accepting là cái anh có thôi.
+
+1004
+01:09:32,500 --> 01:09:37,040
+Còn cái mà tính năng mà như anh Trí bảo
+nếu mà anh ấy dùng của mình mà anh ấy muốn
+
+1005
+01:09:37,040 --> 01:09:40,040
+tạo một project mới từ cái cũ đã có.
+
+1006
+01:09:40,160 --> 01:09:42,740
+Đó là chẳng quan là tại vì
+mình không có cái accepting.
+
+1007
+01:09:43,100 --> 01:09:45,600
+Thì chỉ nó nghĩ, mới nghĩ
+ra cái là clone thôi.
+
+1008
+01:09:45,880 --> 01:09:49,180
+Kể cả là khách hàng người ta dùng của
+mình cũng thế mà nó giống như kiểu mấy ông
+
+1009
+01:09:49,180 --> 01:09:50,980
+dùng website, ông muốn
+nhận bản website lên thế.
+
+1010
+01:09:51,880 --> 01:09:53,420
+Thêm clone, thêm việc.
+
+1011
+01:09:55,400 --> 01:09:58,860
+Chứ, assetting của anh thì nó
+không theo form chuẩn gì rồi.
+
+1012
+01:10:02,980 --> 01:10:07,240
+Thì đâu có clone, clone thì mình
+đâu có đọc thế đấy mình đi sửa.
+
+1013
+01:10:08,540 --> 01:10:11,780
+Còn ông nghĩ là clone thì ông
+tự thao tác ở bên dưới thôi.
+
+1014
+01:10:12,180 --> 01:10:16,420
+Ủa, mình lên đây mà nói với
+setting, nốt nốt thì 12h bây giờ.
+
+1015
+01:10:21,330 --> 01:10:27,260
+Phần trong Wandapp này mình sẽ có
+cái phần này nữa thì anh Chí thử qua
+
+1016
+01:10:27,260 --> 01:10:27,440
+chưa?
+
+1017
+01:10:33,460 --> 01:10:34,020
+F3 ấy.
+
+1018
+01:10:34,080 --> 01:10:35,040
+Mày mới đưa lên F3 ấy.
+
+1019
+01:10:36,340 --> 01:10:37,420
+Từ đời tầm khoánh rồi.
+
+1020
+01:10:38,580 --> 01:10:40,000
+Đưa lên từ đời tầm khoánh nữa rồi.
+
+1021
+01:10:40,340 --> 01:10:42,840
+Nhưng mà chưa, chưa, chưa, chưa chạy.
+
+1022
+01:10:43,160 --> 01:10:44,560
+Đang chỉ test nội bộ thôi.
+
+1023
+01:10:45,430 --> 01:10:48,590
+Đại loại bây giờ mình tích hợp
+thêm cả F3 và trên Wandapp nữa.
+
+1024
+01:10:53,800 --> 01:10:55,480
+Nói xưa qua đi chứ không biết.
+
+1025
+01:10:58,430 --> 01:11:04,110
+Giống các dịch vụ S3 khác thôi, mình cung
+cấp bản thảo hôm trước để hành trí anh ấy
+
+1026
+01:11:04,110 --> 01:11:04,390
+rồi.
+
+1027
+01:11:04,930 --> 01:11:10,830
+Chủ yếu mình sẽ có bổ sung
+phần S3 ở trên INS, phần quản
+
+1028
+01:11:10,830 --> 01:11:16,630
+lý thì mình sẽ tập trung ở OneDash thôi,
+chứ mình không làm phần quản lý ở trên
+
+1029
+01:11:16,880 --> 01:11:18,660
+Foto.
+
+1030
+01:11:19,670 --> 01:11:22,250
+Vậy mình phải có phần B-Link
+ở bên Foto nữa chứ nhỉ?
+
+1031
+01:11:23,600 --> 01:11:23,900
+Đúng.
+
+1032
+01:11:25,610 --> 01:11:27,350
+Thế cái này là một dịch vụ mới mà.
+
+1033
+01:11:28,710 --> 01:11:33,910
+Thì mình sẽ phải có cái phần F3 là kinh
+doanh đến phần quản lý bán gói các thứ của
+
+1034
+01:11:33,910 --> 01:11:35,890
+tài khoản nữa đúng không?
+
+1035
+01:11:36,170 --> 01:11:39,180
+Ừ, đúng.
+
+1036
+01:11:40,170 --> 01:11:44,230
+Thì sẽ phải có cái link xong lên Foto nữa.
+
+1037
+01:11:46,780 --> 01:11:52,120
+Thì có lấy đó là anh Đạt hoặc là
+Đức báo hết trương để cùng uptết
+
+1038
+01:11:53,720 --> 01:11:55,080
+link thì mình hiển thị cái gì?
+
+1039
+01:11:55,580 --> 01:11:57,860
+Thông tin gói dịch vụ thôi.
+
+1040
+01:12:03,430 --> 01:12:05,780
+Gói, thông tin gói kìa.
+
+1041
+01:12:08,760 --> 01:12:14,260
+Cái này đang tạo tài khoản, cái gói mà
+lúc đầu người ta mua có giới hạn cho mình
+
+1042
+01:12:14,260 --> 01:12:14,800
+chứ.
+
+1043
+01:12:15,300 --> 01:12:15,420
+Đây.
+
+1044
+01:12:17,640 --> 01:12:21,620
+Thực tin gói chẳng có anh đang giả định
+cái này thì thôi, tên gói như vậy thôi.
+
+1045
+01:12:22,570 --> 01:12:27,050
+Thì cái gói này người ta sẽ mua, người ta
+sẽ hiển thị tên SamPottle mình, BIN LINK,
+
+1046
+01:12:27,550 --> 01:12:28,350
+giá cả các thứ.
+
+1047
+01:12:53,880 --> 01:12:54,980
+Mục tiêu trong tháng này.
+
+1048
+01:12:59,580 --> 01:13:02,720
+Kìa chí kìa, nó đòi triển khai cái
+này luôn trong tháng này kìa kìa.
+
+1049
+01:13:03,990 --> 01:13:07,970
+Các 3 giờ chủ yếu là phần đấy là...
+
+1050
+01:13:07,970 --> 01:13:12,410
+Bết bủng thì anh Chí cũng đã hôm trước
+cũng đã yêu cầu mình làm rồi mà...
+
+1051
+01:13:12,410 --> 01:13:16,510
+Mình cũng đã yêu cầu bên
+anh Chí làm rồi mà...
+
+1052
+01:13:17,080 --> 01:13:21,380
+Giờ Chí chủ yếu là xong rồi cái
+phần bán bủng các thứ này thôi.
+
+1053
+01:13:21,780 --> 01:13:22,860
+Cái giá chút thôi.
+
+1054
+01:13:26,140 --> 01:13:32,020
+Nhưng mà bạn ạ, còn cái thẻ loại cung cấp
+
+1055
+01:13:32,020 --> 01:13:33,100
+cái gì này chơi chốt?
+
+1056
+01:13:33,660 --> 01:13:34,560
+Cung cấp...
+
+1057
+01:13:37,070 --> 01:13:40,330
+Dữ liệu trong gói, băng
+thông như nào, user như nào.
+
+1058
+01:13:41,130 --> 01:13:42,070
+Anh đã biết gì đâu.
+
+1059
+01:14:09,790 --> 01:14:10,790
+Đâu có đâu anh đâu.
+
+1060
+01:14:14,900 --> 01:14:16,480
+Review service của anh này không?
+
+1061
+01:14:16,560 --> 01:14:19,600
+Không, cái hôm review
+service là anh chỉ...
+
+1062
+01:14:19,600 --> 01:14:20,460
+À, như hôm học sĩ đúng không?
+
+1063
+01:14:23,030 --> 01:14:23,510
+Đâu có anh?
+
+1064
+01:14:32,600 --> 01:14:38,270
+Tại vì cái
+
+1065
+01:14:43,420 --> 01:14:44,860
+này chốt bán này á?
+
+1066
+01:14:50,810 --> 01:14:53,230
+Giá thì có thể thay đổi,
+form form nó sẽ thế này.
+
+1067
+01:14:57,520 --> 01:15:00,200
+Tốc độ kìa, nó băng
+thông, red limit thì à?
+
+1068
+01:15:05,180 --> 01:15:06,180
+Các bạn có thể kiểm tra lại cho anh chè.
+
+1069
+01:15:07,030 --> 01:15:07,410
+Rồi.
+
+1070
+01:15:07,850 --> 01:15:10,570
+Mình không tính là cái Quata đâu
+nhé, mình chỉ tính cái speed thôi.
+
+1071
+01:15:12,660 --> 01:15:16,260
+Speed không được, AdBan
+không hỗ trợ ở đấy.
+
+1072
+01:15:17,300 --> 01:15:20,020
+Tức là nó tính theo băng thông thôi.
+
+1073
+01:15:20,870 --> 01:15:23,190
+Tức là tính theo lượt request ấy.
+
+1074
+01:15:24,790 --> 01:15:27,030
+Chứ còn speed là nó không hỗ trợ.
+
+1075
+01:15:27,310 --> 01:15:33,110
+Tức là ông nào cứ mạng càng cao thì nó
+sẽ kéo hết full được tải được, có cái
+
+1076
+01:15:33,110 --> 01:15:33,790
+mạng ấy được.
+
+1077
+01:15:34,010 --> 01:15:36,310
+Chứ nó không limit được đâu.
+
+1078
+01:15:38,930 --> 01:15:41,290
+Nhớ hôm trước, check
+thông tin cho anh ấy có.
+
+1079
+01:15:42,050 --> 01:15:47,650
+Tức là ví dụ như là một cái
+file, ví dụ như là mời mê đi,
+
+1080
+01:15:48,810 --> 01:15:52,550
+thì nó sẽ kéo full load được theo
+cái tốc độ mạng của người tải.
+
+1081
+01:15:55,010 --> 01:15:56,950
+Và nó sẽ tính vào cái...
+
+1082
+01:16:10,890 --> 01:16:16,670
+Cái đường chuyển ấy, em
+phải xem cái file gửi ấy.
+
+1083
+01:16:26,160 --> 01:16:29,700
+Với cả nó tính theo phút ấy,
+chứ nó không tính theo dây đâu.
+
+1084
+01:16:38,020 --> 01:16:42,710
+Nếu em có gửi ra một cái,
+liên quan đến cái set limit.
+
+1085
+01:16:56,790 --> 01:16:59,730
+Cái file bảng giá này kia, mở
+
+1086
+01:17:08,180 --> 01:17:09,520
+lại cái file bảng giá này nè.
+
+1087
+01:17:14,670 --> 01:17:16,130
+Còn đây là chỉ workflow thôi.
+
+1088
+01:17:17,170 --> 01:17:19,050
+Ký trích lại đi, nhiều file.
+
+1089
+01:17:20,890 --> 01:17:23,990
+File catalog này gần nhất em gửi
+cho em liên quan đến cái này.
+
+1090
+01:17:24,300 --> 01:17:26,780
+Đây, cái file này
+
+1091
+01:17:30,170 --> 01:17:34,100
+kéo lên trên.
+
+1092
+01:17:37,900 --> 01:17:40,780
+Thôi, đi cho băng thông, speed
+băng thông thì sẽ check lại nhé.
+
+1093
+01:17:42,200 --> 01:17:47,700
+Nói nhanh luôn nhé, tức là nếu cái
+thằng này là nó không sử dụng được
+
+1094
+01:17:47,700 --> 01:17:53,360
+cho theo gói được, nó chỉ ốp được cho dưới
+
+1095
+01:17:53,360 --> 01:17:58,770
+quyền account thôi, EM
+user thôi, từng user thôi,
+
+1096
+01:17:58,990 --> 01:18:00,890
+chứ mà để cao tổng.
+
+1097
+01:18:01,020 --> 01:18:03,080
+Và để theo cái gói này là không khả thi.
+
+1098
+01:18:05,820 --> 01:18:09,320
+Cao tổng theo gói là chỉ có
+quota với cả bucket thôi.
+
+1099
+01:18:10,990 --> 01:18:11,610
+Đúng rồi.
+
+1100
+01:18:11,910 --> 01:18:15,690
+Còn băng thông, từ ngay mỗi user người
+ta sẽ sử dụng chỉ với cái speed như thế.
+
+1101
+01:18:15,950 --> 01:18:21,850
+Thì đây, nhưng mà nếu mà thể hiện như thế
+này thì người ta hiểu là cái 500m này áp
+
+1102
+01:18:21,850 --> 01:18:22,570
+dụng cho cả gói.
+
+1103
+01:18:25,290 --> 01:18:25,810
+Đúng không?
+
+1104
+01:18:26,130 --> 01:18:30,310
+Chứ đâu có biết là cái 500m thực chất
+là đang chỉ áp dụng dưới từng user.
+
+1105
+01:18:31,410 --> 01:18:33,290
+User là được rồi.
+
+1106
+01:18:34,710 --> 01:18:35,390
+User là được rồi.
+
+1107
+01:18:36,990 --> 01:18:37,830
+Ví dụ một gói này.
+
+1108
+01:18:37,930 --> 01:18:43,550
+Còn mình sẽ điều chỉnh user người ta được
+sử dụng tốc độ là bao nhiêu thì mình sẽ
+
+1109
+01:18:43,550 --> 01:18:45,390
+check lại, em sẽ điều chỉnh lại.
+
+1110
+01:18:47,550 --> 01:18:52,990
+Còn anh cứ confirm lại là ví dụ anh limit
+là một user người ta sử dụng 200m là được
+
+1111
+01:18:52,990 --> 01:18:53,330
+đúng không?
+
+1112
+01:18:53,810 --> 01:18:55,090
+IM user nha.
+
+1113
+01:19:00,150 --> 01:19:02,470
+Các user con có được tạo ra đúng không?
+
+1114
+01:19:03,970 --> 01:19:06,730
+Là người, là anh chủ.
+
+1115
+01:19:10,450 --> 01:19:14,350
+Thì tất cả những user đấy,
+mỗi user sẽ được sử dụng là...
+
+1116
+01:19:14,440 --> 01:19:18,820
+Ví dụ 10 user thì mỗi user được
+sử dụng là 100m, đúng không?
+
+1117
+01:19:20,560 --> 01:19:21,680
+Hiện tại như thế đúng không?
+
+1118
+01:19:24,450 --> 01:19:27,270
+Mặc định là mình có thể tạo như thế được.
+
+1119
+01:19:28,450 --> 01:19:29,350
+Mình có thể tạo được?
+
+1120
+01:19:34,570 --> 01:19:38,510
+Nhưng mà em nói chứ, nó chả
+ai giới hạn dưới user gì mà.
+
+1121
+01:19:38,630 --> 01:19:40,590
+Giới hạn như thế nó sẽ
+bị dở ở cái chỗ là...
+
+1122
+01:19:41,740 --> 01:19:47,580
+Mình giới hạn tốc độ chứ mình
+đâu có giới hạn total vong thông
+
+1123
+01:19:47,580 --> 01:19:47,760
+đâu.
+
+1124
+01:19:50,980 --> 01:19:54,200
+Ví dụ như thế này.
+
+1125
+01:20:05,000 --> 01:20:07,820
+Ví dụ nó tính theo lưu lượng truyền tải.
+
+1126
+01:20:07,980 --> 01:20:13,890
+Ví dụ anh mua 10GB, anh cho người
+ta 100GB output thì 101GB bắt đầu
+
+1127
+01:20:13,890 --> 01:20:17,130
+sẽ tính là 280 đồng
+chứ 1GB từ ghi đến 101.
+
+1128
+01:20:19,540 --> 01:20:21,400
+100GB trước thì nó sẽ là free kiểu thế.
+
+1129
+01:20:21,520 --> 01:20:24,460
+Nhưng cái này thì tất cả anh sẽ
+phải tính ở trên quản trị của...
+
+1130
+01:20:26,000 --> 01:20:27,220
+Để sâu cho người dùng.
+
+1131
+01:20:27,700 --> 01:20:33,630
+Và lúc này người dùng
+người ta phải kêu người
+
+1132
+01:20:33,630 --> 01:20:34,530
+ta thanh toán hàng tháng.
+
+1133
+01:20:35,530 --> 01:20:37,730
+Đấy là một điểm rất là dở ở hình thức này.
+
+1134
+01:20:38,510 --> 01:20:43,280
+Còn thông thường hình thức này người ta
+yêu cầu phải nạp tiền để cắm thẻ sẵn vào
+
+1135
+01:20:43,280 --> 01:20:43,740
+cái...
+
+1136
+01:20:44,280 --> 01:20:48,320
+Nó giống như anh dốt token, anh dốt vượt,
+cái mốt token nó bắt đầu tính ký của anh.
+
+1137
+01:20:50,480 --> 01:20:53,480
+Thì đấy là cái mình giới
+hạn ưu lượng truyền tải.
+
+1138
+01:20:53,850 --> 01:20:59,700
+Còn tốc độ truyền tải thì ví dụ là ông
+có bọt mặn 1 week nhưng mà ông tạo 1
+
+1139
+01:20:59,700 --> 01:21:04,840
+user tốc độ của ông chỉ 100 thì ông chỉ
+dùng 100 mê trên đường truyền 1 week của
+
+1140
+01:21:04,840 --> 01:21:05,260
+ông thôi.
+
+1141
+01:21:06,210 --> 01:21:07,050
+Ý là như thế.
+
+1142
+01:21:08,690 --> 01:21:10,310
+Tức là nó sẽ phụ thuộc vào 2 yếu tố.
+
+1143
+01:21:10,410 --> 01:21:12,070
+Người dùng cái limit của bên mình nữa.
+
+1144
+01:21:14,670 --> 01:21:17,950
+Nói chung là phần đấy
+là em xử lý phía trên à?
+
+1145
+01:21:18,430 --> 01:21:24,130
+Quan trọng cái thằng speed này là anh
+confirm là mình app được cái speed cho
+
+1146
+01:21:24,130 --> 01:21:25,210
+các user.
+
+1147
+01:21:26,650 --> 01:21:27,950
+để app được speed cho user.
+
+1148
+01:21:28,110 --> 01:21:28,470
+Vậy là ok.
+
+1149
+01:21:28,570 --> 01:21:29,130
+Không phải speed.
+
+1150
+01:21:30,550 --> 01:21:31,490
+Không phải speed.
+
+1151
+01:21:34,000 --> 01:21:35,320
+Đây là không phải speed nha.
+
+1152
+01:21:38,340 --> 01:21:44,170
+Tại vì ví dụ như mạng anh mạng cá
+nhân mà 100m là anh vẫn tải được
+
+1153
+01:21:44,170 --> 01:21:48,010
+100m chứ không phải là anh sẽ
+bị giới hạn là chỉ được 50m đâu.
+
+1154
+01:21:48,350 --> 01:21:48,870
+Đúng rồi.
+
+1155
+01:21:51,020 --> 01:21:51,380
+Ừ.
+
+1156
+01:21:51,380 --> 01:21:51,700
+Đúng không?
+
+1157
+01:21:52,540 --> 01:21:56,600
+Thì đấy, thì user thì ví dụ như mạng
+anh 200m thì anh chỉ tải được 100m thôi.
+
+1158
+01:21:56,800 --> 01:21:58,820
+Không, mạng anh 200m,
+anh vẫn tải được 200m.
+
+1159
+01:21:59,170 --> 01:22:04,250
+Không, mình đang giới hạn 1 user là, ví dụ
+user này 200b, ví dụ ông, mặt của anh là
+
+1160
+01:22:04,250 --> 01:22:07,270
+300b thì đúng là anh chỉ kéo 200b đấy chứ.
+
+1161
+01:22:07,650 --> 01:22:09,610
+Thế anh mới nói là cái...
+
+1162
+01:22:09,610 --> 01:22:12,670
+Thế vậy không phải limit speed rồi,
+cái limit kia của anh là limit gì?
+
+1163
+01:22:13,170 --> 01:22:14,630
+Nó dạng kiểu...
+
+1164
+01:22:14,630 --> 01:22:17,450
+nó gọi là cái quái này, cái...
+
+1165
+01:22:17,450 --> 01:22:19,230
+kéo phía trên, kéo phía trên
+này, anh không có cái gì.
+
+1166
+01:22:19,430 --> 01:22:21,230
+Chứ không, chứ không, chứ không, chứ
+không, chứ không, chứ không, chứ không, chứ
+
+1167
+01:22:21,230 --> 01:22:25,320
+không, chứ không, chứ không, chứ không,
+chứ không, chứ không, chứ không, chứ không,
+
+1168
+01:22:25,320 --> 01:22:26,280
+chứ không, chứ không, chứ không, chứ
+không, chứ không, chứ không, chứ không, chứ
+
+1169
+01:22:26,280 --> 01:22:32,040
+không, chứ không, chứ không,
+chứ không, chứ không, chứ
+
+1170
+01:22:33,090 --> 01:22:38,040
+không, ch
+
+1171
+01:22:42,610 --> 01:22:44,930
+Thì nó chỉ hỗ trợ cỡ này thôi.
+
+1172
+01:22:46,550 --> 01:22:51,390
+Thì nó chỉ có thế thôi.
+
+1173
+01:22:52,040 --> 01:22:55,460
+Chứ không có cái kiểu speed như em nói.
+
+1174
+01:23:07,880 --> 01:23:10,180
+Mạng ngang cao thì ông kéo
+được hết kéo full được.
+
+1175
+01:23:10,710 --> 01:23:13,130
+Ông nhà nó test cho anh
+ý trường hợp đấy chưa?
+
+1176
+01:23:13,270 --> 01:23:13,670
+Test rồi.
+
+1177
+01:23:17,030 --> 01:23:19,390
+Cái đấy lại, nó sẽ hơi khác.
+
+1178
+01:23:20,530 --> 01:23:25,110
+Như vậy lúc đấy mình phải bán theo cái
+vượt mức, tức là khách hàng phải nạp tiền và
+
+1179
+01:23:25,110 --> 01:23:28,490
+pay you go, pay you go.
+
+1180
+01:23:30,240 --> 01:23:31,980
+Trước dùng cái...
+
+1181
+01:23:31,980 --> 01:23:37,790
+lâu đi Nazi, áp ảnh lên rồi tính theo lượt
+
+1182
+01:23:37,790 --> 01:23:39,470
+đao đoạn ảnh bé này.
+
+1183
+01:23:40,880 --> 01:23:42,440
+Cái đấy phải trích lại.
+
+1184
+01:23:46,310 --> 01:23:52,140
+Thế em mới nói là chỗ băng thông
+hơi cẩn cẩn mà, cái account và
+
+1185
+01:23:52,140 --> 01:23:53,200
+bucket thì ok.
+
+1186
+01:23:56,990 --> 01:24:02,630
+Em quay lại với anh Đà tí ở
+chỗ kế của Azen để anh nhan
+
+1187
+01:24:02,630 --> 01:24:03,310
+ngọt.
+
+1188
+01:24:03,620 --> 01:24:04,560
+Với chiều đi.
+
+1189
+01:24:05,160 --> 01:24:06,020
+Cô nhanh chứ.
+
+1190
+01:24:06,140 --> 01:24:09,000
+Em chỉ thăng hoác tại sao
+anh phải hack cái này thôi.
+
+1191
+01:24:10,860 --> 01:24:14,550
+Cô nhan mấy thì cứ mấy
+trước, ngồi anh làm một tí.
+
+1192
+01:24:21,490 --> 01:24:25,670
+Tại sao anh phải bắt buộc anh
+phải chứa Yenboy của DevOps này?
+
+1193
+01:24:26,030 --> 01:24:30,650
+Thực ra nó là endpoint để gọi S3 API.
+
+1194
+01:24:31,490 --> 01:24:35,850
+Thì muốn gọi S3 API thì
+mình đang gọi xuống port
+
+1195
+01:24:35,850 --> 01:24:38,030
+8090.
+
+1196
+01:24:38,550 --> 01:24:40,010
+Nhi em bảo là mình sẽ đi theo một cái.
+
+1197
+01:24:40,030 --> 01:24:41,530
+Không, 8090 là port của agent.
+
+1198
+01:24:43,270 --> 01:24:44,770
+Agent nó sẽ côn xuống chứ.
+
+1199
+01:24:44,970 --> 01:24:48,190
+Agent là nó đang dùng port 8090.
+
+1200
+01:24:48,750 --> 01:24:52,430
+Chứ không phải là agent
+nó chạy port của 8090.
+
+1201
+01:24:52,590 --> 01:24:55,630
+Nếu mà nó quản lý vào endpoint
+đấy thì cần gì về agent nữa không?
+
+1202
+01:25:10,440 --> 01:25:13,360
+Cái port 8000 ý thực
+ra là không phải là...
+
+1203
+01:25:13,490 --> 01:25:16,650
+Đúng ra là nó gọi là...
+
+1204
+01:25:16,650 --> 01:25:21,350
+Tức là em có thể em có một cái con đứng
+trước, miễn là làm sao anh cần phải côn
+
+1205
+01:25:21,350 --> 01:25:25,650
+xuống tại vì khi mà anh thao tác cả bucket
+policy ý, là bắt buộc là phải sử dụng
+
+1206
+01:25:25,650 --> 01:25:26,390
+cái...
+
+1207
+01:25:26,650 --> 01:25:28,150
+Qua đường endpoint của F3.
+
+1208
+01:25:29,620 --> 01:25:35,380
+Tức là chỉ dùng thuần túy mà Rados
+xây lấy ảnh bên thì nó chỉ bị
+
+1209
+01:25:35,380 --> 01:25:37,260
+giới hạn ở phần quản lý tài khoản.
+
+1210
+01:25:38,820 --> 01:25:44,680
+Nhưng mà trong cái phần quản lý mà
+bucket policy cho người dùng thì
+
+1211
+01:25:44,680 --> 01:25:47,620
+bắt buộc anh phải côn xuống F3.
+
+1212
+01:25:48,060 --> 01:25:50,620
+Dùng qua thông qua đường F3.
+
+1213
+01:25:55,380 --> 01:25:58,740
+Thì em chỉ cần khai báo cái URL
+của thằng này vào thôi là được.
+
+1214
+01:26:00,280 --> 01:26:00,780
+Đúng không?
+
+1215
+01:26:01,500 --> 01:26:04,240
+Thì đấy thì lại bắt cộng đi một
+điện lại đi ra ngoài rồi đi vào.
+
+1216
+01:26:05,320 --> 01:26:06,340
+Có phải đi ra ngoài không?
+
+1217
+01:26:06,880 --> 01:26:10,520
+Còn trong khi anh đã nằm sẵn ở dưới đây
+thì anh cồn xuống bên dưới phát là xong.
+
+1218
+01:26:10,760 --> 01:26:12,700
+Hoặc là em cho anh một cái...
+
+1219
+01:26:12,700 --> 01:26:14,660
+Tức là anh không bắt
+buộc là phải thằng này.
+
+1220
+01:26:15,000 --> 01:26:16,120
+Biết làm sao...
+
+1221
+01:26:16,120 --> 01:26:17,380
+Nhưng mà thằng này là một cụm luôn không?
+
+1222
+01:26:17,660 --> 01:26:18,120
+Đúng rồi.
+
+1223
+01:26:18,360 --> 01:26:21,660
+Tất cả thằng này đều gọi là
+chỉ là một cụm thôi không?
+
+1224
+01:26:21,780 --> 01:26:24,420
+Chứ không phải là mỗi một
+thằng là một cụm đúng không?
+
+1225
+01:26:25,200 --> 01:26:27,400
+Mỗi một thằng thì nó sẽ
+gồm tất cả những cái này.
+
+1226
+01:26:28,840 --> 01:26:30,640
+Tức là đây là một kho hay là nhiều kho?
+
+1227
+01:26:32,190 --> 01:26:36,290
+Nhiều kho trên một node tức là tương
+ứng với mỗi một hot như này đúng không?
+
+1228
+01:26:37,010 --> 01:26:40,070
+Thì nó sẽ được gắn vào những cái...
+
+1229
+01:26:40,070 --> 01:26:41,450
+Thì gọi chung đây là một kho.
+
+1230
+01:26:41,770 --> 01:26:44,570
+Cái cái cái cái cái cái cái cái cái cái
+cái cái cái cái cái cái cái cái cái cái cái
+
+1231
+01:26:44,570 --> 01:26:45,570
+cái cái cái cái cái cái cái cái cái cái
+cái cái cái cái cái cái cái cái cái cái cái
+
+1232
+01:26:45,570 --> 01:26:47,350
+cái cái cái cái cái cái cái cái cái cái
+cái cái cái cái cái cái cái cái cái cái cái
+
+1233
+01:26:47,350 --> 01:26:47,650
+cái cái cái cái cái cái cái cái cái cái
+cái cái cái cái cái cái cái cái cái cái cái
+
+1234
+01:26:47,650 --> 01:26:52,880
+cái cái cái cái cái cái cái cái cái cái
+cái cái cái cái cái cái cái cái cái cái cái
+
+1235
+01:26:52,880 --> 01:26:53,240
+cái cái cái cái cái cái cái cái cái cái
+cái cái cái cái cái cái cái cái cái cái cái
+
+1236
+01:26:53,240 --> 01:26:54,780
+cái cái cái cái cái cái cái cái cái cái
+cái cái cái cái cái cái cái cái cái cái
+
+1237
+01:26:56,900 --> 01:26:59,900
+Trên 1 console, nó sẽ phải cài
+những thằng này, anh hiểu không?
+
+1238
+01:27:00,680 --> 01:27:04,540
+Nhưng mà có cái thằng 1 này là
+cái thằng AI nó đang kẽ sai.
+
+1239
+01:27:04,840 --> 01:27:10,780
+Bởi vì thằng 1 thì nó là admin, thì
+nó sẽ không cần phải chạy thằng DDoS
+
+1240
+01:27:10,780 --> 01:27:10,940
+này.
+
+1241
+01:27:11,480 --> 01:27:14,740
+Nó chỉ quản lý cái DDoS
+admin thôi, DDoS CLI này này.
+
+1242
+01:27:15,740 --> 01:27:18,260
+Chứ nó không cần chạy
+tunning ở cái port 8000 này.
+
+1243
+01:27:18,560 --> 01:27:20,060
+Cái port 8000 này nó dành cho client.
+
+1244
+01:27:21,640 --> 01:27:24,360
+Đấy, mà client nó sẽ chỉ chạy 3 ngày thôi.
+
+1245
+01:27:25,780 --> 01:27:26,420
+Anh hiểu không?
+
+1246
+01:27:27,730 --> 01:27:31,570
+Tức là quan trọng là bây giờ anh vẫn muốn
+code vào cái thằng Client này đúng không?
+
+1247
+01:27:32,330 --> 01:27:32,770
+Ừ.
+
+1248
+01:27:32,770 --> 01:27:37,390
+Anh code vào Client này
+thì anh dùng endpoint thôi.
+
+1249
+01:27:37,810 --> 01:27:40,850
+Dùng URL thôi, code như nhau mà.
+
+1250
+01:27:41,250 --> 01:27:45,150
+Thì đấy thì chẳng có hết anh
+thấy là nó đặt là nằm cùng.
+
+1251
+01:27:45,250 --> 01:27:48,710
+Nếu không thì em sẽ gọi vào một
+endpoint bất kỳ của thằng này.
+
+1252
+01:27:49,550 --> 01:27:50,690
+Của ba thằng này.
+
+1253
+01:27:51,990 --> 01:27:55,010
+Nếu mà thật sự anh cần thì em sẽ ấy.
+
+1254
+01:27:56,140 --> 01:27:57,360
+Em sẽ đẩy 3 thằng này.
+
+1255
+01:27:57,460 --> 01:28:01,120
+Còn không thì em đã phải triển khai thêm
+1 thằng này nữa để cho anh chạy ONLY.
+
+1256
+01:28:01,500 --> 01:28:07,120
+Bởi vì em đang chạy 3 thằng này
+là client được sử dụng qua ENGINX.
+
+1257
+01:28:07,260 --> 01:28:08,600
+Tức là cái driver mình đang dùng.
+
+1258
+01:28:08,860 --> 01:28:10,640
+Và nó sẽ code trực tiếp qua 3 thằng này.
+
+1259
+01:28:11,510 --> 01:28:17,360
+Vậy thì em sẽ triển khai thêm 1 thằng
+này nữa để cho anh chạy riêng cho cái CLI
+
+1260
+01:28:17,360 --> 01:28:17,800
+này nhé.
+
+1261
+01:28:18,180 --> 01:28:23,390
+Thằng 8000 chính là thằng
+
+1262
+01:28:23,390 --> 01:28:25,290
+Rados Admin đúng không?
+
+1263
+01:28:27,980 --> 01:28:30,080
+Thằng 8000 bản chất nó là client thôi.
+
+1264
+01:28:30,520 --> 01:28:32,120
+Coi như đây là client.
+
+1265
+01:28:32,780 --> 01:28:33,520
+Đúng rồi.
+
+1266
+01:28:33,660 --> 01:28:34,720
+Còn đây là client.
+
+1267
+01:28:36,700 --> 01:28:37,800
+Admin thì sẽ là thằng này.
+
+1268
+01:28:38,880 --> 01:28:39,920
+Admin sẽ là thằng này.
+
+1269
+01:28:40,260 --> 01:28:41,040
+Đây là 1 này.
+
+1270
+01:28:41,960 --> 01:28:43,260
+Thì admin sẽ là thằng này.
+
+1271
+01:28:43,720 --> 01:28:47,800
+Thì coi như là hiện tại là em
+đang cho chạy thằng kia vào đây.
+
+1272
+01:28:48,910 --> 01:28:51,010
+Thì 3 ngày nó sẽ chạy cho client thôi.
+
+1273
+01:28:51,410 --> 01:28:55,750
+Bản chất là đã ra dốt gateway,
+ra dốt gateway sẽ cho client rồi.
+
+1274
+01:28:56,360 --> 01:29:00,860
+Chẳng qua bây giờ là coi như em test 1
+con client để chạy cho thằng khoản trị đấy
+
+1275
+01:29:00,860 --> 01:29:01,160
+thôi.
+
+1276
+01:29:01,460 --> 01:29:02,040
+Ok không?
+
+1277
+01:29:04,370 --> 01:29:06,430
+Như vậy thôi thì anh
+sẽ không bị sửa gì nữa.
+
+1278
+01:29:07,950 --> 01:29:10,910
+Thế là anh vẫn dưỡng nguyên
+cái cấu hình ý hiện tại?
+
+1279
+01:29:11,510 --> 01:29:14,850
+Thì coi như em cũng tự triển thai thêm
+1 con client ở trên con 1 đấy thôi.
+
+1280
+01:29:15,910 --> 01:29:19,550
+Nếu không để cho anh gọi
+thì CLI API hay thôi.
+
+1281
+01:29:20,860 --> 01:29:22,520
+Thế coi như anh không đổi gì đúng không?
+
+1282
+01:29:22,900 --> 01:29:23,620
+Dưỡng nguyên nhé.
+
+1283
+01:29:23,720 --> 01:29:25,320
+Em coi như em chạy thêm 1 cái.
+
+1284
+01:29:26,730 --> 01:29:30,910
+Anh chỉ cần mỗi cái em
