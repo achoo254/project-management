@@ -307,10 +307,9 @@ nav{
   box-shadow: var(--shadow);
   min-width: 0;
 }
-.card > h3{
-  font-size: var(--t-1); margin-bottom: var(--s3);
-  display: flex; align-items: center; gap: var(--s3); flex-wrap: wrap;
-}
+/* để inline flow, tránh mỗi <code> trong tiêu đề thành một flex item riêng */
+.card > h3{ font-size: var(--t-1); margin-bottom: var(--s3); }
+.card > h3 .badge{ margin-left: var(--s2); }
 .card p, .card ul, .card ol{ max-width: none; }
 .card .lead{ font-size: var(--t--1); color: var(--muted); margin-bottom: var(--s3); }
 .card--flat{ box-shadow: none; background: transparent; }
@@ -526,12 +525,18 @@ td .who{ display: inline-flex; align-items: center; gap: var(--s2); white-space:
 }
 .side-h .tag{ font-size: var(--t--2); font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
 .side ul{ list-style: none; margin: 0; padding: 0; }
+/* KHÔNG dùng flex ở đây: mỗi <strong>/<code> trong câu sẽ thành flex item
+   riêng và bị chèn gap, làm vỡ mạch chữ. Dùng bullet định vị tuyệt đối. */
 .side li{
-  padding: var(--s3) var(--s4); border-bottom: 1px solid var(--rule);
-  font-size: var(--t--1); display: flex; gap: var(--s3); align-items: flex-start;
+  padding: var(--s3) var(--s4) var(--s3) calc(var(--s4) + 16px);
+  border-bottom: 1px solid var(--rule);
+  font-size: var(--t--1); position: relative;
 }
 .side li:last-child{ border-bottom: 0; }
-.side li::before{ content: "▪"; color: var(--accent); flex: 0 0 auto; line-height: 1.4; }
+.side li::before{
+  content: "▪"; color: var(--accent);
+  position: absolute; left: var(--s4); top: var(--s3); line-height: 1.55;
+}
 .side.portal li::before{ color: var(--series-b); }
 
 /* ============================================================
@@ -683,6 +688,7 @@ footer{ padding: var(--s7) 0 var(--s8); }
         <li><strong>RadosGW</strong> → “DDoS / ra dốt gateway / Rados xây”</li>
         <li><strong>Nginx</strong> → “Endinix / ENGENIC / engine mix / S&amp;X”</li>
         <li><strong>SSO <code>sid</code> / <code>ssid</code></strong> → “SLID / LID”</li>
+        <li><strong>billing</strong> → “bin link / B-Link / BIN LINK”</li>
       </ul>
       <p class="mt4"><strong>Phân vai đã hiệu chỉnh thủ công theo chủ đề, không theo tên ASR đọc được.</strong> Buổi họp có 6 người: <code>donv</code> (Portal), <code>dattqh</code> (OneDash), <code>kienvt</code> (PM cloud chung, vận hành Ceph prod), <code>vietnt</code> (module Project), <code>trihd</code>, <code>ducnd</code>.</p>
       <div class="tbl-scroll mt4">
@@ -1043,7 +1049,7 @@ footer{ padding: var(--s7) 0 var(--s8); }
       <div class="sec-idx num">06</div>
       <div>
         <h2>Phân vai OneDash ↔ Portal</h2>
-        <p class="sub">Nguyên tắc: quản trị dồn về OneDash, tiền dồn về Portal. Không lẫn.</p>
+        <p class="sub">Nguyên tắc: quản trị dồn về OneDash, <strong>billing dồn về Portal</strong>. OneDash không quản lý bill.</p>
       </div>
     </div>
 
@@ -1055,16 +1061,16 @@ footer{ padding: var(--s7) 0 var(--s8); }
           <li>Quản lý project, web server, service, port, firewall</li>
           <li>Quản lý F3 Object Storage (toàn bộ phần quản lý)</li>
           <li>Xem tất cả project của mọi server trên <strong>một màn hình chung</strong></li>
-          <li>Có thể có <strong>nút</strong> thanh toán, nhưng bấm là nhảy về Portal</li>
+          <li><strong>KHÔNG quản lý billing</strong> — có thể có nút thanh toán, nhưng bấm là link sang Portal</li>
         </ul>
       </div>
       <div class="side portal">
-        <div class="side-h">Portal · my.inet.vn <span class="tag">Kinh doanh / tiền</span></div>
+        <div class="side-h">Portal · my.inet.vn <span class="tag">Kinh doanh / billing</span></div>
         <ul>
-          <li><strong>Toàn bộ thanh toán</strong> — mọi luồng bin-link về đây</li>
+          <li><strong>Toàn bộ billing</strong> — hoá đơn, thanh toán, gia hạn đều nằm ở đây</li>
           <li>Gia hạn, nâng cấp gói</li>
           <li>Bán gói F3, quản lý tài khoản dịch vụ</li>
-          <li>Bin-link ngược lại sang OneDash cho phần quản trị</li>
+          <li>Link ngược sang OneDash cho phần quản trị</li>
           <li><strong>Ngừng bổ sung tính năng quản trị mới</strong> — chỉ giữ phần cơ bản</li>
         </ul>
       </div>
@@ -1227,7 +1233,7 @@ footer{ padding: var(--s7) 0 var(--s8); }
         <ol>
           <li>Chọn server → chọn gói</li>
           <li><strong>Chọn app/image cài sẵn</strong> — mỗi loại một giá</li>
-          <li>Bin-link → thanh toán tại <strong>Portal</strong></li>
+          <li>Link <strong>billing</strong> → thanh toán tại <strong>Portal</strong></li>
           <li>Thanh toán thành công → gửi email kèm <strong>link quản trị OneDash</strong></li>
           <li>Khách vào OneDash cấu hình tiếp</li>
         </ol>
@@ -1271,11 +1277,12 @@ footer{ padding: var(--s7) 0 var(--s8); }
         </ul>
       </div>
       <div class="side portal">
-        <div class="side-h">Portal / INS <span class="tag">Kinh doanh</span></div>
+        <div class="side-h">Portal / INS <span class="tag">Kinh doanh / billing</span></div>
         <ul>
           <li>Bán gói, quản lý gói của tài khoản</li>
           <li>Hiển thị tên gói, giá, thông tin gói</li>
-          <li><strong>Bin-link</strong> sang OneDash để quản trị</li>
+          <li><strong>Billing F3</strong> — kể cả phần tính vượt mức</li>
+          <li>Link sang OneDash để quản trị</li>
           <li><strong>Không</strong> làm phần quản lý ở Portal — dồn hết về OneDash</li>
         </ul>
       </div>
@@ -1467,7 +1474,7 @@ footer{ padding: var(--s7) 0 var(--s8); }
           </tr>
           <tr>
             <td><span class="who"><span class="dot d-duc"></span>ducnd</span></td>
-            <td><strong>Bin-link Portal ↔ OneDash</strong>: hiển thị thông tin gói F3, giá, luồng thanh toán</td>
+            <td><strong>Link billing Portal ↔ OneDash</strong>: hiển thị thông tin gói F3, giá, luồng thanh toán</td>
             <td>Portal</td>
             <td><span class="badge b-ok">Đã chốt</span></td>
           </tr>
@@ -1578,7 +1585,7 @@ footer{ padding: var(--s7) 0 var(--s8); }
         <span><span class="dot d-kien"></span>kienvt — PM cloud, Ceph prod</span>
         <span><span class="dot d-viet"></span>vietnt — module Project</span>
         <span><span class="dot d-tri"></span>trihd — sản phẩm</span>
-        <span><span class="dot d-duc"></span>ducnd — bin-link Portal</span>
+        <span><span class="dot d-duc"></span>ducnd — billing Portal</span>
       </div>
     </div>
   </div>
