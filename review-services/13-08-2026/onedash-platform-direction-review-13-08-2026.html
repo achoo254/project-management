@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>OneDash · Chốt định hướng nền tảng 13/08/2026</title>
-<meta name="description" content="Biên bản buổi review OneDash ngày 13/08/2026 tại Cầu Giấy: xoay trục từ chuẩn hoá & quản trị sang detect & điều khiển, Docker làm option song song, phân vai OneDash ↔ Portal, và các vấn đề chưa chốt của dịch vụ F3 Object Storage.">
+<meta name="description" content="Biên bản buổi review OneDash ngày 13/08/2026 tại Cầu Giấy: xoay trục từ chuẩn hoá & quản trị sang detect & điều khiển, Docker làm option song song, cơ chế clone tính năng Portal sang OneDash bằng cách client gọi thẳng backend Portal (whitelist onedash.inet.vn), và các vấn đề chưa chốt của dịch vụ F3 Object Storage.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap" rel="stylesheet">
@@ -437,6 +437,8 @@ td .who{ display: inline-flex; align-items: center; gap: var(--s2); white-space:
 .d-kien{ background: var(--series-b); }
 .d-duc{  background: var(--ok); }
 .d-dat{  background: var(--accent); }
+.d-donv{ background: var(--warn); }
+.d-tri{  background: var(--risk); }
 .d-infra{ background: var(--muted); }
 
 /* ============================================================
@@ -588,7 +590,7 @@ footer{ padding: var(--s7) 0 var(--s8); }
       <a href="#webserver">Web server</a>
       <a href="#metrics">Thống kê</a>
       <a href="#roles">OneDash ↔ Portal</a>
-      <a href="#voto">Key Voto</a>
+      <a href="#clone">Cơ chế clone</a>
       <a href="#market">Marketplace</a>
       <a href="#f3">F3 Storage</a>
       <a href="#tasks">Việc giao</a>
@@ -611,8 +613,15 @@ footer{ padding: var(--s7) 0 var(--s8); }
       <p><strong>Kết luận xuyên suốt buổi họp:</strong> ép khách hàng chuẩn hoá project vào khuôn của OneDash chính là nguyên nhân nền tảng không được dùng. Từ nay OneDash <strong>đọc hiện trạng có sẵn trên server và cho điều khiển qua UI</strong>, thay vì bắt cài lại theo wizard. Docker được bổ sung như <strong>option song song</strong> — không thay thế project native.</p>
     </div>
     <div class="hero-meta">
-      <span><b>Dự họp:</b> anh Chí (sản phẩm/kinh doanh) · anh Đạt (TBP Công Nghệ) · Việt (module Project) · kienvt (vận hành cụm Ceph prod)</span>
-      <span><b>Giao thêm:</b> Đức — ducnd (bin-link Portal)</span>
+      <span><b>Dự họp (6):</b>
+        <strong>donv</strong> — Portal ·
+        <strong>dattqh</strong> — OneDash ·
+        <strong>kienvt</strong> — PM dự án cloud chung, vận hành cụm Ceph prod ·
+        <strong>vietnt</strong> — module Project OneDash ·
+        <strong>trihd</strong> ·
+        <strong>ducnd</strong>
+      </span>
+      <span><b>Phần Portal ↔ OneDash</b> trao đổi giữa <strong>donv · dattqh · kienvt</strong></span>
     </div>
   </div>
 </header>
@@ -620,10 +629,10 @@ footer{ padding: var(--s7) 0 var(--s8); }
 <section class="kpis">
   <div class="kpis-in">
     <div class="kpi"><span class="cnt num">1g29p</span><span class="cap">Thời lượng buổi review</span></div>
-    <div class="kpi is-ok"><span class="cnt num">18</span><span class="cap">Quyết định đã chốt</span></div>
-    <div class="kpi is-hot"><span class="cnt num">5</span><span class="cap">Câu hỏi còn treo</span></div>
+    <div class="kpi is-ok"><span class="cnt num">19</span><span class="cap">Quyết định đã chốt</span></div>
+    <div class="kpi is-hot"><span class="cnt num">4</span><span class="cap">Câu hỏi còn treo</span></div>
     <div class="kpi"><span class="cnt num">9</span><span class="cap">Hạng mục review</span></div>
-    <div class="kpi"><span class="cnt num">4</span><span class="cap">Người nhận việc</span></div>
+    <div class="kpi"><span class="cnt num">6</span><span class="cap">Người dự họp</span></div>
   </div>
 </section>
 
@@ -638,8 +647,22 @@ footer{ padding: var(--s7) 0 var(--s8); }
         <li><strong>Portal · Voto</strong> → “Foto / Photo / bottle / Voto”</li>
         <li><strong>RadosGW</strong> → “DDoS / ra dốt gateway / Rados xây”</li>
         <li><strong>Nginx</strong> → “Endinix / ENGENIC / engine mix / S&amp;X”</li>
+        <li><strong>SSO <code>sid</code> / <code>ssid</code></strong> → “SLID / LID”</li>
       </ul>
-      <p class="mt4"><strong>Phân vai đã hiệu chỉnh thủ công theo chủ đề</strong> (ASR gọi cả hai người là “Việt”): phần <em>Project của OneDash</em> → <strong>Việt</strong>; phần <em>F3 / Ceph / RadosGW</em> → <strong>kienvt</strong> (phụ trách vận hành cụm Ceph prod). Các con số và tên miền cụ thể trong báo cáo cần đối chiếu lại trước khi dùng làm căn cứ triển khai.</p>
+      <p class="mt4"><strong>Phân vai đã hiệu chỉnh thủ công theo chủ đề, không theo tên ASR đọc được.</strong> Buổi họp có 6 người: <code>donv</code> (Portal), <code>dattqh</code> (OneDash), <code>kienvt</code> (PM cloud chung, vận hành Ceph prod), <code>vietnt</code> (module Project), <code>trihd</code>, <code>ducnd</code>.</p>
+      <div class="tbl-scroll mt4">
+        <table style="min-width:520px">
+          <thead><tr><th>Chủ đề trong biên bản</th><th>Chủ sở hữu thật</th><th>ASR đọc thành</th></tr></thead>
+          <tbody>
+            <tr><td>Project · web server · thống kê OneDash</td><td><span class="who"><span class="dot d-viet"></span>vietnt</span></td><td>“Việt”</td></tr>
+            <tr><td>F3 · Ceph · RadosGW · bucket policy</td><td><span class="who"><span class="dot d-kien"></span>kienvt</span></td><td>“Việt”, “em”</td></tr>
+            <tr><td>Backend Portal · whitelist domain</td><td><span class="who"><span class="dot d-donv"></span>donv</span></td><td>“em”</td></tr>
+            <tr><td>Định hướng OneDash · clone · detect</td><td><span class="who"><span class="dot d-dat"></span>dattqh</span></td><td>“anh Đạt”, “anh”</td></tr>
+            <tr><td>Sản phẩm · gói bán · trang chủ · thống kê</td><td><span class="who"><span class="dot d-tri"></span>trihd</span></td><td>“anh Chí”, “anh Trí”</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="mt4">Các con số và tên riêng khác trong báo cáo vẫn cần đối chiếu lại trước khi dùng làm căn cứ triển khai.</p>
     </div>
   </div>
 </section>
@@ -687,7 +710,7 @@ footer{ padding: var(--s7) 0 var(--s8); }
 
     <blockquote class="said">
       “Có gì dưới server thì nó show lên để cho anh thấy. Và để anh sửa. Chứ không phải là anh sẽ phải vào trong server để anh tìm cái file để anh sửa nữa.”
-      <cite>— anh Đạt, mô tả triết lý mới (tương tự module File Manager)</cite>
+      <cite>— dattqh, mô tả triết lý mới (tương tự module File Manager)</cite>
     </blockquote>
 
     <div class="grid g2 mt5">
@@ -716,7 +739,7 @@ footer{ padding: var(--s7) 0 var(--s8); }
       <div class="sec-idx num">02</div>
       <div>
         <h2>Module Project: đổi thứ tự bước, mở thêm đầu vào, thêm clone</h2>
-        <p class="sub">Phụ trách: <strong>Việt</strong>. Đây là phần chịu thay đổi nhiều nhất từ quyết định ở mục 01.</p>
+        <p class="sub">Phụ trách: <strong>vietnt</strong>. Đây là phần chịu thay đổi nhiều nhất từ quyết định ở mục 01.</p>
       </div>
     </div>
 
@@ -737,7 +760,7 @@ footer{ padding: var(--s7) 0 var(--s8); }
       </div>
       <blockquote class="said">
         “Không có source thì cài dependency, runtime thì cũng chả là gì. Nên step đầu tiên là lúc nào cũng phải upload source lên đã.”
-        <cite>— anh Đạt</cite>
+        <cite>— dattqh</cite>
       </blockquote>
     </div>
 
@@ -805,7 +828,7 @@ footer{ padding: var(--s7) 0 var(--s8); }
     </div>
 
     <div class="callout c-warn">
-      <h4>Cảnh báo kỹ thuật từ Việt <span class="badge b-warn">Chưa chốt phạm vi</span></h4>
+      <h4>Cảnh báo kỹ thuật từ vietnt <span class="badge b-warn">Chưa chốt phạm vi</span></h4>
       <p>Existing project <strong>không theo form chuẩn nào</strong>, nên khi clone thì OneDash không đọc/sửa được để can thiệp — lúc đó khách vẫn phải tự thao tác dưới shell. <strong>Phạm vi clone hỗ trợ tới đâu vẫn chưa được chốt.</strong> Ngoài ra: source static cần kiểm tra thêm; port thì khai báo hết trong source nên phải tách được cấu hình port/IP khi detect.</p>
     </div>
 
@@ -845,7 +868,7 @@ footer{ padding: var(--s7) 0 var(--s8); }
       <div class="voice">
         <div class="voice-who">
           <span class="av">V</span>
-          <span><span class="nm">Việt</span><br><span class="rl">Đề xuất: dockerize toàn bộ</span></span>
+          <span><span class="nm">vietnt</span><br><span class="rl">Đề xuất: dockerize toàn bộ</span></span>
         </div>
         <ul>
           <li><strong>Thoát dependency hell</strong> — mỗi khách một kiểu, source mỗi ông một kiểu dependency, native rất hay vỡ</li>
@@ -858,7 +881,7 @@ footer{ padding: var(--s7) 0 var(--s8); }
       <div class="voice">
         <div class="voice-who">
           <span class="av b">Đ</span>
-          <span><span class="nm">anh Đạt</span><br><span class="rl">Phản biện: đừng bỏ native</span></span>
+          <span><span class="nm">dattqh</span><br><span class="rl">Phản biện: đừng bỏ native</span></span>
         </div>
         <ul>
           <li><strong>Docker sinh thêm tài nguyên phải quản lý</strong>: image, container, và đặc biệt là <strong>volume/data</strong></li>
@@ -877,7 +900,7 @@ footer{ padding: var(--s7) 0 var(--s8); }
 
     <blockquote class="said">
       “Thế nên mình bảo nhanh gọn nó chết chắc với người dùng.”
-      <cite>— anh Đạt, chốt lại việc không đánh đổi độ phủ để lấy sự gọn gàng</cite>
+      <cite>— dattqh, chốt lại việc không đánh đổi độ phủ để lấy sự gọn gàng</cite>
     </blockquote>
 
     <div class="callout c-warn mt4">
@@ -973,7 +996,7 @@ footer{ padding: var(--s7) 0 var(--s8); }
 
     <blockquote class="said">
       “Khách hàng đôi khi người ta vào một lần, xong là người ta chạy thôi, người ta quay lại cái của mình làm gì. Cái OneDash này nó khác — nó là control.”
-      <cite>— anh Chí, lý giải vì sao OneDash phải đo retention khác với portal bán hàng</cite>
+      <cite>— trihd, lý giải vì sao OneDash phải đo retention khác với portal bán hàng</cite>
     </blockquote>
   </div>
 </section>
@@ -1014,7 +1037,7 @@ footer{ padding: var(--s7) 0 var(--s8); }
 
     <blockquote class="said">
       “Chứ đừng có cái phần thanh toán đẩy sang OneDash gì nhé, bỏ hết nhé.”
-      <cite>— anh Đạt</cite>
+      <cite>— dattqh</cite>
     </blockquote>
 
     <div class="grid g2 mt5">
@@ -1022,6 +1045,10 @@ footer{ padding: var(--s7) 0 var(--s8); }
         <div class="dec-head"><span class="dec-id">CHỐT-15</span><span class="badge b-ok">Đã chốt</span></div>
         <h3>Cloud server: clone sang OneDash, không move</h3>
         <p>Move bị bác vì cắt thông tin ở Portal thì luồng gia hạn mất chỗ dựa. Clone giữ cả hai bên, Portal vẫn gia hạn/nâng cấp bình thường; các tính năng nâng cao thì đẩy sang OneDash.</p>
+        <div class="callout c-info mt4">
+          <h4>“Clone” ở đây không phải copy code</h4>
+          <p>Tính năng không được viết lại ở OneDash. <strong>Client OneDash gọi thẳng sang backend của Portal</strong> — xem cơ chế đầy đủ ở <a href="#clone">mục 07</a>.</p>
+        </div>
       </div>
       <div class="card dec">
         <div class="dec-head"><span class="dec-id">CHỐT-16</span><span class="badge b-ok">Đã chốt</span></div>
@@ -1037,52 +1064,104 @@ footer{ padding: var(--s7) 0 var(--s8); }
   </div>
 </section>
 
-<!-- ========== 07 · VOTO KEY ========== -->
-<section class="sec" id="voto">
+<!-- ========== 07 · CƠ CHẾ CLONE ========== -->
+<section class="sec" id="clone">
   <div class="sec-in">
     <div class="sec-head">
       <div class="sec-idx num">07</div>
       <div>
-        <h2>Key/auth cho OpenStack (Voto): gọi thẳng, bỏ hop qua Portal</h2>
-        <p class="sub">Bài toán: OneDash cần credential để list host / thao tác OpenStack. Đánh đổi giữa bảo mật và số hop.</p>
+        <h2>Cơ chế clone Portal → OneDash: client gọi thẳng BE của Portal</h2>
+        <p class="sub">Phần trao đổi giữa <strong>donv</strong> (Portal) · <strong>dattqh</strong> (OneDash) · <strong>kienvt</strong> (PM cloud chung). Đây là lời giải kỹ thuật cho quyết định clone ở mục 06.</p>
       </div>
     </div>
+
+    <p class="mb5 narrow">Bài toán: OneDash cần thao tác OpenStack (list host, quản lý cloud server) nhưng <strong>không có credential</strong>. Trong khi đó Portal thì đã auth sẵn với OpenStack rồi. Câu hỏi là OneDash lấy quyền ở đâu, và ai đứng giữa.</p>
 
     <div class="opts mb5">
       <div class="opt">
         <span class="opt-k">PHƯƠNG ÁN A</span>
-        <h4>Cấp key riêng cho OneDash gọi thẳng Voto</h4>
+        <h4>Cấp key OpenStack riêng cho OneDash</h4>
+        <p>OneDash giữ key của mình, gọi thẳng xuống OpenStack.</p>
         <div class="pc">
-          <div class="plus"><span class="s">+</span><span>Ít hop, nhanh</span></div>
+          <div class="plus"><span class="s">+</span><span>Ít phụ thuộc Portal</span></div>
           <div class="minus"><span class="s">−</span><span><strong>Key leak là mất toàn bộ</strong> — “lấy được hết, auth được hết”</span></div>
         </div>
       </div>
       <div class="opt">
         <span class="opt-k">PHƯƠNG ÁN B</span>
-        <h4>Đi qua Portal làm proxy, auth tập trung ở Portal</h4>
+        <h4>Backend OneDash proxy sang backend Portal</h4>
+        <p>OneDash BE đứng giữa, gọi Portal BE, Portal auth xuống OpenStack.</p>
         <div class="pc">
-          <div class="plus"><span class="s">+</span><span>Auth tập trung, OneDash không giữ key gốc</span></div>
-          <div class="minus"><span class="s">−</span><span>Thêm một hop proxy → chậm</span></div>
-          <div class="minus"><span class="s">−</span><span>Backend Portal phải làm thêm việc, sinh hai đường log</span></div>
+          <div class="plus"><span class="s">+</span><span>OneDash không giữ key OpenStack</span></div>
+          <div class="minus"><span class="s">−</span><span>Thêm một hop proxy vô ích</span></div>
+          <div class="minus"><span class="s">−</span><span>BE OneDash phải code theo từng endpoint, sinh hai đường log</span></div>
         </div>
       </div>
       <div class="opt picked">
         <span class="opt-k">PHƯƠNG ÁN C — CHỐT</span>
-        <h4>Mở allowlist domain OneDash ở backend Voto <span class="badge b-ok">CHỐT-17</span></h4>
+        <h4>OneDash <em>client</em> gọi thẳng BE của Portal <span class="badge b-ok">CHỐT-17</span></h4>
+        <p>Portal <strong>whitelist domain <code>onedash.inet.vn</code></strong> ở backend của mình. Client OneDash gọi trực tiếp API Portal, không đi qua BE của OneDash, và <strong>gửi kèm thông tin SSO (<code>sid</code> + <code>ssid</code>)</strong> để Portal biết ai đang gọi.</p>
         <div class="pc">
-          <div class="plus"><span class="s">+</span><span>OneDash gọi thẳng API Voto, <strong>bỏ hop qua backend Portal</strong></span></div>
-          <div class="plus"><span class="s">+</span><span>Voto thêm endpoint là OneDash dùng được ngay — backend Portal không phải làm gì</span></div>
-          <div class="plus"><span class="s">+</span><span>Lý do nền: “hai thằng là một” — cùng hệ thống, không cần proxy nội bộ</span></div>
+          <div class="plus"><span class="s">+</span><span><strong>OneDash không cần giữ key OpenStack</strong> — Portal đã auth sẵn hết</span></div>
+          <div class="plus"><span class="s">+</span><span><strong>Backend OneDash không phải làm gì cả</strong></span></div>
+          <div class="plus"><span class="s">+</span><span>Portal thêm endpoint là OneDash <strong>dùng được ngay</strong>, không chờ BE OneDash code theo</span></div>
+          <div class="plus"><span class="s">+</span><span>Bỏ hop proxy — “hai thằng là một mà”, cùng hệ thống</span></div>
+          <div class="plus"><span class="s">+</span><span>Danh tính giữ nguyên theo <strong>session SSO</strong>, không phát sinh credential riêng cho OneDash</span></div>
         </div>
       </div>
     </div>
 
-    <div class="callout c-warn">
-      <h4>Cần làm rõ trước khi gửi yêu cầu mở allowlist</h4>
-      <ul>
-        <li><strong>Tên domain chính xác</strong> — transcript ASR đọc ra <code>wandart.innet.vn</code>, gần như chắc chắn sai. Phải xác nhận lại domain thật của OneDash trước khi gửi yêu cầu cho phía Voto.</li>
-        <li><strong>Truyền SLID/LID</strong> để biết user nào đang gọi vào server nào — phục vụ audit, tránh mất dấu khi bỏ hop Portal.</li>
-      </ul>
+    <div class="diagram mb4">
+      <svg viewBox="0 0 900 300" role="img" aria-label="Sơ đồ cơ chế clone: client OneDash gọi thẳng backend Portal sau khi Portal whitelist onedash.inet.vn, thay vì đi qua backend OneDash">
+        <!-- client -->
+        <rect class="sv-box-new" x="14" y="112" width="146" height="76" rx="10" stroke-width="1.5"/>
+        <text class="sv-t" x="87" y="142" text-anchor="middle">OneDash client</text>
+        <text class="sv-s" x="87" y="162" text-anchor="middle">onedash.inet.vn</text>
+
+        <!-- BE OneDash (bypassed) -->
+        <rect class="sv-box-bad" x="270" y="206" width="176" height="70" rx="10" stroke-width="1.5"/>
+        <text class="sv-t" x="358" y="234" text-anchor="middle">BE OneDash</text>
+        <text class="sv-s" x="358" y="254" text-anchor="middle">không phải làm gì</text>
+
+        <!-- BE Portal -->
+        <rect class="sv-box-ok" x="270" y="26" width="176" height="90" rx="10" stroke-width="1.5"/>
+        <text class="sv-t" x="358" y="54" text-anchor="middle">BE Portal</text>
+        <text class="sv-s" x="358" y="74" text-anchor="middle">whitelist domain</text>
+        <text class="sv-s" x="358" y="92" text-anchor="middle">đã auth OpenStack</text>
+
+        <!-- OpenStack -->
+        <rect class="sv-box" x="580" y="26" width="300" height="90" rx="10" stroke-width="1.5"/>
+        <text class="sv-t" x="596" y="54">OpenStack / hạ tầng cloud</text>
+        <text class="sv-s" x="596" y="76">list host · quản lý cloud server</text>
+        <text class="sv-s" x="596" y="94">key chỉ nằm ở Portal</text>
+
+        <!-- links -->
+        <path class="sv-l-ok" d="M160 138 C 215 138, 220 71, 270 71" stroke-width="2.5"/>
+        <text class="sv-lt" x="260" y="40" text-anchor="end">chốt: gọi thẳng</text>
+        <text class="sv-s" x="260" y="56" text-anchor="end">+ SSO sid/ssid</text>
+        <path class="sv-l-ok" d="M446 71 L 580 71" stroke-width="2.5"/>
+        <path class="sv-l-bad" d="M160 164 C 215 164, 220 241, 270 241" stroke-width="2"/>
+        <text class="sv-lt" x="14" y="238">bỏ: hop proxy qua BE OneDash</text>
+        <path class="sv-l-bad" d="M446 226 C 500 226, 520 90, 580 84" stroke-width="2"/>
+      </svg>
+      <p class="dg-cap">Hệ quả: key OpenStack không bao giờ rời khỏi Portal, và mỗi endpoint Portal mở ra là OneDash dùng được luôn.</p>
+    </div>
+
+    <div class="grid g2">
+      <div class="card dec">
+        <div class="dec-head"><span class="dec-id">CHỐT-17</span><span class="badge b-ok">Đã chốt</span></div>
+        <h3>Việc cần làm ở phía Portal</h3>
+        <p><span class="who"><span class="dot d-donv"></span>donv</span> mở <strong>whitelist domain <code>onedash.inet.vn</code></strong> ở backend Portal để client OneDash gọi trực tiếp.</p>
+      </div>
+      <div class="card dec">
+        <div class="dec-head"><span class="dec-id">CHỐT-18</span><span class="badge b-ok">Đã chốt</span></div>
+        <h3>OneDash gửi SSO <code>sid</code> + <code>ssid</code> cho Portal</h3>
+        <p>Client OneDash <strong>gửi thông tin SSO gồm <code>sid</code> và <code>ssid</code></strong> sang Portal. Đây là cách Portal xác định <strong>user nào đang gọi vào server nào</strong> — đúng nhu cầu audit đã nêu trong họp, và không cần cấp thêm credential riêng cho OneDash.</p>
+        <div class="callout c-info mt4">
+          <h4>Kéo theo</h4>
+          <p>Vì auth đi bằng cookie SSO, whitelist ở Portal phải cho phép <strong>gửi credential cross-origin</strong> từ <code>onedash.inet.vn</code> — không chỉ mở CORS đọc dữ liệu.</p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -1162,7 +1241,7 @@ footer{ padding: var(--s7) 0 var(--s8); }
           <li>Bán gói, quản lý gói của tài khoản</li>
           <li>Hiển thị tên gói, giá, thông tin gói</li>
           <li><strong>Bin-link</strong> sang OneDash để quản trị</li>
-          <li>Không làm phần quản lý trên Voto</li>
+          <li><strong>Không</strong> làm phần quản lý ở Portal — dồn hết về OneDash</li>
         </ul>
       </div>
     </div>
@@ -1273,7 +1352,7 @@ footer{ padding: var(--s7) 0 var(--s8); }
         </ul>
       </div>
       <div class="card dec">
-        <div class="dec-head"><span class="dec-id">CHỐT-18</span><span class="badge b-ok">Đã chốt</span></div>
+        <div class="dec-head"><span class="dec-id">CHỐT-19</span><span class="badge b-ok">Đã chốt</span></div>
         <h3>Thêm một RadosGW client trên node admin</h3>
         <p><strong>kienvt deploy thêm 1 RadosGW client riêng trên node admin</strong> để phục vụ CLI/API. Kết quả: phía OneDash <strong>chỉ cần khai báo URL endpoint</strong>, code y như cũ; hạ tầng <strong>giữ nguyên cấu hình hiện tại, không phải sửa gì</strong>.</p>
         <p class="mt4">Lý do bác phương án gọi qua endpoint public của 3 client: “lại bắt đi một vòng ra ngoài rồi đi vào” — trong khi đã nằm sẵn bên dưới thì gọi xuống trực tiếp là xong.</p>
@@ -1310,31 +1389,31 @@ footer{ padding: var(--s7) 0 var(--s8); }
         </thead>
         <tbody>
           <tr>
-            <td><span class="who"><span class="dot d-viet"></span>Việt</span></td>
+            <td><span class="who"><span class="dot d-viet"></span>vietnt</span></td>
             <td>Đổi step tạo project: <strong>source-first</strong>, dependency + runtime thành optional</td>
             <td>Project</td>
             <td><span class="badge b-ok">Đã chốt</span></td>
           </tr>
           <tr>
-            <td><span class="who"><span class="dot d-viet"></span>Việt</span></td>
+            <td><span class="who"><span class="dot d-viet"></span>vietnt</span></td>
             <td>Thêm <strong>Existing Project</strong> + <strong>clone</strong>; xác định phạm vi clone hỗ trợ tới đâu</td>
             <td>Project</td>
             <td><span class="badge b-warn">Phạm vi chưa rõ</span></td>
           </tr>
           <tr>
-            <td><span class="who"><span class="dot d-viet"></span>Việt</span></td>
+            <td><span class="who"><span class="dot d-viet"></span>vietnt</span></td>
             <td>Chuyển project + web server sang cơ chế <strong>detect</strong>; user/group thành optional; hiển thị tập trung một màn hình</td>
             <td>Project · Web server</td>
             <td><span class="badge b-ok">Đã chốt</span></td>
           </tr>
           <tr>
-            <td><span class="who"><span class="dot d-viet"></span>Việt</span></td>
+            <td><span class="who"><span class="dot d-viet"></span>vietnt</span></td>
             <td>Detect <strong>Docker đã cài trên máy chủ</strong> hay chưa; support Docker song song với native</td>
             <td>Project</td>
             <td><span class="badge b-warn">Cần thiết kế</span></td>
           </tr>
           <tr>
-            <td><span class="who"><span class="dot d-viet"></span>Việt</span></td>
+            <td><span class="who"><span class="dot d-viet"></span>vietnt</span></td>
             <td>Bổ sung thống kê: pair audit log SSH, tách user mới/duy trì, <strong>U/max</strong> thay %, 30 ngày, theo module</td>
             <td>Thống kê</td>
             <td><span class="badge b-ok">Đã chốt</span></td>
@@ -1352,31 +1431,37 @@ footer{ padding: var(--s7) 0 var(--s8); }
             <td><span class="badge b-risk">Blocker</span></td>
           </tr>
           <tr>
-            <td><span class="who"><span class="dot d-duc"></span>Đức · ducnd</span></td>
+            <td><span class="who"><span class="dot d-duc"></span>ducnd</span></td>
             <td><strong>Bin-link Portal ↔ OneDash</strong>: hiển thị thông tin gói F3, giá, luồng thanh toán</td>
             <td>Portal</td>
             <td><span class="badge b-ok">Đã chốt</span></td>
           </tr>
           <tr>
-            <td><span class="who"><span class="dot d-duc"></span>Đức · ducnd</span></td>
+            <td><span class="who"><span class="dot d-duc"></span>ducnd</span></td>
             <td>Email đăng ký cloud server: thêm <strong>link quản trị OneDash</strong> bên cạnh link thanh toán</td>
             <td>Portal</td>
             <td><span class="badge b-ok">Đã chốt</span></td>
           </tr>
           <tr>
-            <td><span class="who"><span class="dot d-infra"></span>Backend Voto</span></td>
-            <td>Mở <strong>allowlist domain OneDash</strong> để gọi thẳng API, bỏ hop qua backend Portal</td>
-            <td>Hạ tầng</td>
-            <td><span class="badge b-warn">Chờ xác nhận domain</span></td>
+            <td><span class="who"><span class="dot d-donv"></span>donv</span></td>
+            <td>Mở <strong>whitelist domain <code>onedash.inet.vn</code></strong> ở backend Portal để client OneDash gọi thẳng API</td>
+            <td>Portal — cơ chế clone</td>
+            <td><span class="badge b-ok">Đã chốt</span></td>
           </tr>
           <tr>
-            <td><span class="who"><span class="dot d-dat"></span>anh Đạt</span></td>
+            <td><span class="who"><span class="dot d-dat"></span>dattqh</span></td>
+            <td>Client OneDash <strong>gửi SSO <code>sid</code> + <code>ssid</code></strong> khi gọi API Portal, để Portal xác định user</td>
+            <td>Portal ↔ OneDash</td>
+            <td><span class="badge b-ok">Đã chốt</span></td>
+          </tr>
+          <tr>
+            <td><span class="who"><span class="dot d-dat"></span>dattqh</span></td>
             <td>Bổ sung <strong>catalog app/image/template</strong> (n8n, OpenWebUI, Hermes…) làm giàu marketplace</td>
             <td>Marketplace</td>
             <td><span class="badge b-ok">Đã chốt</span></td>
           </tr>
           <tr>
-            <td><span class="who"><span class="dot d-dat"></span>anh Đạt</span></td>
+            <td><span class="who"><span class="dot d-tri"></span>trihd</span></td>
             <td>Cập nhật <strong>trang chủ</strong>: bỏ ảnh sản phẩm cũ, đưa OneDash và module quản trị lên trước</td>
             <td>Marketing</td>
             <td><span class="badge b-warn">Nhắc lại lần 2</span></td>
@@ -1394,7 +1479,7 @@ footer{ padding: var(--s7) 0 var(--s8); }
       <div class="sec-idx num">11</div>
       <div>
         <h2>Câu hỏi chưa có lời giải</h2>
-        <p class="sub">Năm điểm này đến hết buổi họp vẫn treo. Cần chốt trước khi triển khai phần liên quan.</p>
+        <p class="sub">Bốn điểm này đến hết buổi họp vẫn treo. Cần chốt trước khi triển khai phần liên quan.</p>
       </div>
     </div>
 
@@ -1421,7 +1506,7 @@ footer{ padding: var(--s7) 0 var(--s8); }
         <div class="qn num">3</div>
         <div>
           <h4>Clone existing project — hỗ trợ tới đâu?</h4>
-          <p>Việt cảnh báo existing project không theo form chuẩn nên clone xong OneDash không đọc/sửa được. Chưa chốt: clone chỉ copy thô rồi để khách tự thao tác dưới shell, hay OneDash phải parse và can thiệp được?</p>
+          <p>vietnt cảnh báo existing project không theo form chuẩn nên clone xong OneDash không đọc/sửa được. Chưa chốt: clone chỉ copy thô rồi để khách tự thao tác dưới shell, hay OneDash phải parse và can thiệp được?</p>
           <div class="need"><b>Cần:</b> <span>chốt phạm vi clone + hành vi khi không parse được</span></div>
         </div>
       </div>
@@ -1435,14 +1520,11 @@ footer{ padding: var(--s7) 0 var(--s8); }
         </div>
       </div>
 
-      <div class="oqi">
-        <div class="qn num">5</div>
-        <div>
-          <h4>Domain OneDash cần mở allowlist ở Voto là gì?</h4>
-          <p>Transcript ASR đọc ra <code>wandart.innet.vn</code> — gần như chắc chắn sai. Phải xác nhận domain chính xác trước khi gửi yêu cầu mở allowlist, nếu không sẽ mở sai hoặc bị từ chối.</p>
-          <div class="need"><b>Cần:</b> <span>xác nhận domain thật + thống nhất cách truyền SLID/LID cho audit</span></div>
-        </div>
-      </div>
+    </div>
+
+    <div class="callout c-info mt5">
+      <h4>Đã gỡ khỏi danh sách treo</h4>
+      <p>Câu hỏi “làm sao biết user nào gọi vào server nào” đã có lời giải: <strong>client OneDash gửi SSO <code>sid</code> + <code>ssid</code> sang Portal</strong> (xem <a href="#clone">CHỐT-18, mục 07</a>). Domain cần whitelist cũng đã xác nhận là <code>onedash.inet.vn</code>.</p>
     </div>
   </div>
 </section>
@@ -1456,11 +1538,12 @@ footer{ padding: var(--s7) 0 var(--s8); }
         <a href="#top">↑ Về đầu trang</a>
       </div>
       <div class="legend">
-        <span><span class="dot d-viet"></span>Việt — Project</span>
-        <span><span class="dot d-kien"></span>kienvt — Ceph prod</span>
-        <span><span class="dot d-duc"></span>ducnd — Portal</span>
-        <span><span class="dot d-dat"></span>anh Đạt — TBP Công Nghệ</span>
-        <span><span class="dot d-infra"></span>Hạ tầng / Voto</span>
+        <span><span class="dot d-dat"></span>dattqh — OneDash</span>
+        <span><span class="dot d-donv"></span>donv — Portal</span>
+        <span><span class="dot d-kien"></span>kienvt — PM cloud, Ceph prod</span>
+        <span><span class="dot d-viet"></span>vietnt — module Project</span>
+        <span><span class="dot d-tri"></span>trihd — sản phẩm</span>
+        <span><span class="dot d-duc"></span>ducnd — bin-link Portal</span>
       </div>
     </div>
   </div>
