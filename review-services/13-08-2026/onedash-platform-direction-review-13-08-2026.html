@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>OneDash · Chốt định hướng nền tảng 13/08/2026</title>
-<meta name="description" content="Biên bản buổi review OneDash ngày 13/08/2026 tại Cầu Giấy: xoay trục từ chuẩn hoá & quản trị sang detect & điều khiển, Docker làm option song song, cơ chế clone tính năng Portal sang OneDash bằng cách client gọi thẳng backend Portal (whitelist onedash.inet.vn), và các vấn đề chưa chốt của dịch vụ F3 Object Storage.">
+<meta name="description" content="Biên bản buổi review OneDash ngày 13/08/2026 tại Cầu Giấy: xoay trục từ chuẩn hoá & quản trị sang detect & điều khiển, Docker làm option song song, cơ chế clone tính năng Portal sang OneDash bằng cách client gọi thẳng backend Portal (whitelist onedash.inet.vn), và các vấn đề chưa chốt của dịch vụ S3 Object Storage.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap" rel="stylesheet">
@@ -630,7 +630,7 @@ footer{ padding: var(--s7) 0 var(--s8); }
       <a href="#roles">OneDash ↔ Portal</a>
       <a href="#clone">Cơ chế clone</a>
       <a href="#market">Marketplace</a>
-      <a href="#f3">F3 Storage</a>
+      <a href="#s3">S3 Storage</a>
       <a href="#tasks">Việc giao</a>
       <a href="#open">Câu hỏi mở</a>
     </div>
@@ -696,7 +696,7 @@ footer{ padding: var(--s7) 0 var(--s8); }
           <thead><tr><th>Chủ đề trong biên bản</th><th>Chủ sở hữu thật</th><th>ASR đọc thành</th></tr></thead>
           <tbody>
             <tr><td>Project · web server · thống kê OneDash</td><td><span class="who"><span class="dot d-viet"></span>vietnt</span></td><td>“Việt”</td></tr>
-            <tr><td>F3 · Ceph · RadosGW · bucket policy</td><td><span class="who"><span class="dot d-kien"></span>kienvt</span></td><td>“Việt”, “em”</td></tr>
+            <tr><td>S3 · Ceph · RadosGW · bucket policy</td><td><span class="who"><span class="dot d-kien"></span>kienvt</span></td><td>“Việt”, “em”</td></tr>
             <tr><td>Backend Portal · whitelist domain</td><td><span class="who"><span class="dot d-donv"></span>donv</span></td><td>“em”</td></tr>
             <tr><td>Định hướng OneDash · clone · detect</td><td><span class="who"><span class="dot d-dat"></span>dattqh</span></td><td>“anh Đạt”, “anh”</td></tr>
             <tr><td>Sản phẩm · gói bán · trang chủ · thống kê</td><td><span class="who"><span class="dot d-tri"></span>trihd</span></td><td>“anh Chí”, “anh Trí”</td></tr>
@@ -1059,7 +1059,7 @@ footer{ padding: var(--s7) 0 var(--s8); }
         <ul>
           <li>Quản lý cloud server — <strong>clone sang</strong>, không move</li>
           <li>Quản lý project, web server, service, port, firewall</li>
-          <li>Quản lý F3 Object Storage (toàn bộ phần quản lý)</li>
+          <li>Quản lý S3 Object Storage (toàn bộ phần quản lý)</li>
           <li>Xem tất cả project của mọi server trên <strong>một màn hình chung</strong></li>
           <li><strong>KHÔNG quản lý billing</strong> — có thể có nút thanh toán, nhưng bấm là link sang Portal</li>
         </ul>
@@ -1069,7 +1069,7 @@ footer{ padding: var(--s7) 0 var(--s8); }
         <ul>
           <li><strong>Toàn bộ billing</strong> — hoá đơn, thanh toán, gia hạn đều nằm ở đây</li>
           <li>Gia hạn, nâng cấp gói</li>
-          <li>Bán gói F3, quản lý tài khoản dịch vụ</li>
+          <li>Bán gói S3, quản lý tài khoản dịch vụ</li>
           <li>Link ngược sang OneDash cho phần quản trị</li>
           <li><strong>Ngừng bổ sung tính năng quản trị mới</strong> — chỉ giữ phần cơ bản</li>
         </ul>
@@ -1256,13 +1256,13 @@ footer{ padding: var(--s7) 0 var(--s8); }
   </div>
 </section>
 
-<!-- ========== 09 · F3 ========== -->
-<section class="sec" id="f3">
+<!-- ========== 09 · S3 ========== -->
+<section class="sec" id="s3">
   <div class="sec-in">
     <div class="sec-head">
       <div class="sec-idx num">09</div>
       <div>
-        <h2>F3 Object Storage — dịch vụ mới, còn vướng phần gói</h2>
+        <h2>S3 Object Storage — dịch vụ mới, còn vướng phần gói</h2>
         <p class="sub">Vận hành cụm Ceph prod: <strong>kienvt</strong>. Trạng thái: đang <strong>test nội bộ, chưa chạy</strong>. Áp lực: có yêu cầu triển khai trong tháng này.</p>
       </div>
     </div>
@@ -1272,7 +1272,7 @@ footer{ padding: var(--s7) 0 var(--s8); }
         <div class="side-h">OneDash <span class="tag">Toàn bộ quản lý</span></div>
         <ul>
           <li>Quản lý bucket, account, policy</li>
-          <li>Console quản trị F3 cho khách</li>
+          <li>Console quản trị S3 cho khách</li>
           <li>Tích hợp vào giao diện OneDash sẵn có</li>
         </ul>
       </div>
@@ -1281,7 +1281,7 @@ footer{ padding: var(--s7) 0 var(--s8); }
         <ul>
           <li>Bán gói, quản lý gói của tài khoản</li>
           <li>Hiển thị tên gói, giá, thông tin gói</li>
-          <li><strong>Billing F3</strong> — kể cả phần tính vượt mức</li>
+          <li><strong>Billing S3</strong> — kể cả phần tính vượt mức</li>
           <li>Link sang OneDash để quản trị</li>
           <li><strong>Không</strong> làm phần quản lý ở Portal — dồn hết về OneDash</li>
         </ul>
@@ -1337,7 +1337,7 @@ footer{ padding: var(--s7) 0 var(--s8); }
     <h3 class="mb4" style="font-size:var(--t-2)">Kiến trúc endpoint — đã chốt</h3>
 
     <div class="diagram mb4">
-      <svg viewBox="0 0 900 340" role="img" aria-label="Sơ đồ endpoint F3: node admin bổ sung một RadosGW client riêng cho CLI/API, ba node client chạy RadosGW qua Nginx">
+      <svg viewBox="0 0 900 340" role="img" aria-label="Sơ đồ endpoint S3: node admin bổ sung một RadosGW client riêng cho CLI/API, ba node client chạy RadosGW qua Nginx">
         <!-- OneDash -->
         <rect class="sv-box-new" x="14" y="128" width="140" height="72" rx="10" stroke-width="1.5"/>
         <text class="sv-t" x="84" y="158" text-anchor="middle">OneDash</text>
@@ -1369,7 +1369,7 @@ footer{ padding: var(--s7) 0 var(--s8); }
         <text class="sv-t" x="616" y="138">Cụm Ceph prod</text>
         <text class="sv-s" x="616" y="158">1 cụm = nhiều kho trên các node</text>
         <text class="sv-s" x="616" y="176">vận hành: kienvt</text>
-        <text class="sv-s" x="616" y="200">bucket policy phải qua endpoint F3</text>
+        <text class="sv-s" x="616" y="200">bucket policy phải qua endpoint S3</text>
 
         <!-- links -->
         <path class="sv-l-ok" d="M154 152 C 200 152, 205 115, 250 115" stroke-width="2"/>
@@ -1388,7 +1388,7 @@ footer{ padding: var(--s7) 0 var(--s8); }
         <ul>
           <li><code>:8090</code> là <strong>port agent</strong> đang dùng — không phải endpoint S3</li>
           <li><code>:8000</code> là <strong>RadosGW client</strong>, dành cho client, không phải admin</li>
-          <li><strong>Bucket policy bắt buộc gọi qua endpoint F3 (RadosGW)</strong></li>
+          <li><strong>Bucket policy bắt buộc gọi qua endpoint S3 (RadosGW)</strong></li>
           <li><strong>Rados Admin API chỉ đủ cho quản lý tài khoản</strong>, không làm được bucket policy</li>
           <li>Node 1 là admin → không cần chạy RadosGW client cho khách</li>
         </ul>
@@ -1403,7 +1403,7 @@ footer{ padding: var(--s7) 0 var(--s8); }
 
     <div class="callout c-info">
       <h4>Ghi nhận thêm</h4>
-      <p>F3 sẽ tích hợp vào OneDash tương tự các dịch vụ S3 khác. Bản thảo đã gửi trước đó cho phía kinh doanh. Có nhắc tới việc <strong>login bằng Google Authenticator/OAuth</strong> cho phần console — không cần allow thêm gì, auth xong là vào.</p>
+      <p>Dịch vụ S3 Object Storage sẽ tích hợp vào OneDash tương tự các dịch vụ S3 khác. Bản thảo đã gửi trước đó cho phía kinh doanh. Có nhắc tới việc <strong>login bằng Google Authenticator/OAuth</strong> cho phần console — không cần allow thêm gì, auth xong là vào.</p>
     </div>
   </div>
 </section>
@@ -1415,7 +1415,7 @@ footer{ padding: var(--s7) 0 var(--s8); }
       <div class="sec-idx num">10</div>
       <div>
         <h2>Việc giao</h2>
-        <p class="sub">Trích từ transcript. Deadline chỉ được nêu rõ cho phần F3 (“trong tháng này”).</p>
+        <p class="sub">Trích từ transcript. Deadline chỉ được nêu rõ cho phần S3 (“trong tháng này”).</p>
       </div>
     </div>
 
@@ -1463,18 +1463,18 @@ footer{ padding: var(--s7) 0 var(--s8); }
           <tr>
             <td><span class="who"><span class="dot d-kien"></span>kienvt</span></td>
             <td><strong>Deploy thêm 1 RadosGW client trên node admin</strong> cho CLI/API</td>
-            <td>F3 / Ceph prod</td>
+            <td>S3 / Ceph prod</td>
             <td><span class="badge b-ok">Đã chốt</span></td>
           </tr>
           <tr>
             <td><span class="who"><span class="dot d-kien"></span>kienvt</span></td>
-            <td>Rà lại <strong>file bảng giá / catalog F3</strong>: xác nhận speed vs băng thông, test lại, chốt cách hiển thị limit per-user</td>
-            <td>F3 — gói dịch vụ</td>
+            <td>Rà lại <strong>file bảng giá / catalog S3</strong>: xác nhận speed vs băng thông, test lại, chốt cách hiển thị limit per-user</td>
+            <td>S3 — gói dịch vụ</td>
             <td><span class="badge b-risk">Blocker</span></td>
           </tr>
           <tr>
             <td><span class="who"><span class="dot d-duc"></span>ducnd</span></td>
-            <td><strong>Link billing Portal ↔ OneDash</strong>: hiển thị thông tin gói F3, giá, luồng thanh toán</td>
+            <td><strong>Link billing Portal ↔ OneDash</strong>: hiển thị thông tin gói S3, giá, luồng thanh toán</td>
             <td>Portal</td>
             <td><span class="badge b-ok">Đã chốt</span></td>
           </tr>
@@ -1529,7 +1529,7 @@ footer{ padding: var(--s7) 0 var(--s8); }
       <div class="oqi">
         <div class="qn num">1</div>
         <div>
-          <h4>F3 — bán theo speed hay theo lưu lượng?</h4>
+          <h4>S3 — bán theo speed hay theo lưu lượng?</h4>
           <p>Chưa chốt mô hình bán, chưa chốt cách hiển thị để khách không hiểu sai “500M cho cả gói”. Trong khi đó <strong>có yêu cầu triển khai ngay trong tháng này</strong> mà gói dịch vụ (quota / băng thông / số user) chưa chốt. Đây là blocker nghiêm trọng nhất.</p>
           <div class="need"><b>Cần:</b> <span>kết quả test băng thông + bản bảng giá đã sửa + quyết định pay-as-you-go hay không</span></div>
         </div>
