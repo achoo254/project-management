@@ -1,0 +1,882 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lộ trình ducnd · OneDash → Office trên web (T8/2026 – 2027)</title>
+<style>
+/* ==========================================================================
+   Token: iNET ViUI Design System. Sáng = bảng mặc định, tối = bảng dark.
+   File self-contained: không CDN, không font ngoài, không script ngoài.
+   ========================================================================== */
+:root{
+  color-scheme:light dark;
+
+  --viui-primary:#024799;
+  --viui-primary-500:#0582D4;
+  --viui-accent:#E8353C;
+
+  --viui-surface:#FFFFFF;
+  --viui-surface-elevated:#F4F7FA;
+  --viui-surface-card:#E8EEF4;
+  --viui-border:#D0DAE6;
+  --viui-border-subtle:#E8EEF4;
+  --viui-nl-500:#6D8599;
+  --viui-nl-600:#4A6278;
+  --viui-nl-700:#2E4A5C;
+  --viui-nl-900:#0F1E2D;
+
+  --viui-error:#B91C1C;
+  --viui-error-surface:#FEF2F2;
+  --viui-warning:#D47B0A;
+  --viui-warning-text:#92400E;
+  --viui-warning-surface:#FFFBEB;
+  --viui-success:#0E9F6E;
+  --viui-success-text:#065F46;
+  --viui-success-surface:#ECFDF5;
+  --viui-info-text:#1E40AF;
+  --viui-info-surface:#EFF6FF;
+
+  --s1:8px; --s2:16px; --s3:24px; --s4:32px; --s5:40px; --s6:48px; --s8:64px;
+  --r-sm:4px; --r-base:8px; --r-md:12px; --r-lg:16px;
+
+  --ink:var(--viui-nl-900);
+  --ink-soft:var(--viui-nl-700);
+  --muted:var(--viui-nl-600);
+  --faint:var(--viui-nl-500);
+  --paper:var(--viui-surface);
+  --surface:var(--viui-surface-elevated);
+  --surface-2:var(--viui-surface-card);
+  --accent:var(--viui-primary);
+  --accent-2:var(--viui-primary-500);
+  --accent-tint:rgba(2,71,153,.06);
+  --accent-tint-2:rgba(2,71,153,.12);
+  --brand-red:var(--viui-accent);
+  --hairline:var(--viui-border);
+  --hairline-soft:var(--viui-border-subtle);
+
+  --sans:system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+  --mono:'SFMono-Regular',ui-monospace,Menlo,Consolas,'Liberation Mono',monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --viui-primary:#66AAFF;
+    --viui-primary-500:#619ee9;
+    --viui-accent:#FF7070;
+    --viui-surface:#121212;
+    --viui-surface-elevated:#1e1e1e;
+    --viui-surface-card:#262626;
+    --viui-border:#424242;
+    --viui-border-subtle:#303030;
+    --viui-nl-500:#7d8b99;
+    --viui-nl-600:#8B949E;
+    --viui-nl-700:#b0b0b0;
+    --viui-nl-900:#e0e0e0;
+    --viui-error:#F87171;
+    --viui-error-surface:#2a1212;
+    --viui-warning:#FBBF24;
+    --viui-warning-text:#FBBF24;
+    --viui-warning-surface:#2A1F06;
+    --viui-success:#34D399;
+    --viui-success-text:#34D399;
+    --viui-success-surface:#0A2A1F;
+    --viui-info-text:#93C5FD;
+    --viui-info-surface:#0A1628;
+    --accent-tint:rgba(102,170,255,.08);
+    --accent-tint-2:rgba(102,170,255,.16);
+  }
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:var(--sans); font-size:16px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1120px;margin:0 auto;padding:0 var(--s3)}
+h1,h2,h3,h4{margin:0;line-height:1.24;font-weight:600;letter-spacing:-.01em}
+p{margin:0 0 var(--s2)}
+ul{margin:0 0 var(--s2);padding-left:1.15rem}
+li{margin:.3rem 0}
+strong{font-weight:600}
+code,.mono{font-family:var(--mono);font-size:.86em}
+a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent-tint-2)}
+
+/* ---------- Nav ---------- */
+.nav{
+  position:sticky;top:0;z-index:50;
+  background:var(--paper);
+  background:color-mix(in srgb,var(--paper) 88%,transparent);
+  backdrop-filter:saturate(150%) blur(10px);
+  border-bottom:1px solid var(--hairline-soft);
+}
+.nav-in{max-width:1120px;margin:0 auto;padding:10px var(--s3);display:flex;gap:6px;align-items:center;overflow-x:auto;scrollbar-width:none}
+.nav-in::-webkit-scrollbar{display:none}
+.nav-brand{font-weight:700;font-size:13px;letter-spacing:.02em;color:var(--accent);white-space:nowrap;margin-right:var(--s1);border:0}
+.nav a.n{
+  font-size:12.5px;color:var(--muted);white-space:nowrap;padding:5px 10px;
+  border-radius:var(--r-sm);border:1px solid transparent;cursor:pointer;
+}
+.nav a.n:hover{background:var(--accent-tint);color:var(--accent);border-color:var(--hairline-soft)}
+
+/* ---------- Hero ---------- */
+.hero{padding:var(--s8) 0 var(--s6);border-bottom:1px solid var(--hairline)}
+.eyebrow{
+  font-size:11.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--accent-2);margin-bottom:var(--s2)
+}
+.hero h1{font-size:clamp(30px,5.2vw,50px);letter-spacing:-.025em;margin-bottom:var(--s2)}
+.hero h1 .sub{display:block;color:var(--muted);font-weight:400;font-size:.48em;letter-spacing:-.01em;margin-top:10px}
+.lead{font-size:clamp(16px,1.6vw,18.5px);color:var(--ink-soft);max-width:74ch}
+.meta{display:flex;flex-wrap:wrap;gap:var(--s1) var(--s3);margin-top:var(--s4);font-size:13px;color:var(--muted)}
+.meta b{color:var(--ink);font-weight:600}
+.pillrow{display:flex;flex-wrap:wrap;gap:var(--s1);margin-top:var(--s3)}
+.pill{
+  font-size:12px;padding:5px 11px;border-radius:var(--r-sm);
+  background:var(--surface);border:1px solid var(--hairline);color:var(--ink-soft)
+}
+.pill.on{background:var(--accent-tint-2);border-color:transparent;color:var(--accent);font-weight:600}
+.pill.warn{background:var(--viui-warning-surface);color:var(--viui-warning-text);border-color:transparent;font-weight:600}
+
+/* ---------- Section ---------- */
+section{padding:var(--s8) 0;border-bottom:1px solid var(--hairline-soft)}
+.s-num{font-family:var(--mono);font-size:12px;color:var(--faint);letter-spacing:.08em;margin-bottom:10px}
+.s-title{font-size:clamp(22px,3vw,31px);letter-spacing:-.02em;margin-bottom:var(--s2)}
+.s-desc{color:var(--ink-soft);max-width:76ch;margin-bottom:var(--s5)}
+
+/* ---------- Grid helpers ---------- */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:var(--s3)}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s2)}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s2)}
+@media (max-width:900px){.g2,.g3,.g4{grid-template-columns:1fr}}
+
+/* ---------- Card ---------- */
+.card{
+  background:var(--surface);border:1px solid var(--hairline);
+  border-radius:var(--r-md);padding:var(--s3)
+}
+.card h4{font-size:15.5px;margin-bottom:10px}
+.card p:last-child,.card ul:last-child{margin-bottom:0}
+.card .k{font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin-bottom:8px}
+.card.accent{border-left:3px solid var(--accent);background:var(--accent-tint)}
+.card.ok{border-left:3px solid var(--viui-success);background:var(--viui-success-surface)}
+.card.warn{border-left:3px solid var(--viui-warning);background:var(--viui-warning-surface)}
+.card.stop{border-left:3px solid var(--viui-error);background:var(--viui-error-surface)}
+
+/* ---------- Stat ---------- */
+.stat{background:var(--surface);border:1px solid var(--hairline);border-radius:var(--r-md);padding:var(--s3) var(--s2)}
+.stat .n{font-size:clamp(26px,3.4vw,36px);font-weight:700;letter-spacing:-.03em;color:var(--accent);line-height:1.05}
+.stat .n.red{color:var(--brand-red)}
+.stat .n.ok{color:var(--viui-success-text)}
+.stat .l{font-size:13px;font-weight:600;margin-top:8px}
+.stat .h{font-size:12px;color:var(--muted);margin-top:4px;line-height:1.5}
+
+/* ---------- Gantt ---------- */
+.gantt{background:var(--surface);border:1px solid var(--hairline);border-radius:var(--r-md);padding:var(--s3);overflow-x:auto}
+.gantt-grid{min-width:720px;display:grid;grid-template-columns:170px repeat(8,1fr);gap:6px;align-items:center}
+.gantt-grid .hd{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);text-align:center;padding-bottom:6px}
+.gantt-grid .hd.l{text-align:left}
+.gantt-grid .row-l{font-size:13px;font-weight:600;padding:6px 0}
+.bar{height:26px;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;letter-spacing:.02em}
+.bar.b1{background:linear-gradient(90deg,var(--accent),var(--accent-2))}
+.bar.b2{background:var(--viui-primary-500);opacity:.55}
+.bar.b3{background:var(--viui-success)}
+.bar.b4{background:var(--viui-warning)}
+.bar.b5{background:var(--faint)}
+.cellnote{font-size:11px;color:var(--faint);text-align:center}
+
+/* ---------- Timeline ---------- */
+.tl{position:relative;padding-left:var(--s5)}
+.tl::before{content:"";position:absolute;left:12px;top:6px;bottom:6px;width:2px;background:var(--hairline)}
+.tl-item{position:relative;margin-bottom:var(--s4)}
+.tl-item:last-child{margin-bottom:0}
+.tl-item::before{
+  content:"";position:absolute;left:calc(-1 * var(--s5) + 6px);top:8px;width:14px;height:14px;
+  border-radius:50%;background:var(--paper);border:3px solid var(--accent)
+}
+.tl-item.mile::before{border-color:var(--viui-success)}
+.tl-item.fut::before{border-color:var(--faint)}
+.tl-when{font-family:var(--mono);font-size:12px;color:var(--accent);font-weight:600;letter-spacing:.04em}
+.tl-item.fut .tl-when{color:var(--faint)}
+.tl-h{font-size:17px;font-weight:600;margin:4px 0 8px}
+.tl-body{color:var(--ink-soft);font-size:14.5px}
+.tl-body p{margin-bottom:10px}
+.tl-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.tag{font-size:11px;padding:3px 9px;border-radius:var(--r-sm);background:var(--surface-2);color:var(--ink-soft);border:1px solid var(--hairline-soft)}
+.tag.ok{background:var(--viui-success-surface);color:var(--viui-success-text)}
+.tag.warn{background:var(--viui-warning-surface);color:var(--viui-warning-text)}
+.tag.acc{background:var(--accent-tint-2);color:var(--accent);font-weight:600}
+
+/* ---------- Table ---------- */
+.tw{overflow-x:auto;border:1px solid var(--hairline);border-radius:var(--r-md);background:var(--surface)}
+table{width:100%;border-collapse:collapse;min-width:640px;font-size:14px}
+th{
+  text-align:left;font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--faint);padding:12px var(--s2);border-bottom:1px solid var(--hairline);white-space:nowrap
+}
+td{padding:12px var(--s2);border-bottom:1px solid var(--hairline-soft);vertical-align:top;color:var(--ink-soft)}
+tr:last-child td{border-bottom:0}
+td.k{color:var(--ink);font-weight:600}
+tbody tr:hover td{background:var(--accent-tint)}
+.b{display:inline-block;font-size:11px;font-weight:700;padding:3px 8px;border-radius:var(--r-sm);white-space:nowrap}
+.b.ok{background:var(--viui-success-surface);color:var(--viui-success-text)}
+.b.warn{background:var(--viui-warning-surface);color:var(--viui-warning-text)}
+.b.stop{background:var(--viui-error-surface);color:var(--viui-error)}
+.b.info{background:var(--viui-info-surface);color:var(--viui-info-text)}
+.b.mute{background:var(--surface-2);color:var(--muted)}
+
+/* ---------- Scope in/out ---------- */
+.scope{display:grid;grid-template-columns:1fr 1fr;gap:var(--s3)}
+@media (max-width:900px){.scope{grid-template-columns:1fr}}
+.scope-col{border:1px solid var(--hairline);border-radius:var(--r-md);overflow:hidden;background:var(--surface)}
+.scope-hd{padding:var(--s2) var(--s3);font-size:14px;font-weight:700;border-bottom:1px solid var(--hairline)}
+.scope-hd.in{background:var(--viui-success-surface);color:var(--viui-success-text)}
+.scope-hd.out{background:var(--viui-error-surface);color:var(--viui-error)}
+.scope-hd span{display:block;font-size:12px;font-weight:400;color:var(--muted);margin-top:2px}
+.scope-list{list-style:none;margin:0;padding:var(--s2) var(--s3)}
+.scope-list li{position:relative;padding-left:26px;margin:10px 0;font-size:14px;color:var(--ink-soft)}
+.scope-list li::before{position:absolute;left:0;top:0;font-weight:700}
+.scope-list.yes li::before{content:"✓";color:var(--viui-success)}
+.scope-list.no li::before{content:"✕";color:var(--viui-error)}
+
+/* ---------- Arch diagram ---------- */
+.arch{background:var(--surface);border:1px solid var(--hairline);border-radius:var(--r-md);padding:var(--s4) var(--s3);overflow-x:auto}
+.arch-in{min-width:660px;display:flex;flex-direction:column;align-items:center;gap:0}
+.node{
+  border:1px solid var(--hairline);border-radius:var(--r-base);background:var(--paper);
+  padding:12px var(--s2);text-align:center;min-width:230px
+}
+.node .t{font-size:13.5px;font-weight:600}
+.node .d{font-size:11.5px;color:var(--muted);margin-top:3px}
+.node.acc{border-color:var(--accent);background:var(--accent-tint)}
+.node.acc .t{color:var(--accent)}
+.node.dead{border-style:dashed;opacity:.62}
+.node.key{border-width:2px;border-color:var(--viui-success)}
+.arrow{display:flex;flex-direction:column;align-items:center;padding:6px 0;color:var(--faint);font-size:11px;letter-spacing:.03em}
+.arrow .ln{width:2px;height:16px;background:var(--hairline)}
+.arrow .lb{margin:3px 0;font-family:var(--mono);font-size:10.5px}
+.arch-row{display:flex;gap:var(--s2);align-items:stretch;justify-content:center;flex-wrap:nowrap}
+
+/* ---------- Callout / quote ---------- */
+.callout{border-left:3px solid var(--accent);background:var(--accent-tint);padding:var(--s2) var(--s3);border-radius:0 var(--r-base) var(--r-base) 0;margin:var(--s3) 0}
+.callout.warn{border-color:var(--viui-warning);background:var(--viui-warning-surface)}
+.callout.stop{border-color:var(--viui-error);background:var(--viui-error-surface)}
+.callout .k{font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin-bottom:6px}
+.callout p:last-child{margin-bottom:0}
+.quote{font-size:17px;line-height:1.55;color:var(--ink);font-style:italic;border-left:3px solid var(--brand-red);padding-left:var(--s3);margin:var(--s4) 0}
+.quote .who{display:block;font-style:normal;font-size:12.5px;color:var(--muted);margin-top:8px}
+
+/* ---------- Checklist ---------- */
+.chk{list-style:none;margin:0;padding:0}
+.chk li{position:relative;padding-left:30px;margin:12px 0;font-size:14.5px;color:var(--ink-soft)}
+.chk li::before{
+  content:"";position:absolute;left:0;top:3px;width:17px;height:17px;
+  border:2px solid var(--accent);border-radius:var(--r-sm);background:var(--paper)
+}
+.chk li b{color:var(--ink)}
+
+/* ---------- Footer ---------- */
+footer{padding:var(--s6) 0 var(--s8);color:var(--muted);font-size:13px}
+.foot-grid{display:flex;flex-wrap:wrap;gap:var(--s3);justify-content:space-between;align-items:flex-start}
+.up{cursor:pointer;color:var(--accent);font-size:13px;border:0}
+
+/* ---------- Reveal ---------- */
+.rv{opacity:0;transform:translateY(14px);transition:opacity .5s cubic-bezier(0,0,.2,1),transform .5s cubic-bezier(0,0,.2,1)}
+.rv.on{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+@media print{.nav{display:none}.rv{opacity:1;transform:none}section{break-inside:avoid}}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-in">
+    <span class="nav-brand">ducnd · Roadmap</span>
+    <a class="n" data-go="s1">Giá trị</a>
+    <a class="n" data-go="s2">Vai trò</a>
+    <a class="n" data-go="s3">Kế hoạch</a>
+    <a class="n" data-go="s4">T8–T9 · OneDash</a>
+    <a class="n" data-go="s5">Nghiên cứu Office</a>
+    <a class="n" data-go="s6">T10–T12 · MVP</a>
+    <a class="n" data-go="s7">Công nghệ</a>
+    <a class="n" data-go="s8">2027</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow rv">iNET · Bộ phận Công Nghệ · Lộ trình thành viên</div>
+    <h1 class="rv">Nguyễn Đăng Đức
+      <span class="sub">Đang làm: MCP server, terminal và giao diện quản trị OneDash · Tới đây: Office trên web thay Collabora, rồi đưa AI vào tài liệu</span>
+    </h1>
+    <p class="lead rv">T8–T9 đóng nốt OneDash: đưa phần quản trị của Portal lên OneDash. T10–T12 làm MVP
+      Office. 2027 thay Collabora trong OneMail theo số liệu, và đưa AI vào tài liệu — cùng trục với phần
+      agent của Chương.</p>
+    <div class="pillrow rv">
+      <span class="pill on">1 kỹ sư toàn thời gian + hỗ trợ AI</span>
+      <span class="pill">Lớp phụ trách: MCP · client · trải nghiệm sản phẩm</span>
+      <span class="pill">Chi phí license: 0đ</span>
+      <span class="pill warn">Chờ ducnd xác nhận phương án kỹ thuật T9</span>
+    </div>
+    <div class="meta rv">
+      <span>Người lập: <b>Trịnh Quốc Hoàn Đạt</b> — Trưởng phòng Công Nghệ</span>
+      <span>Phiên bản <b>1.0</b> · 17/08/2026</span>
+      <span>Kỳ: <b>T8/2026 – 2027</b></span>
+    </div>
+  </div>
+</header>
+
+<!-- ===================== 01 GIÁ TRỊ ===================== -->
+<section id="s1">
+  <div class="wrap">
+    <div class="s-num rv">01 / 08</div>
+    <h2 class="s-title rv">Giá trị đang tạo ra</h2>
+    <p class="s-desc rv">Đức là người chính làm <b>MCP server</b>, <b>web terminal</b>, <b>file manager</b>,
+      <b>remote desktop</b> và <b>giao diện quản trị</b> của OneDash — vừa là bề mặt khách thao tác hằng ngày,
+      vừa là lớp cho AI điều khiển hệ thống. Số liệu đếm trực tiếp từ repo OneDash, commit năm 2026.</p>
+
+    <div class="g4 rv" style="margin-bottom:var(--s4)">
+      <div class="stat"><div class="n">6</div><div class="l">bản release OneDash trong 2026</div><div class="h">v1.0.0 (16/04) → v1.7.0 (27/07) — nhịp đều, không dồn cuối kỳ</div></div>
+      <div class="stat"><div class="n">165</div><div class="l">commit cho MCP server</div><div class="h">So với 32 commit của cả phòng — Đức là tác giả chính lớp cho AI điều khiển OneDash</div></div>
+      <div class="stat"><div class="n">73</div><div class="l">commit cho web terminal</div><div class="h">SSH trên trình duyệt; thêm file manager và remote desktop, gần như một mình</div></div>
+      <div class="stat"><div class="n ok">104</div><div class="l">commit giao diện quản trị</div><div class="h">Admin dashboard và dashboard người dùng — phần lớn công việc lớp trên</div></div>
+    </div>
+
+    <div class="g2 rv">
+      <div class="card accent">
+        <div class="k">Giá trị cho khách hàng</div>
+        <h4>Quản trị server không cần SSH</h4>
+        <p>Terminal, file manager, remote desktop và màn hình quản trị đều chạy trong trình duyệt: khách xem
+          mọi project của mọi server trên một màn hình, click là sửa port, firewall, start/stop. Đây là lý do
+          rõ nhất để khách chọn dịch vụ của mình.</p>
+      </div>
+      <div class="card accent">
+        <div class="k">Giá trị cho kinh doanh</div>
+        <h4>OneDash là bề mặt quản trị của cloud và S3</h4>
+        <p>Dịch vụ mới S3 Object Storage bán ở Portal nhưng quản trị nằm ở OneDash. Khách vào OneDash ngay
+          từ email đăng ký, nên OneDash thành nơi giữ khách sau khi bán.</p>
+      </div>
+      <div class="card accent">
+        <div class="k">Giá trị đã mở đường cho 2027</div>
+        <h4>OneDash đã nói được với AI qua MCP</h4>
+        <p>Đức đã đưa OneDash lên MCP: ứng dụng AI kết nối bằng token cá nhân, có phạm vi quyền, màn đồng ý và
+          sổ theo dõi hoạt động. Đây chính là nền cho mục tiêu agent năm 2027 — không phải bắt đầu từ đầu.</p>
+      </div>
+      <div class="card accent">
+        <div class="k">Giá trị sắp tới</div>
+        <h4>Office trên web chặn một rào cản tăng trưởng</h4>
+        <p>OneMail đang dùng Collabora bản miễn phí — đủ dùng nội bộ, không đủ để bán cho khách. Tự làm thì
+          không trả phí theo người dùng, kiểm soát được trải nghiệm, và nhúng được AI vào tài liệu.</p>
+      </div>
+    </div>
+
+    <div class="callout warn rv">
+      <div class="k">Số liệu cần bổ sung từ hệ thống — không có trong GitLab</div>
+      <p>Số máy chủ / site khách đang được quản lý qua OneDash · số giờ người tiết kiệm nhờ thao tác tự động
+        thay cho SSH tay · số ứng dụng AI đã kết nối qua MCP và lượt sử dụng. Ba con số này mới cho thấy đủ
+        giá trị, cần lấy từ database OneDash trước khi báo cáo kỳ sau.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 02 VAI TRÒ ===================== -->
+<section id="s2">
+  <div class="wrap">
+    <div class="s-num rv">02 / 08</div>
+    <h2 class="s-title rv">Vai trò và mức độ quan trọng</h2>
+    <p class="s-desc rv">Phân vai dưới đây lấy từ số liệu repo, không lấy từ cảm nhận. Điểm cần lưu ý:
+      <b>MCP server hiện chỉ một người nắm</b>, và người đó là Đức.</p>
+
+    <div class="g2 rv" style="margin-bottom:var(--s3)">
+      <div class="card">
+        <div class="k">Hiện tại</div>
+        <h4>Phân vai trên OneDash</h4>
+        <ul style="padding-left:1rem;font-size:14px">
+          <li><b>Đức nắm chính:</b> MCP server (165 / 197 commit), web terminal (73 / 79), remote desktop,
+            file manager, giao diện quản trị và dashboard</li>
+          <li><b>Trưởng phòng nắm chính:</b> backend lõi, S3 / Ceph, hệ thống log, firewall, hạ tầng</li>
+          <li><b>Làm cùng nhau:</b> agent trên máy chủ khách</li>
+        </ul>
+        <p style="margin-top:10px"><b>Nếu nghỉ một tháng:</b> lớp giao diện có người gánh tạm được, nhưng
+          <b>MCP server thì đứng lại</b> — không ai khác nắm kiến trúc lớp này. Đây là rủi ro thật, và là lý do
+          việc chuyển giao trong T9 không được lùi.</p>
+      </div>
+      <div class="card ok">
+        <div class="k">Hướng đi 12 tháng</div>
+        <h4>Nắm trọn phần Office trên web</h4>
+        <ul style="padding-left:1rem;font-size:14px">
+          <li>Từ T10: Đức làm phần Office từ lõi, chịu trách nhiệm kỹ thuật cuối</li>
+          <li>Mức nền bắt buộc: tự đóng gói Docker, tự deploy, tự vận hành sản phẩm của mình</li>
+          <li>Kèm điều kiện: tài liệu hoá và pair, để phần Office không thành vùng chỉ một người hiểu</li>
+        </ul>
+        <p style="margin-top:10px">Mục tiêu là một năm sau câu trả lời “nếu nghỉ một tháng thì sao” khác đi
+          — và khác đi bằng phạm vi trách nhiệm, không bằng số dòng mã.</p>
+      </div>
+    </div>
+
+    <div class="callout rv">
+      <div class="k">Lý do chuyển hướng</div>
+      <p>OneDash đã đi qua chặng khó nhất của lớp giao diện và đang chuyển sang tự động hoá qua MCP — phần này
+        gắn chặt với backend và hạ tầng, nơi trưởng phòng trực tiếp nắm, nên để hai người cùng ở đó là trùng
+        vai. Đức mạnh nhất ở lớp sản phẩm và trải nghiệm người dùng, nên bố trí sang phần Office — nơi Đức làm
+        từ lõi và chịu trách nhiệm cuối — là đúng thiên hướng.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 03 KẾ HOẠCH ===================== -->
+<section id="s3">
+  <div class="wrap">
+    <div class="s-num rv">03 / 08</div>
+    <h2 class="s-title rv">Kế hoạch: bốn chặng, mỗi chặng giao được một thứ dùng thật</h2>
+    <p class="s-desc rv">Mỗi mốc đều demo được và là một gate: trượt thì cắt phạm vi trong một tuần, không
+      dồn rủi ro về cuối năm.</p>
+
+    <div class="gantt rv" style="margin-bottom:var(--s3)">
+      <div class="gantt-grid">
+        <div class="hd l">Hạng mục</div>
+        <div class="hd">T8</div><div class="hd">T9</div><div class="hd">T10</div><div class="hd">T11</div>
+        <div class="hd">T12</div><div class="hd">T1/27</div><div class="hd">T2/27</div><div class="hd">T3/27</div>
+
+        <div class="row-l">Portal → OneDash</div>
+        <div class="bar b1">chính</div><div class="bar b1">chính</div>
+        <div class="cellnote">—</div><div class="cellnote">—</div><div class="cellnote">—</div>
+        <div class="cellnote">—</div><div class="cellnote">—</div><div class="cellnote">—</div>
+
+        <div class="row-l">Nghiên cứu Office</div>
+        <div class="bar b2">25%</div><div class="bar b2">25%</div>
+        <div class="cellnote">—</div><div class="cellnote">—</div><div class="cellnote">—</div>
+        <div class="cellnote">—</div><div class="cellnote">—</div><div class="cellnote">—</div>
+
+        <div class="row-l">Chuyển giao agent · MCP</div>
+        <div class="cellnote">—</div><div class="bar b4">T9</div>
+        <div class="cellnote">—</div><div class="cellnote">—</div><div class="cellnote">—</div>
+        <div class="cellnote">—</div><div class="cellnote">—</div><div class="cellnote">—</div>
+
+        <div class="row-l">MVP Office</div>
+        <div class="cellnote">—</div><div class="cellnote">—</div>
+        <div class="bar b3">M1</div><div class="bar b3">M2</div><div class="bar b3">M3</div>
+        <div class="cellnote">—</div><div class="cellnote">—</div><div class="cellnote">—</div>
+
+        <div class="row-l">Thay Collabora (OneMail)</div>
+        <div class="cellnote">—</div><div class="cellnote">—</div><div class="cellnote">—</div>
+        <div class="cellnote">—</div><div class="cellnote">—</div>
+        <div class="bar b1">xem</div><div class="bar b1">XLSX</div><div class="bar b1">đo</div>
+
+        <div class="row-l">Agent · AI trong tài liệu</div>
+        <div class="cellnote">—</div><div class="cellnote">—</div><div class="cellnote">—</div>
+        <div class="cellnote">—</div><div class="cellnote">—</div>
+        <div class="bar b2">chuẩn bị</div><div class="bar b3">trợ lý v1</div><div class="bar b3">mở rộng</div>
+
+        <div class="row-l">Sửa DOCX · collaboration</div>
+        <div class="cellnote">—</div><div class="cellnote">—</div><div class="cellnote">—</div>
+        <div class="cellnote">—</div><div class="cellnote">—</div><div class="cellnote">—</div>
+        <div class="cellnote">—</div><div class="bar b5">khởi động</div>
+      </div>
+    </div>
+
+    <div class="g4 rv">
+      <div class="stat"><div class="n">6</div><div class="l">tuần cho OneDash</div><div class="h">18/08 – 30/09 · đóng nốt phần đang dở</div></div>
+      <div class="stat"><div class="n">~60</div><div class="l">ngày làm việc cho MVP</div><div class="h">T10 – T12 · con số này quyết định phạm vi MVP</div></div>
+      <div class="stat"><div class="n ok">3</div><div class="l">mốc demo trong MVP</div><div class="h">T10 xem file · T11 sửa XLSX · T12 nghiệm thu</div></div>
+      <div class="stat"><div class="n red">Q1/27</div><div class="l">bắt đầu thay Collabora</div><div class="h">Luồng xem trước, tắt hẳn theo 4 tiêu chí</div></div>
+    </div>
+
+    <div class="callout rv">
+      <div class="k">Cách giữ cho phạm vi không phình ra</div>
+      <p>Không viết lại lõi xử lý tài liệu. Lõi dùng nền open-source license permissive; Đức làm lớp sản phẩm
+        của iNET: SSO, quản lý tệp, lưu trữ, offline, tích hợp OneMail + Drive, đóng gói triển khai.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 04 T8-T9 ONEDASH ===================== -->
+<section id="s4">
+  <div class="wrap">
+    <div class="s-num rv">04 / 08</div>
+    <h2 class="s-title rv">T8 – T9: đưa phần quản trị của Portal lên OneDash</h2>
+    <p class="s-desc rv">Theo nguyên tắc đã chốt ngày 13/08: <b>quản trị dồn về OneDash, billing dồn về
+      Portal</b>. Cloud server clone sang OneDash, không move — Portal vẫn gia hạn bình thường.</p>
+
+    <div class="g2 rv" style="margin-bottom:var(--s4)">
+      <div class="card ok">
+        <div class="k">OneDash · quản trị</div>
+        <ul class="scope-list yes" style="padding:0">
+          <li>Cloud server: clone sang, không move</li>
+          <li>Project, web server, service, port, firewall</li>
+          <li>S3 Object Storage: bucket, account, policy</li>
+          <li>Xem mọi project của mọi server trên một màn hình</li>
+        </ul>
+      </div>
+      <div class="card stop">
+        <div class="k">Portal · kinh doanh</div>
+        <ul class="scope-list no" style="padding:0">
+          <li>OneDash không làm hoá đơn, thanh toán, gia hạn — chỉ link sang Portal</li>
+          <li>OneDash không viết lại tính năng Portal — client gọi thẳng BE Portal</li>
+          <li>Portal ngừng thêm tính năng quản trị mới</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 class="rv" style="font-size:18px;margin-bottom:10px">Cơ chế đã chốt: client OneDash gọi thẳng backend Portal</h3>
+    <p class="s-desc rv" style="margin-bottom:var(--s3)">Key OpenStack không rời khỏi Portal, và mỗi endpoint
+      Portal mở ra là OneDash dùng được ngay — backend OneDash không phải code theo.</p>
+
+    <div class="arch rv">
+      <div class="arch-in">
+        <div class="node acc"><div class="t">OneDash client</div><div class="d">phần việc của ducnd</div></div>
+        <div class="arrow"><div class="ln"></div><div class="lb">gọi trực tiếp + SSO sid / ssid</div><div class="ln"></div><div>▼</div></div>
+        <div class="arch-row">
+          <div class="node dead"><div class="t">BE OneDash</div><div class="d">bỏ hop proxy</div></div>
+          <div class="node key"><div class="t">BE Portal</div><div class="d">whitelist domain · đã auth OpenStack</div></div>
+        </div>
+        <div class="arrow"><div class="ln"></div><div class="lb">key chỉ nằm ở Portal</div><div class="ln"></div><div>▼</div></div>
+        <div class="node"><div class="t">OpenStack / hạ tầng cloud</div><div class="d">list host · quản lý cloud server</div></div>
+      </div>
+    </div>
+
+    <h3 class="rv" style="font-size:18px;margin:var(--s5) 0 var(--s2)">Hạng mục T8 – T9</h3>
+    <div class="tw rv">
+      <table>
+        <thead><tr><th>Hạng mục</th><th>Nội dung</th><th>Phụ thuộc</th><th>Trạng thái</th></tr></thead>
+        <tbody>
+          <tr><td class="k">Gắn SSO khi gọi Portal</td><td>Client gửi <span class="mono">sid</span> + <span class="mono">ssid</span> để Portal biết ai đang gọi. Nền của mọi hạng mục sau.</td><td>Portal whitelist <span class="mono">onedash.inet.vn</span>, cho phép credential cross-origin</td><td><span class="b stop">Bị chặn</span></td></tr>
+          <tr><td class="k">UI quản lý cloud server</td><td>List host và thao tác vận hành trên OneDash, gọi thẳng endpoint Portal.</td><td>Danh sách endpoint Portal</td><td><span class="b info">Chờ endpoint</span></td></tr>
+          <tr><td class="k">Console S3 Object Storage</td><td>Bucket, account, policy — toàn bộ phần quản lý cho dịch vụ mới.</td><td>RadosGW client trên node admin · gói S3 chưa chốt</td><td><span class="b warn">Chốt một phần</span></td></tr>
+          <tr><td class="k">Link billing ↔ Portal</td><td>Hiện gói S3, giá; bấm thanh toán là sang Portal.</td><td>Bảng giá S3 chưa chốt</td><td><span class="b warn">Chờ nghiệp vụ</span></td></tr>
+          <tr><td class="k">Email đăng ký cloud server</td><td>Thêm link quản trị OneDash cạnh link thanh toán, để khách gặp OneDash ngay lần đầu.</td><td>Không</td><td><span class="b ok">Làm được ngay</span></td></tr>
+          <tr><td class="k">Màn hình tập trung</td><td>Click là sửa port, firewall, start/stop — lợi thế bán rõ nhất của OneDash.</td><td>Trạng thái detect từ agent</td><td><span class="b info">Đang làm</span></td></tr>
+          <tr><td class="k">Chuyển giao agent · MCP</td><td>Tài liệu hoá, pair một vòng debug thật, xác nhận người nhận trước khi Đức sang phần Office.</td><td>Chưa có người nhận</td><td><span class="b stop">Cần chốt</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout rv">
+      <div class="k">Đóng chặng này trước 30/09 khi đạt</div>
+      <ul class="chk" style="margin-top:6px">
+        <li>Một <b>khách hàng thật</b> quản lý được cloud server trên OneDash qua SSO, không cần credential riêng.</li>
+        <li><b>Console S3</b> tạo được account, bucket, policy trên production.</li>
+        <li><b>Email đăng ký</b> đã có link OneDash và đo được số khách bấm.</li>
+        <li><b>Agent và MCP đã có người nhận</b>, có tài liệu, đã pair một vòng.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 05 SPIKE ===================== -->
+<section id="s5">
+  <div class="wrap">
+    <div class="s-num rv">05 / 08</div>
+    <h2 class="s-title rv">Song song T8 – T9: nghiên cứu Office, sáu đầu ra kiểm chứng được</h2>
+    <p class="s-desc rv">Chiếm khoảng 25% thời gian nhưng quyết định phần lớn rủi ro của MVP. Ba đầu ra đầu
+      phụ thuộc người khác hoặc cần thời gian lịch — để tháng 10 mới bắt đầu là mất trắng tháng đầu.</p>
+
+    <div class="g3 rv">
+      <div class="card warn">
+        <div class="k">01 · chặn tiến độ nếu để muộn</div>
+        <h4>Bộ mẫu 50–100 file thật</h4>
+        <p>Lấy từ OneMail và Drive, đã ẩn danh, đủ ba định dạng. Không có bộ mẫu thì không đo được chất lượng
+          và mọi con số phần trăm sau đó vô nghĩa.</p>
+      </div>
+      <div class="card">
+        <div class="k">02 · quyết định không sửa lại được</div>
+        <h4>Chốt nền open-source + license</h4>
+        <p>Chỉ MIT, Apache-2.0, BSD. Ghi thành văn bản: thư viện nào, version nào, license nào, kiểm ngày nào.</p>
+      </div>
+      <div class="card">
+        <div class="k">03 · chứng minh kiến trúc</div>
+        <h4>PoC round-trip XLSX byte-identical</h4>
+        <p>Sửa một ô, lưu, mở bằng Excel: khác biệt duy nhất là ô đó. Phần không hiểu được giữ nguyên từng
+          byte thay vì bị xoá âm thầm.</p>
+      </div>
+      <div class="card">
+        <div class="k">04 · điều kiện để AI giúp được</div>
+        <h4>Fidelity harness machine-readable</h4>
+        <p>Bộ đo phải chỉ ra đúng phần tử lệch, không chỉ trả một con số. Nếu chỉ có phần trăm thì phải dò
+          tay và tiến độ dài thêm 1,5–2 tháng.</p>
+      </div>
+      <div class="card">
+        <div class="k">05 · phải làm ngay từ đầu</div>
+        <h4>Storage layer + Yjs làm source of truth</h4>
+        <p>Không lắp thêm được sau. Làm ngay tốn khoảng một tuần; làm sau tốn 4–6 tuần kèm rủi ro mất dữ liệu.</p>
+      </div>
+      <div class="card">
+        <div class="k">06 · mốc so sánh</div>
+        <h4>Đo giới hạn Collabora đang chạy</h4>
+        <p>Version, số tài liệu mở đồng thời, thời gian mở file ở p95. Không có số nền thì 2027 không chứng
+          minh được nền tảng mới hơn hay kém.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 06 MVP ===================== -->
+<section id="s6">
+  <div class="wrap">
+    <div class="s-num rv">06 / 08</div>
+    <h2 class="s-title rv">T10 – T12: MVP Office cơ bản</h2>
+    <p class="s-desc rv">MVP = xem chuẩn xác ba định dạng, sửa được một định dạng mà không hỏng file, chạy
+      được khi mất mạng, và tự triển khai được. Phạm vi cắt từ con số 60 ngày làm việc.</p>
+
+    <div class="scope rv" style="margin-bottom:var(--s4)">
+      <div class="scope-col">
+        <div class="scope-hd in">Trong phạm vi<span>cam kết demo được trong 2026</span></div>
+        <ul class="scope-list yes">
+          <li>SSO tài khoản iNET, quản lý danh sách tệp</li>
+          <li>Xem DOCX, XLSX, PDF — lưu lại giống hệt từng byte</li>
+          <li>Sửa XLSX, giữ đúng định dạng và công thức</li>
+          <li>Offline (IndexedDB + PWA), có mạng thì đồng bộ</li>
+          <li>Mở và lưu tệp trực tiếp từ OneMail và Drive</li>
+          <li>Tự đóng gói Docker, tự deploy, tự vận hành</li>
+        </ul>
+      </div>
+      <div class="scope-col">
+        <div class="scope-hd out">Ngoài phạm vi<span>để 2027 — nới ra là mốc trượt</span></div>
+        <ul class="scope-list no">
+          <li>Sửa văn bản DOCX (giai đoạn này chỉ xem)</li>
+          <li>Trình chiếu PPTX — nền open-source chưa ổn định</li>
+          <li>Real-time collaboration — kiến trúc sẵn nhưng chưa bật</li>
+          <li>Bình luận, theo dõi thay đổi, macro</li>
+          <li>Xuất PDF chất lượng in ấn</li>
+          <li>Viết lại lõi xử lý tài liệu</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout rv">
+      <div class="k">Vì sao sửa bảng tính trước, không phải văn bản</div>
+      <p>Phần bảng tính của nền open-source đã dùng được cho sản phẩm thật, phần văn bản thì chưa. Chỉ cam
+        kết sửa ở định dạng đã chín — tránh hứa rồi không giữ được.</p>
+    </div>
+
+    <h3 class="rv" style="font-size:18px;margin:var(--s5) 0 var(--s3)">Ba mốc, mỗi mốc một gate</h3>
+    <div class="tl rv">
+      <div class="tl-item">
+        <div class="tl-when">M1 · T10/2026 — ngày 30</div>
+        <div class="tl-h">Xem được ba định dạng, chạy offline</div>
+        <div class="tl-body">
+          <p>Nền giao diện theo design token iNET để Office trông đúng là một phần của OneMail. SSO, danh
+            sách tệp, xem DOCX/XLSX/PDF, offline, cài được như ứng dụng qua PWA. Chưa ghi file Office nên
+            rủi ro thấp.</p>
+          <p><b>Gate:</b> mở file thật, ngắt mạng vẫn xem được. Dùng nội bộ được ngay cho luồng chỉ xem.</p>
+          <div class="tl-tags"><span class="tag acc">Demo được</span><span class="tag ok">Rủi ro thấp</span></div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-when">M2 · T11/2026 — ngày 60</div>
+        <div class="tl-h">Sửa XLSX và lưu lại không hỏng — phần khó nhất</div>
+        <div class="tl-body">
+          <p>File gốc giữ nguyên trong trình duyệt làm source of truth; khi lưu chỉ ghi đè phần đã sửa. Cấu
+            trúc không hiểu được thì thành read-only block, bảo toàn nguyên vẹn thay vì bị xoá âm thầm.</p>
+          <p><b>Gate:</b> sửa một ô, lưu, mở bằng Excel — không mất công thức, khác biệt duy nhất là ô đó.</p>
+          <div class="tl-tags"><span class="tag warn">Tốn nhất chặng này</span><span class="tag">graceful degradation</span></div>
+        </div>
+      </div>
+      <div class="tl-item mile">
+        <div class="tl-when">M3 · T12/2026 — ngày 90 · nghiệm thu</div>
+        <div class="tl-h">Ghép vào OneMail + Drive và tự vận hành</div>
+        <div class="tl-body">
+          <p>Đọc/ghi thẳng lên S3 bằng pre-signed URL — byte file không đi qua máy chủ ta nên chi phí không
+            tăng theo số người dùng. Bật versioning trên bucket là có lịch sử phiên bản.</p>
+          <p><b>Gate nghiệm thu — bốn điều kiện đồng thời:</b></p>
+          <ul class="chk">
+            <li>Mở <b>20 tệp thật</b> từ OneMail và Drive, không lỗi bố cục nghiêm trọng.</li>
+            <li>Sửa một tệp <b>XLSX thật</b>, mở bằng Excel không mất công thức.</li>
+            <li><b>Ngắt mạng</b> vẫn mở và sửa được; có mạng thì tự đồng bộ.</li>
+            <li>Đức <b>tự build image, tự deploy, tự vận hành</b> — không cần trưởng phòng làm thay.</li>
+          </ul>
+          <div class="tl-tags"><span class="tag ok">MVP cơ bản</span><span class="tag acc">Cam kết trong 2026</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 07 CÔNG NGHỆ ===================== -->
+<section id="s7">
+  <div class="wrap">
+    <div class="s-num rv">07 / 08</div>
+    <h2 class="s-title rv">Nền công nghệ: chạy ở trình duyệt, không phí license</h2>
+    <p class="s-desc rv">Offline-first: dữ liệu gốc ở máy người dùng, máy chủ chỉ đồng bộ. MVP không cần máy
+      chủ riêng; từ T12 mới cần một backend nhỏ để xác thực và phát pre-signed URL.</p>
+
+    <div class="tw rv">
+      <table>
+        <thead><tr><th>Thành phần</th><th>Dùng để làm gì</th><th>License</th></tr></thead>
+        <tbody>
+          <tr><td class="k">React · TypeScript · Vite</td><td>Nền giao diện, đã dùng sẵn trong sản phẩm hiện tại</td><td><span class="b ok">MIT</span></td></tr>
+          <tr><td class="k">shadcn/ui · Tailwind</td><td>UI component; mã chép thẳng vào dự án nên không có supply-chain risk</td><td><span class="b ok">MIT</span></td></tr>
+          <tr><td class="k">IndexedDB · PWA · File System Access</td><td>Chạy offline, cài được như ứng dụng, mở lưu file trên máy</td><td><span class="b info">chuẩn web</span></td></tr>
+          <tr><td class="k">Yjs</td><td>Đồng bộ dữ liệu, nền cho real-time collaboration về sau</td><td><span class="b ok">MIT</span></td></tr>
+          <tr><td class="k">JSZip · fast-xml-parser</td><td>Mở gói file Office và chỉ sửa đúng phần cần sửa</td><td><span class="b ok">MIT</span></td></tr>
+          <tr><td class="k">Univer (bản mở)</td><td>Engine bảng tính; tầng I/O file là tính năng trả phí nên ta tự xây</td><td><span class="b ok">Apache-2.0</span></td></tr>
+          <tr><td class="k">ExcelJS</td><td>Đọc/ghi file Excel, thay cho phần trả phí</td><td><span class="b ok">MIT</span></td></tr>
+          <tr><td class="k">docx-preview</td><td>Xem file Word độ chính xác cao — tiết kiệm nhiều tháng so với tự viết</td><td><span class="b ok">Apache-2.0</span></td></tr>
+          <tr><td class="k">Pre-signed URL lên S3</td><td>Upload/download trực tiếp với S3 của Drive, không qua máy chủ ta</td><td><span class="b info">chuẩn S3</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="g3 rv" style="margin-top:var(--s3)">
+      <div class="card">
+        <div class="k">Phần tự xây</div>
+        <p><span class="mono">ooxml-core</span> giữ file byte-identical · <span class="mono">xlsx-io</span> đọc
+          ghi Excel · <span class="mono">storage-adapter</span> IndexedDB → S3 ·
+          <span class="mono">fidelity-harness</span> đo chất lượng round-trip, ra con số báo cáo hàng tháng.</p>
+      </div>
+      <div class="card stop">
+        <div class="k">Lựa chọn tốt nhất bị loại</div>
+        <p><b>SuperDoc</b> — chất lượng round-trip tốt nhất, nhưng license AGPLv3 buộc công khai mã nguồn ứng
+          dụng, bản thương mại thì mất phí. Nếu lãnh đạo nới ràng buộc này thì phần sửa DOCX về sớm 3–4 tháng.</p>
+      </div>
+      <div class="card warn">
+        <div class="k">Bẫy đã tránh</div>
+        <p><b>SheetJS bản miễn phí</b> — license không vướng nhưng âm thầm loại bỏ định dạng khi ghi file.
+          Chọn nhầm thì hai tháng sau mới phát hiện. Dùng ExcelJS thay thế.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 08 2027 ===================== -->
+<section id="s8">
+  <div class="wrap">
+    <div class="s-num rv">08 / 08</div>
+    <h2 class="s-title rv">Dự kiến 2027: thay Collabora và đưa AI vào tài liệu</h2>
+    <p class="s-desc rv">Collabora là LibreOffice với hàng chục năm xử lý định dạng Office. Thay một lần là
+      cách chắc chắn nhất để mất uy tín ngay lần đầu khách mở file phức tạp. MVP là điểm bắt đầu chuyển đổi,
+      không phải điểm kết thúc.</p>
+
+    <div class="callout rv">
+      <div class="k">Mục tiêu chung của phòng trong 2027</div>
+      <p><b>Mỗi người tích hợp được AI vào sản phẩm mình phụ trách.</b> Chương đưa agent vào Portal và
+        Developers để khách và đối tác vận hành dịch vụ bằng hội thoại; Đức đưa agent vào Office để khách
+        làm việc với tài liệu bằng hội thoại. Hai hướng dùng chung nền: model tự chủ trên GPU nội bộ,
+        MCP làm lớp giao tiếp, và log/traces làm dữ liệu chẩn đoán.</p>
+    </div>
+
+    <div class="g3 rv" style="margin-bottom:var(--s4)">
+      <div class="card accent"><div class="k">T1/2027</div><h4>Thay ở luồng xem</h4><p>Mọi thao tác chỉ xem trong OneMail và Drive chuyển sang nền tảng mới; Collabora chỉ còn phục vụ sửa. Đây là lần giảm tải sớm nhất và rẻ nhất, vì luồng xem chiếm phần lớn lượt dùng.</p></div>
+      <div class="card accent"><div class="k">T2/2027</div><h4>XLSX mặc định, có fallback</h4><p>Router tự động đẩy file phức tạp sang Collabora. Khách không thấy khác biệt, chỉ thấy file mở được.</p></div>
+      <div class="card accent"><div class="k">T3/2027 trở đi</div><h4>Thu hẹp dần Collabora</h4><p>Mỗi tháng chuyển thêm một nhóm cấu trúc từ “bảo toàn” lên “sửa được”, giảm phạm vi Collabora theo tỉ lệ fallback thực tế.</p></div>
+    </div>
+
+    <h3 class="rv" style="font-size:18px;margin-bottom:var(--s2)">Bốn tiêu chí để tắt hẳn Collabora — phải đạt đồng thời</h3>
+    <div class="g4 rv" style="margin-bottom:var(--s4)">
+      <div class="stat"><div class="n">≥95%</div><div class="l">round-trip trên bộ mẫu</div><div class="h">Báo cáo hàng tháng</div></div>
+      <div class="stat"><div class="n">&lt;5%</div><div class="l">fallback sang Collabora</div><div class="h">Liên tục 60 ngày</div></div>
+      <div class="stat"><div class="n ok">0</div><div class="l">sự cố mất dữ liệu</div><div class="h">Trong 90 ngày</div></div>
+      <div class="stat"><div class="n">p95</div><div class="l">thời gian mở file</div><div class="h">Không chậm hơn hiện tại</div></div>
+    </div>
+
+    <div class="callout stop rv">
+      <div class="k">Mức cam kết, nói thẳng</div>
+      <p>Đầu 2027 <b>thay được Collabora ở luồng xem và luồng bảng tính</b> — phần này đo được và cam kết
+        được. <b>Tắt hẳn Collabora</b> còn phụ thuộc phần sửa văn bản DOCX, là hạng mục đắt nhất dự án và
+        không nằm trong 60 ngày của MVP.</p>
+    </div>
+
+    <h3 class="rv" style="font-size:18px;margin:var(--s6) 0 var(--s2)">Agent trong Office — bắt đầu từ đầu 2027</h3>
+    <p class="s-desc rv" style="margin-bottom:var(--s3)">Đây là phần Collabora không cho phép làm, và là lý do
+      thứ hai để tự làm Office ngoài chuyện phí license. Làm được vì đến lúc đó ta đã kiểm soát lõi tài liệu:
+      agent đọc và sửa được đúng cấu trúc file, không phải đoán qua ảnh chụp màn hình.</p>
+
+    <div class="g3 rv" style="margin-bottom:var(--s3)">
+      <div class="card accent">
+        <div class="k">Q1/2027 · trong tài liệu</div>
+        <h4>Trợ lý soạn thảo</h4>
+        <p>Viết, viết lại, tóm tắt, dịch, chuẩn hoá văn phong ngay trong tài liệu đang mở — khách không phải
+          copy nội dung sang công cụ khác rồi dán về.</p>
+      </div>
+      <div class="card accent">
+        <div class="k">Q1/2027 · bảng tính</div>
+        <h4>Trợ lý bảng tính</h4>
+        <p>Sinh và giải thích công thức, tóm tắt dữ liệu, dựng biểu đồ từ một câu hỏi. Đây là định dạng ta sửa
+          được sớm nhất nên agent cho kết quả nhanh nhất.</p>
+      </div>
+      <div class="card accent">
+        <div class="k">Q1–Q2/2027 · nối OneMail</div>
+        <h4>Tóm tắt và hỏi đáp trên file đính kèm</h4>
+        <p>Khách hỏi thẳng nội dung file trong email hoặc Drive mà không phải mở ra đọc hết. Chỉ làm được khi
+          Office, OneMail và Drive dùng chung nền lưu trữ và phân quyền.</p>
+      </div>
+      <div class="card">
+        <div class="k">Q2/2027 · trích xuất</div>
+        <h4>OCR và chuyển định dạng</h4>
+        <p>Đọc file scan thành văn bản sửa được, trích dữ liệu trong tài liệu thành bảng. Nối trực tiếp với
+          hướng tự chủ model xử lý ảnh, âm thanh, OCR mà công ty đang đầu tư GPU.</p>
+      </div>
+      <div class="card">
+        <div class="k">Q2/2027 · cho agent khác</div>
+        <h4>MCP server cho tài liệu</h4>
+        <p>Agent nội bộ và agent của đối tác đọc, sửa, tạo tài liệu qua MCP — cùng lớp giao tiếp mà Chương mở
+          cho dịch vụ ở developers.inet.vn. Đức đã làm MCP server cho OneDash trong 2026 nên không phải học lại
+          từ đầu.</p>
+      </div>
+      <div class="card warn">
+        <div class="k">Điều kiện bắt buộc</div>
+        <h4>Dữ liệu khách không rời khỏi hệ thống</h4>
+        <p>Tài liệu là dữ liệu riêng của khách. Agent phải chạy trên model tự chủ ở GPU nội bộ, tôn trọng phân
+          quyền Drive và ghi log truy cập. Chưa đủ ba điều này thì chưa bật cho khách.</p>
+      </div>
+    </div>
+
+    <div class="g3 rv">
+      <div class="card"><div class="k">Nửa sau 2027 · dự kiến</div><h4>Sửa văn bản DOCX</h4><p>Chặng đắt nhất, cũng là điều kiện để tắt hẳn Collabora. Rút ngắn 3–4 tháng nếu nới ràng buộc license hoặc có kỹ sư thứ hai.</p></div>
+      <div class="card"><div class="k">Nửa sau 2027 · dự kiến</div><h4>Real-time collaboration</h4><p>Nhiều người sửa cùng lúc trên một tài liệu. Kiến trúc chuẩn bị từ MVP nên chỉ là bật lên, không phải viết lại.</p></div>
+      <div class="card"><div class="k">Nửa sau 2027 · dự kiến</div><h4>Trình chiếu PPTX</h4><p>Định dạng cuối còn thiếu để bộ Office đủ ba phần. Chỉ cam kết sau khi khảo sát nền open-source bằng file thật của khách.</p></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div style="font-weight:600;color:var(--ink)">Lộ trình ducnd · OneDash → Office trên web</div>
+        <div style="margin-top:6px">Tài liệu nội bộ Bộ phận Công Nghệ · iNET · phiên bản 1.0 · 17/08/2026</div>
+        <div style="margin-top:4px">Nguồn: biên bản review OneDash 13/08/2026 · báo cáo kỹ thuật Web Office bản 1.3 của ducnd · GitLab nội bộ 14/08/2026</div>
+      </div>
+      <a class="up" data-go="s1">↑ Về đầu trang</a>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+/* Điều hướng iframe-safe: cuộn nội trang, không đổi location.hash */
+document.querySelectorAll('[data-go]').forEach(function(el){
+  el.addEventListener('click',function(e){
+    e.preventDefault();
+    var t=document.getElementById(el.getAttribute('data-go'));
+    if(!t)return;
+    var top=t.getBoundingClientRect().top+window.pageYOffset-56;
+    window.scrollTo({top:top,behavior:'smooth'});
+  });
+});
+
+/* Reveal khi cuộn tới */
+(function(){
+  var items=document.querySelectorAll('.rv');
+  if(!('IntersectionObserver' in window)){
+    items.forEach(function(i){i.classList.add('on')});
+    return;
+  }
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){en.target.classList.add('on');io.unobserve(en.target)}
+    });
+  },{rootMargin:'0px 0px -8% 0px',threshold:.05});
+  items.forEach(function(i){io.observe(i)});
+
+  /* Lưới an toàn: nội dung không bao giờ ở trạng thái ẩn vì animation chưa chạy
+     (viewport rất cao, nhúng iframe, in ấn, tab nền). */
+  setTimeout(function(){
+    items.forEach(function(i){i.classList.add('on')});
+    io.disconnect();
+  },1600);
+})();
+</script>
+</body>
+</html>
