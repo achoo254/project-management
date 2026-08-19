@@ -5,15 +5,14 @@ API base: `{instance}/api/v4`
 
 ## Reading Credentials
 
+Credentials sống trên iCloud Drive, KHÔNG trong repo — `scripts/load-env.sh` giữ đường dẫn:
+
 ```bash
-# Try common .env file patterns at project root
-cat .env.staging 2>/dev/null || \
-cat .env.development 2>/dev/null || \
-cat .env.production 2>/dev/null || \
-cat .env 2>/dev/null
+source scripts/load-env.sh   # nạp $GITLABS_ACCESS_TOKEN, $GITLABS_USERNAME, $sid, $ssid
+TOKEN="$GITLABS_ACCESS_TOKEN"
 ```
 
-Extract `GITLAB*_ACCESS_TOKEN` or `GITLAB_PRIVATE_TOKEN`. Mask in output (last 4 chars).
+Mask in output (last 4 chars).
 
 ## Common Operations
 

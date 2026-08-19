@@ -16,9 +16,9 @@ Internal project management repo for iNET Tech Department. Tracks monthly OKR/KP
 - `hop-cxo/DD-MM-YYYY/` - CXO meeting minutes + transcripts
 - `review-services/DD-MM-YYYY/` - Internal product/architecture review minutes (`.srt` transcript + self-contained HTML report per session)
 - `dao-tao/DD-MM-YYYY/` - Internal training material (HTML slides, transcripts)
-- `scripts/` - Python read-only helpers to inspect the P2 formula template (`dump_p2_*.py`, openpyxl)
+- `scripts/` - Python read-only helpers to inspect the P2 formula template (`dump_p2_*.py`, openpyxl) + `load-env.sh` (credential loader)
 - `.claude/skills/` - Local skills: `gitlab-okr-kpi` (write), `p2-monthly-okr-audit` (read-only audit)
-- `.env` - my.inet.vn session cookies (`sid`/`ssid`, lowercase) + GitLab tokens - **never commit**
+- `scripts/load-env.sh` - loads my.inet.vn session cookies (`sid`/`ssid`, lowercase) + GitLab tokens from an env file in iCloud Drive. **No secret file lives in this repo**; the script is the only place that knows the path
 
 There is no `weekly meetings/` or `agent/` directory - both were removed. Monthly OKR/KPI data now lives on my.inet.vn, not in repo meeting notes.
 
@@ -37,7 +37,7 @@ P2 scope of dattqh: dattqh, hobv, ducnd, chuongdt. ⛔ NOT anhtct (another manag
 ## Key Workflows
 
 ### OKR/KPI Automation
-Use `/gitlab-okr-kpi` to create/update OKR entries on https://my.inet.vn. Primary method is **direct JSON API via curl** (`POST /api/client/v1/accountkpi/{create,update,delete,search}`), authenticated with `sid`/`ssid` cookies from `.env`. Browser automation is legacy fallback only.
+Use `/gitlab-okr-kpi` to create/update OKR entries on https://my.inet.vn. Primary method is **direct JSON API via curl** (`POST /api/client/v1/accountkpi/{create,update,delete,search}`), authenticated with `sid`/`ssid` cookies loaded via `source scripts/load-env.sh`. Browser automation is legacy fallback only.
 
 Two traps: `update` is **full replace** (untransmitted fields get wiped - always read-modify-write via `/search` first), and `difficulty` (`S|M|L|XL`) is mandatory in the UI so it must be set in the payload on both create and update.
 
@@ -66,4 +66,4 @@ Vì code clone/chạy trên nhiều máy, "lý do thay đổi" phải đi theo `
 - **Quyết định kiến trúc / đánh đổi lâu dài** → ghi ADR vào `docs/decisions/` (copy `0000-adr-template.md`).
 - **Kế hoạch feature/fix** → `plans/<user>/` (scope theo người, tránh xung đột merge — xem `plans/README.md`).
 - **Đặt tên file/ADR theo nội dung**, không theo số phase / mã plan (plan đổi tên thì reference thành rác).
-- **Secret**: mọi `.env.*` đã gitignore — KHÔNG commit. Lỡ lộ lên git → **rotate ngay** (`git rm --cached` không đủ vì secret vẫn trong history).
+- **Secret**: credentials sống trên iCloud Drive, KHÔNG trong repo — nạp bằng `source scripts/load-env.sh` (đường dẫn cụ thể chỉ nằm trong script đó, không viết ra tài liệu). Mọi `.env*` vẫn gitignore để phòng ngừa. Lỡ lộ lên git → **rotate ngay** (`git rm --cached` không đủ vì secret vẫn trong history).

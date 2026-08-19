@@ -1,6 +1,6 @@
 ---
 name: gitlab-okr-kpi
-description: "GitLab operations, OKR/KPI automation, and P2+ performance evaluation for iNET projects. Read credentials from .env, manage pipelines/repos/MRs on gitlabs.inet.vn, automate KPI entry, and draft monthly P2+ evaluations (P2-Core năng lực + P2-Delivery kết quả) on my.inet.vn. Activate when user mentions GitLab, GitLabs, CI/CD pipelines, GitLab API, OKR, KPI, P2, P2+, đánh giá P2, P2-Core, P2-Delivery, năng lực nền tảng, or my.inet.vn."
+description: "GitLab operations, OKR/KPI automation, and P2+ performance evaluation for iNET projects. Read credentials from iCloud Drive via scripts/load-env.sh, manage pipelines/repos/MRs on gitlabs.inet.vn, automate KPI entry, and draft monthly P2+ evaluations (P2-Core năng lực + P2-Delivery kết quả) on my.inet.vn. Activate when user mentions GitLab, GitLabs, CI/CD pipelines, GitLab API, OKR, KPI, P2, P2+, đánh giá P2, P2-Core, P2-Delivery, năng lực nền tảng, or my.inet.vn."
 license: MIT
 version: 2.1.0
 argument-hint: "[gitlab-task] | [month/year] [member] [--audit] [--verify-gitlab] | p2 [account] [YYYY-MM]"
@@ -12,7 +12,7 @@ GitLab API operations and OKR/KPI automation for iNET internal projects. OKR/KPI
 
 ## Scope
 
-Handles: GitLab credentials from `.env`, GitLab API (pipelines, repos, CI/CD, MRs), OKR/KPI automation on my.inet.vn, KPI audit, GitLab-KPI linkage verification, P2+ monthly evaluation drafting (P2-Core + P2-Delivery via my.inet.vn API).
+Handles: GitLab credentials from iCloud Drive via `scripts/load-env.sh`, GitLab API (pipelines, repos, CI/CD, MRs), OKR/KPI automation on my.inet.vn, KPI audit, GitLab-KPI linkage verification, P2+ monthly evaluation drafting (P2-Core + P2-Delivery via my.inet.vn API).
 Does NOT handle: SSH key management, deployment automation, non-GitLab git operations, non-iNET portals, submitting/approving P2+ evaluations (agent only saves `draft`; manager reviews & approves).
 
 ## Team Members
@@ -27,7 +27,7 @@ Does NOT handle: SSH key management, deployment automation, non-GitLab git opera
 
 ## Credential Discovery
 
-Read `.env` at `<project-root>`. Common variables:
+Run `source scripts/load-env.sh` — it loads credentials from an env file in iCloud Drive. No secret file lives in the repo, and the script is the only place holding the path. Variables:
 
 | Variable | Purpose |
 |----------|---------|
@@ -42,15 +42,15 @@ Read `.env` at `<project-root>`. Common variables:
 
 1. All GitLab tokens are **Project Access Tokens** — NOT User/Personal tokens
 2. Each project has its own scoped token (Settings → Access Tokens)
-3. **NEVER** commit `.env` or expose tokens — mask in output (last 4 chars only)
-4. Cookie names `sid`/`ssid` are **lowercase** in `.env`
+3. **NEVER** copy the iCloud env file into the repo or expose tokens — mask in output (last 4 chars only)
+4. Cookie names `sid`/`ssid` are **lowercase**
 
 ## Mode 1: GitLab Operations
 
 For GitLab API tasks (pipelines, MRs, repos, CI/CD). See `references/gitlab-api-operations.md` for full API reference.
 
 **Workflow:**
-1. Read `.env` at project root → extract GitLab token (respect privacy hooks)
+1. `source scripts/load-env.sh` → `$GITLABS_ACCESS_TOKEN` (respect privacy hooks)
 2. Default instance: `https://gitlabs.inet.vn`, API base: `{instance}/api/v4`
 3. Execute API operations via curl
 4. Report results concisely, tokens masked
@@ -63,7 +63,7 @@ Automate KPI on https://my.inet.vn bằng cách gọi HTTP API trực tiếp (cu
 
 Run ALL checks before Phase 1. Use `AskUserQuestion` for missing info (session-only, NOT written to files).
 
-1. **Cookie my.inet.vn**: Read `.env` → check `sid` + `ssid` → validate via `curl -s -o /dev/null -w "%{http_code}" -H "Cookie: sid=<sid>; ssid=<ssid>" https://my.inet.vn/account/kpi` (200=OK, 302/401=expired)
+1. **Cookie my.inet.vn**: `source scripts/load-env.sh` → check `sid` + `ssid` → validate via `curl -s -o /dev/null -w "%{http_code}" -H "Cookie: sid=<sid>; ssid=<ssid>" https://my.inet.vn/account/kpi` (200=OK, 302/401=expired)
 2. **GitLab Auth**: Test `curl -s -H "PRIVATE-TOKEN: <token>" https://gitlabs.inet.vn/api/v4/user` — optional, skip if not needed
 3. **Team member**: Match against table above (name/username/email). Ask if ambiguous.
 4. **Nguồn OKR tháng**: KHÔNG có folder meeting notes (`weekly meetings/` đã xoá). Theo thứ tự: user chỉ định trực tiếp → `plans/<user>/` → GitLab issues/milestone của tháng. Báo cáo audit kỳ trước ở `okr-kpi/MM-YYYY/` (kỳ T5–T7/2026 ở `plans/reports/`).
@@ -109,7 +109,7 @@ Draft monthly P2+ performance evaluations on my.inet.vn via JSON API (curl-first
 - **P2-Delivery** — kết quả công việc, chung: okr/quality/commitment → `"Chưa đạt"` | `"Đạt"` | `"Tốt"`
 
 **Workflow:**
-1. **Pre-flight**: read `.env` → `sid`+`ssid` (validate); xác định SSO account (email) + period (`YYYY-MM`).
+1. **Pre-flight**: `source scripts/load-env.sh` → `sid`+`ssid` (validate); xác định SSO account (email) + period (`YYYY-MM`).
 2. **Load baseline + quyền (POST `/get`)**: body `{account, period}`. Nếu đã có record → trả full object (`roles`, `department`, `scores`, `__permission`...). Nếu chưa → chỉ `{__permission}` (lấy role từ page/user; `department` mặc định `"technology"`). Giữ nguyên mọi field, chỉ sửa `scores`.
 3. **Xác định mức** (ưu tiên): (a) mức user cung cấp trực tiếp trong chat; (b) `selfScores` đã có trên portal (nếu chỉ cần chấm official theo self); (c) không có → `AskUserQuestion` hỏi từng hạng mục, **KHÔNG tự suy diễn**. ⛔ KHÔNG đọc file Excel — `.xlsx` trong repo chỉ giữ mẫu công thức, không chứa mức đánh giá. GitLab (Mode 1) chỉ khi user yêu cầu rõ. Chi tiết: `references/p2-evaluation-automation.md`.
 4. **Compute (POST `/compute`)**: validate, lấy `total`+`grade`, hiển thị cho user xác nhận.
@@ -143,7 +143,7 @@ Always confirm via `AskUserQuestion`:
 
 ## Error Handling
 
-- **Cookie auth fails (302/401)** → notify user re-login SSO + update `.env` (cookie `sid` sống ~1 ngày)
+- **Cookie auth fails (302/401)** → notify user re-login SSO + update the iCloud env file (cookie `sid` sống ~1 ngày)
 - **Request timeout** → retry 1 lần với same payload, log + báo user nếu fail tiếp
 - **Validation 400 từ BE** → show response body; không retry tự động (có thể thiếu field required như `difficulty`)
 - **Update KPI sai `_id`** → check lại qua `/accountkpi/search`, KHÔNG đoán

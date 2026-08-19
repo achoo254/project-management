@@ -160,7 +160,7 @@ Sizing uses complexity tiers, not hours: **S** = 1–3 files isolated · **M** =
 
 | Risk | Impact | Probability | Mitigation |
 |------|--------|-------------|-----------|
-| `.env` cookies expire (`sid` TTL ≈ 1 day) | Automation blocked, possibly mid-batch | High | Pre-flight before every write; fail fast with recovery steps |
+| iCloud env cookies expire (`sid` TTL ≈ 1 day) | Automation blocked, possibly mid-batch | High | Pre-flight before every write; fail fast with recovery steps |
 | Partial payload sent to `accountkpi/update` | Silent data loss — omitted fields wiped to null | Medium | Mandatory read-modify-write via `search` |
 | Trusting page 1 of `accountkpi/search` | Member wrongly reported as having declared no OKR | Medium | Always send `monthStr`; reconcile `totalElements` against rows received |
 | Self-declared effort taken at face value | Inflated OKR grade | Medium | Difficulty re-derived from code footprint during audit |
@@ -189,7 +189,7 @@ Sizing uses complexity tiers, not hours: **S** = 1–3 files isolated · **M** =
 - **GitLab token scope** determines which repos can be used as evidence
 
 ### Internal Dependencies
-- `.env` refreshed by each developer locally, roughly daily for `sid`
+- iCloud env file refreshed by each developer in their own iCloud Drive, roughly daily for `sid`
 - Master P2 template must preserve formulas when copied
 - Evidence requires the member's repos to be cloned locally under `~/inet-gitlab/`
 

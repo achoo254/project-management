@@ -30,15 +30,15 @@ Trang KPI detail là **AngularJS SPA** — data nạp qua API gateway `POST /api
 ```
 > Cột bảng KPI: `0`=Chi tiết KPI(tên) · `1`=Mục tiêu · `2`=**Kết quả** · `3`=Ghi chú · `4`=Trạng thái(bỏ qua) · `5`=Hành động(bỏ, có URL). Trang cũng hiện "Đánh giá P2+ T{n}" + lịch sử (vd "T04/2026 1.04 (Tốt)").
 
-## Cách B — auth bằng cookie từ .env (khi browser chưa login)
+## Cách B — auth bằng cookie từ iCloud Drive (khi browser chưa login)
 
-`.env` ở project root chứa `sid` (JWT) + `ssid`. Privacy-hook chặn đọc `.env` → cần user phê duyệt (AskUserQuestion → `cat`). KHÔNG nhúng literal credential vào lệnh (secret-scan hook chặn) — load qua biến shell:
+File credentials trên iCloud Drive chứa `sid` (JWT) + `ssid`; repo KHÔNG chứa file secret nào. Privacy-hook có thể chặn đọc → cần user phê duyệt. KHÔNG nhúng literal credential vào lệnh (secret-scan hook chặn) — nạp qua helper:
 ```bash
-SID=$(grep '^sid=' .env | cut -d= -f2-); SSID=$(grep '^ssid=' .env | cut -d= -f2-)
+source scripts/load-env.sh   # nạp $sid $ssid từ iCloud Drive
 # validate (200=OK, 302/401=hết hạn):
-curl -s -o /dev/null -w "%{http_code}\n" -H "Cookie: sid=$SID; ssid=$SSID" https://my.inet.vn/account/kpi
+curl -s -o /dev/null -w "%{http_code}\n" -H "Cookie: sid=$sid; ssid=$ssid" https://my.inet.vn/account/kpi
 ```
-⚠️ API gateway `accountkpi/search` cần thêm header `token` (set lúc SSO login, KHÔNG có trong `.env`) → curl thường trả `{"status":"error","message":"Login required"}`. Vì vậy **ưu tiên Cách A** (browser). Cookie JWT có `exp` — kiểm tra hạn trước khi dùng.
+⚠️ API gateway `accountkpi/search` cần thêm header `token` (set lúc SSO login, KHÔNG có trong file env) → curl thường trả `{"status":"error","message":"Login required"}`. Vì vậy **ưu tiên Cách A** (browser). Cookie JWT có `exp` — kiểm tra hạn trước khi dùng.
 
 ## Map KPI ↔ git
 - Với mỗi KPI: đọc tên + Mục tiêu + Kết quả → suy ra từ khóa → `git_month_evidence.py --grep "<kw>"` lấy SHA minh chứng.

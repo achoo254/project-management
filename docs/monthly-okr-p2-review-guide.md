@@ -13,11 +13,11 @@ Runbook lặp lại mỗi tháng: đối chiếu **tự đánh giá (OKR + P2)**
 | **P2 tự đánh giá** | `POST .../p2evaluation/get` body `{account,period:"YYYY-MM"}` → `selfScores`/`selfComputed`/`selfStatus` **và** `scores`/`computed`/`status` + `roles` + `history[]` | Tính lại điểm: `.../p2evaluation/compute`. Never submit |
 | **Tiêu chí + trọng số** | `POST .../p2config/list` body `{department}` → mỗi tiêu chí có `label`/`desc`/`weight`/`levels`/`rubric` | Nguồn chuẩn cho text tiêu chí. `rubric: []` = không có rubric chi tiết → chấm theo đúng `desc` |
 | **Số liệu tham chiếu** | `POST .../p2evaluation/metrics` body `{account,period}` → `tasks`/`ticketConversations`/`calendar`/`timekeeping` | Chính là cột "Số liệu tham chiếu" trên form. ⚠️ Xem bẫy `tasks.total=0` ở §3 |
-| **Bằng chứng GitLab** | `gitlabs.inet.vn/api/v4` — `issues`, `merge_requests`, `milestones`, `pipelines`, `jobs/:id/trace`, **`releases`**, `repository/tags`, `users/:id/events` (phân trang!) | Token `GITLABS_ACCESS_TOKEN` trong `.env`. User IDs: dattqh=5, ducnd=27, chuongdt=26, hobv=17. Project IDs ở §4 |
+| **Bằng chứng GitLab** | `gitlabs.inet.vn/api/v4` — `issues`, `merge_requests`, `milestones`, `pipelines`, `jobs/:id/trace`, **`releases`**, `repository/tags`, `users/:id/events` (phân trang!) | Token `GITLABS_ACCESS_TOKEN` nạp qua `source scripts/load-env.sh`. User IDs: dattqh=5, ducnd=27, chuongdt=26, hobv=17. Project IDs ở §4 |
 | **OKR kỳ N-1 (bắt buộc)** | Cùng endpoint, `monthStr` tháng trước | Baseline để gán nhãn `mới`/`mở rộng`/`thường kỳ` ở §2. KHÔNG bỏ bước này |
 | **Code thực tế (local)** | Scout repo local qua git log + đọc source | Bản đồ repo ở mục 4 |
 
-Cookie `sid`/`ssid` + token đọc từ `.env` (privacy-guarded → xin duyệt; nguồn qua Bash `. .env` không bị chặn).
+Cookie `sid`/`ssid` + token nạp bằng `source scripts/load-env.sh` — helper đọc từ file env trên iCloud Drive; repo không chứa file secret nào.
 
 ## 2. Phương pháp đánh giá 3 lớp
 

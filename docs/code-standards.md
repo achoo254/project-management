@@ -31,11 +31,11 @@
 - Aggregated reports for humans are **HTML**; `.md` is only for the accompanying detail record
 
 ### Configuration Files
-- **Credentials:** `.env` (git-ignored, never commit)
+- **Credentials:** iCloud env file, outside the repo — load with `source scripts/load-env.sh`
   - my.inet.vn cookies: `sid`, `ssid` — **lowercase variable names**
   - GitLab: `GITLABS_ACCESS_TOKEN` / `GITLAB_PRIVATE_TOKEN` (project access tokens, not personal)
   - `sid` is a JWT with **TTL ≈ 1 day** — expect to refresh it almost every working session
-- **.gitignore:** all `.env*` are ignored; if a secret ever lands in git, **rotate it** (`git rm --cached` is not enough, it stays in history)
+- **.gitignore:** all `.env*` are still ignored as a guard even though secrets no longer live here; if a secret ever lands in git, **rotate it** (`git rm --cached` is not enough, it stays in history)
 
 ### Automation Tools
 - **Skill files:** `.claude/skills/<skill-name>/SKILL.md`
@@ -131,7 +131,9 @@ Anything shared with the team (reports, guides, training slides, meeting minutes
 | `project-roadmap.md` | Department head, developers | Monthly at minimum |
 | `decisions/*.md` | All team members | One ADR per long-lived architectural decision |
 
-## Environment Variables (`.env`)
+## Environment Variables (iCloud env file)
+
+Secrets live outside the repo, in an env file on iCloud Drive, so they sync across the owner's Macs and can never be committed by accident. Load them with `source scripts/load-env.sh` — that script holds the exact path, deliberately not repeated in the docs. `.env.example` is the template.
 
 ### Required Variables
 ```bash
@@ -144,8 +146,8 @@ GITLABS_ACCESS_TOKEN=<token>
 ```
 
 ### Security Rules
-1. **Never commit** `.env` — all `.env*` patterns are git-ignored
-2. **Store locally** on the development machine only
+1. **Never copy the env file into the repo** — all `.env*` patterns stay git-ignored as a guard
+2. **Store in iCloud Drive** under `secrets/` (dir `700`, file `600`) — synced across the owner's Macs, nowhere else
 3. **Refresh `sid` ≈ daily** — it is a JWT with `exp = iat + 86400`; a 302/401 pre-flight means expired
 4. **Retrieve:** Browser DevTools → Application → Cookies → copy `sid` and `ssid`
 5. **Share:** only via secure channels, never email or group chat
@@ -179,7 +181,7 @@ Read-only helpers that dump workbook content to text so the **formula template**
 
 ### `gitlab-okr-kpi` skill
 - **Method:** direct JSON API over `curl` — `POST /api/client/v1/accountkpi/{create,update,delete,search}`. Browser automation is legacy fallback only.
-- **Authentication:** cookie pair `sid` + `ssid` from `.env`; pre-flight with `GET /account/kpi` (200 = OK, 302/401 = expired)
+- **Authentication:** cookie pair `sid` + `ssid` via `source scripts/load-env.sh`; pre-flight with `GET /account/kpi` (200 = OK, 302/401 = expired)
 - **`update` is FULL REPLACE.** Fields omitted from the payload are wiped to null. Always read-modify-write: `search` → merge (keep `difficulty`) → `update`.
 - **`search` pages at 30 entries and ignores `size`.** Always send `monthStr` so the backend filters; never fetch one page and filter client-side. Reconcile `totalElements` against the rows actually received.
 - **`delete` is a hard delete** with no undo — verify `_id` via `search` and confirm with the owner first.
@@ -218,7 +220,7 @@ Before committing changes:
 - [ ] Claims and dates match the change actually made
 
 ### Code/Automation
-- [ ] `.env` not committed (verify `.gitignore` covers it)
+- [ ] No credential file in the repo (secrets belong in the iCloud env file; verify `.gitignore` still covers `.env*`)
 - [ ] Credentials not logged or printed; tokens masked to the last 4 characters
 - [ ] User confirmation implemented for destructive operations (update, delete)
 - [ ] Error messages descriptive and actionable
@@ -252,7 +254,7 @@ Before committing changes:
 5. **API:** fetching one page from `search` and filtering client-side → entries of the target month get lost for anyone with history
 6. **P2 source:** reading evaluation levels from an `.xlsx`, or creating a new per-member workbook — levels exist only on my.inet.vn
 7. **Excel:** modifying the formula template, or hard-coding values into summary cells
-8. **Environment:** committing `.env`, or assuming `sid` lasts a month — it lasts about a day
+8. **Environment:** copying the env file back into the repo, or assuming `sid` lasts a month — it lasts about a day
 9. **Deliverables:** shipping HTML that pulls fonts or CSS from a CDN → breaks offline and outside the network
 10. **Documentation:** hard-coding facts that drift → link to the source file instead
 
@@ -266,6 +268,6 @@ Before committing changes:
 | Monthly audit reports (`okr-kpi/MM-YYYY/`) | Department head | Monthly, early in month N+1 |
 | Meeting minutes (`hop-cxo/`) | Meeting lead | Per session |
 | Training material (`dao-tao/`) | Session speaker | Per session |
-| `.env` credentials | Each developer, locally | `sid` roughly daily; tokens as they rotate |
+| iCloud env credentials | Each developer, in their own iCloud Drive | `sid` roughly daily; tokens as they rotate |
 | Documentation (`docs/`) | Tech team / department head | Quarterly or after major changes |
 | ADRs (`docs/decisions/`) | Decision owner | One per long-lived decision |

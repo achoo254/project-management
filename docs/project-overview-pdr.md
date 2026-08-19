@@ -46,14 +46,14 @@ Project work on gitlabs.inet.vn (issues, MRs)
 Write OKR content per quy-tac-viet-noi-dung-okr.html
   description = HTML (KR name + GitLab anchor) · target/result = plain text · difficulty = S/M/L/XL
            ↓
-Authenticate: sid + ssid from .env, pre-flight GET /account/kpi
+Authenticate: sid + ssid from iCloud env file, pre-flight GET /account/kpi
            ↓
 POST /api/client/v1/accountkpi/create per entry (curl, no browser)
            ↓
 Verify: POST /accountkpi/search with monthStr, reconcile totalElements vs rows received
 ```
 
-**Key input:** `.env` holds the my.inet.vn cookies `sid` and `ssid` (lowercase names) plus `GITLABS_ACCESS_TOKEN`.
+**Key input:** the iCloud env file holds the my.inet.vn cookies `sid` and `ssid` (lowercase names) plus `GITLABS_ACCESS_TOKEN`; load it with `source scripts/load-env.sh`.
 
 ### P2+ Evaluation Flow
 ```
@@ -111,13 +111,13 @@ Active OKR/KPI per member is **not duplicated here** — it changes monthly and 
 
 | Risk | Impact | Mitigation |
 |------|--------|-----------|
-| Expired `.env` cookies | Automation blocked mid-run | Pre-flight check before every write; refresh `sid`/`ssid` from the browser |
+| Expired cookies in the iCloud env file | Automation blocked mid-run | Pre-flight check before every write; refresh `sid`/`ssid` from the browser |
 | Partial payload sent to `accountkpi/update` | Silent data loss — omitted fields wiped to null | Mandatory read-modify-write via `search` before any update |
 | Trusting page 1 of `accountkpi/search` | Wrong conclusion that a member declared no OKR | Always send `monthStr`; reconcile `totalElements` against rows received |
 | Self-declared effort taken at face value | Inflated OKR grade | Difficulty re-derived from code footprint during the audit |
 | "Deployed to production" without a marker | Late work counted as on-time | Require release tag, prod bundle `last-modified`, or a successful `deploy` job |
 | Score arithmetic taken on trust | P2 total wrong in the report | Re-compute `total`/`grade` by hand and via `/p2evaluation/compute`; put the formula in the report |
-| Leaked `.env` in git | Credential exposure | All `.env*` ignored; rotate immediately if one ever lands in history |
+| Leaked credentials in git | Credential exposure | Secrets live in iCloud Drive, never in the repo; all `.env*` still gitignored as a guard; rotate immediately if one ever lands in history |
 | Personnel report published externally | Data exposure | Reports stay local in `okr-kpi/` and `plans/reports/`, never deployed or shared outside |
 
 ## Next Steps (Priority Order)

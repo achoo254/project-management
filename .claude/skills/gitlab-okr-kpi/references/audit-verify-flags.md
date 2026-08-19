@@ -44,11 +44,10 @@ OKR/KPI hiệu suất nằm ở endpoint **`accountkpi/search`** (POST, JSON, Sp
 **Field mỗi entry:** `target` (mục tiêu, plain text) · `result` (kết quả — **tự báo**, plain text) · `description` (rich text HTML, chứa anchor GitLab issue) · `difficulty` (`S`/`M`/`L`/`XL`) · `note` (theo convention hiện tại **để trống** — entry cũ có thể còn link GitLab ở đây) · `createdAccount` · `createdDate` · `status` (`waiting` = chờ quản lý duyệt, **không phải** chưa làm).
 
 ```bash
-SID="$(grep '^sid=' .env | cut -d= -f2-)"
-SSID="$(grep '^ssid=' .env | cut -d= -f2-)"
+source scripts/load-env.sh   # nạp $sid $ssid từ iCloud Drive
 
 curl -s --max-time 25 -X POST "https://my.inet.vn/api/client/v1/accountkpi/search" \
-  -H "Cookie: sid=$SID; ssid=$SSID" -H "Content-Type: application/json" \
+  -H "Cookie: sid=$sid; ssid=$ssid" -H "Content-Type: application/json" \
   --data-binary '{"api":"/accountkpi/search","account":"hobv@inet.vn","monthStr":"062026"}' \
   | jq '{totalElements, received: (.content|length), entries: [.content[] | {id:._id, target, difficulty, status}]}'
 # → so totalElements vs received; strip HTML ở description khi hiển thị
@@ -63,7 +62,7 @@ curl -s --max-time 25 -X POST "https://my.inet.vn/api/client/v1/accountkpi/searc
 
 Kiểm tra OKR/KPI có liên quan đến issues/projects trên gitlabs.inet.vn.
 
-**Yêu cầu:** GitLab token trong `.env` (`GITLABS_ACCESS_TOKEN` / `GITLAB_PRIVATE_TOKEN`).
+**Yêu cầu:** GitLab token trong file env trên iCloud (`GITLABS_ACCESS_TOKEN`), nạp qua `source scripts/load-env.sh`.
 
 **Bản đồ repo ↔ thành viên:** đọc từ `docs/monthly-okr-p2-review-guide.md` mục 4 (không phải `README.md` — README chỉ có bảng thành viên + link KPI, không có mapping repo). GitLab user IDs: dattqh=5, ducnd=27, chuongdt=26, hobv=17.
 
@@ -92,6 +91,6 @@ Kiểm tra OKR/KPI có liên quan đến issues/projects trên gitlabs.inet.vn.
 
 ## Dependencies
 
-- `.env` với `sid`, `ssid` (cookie my.inet.vn — TTL ≈ 1 ngày) và `GITLABS_ACCESS_TOKEN`
+- File env trên iCloud Drive với `sid`, `ssid` (cookie my.inet.vn — TTL ≈ 1 ngày) và `GITLABS_ACCESS_TOKEN`, nạp qua `source scripts/load-env.sh`
 - `curl` + `jq` — cả hai flag chạy bằng HTTP thuần, **không cần browser**
 - `docs/monthly-okr-p2-review-guide.md` — bản đồ repo ↔ thành viên + ngưỡng đánh giá (cho `--verify-gitlab`)

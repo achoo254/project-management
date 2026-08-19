@@ -4,7 +4,7 @@
 
 - Base API: `https://my.inet.vn/api/client/v1` — **tất cả endpoint là POST, JSON, RPC-style** (có field `api` trong body). KHÔNG có GET.
 - Page: `https://my.inet.vn/account/p2/evaluation?account={SSO}&period={YYYY-MM}`
-- Auth: Cookie `sid` + `ssid` (đọc `.env`, tên lowercase).
+- Auth: Cookie `sid` + `ssid` — nạp qua `source scripts/load-env.sh` (helper đọc từ iCloud Drive; tên biến lowercase).
 - `{SSO}` = email (vd `chuongdt@inet.vn`); `{period}` = `YYYY-MM` (vd `2026-05`).
 
 ## Cấu trúc đánh giá
@@ -136,8 +136,9 @@ Khác `/save`: `scores`→`selfScores`, `status`→`selfStatus`. Giữ `reason` 
 
 ## Quy trình curl (đầy đủ)
 ```bash
-# 1. Lấy sid/ssid từ .env (tôn trọng privacy hook)
-SID=...; SSID=...; COOKIE="sid=${SID}; ssid=${SSID}"; BASE="https://my.inet.vn/api/client/v1"
+# 1. Nạp sid/ssid từ iCloud Drive
+source scripts/load-env.sh   # nạp $sid $ssid từ iCloud Drive
+COOKIE="sid=${sid}; ssid=${ssid}"; BASE="https://my.inet.vn/api/client/v1"
 
 # 2. Load baseline + quyền
 echo '{"account":"chuongdt@inet.vn","period":"2026-05"}' > /tmp/get.json
@@ -157,7 +158,7 @@ curl -s --max-time 25 -X POST "$BASE/p2evaluation/save" \
 3. Báo cáo: điểm tổng (`computed.total`), `grade`, trạng thái `draft`, nhắc quản lý vào my.inet.vn review.
 
 ## Error Handling
-- `/get`,`/compute`,`/save` trả HTML hoặc 302/401 → cookie hết hạn → báo user cập nhật `sid`/`ssid` trong `.env`.
+- `/get`,`/compute`,`/save` trả HTML hoặc 302/401 → cookie hết hạn → báo user cập nhật `sid`/`ssid` trong file env trên iCloud Drive.
 - 502 "temporarily unavailable" → server quá tải do gọi dồn → đợi ~15s, gọi lại tuần tự.
 - `{"status":"error","message":"Trường roles không được để trống"}` → thiếu `roles` trong body compute.
 - Giá trị mức không hợp lệ → đọc `<select>` option trên page lấy đúng chuỗi (dấu/hoa-thường).

@@ -16,7 +16,7 @@ project-management/
 ├── README.md                              # Entry point: structure, workflows, team
 ├── CLAUDE.md                              # Claude Code instructions + change-logging conventions
 ├── P2_Form_BP_Cong_Nghe.xlsx              # P2 scoring FORMULA template only (immutable, no levels)
-├── .env.example                           # Template: sid, ssid, GITLABS_*
+├── .env.example                           # Template for the iCloud env file: sid, ssid, GITLABS_*
 ├── .gitignore                             # Ignores all .env* plus editor dirs
 │
 ├── docs/
@@ -74,8 +74,9 @@ project-management/
 |------|---------|-------|
 | `README.md` | Structure, workflows, quick start, team table | Department head |
 | `CLAUDE.md` | AI agent instructions; where to record "why" for changes | Department head |
-| `.env` | my.inet.vn cookies (`sid`, `ssid`) + GitLab tokens — **SECRET, git-ignored** | Each developer, locally |
-| `.env.example` | Variable names without values | Department head |
+| iCloud env file (path lives in `scripts/load-env.sh`) | my.inet.vn cookies (`sid`, `ssid`) + GitLab tokens — **SECRET, outside the repo**, synced across the owner's Macs | Each developer, in their own iCloud Drive |
+| `scripts/load-env.sh` | Loads that file into the shell (`source scripts/load-env.sh`) — the single read point | Department head |
+| `.env.example` | Variable names without values, template for the iCloud file | Department head |
 | `.gitignore` | Excludes all `.env*`, `.idea`, `.vscode` | Repository admin |
 
 ### Documentation
@@ -121,7 +122,7 @@ project-management/
    - target / result = plain text
    - difficulty = S/M/L/XL, mandatory
 3. Entry created — manually on the form, or via /gitlab-okr-kpi:
-   - Read sid/ssid from .env, pre-flight GET /account/kpi (200 = OK)
+   - source scripts/load-env.sh (reads sid/ssid from iCloud), pre-flight GET /account/kpi (200 = OK)
    - POST /api/client/v1/accountkpi/create per entry, capture _id
 4. Verification:
    - POST /accountkpi/search with monthStr, reconcile totalElements vs rows received
@@ -180,7 +181,7 @@ GitLab user IDs (for evidence queries): dattqh=5, ducnd=27, chuongdt=26, hobv=17
 
 ### Authentication
 - **my.inet.vn:** performance portal — OKR/KPI (`accountkpi`) and P2+ (`p2evaluation`)
-- **Credentials:** cookies `sid` + `ssid` in `.env` (lowercase variable names)
+- **Credentials:** cookies `sid` + `ssid` in the iCloud env file (lowercase variable names), loaded via `source scripts/load-env.sh`
 - **Refresh frequency:** `sid` is a JWT with TTL ≈ 1 day — expect a refresh nearly every session; a 302/401 pre-flight means expired
 - **gitlabs.inet.vn:** project access tokens (`GITLABS_ACCESS_TOKEN`), scoped per project
 

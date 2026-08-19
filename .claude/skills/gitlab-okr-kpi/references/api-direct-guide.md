@@ -21,20 +21,19 @@ Cookie pair (cùng domain `.inet.vn`):
 - `sid` — JWT, **TTL ~1 ngày** (`exp = iat + 86400`). Hết hạn → cần re-login SSO
 - `ssid` — server session id, format `<random>_<accountId>`
 
-Read từ `.env` tại project root (variables lowercase: `sid=`, `ssid=`).
+Read qua `source scripts/load-env.sh` — helper nạp credentials từ file env trên iCloud Drive (variables lowercase: `sid=`, `ssid=`). Repo KHÔNG chứa file secret nào.
 
 ### Pre-flight check
 
 ```bash
-SID="$(grep '^sid=' .env | cut -d= -f2-)"
-SSID="$(grep '^ssid=' .env | cut -d= -f2-)"
+source scripts/load-env.sh   # nạp $sid $ssid từ iCloud Drive
 HTTP=$(curl -s -o /dev/null -w "%{http_code}" \
-  -H "Cookie: sid=$SID; ssid=$SSID" \
+  -H "Cookie: sid=$sid; ssid=$ssid" \
   "https://my.inet.vn/account/kpi")
-[ "$HTTP" = "200" ] || { echo "Cookie expired (HTTP $HTTP). Re-login SSO + update .env."; exit 1; }
+[ "$HTTP" = "200" ] || { echo "Cookie expired (HTTP $HTTP). Re-login SSO + cập nhật file env trên iCloud."; exit 1; }
 ```
 
-`200` = OK. `302` / `401` = expired → user phải login lại trên browser, copy cookie mới vào `.env`.
+`200` = OK. `302` / `401` = expired → user phải login lại trên browser, copy cookie mới vào file env trên iCloud Drive.
 
 ## Payload schemas
 
@@ -160,12 +159,11 @@ Entries ở `content[]`. Field bổ sung tự sinh: `_id`, `createdAccount`, `mo
 ### Tạo 1 KPI entry
 
 ```bash
-SID="$(grep '^sid=' .env | cut -d= -f2-)"
-SSID="$(grep '^ssid=' .env | cut -d= -f2-)"
+source scripts/load-env.sh   # nạp $sid $ssid từ iCloud Drive
 
 curl -X POST "https://my.inet.vn/api/client/v1/accountkpi/create" \
   -H "Content-Type: application/json" \
-  -H "Cookie: sid=$SID; ssid=$SSID" \
+  -H "Cookie: sid=$sid; ssid=$ssid" \
   -d '{
     "description": "<p><strong>KR1: Tên</strong></p><p>Mô tả</p>",
     "target": "Mục tiêu",
@@ -182,7 +180,7 @@ curl -X POST "https://my.inet.vn/api/client/v1/accountkpi/create" \
 ```bash
 curl -s -X POST "https://my.inet.vn/api/client/v1/accountkpi/search" \
   -H "Content-Type: application/json" \
-  -H "Cookie: sid=$SID; ssid=$SSID" \
+  -H "Cookie: sid=$sid; ssid=$ssid" \
   -d '{"api":"/accountkpi/search","account":"dattqh@inet.vn","monthStr":"052026","pageSize":1000}' \
   | jq '.content[] | {id: ._id, target: .target}'
 ```
@@ -195,7 +193,7 @@ curl -s -X POST "https://my.inet.vn/api/client/v1/accountkpi/search" \
 # 1. Fetch entry hiện tại
 CURRENT=$(curl -s -X POST "https://my.inet.vn/api/client/v1/accountkpi/search" \
   -H "Content-Type: application/json" \
-  -H "Cookie: sid=$SID; ssid=$SSID" \
+  -H "Cookie: sid=$sid; ssid=$ssid" \
   -d '{"api":"/accountkpi/search","account":"dattqh@inet.vn","monthStr":"052026","pageSize":1000}' \
   | jq '.content[] | select(._id == "69f84f945beb57229796ee05")')
 
@@ -208,7 +206,7 @@ PAYLOAD=$(echo "$CURRENT" | jq '. + {
 # 3. Gửi UPDATE với payload đầy đủ
 curl -X POST "https://my.inet.vn/api/client/v1/accountkpi/update" \
   -H "Content-Type: application/json" \
-  -H "Cookie: sid=$SID; ssid=$SSID" \
+  -H "Cookie: sid=$sid; ssid=$ssid" \
   -d "$PAYLOAD"
 ```
 
@@ -223,7 +221,7 @@ curl ... -d '{"api":"/accountkpi/update","_id":"...","target":"Mới"}'
 ```bash
 curl -X POST "https://my.inet.vn/api/client/v1/accountkpi/delete" \
   -H "Content-Type: application/json" \
-  -H "Cookie: sid=$SID; ssid=$SSID" \
+  -H "Cookie: sid=$sid; ssid=$ssid" \
   -d '{
     "api": "/accountkpi/delete",
     "_id": "69f82792b5a99a34741ab7b4",
@@ -248,12 +246,11 @@ EMAIL="$1"           # dattqh@inet.vn
 MONTHSTR="$2"        # 052026
 ENTRIES_FILE="$3"
 
-SID="$(grep '^sid=' .env | cut -d= -f2-)"
-SSID="$(grep '^ssid=' .env | cut -d= -f2-)"
+source scripts/load-env.sh   # nạp $sid $ssid từ iCloud Drive
 
 # Pre-flight
-HTTP=$(curl -s -o /dev/null -w "%{http_code}" -H "Cookie: sid=$SID; ssid=$SSID" "https://my.inet.vn/account/kpi")
-[ "$HTTP" = "200" ] || { echo "Cookie expired (HTTP $HTTP). Re-login + update .env."; exit 1; }
+HTTP=$(curl -s -o /dev/null -w "%{http_code}" -H "Cookie: sid=$sid; ssid=$ssid" "https://my.inet.vn/account/kpi")
+[ "$HTTP" = "200" ] || { echo "Cookie expired (HTTP $HTTP). Re-login + cập nhật file env trên iCloud."; exit 1; }
 
 jq -c '.[]' "$ENTRIES_FILE" | while read -r entry; do
   payload=$(jq -n \
@@ -267,7 +264,7 @@ jq -c '.[]' "$ENTRIES_FILE" | while read -r entry; do
     '{description:$desc,target:$tgt,result:$res,note:$note,difficulty:$diff,api:"/accountkpi/create",monthStr:$ms,account:$acc}')
   curl -s -X POST "https://my.inet.vn/api/client/v1/accountkpi/create" \
     -H "Content-Type: application/json" \
-    -H "Cookie: sid=$SID; ssid=$SSID" \
+    -H "Cookie: sid=$sid; ssid=$ssid" \
     -d "$payload" | jq -r '._id // .error // "ok"'
 done
 ```
@@ -289,7 +286,7 @@ done
 
 Khi skill thực thi tạo OKR/KPI:
 
-1. **Pre-flight** — đọc `.env`, validate cookie qua `curl HEAD /account/kpi` (200 = OK)
+1. **Pre-flight** — `source scripts/load-env.sh`, validate cookie qua `curl HEAD /account/kpi` (200 = OK)
 2. **Confirm** — show user table 3-N entries dự kiến + xin approval qua `AskUserQuestion`
 3. **Execute** — loop `curl POST /accountkpi/create` cho từng entry. Capture `_id` response để verify
 4. **Verify** — gọi `/accountkpi/search` đếm `totalElements` confirm số entry tăng đúng
@@ -303,7 +300,7 @@ Nếu pre-flight `HTTP != 200`:
 
 1. Báo user: "Cookie my.inet.vn hết hạn (HTTP <code>). Cần re-login."
 2. User mở browser → login `https://my.inet.vn` → mở DevTools (F12) → Application/Storage → Cookies → copy `sid` + `ssid` value
-3. User update vào `.env`:
+3. User update vào file env trên iCloud Drive:
    ```
    sid=<new_jwt>
    ssid=<new_session_id>
@@ -317,7 +314,7 @@ KHÔNG có cách auto-refresh từ skill (SSO không expose token endpoint cho c
 Form KPI là AngularJS, toàn bộ controller nằm trong 1 bundle **`https://my.inet.vn/public/dist/js/main.js`** (~1.6MB, KHÔNG minify tên field). Cách tìm tên field payload từ label UI:
 
 ```bash
-curl -s -H "Cookie: sid=$SID; ssid=$SSID" "https://my.inet.vn/public/dist/js/main.js" -o /tmp/main.js
+curl -s -H "Cookie: sid=$sid; ssid=$ssid" "https://my.inet.vn/public/dist/js/main.js" -o /tmp/main.js
 grep -oE '.{1500}<label-text-trên-UI>' /tmp/main.js   # đọc code quanh validation/binding
 ```
 
