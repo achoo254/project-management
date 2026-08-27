@@ -1,0 +1,1610 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>One Series · Customer Insight Layer — Nội dung brainstorm</title>
+<style>
+/* ==========================================================================
+   Token: iNET ViUI Design System. Sáng = bảng mặc định, tối = bảng dark.
+   File self-contained: không CDN, không font ngoài, không script ngoài.
+   ========================================================================== */
+:root{
+  color-scheme:light dark;
+
+  --viui-primary:#024799;
+  --viui-primary-500:#0582D4;
+  --viui-accent:#E8353C;
+
+  --viui-surface:#FFFFFF;
+  --viui-surface-elevated:#F4F7FA;
+  --viui-surface-card:#E8EEF4;
+  --viui-border:#D0DAE6;
+  --viui-border-subtle:#E8EEF4;
+  --viui-nl-500:#6D8599;
+  --viui-nl-600:#4A6278;
+  --viui-nl-700:#2E4A5C;
+  --viui-nl-900:#0F1E2D;
+
+  --viui-error:#B91C1C;
+  --viui-error-surface:#FEF2F2;
+  --viui-warning:#D47B0A;
+  --viui-warning-text:#92400E;
+  --viui-warning-surface:#FFFBEB;
+  --viui-success:#0E9F6E;
+  --viui-success-text:#065F46;
+  --viui-success-surface:#ECFDF5;
+  --viui-info-text:#1E40AF;
+  --viui-info-surface:#EFF6FF;
+
+  --s1:8px; --s2:16px; --s3:24px; --s4:32px; --s5:40px; --s6:48px; --s8:64px;
+  --r-sm:4px; --r-base:8px; --r-md:12px; --r-lg:16px;
+
+  --ink:var(--viui-nl-900);
+  --ink-soft:var(--viui-nl-700);
+  --muted:var(--viui-nl-600);
+  --faint:var(--viui-nl-500);
+  --paper:var(--viui-surface);
+  --surface:var(--viui-surface-elevated);
+  --surface-2:var(--viui-surface-card);
+  --accent:var(--viui-primary);
+  --accent-2:var(--viui-primary-500);
+  --accent-tint:rgba(2,71,153,.06);
+  --accent-tint-2:rgba(2,71,153,.12);
+  --brand-red:var(--viui-accent);
+  --hairline:var(--viui-border);
+  --hairline-soft:var(--viui-border-subtle);
+
+  --sans:system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+  --mono:'SFMono-Regular',ui-monospace,Menlo,Consolas,'Liberation Mono',monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --viui-primary:#66AAFF;
+    --viui-primary-500:#619ee9;
+    --viui-accent:#FF7070;
+    --viui-surface:#121212;
+    --viui-surface-elevated:#1e1e1e;
+    --viui-surface-card:#262626;
+    --viui-border:#424242;
+    --viui-border-subtle:#303030;
+    --viui-nl-500:#7d8b99;
+    --viui-nl-600:#8B949E;
+    --viui-nl-700:#b0b0b0;
+    --viui-nl-900:#e0e0e0;
+    --viui-error:#F87171;
+    --viui-error-surface:#2a1212;
+    --viui-warning:#FBBF24;
+    --viui-warning-text:#FBBF24;
+    --viui-warning-surface:#2A1F06;
+    --viui-success:#34D399;
+    --viui-success-text:#34D399;
+    --viui-success-surface:#0A2A1F;
+    --viui-info-text:#93C5FD;
+    --viui-info-surface:#0A1628;
+    --accent-tint:rgba(102,170,255,.08);
+    --accent-tint-2:rgba(102,170,255,.16);
+  }
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:var(--sans); font-size:16px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1120px;margin:0 auto;padding:0 var(--s3)}
+h1,h2,h3,h4{margin:0;line-height:1.24;font-weight:600;letter-spacing:-.01em}
+p{margin:0 0 var(--s2)}
+ul{margin:0 0 var(--s2);padding-left:1.15rem}
+li{margin:.3rem 0}
+strong{font-weight:600}
+code,.mono{font-family:var(--mono);font-size:.86em}
+a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent-tint-2)}
+
+/* ---------- Nav ---------- */
+.nav{
+  position:sticky;top:0;z-index:50;
+  background:var(--paper);
+  background:color-mix(in srgb,var(--paper) 88%,transparent);
+  backdrop-filter:saturate(150%) blur(10px);
+  border-bottom:1px solid var(--hairline-soft);
+}
+.nav-in{max-width:1120px;margin:0 auto;padding:10px var(--s3);display:flex;gap:6px;align-items:center;overflow-x:auto;scrollbar-width:none}
+.nav-in::-webkit-scrollbar{display:none}
+.nav-brand{font-weight:700;font-size:13px;letter-spacing:.02em;color:var(--accent);white-space:nowrap;margin-right:var(--s1);border:0}
+.nav a.n{
+  font-size:12.5px;color:var(--muted);white-space:nowrap;padding:5px 10px;
+  border-radius:var(--r-sm);border:1px solid transparent;cursor:pointer;
+}
+.nav a.n:hover{background:var(--accent-tint);color:var(--accent);border-color:var(--hairline-soft)}
+
+/* ---------- Hero ---------- */
+.hero{padding:var(--s8) 0 var(--s6);border-bottom:1px solid var(--hairline)}
+.eyebrow{
+  font-size:11.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--accent-2);margin-bottom:var(--s2)
+}
+.hero h1{font-size:clamp(30px,5.2vw,50px);letter-spacing:-.025em;margin-bottom:var(--s2)}
+.hero h1 .sub{display:block;color:var(--muted);font-weight:400;font-size:.44em;letter-spacing:-.01em;margin-top:10px}
+.lead{font-size:clamp(16px,1.6vw,18.5px);color:var(--ink-soft);max-width:74ch}
+.meta{display:flex;flex-wrap:wrap;gap:var(--s1) var(--s3);margin-top:var(--s4);font-size:13px;color:var(--muted)}
+.meta b{color:var(--ink);font-weight:600}
+.pillrow{display:flex;flex-wrap:wrap;gap:var(--s1);margin-top:var(--s3)}
+.pill{
+  font-size:12px;padding:5px 11px;border-radius:var(--r-sm);
+  background:var(--surface);border:1px solid var(--hairline);color:var(--ink-soft)
+}
+.pill.on{background:var(--accent-tint-2);border-color:transparent;color:var(--accent);font-weight:600}
+.pill.warn{background:var(--viui-warning-surface);color:var(--viui-warning-text);border-color:transparent;font-weight:600}
+
+/* ---------- Section ---------- */
+section{padding:var(--s8) 0;border-bottom:1px solid var(--hairline-soft)}
+.s-num{font-family:var(--mono);font-size:12px;color:var(--faint);letter-spacing:.08em;margin-bottom:10px}
+.s-title{font-size:clamp(22px,3vw,31px);letter-spacing:-.02em;margin-bottom:var(--s2)}
+.s-desc{color:var(--ink-soft);max-width:76ch;margin-bottom:var(--s5)}
+h3.sub-h{font-size:17.5px;margin:var(--s5) 0 var(--s2);padding-bottom:8px;border-bottom:1px solid var(--hairline-soft)}
+
+/* ---------- Grid helpers ---------- */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:var(--s3)}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s2)}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s2)}
+@media (max-width:900px){.g2,.g3,.g4{grid-template-columns:1fr}}
+
+/* ---------- Card ---------- */
+.card{
+  background:var(--surface);border:1px solid var(--hairline);
+  border-radius:var(--r-md);padding:var(--s3)
+}
+.card h4{font-size:15.5px;margin-bottom:10px}
+.card p:last-child,.card ul:last-child{margin-bottom:0}
+.card .k{font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin-bottom:8px}
+.card.accent{border-left:3px solid var(--accent);background:var(--accent-tint)}
+.card.ok{border-left:3px solid var(--viui-success);background:var(--viui-success-surface)}
+.card.warn{border-left:3px solid var(--viui-warning);background:var(--viui-warning-surface)}
+.card.stop{border-left:3px solid var(--viui-error);background:var(--viui-error-surface)}
+.card.tight{padding:var(--s2)}
+
+/* ---------- Stat ---------- */
+.stat{background:var(--surface);border:1px solid var(--hairline);border-radius:var(--r-md);padding:var(--s3) var(--s2)}
+.stat .n{font-size:clamp(26px,3.4vw,36px);font-weight:700;letter-spacing:-.03em;color:var(--accent);line-height:1.05}
+.stat .n.red{color:var(--brand-red)}
+.stat .n.ok{color:var(--viui-success-text)}
+.stat .n.warn{color:var(--viui-warning-text)}
+.stat .l{font-size:13px;font-weight:600;margin-top:8px}
+.stat .h{font-size:12px;color:var(--muted);margin-top:4px;line-height:1.5}
+.stat .src{font-family:var(--mono);font-size:10.5px;color:var(--faint);margin-top:8px;letter-spacing:.02em}
+
+/* ---------- Table ---------- */
+.tw{overflow-x:auto;border:1px solid var(--hairline);border-radius:var(--r-md);background:var(--surface)}
+table{width:100%;border-collapse:collapse;min-width:680px;font-size:14px}
+th{
+  text-align:left;font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--faint);padding:12px var(--s2);border-bottom:1px solid var(--hairline);white-space:nowrap
+}
+td{padding:12px var(--s2);border-bottom:1px solid var(--hairline-soft);vertical-align:top;color:var(--ink-soft)}
+tr:last-child td{border-bottom:0}
+td.k{color:var(--ink);font-weight:600}
+tbody tr:hover td{background:var(--accent-tint)}
+.b{display:inline-block;font-size:11px;font-weight:700;padding:3px 8px;border-radius:var(--r-sm);white-space:nowrap}
+.b.ok{background:var(--viui-success-surface);color:var(--viui-success-text)}
+.b.warn{background:var(--viui-warning-surface);color:var(--viui-warning-text)}
+.b.stop{background:var(--viui-error-surface);color:var(--viui-error)}
+.b.info{background:var(--viui-info-surface);color:var(--viui-info-text)}
+.b.mute{background:var(--surface-2);color:var(--muted)}
+
+/* ---------- Scope in/out ---------- */
+.scope{display:grid;grid-template-columns:1fr 1fr;gap:var(--s3)}
+@media (max-width:900px){.scope{grid-template-columns:1fr}}
+.scope-col{border:1px solid var(--hairline);border-radius:var(--r-md);overflow:hidden;background:var(--surface)}
+.scope-hd{padding:var(--s2) var(--s3);font-size:14px;font-weight:700;border-bottom:1px solid var(--hairline)}
+.scope-hd.in{background:var(--viui-success-surface);color:var(--viui-success-text)}
+.scope-hd.out{background:var(--viui-error-surface);color:var(--viui-error)}
+.scope-hd span{display:block;font-size:12px;font-weight:400;color:var(--muted);margin-top:2px}
+.scope-list{list-style:none;margin:0;padding:var(--s2) var(--s3)}
+.scope-list li{position:relative;padding-left:26px;margin:10px 0;font-size:14px;color:var(--ink-soft)}
+.scope-list li::before{position:absolute;left:0;top:0;font-weight:700}
+.scope-list.yes li::before{content:"✓";color:var(--viui-success)}
+.scope-list.no li::before{content:"✕";color:var(--viui-error)}
+
+/* ---------- Arch diagram ---------- */
+.arch{background:var(--surface);border:1px solid var(--hairline);border-radius:var(--r-md);padding:var(--s4) var(--s3);overflow-x:auto}
+.arch-in{min-width:640px;display:flex;flex-direction:column;align-items:center;gap:0}
+.node{
+  border:1px solid var(--hairline);border-radius:var(--r-base);background:var(--paper);
+  padding:12px var(--s2);text-align:center;min-width:250px
+}
+.node .t{font-size:13.5px;font-weight:600}
+.node .d{font-size:11.5px;color:var(--muted);margin-top:3px}
+.node.acc{border-color:var(--accent);background:var(--accent-tint)}
+.node.acc .t{color:var(--accent)}
+.node.key{border-width:2px;border-color:var(--viui-success)}
+.node.raw{border-color:var(--viui-error);background:var(--viui-error-surface)}
+.node.raw .t{color:var(--viui-error)}
+.node.wide{min-width:420px}
+.arrow{display:flex;flex-direction:column;align-items:center;padding:6px 0;color:var(--faint);font-size:11px;letter-spacing:.03em}
+.arrow .ln{width:2px;height:16px;background:var(--hairline)}
+.arrow .lb{margin:3px 0;font-family:var(--mono);font-size:10.5px}
+.arch-row{display:flex;gap:var(--s2);align-items:stretch;justify-content:center;flex-wrap:nowrap}
+.gate{
+  width:100%;max-width:520px;margin:var(--s2) 0;padding:8px var(--s2);text-align:center;
+  border:2px dashed var(--viui-error);border-radius:var(--r-base);
+  background:var(--viui-error-surface);color:var(--viui-error);
+  font-size:12px;font-weight:700;letter-spacing:.04em
+}
+
+/* ---------- Callout / quote ---------- */
+.callout{border-left:3px solid var(--accent);background:var(--accent-tint);padding:var(--s2) var(--s3);border-radius:0 var(--r-base) var(--r-base) 0;margin:var(--s3) 0}
+.callout.warn{border-color:var(--viui-warning);background:var(--viui-warning-surface)}
+.callout.stop{border-color:var(--viui-error);background:var(--viui-error-surface)}
+.callout.ok{border-color:var(--viui-success);background:var(--viui-success-surface)}
+.callout .k{font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin-bottom:6px}
+.callout p:last-child{margin-bottom:0}
+.quote{font-size:17px;line-height:1.55;color:var(--ink);font-style:italic;border-left:3px solid var(--brand-red);padding-left:var(--s3);margin:var(--s4) 0}
+.quote .who{display:block;font-style:normal;font-size:12.5px;color:var(--muted);margin-top:8px}
+
+/* ---------- Adoption bar ---------- */
+.abox{background:var(--surface);border:1px solid var(--hairline);border-radius:var(--r-md);padding:var(--s3)}
+.ab{display:grid;grid-template-columns:minmax(150px,220px) 1fr 92px;gap:var(--s2);align-items:center;margin:12px 0}
+@media (max-width:700px){.ab{grid-template-columns:1fr;gap:4px}}
+.ab .t{font-size:13.5px;font-weight:600;color:var(--ink)}
+.ab .t span{display:block;font-weight:400;font-size:11.5px;color:var(--muted)}
+.ab .track{height:20px;background:var(--surface-2);border:1px solid var(--hairline-soft);border-radius:var(--r-sm);overflow:hidden}
+.ab .fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent-2))}
+.ab .fill.mid{background:var(--viui-warning)}
+.ab .fill.low{background:var(--viui-error)}
+.ab .v{font-family:var(--mono);font-size:12.5px;color:var(--ink-soft);text-align:right;white-space:nowrap}
+
+/* ---------- Mock dashboard ---------- */
+.mock{border:1px solid var(--hairline);border-radius:var(--r-md);overflow:hidden;background:var(--paper)}
+.mock-hd{display:flex;flex-wrap:wrap;gap:var(--s1);align-items:center;justify-content:space-between;padding:12px var(--s3);background:var(--surface-2);border-bottom:1px solid var(--hairline)}
+.mock-hd .t{font-size:13.5px;font-weight:700}
+.mock-hd .f{display:flex;gap:6px;flex-wrap:wrap}
+.mock-body{padding:var(--s3)}
+.tile{background:var(--surface);border:1px solid var(--hairline);border-radius:var(--r-base);padding:var(--s2)}
+.tile .n{font-size:clamp(22px,2.8vw,30px);font-weight:700;letter-spacing:-.03em;line-height:1.05;color:var(--ink)}
+.tile .n small{font-size:.42em;font-weight:600;color:var(--muted);letter-spacing:0}
+.tile .l{font-size:12.5px;font-weight:600;margin-top:6px}
+.tile .h{font-size:11.5px;color:var(--muted);margin-top:3px}
+.tile.up .n{color:var(--viui-success-text)}
+.tile.down .n{color:var(--brand-red)}
+
+/* ---------- Question block ---------- */
+.q{border:1px solid var(--hairline);border-radius:var(--r-md);background:var(--surface);padding:var(--s3);margin-bottom:var(--s2)}
+.q-h{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.q-n{font-family:var(--mono);font-size:11.5px;font-weight:700;color:var(--accent);background:var(--accent-tint-2);padding:2px 8px;border-radius:var(--r-sm);white-space:nowrap}
+.q-t{font-size:16px;font-weight:600;flex:1;min-width:200px}
+.q-why{font-size:13.5px;color:var(--muted);margin:8px 0 0}
+.q-opts{display:grid;gap:8px;margin-top:12px}
+.opt{border:1px solid var(--hairline-soft);border-radius:var(--r-base);padding:10px var(--s2);font-size:13.5px;background:var(--paper);color:var(--ink-soft)}
+.opt b{color:var(--ink)}
+.opt.rec{border-color:var(--viui-success);background:var(--viui-success-surface)}
+.opt.rec::before{content:"KHUYẾN NGHỊ";display:block;font-size:10.5px;font-weight:700;letter-spacing:.1em;color:var(--viui-success-text);margin-bottom:4px}
+
+/* ---------- Code ---------- */
+pre{margin:0;overflow-x:auto;background:var(--surface-2);border:1px solid var(--hairline);border-radius:var(--r-base);padding:var(--s2);font-family:var(--mono);font-size:12.5px;line-height:1.62;color:var(--ink-soft)}
+pre b{color:var(--accent);font-weight:600}
+pre i{color:var(--viui-error);font-style:normal}
+.cap{font-size:12px;color:var(--faint);margin-top:8px}
+
+/* ---------- Timeline ---------- */
+.tl{position:relative;padding-left:var(--s5)}
+.tl::before{content:"";position:absolute;left:12px;top:6px;bottom:6px;width:2px;background:var(--hairline)}
+.tl-item{position:relative;margin-bottom:var(--s4)}
+.tl-item:last-child{margin-bottom:0}
+.tl-item::before{
+  content:"";position:absolute;left:calc(-1 * var(--s5) + 6px);top:8px;width:14px;height:14px;
+  border-radius:50%;background:var(--paper);border:3px solid var(--accent)
+}
+.tl-item.fut::before{border-color:var(--faint)}
+.tl-when{font-family:var(--mono);font-size:12px;color:var(--accent);font-weight:600;letter-spacing:.04em}
+.tl-item.fut .tl-when{color:var(--faint)}
+.tl-h{font-size:17px;font-weight:600;margin:4px 0 8px}
+.tl-body{color:var(--ink-soft);font-size:14.5px}
+.tl-body p{margin-bottom:10px}
+.tl-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.tag{font-size:11px;padding:3px 9px;border-radius:var(--r-sm);background:var(--surface-2);color:var(--ink-soft);border:1px solid var(--hairline-soft)}
+.tag.acc{background:var(--accent-tint-2);color:var(--accent);font-weight:600}
+.tag.ok{background:var(--viui-success-surface);color:var(--viui-success-text)}
+.tag.warn{background:var(--viui-warning-surface);color:var(--viui-warning-text)}
+
+/* ---------- Footer ---------- */
+footer{padding:var(--s6) 0 var(--s8);color:var(--muted);font-size:13px}
+.foot-grid{display:flex;flex-wrap:wrap;gap:var(--s3);justify-content:space-between;align-items:flex-start}
+.up{cursor:pointer;color:var(--accent);font-size:13px;border:0}
+
+/* ---------- Reveal ---------- */
+.rv{opacity:0;transform:translateY(14px);transition:opacity .5s cubic-bezier(0,0,.2,1),transform .5s cubic-bezier(0,0,.2,1)}
+.rv.on{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+@media print{.nav{display:none}.rv{opacity:1;transform:none}section{break-inside:avoid}}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-in">
+    <span class="nav-brand">One Series · Insight Layer</span>
+    <a class="n" data-go="s1">Bối cảnh</a>
+    <a class="n" data-go="s2">Vấn đề</a>
+    <a class="n" data-go="s3">Mục tiêu</a>
+    <a class="n" data-go="s4">Kiến trúc</a>
+    <a class="n" data-go="s5">Đường biên PII</a>
+    <a class="n" data-go="s6">Bộ chỉ số</a>
+    <a class="n" data-go="s7">Event contract</a>
+    <a class="n" data-go="s8">Dashboard mẫu</a>
+    <a class="n" data-go="s9">Phương án</a>
+    <a class="n" data-go="s10">Quản trị số</a>
+    <a class="n" data-go="s11">Bẫy</a>
+    <a class="n" data-go="s12">Cần chốt</a>
+    <a class="n" data-go="s13">Bước đi</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow rv">iNET · Bộ phận Công Nghệ · Tài liệu brainstorm</div>
+    <h1 class="rv">Customer Insight Layer cho One Series
+      <span class="sub">Một lớp tổng hợp ở giữa: Technology / Product / CMO ra quyết định bằng số, không cần chạm vào PII hay dữ liệu khách thô</span>
+    </h1>
+    <p class="lead rv">Đây <b>không phải bản kế hoạch đã chốt</b>. Đây là vật liệu để tranh luận: bài toán,
+      đường biên dữ liệu, bộ chỉ số dùng chung, ba phương án kiến trúc và danh sách câu hỏi phải chốt trong
+      buổi brainstorm. Phạm vi áp dụng: toàn bộ One Series — OneDash, OneMail, OneShield, OnePanel và các
+      sản phẩm tiếp theo — cùng hai bề mặt bán là Portal (my.inet.vn) và developers.inet.vn.</p>
+    <div class="pillrow rv">
+      <span class="pill on">Phạm vi: toàn bộ One Series</span>
+      <span class="pill">Nguyên tắc: aggregate-first, PII không vượt biên</span>
+      <span class="pill">Một định nghĩa chỉ số cho mọi sản phẩm</span>
+      <span class="pill warn">13 câu hỏi cần chốt</span>
+    </div>
+    <div class="meta rv">
+      <span>Người soạn: <b>Trịnh Quốc Hoàn Đạt</b> — Trưởng phòng Công Nghệ</span>
+      <span>Phiên bản <b>0.1 · nháp để brainstorm</b> · 27/08/2026</span>
+      <span>Người cần dự: <b>Công Nghệ · Marketing/CMO · Kinh doanh–CSKH · BLĐ</b></span>
+    </div>
+  </div>
+</header>
+
+<!-- ===================== 01 BỐI CẢNH ===================== -->
+<section id="s1">
+  <div class="wrap">
+    <div class="s-num rv">01 / 13</div>
+    <h2 class="s-title rv">Vì sao bàn việc này bây giờ</h2>
+    <p class="s-desc rv">Ba áp lực cùng đổ về một điểm. Không phải nhu cầu "làm thêm một dashboard" — mà là
+      thiếu một lớp giữa nên mỗi lần cần số là phải mở dữ liệu sản xuất ra đọc.</p>
+
+    <div class="g3 rv" style="margin-bottom:var(--s4)">
+      <div class="card accent">
+        <div class="k">Áp lực 1 · từ BLĐ</div>
+        <h4>Đo bằng kết quả, không đo bằng khối lượng</h4>
+        <p>Họp CXO 04/08/2026 chốt: phải đo được service mới — lượt sử dụng, số hit, và quan trọng hơn là
+          <b>mức độ giữ chân</b>: khách bấm thử một lần rồi bỏ, hay quay lại dùng tiếp. Kèm yêu cầu trả lời
+          được "bao nhiêu khách được đưa về, bao nhiêu khách rời đi, khách ở lại bao lâu".</p>
+      </div>
+      <div class="card accent">
+        <div class="k">Áp lực 2 · từ Marketing</div>
+        <h4>Không biết số nào đã chuẩn</h4>
+        <p>Cũng tại họp CXO: <i>"OneDash đẩy ra rất nhiều số liệu nhưng không rõ số nào đã chuẩn, số nào
+          chưa"</i>. Kèm yêu cầu mọi số trong báo cáo phải dẫn được nguồn gốc để người đọc đối chiếu. Đây là
+          vấn đề <b>quản trị định nghĩa</b>, không phải vấn đề thiếu query.</p>
+      </div>
+      <div class="card accent">
+        <div class="k">Áp lực 3 · từ chính sản phẩm</div>
+        <h4>Đã chốt đo, nhưng chốt lẻ cho một sản phẩm</h4>
+        <p>Review OneDash 13/08/2026 ra 5 quyết định về thống kê (CHỐT-10 → CHỐT-14): pair audit log SSH,
+          tách user mới/duy trì, hiện U/max thay vì %, khung 30 ngày, thống kê theo module. Đúng hướng nhưng
+          <b>chỉ áp cho OneDash</b>. Làm lại 4 lần cho 4 sản phẩm là lãng phí.</p>
+      </div>
+    </div>
+
+    <div class="callout rv">
+      <div class="k">Luận điểm của tài liệu này</div>
+      <p>Năm quyết định thống kê của OneDash không phải đặc thù OneDash — đó là <b>nguyên tắc chung</b> mà mọi
+        sản phẩm One Series đều cần. Thay vì mỗi sản phẩm tự dựng phần thống kê riêng với định nghĩa riêng,
+        dựng <b>một lớp tổng hợp dùng chung</b>: sản phẩm chỉ bắn dữ liệu theo hợp đồng, lớp giữa lo chuẩn hoá
+        — định nghĩa, khử PII, ngưỡng, khung thời gian, nguồn gốc.</p>
+    </div>
+
+    <h3 class="sub-h rv">Hiện trạng đo lường của từng sản phẩm (số T7/2026)</h3>
+    <div class="tw rv">
+      <table>
+        <thead>
+          <tr><th>Sản phẩm</th><th>Số đang có</th><th>Đang thiếu</th><th>Mức đo lường</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="k">OneDash</td>
+            <td>3.022 server quản lý · MAU 560 / WAU 253 / DAU 59 · D30 = 0% · rời bỏ 30 ngày 67,7% ·
+              project lỗi 52,6% · stickiness 10,5% · MTTR 273,8h</td>
+            <td>Mẫu số thật (agent chỉ cài trên 27,5% server) · người dùng Project và MCP theo tháng ·
+              vì sao rời</td>
+            <td><span class="b warn">Nhiều số, khó tin mẫu số</span></td>
+          </tr>
+          <tr>
+            <td class="k">OneShield</td>
+            <td>23.104 người dùng · 26.348 DNS zone (15.238 đang hoạt động) · 20.569 SSL · lỗi job SSL 0,95%</td>
+            <td>Adoption từng tính năng · zone tạo rồi bỏ · hành vi sau khi bật</td>
+            <td><span class="b info">Đo trạng thái, chưa đo hành vi</span></td>
+          </tr>
+          <tr>
+            <td class="k">OneMail</td>
+            <td>183 gói Active (+83% YoY) · chuyển đổi Active/Tổng 77,2% · dùng thử: đã verify email Active
+              69,1% vs chưa verify 14,4%</td>
+            <td>Mailbox thật đang dùng vs mailbox đã tạo · TTFV · nghẽn onboarding sau verify</td>
+            <td><span class="b info">Đo bán được, chưa đo dùng được</span></td>
+          </tr>
+          <tr>
+            <td class="k">OnePanel</td>
+            <td>575 đơn mới có phí (+46,3% YoY) · tỉ lệ OnePanel/cPanel 4,17</td>
+            <td>Tính năng nào giữ khách · khách từ nhà cung cấp khác chuyển sang (BLĐ đang yêu cầu)</td>
+            <td><span class="b warn">Chủ yếu số bán hàng</span></td>
+          </tr>
+          <tr>
+            <td class="k">Portal · Developers</td>
+            <td>Doanh thu, đơn hàng, ticket, chat theo báo cáo Dashboard iNET</td>
+            <td>Số khách thao tác/tháng · khách rơi ở bước nào · đối tác đã tích hợp API</td>
+            <td><span class="b warn">Số kinh doanh, thiếu số sản phẩm</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="cap rv">Nguồn: Báo cáo Dashboard iNET T7/2026 (my.inet.vn, phát hành 01/08/2026) trích trong
+      biên bản CXO 04/08/2026; review OneDash 13/08/2026. Các số này dùng làm <b>ví dụ minh hoạ bài toán</b>,
+      chưa phải baseline đã kiểm chứng.</p>
+  </div>
+</section>
+
+<!-- ===================== 02 VẤN ĐỀ ===================== -->
+<section id="s2">
+  <div class="wrap">
+    <div class="s-num rv">02 / 13</div>
+    <h2 class="s-title rv">Sáu vấn đề cụ thể đang trả giá</h2>
+    <p class="s-desc rv">Mỗi vấn đề dưới đây đều đã có bằng chứng thật trong tháng 7–8/2026, không phải giả
+      định. Đây là danh sách để buổi brainstorm xác nhận hoặc gạch bỏ trước khi bàn giải pháp.</p>
+
+    <div class="g2 rv" style="margin-bottom:var(--s3)">
+      <div class="card stop">
+        <div class="k">Vấn đề 1</div>
+        <h4>Muốn có số là phải chạm dữ liệu khách</h4>
+        <p>Hôm nay lấy một con số adoption nghĩa là mở query vào DB sản xuất: thấy email khách, tên miền,
+          tên project, đường dẫn source, IP. Developer <b>không cần</b> những thứ đó để trả lời "tính năng này
+          có ai dùng không" — nhưng đường duy nhất để có số lại đi qua đó.</p>
+      </div>
+      <div class="card stop">
+        <div class="k">Vấn đề 2</div>
+        <h4>Cùng một từ, khác định nghĩa giữa các sản phẩm</h4>
+        <p>"User" của OneShield là 23.104; "MAU" của OneDash là 560. Hai con số không cùng đơn vị — một là
+          tài khoản có zone, một là tài khoản có hoạt động 30 ngày. Không ai được cộng ngang, nhưng cũng
+          không có chỗ nào ghi rõ điều đó.</p>
+      </div>
+      <div class="card stop">
+        <div class="k">Vấn đề 3</div>
+        <h4>Mẫu số không đáng tin nên kết luận sai</h4>
+        <p>Tỷ lệ máy chủ có cài agent OneDash là 27,5%. Nghĩa là mọi số hành vi của OneDash chỉ nói về
+          khoảng một phần tư fleet. "Khách không dùng" và "khách dùng nhưng ta không thấy vết" đang bị gộp
+          làm một — chính CHỐT-10 nêu ra vấn đề này với SSH.</p>
+      </div>
+      <div class="card stop">
+        <div class="k">Vấn đề 4</div>
+        <h4>Không phân biệt được số đã chuẩn và số nháp</h4>
+        <p>Dashboard đẩy ra hàng chục chỉ số, không cái nào mang trạng thái. Người đọc không biết số nào đã
+          được Marketing xác nhận công thức, số nào mới là query thử. Hệ quả: hoặc dùng sai, hoặc không dám
+          dùng — cả hai đều tệ.</p>
+      </div>
+      <div class="card stop">
+        <div class="k">Vấn đề 5</div>
+        <h4>Thiếu hẳn nhóm số về khách rời và khách chuyển sang</h4>
+        <p>BLĐ nêu trực tiếp tại họp CXO: thiếu dữ liệu <b>khách rời bỏ</b> và <b>khách từ nhà cung cấp khác
+          chuyển sang</b>. Đây là loại số không nằm trong bất kỳ bảng nào của sản phẩm hiện tại vì nó cần
+          so sánh trạng thái theo thời gian, không phải đếm tại một thời điểm.</p>
+      </div>
+      <div class="card stop">
+        <div class="k">Vấn đề 6</div>
+        <h4>Số dùng để đánh giá dự án và người, nhưng chưa đủ tin</h4>
+        <p>BLĐ chốt sẽ dùng chính số người dùng để đánh giá dự án và người làm dự án. Khi một con số gắn với
+          đánh giá nhân sự mà mẫu số còn sai và định nghĩa còn mơ hồ thì rủi ro không chỉ là báo cáo lệch —
+          mà là chỉ số bị tối ưu ngược.</p>
+      </div>
+    </div>
+
+    <div class="quote rv">
+      “Khách hàng đôi khi người ta vào một lần, xong là người ta chạy thôi, người ta quay lại cái của mình
+      làm gì. Cái OneDash này nó khác — nó là control.”
+      <span class="who">trihd · review OneDash 13/08/2026 — lý do vì sao không thể copy định nghĩa retention
+        của portal bán hàng sang một control plane</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 03 MỤC TIÊU ===================== -->
+<section id="s3">
+  <div class="wrap">
+    <div class="s-num rv">03 / 13</div>
+    <h2 class="s-title rv">Mục tiêu và cái dứt khoát không làm</h2>
+    <p class="s-desc rv">Phần này quan trọng hơn phần kiến trúc: lớp giữa dễ phình thành "data warehouse toàn
+      công ty" rồi chết vì quy mô. Chốt phạm vi trước khi chốt công nghệ.</p>
+
+    <div class="scope rv" style="margin-bottom:var(--s3)">
+      <div class="scope-col">
+        <div class="scope-hd in">Mục tiêu — làm được thì coi là thành công
+          <span>Nếu một mục tiêu không đo được thì bỏ khỏi danh sách</span></div>
+        <ul class="scope-list yes">
+          <li><b>Một câu hỏi, một con số.</b> "Tính năng X có ai dùng không" trả lời được trong dưới một phút,
+            không cần mở DB sản xuất</li>
+          <li><b>Cùng định nghĩa cho mọi sản phẩm.</b> MAU, adoption, retention, churn tính giống nhau ở
+            OneDash, OneMail, OneShield, OnePanel</li>
+          <li><b>Không PII vượt biên.</b> Technology / Product ra được quyết định mà không thấy email, tên
+            miền, nội dung, IP của khách</li>
+          <li><b>Mọi số dẫn được nguồn.</b> Mỗi chỉ số có định nghĩa, công thức, nguồn, trạng thái đã chuẩn
+            hay nháp — đúng chỉ đạo của BLĐ</li>
+          <li><b>Trả lời được nhóm số đang thiếu:</b> khách rời bỏ, khách chuyển sang, tăng/giảm usage,
+            thời gian ở lại</li>
+          <li><b>Ba nhóm người đọc cùng một bản.</b> Technology, Product, CMO không phải đối chiếu ba bản
+            khác nhau</li>
+        </ul>
+      </div>
+      <div class="scope-col">
+        <div class="scope-hd out">Không làm — ít nhất trong giai đoạn đầu
+          <span>Mỗi dòng ở đây là một lần tiết kiệm được vài tháng</span></div>
+        <ul class="scope-list no">
+          <li><b>Không thay báo cáo Dashboard iNET hiện tại.</b> BLĐ đã chốt giữ báo cáo cũ, chỉ bổ sung —
+            lớp này là nguồn số cho báo cáo đó, không phải bản thay thế</li>
+          <li><b>Không làm data warehouse toàn công ty.</b> Không gom kế toán, nhân sự, chi phí hạ tầng</li>
+          <li><b>Không giữ billing chi tiết.</b> Billing thuộc Portal (đã chốt tại review 13/08) — lớp này
+            chỉ nhận chiều gói/plan đã chuẩn hoá</li>
+          <li><b>Không làm CDP / marketing automation.</b> Không gửi mail, không chấm điểm lead, không
+            nhắm quảng cáo trong giai đoạn 1</li>
+          <li><b>Không phải công cụ chấm điểm nhân sự.</b> Nó đo sản phẩm; việc quy ra đánh giá người là
+            quyết định quản lý, có bối cảnh riêng</li>
+          <li><b>Không dùng SaaS analytics bên ngoài.</b> Dữ liệu hành vi khách hàng iNET không đi ra ngoài
+            hạ tầng công ty</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout warn rv">
+      <div class="k">Điểm gây tranh luận — cần chốt tại buổi họp</div>
+      <p>"Không phải công cụ chấm điểm nhân sự" <b>xung đột trực diện</b> với chỉ đạo của BLĐ tại họp CXO:
+        sẽ dùng chính số người dùng để đánh giá dự án và người làm dự án. Đề xuất cách dung hoà: lớp này công
+        bố <b>số sản phẩm</b> (dùng thật, giữ chân, giá trị tạo ra); việc đọc số đó thành đánh giá người thuộc
+        cấp quản lý, kèm bối cảnh — chứ không phải một bảng xếp hạng tự động. Không chốt được điểm này thì
+        chỉ số sẽ bị tối ưu ngược ngay từ tháng đầu.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 04 KIẾN TRÚC ===================== -->
+<section id="s4">
+  <div class="wrap">
+    <div class="s-num rv">04 / 13</div>
+    <h2 class="s-title rv">Kiến trúc bốn lớp và điểm khử danh tính</h2>
+    <p class="s-desc rv">Ý tưởng gốc là chèn một lớp tổng hợp giữa production và người đọc. Điểm mấu chốt
+      không phải "thêm một lớp" — mà là <b>đặt đúng chỗ đường biên khử danh tính</b>: khử ở lớp 2, trước khi
+      dữ liệu chạm vào bất kỳ dashboard nào.</p>
+
+    <div class="arch rv" style="margin-bottom:var(--s3)">
+      <div class="arch-in">
+        <div class="arch-row">
+          <div class="node raw"><div class="t">OneDash</div><div class="d">agent · project · host</div></div>
+          <div class="node raw"><div class="t">OneMail</div><div class="d">domain · mailbox</div></div>
+          <div class="node raw"><div class="t">OneShield</div><div class="d">zone · SSL · WAF</div></div>
+          <div class="node raw"><div class="t">OnePanel</div><div class="d">site · service</div></div>
+          <div class="node raw"><div class="t">Portal</div><div class="d">đơn · gói · gia hạn</div></div>
+        </div>
+        <div class="arrow"><div class="ln"></div><div class="lb">① PRODUCTION · chứa PII · quyền vận hành</div><div class="ln"></div></div>
+
+        <div class="gate">⛔ ĐƯỜNG BIÊN KHỬ DANH TÍNH — PII dừng tại đây, không đi xuống dưới</div>
+
+        <div class="arrow"><div class="ln"></div><div class="lb">hash tenant · bỏ free-text · whitelist chiều</div><div class="ln"></div></div>
+        <div class="node acc wide"><div class="t">② ANALYTICS / AGGREGATION</div>
+          <div class="d">ingest → chuẩn hoá chiều → tổng hợp theo cohort → áp ngưỡng k → gắn nguồn &amp; trạng thái chỉ số</div></div>
+        <div class="arrow"><div class="ln"></div><div class="lb">chỉ số đã có định nghĩa · chỉ dạng đếm và tỷ lệ</div><div class="ln"></div></div>
+
+        <div class="node key wide"><div class="t">③ CUSTOMER INSIGHT DASHBOARD</div>
+          <div class="d">một bản dùng chung · mỗi số kèm định nghĩa, mẫu số, nguồn, trạng thái, coverage</div></div>
+        <div class="arrow"><div class="ln"></div><div class="lb">cùng một nguồn số cho ba nhóm người đọc</div><div class="ln"></div></div>
+
+        <div class="arch-row">
+          <div class="node"><div class="t">Technology</div><div class="d">đầu tư tính năng nào, sửa gì trước</div></div>
+          <div class="node"><div class="t">Product</div><div class="d">roadmap, bỏ tính năng, onboarding</div></div>
+          <div class="node"><div class="t">CMO / Marketing</div><div class="d">thông điệp, PR, chân dung khách</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="g3 rv">
+      <div class="card">
+        <div class="k">Lớp 1 · Production</div>
+        <h4>Không đổi gì về quyền</h4>
+        <p>Mỗi sản phẩm giữ nguyên dữ liệu và quyền hiện tại. Việc duy nhất phải làm thêm: <b>bắn ra</b> theo
+          hợp đồng ở mục 07. Không có ai từ lớp dưới được cấp quyền đọc DB sản xuất để "lấy số".</p>
+      </div>
+      <div class="card accent">
+        <div class="k">Lớp 2 · Analytics — phần khó nhất</div>
+        <h4>Nơi duy nhất còn thấy khoá giả danh</h4>
+        <p>Lớp này giữ <span class="mono">tenant_key</span> đã hash để nối hành vi theo thời gian, nhưng
+          <b>không giữ bảng tra ngược</b> ra khách. Muối hash nằm ở lớp này, không phát cho sản phẩm và
+          không phát cho người đọc. Đây là nơi đặt định nghĩa chỉ số, ngưỡng k, khung thời gian.</p>
+      </div>
+      <div class="card">
+        <div class="k">Lớp 3 · Dashboard</div>
+        <h4>Chỉ có đếm và tỷ lệ</h4>
+        <p>Không có ô nào xuống được tới một khách cụ thể. Drill-down đi theo <b>chiều</b> (gói, vùng, tháng
+          tham gia, module) chứ không theo <b>khách</b>. Mỗi số hiện kèm mẫu số tuyệt đối — đúng CHỐT-12.</p>
+      </div>
+    </div>
+
+    <div class="callout stop rv">
+      <div class="k">Mâu thuẫn phải giải, không lảng tránh</div>
+      <p>Báo cáo T7 đã gắn cờ <b>20 tài khoản nguy cơ rời bỏ</b>. Một dashboard chỉ có số tổng thì không ai
+        chăm được 20 tài khoản đó — insight không hành động được thì vô nghĩa. Nhưng cho phép drill-down tới
+        tài khoản trong dashboard chung thì đường biên PII sụp ngay. Đề xuất tách <b>hai mặt phẳng</b> ở mục
+        05: mặt phẳng Insight (tổng hợp, cho Technology/Product/CMO) và mặt phẳng Action (danh sách tài khoản,
+        chỉ đẩy tới CSKH/Kinh doanh — những người vốn đã có quyền với khách đó).</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 05 ĐƯỜNG BIÊN PII ===================== -->
+<section id="s5">
+  <div class="wrap">
+    <div class="s-num rv">05 / 13</div>
+    <h2 class="s-title rv">Đường biên dữ liệu: cái gì được vượt, cái gì không</h2>
+    <p class="s-desc rv">Nguyên tắc: <b>developer không cần biết khách là ai để cải thiện sản phẩm.</b> Cụ thể
+      hoá thành bốn mức dữ liệu và một bảng phân loại trường. Bảng này là thứ cần chốt bằng văn bản, vì mỗi
+      lần "chỉ xem tạm một lần" là một lần đường biên bị phá.</p>
+
+    <h3 class="sub-h rv">Bốn mức dữ liệu</h3>
+    <div class="g4 rv" style="margin-bottom:var(--s4)">
+      <div class="card stop tight">
+        <div class="k">L0 · Raw</div>
+        <h4>Dữ liệu sản xuất</h4>
+        <p style="font-size:13.5px">Email, tên miền, mailbox, nội dung, IP, đường dẫn source, log SSH thô.
+          <b>Chỉ</b> người có quyền vận hành sản phẩm đó, theo quyền hiện hành. Không sinh bản sao cho
+          analytics.</p>
+      </div>
+      <div class="card warn tight">
+        <div class="k">L1 · Pseudonymous</div>
+        <h4>Khoá giả danh</h4>
+        <p style="font-size:13.5px"><span class="mono">tenant_key = HMAC(account_id, salt)</span>. Nối được
+          hành vi theo thời gian, không tra ra được khách. Chỉ tồn tại <b>bên trong</b> lớp 2, không xuất ra
+          dashboard.</p>
+      </div>
+      <div class="card ok tight">
+        <div class="k">L2 · Aggregate</div>
+        <h4>Cái mà dashboard thấy</h4>
+        <p style="font-size:13.5px">Đếm, tỷ lệ, phân phối theo cohort. Mọi ô phải đạt ngưỡng k tenant, dưới
+          ngưỡng thì hiện <span class="mono">&lt;k</span>. Đây là mức mà Technology / Product / CMO đọc.</p>
+      </div>
+      <div class="card tight">
+        <div class="k">L3 · Action list</div>
+        <h4>Danh sách để chăm khách</h4>
+        <p style="font-size:13.5px">Tài khoản cần liên hệ, sinh từ tín hiệu ở L2 nhưng <b>chỉ đẩy tới
+          CSKH/Kinh doanh</b> qua Portal — nơi họ vốn đã có quyền. Không nằm trong dashboard chung.</p>
+      </div>
+    </div>
+
+    <h3 class="sub-h rv">Bảng phân loại trường — chốt bằng văn bản, không chốt bằng miệng</h3>
+    <div class="tw rv">
+      <table>
+        <thead>
+          <tr><th>Loại dữ liệu</th><th>Ví dụ thật</th><th>Vượt biên?</th><th>Nếu cần thì biến đổi thế nào</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="k">Danh tính khách</td>
+            <td>email, họ tên, số điện thoại, mã số thuế</td>
+            <td><span class="b stop">Không bao giờ</span></td>
+            <td>Thay bằng <span class="mono">tenant_key</span> đã hash, chỉ tồn tại ở L1</td>
+          </tr>
+          <tr>
+            <td class="k">Tài sản khách</td>
+            <td>tên miền cụ thể, tên mailbox, tên project, IP, đường dẫn source</td>
+            <td><span class="b stop">Không</span></td>
+            <td>Chỉ giữ <b>thuộc tính suy ra</b>: nhóm TLD (.vn / .com / cao cấp), runtime detect được
+              (node/php), có dùng Docker hay không</td>
+          </tr>
+          <tr>
+            <td class="k">Nội dung</td>
+            <td>nội dung mail, tiêu đề, file, nội dung log ứng dụng</td>
+            <td><span class="b stop">Không</span></td>
+            <td>Chỉ giữ số đếm và trạng thái: số mail gửi thành công/thất bại, mã lỗi đã chuẩn hoá</td>
+          </tr>
+          <tr>
+            <td class="k">Free-text do khách nhập</td>
+            <td>tên project, ghi chú, tên tag, tên bucket</td>
+            <td><span class="b stop">Không</span></td>
+            <td>Cấm đưa vào analytics — free-text luôn có nguy cơ chứa danh tính. Chỉ nhận khoá từ registry</td>
+          </tr>
+          <tr>
+            <td class="k">Chiều phân loại</td>
+            <td>gói/plan, vùng (HN/HCM), tháng tham gia, kênh (web/MCP/API/agent), phân khúc</td>
+            <td><span class="b ok">Được</span></td>
+            <td>Phải là giá trị trong danh mục đã chuẩn hoá, không phải chuỗi tuỳ ý</td>
+          </tr>
+          <tr>
+            <td class="k">Sự kiện hành vi</td>
+            <td>"deploy project thành công", "bật WAF", "gửi mail đầu tiên"</td>
+            <td><span class="b ok">Được</span></td>
+            <td>Chỉ khoá tính năng đã đăng ký + kết quả success/fail + mốc thời gian</td>
+          </tr>
+          <tr>
+            <td class="k">Số đếm tổng hợp</td>
+            <td>1.245 domain, 18.320 user, 72% adoption</td>
+            <td><span class="b ok">Được</span></td>
+            <td>Kèm mẫu số tuyệt đối và độ phủ đo lường (coverage)</td>
+          </tr>
+          <tr>
+            <td class="k">Dữ liệu tài chính khách</td>
+            <td>hoá đơn, số tiền, phương thức thanh toán</td>
+            <td><span class="b warn">Không, ở giai đoạn 1</span></td>
+            <td>Chỉ nhận <b>bậc gói</b> đã chuẩn hoá để phân cohort. Billing chi tiết vẫn thuộc Portal</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="g2 rv" style="margin-top:var(--s3)">
+      <div class="card warn">
+        <div class="k">Bẫy kỹ thuật của ngưỡng k</div>
+        <h4>Sản phẩm nhỏ thì k giết luôn số liệu</h4>
+        <p>OneMail hiện có 183 gói Active. Cắt theo gói × vùng × tháng tham gia là gần như mọi ô đều dưới 5
+          tenant → dashboard toàn <span class="mono">&lt;5</span>, vô dụng. Hướng xử lý: <b>ngưỡng theo sản
+          phẩm</b>, và với sản phẩm nhỏ thì giảm số chiều cắt thay vì giảm ngưỡng. Đây là câu hỏi Q2 ở mục 12.</p>
+      </div>
+      <div class="card warn">
+        <div class="k">Bẫy vận hành</div>
+        <h4>Debug vẫn cần dữ liệu thật</h4>
+        <p>Developer sửa lỗi của một khách cụ thể thì vẫn phải xem dữ liệu thật — đó là quyền vận hành ở L0,
+          hợp lệ, có vết. Đường biên này <b>không nhằm cấm debug</b>, mà nhằm chấm dứt việc dùng quyền vận
+          hành để trả lời câu hỏi thống kê. Hai việc khác nhau, phải hai đường khác nhau.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 06 BỘ CHỈ SỐ ===================== -->
+<section id="s6">
+  <div class="wrap">
+    <div class="s-num rv">06 / 13</div>
+    <h2 class="s-title rv">Bộ chỉ số dùng chung — một định nghĩa cho cả One Series</h2>
+    <p class="s-desc rv">Đây là phần tạo ra giá trị lớn nhất và cũng dễ tranh luận nhất. Nguyên tắc: mỗi chỉ
+      số phải nêu rõ <b>tử số, mẫu số, khung thời gian, đơn vị đếm</b>. Thiếu một trong bốn thì chưa phải chỉ
+      số, chỉ là một con số.</p>
+
+    <div class="callout rv">
+      <div class="k">Chốt trước một điều: đơn vị đếm</div>
+      <p>One Series bán cho tổ chức nhưng người dùng là cá nhân. Vì vậy mọi chỉ số phải nói rõ đếm theo
+        <b>account</b> (bên mua — một domain OneMail, một tài khoản OneDash) hay theo <b>seat</b> (người dùng
+        thật — một mailbox, một người đăng nhập). Đề xuất: <b>account là đơn vị chính</b> cho quyết định đầu
+        tư, seat là đơn vị phụ để đo mức độ lan trong tổ chức. Cấm hiển thị một số mà không ghi đơn vị.</p>
+    </div>
+
+    <div class="tw rv" style="margin-top:var(--s3)">
+      <table>
+        <thead>
+          <tr><th>Chỉ số</th><th>Định nghĩa đề xuất</th><th>Mẫu số</th><th>Riêng theo sản phẩm</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="k">Active account<br><span class="mono" style="font-size:11px">MAU / WAU / DAU</span></td>
+            <td>Account có ít nhất một hành động giá trị trong 30 / 7 / 1 ngày. Đăng nhập <b>không</b> tính là
+              hành động giá trị</td>
+            <td>Tổng account đang có dịch vụ còn hiệu lực</td>
+            <td>OneDash tính cả hành động qua agent, MCP, API — không chỉ web</td>
+          </tr>
+          <tr>
+            <td class="k">Adoption tính năng</td>
+            <td>Account dùng tính năng ≥1 lần trong 30 ngày</td>
+            <td><b>Account đủ điều kiện dùng</b> tính năng đó — không phải tổng account</td>
+            <td>Sai phổ biến nhất: chia cho tổng account làm adoption luôn trông thấp</td>
+          </tr>
+          <tr>
+            <td class="k">Time-to-first-value<br><span class="mono" style="font-size:11px">TTFV</span></td>
+            <td>Thời gian từ lúc dịch vụ kích hoạt đến hành động giá trị đầu tiên</td>
+            <td>Account đã kích hoạt trong kỳ</td>
+            <td>OneDash: project chạy thật · OneMail: mail đầu gửi ra ngoài · OneShield: zone active + SSL
+              cấp thành công · OnePanel: site đầu lên</td>
+          </tr>
+          <tr>
+            <td class="k">Retention D7 / D30</td>
+            <td>Account của cohort tháng N còn hành động ở ngày thứ 7 / 30</td>
+            <td>Account gia nhập trong cohort đó</td>
+            <td>Với control plane như OneDash, D30 = 0% không hẳn là thảm hoạ — cần thêm chỉ số "chu kỳ quay
+              lại kỳ vọng" thay vì bám DAU/MAU</td>
+          </tr>
+          <tr>
+            <td class="k">Expansion / Contraction</td>
+            <td>Account có usage tăng &gt;50% / giảm &gt;50% so với baseline 30 ngày trước</td>
+            <td>Account có usage ở cả hai kỳ</td>
+            <td>Phải định nghĩa "usage" cho từng sản phẩm — OneDash: số host quản lý + số lệnh · OneMail:
+              mailbox hoạt động + lượng mail · OneShield: zone hoạt động + SSL</td>
+          </tr>
+          <tr>
+            <td class="k">Silent churn</td>
+            <td>Account không có hành động nào trong 30 ngày <b>nhưng dịch vụ vẫn còn hạn</b></td>
+            <td>Account đang còn hạn dịch vụ</td>
+            <td>Chính là nhóm số BLĐ nêu là đang thiếu. Cảnh báo sớm hơn churn theo hợp đồng vài tháng</td>
+          </tr>
+          <tr>
+            <td class="k">Feature health</td>
+            <td>Tỷ lệ job/hành động thất bại của một tính năng</td>
+            <td>Tổng lượt thực hiện tính năng đó</td>
+            <td>Bằng chứng vì sao bắt buộc có: project lỗi 52,6% (OneDash) so với lỗi job SSL 0,95%
+              (OneShield). Adoption cao + lỗi cao = phá uy tín nhanh hơn là không có tính năng</td>
+          </tr>
+          <tr>
+            <td class="k">Measurement coverage</td>
+            <td>Tỷ lệ đối tượng có khả năng đo được</td>
+            <td>Tổng đối tượng thuộc phạm vi</td>
+            <td>Với OneDash hiện là 27,5% (server có agent). <b>Bắt buộc hiện cạnh mọi chỉ số hành vi</b> —
+              nếu không thì mọi kết luận đều treo</td>
+          </tr>
+          <tr>
+            <td class="k">Trial conversion</td>
+            <td>Account dùng thử chuyển sang trả phí trong 30 ngày</td>
+            <td>Account bắt đầu dùng thử — <b>tách riêng nhóm miễn phí/chương trình tặng</b></td>
+            <td>Bài học T7: trộn nhóm tặng vào làm tỷ lệ chuyển đổi từ 38,2% xuống 11,3% — hai con số này
+              đo hai thứ khác nhau</td>
+          </tr>
+          <tr>
+            <td class="k">Cross-product usage</td>
+            <td>Account dùng thật ≥2 sản phẩm One Series trong 30 ngày</td>
+            <td>Tổng account đang hoạt động</td>
+            <td>Đây là chỉ số <b>chỉ lớp giữa mới tính được</b> — không sản phẩm nào tự trả lời. Liên quan
+              trực tiếp bài toán cross-sell tên miền → hosting đang ở mức ~11%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="g2 rv" style="margin-top:var(--s3)">
+      <div class="card ok">
+        <div class="k">Kế thừa 5 quyết định của OneDash — nâng thành nguyên tắc chung</div>
+        <ul style="padding-left:1rem;font-size:14px">
+          <li><b>CHỐT-12 → nguyên tắc:</b> luôn hiện số tuyệt đối trước, phần trăm là phụ
+            (<span class="mono">U / max (27%)</span>)</li>
+          <li><b>CHỐT-13 → nguyên tắc:</b> mặc định khung 30 ngày, có filter 90 ngày; không hiện cộng dồn
+            toàn lịch sử</li>
+          <li><b>CHỐT-14 → nguyên tắc:</b> đo cả tỷ lệ cài và tỷ lệ xoá theo từng module — biết cái nào đáng
+            đầu tư tiếp</li>
+          <li><b>CHỐT-11 → nguyên tắc:</b> tách account mới và account đang duy trì thành hai số riêng,
+            không trộn</li>
+          <li><b>CHỐT-10 → nguyên tắc:</b> vắng vết không đồng nghĩa không dùng — phải có chỉ số coverage
+            đi kèm</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="k">Ba câu hỏi mà bộ chỉ số này phải trả lời được ngay tháng đầu</div>
+        <ul style="padding-left:1rem;font-size:14px">
+          <li><b>PR tháng 8 có hiệu quả không?</b> Số người dùng Project và MCP Server theo tháng — đúng cam
+            kết tại họp CXO</li>
+          <li><b>Tính năng nào nên bỏ?</b> Adoption thấp + tỷ lệ xoá cao + chi phí bảo trì → danh sách ứng
+            viên cắt</li>
+          <li><b>Ai đang rời đi và vì sao?</b> Silent churn + tính năng cuối cùng dùng trước khi im lặng</li>
+        </ul>
+        <p style="margin-top:10px;font-size:14px">Nếu tháng đầu không trả lời được ba câu này thì lớp giữa
+          chưa có giá trị, dù kiến trúc đẹp đến đâu.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 07 EVENT CONTRACT ===================== -->
+<section id="s7">
+  <div class="wrap">
+    <div class="s-num rv">07 / 13</div>
+    <h2 class="s-title rv">Hợp đồng dữ liệu giữa sản phẩm và lớp giữa</h2>
+    <p class="s-desc rv">Sản phẩm không gửi "dữ liệu", sản phẩm gửi <b>sự kiện theo hợp đồng</b>. Hợp đồng
+      chặt thì lớp giữa không cần biết gì về nội bộ sản phẩm, và PII không có đường lọt qua kể cả khi
+      developer viết nhầm.</p>
+
+    <div class="g2 rv" style="margin-bottom:var(--s3)">
+      <div>
+        <h3 class="sub-h" style="margin-top:0">Sự kiện hành vi — cấu trúc đề xuất</h3>
+        <pre>{
+  "schema": <b>"v1"</b>,
+  "ts": "2026-08-27T10:04:11Z",
+  "product": <b>"onedash"</b>,          <i>// danh mục cố định</i>
+  "tenant_key": <b>"hmac(account_id, salt)"</b>,
+  "actor_key": <b>"hmac(user_id, salt)"</b>,
+  "feature": <b>"project.deploy"</b>,   <i>// từ feature registry</i>
+  "action": <b>"success"</b>,           <i>// success | fail | start</i>
+  "surface": <b>"mcp"</b>,              <i>// web | mcp | api | agent</i>
+  "plan": <b>"cs-linux"</b>,            <i>// danh mục đã chuẩn hoá</i>
+  "region": <b>"hn"</b>,
+  "attrs": {                     <i>// whitelist key, KHÔNG free-text</i>
+    "runtime": "node",
+    "detected": true,
+    "error_code": null
+  }
+}</pre>
+        <p class="cap">Không có email, không có tên miền, không có đường dẫn, không có tên project. Ingest
+          <b>từ chối</b> event có key ngoài whitelist thay vì âm thầm bỏ trường — sai hợp đồng phải ồn ào.</p>
+      </div>
+      <div>
+        <h3 class="sub-h" style="margin-top:0">Ảnh trạng thái — chụp theo ngày</h3>
+        <pre>{
+  "schema": <b>"v1"</b>,
+  "snapshot_date": "2026-08-27",
+  "product": <b>"onemail"</b>,
+  "tenant_key": <b>"hmac(account_id, salt)"</b>,
+  "plan": <b>"email-062025"</b>,
+  "status": <b>"active"</b>,            <i>// trial | active | expired</i>
+  "counts": {
+    "seats_total": 42,
+    "seats_active_30d": 17,
+    "domains": 1
+  },
+  "features_on": [<b>"dkim"</b>, <b>"catchall"</b>],
+  "measurable": true            <i>// có đo được hành vi hay không</i>
+}</pre>
+        <p class="cap">Ảnh trạng thái trả lời "đang có gì" (đếm domain, user, zone, host, adoption theo cấu
+          hình). Sự kiện trả lời "khách làm gì" (funnel, TTFV, retention). Cần <b>cả hai</b> — mục 09.</p>
+      </div>
+    </div>
+
+    <div class="g3 rv">
+      <div class="card">
+        <div class="k">Feature registry</div>
+        <h4>Khoá tính năng phải khai báo trước</h4>
+        <p>Mỗi <span class="mono">feature</span> có bản khai: thuộc sản phẩm nào, ai sở hữu, có phải hành động
+          giá trị hay không, điều kiện "đủ điều kiện dùng" (để làm mẫu số adoption). Không khai thì event bị
+          quarantine. Đây cũng là cách để biết tính năng nào <b>chưa từng được đo</b>.</p>
+      </div>
+      <div class="card">
+        <div class="k">Ai làm phần nào</div>
+        <h4>Sản phẩm bắn, lớp giữa định nghĩa</h4>
+        <p>Đội sản phẩm chịu trách nhiệm bắn đúng và đủ (đúng chỉ đạo của BLĐ: người làm dự án nắm chính về
+          số liệu). Lớp giữa chịu trách nhiệm định nghĩa, chuẩn hoá, khử danh tính. Marketing/CMO chịu trách
+          nhiệm xác nhận công thức phân tích và ý nghĩa — cũng đúng phân định tại họp CXO.</p>
+      </div>
+      <div class="card warn">
+        <div class="k">Chi phí thật, phải nói trước</div>
+        <h4>Instrument là việc của từng sản phẩm</h4>
+        <p>Không có cách nào để lớp giữa tự sinh event. Mỗi sản phẩm phải bỏ công gắn điểm đo — tier S nếu
+          chỉ vài tính năng lõi, tier M nếu phủ hết. Nếu buổi brainstorm không cấp được công này cho từng
+          sản phẩm thì chỉ nên làm phần ảnh trạng thái, và nói rõ là chưa đo được hành vi.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 08 DASHBOARD MẪU ===================== -->
+<section id="s8">
+  <div class="wrap">
+    <div class="s-num rv">08 / 13</div>
+    <h2 class="s-title rv">Dashboard mẫu — cái developer thấy và không thấy</h2>
+    <p class="s-desc rv">Bản mô phỏng dưới đây dùng <b>số giả định</b> để bàn về hình thức, không phải số
+      thật. Điểm cần chú ý: mọi ô đều có mẫu số tuyệt đối, có độ phủ đo lường, và không ô nào xuống được tới
+      một khách cụ thể.</p>
+
+    <div class="mock rv" style="margin-bottom:var(--s3)">
+      <div class="mock-hd">
+        <div class="t">One Series · Customer Insight — OneMail</div>
+        <div class="f">
+          <span class="pill on">30 ngày</span>
+          <span class="pill">90 ngày</span>
+          <span class="pill">Đơn vị: account</span>
+          <span class="pill warn">Coverage 91%</span>
+        </div>
+      </div>
+      <div class="mock-body">
+        <div class="g4" style="margin-bottom:var(--s3)">
+          <div class="tile"><div class="n">1.245</div><div class="l">domain đang hoạt động</div>
+            <div class="h">trên 1.402 domain đã cấp · 88,8%</div></div>
+          <div class="tile"><div class="n">18.320</div><div class="l">mailbox đã tạo</div>
+            <div class="h">7.918 mailbox có hoạt động 30 ngày · 43,2%</div></div>
+          <div class="tile up"><div class="n">320</div><div class="l">account tăng usage &gt;50%</div>
+            <div class="h">so với baseline 30 ngày trước</div></div>
+          <div class="tile down"><div class="n">87</div><div class="l">account giảm usage &gt;50%</div>
+            <div class="h">trong đó 34 account im lặng hoàn toàn</div></div>
+        </div>
+
+        <div class="abox" style="margin-bottom:var(--s3)">
+          <div class="k" style="font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin-bottom:var(--s2)">
+            Adoption theo tính năng · mẫu số = account đủ điều kiện dùng</div>
+          <div class="ab">
+            <div class="t">Feature X<span>gửi mail qua SMTP relay</span></div>
+            <div class="track"><div class="fill" style="width:72%"></div></div>
+            <div class="v">896 / 1.245 · 72%</div>
+          </div>
+          <div class="ab">
+            <div class="t">DKIM / SPF tự động<span>cấu hình một lần</span></div>
+            <div class="track"><div class="fill" style="width:58%"></div></div>
+            <div class="v">722 / 1.245 · 58%</div>
+          </div>
+          <div class="ab">
+            <div class="t">Catch-all<span>bật trong cấu hình domain</span></div>
+            <div class="track"><div class="fill mid" style="width:31%"></div></div>
+            <div class="v">386 / 1.245 · 31%</div>
+          </div>
+          <div class="ab">
+            <div class="t">Feature Y<span>bộ lọc nâng cao</span></div>
+            <div class="track"><div class="fill low" style="width:4%"></div></div>
+            <div class="v">50 / 1.245 · 4%</div>
+          </div>
+          <div class="ab">
+            <div class="t">Migration tool<span>chuyển từ nhà cung cấp khác</span></div>
+            <div class="track"><div class="fill low" style="width:9%"></div></div>
+            <div class="v">112 / 1.245 · 9%</div>
+          </div>
+          <p class="cap" style="margin-top:var(--s2)">Feature Y ở 4% là <b>một câu hỏi, không phải một kết
+            luận</b>: có thể tính năng vô dụng, có thể khách không tìm thấy nó, có thể nó đang lỗi. Ba khả
+            năng này phân biệt được bằng feature health và funnel — không phân biệt được bằng con số 4%.</p>
+        </div>
+
+        <div class="g3">
+          <div class="card tight"><div class="k">TTFV trung vị</div>
+            <div style="font-size:24px;font-weight:700;color:var(--accent)">2,4 ngày</div>
+            <p style="font-size:12.5px;margin:6px 0 0">Cohort T8 · 1.402 account · nghẽn ở bước verify tên
+              miền</p></div>
+          <div class="card tight"><div class="k">Retention D30</div>
+            <div style="font-size:24px;font-weight:700;color:var(--viui-warning-text)">61%</div>
+            <p style="font-size:12.5px;margin:6px 0 0">Cohort T7 · 1.180 account · D7 = 84%</p></div>
+          <div class="card tight"><div class="k">Silent churn</div>
+            <div style="font-size:24px;font-weight:700;color:var(--brand-red)">34 account</div>
+            <p style="font-size:12.5px;margin:6px 0 0">Còn hạn dịch vụ nhưng im lặng 30 ngày → đẩy sang
+              mặt phẳng Action cho CSKH</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="g2 rv">
+      <div class="scope-col">
+        <div class="scope-hd in">Developer / Product thấy được
+          <span>Đủ để quyết định đầu tư, cắt bỏ, sửa lỗi</span></div>
+        <ul class="scope-list yes">
+          <li>1.245 domain · 18.320 mailbox · mẫu số tuyệt đối bên cạnh</li>
+          <li>Feature X 72% · Feature Y 4% — với mẫu số là account đủ điều kiện</li>
+          <li>320 account tăng usage &gt;50% · 87 account giảm &gt;50%</li>
+          <li>Cắt theo gói, vùng, cohort tháng, kênh (web / MCP / API / agent)</li>
+          <li>Tỷ lệ lỗi từng tính năng và TTFV theo cohort</li>
+          <li>Độ phủ đo lường của chính con số đang xem</li>
+        </ul>
+      </div>
+      <div class="scope-col">
+        <div class="scope-hd out">Developer / Product KHÔNG thấy
+          <span>Và không cần thấy để làm việc trên</span></div>
+        <ul class="scope-list no">
+          <li>Khách A · <span class="mono">abc@congty.vn</span></li>
+          <li>Tên miền, tên mailbox, tên project cụ thể</li>
+          <li>Nội dung mail, tiêu đề, file, log ứng dụng của khách</li>
+          <li>Danh sách account đứng sau con số 87 (nằm ở mặt phẳng Action)</li>
+          <li>IP, đường dẫn source, thông tin thanh toán</li>
+          <li>Bất kỳ ô nào dưới ngưỡng k tenant</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 09 PHƯƠNG ÁN ===================== -->
+<section id="s9">
+  <div class="wrap">
+    <div class="s-num rv">09 / 13</div>
+    <h2 class="s-title rv">Ba phương án kiến trúc</h2>
+    <p class="s-desc rv">Cả ba đều dựng được đường biên PII. Khác nhau ở chỗ: trả lời được loại câu hỏi nào,
+      và tốn bao nhiêu công của từng đội sản phẩm.</p>
+
+    <div class="g3 rv" style="margin-bottom:var(--s3)">
+      <div class="card">
+        <div class="k">Phương án A · tier S</div>
+        <h4>Tổng hợp từ DB sẵn có</h4>
+        <p style="font-size:14px">View/materialized view trên mỗi DB sản phẩm + một job đêm gom về một store
+          tổng hợp. Không sửa gì trong sản phẩm.</p>
+        <p style="font-size:13.5px;color:var(--muted)"><b>Được:</b> chạy được trong vài tuần, dùng ngay số
+          đang có (3.022 host, 23.104 user, 26.348 zone).<br>
+          <b>Mất:</b> không trả lời được funnel, TTFV, retention theo cohort — vì DB chỉ lưu trạng thái hiện
+          tại. Job đọc DB sản xuất nên vẫn coupling schema, và người viết job vẫn thấy dữ liệu thô.</p>
+      </div>
+      <div class="card">
+        <div class="k">Phương án B · tier L</div>
+        <h4>Event pipeline đầy đủ</h4>
+        <p style="font-size:14px">SDK trong từng sản phẩm → ingest có validate → store dạng cột → semantic
+          layer → dashboard.</p>
+        <p style="font-size:13.5px;color:var(--muted)"><b>Được:</b> trả lời được mọi câu hỏi hành vi; PII
+          tách sạch từ gốc vì event sinh ra đã khử danh tính.<br>
+          <b>Mất:</b> mỗi sản phẩm phải bỏ công instrument; cần hạ tầng mới; dễ sa vào làm nền tảng nửa năm
+          mà chưa ra được con số nào cho báo cáo tháng sau.</p>
+      </div>
+      <div class="card ok">
+        <div class="k">Phương án C · tier M — khuyến nghị</div>
+        <h4>Hybrid, hai bước</h4>
+        <p style="font-size:14px"><b>C1 — ảnh trạng thái toàn One Series:</b> mỗi sản phẩm xuất một snapshot
+          ngày theo hợp đồng ở mục 07. Trả lời được ngay: đếm, adoption theo cấu hình, expansion/contraction,
+          silent churn, cross-product.</p>
+        <p style="font-size:14px"><b>C2 — event cho 2 sản phẩm pilot:</b> chỉ gắn điểm đo cho các hành động
+          giá trị, chưa phủ hết. Trả lời thêm: funnel, TTFV, retention, feature health.</p>
+        <p style="font-size:13.5px;color:var(--muted)"><b>Vì sao chọn:</b> C1 đã đủ cho phần lớn câu hỏi BLĐ
+          đang đặt mà không cần đội sản phẩm nào dừng việc; C2 chứng minh giá trị trên phạm vi nhỏ trước khi
+          xin công của cả bốn sản phẩm.</p>
+      </div>
+    </div>
+
+    <div class="tw rv">
+      <table>
+        <thead>
+          <tr><th>Câu hỏi cần trả lời</th><th>A · state</th><th>B · event</th><th>C · hybrid</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="k">Đang có bao nhiêu domain / user / host / zone</td><td><span class="b ok">Được</span></td><td><span class="b warn">Gián tiếp</span></td><td><span class="b ok">Được</span></td></tr>
+          <tr><td class="k">Tính năng nào được bật, tính năng nào bị xoá</td><td><span class="b ok">Được</span></td><td><span class="b ok">Được</span></td><td><span class="b ok">Được</span></td></tr>
+          <tr><td class="k">Account nào tăng / giảm usage &gt;50%</td><td><span class="b warn">Được nếu có snapshot lịch sử</span></td><td><span class="b ok">Được</span></td><td><span class="b ok">Được</span></td></tr>
+          <tr><td class="k">Khách rơi ở bước nào trong onboarding</td><td><span class="b stop">Không</span></td><td><span class="b ok">Được</span></td><td><span class="b ok">Được ở pilot</span></td></tr>
+          <tr><td class="k">Bao lâu tới giá trị đầu tiên (TTFV)</td><td><span class="b stop">Không</span></td><td><span class="b ok">Được</span></td><td><span class="b ok">Được ở pilot</span></td></tr>
+          <tr><td class="k">Tỷ lệ lỗi từng tính năng</td><td><span class="b warn">Chỉ nếu DB lưu job</span></td><td><span class="b ok">Được</span></td><td><span class="b ok">Được</span></td></tr>
+          <tr><td class="k">Người dùng Project / MCP theo tháng (cam kết với BLĐ)</td><td><span class="b warn">Xấp xỉ</span></td><td><span class="b ok">Chính xác</span></td><td><span class="b ok">Chính xác ở pilot</span></td></tr>
+          <tr><td class="k">Account dùng ≥2 sản phẩm One Series</td><td><span class="b ok">Được</span></td><td><span class="b ok">Được</span></td><td><span class="b ok">Được</span></td></tr>
+          <tr><td class="k">Công phải bỏ ra từ mỗi đội sản phẩm</td><td><span class="b ok">Gần như không</span></td><td><span class="b stop">Cao</span></td><td><span class="b warn">Thấp ở C1, trung bình ở C2</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout warn rv">
+      <div class="k">Điều kiện tiên quyết của mọi phương án</div>
+      <p>Phải có một <b>khoá tenant chung</b> nối được cùng một khách qua nhiều sản phẩm. Hôm nay danh tính
+        khách nằm ở Portal/SSO; OneDash gọi API Portal bằng <span class="mono">sid</span>/<span class="mono">ssid</span>
+        (đã chốt tại review 13/08). Nếu không thống nhất được <span class="mono">account_id</span> gốc để
+        hash thì mọi chỉ số cross-product ở trên đều không tính được. Đây là hạng mục kỹ thuật đầu tiên phải
+        xác nhận, trước cả việc chọn A/B/C.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 10 QUẢN TRỊ SỐ ===================== -->
+<section id="s10">
+  <div class="wrap">
+    <div class="s-num rv">10 / 13</div>
+    <h2 class="s-title rv">Quản trị số liệu — trả lời trực tiếp phàn nàn "không biết số nào chuẩn"</h2>
+    <p class="s-desc rv">Phần này không cần công nghệ, chỉ cần kỷ luật. Nhưng nếu bỏ qua thì lớp giữa sẽ tái
+      hiện đúng vấn đề hiện tại của OneDash: rất nhiều số, không ai dám dùng.</p>
+
+    <div class="g3 rv" style="margin-bottom:var(--s3)">
+      <div class="card">
+        <div class="k">Trạng thái chỉ số</div>
+        <h4>Mỗi số mang một nhãn, hiện ngay trên dashboard</h4>
+        <p><span class="b mute">NHÁP</span> mới có query, chưa ai xác nhận — không dùng trong báo cáo<br>
+          <span class="b info">ĐÃ ĐỐI CHIẾU</span> Công Nghệ xác nhận lấy đúng nguồn, đúng mẫu số<br>
+          <span class="b ok">CHUẨN</span> Marketing/CMO đã xác nhận công thức và ý nghĩa — được dùng trong
+          báo cáo và cuộc họp</p>
+      </div>
+      <div class="card">
+        <div class="k">Phân định trách nhiệm</div>
+        <h4>Đúng như đã chốt tại họp CXO</h4>
+        <p><b>Đội sản phẩm:</b> lấy ra đúng, chính xác, đủ.<br>
+          <b>Marketing / CMO:</b> xác nhận công thức phân tích — số này trừ số kia, ra tỷ lệ gì, nghĩa là gì.<br>
+          <b>Lớp giữa:</b> giữ định nghĩa duy nhất, giữ đường biên PII, giữ vết nguồn gốc.</p>
+      </div>
+      <div class="card">
+        <div class="k">Khai tử chỉ số</div>
+        <h4>Số không ai dùng thì bỏ query</h4>
+        <p>Marketing chỉ ra chỉ số nào không còn dùng → Công Nghệ bỏ, giảm tải và giảm nhiễu. Cũng đúng thoả
+          thuận tại họp CXO. Rà định kỳ hàng quý: chỉ số không được mở trong 90 ngày → ứng viên khai tử.</p>
+      </div>
+    </div>
+
+    <div class="g2 rv">
+      <div class="card accent">
+        <div class="k">Dẫn nguồn — yêu cầu trực tiếp của BLĐ</div>
+        <h4>Mỗi ô số phải mở ra được bản khai của nó</h4>
+        <ul style="padding-left:1rem;font-size:14px">
+          <li>Định nghĩa bằng tiếng Việt, một câu</li>
+          <li>Công thức: tử số / mẫu số / khung thời gian / đơn vị đếm</li>
+          <li>Nguồn: sản phẩm nào, bảng hay event nào, cập nhật lúc nào</li>
+          <li>Độ phủ đo lường hiện tại</li>
+          <li>Trạng thái nhãn và ai xác nhận lần cuối</li>
+        </ul>
+      </div>
+      <div class="card warn">
+        <div class="k">Rủi ro quản trị lớn nhất</div>
+        <h4>Chỉ số gắn với đánh giá thì chỉ số bị tối ưu</h4>
+        <p>Khi BLĐ dùng số người dùng để đánh giá dự án và người làm dự án, sẽ xuất hiện áp lực làm đẹp số:
+          đếm cả lượt bấm thử, gộp tài khoản nội bộ, chọn mẫu số nhỏ. Ba chốt phòng vệ đề xuất:
+          (1) định nghĩa và mẫu số do lớp giữa giữ, không do đội sản phẩm tự đặt;
+          (2) loại tài khoản nội bộ và tài khoản test ra khỏi mọi chỉ số, có danh sách công khai;
+          (3) chỉ số đánh giá luôn đi kèm chỉ số chất lượng — adoption đi với tỷ lệ lỗi, tăng trưởng đi với
+          giữ chân.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 11 BẪY ===================== -->
+<section id="s11">
+  <div class="wrap">
+    <div class="s-num rv">11 / 13</div>
+    <h2 class="s-title rv">Chín cái bẫy — tất cả đều đã xảy ra thật ở iNET</h2>
+    <p class="s-desc rv">Danh sách này không phải lý thuyết. Mỗi bẫy dưới đây đều có một ví dụ có thật trong
+      số liệu tháng 7–8/2026. Lớp giữa phải chặn được từng cái, bằng thiết kế chứ không bằng nhắc nhở.</p>
+
+    <div class="tw rv">
+      <table>
+        <thead>
+          <tr><th>Bẫy</th><th>Bằng chứng thật</th><th>Cách chặn bằng thiết kế</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="k">1 · Mẫu số ảo</td>
+            <td>Agent OneDash chỉ cài trên 27,5% server → mọi số hành vi chỉ nói về một phần tư fleet</td>
+            <td>Bắt buộc hiện coverage cạnh mọi chỉ số hành vi; dưới ngưỡng coverage thì gắn nhãn cảnh báo,
+              không cho dùng trong báo cáo</td>
+          </tr>
+          <tr>
+            <td class="k">2 · Vắng vết = không dùng</td>
+            <td>CHỐT-10: SSH không đi qua agent thì không để lại vết — không thể suy ra khách không dùng</td>
+            <td>Tách rõ ba trạng thái: <b>có hoạt động</b> / <b>không hoạt động</b> / <b>không đo được</b>.
+              Không gộp hai cái sau</td>
+          </tr>
+          <tr>
+            <td class="k">3 · Trộn nhóm tặng vào chuyển đổi</td>
+            <td>Chuyển đổi khách mới → có giao dịch 38,2% nhưng tính trên tổng khách tạo mới chỉ 11,3%, do
+              lượng lớn khách từ chương trình miễn phí</td>
+            <td>Chiều <span class="mono">acquisition_type</span> bắt buộc: trả phí / dùng thử / tặng. Mặc
+              định tách, muốn gộp phải chủ động chọn</td>
+          </tr>
+          <tr>
+            <td class="k">4 · Phần trăm không mẫu số</td>
+            <td>CHỐT-12: dashboard hiện 27% mà không biết 27% của bao nhiêu → không ra quyết định được</td>
+            <td>Component số liệu chỉ nhận cặp (tử, mẫu); không có API nào cho phép hiển thị % đơn độc</td>
+          </tr>
+          <tr>
+            <td class="k">5 · Cộng dồn toàn lịch sử</td>
+            <td>CHỐT-13: số cộng dồn che mất xu hướng — 23.104 user OneShield không nói gì về tháng này</td>
+            <td>Khung mặc định 30 ngày, filter 90 ngày. Số cộng dồn phải gắn nhãn rõ là tích luỹ</td>
+          </tr>
+          <tr>
+            <td class="k">6 · Cộng ngang đơn vị khác nhau</td>
+            <td>23.104 "user" OneShield và 560 "MAU" OneDash không cùng đơn vị, không cộng được thành
+              "tổng user One Series"</td>
+            <td>Mỗi chỉ số mang đơn vị trong metadata; dashboard chặn phép cộng giữa hai đơn vị khác nhau</td>
+          </tr>
+          <tr>
+            <td class="k">7 · Vanity metric</td>
+            <td>Projects đang chạy = 2 trong khi MAU 560 — lượt truy cập không đồng nghĩa giá trị được tạo</td>
+            <td>Mỗi sản phẩm phải khai <b>một hành động giá trị</b>; MAU tính theo hành động đó, không tính
+              theo đăng nhập hay pageview</td>
+          </tr>
+          <tr>
+            <td class="k">8 · n nhỏ, nhiễu lớn</td>
+            <td>OneMail 183 gói Active → một khách đổi hành vi làm lệch tỷ lệ vài điểm phần trăm</td>
+            <td>Dưới ngưỡng mẫu thì hiện số tuyệt đối, không hiện tỷ lệ. Không vẽ đường xu hướng trên mẫu
+              quá nhỏ</td>
+          </tr>
+          <tr>
+            <td class="k">9 · Insight không hành động được</td>
+            <td>20 tài khoản đã được gắn cờ nguy cơ rời bỏ nhưng aggregate không cho biết là ai</td>
+            <td>Mặt phẳng Action riêng: danh sách đẩy tới CSKH/Kinh doanh qua Portal, có vết truy cập, không
+              hiển thị trong dashboard chung</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout stop rv">
+      <div class="k">Bẫy thứ mười — bẫy của chính dự án này</div>
+      <p>Lớp giữa rất dễ trở thành một dự án hạ tầng nửa năm rồi chưa sinh ra con số nào dùng được, đúng lúc
+        BLĐ đang cần số cho báo cáo tháng sau. Chốt phòng vệ: <b>tháng đầu phải ra được số người dùng Project
+        và MCP Server theo tháng</b> — đúng cam kết tại họp CXO 04/08. Nếu kiến trúc chọn xong mà không đáp
+        được mốc đó thì chọn lại.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 12 CẦN CHỐT ===================== -->
+<section id="s12">
+  <div class="wrap">
+    <div class="s-num rv">12 / 13</div>
+    <h2 class="s-title rv">Mười ba câu hỏi phải chốt trong buổi brainstorm</h2>
+    <p class="s-desc rv">Mỗi câu đều kèm khuyến nghị kỹ thuật để buổi họp <b>xác nhận hoặc bác</b>, thay vì
+      bắt đầu từ trang giấy trắng. Câu nào không chốt được thì ghi rõ là treo, kèm người chịu trách nhiệm và
+      hệ quả của việc treo.</p>
+
+    <div class="rv">
+      <div class="q">
+        <div class="q-h"><span class="q-n">Q1</span><span class="q-t">Đơn vị đếm chuẩn của One Series là account hay seat?</span></div>
+        <p class="q-why">Quyết định này lan ra mọi chỉ số. Chọn sai thì OneMail (1 domain, nhiều mailbox) và
+          OneDash (1 tài khoản, nhiều host) không so được với nhau.</p>
+        <div class="q-opts">
+          <div class="opt rec"><b>Account là đơn vị chính, seat là đơn vị phụ.</b> Quyết định đầu tư đọc theo
+            account; seat dùng để đo mức lan trong tổ chức. Mọi số hiển thị bắt buộc ghi đơn vị.</div>
+          <div class="opt">Chỉ đếm account — đơn giản nhất, nhưng mất hẳn khả năng thấy một khách lớn dùng
+            sâu tới đâu.</div>
+          <div class="opt">Chỉ đếm seat — sát người dùng thật, nhưng làm sản phẩm bán theo domain trông to
+            giả và không nối được với doanh thu.</div>
+        </div>
+      </div>
+
+      <div class="q">
+        <div class="q-h"><span class="q-n">Q2</span><span class="q-t">Ngưỡng k-anonymity là bao nhiêu, và xử lý ô dưới ngưỡng thế nào?</span></div>
+        <p class="q-why">k cao thì an toàn nhưng OneMail 183 account sẽ có phần lớn ô bị che. k thấp thì có
+          nguy cơ suy ra được khách cụ thể từ vài chiều cắt.</p>
+        <div class="q-opts">
+          <div class="opt rec"><b>k = 5, cố định cho mọi sản phẩm; ô dưới ngưỡng hiện <span class="mono">&lt;5</span>.</b>
+            Với sản phẩm nhỏ thì <b>giảm số chiều cắt</b> chứ không giảm k. Một ngưỡng duy nhất dễ kiểm tra
+            và không thương lượng được từng lần.</div>
+          <div class="opt">k theo sản phẩm (OneShield 10, OneMail 3) — linh hoạt hơn nhưng mở đường cho việc
+            hạ ngưỡng mỗi khi cần một con số.</div>
+          <div class="opt">Không đặt ngưỡng, chỉ chặn drill-down tới tenant — rẻ nhất, nhưng vài chiều cắt
+            cộng lại vẫn suy ra được khách.</div>
+        </div>
+      </div>
+
+      <div class="q">
+        <div class="q-h"><span class="q-n">Q3</span><span class="q-t">Mặt phẳng Insight có được drill-down tới <span class="mono">tenant_key</span> giả danh không?</span></div>
+        <p class="q-why">Đây là điểm dễ trượt nhất: khoá giả danh nhìn như đã an toàn, nhưng ghép vài chiều
+          là nhận ra khách, và một lần nối với Portal là hết giả danh.</p>
+        <div class="q-opts">
+          <div class="opt rec"><b>Không. Insight chặn tuyệt đối ở mức cohort.</b> Nhu cầu "xem một khách cụ
+            thể" đi qua mặt phẳng Action với quyền riêng và có vết truy cập.</div>
+          <div class="opt">Cho phép với vai Product Owner, có ghi log — tiện hơn nhiều, nhưng đường biên sẽ
+            xói mòn dần theo từng ngoại lệ.</div>
+        </div>
+      </div>
+
+      <div class="q">
+        <div class="q-h"><span class="q-n">Q4</span><span class="q-t">Chọn phương án nào: A state · B event · C hybrid?</span></div>
+        <div class="q-opts">
+          <div class="opt rec"><b>C — hybrid.</b> C1 ảnh trạng thái cho toàn bộ One Series trước (tier S–M cho
+            mỗi sản phẩm), C2 event cho 2 sản phẩm pilot. Ra số sớm, không bắt bốn đội dừng việc cùng lúc.</div>
+          <div class="opt">A — nhanh nhất nhưng không bao giờ trả lời được câu BLĐ quan tâm nhất là giữ chân
+            và khách rơi ở đâu.</div>
+          <div class="opt">B — đúng bài nhất nhưng rủi ro nửa năm chưa ra số, trong khi cam kết báo cáo là
+            hàng tháng.</div>
+        </div>
+      </div>
+
+      <div class="q">
+        <div class="q-h"><span class="q-n">Q5</span><span class="q-t">Hai sản phẩm pilot là gì?</span></div>
+        <div class="q-opts">
+          <div class="opt rec"><b>OneDash + OneMail.</b> OneDash vì đã cam kết với BLĐ số người dùng Project
+            và MCP theo tháng, lại là nơi số hiện tại đáng ngờ nhất. OneMail vì có nghẽn onboarding đo được
+            rõ (verify 69,1% vs 14,4%) và quy mô nhỏ, dễ kiểm chứng đúng/sai.</div>
+          <div class="opt">OneDash + OneShield — OneShield có lượng người dùng lớn nhất (23.104) nên số đẹp
+            và ổn định, nhưng ít đòn đau nên ít học được gì.</div>
+          <div class="opt">Chỉ pilot OneDash — tập trung nhất, nhưng không kiểm chứng được tính dùng chung
+            của bộ chỉ số, vốn là mục tiêu chính.</div>
+        </div>
+      </div>
+
+      <div class="q">
+        <div class="q-h"><span class="q-n">Q6</span><span class="q-t">Tự viết hay dùng công cụ có sẵn cho lớp 2 và lớp 3?</span></div>
+        <div class="q-opts">
+          <div class="opt rec"><b>Self-host công cụ có sẵn cho phần store và BI, tự viết phần khử danh tính
+            và semantic layer.</b> Phần đặc thù iNET là định nghĩa chỉ số và đường biên PII — đó là chỗ đáng
+            tự viết. Phần lưu trữ và vẽ biểu đồ thì không.</div>
+          <div class="opt">Tự viết toàn bộ — kiểm soát tối đa, nhưng biến lớp giữa thành một sản phẩm nữa
+            phải bảo trì.</div>
+          <div class="opt">SaaS analytics bên ngoài — nhanh nhất, nhưng dữ liệu hành vi khách hàng iNET ra
+            khỏi hạ tầng công ty. Đề xuất loại.</div>
+        </div>
+      </div>
+
+      <div class="q">
+        <div class="q-h"><span class="q-n">Q7</span><span class="q-t">Ai nhận danh sách ở mặt phẳng Action, và qua kênh nào?</span></div>
+        <div class="q-opts">
+          <div class="opt rec"><b>CSKH và Kinh doanh, qua Portal — nơi họ vốn đã có quyền với khách đó.</b>
+            Lớp giữa chỉ sinh tín hiệu và đẩy danh sách, không dựng thêm một chỗ lưu dữ liệu khách mới.</div>
+          <div class="opt">Dựng màn hình riêng trong Insight Dashboard, giới hạn quyền — tiện cho người dùng
+            nhưng lại tạo thêm một nơi chứa dữ liệu khách phải bảo vệ.</div>
+        </div>
+      </div>
+
+      <div class="q">
+        <div class="q-h"><span class="q-n">Q8</span><span class="q-t">Ai sở hữu semantic layer — nơi giữ định nghĩa chỉ số?</span></div>
+        <p class="q-why">Không có chủ rõ ràng thì mỗi sản phẩm sẽ tự định nghĩa lại MAU của mình, và ta quay
+          về đúng vấn đề hiện tại.</p>
+        <div class="q-opts">
+          <div class="opt rec"><b>Công Nghệ sở hữu và vận hành; Marketing/CMO đồng ký định nghĩa.</b> Đổi
+            định nghĩa một chỉ số đã ở trạng thái CHUẨN phải có cả hai bên đồng ý và ghi vết phiên bản.</div>
+          <div class="opt">Marketing sở hữu — sát người dùng số nhất, nhưng phần chuẩn hoá và khử PII là việc
+            kỹ thuật.</div>
+          <div class="opt">Mỗi đội sản phẩm tự sở hữu phần của mình — đúng là chuyện đang xảy ra, và là
+            nguyên nhân của vấn đề.</div>
+        </div>
+      </div>
+
+      <div class="q">
+        <div class="q-h"><span class="q-n">Q9</span><span class="q-t">"Hành động giá trị" của từng sản phẩm là gì?</span></div>
+        <p class="q-why">Không chốt được cái này thì MAU vô nghĩa. Mỗi sản phẩm phải khai đúng một hành động.</p>
+        <div class="q-opts">
+          <div class="opt rec"><b>Đề xuất để buổi họp sửa trực tiếp:</b> OneDash = project chạy thật hoặc
+            lệnh vận hành thành công · OneMail = mail gửi ra ngoài thành công · OneShield = zone active có
+            SSL hợp lệ · OnePanel = site phục vụ traffic thật · Portal = hoàn tất một giao dịch dịch vụ.</div>
+          <div class="opt">Để mỗi đội tự khai rồi lớp giữa rà lại — nhanh hơn, nhưng khả năng cao sẽ chọn
+            hành động dễ đạt nhất.</div>
+        </div>
+      </div>
+
+      <div class="q">
+        <div class="q-h"><span class="q-n">Q10</span><span class="q-t">Xử lý nhóm "không đo được" thế nào trong báo cáo?</span></div>
+        <p class="q-why">Với OneDash là 72,5% server không có agent. Số này quá lớn để bỏ qua trong một dòng
+          chú thích.</p>
+        <div class="q-opts">
+          <div class="opt rec"><b>Hiện coverage như một chỉ số chính thức, ngang hàng với MAU.</b> Đồng thời
+            đặt mục tiêu tăng coverage — vì nâng coverage cũng chính là nâng adoption agent, một mục tiêu sản
+            phẩm thật.</div>
+          <div class="opt">Chỉ báo cáo trên phần đo được, ghi chú nhỏ — dễ đọc hơn nhưng người đọc sẽ tưởng
+            đó là toàn bộ fleet.</div>
+        </div>
+      </div>
+
+      <div class="q">
+        <div class="q-h"><span class="q-n">Q11</span><span class="q-t">Cadence: dashboard tự phục vụ, hay báo cáo tháng chốt cứng?</span></div>
+        <div class="q-opts">
+          <div class="opt rec"><b>Cả hai, tách vai rõ.</b> Dashboard tự phục vụ cho Technology/Product xem
+            hàng ngày; bản chốt tháng (đóng băng số, có nhãn CHUẨN) dùng cho họp CXO — vì họp cần một con số
+            không đổi giữa các lần mở.</div>
+          <div class="opt">Chỉ báo cáo tháng — kỷ luật hơn nhưng đội sản phẩm mất công cụ làm việc hàng ngày.</div>
+          <div class="opt">Chỉ dashboard trực tiếp — linh hoạt nhất, nhưng số nhảy giữa hai lần mở là mất
+            tin cậy trong cuộc họp.</div>
+        </div>
+      </div>
+
+      <div class="q">
+        <div class="q-h"><span class="q-n">Q12</span><span class="q-t">Khoá tenant chung lấy từ đâu?</span></div>
+        <p class="q-why">Điều kiện tiên quyết của mọi chỉ số cross-product. Chưa chốt thì Q4 không triển
+          khai được.</p>
+        <div class="q-opts">
+          <div class="opt rec"><b><span class="mono">account_id</span> của Portal/SSO làm khoá gốc, hash ở
+            lớp 2.</b> Đây đã là danh tính chung thực tế — OneDash gọi API Portal bằng
+            <span class="mono">sid</span>/<span class="mono">ssid</span> theo chốt review 13/08.</div>
+          <div class="opt">Mỗi sản phẩm giữ khoá riêng, lớp giữa dựng bảng nối — làm được nhưng bảng nối
+            chính là một bảng danh tính, đúng thứ ta đang cố không tạo ra.</div>
+        </div>
+      </div>
+
+      <div class="q">
+        <div class="q-h"><span class="q-n">Q13</span><span class="q-t">Số của lớp này có được dùng để đánh giá người làm dự án không?</span></div>
+        <p class="q-why">BLĐ đã nêu là có. Cần chốt cách dùng, vì nó quyết định chỉ số có bị bóp méo hay
+          không ngay từ tháng đầu.</p>
+        <div class="q-opts">
+          <div class="opt rec"><b>Có, nhưng chỉ số đánh giá luôn đi theo cặp.</b> Adoption đi với tỷ lệ lỗi,
+            tăng trưởng đi với giữ chân; định nghĩa và mẫu số do lớp giữa giữ, đội sản phẩm không tự đặt; tài
+            khoản nội bộ và test loại khỏi mọi chỉ số.</div>
+          <div class="opt">Có, dùng trực tiếp số người dùng — đơn giản và đúng ý BLĐ nhất, nhưng gần như chắc
+            chắn dẫn tới làm đẹp mẫu số.</div>
+          <div class="opt">Không dùng cho đánh giá người — bảo vệ chất lượng số liệu tốt nhất, nhưng đi ngược
+            chỉ đạo đã nêu tại họp CXO.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 13 BƯỚC ĐI ===================== -->
+<section id="s13">
+  <div class="wrap">
+    <div class="s-num rv">13 / 13</div>
+    <h2 class="s-title rv">Bước đi đề xuất nếu buổi brainstorm thông</h2>
+    <p class="s-desc rv">Sắp theo thứ tự phụ thuộc, không phải theo thứ tự dễ. Quy mô ghi bằng tier
+      (S / M / L / XL), không ghi bằng giờ — vì phần lớn công việc sẽ do AI thực thi và tốc độ biến động lớn.</p>
+
+    <div class="tl rv">
+      <div class="tl-item">
+        <div class="tl-when">BƯỚC 0 · trước khi viết dòng code nào</div>
+        <div class="tl-h">Chốt hợp đồng, không chốt công nghệ</div>
+        <div class="tl-body">
+          <p>Ba văn bản, mỗi cái một trang: (1) bảng phân loại trường ở mục 05, (2) danh sách chỉ số v1 với
+            tử/mẫu/khung/đơn vị ở mục 06, (3) hợp đồng snapshot + event ở mục 07. Kèm kết quả 13 câu hỏi ở
+            mục 12, câu nào treo thì ghi rõ là treo.</p>
+          <p><b>Tiêu chí xong:</b> hai người khác nhau đọc bản định nghĩa và tính ra cùng một con số MAU cho
+            cùng một sản phẩm.</p>
+          <div class="tl-tags"><span class="tag acc">tier S</span><span class="tag">Công Nghệ + Marketing/CMO</span><span class="tag warn">chặn mọi bước sau</span></div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-when">BƯỚC 1 · lớp trạng thái toàn One Series</div>
+        <div class="tl-h">Ra số sớm bằng dữ liệu đang có sẵn</div>
+        <div class="tl-body">
+          <p>Mỗi sản phẩm xuất một snapshot ngày theo hợp đồng: đếm đối tượng, tính năng đang bật, trạng thái
+            gói, cờ đo được. Lớp 2 nhận, hash tenant, chuẩn hoá chiều, áp ngưỡng k. Dashboard v1 chỉ có bốn
+            khối: đếm, adoption, expansion/contraction, silent churn.</p>
+          <p><b>Tiêu chí xong:</b> trả lời được ngay số người dùng Project và MCP Server theo tháng — cam kết
+            đã nêu tại họp CXO 04/08.</p>
+          <div class="tl-tags"><span class="tag acc">tier M</span><span class="tag">4 sản phẩm × tier S mỗi bên</span><span class="tag ok">không cần instrument</span></div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-when">BƯỚC 2 · event cho 2 sản phẩm pilot</div>
+        <div class="tl-h">Thêm hành vi: funnel, TTFV, retention, feature health</div>
+        <div class="tl-body">
+          <p>Gắn điểm đo cho các hành động giá trị đã chốt ở Q9, chưa phủ hết tính năng. Ingest có validate,
+            event sai hợp đồng bị từ chối ồn ào. Dashboard bổ sung funnel onboarding và tỷ lệ lỗi từng tính
+            năng.</p>
+          <p><b>Tiêu chí xong:</b> chỉ ra được chính xác khách OneMail rơi ở bước nào, và tỷ lệ lỗi thật của
+            module Project OneDash — thay cho con số 52,6% hiện chưa rõ mẫu số.</p>
+          <div class="tl-tags"><span class="tag acc">tier M</span><span class="tag">OneDash · OneMail</span><span class="tag warn">cần công của đội sản phẩm</span></div>
+        </div>
+      </div>
+
+      <div class="tl-item fut">
+        <div class="tl-when">BƯỚC 3 · quản trị và mặt phẳng Action</div>
+        <div class="tl-h">Nhãn trạng thái chỉ số, dẫn nguồn, đẩy danh sách cho CSKH</div>
+        <div class="tl-body">
+          <p>Gắn nhãn NHÁP / ĐÃ ĐỐI CHIẾU / CHUẨN cho từng chỉ số, mở được bản khai từ mỗi ô số. Dựng luồng
+            đẩy danh sách silent churn sang Portal cho CSKH/Kinh doanh, có vết truy cập.</p>
+          <p><b>Tiêu chí xong:</b> báo cáo tháng dẫn được nguồn cho từng số, và 20 tài khoản nguy cơ rời bỏ
+            có người liên hệ thật.</p>
+          <div class="tl-tags"><span class="tag acc">tier S</span><span class="tag">Công Nghệ + CSKH</span></div>
+        </div>
+      </div>
+
+      <div class="tl-item fut">
+        <div class="tl-when">BƯỚC 4 · phủ hết One Series</div>
+        <div class="tl-h">Mở rộng event ra OneShield, OnePanel, Portal, Developers</div>
+        <div class="tl-body">
+          <p>Chỉ làm sau khi pilot chứng minh bộ chỉ số dùng chung thực sự dùng chung được. Kèm rà soát khai
+            tử chỉ số không ai mở trong 90 ngày.</p>
+          <p><b>Tiêu chí xong:</b> chỉ số cross-product chạy được — trả lời được bao nhiêu account dùng thật
+            từ hai sản phẩm One Series trở lên, phục vụ trực tiếp bài toán cross-sell đang ở mức ~11%.</p>
+          <div class="tl-tags"><span class="tag acc">tier L</span><span class="tag">toàn bộ One Series</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout ok rv" style="margin-top:var(--s5)">
+      <div class="k">Một câu để mở đầu buổi brainstorm</div>
+      <p>Hôm nay muốn biết một tính năng có ai dùng không thì phải mở dữ liệu khách ra đọc, và ba người sẽ
+        cho ra ba con số khác nhau. Đề xuất: chèn một lớp tổng hợp ở giữa, chốt một bộ định nghĩa dùng chung,
+        và <b>dứt khoát không cho PII đi xuống dưới lớp đó</b>. Buổi họp cần chốt 13 câu ở mục 12 — riêng
+        Q4 (phương án), Q9 (hành động giá trị) và Q12 (khoá tenant) không chốt thì không khởi động được.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div style="font-weight:600;color:var(--ink)">One Series · Customer Insight Layer — nội dung brainstorm</div>
+        <div style="margin-top:6px">Tài liệu nội bộ Bộ phận Công Nghệ · iNET · phiên bản 0.1 (nháp) · 27/08/2026</div>
+        <div style="margin-top:4px">Nguồn dẫn: Biên bản họp CXO 04/08/2026 · Review định hướng OneDash
+          13/08/2026 (CHỐT-10 → CHỐT-14) · Báo cáo Dashboard iNET T7/2026 (my.inet.vn, 01/08/2026)</div>
+        <div style="margin-top:4px">Mọi số liệu trong tài liệu là <b>ví dụ minh hoạ bài toán</b>; số trong
+          dashboard mẫu ở mục 08 là số giả định, không phải số thật.</div>
+      </div>
+      <a class="up" data-go="s1">↑ Về đầu trang</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* Điều hướng iframe-safe: cuộn nội trang, không đổi location.hash */
+document.querySelectorAll('[data-go]').forEach(function(el){
+  el.addEventListener('click',function(e){
+    e.preventDefault();
+    var t=document.getElementById(el.getAttribute('data-go'));
+    if(!t)return;
+    var top=t.getBoundingClientRect().top+window.pageYOffset-56;
+    window.scrollTo({top:top,behavior:'smooth'});
+  });
+});
+
+/* Reveal khi cuộn tới */
+(function(){
+  var items=document.querySelectorAll('.rv');
+  if(!('IntersectionObserver' in window)){
+    items.forEach(function(i){i.classList.add('on')});
+    return;
+  }
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){en.target.classList.add('on');io.unobserve(en.target)}
+    });
+  },{rootMargin:'0px 0px -8% 0px',threshold:.05});
+  items.forEach(function(i){io.observe(i)});
+
+  /* Lưới an toàn: nội dung không bao giờ ở trạng thái ẩn vì animation chưa chạy
+     (viewport rất cao, nhúng iframe, in ấn, tab nền). */
+  setTimeout(function(){
+    items.forEach(function(i){i.classList.add('on')});
+    io.disconnect();
+  },1600);
+})();
+</script>
+</body>
+</html>
