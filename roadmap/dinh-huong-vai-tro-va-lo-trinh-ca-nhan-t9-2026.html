@@ -1,0 +1,1058 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Định hướng vai trò &amp; lộ trình cá nhân · BP Công Nghệ (T9/2026 – 2027)</title>
+<style>
+/* ==========================================================================
+   Token: iNET ViUI Design System. Sáng = bảng mặc định, tối = bảng dark.
+   File self-contained: không CDN, không font ngoài, không script ngoài.
+   ========================================================================== */
+:root{
+  color-scheme:light dark;
+
+  --viui-primary:#024799;
+  --viui-primary-500:#0582D4;
+  --viui-accent:#E8353C;
+
+  --viui-surface:#FFFFFF;
+  --viui-surface-elevated:#F4F7FA;
+  --viui-surface-card:#E8EEF4;
+  --viui-border:#D0DAE6;
+  --viui-border-subtle:#E8EEF4;
+  --viui-nl-500:#6D8599;
+  --viui-nl-600:#4A6278;
+  --viui-nl-700:#2E4A5C;
+  --viui-nl-900:#0F1E2D;
+
+  --viui-error:#B91C1C;
+  --viui-error-surface:#FEF2F2;
+  --viui-warning:#D47B0A;
+  --viui-warning-text:#92400E;
+  --viui-warning-surface:#FFFBEB;
+  --viui-success:#0E9F6E;
+  --viui-success-text:#065F46;
+  --viui-success-surface:#ECFDF5;
+  --viui-info-text:#1E40AF;
+  --viui-info-surface:#EFF6FF;
+
+  --s1:8px; --s2:16px; --s3:24px; --s4:32px; --s5:40px; --s6:48px; --s8:64px;
+  --r-sm:4px; --r-base:8px; --r-md:12px; --r-lg:16px;
+
+  --ink:var(--viui-nl-900);
+  --ink-soft:var(--viui-nl-700);
+  --muted:var(--viui-nl-600);
+  --faint:var(--viui-nl-500);
+  --paper:var(--viui-surface);
+  --surface:var(--viui-surface-elevated);
+  --surface-2:var(--viui-surface-card);
+  --accent:var(--viui-primary);
+  --accent-2:var(--viui-primary-500);
+  --accent-tint:rgba(2,71,153,.06);
+  --accent-tint-2:rgba(2,71,153,.12);
+  --brand-red:var(--viui-accent);
+  --hairline:var(--viui-border);
+  --hairline-soft:var(--viui-border-subtle);
+
+  --sans:system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+  --mono:'SFMono-Regular',ui-monospace,Menlo,Consolas,'Liberation Mono',monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --viui-primary:#66AAFF;
+    --viui-primary-500:#619ee9;
+    --viui-accent:#FF7070;
+    --viui-surface:#121212;
+    --viui-surface-elevated:#1e1e1e;
+    --viui-surface-card:#262626;
+    --viui-border:#424242;
+    --viui-border-subtle:#303030;
+    --viui-nl-500:#7d8b99;
+    --viui-nl-600:#8B949E;
+    --viui-nl-700:#b0b0b0;
+    --viui-nl-900:#e0e0e0;
+    --viui-error:#F87171;
+    --viui-error-surface:#2a1212;
+    --viui-warning:#FBBF24;
+    --viui-warning-text:#FBBF24;
+    --viui-warning-surface:#2A1F06;
+    --viui-success:#34D399;
+    --viui-success-text:#34D399;
+    --viui-success-surface:#0A2A1F;
+    --viui-info-text:#93C5FD;
+    --viui-info-surface:#0A1628;
+    --accent-tint:rgba(102,170,255,.08);
+    --accent-tint-2:rgba(102,170,255,.16);
+  }
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:var(--sans); font-size:16px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1120px;margin:0 auto;padding:0 var(--s3)}
+h1,h2,h3,h4{margin:0;line-height:1.24;font-weight:600;letter-spacing:-.01em}
+p{margin:0 0 var(--s2)}
+ul{margin:0 0 var(--s2);padding-left:1.15rem}
+li{margin:.3rem 0}
+strong{font-weight:600}
+code,.mono{font-family:var(--mono);font-size:.86em}
+a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent-tint-2)}
+
+/* ---------- Nav ---------- */
+.nav{
+  position:sticky;top:0;z-index:50;
+  background:var(--paper);
+  background:color-mix(in srgb,var(--paper) 88%,transparent);
+  backdrop-filter:saturate(150%) blur(10px);
+  border-bottom:1px solid var(--hairline-soft);
+}
+.nav-in{max-width:1120px;margin:0 auto;padding:10px var(--s3);display:flex;gap:6px;align-items:center;overflow-x:auto;scrollbar-width:none}
+.nav-in::-webkit-scrollbar{display:none}
+.nav-brand{font-weight:700;font-size:13px;letter-spacing:.02em;color:var(--accent);white-space:nowrap;margin-right:var(--s1);border:0}
+.nav a.n{
+  font-size:12.5px;color:var(--muted);white-space:nowrap;padding:5px 10px;
+  border-radius:var(--r-sm);border:1px solid transparent;cursor:pointer;
+}
+.nav a.n:hover{background:var(--accent-tint);color:var(--accent);border-color:var(--hairline-soft)}
+
+/* ---------- Hero ---------- */
+.hero{padding:var(--s8) 0 var(--s6);border-bottom:1px solid var(--hairline)}
+.eyebrow{
+  font-size:11.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--accent-2);margin-bottom:var(--s2)
+}
+.hero h1{font-size:clamp(30px,5.2vw,50px);letter-spacing:-.025em;margin-bottom:var(--s2)}
+.hero h1 .sub{display:block;color:var(--muted);font-weight:400;font-size:.48em;letter-spacing:-.01em;margin-top:10px}
+.lead{font-size:clamp(16px,1.6vw,18.5px);color:var(--ink-soft);max-width:74ch}
+.meta{display:flex;flex-wrap:wrap;gap:var(--s1) var(--s3);margin-top:var(--s4);font-size:13px;color:var(--muted)}
+.meta b{color:var(--ink);font-weight:600}
+.pillrow{display:flex;flex-wrap:wrap;gap:var(--s1);margin-top:var(--s3)}
+.pill{
+  font-size:12px;padding:5px 11px;border-radius:var(--r-sm);
+  background:var(--surface);border:1px solid var(--hairline);color:var(--ink-soft)
+}
+.pill.on{background:var(--accent-tint-2);border-color:transparent;color:var(--accent);font-weight:600}
+.pill.warn{background:var(--viui-warning-surface);color:var(--viui-warning-text);border-color:transparent;font-weight:600}
+
+/* ---------- Section ---------- */
+section{padding:var(--s8) 0;border-bottom:1px solid var(--hairline-soft)}
+.s-num{font-family:var(--mono);font-size:12px;color:var(--faint);letter-spacing:.08em;margin-bottom:10px}
+.s-title{font-size:clamp(22px,3vw,31px);letter-spacing:-.02em;margin-bottom:var(--s2)}
+.s-desc{color:var(--ink-soft);max-width:76ch;margin-bottom:var(--s5)}
+
+/* ---------- Grid helpers ---------- */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:var(--s3)}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s2)}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s2)}
+@media (max-width:900px){.g2,.g3,.g4{grid-template-columns:1fr}}
+
+/* ---------- Card ---------- */
+.card{
+  background:var(--surface);border:1px solid var(--hairline);
+  border-radius:var(--r-md);padding:var(--s3)
+}
+.card h4{font-size:15.5px;margin-bottom:10px}
+.card p:last-child,.card ul:last-child{margin-bottom:0}
+.card .k{font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin-bottom:8px}
+.card.accent{border-left:3px solid var(--accent);background:var(--accent-tint)}
+.card.ok{border-left:3px solid var(--viui-success);background:var(--viui-success-surface)}
+.card.warn{border-left:3px solid var(--viui-warning);background:var(--viui-warning-surface)}
+.card.stop{border-left:3px solid var(--viui-error);background:var(--viui-error-surface)}
+
+/* ---------- Stat ---------- */
+.stat{background:var(--surface);border:1px solid var(--hairline);border-radius:var(--r-md);padding:var(--s3) var(--s2)}
+.stat .n{font-size:clamp(26px,3.4vw,36px);font-weight:700;letter-spacing:-.03em;color:var(--accent);line-height:1.05}
+.stat .n.red{color:var(--brand-red)}
+.stat .n.ok{color:var(--viui-success-text)}
+.stat .l{font-size:13px;font-weight:600;margin-top:8px}
+.stat .h{font-size:12px;color:var(--muted);margin-top:4px;line-height:1.5}
+
+/* ---------- Gantt ---------- */
+.gantt{background:var(--surface);border:1px solid var(--hairline);border-radius:var(--r-md);padding:var(--s3);overflow-x:auto}
+.gantt-grid{min-width:720px;display:grid;grid-template-columns:170px repeat(8,1fr);gap:6px;align-items:center}
+.gantt-grid .hd{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);text-align:center;padding-bottom:6px}
+.gantt-grid .hd.l{text-align:left}
+.gantt-grid .row-l{font-size:13px;font-weight:600;padding:6px 0}
+.bar{height:26px;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;letter-spacing:.02em}
+.bar.b1{background:linear-gradient(90deg,var(--accent),var(--accent-2))}
+.bar.b2{background:var(--viui-primary-500);opacity:.55}
+.bar.b3{background:var(--viui-success)}
+.bar.b4{background:var(--viui-warning)}
+.bar.b5{background:var(--faint)}
+.cellnote{font-size:11px;color:var(--faint);text-align:center}
+
+/* ---------- Timeline ---------- */
+.tl{position:relative;padding-left:var(--s5)}
+.tl::before{content:"";position:absolute;left:12px;top:6px;bottom:6px;width:2px;background:var(--hairline)}
+.tl-item{position:relative;margin-bottom:var(--s4)}
+.tl-item:last-child{margin-bottom:0}
+.tl-item::before{
+  content:"";position:absolute;left:calc(-1 * var(--s5) + 6px);top:8px;width:14px;height:14px;
+  border-radius:50%;background:var(--paper);border:3px solid var(--accent)
+}
+.tl-item.mile::before{border-color:var(--viui-success)}
+.tl-item.fut::before{border-color:var(--faint)}
+.tl-when{font-family:var(--mono);font-size:12px;color:var(--accent);font-weight:600;letter-spacing:.04em}
+.tl-item.fut .tl-when{color:var(--faint)}
+.tl-h{font-size:17px;font-weight:600;margin:4px 0 8px}
+.tl-body{color:var(--ink-soft);font-size:14.5px}
+.tl-body p{margin-bottom:10px}
+.tl-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.tag{font-size:11px;padding:3px 9px;border-radius:var(--r-sm);background:var(--surface-2);color:var(--ink-soft);border:1px solid var(--hairline-soft)}
+.tag.ok{background:var(--viui-success-surface);color:var(--viui-success-text)}
+.tag.warn{background:var(--viui-warning-surface);color:var(--viui-warning-text)}
+.tag.acc{background:var(--accent-tint-2);color:var(--accent);font-weight:600}
+
+/* ---------- Table ---------- */
+.tw{overflow-x:auto;border:1px solid var(--hairline);border-radius:var(--r-md);background:var(--surface)}
+table{width:100%;border-collapse:collapse;min-width:640px;font-size:14px}
+th{
+  text-align:left;font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--faint);padding:12px var(--s2);border-bottom:1px solid var(--hairline);white-space:nowrap
+}
+td{padding:12px var(--s2);border-bottom:1px solid var(--hairline-soft);vertical-align:top;color:var(--ink-soft)}
+tr:last-child td{border-bottom:0}
+td.k{color:var(--ink);font-weight:600}
+tbody tr:hover td{background:var(--accent-tint)}
+.b{display:inline-block;font-size:11px;font-weight:700;padding:3px 8px;border-radius:var(--r-sm);white-space:nowrap}
+.b.ok{background:var(--viui-success-surface);color:var(--viui-success-text)}
+.b.warn{background:var(--viui-warning-surface);color:var(--viui-warning-text)}
+.b.stop{background:var(--viui-error-surface);color:var(--viui-error)}
+.b.info{background:var(--viui-info-surface);color:var(--viui-info-text)}
+.b.mute{background:var(--surface-2);color:var(--muted)}
+
+/* ---------- Scope in/out ---------- */
+.scope{display:grid;grid-template-columns:1fr 1fr;gap:var(--s3)}
+@media (max-width:900px){.scope{grid-template-columns:1fr}}
+.scope-col{border:1px solid var(--hairline);border-radius:var(--r-md);overflow:hidden;background:var(--surface)}
+.scope-hd{padding:var(--s2) var(--s3);font-size:14px;font-weight:700;border-bottom:1px solid var(--hairline)}
+.scope-hd.in{background:var(--viui-success-surface);color:var(--viui-success-text)}
+.scope-hd.out{background:var(--viui-error-surface);color:var(--viui-error)}
+.scope-hd span{display:block;font-size:12px;font-weight:400;color:var(--muted);margin-top:2px}
+.scope-list{list-style:none;margin:0;padding:var(--s2) var(--s3)}
+.scope-list li{position:relative;padding-left:26px;margin:10px 0;font-size:14px;color:var(--ink-soft)}
+.scope-list li::before{position:absolute;left:0;top:0;font-weight:700}
+.scope-list.yes li::before{content:"✓";color:var(--viui-success)}
+.scope-list.no li::before{content:"✕";color:var(--viui-error)}
+
+/* ---------- Arch diagram ---------- */
+.arch{background:var(--surface);border:1px solid var(--hairline);border-radius:var(--r-md);padding:var(--s4) var(--s3);overflow-x:auto}
+.arch-in{min-width:660px;display:flex;flex-direction:column;align-items:center;gap:0}
+.node{
+  border:1px solid var(--hairline);border-radius:var(--r-base);background:var(--paper);
+  padding:12px var(--s2);text-align:center;min-width:230px
+}
+.node .t{font-size:13.5px;font-weight:600}
+.node .d{font-size:11.5px;color:var(--muted);margin-top:3px}
+.node.acc{border-color:var(--accent);background:var(--accent-tint)}
+.node.acc .t{color:var(--accent)}
+.node.dead{border-style:dashed;opacity:.62}
+.node.key{border-width:2px;border-color:var(--viui-success)}
+.arrow{display:flex;flex-direction:column;align-items:center;padding:6px 0;color:var(--faint);font-size:11px;letter-spacing:.03em}
+.arrow .ln{width:2px;height:16px;background:var(--hairline)}
+.arrow .lb{margin:3px 0;font-family:var(--mono);font-size:10.5px}
+.arch-row{display:flex;gap:var(--s2);align-items:stretch;justify-content:center;flex-wrap:nowrap}
+
+/* ---------- Callout / quote ---------- */
+.callout{border-left:3px solid var(--accent);background:var(--accent-tint);padding:var(--s2) var(--s3);border-radius:0 var(--r-base) var(--r-base) 0;margin:var(--s3) 0}
+.callout.warn{border-color:var(--viui-warning);background:var(--viui-warning-surface)}
+.callout.stop{border-color:var(--viui-error);background:var(--viui-error-surface)}
+.callout .k{font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin-bottom:6px}
+.callout p:last-child{margin-bottom:0}
+.quote{font-size:17px;line-height:1.55;color:var(--ink);font-style:italic;border-left:3px solid var(--brand-red);padding-left:var(--s3);margin:var(--s4) 0}
+.quote .who{display:block;font-style:normal;font-size:12.5px;color:var(--muted);margin-top:8px}
+
+/* ---------- Checklist ---------- */
+.chk{list-style:none;margin:0;padding:0}
+.chk li{position:relative;padding-left:30px;margin:12px 0;font-size:14.5px;color:var(--ink-soft)}
+.chk li::before{
+  content:"";position:absolute;left:0;top:3px;width:17px;height:17px;
+  border:2px solid var(--accent);border-radius:var(--r-sm);background:var(--paper)
+}
+.chk li b{color:var(--ink)}
+
+/* ---------- Footer ---------- */
+footer{padding:var(--s6) 0 var(--s8);color:var(--muted);font-size:13px}
+.foot-grid{display:flex;flex-wrap:wrap;gap:var(--s3);justify-content:space-between;align-items:flex-start}
+.up{cursor:pointer;color:var(--accent);font-size:13px;border:0}
+
+/* ---------- Reveal ---------- */
+.rv{opacity:0;transform:translateY(14px);transition:opacity .5s cubic-bezier(0,0,.2,1),transform .5s cubic-bezier(0,0,.2,1)}
+.rv.on{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+@media print{.nav{display:none}.rv{opacity:1;transform:none}section{break-inside:avoid}}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-in">
+    <span class="nav-brand">BP Công Nghệ · Vai trò &amp; Lộ trình</span>
+    <a class="n" data-go="s1">Luận điểm</a>
+    <a class="n" data-go="s2">Luật chơi mới</a>
+    <a class="n" data-go="s3">Bối cảnh OneSite</a>
+    <a class="n" data-go="s4">Lộ trình từng người</a>
+    <a class="n" data-go="s5">Tổng hợp</a>
+    <a class="n" data-go="s6">Rủi ro &amp; nguồn</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow rv">iNET · Bộ phận Công Nghệ · Phân tích 3 buổi họp</div>
+    <h1 class="rv">Định hướng vai trò &amp; lộ trình cá nhân
+      <span class="sub">Tổng hợp từ: họp roadmap cá nhân (GĐ Kiên – ducnd – hobv) · họp dự án OneSite · họp nhân sự T8/2026</span>
+    </h1>
+    <p class="lead rv">Ba buổi họp nói cùng một điều theo ba góc khác nhau: thước đo chuyển từ
+      <b>“làm được gì”</b> sang <b>“cái làm ra có được dùng không”</b>, và từ đó sang câu hỏi cá nhân
+      <b>“nếu người này nghỉ thì công ty có thiếu không”</b>. Báo cáo tách rõ ba mức: phần đã chốt,
+      phần là định hướng, và phần <b>đã chốt bổ sung ngày 09/09/2026</b> (bảy điểm còn mở của bản 1.0).</p>
+    <div class="pillrow rv">
+      <span class="pill on">Kỳ áp dụng: T9/2026 → 2027</span>
+      <span class="pill">Phạm vi người: ducnd · hobv · chuongdt · dattqh</span>
+      <span class="pill on">7 điểm mở của bản 1.0 đã chốt · 09/09/2026</span>
+      <span class="pill on">Trạng thái OneSite đối chiếu trực tiếp với code Portal</span>
+      <span class="pill warn">Nguồn là transcript ASR — độ tin cậy xem mục 06</span>
+    </div>
+    <div class="meta rv">
+      <span>Người lập: <b>Trịnh Quốc Hoàn Đạt</b> — Trưởng phòng Công Nghệ</span>
+      <span>Phiên bản <b>1.3</b> · 09/09/2026</span>
+      <span>Nguồn: <b>3 transcript</b> (roadmap cá nhân · OneSite · nhân sự)</span>
+    </div>
+  </div>
+</header>
+
+<!-- ===================== 01 LUẬN ĐIỂM ===================== -->
+<section id="s1">
+  <div class="wrap">
+    <div class="s-num rv">01 / 06</div>
+    <h2 class="s-title rv">Từ “làm được” sang “giá trị · vai trò · vị trí”</h2>
+    <p class="s-desc rv">GĐ Kiên mở buổi roadmap bằng lý do vì sao có buổi đó: sau khi trao đổi với CEO Đô
+      rồi với dattqh, yêu cầu đặt ra cho BP Công Nghệ đã đổi. Trước đây nhận việc là làm — dựng một tính
+      năng, một ứng dụng theo template, xong thì có người khác tiếp nhận. Từ đây mỗi hạng mục phải tự trả
+      lời được bốn câu: <b>làm cho ai · tại sao làm · có được đón nhận không · hiệu quả sử dụng ra sao</b>.</p>
+
+    <div class="quote rv">Bây giờ bài toán không phải là làm được bao nhiêu sản phẩm, mà là sản phẩm đó có
+      được đón nhận không.
+      <span class="who">GĐ Kiên — diễn giải từ transcript họp roadmap cá nhân</span>
+    </div>
+
+    <div class="g3 rv">
+      <div class="card accent">
+        <div class="k">Vì sao đổi — lý do 1</div>
+        <h4>AI làm phẳng phần chuyên môn</h4>
+        <p>Kiên nói thẳng: chuyên môn giờ có thể bị công cụ AI thay thế rất dễ; người không biết kỹ thuật
+          cũng ra được sản phẩm. Phần <b>khó thay thế</b> không còn là kỹ năng, mà là giá trị – vai trò –
+          vị trí của người đó trong hệ sinh thái doanh nghiệp.</p>
+      </div>
+      <div class="card accent">
+        <div class="k">Vì sao đổi — lý do 2</div>
+        <h4>Công ty sẽ mở rộng tuyển dụng</h4>
+        <p>Kiên nêu trực tiếp: sắp mở rộng tuyển dụng, nên nếu vị trí của từng người không được củng cố
+          trước thì <b>vị trí đó sẽ bị hạn chế lại</b>. Đây là lý do buổi họp diễn ra ngay bây giờ chứ
+          không phải cuối năm.</p>
+      </div>
+      <div class="card accent">
+        <div class="k">Hệ quả cho từng người</div>
+        <h4>Phải tự chọn một hướng</h4>
+        <p>Kiên không chỉ định hướng cho mỗi người mà đưa ra dạng lựa chọn — đi sâu thành một trục hạ tầng,
+          đi trục đại lý, hoặc một hướng riêng — rồi yêu cầu <b>tự chọn và gắn chặt sự nghiệp vào giá trị
+          doanh nghiệp</b>.</p>
+      </div>
+    </div>
+
+    <div class="callout rv">
+      <div class="k">Phép thử GĐ Kiên dùng trong buổi họp</div>
+      <p><b>“Nếu người này nghỉ 3 tháng, có ai thấy thiếu không, có ai thay được không?”</b> Nếu không có gì
+        đứng lại thì chưa có vai trò, dù chuyên môn tốt tới đâu. Kiên áp phép thử này trực tiếp cho hobv
+        ngay tại buổi họp, dùng CEO Đô làm người trả lời giả định.</p>
+    </div>
+
+    <div class="callout warn rv">
+      <div class="k">Điều bị coi là lãng phí</div>
+      <p>Kiên lấy ví dụ cụ thể: làm đủ mọi tính năng mất 10 ngày, nhưng chỉ đúng 1 tính năng được dùng và
+        tính năng đó chỉ mất nửa ngày. Năng lực cao mà không ra được sản phẩm/dịch vụ có người dùng thì
+        <b>không tính là kết quả</b> — “có cũng được, không có cũng không sao” là mức đáng lo nhất.</p>
+    </div>
+
+    <div class="g3 rv">
+      <div class="card">
+        <div class="k">Trách nhiệm mới 1</div>
+        <h4>Bám số liệu cùng Marketing</h4>
+        <p>Không còn chỉ làm sản phẩm. Phải cùng Marketing bám: adoption, tỷ lệ ở lại, tỷ lệ huỷ và
+          <b>lý do huỷ</b>, doanh thu. Kiên dẫn chứng đã tự đọc số liệu và thấy một sản phẩm không tăng
+          trưởng, trước khi người làm nhận ra.</p>
+      </div>
+      <div class="card">
+        <div class="k">Trách nhiệm mới 2</div>
+        <h4>Tiếp nhận vấn đề khách hàng</h4>
+        <p>Không phải trực support cả ngày, nhưng <b>phải nhận vấn đề khách</b> để cải thiện sản phẩm — mục
+          tiêu là tăng tỷ lệ hoàn tất và tỷ lệ sử dụng thật, không phải đóng ticket.</p>
+      </div>
+      <div class="card">
+        <div class="k">Trách nhiệm mới 3</div>
+        <h4>Chủ động hiểu công ty đang có gì</h4>
+        <p>Trong buổi OneSite, Kiên nhắc lại việc đã nói nhiều lần trong group: phải chủ động tự tìm hiểu
+          hệ sinh thái sản phẩm của công ty. Không biết công ty có gì thì không định vị được mình ở đâu.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 02 LUẬT CHƠI ===================== -->
+<section id="s2">
+  <div class="wrap">
+    <div class="s-num rv">02 / 06</div>
+    <h2 class="s-title rv">Hai thay đổi đã chốt: thước đo và tổ chức</h2>
+    <p class="s-desc rv">Buổi nhân sự T8/2026 chốt hai thứ ảnh hưởng trực tiếp lên mọi lộ trình cá nhân bên
+      dưới. Cả hai đều có hiệu lực từ T9/2026.</p>
+
+    <div class="g2 rv" style="margin-bottom:var(--s3)">
+      <div class="card accent">
+        <div class="k">Thay đổi 1 · Thước đo</div>
+        <h4>KPI chuyển từ tính năng sang người dùng</h4>
+        <ul style="padding-left:1rem;font-size:14px">
+          <li>T8/2026 vẫn chấm theo <b>tính năng hoàn thiện</b>, lý do được nêu rõ: chưa có dashboard số liệu</li>
+          <li>Từ T9/2026 <b>quy lại theo lượng người dùng</b> — có phát triển hay không, tăng được kết quả hay không</li>
+          <li>Điểm tự đánh giá của nhiều người bị lệch cao so với thực tế, phải thống nhất lại</li>
+          <li>Điểm chung của cả hai phòng Công Nghệ và Kỹ Thuật đều thấp trong T8</li>
+        </ul>
+      </div>
+      <div class="card warn">
+        <div class="k">Thay đổi 2 · Tổ chức</div>
+        <h4>Chủ trương gộp Công Nghệ + Kỹ Thuật thành một khối</h4>
+        <ul style="padding-left:1rem;font-size:14px">
+          <li>Toàn công ty còn ba khối: <b>Kỹ thuật · Kinh doanh · Marketing</b></li>
+          <li>Lý do: hai phòng ngồi cạnh nhau nhưng mục tiêu lệch, không dùng chung được nguồn lực</li>
+          <li>Người chỉ đạo khối: <b>kienvt</b> — hiện là Trưởng bộ phận Kỹ Thuật; dattqh hỗ trợ</li>
+          <li>T8 chốt chủ trương · T9 ngồi lại áp cụ thể · sẽ có một buổi riêng về cách triển khai</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout stop rv">
+      <div class="k">Đi kèm chủ trương gộp</div>
+      <p>Nhân sự không thực sự phát triển: hoặc rời, hoặc <b>tách ra một nhóm riêng ngoài phòng</b> — lý do
+        nêu ra là để tránh tình trạng không điều khiển, không quản lý được. Đây là quyết định nhân sự, không
+        phải điều chỉnh quy trình.</p>
+    </div>
+
+    <div class="tw rv" style="margin-bottom:var(--s3)">
+      <table>
+        <thead><tr><th>Hạng mục</th><th>T8/2026</th><th>Từ T9/2026</th></tr></thead>
+        <tbody>
+          <tr><td class="k">Cơ sở chấm</td><td>Tính năng hoàn thiện</td><td>Lượng người dùng · adoption</td></tr>
+          <tr><td class="k">Nguồn số liệu</td><td>Tự báo cáo + review tính năng</td><td>Dashboard sản phẩm — <b>chưa có, phải dựng</b></td></tr>
+          <tr><td class="k">Kỳ báo cáo</td><td>Tháng</td><td>Tháng, kèm số lượng sử dụng và doanh thu</td></tr>
+          <tr><td class="k">Rủi ro chính</td><td>Tự đánh giá lệch cao</td><td>Số liệu không dựng kịp → chấm lại bằng cảm tính</td></tr>
+          <tr><td class="k">Trạng thái</td><td><span class="b mute">Đã chốt</span></td><td><span class="b warn">Chốt chủ trương, chưa có công cụ</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout warn rv">
+      <div class="k">Việc chặn ngay — ưu tiên số một</div>
+      <p>Dashboard adoption chưa tồn tại. Từ T9 chấm theo người dùng mà không có dashboard thì quay về đúng
+        vấn đề của T8. <b>Dựng dashboard phải xong trước kỳ chấm T9</b>, không phải làm sau khi đã chấm.</p>
+    </div>
+
+    <div class="g2 rv">
+      <div class="card">
+        <div class="k">Ghi nhận thêm · công cụ</div>
+        <h4>Đề xuất thưởng bị chặn sau khi chốt KPI</h4>
+        <p>Sau khi tích chốt KPI thì không sửa được để thêm đề xuất thưởng, chỉ còn cách huỷ và tạo lại.
+          Đây là lỗi luồng của công cụ trên my.inet.vn, cần nêu khi áp KPI mới T9.</p>
+      </div>
+      <div class="card ok">
+        <div class="k">Ghi nhận thêm · khen thưởng</div>
+        <h4>Nhân sự xuất sắc hằng tháng</h4>
+        <p>Có giải nhân sự xuất sắc theo tháng cho phòng. Với BP Công Nghệ, việc này chỉ có nghĩa khi đã có
+          số liệu adoption — nếu không thì lại là bình chọn cảm tính.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 03 BỐI CẢNH ONESITE ===================== -->
+<section id="s3">
+  <div class="wrap">
+    <div class="s-num rv">03 / 06</div>
+    <h2 class="s-title rv">OneSite và phân lớp trách nhiệm</h2>
+    <p class="s-desc rv">Buổi dự án OneSite cho khung mà lộ trình cá nhân phải khớp vào. Điểm quan trọng
+      nhất: OneSite <b>không phải sản phẩm ra tiền trực tiếp</b> — nó là công cụ để bán tên miền và giữ
+      khách trong hệ sinh thái. Hiểu sai điều này thì mọi KPI adoption đặt sai chỗ.</p>
+
+    <div class="arch rv" style="margin-bottom:var(--s4)">
+      <div class="arch-in">
+        <div class="node">
+          <div class="t">Tập khách hàng mục tiêu</div>
+          <div class="d">Sinh viên (.id.vn, miễn phí) · doanh nghiệp mới &amp; hộ kinh doanh (.biz.vn) · chương trình về tỉnh</div>
+        </div>
+        <div class="arrow"><div class="ln"></div><div class="lb">vào bằng hội thoại, không bằng form</div><div class="ln"></div></div>
+        <div class="arch-row">
+          <div class="node"><div class="t">Telegram bot</div><div class="d">Ưu tiên — hỗ trợ đủ pattern cần</div></div>
+          <div class="node dead"><div class="t">Zalo bot</div><div class="d">Không hỗ trợ pattern cần → hoãn</div></div>
+          <div class="node"><div class="t">Web wizard</div><div class="d">Step-by-step, một màn hình</div></div>
+        </div>
+        <div class="arrow"><div class="ln"></div><div class="lb">gọi tool</div><div class="ln"></div></div>
+        <div class="node acc key">
+          <div class="t">Lớp AI + MCP tools — BP Công Nghệ</div>
+          <div class="d">Trọng tâm đầu tư nằm ở đây, không nằm ở UI. Bot phải biết code, khác bot support phổ thông · <b>dùng model AI sẵn có của chatbot iNET</b></div>
+        </div>
+        <div class="arrow"><div class="ln"></div><div class="lb">tạo / sửa site</div><div class="ln"></div></div>
+        <div class="node acc">
+          <div class="t">OneSite · lớp ứng dụng</div>
+          <div class="d">Template · editor (tự viết, thay bản thuê ngoài) · kho ảnh chuẩn hoá</div>
+        </div>
+        <div class="arrow"><div class="ln"></div><div class="lb">lưu trữ &amp; bảo vệ</div><div class="ln"></div></div>
+        <div class="node">
+          <div class="t">CORE · Hạ tầng — khối Kỹ Thuật · đã xong</div>
+          <div class="d">S3 lưu trữ riêng cho OneSite · server · bảo vệ website và chống tấn công · đóng gói theo dung lượng + băng thông. <b>ducnd không quản lớp này</b></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="g3 rv" style="margin-bottom:var(--s3)">
+      <div class="card warn">
+        <div class="k">Trạng thái thật hôm nay</div>
+        <h4>Hai lớp, hai chủ khác nhau</h4>
+        <p><b>Core = hạ tầng phía dưới.</b> Gồm <b>S3 lưu trữ riêng cho OneSite</b>, server và bảo vệ.
+          Khối Kỹ Thuật phụ trách và <b>đã dựng xong</b>. <b>ducnd không quản lớp này.</b></p>
+        <p><b>Lớp ứng dụng thuộc ducnd</b> — module <span class="mono">one-shield/pages</span> trong Portal:
+          client <b>171 file · ~62.800 dòng · 174 commit</b>, server <b>38 file · 55 commit</b> dạng BFF
+          passthrough (07/08 → 08/09/2026). Lớp này gọi xuống S3 và engine ở dưới qua BFF.</p>
+      </div>
+      <div class="card accent">
+        <div class="k">Hướng tiếp theo · đã có phần lớn</div>
+        <h4>Phase 2: một màn hình, AI gen ra web</h4>
+        <p>Bỏ toàn bộ bước cấu hình của phase 1. Người dùng chọn <b>catalogue ngành nghề + sở thích</b>, bấm
+          là ra web, muốn sửa gì sửa sau. Sinh viên cần thấy site nhanh nhất, không cần điền trước.</p>
+      </div>
+      <div class="card stop">
+        <div class="k">Sản phẩm bị thay</div>
+        <h4>WebAI khai tử trong 2026</h4>
+        <p>WebAI sẽ dừng trong năm nay, người dùng chuyển sang OneSite. Với khách hàng thì WebAI chỉ là vài
+          trang HTML tĩnh — không có gì phải giữ.</p>
+      </div>
+    </div>
+
+    <div class="callout stop rv">
+      <div class="k">Đối chiếu transcript ↔ code — sửa lại kết luận của bản 1.0</div>
+      <p>Trong họp, &ldquo;core đã xong&rdquo; nói về <b>hạ tầng phía dưới</b> (S3 cho OneSite, server, bảo
+        vệ) — phần của khối Kỹ Thuật. Còn câu OneSite &ldquo;mới là static, chưa có database, chưa có backend
+        logic&rdquo; thì bản 1.0 chép nguyên vào phần <b>lớp ứng dụng</b>, và ở đó <b>không đúng như vậy</b>.
+        Những thứ sau đã chạy trong <span class="mono">portal-client/src/modules/one-shield/pages</span>:</p>
+      <ul style="padding-left:1rem;font-size:14px;margin-bottom:10px">
+        <li><b>VibeStudio Pro</b> — web IDE trong trình duyệt: Monaco đa tab, cây thư mục lồng nhau,
+          Prettier standalone, asset viewer, publish modal, history, status bar (128 file)</li>
+        <li><b>Preview cách ly</b> — Portal không chạy mã người dùng; dịch vụ ngoài trả ảnh PNG cho
+          Desktop / Tablet / Mobile kèm cảnh báo tài nguyên thiếu</li>
+        <li><b>Agent bridge + MCP</b> — agent xin quyền truy cập thay vì được cấp token, edit của agent
+          được relay vào session đang mở rồi review dạng diff; commit 08/09 đã có &ldquo;MCP setup&rdquo;</li>
+        <li><b>Mark system</b> — đánh dấu phần tử trên preview, sửa inline, đánh số bước journey, export markdown</li>
+        <li><b>Audit tự động</b> — accessibility, contrast, broken resource, page weight, responsive, SEO</li>
+        <li><b>Nội dung sẵn</b> — 5 template ngành (cafe/nhà hàng, khoá học, bất động sản, bán lẻ, spa),
+          9 block, snippet GA4 / Google Maps / Meta Pixel / Messenger / Zalo chat</li>
+        <li><b>An toàn dữ liệu</b> — canonical path policy (NFC/NFKC casefold, magic bytes ZIP), multipart
+          manifest tất định RFC 8785, tab writer lease, recovery IndexedDB; <b>60 file test</b></li>
+      </ul>
+      <p><b>Phần transcript nói đúng, nhưng nói về thứ khác:</b> site <i>sinh ra</i> vẫn là static. Portal
+        chỉ giữ model <span class="mono">PagesTemplate</span>; state của project/site nằm ở upstream vì
+        portal-server chỉ là lớp BFF. Vậy câu &ldquo;chưa có database&rdquo; đúng ở nghĩa
+        <b>site không có backend động</b>, không đúng ở nghĩa nền tảng chưa có gì.</p>
+      <p><b>Đang đổi tên:</b> commit 08/09 chuyển <span class="mono">vibe pages</span> →
+        <span class="mono">onesite</span>, và tên miền hardcode chuyển sang
+        <span class="mono">vibepages.net</span>. Tên trong code và tên đối ngoại chưa thống nhất.</p>
+    </div>
+
+    <div class="callout rv">
+      <div class="k">Bài toán tiền — điểm dễ hiểu sai nhất</div>
+      <p>Tiền không nằm ở OneSite. Tiền nằm ở <b>bán tên miền + rebate từ registry</b> (ví dụ Kiên nêu:
+        registry trả lại khoảng 6 USD cho một tên miền, hơn một nửa giá) và ở việc <b>không cho khách ra
+        ngoài</b> hệ sinh thái sang Namecheap hay Cloudflare. Mục tiêu đặt ra: mỗi tên miền phải có bản ghi
+        và có một website gắn vào. Vì vậy tên miền phải mua được ngay trong luồng tạo site.</p>
+    </div>
+
+    <div class="tw rv" style="margin-bottom:var(--s3)">
+      <table>
+        <thead><tr><th>Lớp</th><th>Chủ</th><th>Nội dung</th><th>Trạng thái</th></tr></thead>
+        <tbody>
+          <tr><td class="k">Hạ tầng — <b>core</b></td><td>Khối Kỹ Thuật</td><td><b>S3 lưu trữ riêng cho OneSite</b>, server, bảo vệ website, chống tấn công; đóng gói theo dung lượng + băng thông</td><td><span class="b ok">Đã dựng xong</span></td></tr>
+          <tr><td class="k">Ứng dụng + AI</td><td>BP Công Nghệ · ducnd chủ sản phẩm</td><td>Module <span class="mono">one-shield/pages</span> trong Portal: VibeStudio, template, agent bridge + MCP</td><td><span class="b warn">Code đã có — ducnd chưa nhận bàn giao</span></td></tr>
+          <tr><td class="k">Kho asset</td><td>BP Công Nghệ · hobv</td><td>Dùng <b>assets.inet.vn</b> (DAM) làm kho: ảnh nguồn free về S3 nội bộ, tag + mô tả chuẩn, chỉ ảnh demo, chặn hotlink</td><td><span class="b ok">Đã có sản phẩm — hobv đang chủ</span></td></tr>
+          <tr><td class="k">Database cho site động</td><td>chưa phân</td><td>Site sinh ra hiện là static. DB per-site nằm trong kế hoạch container; quota và truy cập chưa có</td><td><span class="b stop">Chưa có</span></td></tr>
+          <tr><td class="k">Số liệu &amp; dashboard</td><td>dattqh</td><td>Người dùng, site tạo thành công, doanh thu; báo cáo tháng</td><td><span class="b ok">Đã chốt 09/09</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="g3 rv">
+      <div class="card">
+        <div class="k">Benchmark được nêu</div>
+        <h4>Học cách làm, không copy</h4>
+        <ul style="padding-left:1rem;font-size:14px">
+          <li><b>Wix</b> — top đầu thế giới, đã có MCP</li>
+          <li><b>Tino</b> — có nút Zalo, tham chiếu thị trường Việt</li>
+          <li><b>Namecheap / GoDaddy</b> — mua tên miền ngay trong luồng</li>
+          <li><b>Odoo</b> — đang làm mảng tương tự, được coi là mối nguy</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="k">Nguyên tắc UX chốt trong họp</div>
+        <h4>Step-by-step như bot, không phải form dài</h4>
+        <p>Hỏi từng câu một, có <b>list gợi ý</b> để chọn, không thích thì nhập tay. Kiên nói thẳng là rất
+          không thích việc vừa vào đã bị hỏi một loạt. Nhìn tổng thể có thể thấy khó chịu, nhưng trải nghiệm
+          từng bước thì dễ đi hết luồng.</p>
+      </div>
+      <div class="card">
+        <div class="k">Sản phẩm liền kề</div>
+        <h4>OneMail thay Zimbra</h4>
+        <p>Zimbra bản đang dùng nhiều lỗ hổng, không patch được, và phải trả phí license. Cần nền tảng thay
+          thế, thêm lớp phía trên, gộp lưu trữ và cold storage. Email được nêu là <b>mục tiêu ra tiền</b> —
+          liên quan trực tiếp tới phần SPF/DKIM ducnd đang tự học.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 04 LỘ TRÌNH TỪNG NGƯỜI ===================== -->
+<section id="s4">
+  <div class="wrap">
+    <div class="s-num rv">04 / 06</div>
+    <h2 class="s-title rv">Lộ trình từng người: ngắn – trung – dài hạn</h2>
+    <p class="s-desc rv">Buổi roadmap cá nhân chỉ trao đổi trực tiếp với <b>ducnd</b> và <b>hobv</b>; hai
+      người này có đủ ba mốc. Với <b>chuongdt</b> và <b>dattqh</b>, transcript chỉ có phần Kiên nêu ngang —
+      ghi đúng những gì có, phần suy ra được dán nhãn rõ.</p>
+
+    <!-- ducnd -->
+    <div class="card accent rv" style="margin-bottom:var(--s3)">
+      <div class="k">01 · ducnd</div>
+      <h4 style="font-size:21px">Nguyễn Đăng Đức — chủ sản phẩm OneSite</h4>
+      <p>Chốt tại buổi nhân sự T8/2026: Đức nhận OneSite, <b>gồm cả chất lượng sử dụng thật</b>, không chỉ
+        tính năng. Kiên đánh giá Đức có năng lực nhất định về iOS và chịu học — dẫn chứng là tự mày mò
+        SPF, DKIM và lọc mail.</p>
+      <div class="tl-tags">
+        <span class="tag acc">Chủ sản phẩm OneSite — đã chốt</span>
+        <span class="tag">iOS</span><span class="tag">SPF / DKIM</span><span class="tag">S3</span>
+      </div>
+    </div>
+
+    <div class="tl rv" style="margin-bottom:var(--s5)">
+      <div class="tl-item">
+        <div class="tl-when">NGẮN HẠN · T9/2026 – T2/2027 (3–6 tháng)</div>
+        <div class="tl-h">Tập trung làm service cho khách hàng</div>
+        <div class="tl-body">
+          <p>Đây là câu Kiên chốt gọn nhất trong cả buổi: ngắn hạn thì tập trung làm service, không mở rộng
+            gì khác.</p>
+          <ul style="padding-left:1rem">
+            <li><b>Tiếp quản module OneSite</b> — <span class="mono">one-shield/pages</span> trong Portal:
+              229 commit, ~62.800 dòng, dựng trong một tháng. Đây là việc lớn nhất và chưa bắt đầu</li>
+            <li><b>Làm lại Editor</b> — ducnd trực tiếp làm, thay bản thuê ngoài
+              <span class="b warn">xem điểm cần làm rõ bên dưới</span></li>
+            <li><b>OneSite phase 2</b> — AI gen: agent bridge và MCP đã có sẵn trong code, phần còn thiếu là
+              luồng một màn hình + catalogue ngành nghề</li>
+            <li><b>Bám số liệu cùng Marketing</b> — không còn chỉ làm sản phẩm rồi bàn giao</li>
+          </ul>
+          <div class="callout stop" style="margin:var(--s2) 0">
+            <div class="k">Điểm cần làm rõ — hai dữ kiện chưa khớp</div>
+            <p>Chốt là &ldquo;ducnd làm lại Editor&rdquo;, nhưng trong Portal đã có
+              <b>VibeStudio Pro</b> — web IDE hoàn chỉnh (Monaco đa tab, Prettier, journal có rebase rename,
+              canonical path policy, multipart manifest RFC 8785, recovery IndexedDB, 60 file test). Hai khả
+              năng, và chúng dẫn tới hai kế hoạch rất khác nhau:</p>
+            <ul style="padding-left:1rem;font-size:14px;margin-bottom:0">
+              <li><b>Nếu &ldquo;editor thuê ngoài&rdquo; là bản legacy khác</b> (WebAI / seopage) thì VibeStudio
+                đã là bản thay thế — việc của ducnd là <i>tiếp quản và di trú người dùng</i>, không viết lại</li>
+              <li><b>Nếu chủ trương là viết lại chính VibeStudio</b> thì cần lý do rõ, vì đây là ~63k dòng có
+                test, và viết lại sẽ chiếm hết ngắn hạn của ducnd</li>
+            </ul>
+          </div>
+          <div class="tl-tags"><span class="tag acc">Tier L</span><span class="tag ok">Đã chốt</span><span class="tag warn">Phạm vi Editor cần chốt</span></div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-when">TRUNG HẠN · 2027</div>
+        <div class="tl-h">S3 → Office Drive, và nền email</div>
+        <div class="tl-body">
+          <p>Kiên xác nhận việc Đức đang nghiên cứu S3 để làm Office Drive là <b>nghiên cứu có chủ đích</b>,
+            và nhắc CEO Đô trước đây cũng đã thử ra một bản mini Office. Kỳ vọng được đặt thấp một cách có ý
+            thức: bản này <b>chưa kỳ vọng thương mại hoá</b>, làm cho nhu cầu của khách hiện hữu trước.</p>
+          <p>Phần SPF/DKIM và lọc mail Đức tự học khớp trực tiếp với hướng OneMail thay Zimbra ở mục 03 —
+            đây là điểm nên khai thác, hiện chưa ai gắn hai việc này lại với nhau.</p>
+          <div class="tl-tags"><span class="tag">Office Drive</span><span class="tag">OneMail</span><span class="tag warn">Chưa có mốc cụ thể</span></div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-when">RANH GIỚI KIÊN VẠCH RÕ</div>
+        <div class="tl-h">Không đi chuyên sâu xuống hạ tầng thấp</div>
+        <div class="tl-body">
+          <p>Kiên nói rõ đó là <b>một hướng khác</b> (hướng của khối Kỹ Thuật), Đức không cần đi. Chỉ cần hiểu ở mức
+            giao thức, phân tầng hạ tầng và kiến trúc. Phần cần tập trung là <b>lớp AI và hành vi / sở thích
+            người dùng</b>. Đây là ranh giới quan trọng: nó chặn việc Đức trôi xuống làm hạ tầng và bỏ trống
+            lớp sản phẩm.</p>
+          <p>Ranh giới này khớp với cách code đang chia: <span class="mono">portal-server</span> chỉ là lớp
+            BFF passthrough, phần engine và lưu trữ nằm dưới ở khối Kỹ Thuật. <b>ducnd nhận từ lớp BFF trở
+            lên; S3 và hạ tầng của OneSite không thuộc ducnd</b> — core đó đã dựng xong, không phải việc phải
+            làm lại hay phải học để vận hành.</p>
+          <div class="tl-tags"><span class="tag warn">Ranh giới phạm vi</span></div>
+        </div>
+      </div>
+      <div class="tl-item mile">
+        <div class="tl-when">DÀI HẠN · đã chốt 09/09/2026</div>
+        <div class="tl-h">Tiếp quản Design System</div>
+        <div class="tl-body">
+          <p>Đây là câu trả lời cho phần Kiên để mở trong buổi họp. Design System (<span class="mono">design-sys-fe</span>)
+            chuyển giao từ hobv sang ducnd, và đó là hướng dài hạn của ducnd.</p>
+          <p>Hướng này khớp với logic Kiên đặt ra: Design System là <b>lớp dùng chung của mọi sản phẩm</b> —
+            nắm nó là nắm một vị trí mà doanh nghiệp cần, không phải một kỹ năng thay thế được. Nó cũng khép
+            vòng với phần OneSite: template và component của OneSite đi ra từ Design System.</p>
+          <p><b>Điều kiện đi kèm:</b> chuyển giao phải có mốc và phạm vi rõ, vì ducnd đang gánh ba việc lớn
+            ở ngắn hạn (xem rủi ro mục 06). Nhận Design System mà không giảm tải chỗ khác thì cả hai đều
+            chậm.</p>
+          <div class="tl-tags"><span class="tag acc">Đích dài hạn — đã chốt</span><span class="tag warn">Cần mốc chuyển giao</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- hobv -->
+    <div class="card warn rv" style="margin-bottom:var(--s3)">
+      <div class="k">02 · hobv</div>
+      <h4 style="font-size:21px">Bùi Văn Hổ — vai trò chưa rõ, đích dài hạn rõ nhất</h4>
+      <p>Đây là phần thẳng thắn nhất của buổi họp. Kiên áp phép thử nghỉ 3 tháng cho hobv ngay tại chỗ và
+        kết luận <b>hiện chưa có vai trò rõ</b> — dù chuyên môn và kinh nghiệm thì có. Đồng thời Kiên nói
+        đích dài hạn cho hobv là vị trí ông kỳ vọng từ lâu và đánh giá <b>cực kỳ quan trọng</b>.</p>
+      <div class="tl-tags">
+        <span class="tag warn">Vai trò chưa rõ</span>
+        <span class="tag acc">Đích dài hạn đã có tên</span>
+      </div>
+    </div>
+
+    <div class="tl rv" style="margin-bottom:var(--s5)">
+      <div class="tl-item">
+        <div class="tl-when">NGẮN HẠN · T9/2026 – T2/2027</div>
+        <div class="tl-h">Bài toán cụ thể, không bài toán vĩ mô</div>
+        <div class="tl-body">
+          <p>Kiên nhận xét trực tiếp: hobv <b>mạnh hơn khi làm những cái cụ thể</b>, yếu hơn khi bài toán bị
+            vĩ mô hoá. Vì vậy cách giao việc sẽ là giao bài toán cụ thể, đi rộng và có góc nhìn chuyên
+            nghiệp, chui sâu một chút — không giao mảng trừu tượng.</p>
+          <ul style="padding-left:1rem">
+            <li>UX luồng wizard OneSite — nguyên tắc step-by-step ở mục 03</li>
+            <li>Template và <b>chuẩn hoá kho ảnh</b>: tag và mô tả phải chuẩn từ đầu</li>
+            <li><b>Dự án hiện tại giữ nguyên: assets.inet.vn (DAM) và Design System</b> — đây chính là hai
+              thứ OneSite cần ở lớp asset và lớp component</li>
+            <li>GPU Lab: <b>kế hoạch sau</b>, chưa đưa vào kỳ này</li>
+          </ul>
+          <p>Kiên lưu ý riêng về kho ảnh: nếu hobv ngồi kéo và gắn nhãn thủ công thì mất nhiều năm — phải
+            dùng AI hỗ trợ, và <b>chuẩn đặt tên phải đúng ngay từ đầu</b>. Việc này không cần dựng mới:
+            assets.inet.vn đã là kho DAM có sẵn, cần bổ sung luồng nạp ảnh và chuẩn tag cho OneSite.</p>
+          <div class="tl-tags"><span class="tag">Tier M</span><span class="tag">assets.inet.vn</span><span class="tag">design-sys-fe</span></div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-when">TRUNG HẠN · điều kiện bắt buộc, không nhảy tắt được</div>
+        <div class="tl-h">Kinh qua nhiều dịch vụ cho khách hàng</div>
+        <div class="tl-body">
+          <p>Kiên nói rõ đây là điều kiện, không phải gợi ý: để làm được vị trí dài hạn thì phải trải qua khá
+            nhiều dịch vụ cho khách hàng, <b>hiểu chiến lược phát triển của công ty</b>, và hiểu tập khách
+            hàng hiện tại cũng như tương lai. Nâng cao tay nghề thiết kế là cần nhưng không đủ.</p>
+          <div class="tl-tags"><span class="tag warn">Điều kiện chặn</span></div>
+        </div>
+      </div>
+      <div class="tl-item mile">
+        <div class="tl-when">DÀI HẠN · vị trí Kiên kỳ vọng từ lâu</div>
+        <div class="tl-h">Người thổi hồn sản phẩm vào thiết kế</div>
+        <div class="tl-body">
+          <p>Không phải làm giao diện đẹp — Kiên gọi việc đang làm hiện nay là <b>sơ đẳng</b> so với vị trí
+            này. Nội dung vị trí: đưa nhận diện và cái “hồn” của sản phẩm vào <b>toàn bộ các sản phẩm</b>
+            của công ty, thể hiện được mong muốn trải nghiệm của khách hàng, và giữ được nét nhận diện đó
+            trong khi vẫn thay đổi cho phù hợp.</p>
+          <p>Kiên tự nhận đang thiếu người ở đúng vị trí này, và nói khi đi sâu vào phần AI thì ông bị xa
+            phần đó — nghĩa là <b>chỗ trống này là thật</b>, không phải phần thưởng động viên.</p>
+          <p><b>Đường đi đã rõ hơn sau 09/09:</b> Design System chuyển giao cho ducnd. Việc đó giải phóng
+            hobv khỏi lớp component để đi lên lớp nhận diện và trải nghiệm sản phẩm — đúng đích dài hạn ở
+            trên. Đây là điều kiện thuận, nhưng chỉ thành hiện thực nếu chuyển giao có mốc thật.</p>
+          <div class="tl-tags"><span class="tag acc">Đích dài hạn</span><span class="tag">Nhận diện xuyên sản phẩm</span></div>
+        </div>
+      </div>
+      <div class="tl-item fut">
+        <div class="tl-when">CẢNH BÁO ĐI KÈM</div>
+        <div class="tl-h">AI có thể làm phần lớn việc thổi hồn nhận diện</div>
+        <div class="tl-body">
+          <p>Kiên nói thẳng trong cùng buổi: AI có thể cùng làm, hoặc thay phần lớn việc đưa nhận diện vào
+            sản phẩm. Vì vậy <b>đừng kỳ vọng trở thành một thứ duy nhất</b> — hãy tận dụng thế mạnh cụ thể
+            đã có. Hai câu này đứng cạnh nhau và phải đọc cùng nhau: đích dài hạn có thật, nhưng không được
+            coi là chỗ trú an toàn.</p>
+          <div class="tl-tags"><span class="tag warn">Rủi ro nghề</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- chuongdt -->
+    <div class="g2 rv">
+      <div class="card">
+        <div class="k">03 · chuongdt</div>
+        <h4>Đinh Tiến Chương — thêm trục đại lý</h4>
+        <p>Không phải chủ đề buổi roadmap, nhưng Kiên nêu trục rõ: gắn vào <b>hệ thống Portal và hệ thống
+          phát triển đại lý</b>.</p>
+        <ul style="padding-left:1rem;font-size:14px">
+          <li><b>Ngắn hạn:</b> không chỉ nhận yêu cầu rồi làm — phải đồng hành cùng Sales và đại lý để công
+            cụ được đại lý đón nhận</li>
+          <li><b>Chịu trách nhiệm số:</b> tỷ lệ đại lý dùng công cụ, tỷ lệ sử dụng, số liệu trên trang;
+            doanh thu qua kênh đại lý tăng lên là kết quả được tính</li>
+        </ul>
+        <p>So với bản roadmap đã có (<span class="mono">roadmap/chuongdt/</span>), hai thứ này chưa có:
+          <b>trục đại lý</b> và <b>quyền sở hữu số liệu</b>. Nên bổ sung khi cập nhật bản đó.</p>
+        <div class="tl-tags"><span class="tag">Portal</span><span class="tag acc">Đại lý — mới</span><span class="tag warn">Chưa trao đổi trực tiếp</span></div>
+      </div>
+      <div class="card">
+        <div class="k">04 · dattqh</div>
+        <h4>Trịnh Quốc Hoàn Đạt — điều phối khi gộp khối</h4>
+        <p>Transcript có ba dữ kiện, không nhiều hơn:</p>
+        <ul style="padding-left:1rem;font-size:14px">
+          <li>Kiên nêu hệ sinh thái cloud còn rất nhiều việc và đó là mặt giá trị của dattqh</li>
+          <li>Khi gộp khối: <b>dattqh hỗ trợ</b>, người chỉ đạo là <b>kienvt</b></li>
+          <li>Phần code OneSite <b>không thuộc dattqh</b> — ducnd là chủ sản phẩm</li>
+        </ul>
+        <p><b>Chốt 09/09:</b> dattqh dựng <b>dashboard adoption</b>. Đây là việc gấp nhất vì nó chặn kỳ
+          chấm KPI T9 của cả khối. Kèm theo: điều phối bàn giao khi gộp phòng, và chuẩn hoá báo cáo tháng
+          theo người dùng + doanh thu.</p>
+        <div class="tl-tags"><span class="tag acc">Dashboard adoption — đã chốt</span><span class="tag ok">Hỗ trợ gộp khối</span><span class="tag warn">Chặn KPI T9</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 05 TỔNG HỢP ===================== -->
+<section id="s5">
+  <div class="wrap">
+    <div class="s-num rv">05 / 06</div>
+    <h2 class="s-title rv">Tổng hợp và số liệu phải chốt</h2>
+    <p class="s-desc rv">Một bảng để đọc nhanh, và danh sách số liệu bắt buộc phải có trước khi KPI T9 chấm
+      theo adoption. Không có những con số này thì cả mục 04 không đo được.</p>
+
+    <div class="tw rv" style="margin-bottom:var(--s4)">
+      <table>
+        <thead><tr><th>Người</th><th>Trục vai trò</th><th>Ngắn hạn · T9/26 – T2/27</th><th>Trung hạn · 2027</th><th>Dài hạn</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="k">ducnd</td>
+            <td>Chủ sản phẩm OneSite<br><span class="b ok">Đã chốt</span></td>
+            <td><b>Tiếp quản module OneSite</b> (229 commit, ~62.800 dòng); làm lại Editor (phạm vi cần chốt); phase 2 luồng một màn hình; bám số liệu cùng Marketing</td>
+            <td>S3 → Office Drive; nền email SPF/DKIM cho OneMail</td>
+            <td>Tiếp quản <b>Design System</b><br><span class="b ok">Đã chốt 09/09</span></td>
+          </tr>
+          <tr>
+            <td class="k">hobv</td>
+            <td>Trải nghiệm &amp; nhận diện sản phẩm<br><span class="b warn">Vai trò chưa rõ</span></td>
+            <td>Giữ <b>assets.inet.vn (DAM)</b> + <b>Design System</b>; UX wizard, template, chuẩn tag kho ảnh cho OneSite. GPU Lab: kế hoạch sau</td>
+            <td>Chuyển giao Design System sang ducnd; kinh qua nhiều dịch vụ khách hàng, hiểu chiến lược và tập khách hàng — điều kiện chặn</td>
+            <td>Thổi hồn sản phẩm vào thiết kế, nhận diện xuyên toàn bộ sản phẩm</td>
+          </tr>
+          <tr>
+            <td class="k">chuongdt</td>
+            <td>Portal + phát triển đại lý<br><span class="b info">Kiên nêu ngang</span></td>
+            <td>Đồng hành cùng Sales/đại lý để công cụ được đón nhận; nhận số về tỷ lệ đại lý dùng</td>
+            <td>Theo roadmap chuongdt đã có, bổ sung trục đại lý và quyền sở hữu số liệu</td>
+            <td><span class="b mute">Chưa trao đổi</span></td>
+          </tr>
+          <tr>
+            <td class="k">dattqh</td>
+            <td>Dashboard adoption + điều phối khối sau gộp<br><span class="b ok">kienvt chỉ đạo khối</span></td>
+            <td><b>Dựng dashboard adoption trước kỳ chấm T9</b>; điều phối bàn giao khi gộp phòng</td>
+            <td>Chuẩn hoá báo cáo tháng theo người dùng + doanh thu cho cả khối</td>
+            <td><span class="b mute">Chưa trao đổi</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="scope rv" style="margin-bottom:var(--s4)">
+      <div class="scope-col">
+        <div class="scope-hd in">Đã chốt trong ba buổi họp<span>Không cần xin lại, chỉ cần thực hiện</span></div>
+        <ul class="scope-list yes">
+          <li>ducnd là chủ sản phẩm OneSite, gồm cả chất lượng dùng thật</li>
+          <li>KPI từ T9/2026 quy theo lượng người dùng, không theo tính năng</li>
+          <li>Chủ trương gộp Công Nghệ + Kỹ Thuật thành một khối; T9 áp cụ thể</li>
+          <li><b>Core = hạ tầng</b> (S3 riêng cho OneSite, server, bảo vệ) do khối Kỹ Thuật giữ và <b>đã xong</b>; BP Công Nghệ giữ lớp ứng dụng và AI</li>
+          <li>ducnd <b>không quản hạ tầng phía dưới</b> của OneSite</li>
+          <li>WebAI khai tử trong 2026, chuyển người dùng sang OneSite</li>
+          <li>Trọng tâm đầu tư OneSite phase 2 là MCP tools, không phải UI — code đã đi theo đúng hướng này</li>
+          <li>Ưu tiên Telegram, hoãn Zalo do không hỗ trợ pattern cần</li>
+          <li>Nhân sự không phát triển: rời, hoặc tách nhóm riêng ngoài phòng</li>
+        </ul>
+      </div>
+      <div class="scope-col">
+        <div class="scope-hd in">Chốt bổ sung · 09/09/2026<span>Bảy điểm còn mở của bản 1.0, nay đã có câu trả lời</span></div>
+        <ul class="scope-list yes">
+          <li><b>kienvt</b> (TBP Kỹ Thuật) chỉ đạo khối sau khi gộp</li>
+          <li><b>dattqh</b> dựng dashboard adoption</li>
+          <li>hobv giữ <b>assets.inet.vn</b> + <b>Design System</b>; GPU Lab là kế hoạch sau</li>
+          <li>Dài hạn của ducnd: <b>tiếp quản Design System</b></li>
+          <li>OneSite phase 2 dùng <b>model AI sẵn có của chatbot iNET</b> — không chọn model mới</li>
+          <li><b>ducnd làm lại Editor</b></li>
+          <li>Database cho <b>site động</b> vẫn nằm ở kế hoạch container — nền tảng thì đã có model template</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout rv">
+      <div class="k">Số liệu phải có trước kỳ chấm T9/2026</div>
+      <ul class="chk" style="margin-top:8px">
+        <li><b>OneSite:</b> người dùng mới mỗi tháng · số site tạo thành công · tỷ lệ hoàn tất luồng wizard · tỷ lệ site còn hoạt động sau 30 ngày</li>
+        <li><b>Tên miền:</b> tỷ lệ tên miền có bản ghi · tỷ lệ tên miền có website gắn vào · rebate registry thực nhận</li>
+        <li><b>Giữ khách:</b> số khách rời sang nhà cung cấp ngoài · lý do rời</li>
+        <li><b>OneMail:</b> số tài khoản · dung lượng · phần đã rời khỏi Zimbra</li>
+        <li><b>Portal / đại lý:</b> tỷ lệ đại lý dùng công cụ · doanh thu đi qua kênh đại lý</li>
+        <li><b>Chi phí AI:</b> OneSite dùng chung model của chatbot iNET — cần tách được phần chi phí thuộc OneSite để biết giá thành mỗi site</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 06 RỦI RO & NGUỒN ===================== -->
+<section id="s6">
+  <div class="wrap">
+    <div class="s-num rv">06 / 06</div>
+    <h2 class="s-title rv">Rủi ro và độ tin cậy của nguồn</h2>
+    <p class="s-desc rv">Phần này tồn tại vì nguồn của báo cáo là transcript ASR chất lượng không đều. Mọi
+      kết luận ở trên đều truy được về transcript, nhưng mức chắc chắn khác nhau — bảng cuối ghi rõ từ nào
+      được suy ra và suy với độ tin cậy nào. Bản 1.2 bổ sung một nguồn thứ hai <b>chắc chắn hơn transcript</b>:
+      code trong <span class="mono">portal-client</span> và <span class="mono">portal-server</span> — mục 03 đã
+      sửa lại kết luận về OneSite theo nguồn này. Ba dòng độ tin cậy thấp của bản 1.0 (tên dự án của hobv, và
+      một phần việc hạ tầng) đã được bỏ khỏi bảng vì <b>bản 1.1 không còn kết luận nào dựa vào chúng</b>.</p>
+
+    <div class="g2 rv" style="margin-bottom:var(--s4)">
+      <div class="card stop">
+        <div class="k">Rủi ro cao</div>
+        <h4>KPI adoption không có dashboard</h4>
+        <p>T9 chấm theo người dùng nhưng dashboard chưa tồn tại. Nếu không dựng kịp thì kỳ chấm T9 lặp lại
+          đúng vấn đề của T8 — chấm cảm tính, tự đánh giá lệch cao. <b>Đây là việc chặn, không phải việc
+          nền.</b></p>
+      </div>
+      <div class="card stop">
+        <div class="k">Rủi ro cao — mới, phát hiện từ code</div>
+        <h4>Lớp ứng dụng OneSite có đúng một người biết code</h4>
+        <p>Nói về <b>lớp ứng dụng</b>, không phải core hạ tầng. 229 commit (174 client + 55 server) trong một
+          tháng, <b>gần như toàn bộ do một tác giả</b> ở khối Kỹ Thuật. <b>ducnd hiện có 0 commit</b> trong
+          module này, dù đã là chủ sản phẩm từ T8. Rủi ro kép: bus factor bằng 1, và chi phí bàn giao ~63k
+          dòng chưa được tính vào ngắn hạn của ducnd.</p>
+        <p><b>Việc cần làm trước T9:</b> chốt buổi bàn giao có phạm vi rõ, và chốt ai giữ quyền merge module
+          trong giai đoạn chuyển.</p>
+      </div>
+      <div class="card stop">
+        <div class="k">Rủi ro cao</div>
+        <h4>ducnd gánh ba việc tier L cùng lúc</h4>
+        <p>Tiếp quản OneSite (~63k dòng) + làm lại Editor + nghiên cứu Office Drive, cộng yêu cầu mới là
+          bám số liệu cùng Marketing, và dài hạn là tiếp quản Design System. Một người không chạy hết. Cần
+          chốt thứ tự ưu tiên hoặc bổ sung người — Kiên đã mở cửa cho việc đề xuất nguồn lực.</p>
+      </div>
+      <div class="card warn">
+        <div class="k">Rủi ro trung bình</div>
+        <h4>Đường ra quyết định sản phẩm sau khi gộp</h4>
+        <p>kienvt chỉ đạo khối, dattqh hỗ trợ, ducnd là chủ sản phẩm OneSite. Ba vai này chưa có văn bản nói
+          rõ <b>ai quyết cái gì</b>. Cần chốt trước T9, vì kỳ chấm KPI đầu tiên theo adoption sẽ rơi đúng vào
+          giai đoạn chuyển.</p>
+      </div>
+      <div class="card warn">
+        <div class="k">Rủi ro trung bình</div>
+        <h4>Chuyển giao Design System chồng lên tải của ducnd</h4>
+        <p>Design System chuyển từ hobv sang ducnd trong khi ducnd đang gánh OneSite phase 2, làm lại Editor
+          và nghiên cứu Office Drive. Không có mốc và phạm vi chuyển giao thì <b>cả Design System và OneSite
+          đều chậm</b>, và hobv cũng không được giải phóng để đi lên đích dài hạn.</p>
+      </div>
+    </div>
+
+    <div class="callout warn rv">
+      <div class="k">Chất lượng transcript — đọc trước khi trích dẫn báo cáo này</div>
+      <p>Transcript <b>họp roadmap cá nhân</b> bị nhiễu nặng nhất: có đoạn ASR lặp một từ hàng chục lần và
+        có đoạn không giải mã được. Transcript <b>OneSite</b> và <b>nhân sự</b> khá hơn nhưng vẫn sai tên
+        riêng và tên sản phẩm. Vì vậy: mọi câu trong báo cáo này đặt trong ngoặc kép là <b>diễn giải</b>,
+        không phải nguyên văn. Số điểm P2/KPI cụ thể của T8 <b>không được dùng</b> từ báo cáo này — lấy trên
+        my.inet.vn, nơi đó mới là nguồn có thẩm quyền.</p>
+    </div>
+
+    <div class="tw rv">
+      <table>
+        <thead><tr><th>ASR nghe thành</th><th>Đọc là</th><th>Độ tin cậy</th><th>Ảnh hưởng nếu sai</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">oan sai · hoan sinh · hoang sưu · onsai</td><td class="k">OneSite</td><td><span class="b ok">Cao</span></td><td>Toàn bộ mục 03 và 04</td></tr>
+          <tr><td class="mono">ondarx</td><td class="k">OneDash</td><td><span class="b ok">Cao</span></td><td>Nhắc trong họp nhân sự</td></tr>
+          <tr><td class="mono">f3 · fd3 · f2</td><td class="k">S3</td><td><span class="b ok">Cao</span></td><td>Lớp lưu trữ, Office Drive</td></tr>
+          <tr><td class="mono">đắt boa</td><td class="k">dashboard</td><td><span class="b ok">Cao</span></td><td>Lý do KPI T8 chấm theo tính năng</td></tr>
+          <tr><td class="mono">cốt đinh</td><td class="k">coding</td><td><span class="b ok">Cao</span></td><td>Phân mảng khi gộp khối</td></tr>
+          <tr><td class="mono">sơ vít</td><td class="k">service</td><td><span class="b ok">Cao</span></td><td>Ngắn hạn của ducnd</td></tr>
+          <tr><td class="mono">fba · dò kim</td><td class="k">SPF · DKIM</td><td><span class="b ok">Cao</span></td><td>Nền email của ducnd</td></tr>
+          <tr><td class="mono">gích · quích · wích</td><td class="k">Wix</td><td><span class="b ok">Cao</span></td><td>Benchmark, đã có MCP</td></tr>
+          <tr><td class="mono">dim ram · di ram</td><td class="k">Zimbra</td><td><span class="b ok">Cao</span></td><td>Lý do làm OneMail</td></tr>
+          <tr><td class="mono">web ai</td><td class="k">WebAI (sản phẩm cũ)</td><td><span class="b warn">Trung bình</span></td><td>Kế hoạch khai tử 2026</td></tr>
+          <tr><td class="mono">tín ô</td><td class="k">Tino</td><td><span class="b warn">Trung bình</span></td><td>Benchmark thị trường Việt</td></tr>
+          <tr><td class="mono">do do · dozo</td><td class="k">Odoo</td><td><span class="b warn">Trung bình</span></td><td>Đối thủ được nêu</td></tr>
+          <tr><td class="mono">neymar welbeck · thầm wales</td><td class="k">Namecheap</td><td><span class="b warn">Trung bình</span></td><td>Ví dụ mua tên miền trong luồng</td></tr>
+          <tr><td class="mono">ozil mail</td><td class="k">OneMail</td><td><span class="b warn">Trung bình</span></td><td>Sản phẩm liền kề</td></tr>
+          <tr><td class="mono">xe buýt · tele xe buýt</td><td class="k">chatbot · Telegram bot</td><td><span class="b warn">Trung bình</span></td><td>Kênh vào của OneSite</td></tr>
+          <tr><td class="mono">sáu đô / hơn một nửa giá</td><td class="k">rebate registry ~6 USD/tên miền</td><td><span class="b warn">Trung bình</span></td><td>Lập luận bài toán tiền — cần xác nhận số thật</td></tr>
+          <tr><td class="mono">oan siêu</td><td class="k">lớp server / OneServer?</td><td><span class="b stop">Thấp</span></td><td>Tên lớp hạ tầng — đã diễn giải trung tính</td></tr>
+          <tr><td class="mono">điểm P2/KPI T8 (số cụ thể)</td><td class="k">không dùng</td><td><span class="b stop">Thấp</span></td><td>Lấy từ my.inet.vn, không lấy ở đây</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div style="font-weight:600;color:var(--ink)">Định hướng vai trò &amp; lộ trình cá nhân · BP Công Nghệ</div>
+        <div style="margin-top:6px">Tài liệu nội bộ Bộ phận Công Nghệ · iNET · phiên bản 1.3 · 09/09/2026</div>
+        <div style="margin-top:4px">Nguồn: transcript họp roadmap cá nhân (GĐ Kiên – ducnd – hobv) · họp dự án OneSite · họp nhân sự T8/2026</div>
+        <div style="margin-top:4px">Bản 1.1 · 09/09/2026: chốt 7 điểm còn mở của bản 1.0 (xem mục 05) — nguồn là xác nhận trực tiếp của dattqh, không phải transcript</div>
+        <div style="margin-top:4px">Bản 1.2 · 09/09/2026: đối chiếu trạng thái OneSite với code — <span class="mono">portal-client</span> @ <span class="mono">3a2e9ff0</span> (08/09) · <span class="mono">portal-server</span> @ <span class="mono">d17627a</span> (09/09); module <span class="mono">src/modules/one-shield/pages</span></div>
+        <div style="margin-top:4px">Bản 1.3 · 09/09/2026: làm rõ &ldquo;core&rdquo; = hạ tầng phía dưới (S3 riêng cho OneSite, server, bảo vệ) do khối Kỹ Thuật dựng và đã xong — không phải lớp ứng dụng; ducnd không quản lớp dưới</div>
+        <div style="margin-top:4px">Số P2/KPI và mức đánh giá: nguồn có thẩm quyền là my.inet.vn, không phải tài liệu này</div>
+      </div>
+      <a class="up" data-go="s1">↑ Về đầu trang</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* Điều hướng iframe-safe: cuộn nội trang, không đổi location.hash */
+document.querySelectorAll('[data-go]').forEach(function(el){
+  el.addEventListener('click',function(e){
+    e.preventDefault();
+    var t=document.getElementById(el.getAttribute('data-go'));
+    if(!t)return;
+    var top=t.getBoundingClientRect().top+window.pageYOffset-56;
+    window.scrollTo({top:top,behavior:'smooth'});
+  });
+});
+
+/* Reveal khi cuộn tới */
+(function(){
+  var items=document.querySelectorAll('.rv');
+  if(!('IntersectionObserver' in window)){
+    items.forEach(function(i){i.classList.add('on')});
+    return;
+  }
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){en.target.classList.add('on');io.unobserve(en.target)}
+    });
+  },{rootMargin:'0px 0px -8% 0px',threshold:.05});
+  items.forEach(function(i){io.observe(i)});
+
+  /* Lưới an toàn: nội dung không bao giờ ở trạng thái ẩn vì animation chưa chạy
+     (viewport rất cao, nhúng iframe, in ấn, tab nền). */
+  setTimeout(function(){
+    items.forEach(function(i){i.classList.add('on')});
+    io.disconnect();
+  },1600);
+})();
+</script>
+</body>
+</html>
