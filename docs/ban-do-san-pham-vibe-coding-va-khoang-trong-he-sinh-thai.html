@@ -1,0 +1,925 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bản đồ sản phẩm vibe coding & khoảng trống hệ sinh thái iNET</title>
+<style>
+/* ==========================================================================
+   Token: iNET ViUI Design System. Sáng = bảng mặc định, tối = bảng dark.
+   File self-contained: không CDN, không font ngoài, không script ngoài.
+   ========================================================================== */
+:root{
+  color-scheme:light dark;
+  --viui-primary:#024799;
+  --viui-primary-500:#0582D4;
+  --viui-accent:#E8353C;
+  --viui-surface:#FFFFFF;
+  --viui-surface-elevated:#F4F7FA;
+  --viui-surface-card:#E8EEF4;
+  --viui-border:#D0DAE6;
+  --viui-border-subtle:#E8EEF4;
+  --viui-nl-500:#6D8599;
+  --viui-nl-600:#4A6278;
+  --viui-nl-700:#2E4A5C;
+  --viui-nl-900:#0F1E2D;
+  --viui-error:#B91C1C;
+  --viui-error-surface:#FEF2F2;
+  --viui-warning:#D47B0A;
+  --viui-warning-text:#92400E;
+  --viui-warning-surface:#FFFBEB;
+  --viui-success:#0E9F6E;
+  --viui-success-text:#065F46;
+  --viui-success-surface:#ECFDF5;
+  --viui-info-text:#1E40AF;
+  --viui-info-surface:#EFF6FF;
+
+  --s1:8px; --s2:16px; --s3:24px; --s4:32px; --s5:40px; --s6:48px; --s8:64px;
+  --r-sm:4px; --r-base:8px; --r-md:12px; --r-lg:16px;
+
+  --ink:var(--viui-nl-900);
+  --ink-soft:var(--viui-nl-700);
+  --muted:var(--viui-nl-600);
+  --faint:var(--viui-nl-500);
+  --paper:var(--viui-surface);
+  --surface:var(--viui-surface-elevated);
+  --surface-2:var(--viui-surface-card);
+  --accent:var(--viui-primary);
+  --accent-2:var(--viui-primary-500);
+  --accent-tint:rgba(2,71,153,.06);
+  --accent-tint-2:rgba(2,71,153,.12);
+  --brand-red:var(--viui-accent);
+  --hairline:var(--viui-border);
+  --hairline-soft:var(--viui-border-subtle);
+
+  --sans:system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+  --mono:'SFMono-Regular',ui-monospace,Menlo,Consolas,'Liberation Mono',monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --viui-primary:#66AAFF; --viui-primary-500:#619ee9; --viui-accent:#FF7070;
+    --viui-surface:#121212; --viui-surface-elevated:#1e1e1e; --viui-surface-card:#262626;
+    --viui-border:#424242; --viui-border-subtle:#303030;
+    --viui-nl-500:#7d8b99; --viui-nl-600:#8B949E; --viui-nl-700:#b0b0b0; --viui-nl-900:#e0e0e0;
+    --viui-error:#F87171; --viui-error-surface:#2a1212;
+    --viui-warning:#FBBF24; --viui-warning-text:#FBBF24; --viui-warning-surface:#2A1F06;
+    --viui-success:#34D399; --viui-success-text:#34D399; --viui-success-surface:#0A2A1F;
+    --viui-info-text:#93C5FD; --viui-info-surface:#0A1628;
+    --accent-tint:rgba(102,170,255,.08); --accent-tint-2:rgba(102,170,255,.16);
+  }
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.62;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1160px;margin:0 auto;padding:0 var(--s3)}
+h1,h2,h3,h4{margin:0;line-height:1.24;font-weight:600;letter-spacing:-.01em}
+p{margin:0 0 var(--s2)}
+strong{font-weight:600}
+code,.mono{font-family:var(--mono);font-size:.86em}
+
+/* ---------- Nav ---------- */
+.nav{position:sticky;top:0;z-index:50;background:var(--paper);background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:saturate(150%) blur(10px);border-bottom:1px solid var(--hairline-soft)}
+.nav-in{max-width:1160px;margin:0 auto;padding:10px var(--s3);display:flex;gap:6px;align-items:center;overflow-x:auto;scrollbar-width:none}
+.nav-in::-webkit-scrollbar{display:none}
+.nav-brand{font-weight:700;font-size:13px;letter-spacing:.02em;color:var(--accent);white-space:nowrap;margin-right:var(--s1)}
+.nav a.n{font-size:12.5px;color:var(--muted);white-space:nowrap;padding:5px 10px;border-radius:var(--r-sm);border:1px solid transparent;cursor:pointer}
+.nav a.n:hover{background:var(--accent-tint);color:var(--accent);border-color:var(--hairline-soft)}
+
+/* ---------- Hero ---------- */
+.hero{padding:var(--s8) 0 var(--s6);border-bottom:1px solid var(--hairline)}
+.eyebrow{font-size:11.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-2);margin-bottom:var(--s2)}
+.hero h1{font-size:clamp(30px,5.2vw,50px);letter-spacing:-.025em;margin-bottom:var(--s2)}
+.hero h1 .sub{display:block;color:var(--muted);font-weight:400;font-size:.42em;letter-spacing:-.01em;margin-top:10px}
+.lead{font-size:clamp(16px,1.6vw,18.5px);color:var(--ink-soft);max-width:74ch}
+.meta{display:flex;flex-wrap:wrap;gap:var(--s1) var(--s3);margin-top:var(--s4);font-size:13px;color:var(--muted)}
+.meta b{color:var(--ink);font-weight:600}
+.pillrow{display:flex;flex-wrap:wrap;gap:var(--s1);margin-top:var(--s3)}
+.pill{font-size:12px;padding:5px 11px;border-radius:var(--r-sm);background:var(--surface);border:1px solid var(--hairline);color:var(--ink-soft)}
+.pill.on{background:var(--accent-tint-2);border-color:transparent;color:var(--accent);font-weight:600}
+.pill.warn{background:var(--viui-warning-surface);color:var(--viui-warning-text);border-color:transparent;font-weight:600}
+.pill.stop{background:var(--viui-error-surface);color:var(--viui-error);border-color:transparent;font-weight:600}
+
+/* ---------- Section ---------- */
+section{padding:var(--s8) 0;border-bottom:1px solid var(--hairline-soft)}
+.s-num{font-family:var(--mono);font-size:12px;color:var(--faint);letter-spacing:.08em;margin-bottom:10px}
+.s-title{font-size:clamp(22px,3vw,31px);letter-spacing:-.02em;margin-bottom:var(--s2)}
+.s-desc{color:var(--ink-soft);max-width:76ch;margin-bottom:var(--s5)}
+h3.sub-h{font-size:17.5px;margin:var(--s5) 0 var(--s3);padding-bottom:8px;border-bottom:1px solid var(--hairline-soft)}
+.cap{font-size:12px;color:var(--faint);margin-top:10px}
+
+/* ---------- Grid ---------- */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:var(--s3)}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s2)}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s2)}
+@media (max-width:900px){.g2,.g3,.g4{grid-template-columns:1fr}}
+
+/* ---------- Card / callout ---------- */
+.card{background:var(--surface);border:1px solid var(--hairline);border-radius:var(--r-md);padding:var(--s3)}
+.card h4{font-size:15.5px;margin-bottom:10px}
+.card p:last-child{margin-bottom:0}
+.card .k{font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin-bottom:8px}
+.callout{border-left:3px solid var(--accent);background:var(--accent-tint);padding:var(--s2) var(--s3);border-radius:0 var(--r-base) var(--r-base) 0;margin:var(--s3) 0}
+.callout.warn{border-color:var(--viui-warning);background:var(--viui-warning-surface)}
+.callout.stop{border-color:var(--viui-error);background:var(--viui-error-surface)}
+.callout.ok{border-color:var(--viui-success);background:var(--viui-success-surface)}
+.callout .k{font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin-bottom:6px}
+.callout p:last-child{margin-bottom:0}
+.b{display:inline-block;font-size:11px;font-weight:700;padding:3px 8px;border-radius:var(--r-sm);white-space:nowrap}
+.b.ok{background:var(--viui-success-surface);color:var(--viui-success-text)}
+.b.warn{background:var(--viui-warning-surface);color:var(--viui-warning-text)}
+.b.stop{background:var(--viui-error-surface);color:var(--viui-error)}
+.b.info{background:var(--viui-info-surface);color:var(--viui-info-text)}
+.b.mute{background:var(--surface-2);color:var(--muted)}
+.b.acc{background:var(--accent-tint-2);color:var(--accent)}
+
+/* ---------- 01 Ba bề mặt ---------- */
+.surf{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s2)}
+@media (max-width:900px){.surf{grid-template-columns:1fr}}
+.sf{border:1px solid var(--hairline);border-radius:var(--r-md);overflow:hidden;background:var(--surface);display:flex;flex-direction:column}
+.sf-hd{padding:12px var(--s2);border-bottom:1px solid var(--hairline);display:flex;justify-content:space-between;align-items:center;gap:8px}
+.sf-hd .u{font-family:var(--mono);font-size:12px;color:var(--accent);font-weight:600}
+.sf-big{padding:var(--s3) var(--s2) var(--s2);text-align:center}
+.sf-big .n{font-size:clamp(38px,6vw,56px);font-weight:700;letter-spacing:-.04em;line-height:1;color:var(--accent)}
+.sf-big .l{font-size:13px;font-weight:600;margin-top:8px}
+.sf-big .h{font-size:12px;color:var(--muted);margin-top:4px}
+.sf-foot{margin-top:auto;padding:12px var(--s2);border-top:1px solid var(--hairline-soft);display:flex;flex-wrap:wrap;gap:6px}
+
+/* ---------- Treemap ---------- */
+.tmap{display:flex;flex-wrap:wrap;gap:6px;background:var(--surface);border:1px solid var(--hairline);border-radius:var(--r-md);padding:var(--s2)}
+.tt{border-radius:var(--r-base);padding:12px 10px;color:#fff;display:flex;flex-direction:column;justify-content:space-between;min-height:84px;overflow:hidden}
+.tt .n{font-size:22px;font-weight:700;line-height:1;letter-spacing:-.03em}
+.tt .l{font-size:12px;font-weight:600;margin-top:6px;line-height:1.3;opacity:.95}
+.tt.a{background:#024799}.tt.b{background:#0582D4}.tt.c{background:#2E7CB8}
+.tt.d{background:#4A6278}.tt.e{background:#6D8599}.tt.f{background:#8FA3B3}
+@media (prefers-color-scheme:dark){
+  .tt.a{background:#1d4f8a}.tt.b{background:#2b6fae}.tt.c{background:#356e9a}
+  .tt.d{background:#3c5468}.tt.e{background:#4c6070}.tt.f{background:#5b6b78}
+}
+
+/* ---------- Cluster map ---------- */
+.clu{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s2)}
+@media (max-width:900px){.clu{grid-template-columns:1fr}}
+.cl{border:1px solid var(--hairline);border-radius:var(--r-md);background:var(--surface);overflow:hidden}
+.cl-hd{padding:10px var(--s2);border-bottom:1px solid var(--hairline-soft);display:flex;justify-content:space-between;align-items:center}
+.cl-hd .t{font-size:13.5px;font-weight:700}
+.cl-hd .c{font-family:var(--mono);font-size:18px;font-weight:700;color:var(--accent)}
+.cl-body{padding:10px var(--s2) var(--s2);display:flex;flex-wrap:wrap;gap:5px}
+.chip{font-size:11.5px;padding:3px 8px;border-radius:var(--r-sm);background:var(--surface-2);color:var(--ink-soft);border:1px solid var(--hairline-soft)}
+.cl-note{padding:0 var(--s2) var(--s2);font-size:12px;color:var(--muted)}
+.cl.link{border-left:3px solid var(--viui-success)}
+.cl.weak{border-left:3px solid var(--viui-warning)}
+.cl.none{border-left:3px solid var(--faint)}
+
+/* ---------- Layer stack (trung tâm) ---------- */
+.stack{background:var(--surface);border:1px solid var(--hairline);border-radius:var(--r-md);padding:var(--s3);overflow-x:auto}
+.stack-in{min-width:620px;display:flex;flex-direction:column;gap:10px}
+.ly{display:grid;grid-template-columns:170px 1fr 120px;gap:var(--s2);align-items:center;border-radius:var(--r-base);padding:14px var(--s2);border:1px solid var(--hairline)}
+.ly .who{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.ly .mid .t{font-size:15px;font-weight:600}
+.ly .mid .d{font-size:12.5px;color:var(--muted);margin-top:2px}
+.ly .st{text-align:right;font-size:12px;font-weight:700}
+.ly.have{background:var(--viui-success-surface);border-color:var(--viui-success)}
+.ly.have .who,.ly.have .st{color:var(--viui-success-text)}
+.ly.miss{background:var(--viui-error-surface);border-color:var(--viui-error);border-style:dashed}
+.ly.miss .who,.ly.miss .st{color:var(--viui-error)}
+.ly.miss .mid .t{color:var(--viui-error)}
+.stack-ar{display:flex;justify-content:center;color:var(--faint);font-family:var(--mono);font-size:11px;letter-spacing:.06em}
+.stack-legend{display:flex;flex-wrap:wrap;gap:var(--s2);margin-top:var(--s2);font-size:12px;color:var(--muted)}
+
+/* ---------- Broken chain ---------- */
+.chain{background:var(--surface);border:1px solid var(--hairline);border-radius:var(--r-md);padding:var(--s3);overflow-x:auto}
+.ch{display:flex;align-items:center;gap:0;min-width:640px;margin-bottom:var(--s3)}
+.ch:last-child{margin-bottom:0}
+.ch-box{flex:1;border:1px solid var(--hairline);border-radius:var(--r-base);padding:10px 12px;background:var(--paper);min-width:120px}
+.ch-box .t{font-size:13px;font-weight:600}
+.ch-box .d{font-size:11.5px;color:var(--muted);margin-top:2px}
+.ch-box.ok{border-color:var(--viui-success);background:var(--viui-success-surface)}
+.ch-box.dead{border-color:var(--hairline);background:var(--surface-2);opacity:.75}
+.ch-ar{width:52px;text-align:center;color:var(--faint);font-size:16px;flex:0 0 52px}
+.ch-gap{width:74px;flex:0 0 74px;text-align:center;color:var(--viui-error);font-size:11px;font-weight:700;line-height:1.25}
+.ch-gap .x{display:block;font-size:19px}
+.ch-lb{font-size:11.5px;font-weight:700;color:var(--faint);letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
+
+/* ---------- Status page: before/after ---------- */
+.ba{display:grid;grid-template-columns:1fr 1fr;gap:var(--s3)}
+@media (max-width:900px){.ba{grid-template-columns:1fr}}
+.pane{border:1px solid var(--hairline);border-radius:var(--r-md);overflow:hidden;background:var(--paper)}
+.pane-hd{padding:10px var(--s2);font-size:13px;font-weight:700;border-bottom:1px solid var(--hairline)}
+.pane-hd.bad{background:var(--viui-error-surface);color:var(--viui-error)}
+.pane-hd.good{background:var(--viui-success-surface);color:var(--viui-success-text)}
+.pane-body{padding:var(--s2)}
+.row-mon{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 10px;border:1px solid var(--hairline-soft);border-radius:var(--r-sm);margin-bottom:6px;background:var(--surface);font-family:var(--mono);font-size:11.5px;color:var(--ink-soft)}
+.row-mon:last-child{margin-bottom:0}
+.row-mon.svc{font-family:var(--sans);font-size:13px;font-weight:600;color:var(--ink)}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--viui-success);flex:0 0 9px}
+.leak{display:flex;flex-wrap:wrap;gap:var(--s1);margin-top:var(--s2)}
+.leak span{font-family:var(--mono);font-size:11.5px;padding:4px 9px;border-radius:var(--r-sm);background:var(--viui-error-surface);color:var(--viui-error);border:1px solid var(--viui-error)}
+
+/* stacked bar */
+.sbar{display:flex;height:34px;border-radius:var(--r-base);overflow:hidden;border:1px solid var(--hairline)}
+.sbar div{display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff}
+.sbar .h1s{background:#024799}.sbar .h2s{background:#0582D4}.sbar .h3s{background:#8FA3B3}
+@media (prefers-color-scheme:dark){.sbar .h1s{background:#1d4f8a}.sbar .h2s{background:#2b6fae}.sbar .h3s{background:#5b6b78}}
+.sbar-lg{display:flex;flex-wrap:wrap;gap:var(--s2);margin-top:10px;font-size:12px;color:var(--muted)}
+.sbar-lg i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px}
+
+/* ---------- Ý tưởng ---------- */
+.ideas{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s2)}
+@media (max-width:900px){.ideas{grid-template-columns:1fr}}
+.idea{border:1px solid var(--hairline);border-radius:var(--r-md);background:var(--surface);padding:var(--s3);position:relative}
+.idea.top{border-color:var(--accent);background:var(--accent-tint)}
+.idea-hd{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;margin-bottom:8px}
+.idea-id{font-family:var(--mono);font-size:12px;font-weight:700;color:#fff;background:var(--accent);width:26px;height:26px;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;flex:0 0 26px}
+.idea.top .idea-id{background:var(--brand-red)}
+.idea-t{font-size:16px;font-weight:600;flex:1;min-width:160px}
+.idea p{font-size:13.5px;color:var(--ink-soft);margin:8px 0 0}
+.idea-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:12px}
+
+/* ---------- Ma trận ưu tiên ---------- */
+.mx{position:relative;border:1px solid var(--hairline);border-radius:var(--r-md);background:var(--surface);aspect-ratio:1.45/1;min-height:380px;overflow:hidden}
+.mx .q{position:absolute;inset:auto;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--faint)}
+.mx .vline{position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--hairline)}
+.mx .hline{position:absolute;top:50%;left:0;right:0;height:1px;background:var(--hairline)}
+.mx .zone{position:absolute;left:0;top:0;width:50%;height:50%;background:var(--viui-success-surface);opacity:.55}
+.mx .d{position:absolute;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:3px}
+.mx .d b{width:30px;height:30px;border-radius:50%;background:var(--accent);color:#fff;font-size:12.5px;font-weight:700;display:flex;align-items:center;justify-content:center;border:2px solid var(--paper);box-shadow:0 1px 4px rgba(0,0,0,.18)}
+.mx .d.hot b{background:var(--brand-red)}
+.mx .d.cool b{background:var(--viui-nl-600)}
+.mx .d span{font-size:10.5px;color:var(--ink-soft);white-space:nowrap;background:color-mix(in srgb,var(--paper) 80%,transparent);padding:0 3px;border-radius:3px}
+.ax{display:flex;justify-content:space-between;font-size:11.5px;color:var(--faint);margin-top:8px;font-weight:600;letter-spacing:.04em}
+.ay{font-size:11.5px;color:var(--faint);font-weight:600;letter-spacing:.04em;margin-bottom:8px}
+
+/* ---------- Timeline ---------- */
+.tl{position:relative;padding-left:var(--s5)}
+.tl::before{content:"";position:absolute;left:12px;top:6px;bottom:6px;width:2px;background:var(--hairline)}
+.tl-item{position:relative;margin-bottom:var(--s4)}
+.tl-item:last-child{margin-bottom:0}
+.tl-item::before{content:"";position:absolute;left:calc(-1 * var(--s5) + 6px);top:8px;width:14px;height:14px;border-radius:50%;background:var(--paper);border:3px solid var(--accent)}
+.tl-item.fut::before{border-color:var(--faint)}
+.tl-when{font-family:var(--mono);font-size:12px;color:var(--accent);font-weight:600;letter-spacing:.04em}
+.tl-item.fut .tl-when{color:var(--faint)}
+.tl-h{font-size:17px;font-weight:600;margin:4px 0 8px}
+.tl-body{color:var(--ink-soft);font-size:14.5px}
+.tl-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.tag{font-size:11px;padding:3px 9px;border-radius:var(--r-sm);background:var(--surface-2);color:var(--ink-soft);border:1px solid var(--hairline-soft)}
+.tag.acc{background:var(--accent-tint-2);color:var(--accent);font-weight:600}
+
+/* ---------- Footer ---------- */
+footer{padding:var(--s6) 0 var(--s8);color:var(--muted);font-size:13px}
+.foot-grid{display:flex;flex-wrap:wrap;gap:var(--s3);justify-content:space-between;align-items:flex-start}
+
+/* ---------- Reveal ---------- */
+.rv{opacity:0;transform:translateY(14px);transition:opacity .5s cubic-bezier(0,0,.2,1),transform .5s cubic-bezier(0,0,.2,1)}
+.rv.on{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+@media print{.nav{display:none}.rv{opacity:1;transform:none}section{break-inside:avoid}}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-in">
+    <span class="nav-brand">Bản đồ sản phẩm & khoảng trống</span>
+    <a class="n" data-go="s1">Ba bề mặt</a>
+    <a class="n" data-go="s2">145 tool</a>
+    <a class="n" data-go="s3">36 dự án</a>
+    <a class="n" data-go="s4">Bốn lớp</a>
+    <a class="n" data-go="s5">Chỗ đứt gãy</a>
+    <a class="n" data-go="s6">Status page</a>
+    <a class="n" data-go="s7">10 ý tưởng</a>
+    <a class="n" data-go="s8">Ưu tiên</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow rv">iNET · Bộ phận Công Nghệ · Tài liệu thảo luận</div>
+    <h1 class="rv">Bản đồ sản phẩm vibe coding &amp; khoảng trống hệ sinh thái
+      <span class="sub">iNET không thiếu tool. iNET thiếu ba lớp phía sau tool: giữ chân, thực thi và máy gọi.</span>
+    </h1>
+    <p class="lead rv">Đọc trực tiếp từ ba bề mặt đang chạy thật: <b>tools.inet.vn</b> (145 tool),
+      <b>my.inet.vn/project-gallery</b> (36 dự án vibe code) và <b>status.inet.vn</b> (76 monitor).
+      Kết quả: phần <i>thu hút</i> đã rất mạnh, nhưng chưa có bề mặt nào biến lượt dùng thành tài khoản,
+      biến kết quả thành thao tác, hay cho máy gọi được.</p>
+    <div class="pillrow rv">
+      <span class="pill on">3 bề mặt · đọc qua API ngày 18/09/2026</span>
+      <span class="pill">1/4 lớp đã có</span>
+      <span class="pill">10 ý tưởng · xếp theo tác động × công sức</span>
+      <span class="pill stop">1 cảnh báo lộ hạ tầng cần xử lý ngay</span>
+    </div>
+    <div class="meta rv">
+      <span>Người soạn: <b>Trịnh Quốc Hoàn Đạt</b> — Trưởng phòng Công Nghệ</span>
+      <span>Phiên bản <b>0.1 · nháp để thảo luận</b> · 18/09/2026</span>
+      <span>Người cần dự: <b>Công Nghệ · Marketing · Kinh doanh–CSKH · BLĐ</b></span>
+    </div>
+  </div>
+</header>
+
+<!-- ===================== 01 BA BỀ MẶT ===================== -->
+<section id="s1">
+  <div class="wrap">
+    <div class="s-num rv">01 / 08</div>
+    <h2 class="s-title rv">Ba bề mặt iNET đang có</h2>
+    <p class="s-desc rv">Số liệu đọc trực tiếp từ API công khai của từng bề mặt, không phải ước lượng.</p>
+
+    <div class="surf rv">
+      <div class="sf">
+        <div class="sf-hd"><span class="u">tools.inet.vn</span><span class="b ok">Đang chạy</span></div>
+        <div class="sf-big">
+          <div class="n">145</div>
+          <div class="l">tool miễn phí</div>
+          <div class="h">16 nhóm · không cần đăng nhập · file tự xoá sau 1 giờ</div>
+        </div>
+        <div class="sf-foot">
+          <span class="b mute">Stateless</span><span class="b mute">Ẩn danh</span><span class="b mute">One-shot</span>
+          <span class="b info">+ Chrome extension</span>
+        </div>
+      </div>
+      <div class="sf">
+        <div class="sf-hd"><span class="u">my.inet.vn/project-gallery</span><span class="b ok">Đang chạy</span></div>
+        <div class="sf-big">
+          <div class="n">36</div>
+          <div class="l">dự án vibe code</div>
+          <div class="h">40 entry · 14 người nộp · 25 web · 12 extension · 3 desktop</div>
+        </div>
+        <div class="sf-foot">
+          <span class="b mute">Thử nghiệm</span><span class="b mute">Nội bộ</span>
+          <span class="b acc">3 Editor&rsquo;s Choice</span>
+        </div>
+      </div>
+      <div class="sf">
+        <div class="sf-hd"><span class="u">status.inet.vn</span><span class="b warn">Cần chỉnh</span></div>
+        <div class="sf-big">
+          <div class="n">76</div>
+          <div class="l">monitor (SynMon)</div>
+          <div class="h">100% HTTP check · 60 giây/lần · chưa có SMTP/IMAP/DNS</div>
+        </div>
+        <div class="sf-foot">
+          <span class="b stop">Lộ hostname</span><span class="b stop">Lộ port panel</span>
+          <span class="b mute">Chưa có đăng ký nhận báo</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout rv">
+      <div class="k">Điểm chung của cả ba</div>
+      <p>Không bề mặt nào <b>giữ lại gì</b> sau khi người dùng đóng tab: không tài khoản, không lịch sử,
+        không thông báo, không API. Ba bề mặt tạo ra lượt truy cập nhưng gần như không tạo ra dữ liệu
+        adoption/retention — đúng thứ BLĐ và Marketing đang hỏi.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 02 TREEMAP 145 TOOL ===================== -->
+<section id="s2">
+  <div class="wrap">
+    <div class="s-num rv">02 / 08</div>
+    <h2 class="s-title rv">145 tool — diện tích theo số lượng</h2>
+    <p class="s-desc rv">Trọng tâm đang nghiêng về xử lý tệp và tiện ích lập trình. Phần chạm vào dịch vụ
+      iNET bán (Mail, Network, Security) chiếm thiểu số — và đều dừng ở mức đọc/sinh văn bản.</p>
+
+    <div class="tmap rv">
+      <div class="tt a" style="flex:29 1 210px"><div class="n">29</div><div class="l">Developer</div></div>
+      <div class="tt a" style="flex:20 1 180px"><div class="n">20</div><div class="l">PDF</div></div>
+      <div class="tt b" style="flex:15 1 150px"><div class="n">15</div><div class="l">Security</div></div>
+      <div class="tt b" style="flex:13 1 140px"><div class="n">13</div><div class="l">Image</div></div>
+      <div class="tt c" style="flex:12 1 135px"><div class="n">12</div><div class="l">Text</div></div>
+      <div class="tt c" style="flex:11 1 130px"><div class="n">11</div><div class="l">Office</div></div>
+      <div class="tt d" style="flex:9 1 120px"><div class="n">9</div><div class="l">Network</div></div>
+      <div class="tt d" style="flex:8 1 115px"><div class="n">8</div><div class="l">SEO</div></div>
+      <div class="tt e" style="flex:7 1 110px"><div class="n">7</div><div class="l">Markdown</div></div>
+      <div class="tt e" style="flex:5 1 100px"><div class="n">5</div><div class="l">Utilities</div></div>
+      <div class="tt e" style="flex:4 1 95px"><div class="n">4</div><div class="l">Mail</div></div>
+      <div class="tt f" style="flex:4 1 95px"><div class="n">4</div><div class="l">Ebook</div></div>
+      <div class="tt f" style="flex:3 1 90px"><div class="n">3</div><div class="l">QR</div></div>
+      <div class="tt f" style="flex:3 1 90px"><div class="n">3</div><div class="l">Linux</div></div>
+      <div class="tt f" style="flex:1 1 80px"><div class="n">1</div><div class="l">Data</div></div>
+      <div class="tt f" style="flex:1 1 80px"><div class="n">1</div><div class="l">Business</div></div>
+    </div>
+    <p class="cap rv">Nguồn: tools.inet.vn/en · 18/09/2026. Diện tích tỉ lệ với số tool trong nhóm.</p>
+
+    <div class="g3 rv" style="margin-top:var(--s4)">
+      <div class="card">
+        <div class="k">Đã phủ rất kín</div>
+        <h4>Chuyển đổi &amp; kiểm tra</h4>
+        <p>PDF, ảnh, Office, Markdown, ebook, encode/decode, JSON/XML/YAML, regex, cron, JWT, hash,
+          subnet, ASN, traceroute, CVE, CVSS. Không nên làm thêm ở vùng này.</p>
+      </div>
+      <div class="card">
+        <div class="k">Đã phủ, nhưng chỉ đọc</div>
+        <h4>Domain · SSL · Email security</h4>
+        <p>SSL checker/decoder/matcher, CSR, SPF/DMARC generator, email header analyzer, IP blacklist,
+          bulk domain. Extension còn gộp thêm điểm A–F và watchlist. <b>Tất cả dừng ở copy-paste.</b></p>
+      </div>
+      <div class="card">
+        <div class="k">Chưa có gì</div>
+        <h4>API · tài khoản · ghi ngược</h4>
+        <p>0 endpoint công khai, 0 MCP, 0 lịch sử, 0 thông báo, 0 thao tác ghi vào dịch vụ.
+          Đây là toàn bộ nội dung phần 04 và 05.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 03 GALLERY ===================== -->
+<section id="s3">
+  <div class="wrap">
+    <div class="s-num rv">03 / 08</div>
+    <h2 class="s-title rv">36 dự án vibe code — nhóm theo trục hệ sinh thái</h2>
+    <p class="s-desc rv">Viền trái cho biết mức bám hệ sinh thái:
+      <span class="b ok">xanh</span> bám dịch vụ đang bán ·
+      <span class="b warn">vàng</span> bám gián tiếp (DX nội bộ) ·
+      <span class="b mute">xám</span> ngoài trục.</p>
+
+    <div class="clu rv">
+      <div class="cl link">
+        <div class="cl-hd"><span class="t">Domain · DNS · SSL · Email security</span><span class="c">7</span></div>
+        <div class="cl-body">
+          <span class="chip">SSL Cert Health Dashboard</span><span class="chip">N22 SPF/DKIM/DMARC</span>
+          <span class="chip">N5 Domain Reputation</span><span class="chip">WHOIS &amp; Phân tích Website</span>
+          <span class="chip">Site Inspector</span><span class="chip">App sheet hạn domain+SSL</span>
+          <span class="chip">Quản lý giá đuôi tên miền</span>
+        </div>
+        <div class="cl-note">Trùng phần lớn với tools.inet.vn + extension. Không nên làm thêm tool kiểm tra.</div>
+      </div>
+      <div class="cl link">
+        <div class="cl-hd"><span class="t">Monitoring &amp; sự cố</span><span class="c">5</span></div>
+        <div class="cl-body">
+          <span class="chip">External Synthetic Monitoring · Stable</span><span class="chip">· Database</span>
+          <span class="chip">· Beta</span><span class="chip">OneMonit</span><span class="chip">War Room</span>
+        </div>
+        <div class="cl-note">Đã lên production thành status.inet.vn. Cụm gần &ldquo;bán được&rdquo; nhất — xem ý tưởng G.</div>
+      </div>
+      <div class="cl weak">
+        <div class="cl-hd"><span class="t">Dev tooling cho vibe coder</span><span class="c">11</span></div>
+        <div class="cl-body">
+          <span class="chip">dbweb</span><span class="chip">Localman</span><span class="chip">Tunelo</span>
+          <span class="chip">HTN Tunnel</span><span class="chip">Vibe Scanner</span><span class="chip">setup-machine</span>
+          <span class="chip">Workspace Script Runner</span><span class="chip">Claude Tools</span>
+          <span class="chip">claude-code-team-management</span><span class="chip">Deploy file HTML</span>
+          <span class="chip">EXAMPLE I/O</span>
+        </div>
+        <div class="cl-note">Cụm lớn nhất nhưng phục vụ nội bộ, chưa gắn dịch vụ bán nào.</div>
+      </div>
+      <div class="cl link">
+        <div class="cl-hd"><span class="t">WordPress &amp; migration</span><span class="c">3</span></div>
+        <div class="cl-body">
+          <span class="chip">WP Migrator Pro</span><span class="chip">Sitevorx</span><span class="chip">WP → EmDash</span>
+        </div>
+        <div class="cl-note">Chỉ phủ lớp hosting. Lớp DNS và email khi chuyển nhà cung cấp vẫn trống.</div>
+      </div>
+      <div class="cl link">
+        <div class="cl-hd"><span class="t">Email</span><span class="c">3</span></div>
+        <div class="cl-body">
+          <span class="chip">VibeMail</span><span class="chip">OxMail</span><span class="chip">Email template</span>
+        </div>
+        <div class="cl-note">Đều ở phía soạn/gửi. Chưa có gì trả lời &ldquo;vì sao mail vào spam&rdquo;.</div>
+      </div>
+      <div class="cl none">
+        <div class="cl-hd"><span class="t">Ngoài trục hệ sinh thái</span><span class="c">7</span></div>
+        <div class="cl-body">
+          <span class="chip">e-contract</span><span class="chip">Vaultic</span><span class="chip">Zalo Message Logger</span>
+          <span class="chip">Nexus Letter</span><span class="chip">Dashboard ads/social</span>
+          <span class="chip">Đặt xe online</span><span class="chip">Cookie Manager</span>
+        </div>
+        <div class="cl-note">Tốt để rèn tay nghề, nhưng không cộng dồn vào giá trị hệ sinh thái.</div>
+      </div>
+    </div>
+
+    <div class="callout warn rv">
+      <div class="k">Quan sát</div>
+      <p><b>19/36 dự án bám dịch vụ đang bán</b>, nhưng chưa dự án nào được đóng gói thành thứ khách hàng
+        trả tiền. Cụm monitoring là ngoại lệ duy nhất đã lên production — và cũng là cụm còn cách doanh thu
+        đúng một bước bao bì.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 04 BỐN LỚP ===================== -->
+<section id="s4">
+  <div class="wrap">
+    <div class="s-num rv">04 / 08</div>
+    <h2 class="s-title rv">Bốn lớp của một hệ tool — iNET mới có một</h2>
+    <p class="s-desc rv">Đây là luận điểm trung tâm của tài liệu. Mọi ý tưởng ở phần 07 đều là một trong ba
+      lớp còn thiếu, không phải &ldquo;làm thêm tool&rdquo;.</p>
+
+    <div class="stack rv">
+      <div class="stack-in">
+        <div class="ly have">
+          <div class="who">Lớp 1 · Thu hút</div>
+          <div class="mid">
+            <div class="t">Stateless · ẩn danh · one-shot</div>
+            <div class="d">145 tool + Chrome extension + 76 monitor công khai</div>
+          </div>
+          <div class="st">✓ ĐÃ CÓ</div>
+        </div>
+        <div class="stack-ar">▼ người dùng đi tiếp được không?</div>
+        <div class="ly miss">
+          <div class="who">Lớp 2 · Giữ chân</div>
+          <div class="mid">
+            <div class="t">Tài khoản · trí nhớ · lịch chạy lại · thông báo</div>
+            <div class="d">Lịch sử, file lưu lâu, watchlist phía server, cảnh báo Telegram/Zalo/email</div>
+          </div>
+          <div class="st">✕ TRỐNG</div>
+        </div>
+        <div class="stack-ar">▼ kết quả có biến thành thao tác không?</div>
+        <div class="ly miss">
+          <div class="who">Lớp 3 · Thực thi</div>
+          <div class="mid">
+            <div class="t">Ghi ngược vào dịch vụ đang bán</div>
+            <div class="d">Áp SPF/DMARC vào OneShield · đặt SSL · tạo mailbox · chuyển nhà cung cấp</div>
+          </div>
+          <div class="st">✕ TRỐNG</div>
+        </div>
+        <div class="stack-ar">▼ máy có gọi được không?</div>
+        <div class="ly miss">
+          <div class="who">Lớp 4 · Máy gọi</div>
+          <div class="mid">
+            <div class="t">API · MCP · CLI cho AI agent</div>
+            <div class="d">145 tool đang có 0 endpoint công khai, 0 API key, 0 quota</div>
+          </div>
+          <div class="st">✕ TRỐNG</div>
+        </div>
+      </div>
+      <div class="stack-legend">
+        <span>✓ Có sẵn, chi phí duy trì thấp, SEO tốt</span>
+        <span>✕ Chưa có bất kỳ bề mặt nào</span>
+      </div>
+    </div>
+
+    <div class="g3 rv" style="margin-top:var(--s4)">
+      <div class="card">
+        <div class="k">Hệ quả 1</div>
+        <h4>Không đo được adoption</h4>
+        <p>Không tài khoản thì không có D1/D7/D30, không TTFV, không biết ai quay lại. Traffic lớn nhưng
+          không quy được ra chỉ số BLĐ đang hỏi.</p>
+      </div>
+      <div class="card">
+        <div class="k">Hệ quả 2</div>
+        <h4>Không quy ra doanh thu</h4>
+        <p>Người dùng lấy đúng chuỗi SPF rồi rời đi. Không có bước nào dẫn họ sang OneShield, OneMail,
+          Hosting — dù họ vừa tự chứng minh là đang có nhu cầu.</p>
+      </div>
+      <div class="card">
+        <div class="k">Hệ quả 3</div>
+        <h4>Bỏ lỡ kênh AI agent</h4>
+        <p>Vibe coder giờ để agent làm hạ tầng. Không API thì iNET vô hình với Claude Code, Cursor, n8n —
+          đúng tệp mà developers.inet.vn muốn nhắm.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 05 CHỖ ĐỨT GÃY ===================== -->
+<section id="s5">
+  <div class="wrap">
+    <div class="s-num rv">05 / 08</div>
+    <h2 class="s-title rv">Ba chỗ đứt gãy — nhìn theo hành trình người dùng</h2>
+    <p class="s-desc rv">Mỗi dòng là một hành trình có thật hôm nay. Ô xám là bước iNET <b>không đi tiếp</b>,
+      dù chỉ còn cách một thao tác.</p>
+
+    <div class="chain rv">
+      <div class="ch-lb">Hành trình 1 · Khách bị mail vào spam</div>
+      <div class="ch">
+        <div class="ch-box ok"><div class="t">Tìm Google</div><div class="d">&ldquo;kiểm tra SPF DMARC&rdquo;</div></div>
+        <div class="ch-ar">→</div>
+        <div class="ch-box ok"><div class="t">Dùng SPF Generator</div><div class="d">tools.inet.vn</div></div>
+        <div class="ch-ar">→</div>
+        <div class="ch-box ok"><div class="t">Có chuỗi TXT</div><div class="d">copy ra clipboard</div></div>
+        <div class="ch-gap"><span class="x">✕</span>ĐỨT</div>
+        <div class="ch-box dead"><div class="t">Dán vào DNS</div><div class="d">tự làm ở nhà cung cấp khác</div></div>
+        <div class="ch-ar">→</div>
+        <div class="ch-box dead"><div class="t">iNET mất dấu</div><div class="d">không biết có sửa được không</div></div>
+      </div>
+
+      <div class="ch-lb">Hành trình 2 · Khách lo domain/SSL hết hạn</div>
+      <div class="ch">
+        <div class="ch-box ok"><div class="t">Cài extension</div><div class="d">Domain &amp; Site Inspector</div></div>
+        <div class="ch-ar">→</div>
+        <div class="ch-box ok"><div class="t">Gắn sao theo dõi</div><div class="d">re-check mỗi 12 giờ</div></div>
+        <div class="ch-gap"><span class="x">✕</span>ĐỨT</div>
+        <div class="ch-box dead"><div class="t">Đổi máy / xoá trình duyệt</div><div class="d">watchlist là local</div></div>
+        <div class="ch-ar">→</div>
+        <div class="ch-box dead"><div class="t">Mất cảnh báo</div><div class="d">không có kênh ngoài trình duyệt</div></div>
+      </div>
+
+      <div class="ch-lb">Hành trình 3 · AI agent dựng xong app, cần domain + SSL</div>
+      <div class="ch">
+        <div class="ch-box ok"><div class="t">Agent viết xong code</div><div class="d">Claude Code / Cursor</div></div>
+        <div class="ch-ar">→</div>
+        <div class="ch-box ok"><div class="t">Cần tra domain, tạo DNS, xin SSL</div><div class="d">nhu cầu có thật</div></div>
+        <div class="ch-gap"><span class="x">✕</span>ĐỨT</div>
+        <div class="ch-box dead"><div class="t">iNET không có API/MCP</div><div class="d">agent không gọi được</div></div>
+        <div class="ch-ar">→</div>
+        <div class="ch-box dead"><div class="t">Agent chọn nhà cung cấp khác</div><div class="d">Cloudflare, Vercel…</div></div>
+      </div>
+    </div>
+
+    <div class="callout stop rv">
+      <div class="k">Điểm chung</div>
+      <p>Cả ba chỗ đứt đều <b>không nằm ở năng lực kỹ thuật</b> — phần khó (phân tích, kiểm tra, sinh cấu hình)
+        iNET đã làm xong. Chỗ đứt nằm ở một lớp mỏng: tài khoản, một nút ghi, một endpoint.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 06 STATUS PAGE ===================== -->
+<section id="s6">
+  <div class="wrap">
+    <div class="s-num rv">06 / 08</div>
+    <h2 class="s-title rv">status.inet.vn — cần xử lý ngay, độc lập mọi ý tưởng</h2>
+    <p class="s-desc rv">Endpoint công khai <span class="mono">GET /api/v1/status</span> không cần đăng nhập,
+      trả về nguyên danh sách 76 monitor kèm target thật.</p>
+
+    <h3 class="sub-h rv">76 monitor đang theo dõi cái gì</h3>
+    <div class="rv">
+      <div class="sbar">
+        <div class="h1s" style="flex:62">62 · Hosting node</div>
+        <div class="h2s" style="flex:12">12 · Email</div>
+        <div class="h3s" style="flex:2">2</div>
+      </div>
+      <div class="sbar-lg">
+        <span><i style="background:#024799"></i>Hosting: monhost 29 · onehost 15 · monturboweb 8 · nethost 5 · monturbo 3 · winhost 2</span>
+        <span><i style="background:#0582D4"></i>Email: zmhn 6 · mailer 4 · mail.inet.vn · OneMail Server</span>
+        <span><i style="background:#8FA3B3"></i>Khác: inet.vn · ekyc</span>
+      </div>
+      <p class="cap">100% là HTTP check, chu kỳ 60 giây. Không có SMTP/IMAP/POP, không có DNS resolution,
+        không có kiểm tra hạn SSL của chính các endpoint. Có 1 monitor bị trùng (monturboweb04).</p>
+    </div>
+
+    <h3 class="sub-h rv">Đang hiển thị ra sao &mdash; và nên ra sao</h3>
+    <div class="ba rv">
+      <div class="pane">
+        <div class="pane-hd bad">✕ Hiện tại · component là hostname hạ tầng</div>
+        <div class="pane-body">
+          <div class="row-mon"><span>https://monhost52.inet.vn/</span><span class="dot"></span></div>
+          <div class="row-mon"><span>onehost-wphn092402.000nethost.com:2023</span><span class="dot"></span></div>
+          <div class="row-mon"><span>https://nethost-1611.inet.vn:2083/</span><span class="dot"></span></div>
+          <div class="row-mon"><span>https://winhost-0111.000nethost.com:8443</span><span class="dot"></span></div>
+          <div class="row-mon"><span>http://103.57.223.64:8011/ &mdash; OneMail</span><span class="dot"></span></div>
+          <div class="leak">
+            <span>số lượng node</span><span>quy ước đặt tên</span><span>node nào chạy WordPress</span>
+            <span>node nào là Windows</span><span>:2083 cPanel</span><span>:2023 DirectAdmin</span>
+            <span>:8443 Plesk</span><span>IP trần + HTTP không TLS</span>
+          </div>
+        </div>
+      </div>
+      <div class="pane">
+        <div class="pane-hd good">✓ Nên là · component là dịch vụ khách mua</div>
+        <div class="pane-body">
+          <div class="row-mon svc"><span>Tên miền &amp; DNS</span><span class="dot"></span></div>
+          <div class="row-mon svc"><span>Hosting</span><span class="dot"></span></div>
+          <div class="row-mon svc"><span>Email</span><span class="dot"></span></div>
+          <div class="row-mon svc"><span>Cloud Server</span><span class="dot"></span></div>
+          <div class="row-mon svc"><span>Portal &amp; thanh toán</span><span class="dot"></span></div>
+          <div class="callout ok" style="margin:var(--s2) 0 0">
+            <p style="font-size:13.5px">Map node → nhóm dịch vụ, API công khai chỉ trả tên nhóm.
+              Bổ sung SMTP/IMAP/DNS check, nút đăng ký nhận thông báo, uptime 30/90 ngày có số thật.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout stop rv">
+      <div class="k">Việc cần làm ngay</div>
+      <p>Che target thật khỏi API công khai và gộp component theo dịch vụ. Đây là thay đổi nhỏ, không phụ thuộc
+        bất kỳ ý tưởng nào ở phần 07, nhưng để nguyên thì mỗi ngày trôi qua là một bản đồ hạ tầng miễn phí
+        cho người quét.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 07 Ý TƯỞNG ===================== -->
+<section id="s7">
+  <div class="wrap">
+    <div class="s-num rv">07 / 08</div>
+    <h2 class="s-title rv">10 ý tưởng &mdash; mỗi ý lấp một lớp, không chồng lên 145 tool</h2>
+    <p class="s-desc rv">Nhãn: <span class="b acc">lớp</span> ·
+      <span class="b mute">độ phức tạp S/M/L</span> ·
+      <span class="b info">bám sản phẩm nào</span>. Bốn ô viền đỏ là nhóm đề xuất làm trước.</p>
+
+    <div class="ideas rv">
+      <div class="idea top">
+        <div class="idea-hd"><span class="idea-id">G</span><span class="idea-t">SynMon thành dịch vụ bán được</span></div>
+        <p>Engine đã chạy thật 76 monitor · 60 giây · có trang admin. Đóng gói: khách tự thêm monitor cho
+          website/API/mail của họ, cảnh báo Telegram/Zalo/email/webhook, <b>trang status mang thương hiệu của
+          khách</b> (status.tencongty.com) &mdash; phần bán được cho agency và đại lý. Free 3 monitor/5 phút
+          → trả phí cho chu kỳ ngắn, nhiều monitor, multi-region, custom domain.</p>
+        <div class="idea-tags"><span class="b acc">Sản phẩm mới</span><span class="b mute">M</span>
+          <span class="b info">One Series</span><span class="b warn">Gần doanh thu nhất</span></div>
+      </div>
+
+      <div class="idea top">
+        <div class="idea-hd"><span class="idea-id">A</span><span class="idea-t">iNET Tools API + MCP server</span></div>
+        <p>Mở 145 tool thành REST endpoint + một MCP server (<span class="mono">npx @inet/tools-mcp</span>).
+          Logic đã viết xong &mdash; chi phí gần như chỉ là lớp HTTP, rate limit và API key gắn tài khoản Portal.
+          Đổi lại: developers.inet.vn có hàng thật, mọi AI agent thành kênh traffic mới, và API key là
+          <b>cái neo tài khoản đầu tiên</b> mà tools.inet.vn đang hoàn toàn không có.</p>
+        <div class="idea-tags"><span class="b acc">Lớp 4 · Máy gọi</span><span class="b mute">M</span>
+          <span class="b info">developers.inet.vn</span><span class="b warn">Tận dụng đồ có sẵn</span></div>
+      </div>
+
+      <div class="idea top">
+        <div class="idea-hd"><span class="idea-id">B</span><span class="idea-t">Nút &ldquo;Áp dụng vào dịch vụ của tôi&rdquo;</span></div>
+        <p>Mọi tool sinh cấu hình (SPF, DMARC, robots.txt, .htaccess, CSR, DNS record) thêm một nút duy nhất:
+          đã đăng nhập Portal → chọn domain → <b>ghi thẳng vào OneShield/hosting</b>, kèm preview diff và
+          rollback. Cây cầu ngắn nhất từ traffic sang doanh thu, và là chỉ số dễ đo nhất:
+          <i>bao nhiêu % người dùng tool bấm áp dụng</i>.</p>
+        <div class="idea-tags"><span class="b acc">Lớp 3 · Thực thi</span><span class="b mute">M</span>
+          <span class="b info">OneShield · Hosting</span><span class="b warn">Mở khoá đo conversion</span></div>
+      </div>
+
+      <div class="idea top">
+        <div class="idea-hd"><span class="idea-id">D</span><span class="idea-t">Watchtower &mdash; theo dõi portfolio phía server</span></div>
+        <p>Nâng expiry watchlist từ local lên server, gắn tài khoản: import danh sách domain hoặc tự lấy từ
+          tài khoản iNET, re-check server-side, cảnh báo qua Telegram/Zalo/email/webhook, chia sẻ cả team.
+          Bản đại lý: quản trị hàng trăm domain khách, gộp hạn domain + SSL + hosting + mailbox vào một bảng,
+          một nút gia hạn hàng loạt. Đánh trực tiếp vào churn.</p>
+        <div class="idea-tags"><span class="b acc">Lớp 2 · Giữ chân</span><span class="b mute">M</span>
+          <span class="b info">Domain · SSL · Hosting · Mail</span></div>
+      </div>
+
+      <div class="idea">
+        <div class="idea-hd"><span class="idea-id">E</span><span class="idea-t">Mail Deliverability Doctor</span></div>
+        <p>4 mail tool hiện có đều tĩnh. Cái thiếu là luồng động: hệ thống sinh một địa chỉ test → khách gửi
+          mail thật vào → phân tích header thật, kiểm tra IP gửi trên blacklist, đối chiếu DKIM ký thật, chấm
+          điểm và chỉ đúng chỗ hỏng, cuối cùng nối vào nút (B) để sửa. Trả lời câu hỏi số một của khách email.</p>
+        <div class="idea-tags"><span class="b acc">Lớp 3 · Thực thi</span><span class="b mute">M</span>
+          <span class="b info">OneMail</span></div>
+      </div>
+
+      <div class="idea">
+        <div class="idea-hd"><span class="idea-id">F</span><span class="idea-t">Status theo dịch vụ + status cá nhân hoá</span></div>
+        <p>Public: gộp 76 node thành 5&ndash;6 nhóm dịch vụ, thêm SMTP/IMAP/DNS check, đăng ký nhận thông báo,
+          uptime 30/90 ngày có số thật. Đăng nhập: khách thấy <b>đúng node đang chứa dịch vụ của mình</b>
+          (&ldquo;hosting của bạn ở cụm A &mdash; bình thường; mailbox ở cụm B &mdash; bảo trì 22:00&rdquo;).
+          Cắt thẳng lượng ticket &ldquo;web tôi có sao không&rdquo;.</p>
+        <div class="idea-tags"><span class="b acc">Lớp 2 · Giữ chân</span><span class="b mute">M</span>
+          <span class="b info">SynMon</span><span class="b stop">Kèm việc che hạ tầng</span></div>
+      </div>
+
+      <div class="idea">
+        <div class="idea-hd"><span class="idea-id">I</span><span class="idea-t">OneDrop &mdash; S3 file share &amp; static hosting</span></div>
+        <p>S3 Object Storage chưa có bất kỳ bề mặt nào trong cả ba khu vực. Kéo-thả upload lên bucket, sinh
+          presigned link có hạn, gắn custom domain + CDN, và nâng &ldquo;Deploy file HTML&rdquo; lên đúng hạ tầng
+          thật thay vì hack tạm. Biến một dịch vụ hạ tầng khó bán thành thứ demo được trong 30 giây.</p>
+        <div class="idea-tags"><span class="b acc">Sản phẩm mới</span><span class="b mute">M</span>
+          <span class="b info">S3 Object Storage</span></div>
+      </div>
+
+      <div class="idea">
+        <div class="idea-hd"><span class="idea-id">C</span><span class="idea-t">My Tools &mdash; không gian làm việc có trí nhớ</span></div>
+        <p>Đăng nhập thì: lịch sử 30 ngày, file lưu trên S3 thay vì xoá sau 1 giờ, link kết quả chia sẻ được
+          (CSKH dán vào ticket), batch job chạy nền cho file lớn (OCR, convert hàng loạt), preset lưu sẵn.
+          Biến 145 tool one-shot thành thứ có D7/D30 để đo. Đồng thời là use case demo thật cho S3.</p>
+        <div class="idea-tags"><span class="b acc">Lớp 2 · Giữ chân</span><span class="b mute">L</span>
+          <span class="b info">S3 · Portal</span></div>
+      </div>
+
+      <div class="idea">
+        <div class="idea-hd"><span class="idea-id">H</span><span class="idea-t">OneMove &mdash; chuyển nhà cung cấp về iNET</span></div>
+        <p>Ba luồng chưa ai làm: import DNS zone từ Cloudflare/Namecheap vào OneShield, migrate mailbox
+          IMAP → OneMail (giữ folder/UID), và kiểm tra trước khi đổi NS (phát hiện record sẽ gãy).
+          WP Migrator Pro đã chứng minh nhu cầu ở lớp hosting; lớp DNS + email là nơi khách sợ nhất.</p>
+        <div class="idea-tags"><span class="b acc">Lớp 3 · Thực thi</span><span class="b mute">L</span>
+          <span class="b info">OneShield · OneMail</span></div>
+      </div>
+
+      <div class="idea">
+        <div class="idea-hd"><span class="idea-id">J</span><span class="idea-t">OneMetrics &mdash; Insight Layer chạy thật</span></div>
+        <p>Bản thực thi của tài liệu brainstorm 27/08: SDK nhỏ để OneDash/OneMail/OneShield/OnePanel bắn event
+          theo một contract, lớp giữa chuẩn hoá MAU/WAU/DAU, D1/D7/D30, TTFV, stickiness, mọi số đều mở ra được
+          định nghĩa + nguồn. Đòn bẩy cao nhất nhưng nặng nhất &mdash; nên làm sau khi A/B/D đã sinh ra event feed.</p>
+        <div class="idea-tags"><span class="b acc">Đo lường</span><span class="b mute">L</span>
+          <span class="b info">Toàn One Series</span></div>
+      </div>
+    </div>
+
+    <div class="callout rv">
+      <div class="k">Điều quan trọng nhất về kỹ thuật</div>
+      <p><b>A, B, C, D dùng chung một hạ tầng</b>: tài khoản Portal + API key + job queue + kênh thông báo.
+        Làm hạ tầng đó <b>một lần</b>, đừng để mỗi tool tự dựng &mdash; đúng bài học &ldquo;làm lại 4 lần cho
+        4 sản phẩm là lãng phí&rdquo; trong tài liệu Insight Layer.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 08 ƯU TIÊN ===================== -->
+<section id="s8">
+  <div class="wrap">
+    <div class="s-num rv">08 / 08</div>
+    <h2 class="s-title rv">Ưu tiên &amp; lộ trình</h2>
+    <p class="s-desc rv">Trục ngang: công sức. Trục dọc: tác động lên adoption và doanh thu.
+      Vùng xanh góc trên trái là nhóm nên làm trước.</p>
+
+    <div class="ay rv">▲ Tác động cao</div>
+    <div class="mx rv">
+      <div class="zone"></div>
+      <div class="vline"></div><div class="hline"></div>
+      <span class="q" style="left:14px;top:10px">Làm trước</span>
+      <span class="q" style="right:14px;top:10px">Đầu tư lớn</span>
+      <span class="q" style="left:14px;bottom:10px">Làm khi rảnh</span>
+      <span class="q" style="right:14px;bottom:10px">Cân nhắc bỏ</span>
+
+      <div class="d hot" style="left:16%;top:14%"><b>G</b><span>SynMon bán được</span></div>
+      <div class="d hot" style="left:27%;top:26%"><b>A</b><span>Tools API + MCP</span></div>
+      <div class="d hot" style="left:38%;top:19%"><b>B</b><span>Nút áp dụng</span></div>
+      <div class="d hot" style="left:44%;top:38%"><b>D</b><span>Watchtower</span></div>
+      <div class="d" style="left:40%;top:56%"><b>F</b><span>Status dịch vụ</span></div>
+      <div class="d" style="left:55%;top:50%"><b>E</b><span>Mail Doctor</span></div>
+      <div class="d" style="left:52%;top:66%"><b>I</b><span>OneDrop S3</span></div>
+      <div class="d cool" style="left:76%;top:30%"><b>C</b><span>My Tools</span></div>
+      <div class="d cool" style="left:80%;top:44%"><b>H</b><span>OneMove</span></div>
+      <div class="d cool" style="left:88%;top:12%"><b>J</b><span>OneMetrics</span></div>
+    </div>
+    <div class="ax rv"><span>Công sức thấp ◀</span><span>▶ Công sức cao</span></div>
+
+    <h3 class="sub-h rv">Lộ trình đề xuất &mdash; ba nhịp</h3>
+    <div class="tl rv">
+      <div class="tl-item">
+        <div class="tl-when">NHỊP 0 · NGAY, KHÔNG CHỜ HỌP</div>
+        <div class="tl-h">Che hạ tầng trên status.inet.vn</div>
+        <div class="tl-body">Map 76 monitor thành nhóm dịch vụ, ẩn target thật khỏi
+          <span class="mono">/api/v1/status</span>, gỡ monitor trùng, chuyển OneMail Server sang HTTPS thay cho
+          <span class="mono">http://IP:8011</span>.</div>
+        <div class="tl-tags"><span class="tag acc">Độ phức tạp S</span><span class="tag">Không phụ thuộc ý tưởng nào</span></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-when">NHỊP 1 · CHỨNG MINH NHỊP ĐỘ</div>
+        <div class="tl-h">G → A → B</div>
+        <div class="tl-body">G vì sản phẩm đã tồn tại, chỉ thiếu bao bì thương mại &mdash; nhanh nhất để có
+          người dùng thật ngoài công ty. A vì tận dụng 145 tool với chi phí gần bằng không và dựng luôn
+          hạ tầng API key. B vì nó biến toàn bộ traffic tools.inet.vn thành số liệu conversion đo được.</div>
+        <div class="tl-tags"><span class="tag acc">Hạ tầng chung: tài khoản · API key · job queue · kênh báo</span>
+          <span class="tag">3 × M</span></div>
+      </div>
+      <div class="tl-item fut">
+        <div class="tl-when">NHỊP 2 · DỰA TRÊN NỀN ĐÃ CÓ</div>
+        <div class="tl-h">D · F · E · I</div>
+        <div class="tl-body">Bốn ý này đều rẻ đi đáng kể khi nhịp 1 đã có tài khoản, kênh thông báo và lớp
+          ghi ngược. Làm song song được vì chạm vào sản phẩm khác nhau.</div>
+        <div class="tl-tags"><span class="tag">Sau khi A/B xong</span></div>
+      </div>
+      <div class="tl-item fut">
+        <div class="tl-when">NHỊP 3 · KHI ĐÃ CÓ EVENT FEED</div>
+        <div class="tl-h">C · H · J</div>
+        <div class="tl-body">C và H là hai sản phẩm nặng, cần nền vững. J (Insight Layer) chỉ thật sự có
+          nguyên liệu khi A/B/D đang bắn event đều &mdash; làm sớm sẽ đo vào khoảng không.</div>
+        <div class="tl-tags"><span class="tag">3 × L</span></div>
+      </div>
+    </div>
+
+    <h3 class="sub-h rv">Câu cần chốt trong buổi họp</h3>
+    <div class="g2 rv">
+      <div class="card warn">
+        <div class="k">Chốt 1</div>
+        <h4>Dự án gallery có được nâng thành sản phẩm chính thức không?</h4>
+        <p>G và I chỉ chạy được nếu SynMon và OneDrop chuyển từ &ldquo;vibe code cá nhân&rdquo; sang sản phẩm
+          có người chịu trách nhiệm, có SLA, có trong bảng giá.</p>
+      </div>
+      <div class="card warn">
+        <div class="k">Chốt 2</div>
+        <h4>Ai sở hữu lớp hạ tầng chung?</h4>
+        <p>Tài khoản + API key + job queue + kênh thông báo phục vụ 4 ý tưởng. Nếu không có chủ sở hữu rõ,
+          mỗi ý tưởng sẽ tự dựng lại &mdash; lặp đúng cái lãng phí đã nêu trong tài liệu Insight Layer.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-grid">
+    <div>
+      <div style="font-weight:700;color:var(--ink);margin-bottom:6px">Bản đồ sản phẩm vibe coding &amp; khoảng trống hệ sinh thái</div>
+      <div>iNET · Bộ phận Công Nghệ · Phiên bản 0.1 · nháp để thảo luận · 18/09/2026</div>
+      <div style="margin-top:6px">Người soạn: Trịnh Quốc Hoàn Đạt &mdash; Trưởng phòng Công Nghệ</div>
+    </div>
+    <div style="max-width:46ch">
+      <div style="font-weight:600;color:var(--ink);margin-bottom:6px">Nguồn số liệu</div>
+      <div>tools.inet.vn/en · my.inet.vn <span class="mono">/projectgallery/gallery</span> ·
+        status.inet.vn <span class="mono">/api/v1/status</span> &mdash; đọc ngày 18/09/2026.
+        Bối cảnh: brainstorm Customer Insight Layer (27/08/2026), định hướng vai trò &amp; lộ trình cá nhân (09/09/2026).</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('on'); io.unobserve(e.target); } });
+  }, {rootMargin:'0px 0px -8% 0px', threshold:.04});
+  document.querySelectorAll('.rv').forEach(function(el,i){
+    el.style.transitionDelay = Math.min(i%5*45,180)+'ms';
+    io.observe(el);
+  });
+  document.querySelectorAll('.nav a.n').forEach(function(a){
+    a.addEventListener('click',function(){
+      var t=document.getElementById(a.dataset.go);
+      if(t) t.scrollIntoView({behavior:'smooth',block:'start'});
+    });
+  });
+})();
+</script>
+</body>
+</html>
