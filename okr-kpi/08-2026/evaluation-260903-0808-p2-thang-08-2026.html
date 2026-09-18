@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Đánh giá P2+ tháng 08/2026 — dattqh</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+:root{
+  --primary:#0582D4; --accent:#619ee9; --logo:#E8353C; --tech:#22D3EE;
+  --ok:#0E9F6E; --ok-sf:#ECFDF5; --ok-bd:#A7F3D0; --ok-tx:#065F46;
+  --wa:#D47B0A; --wa-sf:#FFFBEB; --wa-bd:#FDE68A; --wa-tx:#92400E;
+  --er:#B91C1C; --er-sf:#FEF2F2; --er-bd:#FECACA; --er-tx:#991B1B;
+  --in:#8abdef; --in-sf:#EFF6FF; --in-bd:#BFDBFE; --in-tx:#1E40AF;
+  --n50:#F4F7FA; --n100:#E8EEF4; --n200:#D0DAE6; --n300:#B0C2D4;
+  --n500:#6D8599; --n600:#4A6278; --n800:#1A2F40; --n900:#0F1E2D;
+  --bg:var(--n50); --surface:#fff; --sunk:var(--n100);
+  --line:var(--n200); --line-soft:#E8EEF4;
+  --ink:var(--n900); --ink-soft:var(--n600); --muted:var(--n500);
+  --r1:4px; --r2:8px; --r3:12px; --r4:16px;
+  --s1:.5rem; --s2:1rem; --s3:1.5rem; --s4:2rem; --s6:3rem;
+  --sh:0 1px 3px rgba(0,0,0,.1),0 1px 2px rgba(0,0,0,.06);
+  --sh-md:0 4px 6px rgba(0,0,0,.08),0 2px 4px rgba(0,0,0,.05);
+  --sans:'Be Vietnam Pro',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --mono:'JetBrains Mono','Fira Code',Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0D1117; --surface:#161B22; --sunk:#21262D;
+  --line:#2D333B; --line-soft:#21262D;
+  --ink:#E6EDF3; --ink-soft:#B1BAC4; --muted:#8B949E;
+  --primary:#619ee9; --accent:#8abdef;
+  --ok:#34D399; --ok-sf:#0A2A1F; --ok-bd:#064E3B; --ok-tx:#34D399;
+  --wa:#FBBF24; --wa-sf:#2A1F06; --wa-bd:#78350F; --wa-tx:#FBBF24;
+  --er:#F87171; --er-sf:#450A0A; --er-bd:#7F1D1D; --er-tx:#FECACA;
+  --in:#619ee9; --in-sf:#0A1628; --in-bd:#1E3A5F; --in-tx:#93C5FD;
+  --sh:0 2px 4px rgba(0,0,0,.25); --sh-md:0 4px 8px rgba(0,0,0,.3);
+}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding:var(--s4) var(--s3) var(--s6)}
+code,.mono{font-family:var(--mono);font-size:.86em}
+
+/* ---- header ---- */
+.hero{background:linear-gradient(125deg,var(--primary),var(--accent));border-radius:var(--r4);padding:var(--s4);color:#fff;box-shadow:var(--sh-md);margin-bottom:var(--s3)}
+.hero h1{margin:0 0 .35rem;font-size:1.75rem;font-weight:700;letter-spacing:-.02em}
+.hero .sub{opacity:.92;font-size:.95rem;margin:0}
+.hero-meta{display:flex;flex-wrap:wrap;gap:var(--s1);margin-top:var(--s2)}
+.chip{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.28);border-radius:999px;padding:.25rem .7rem;font-size:.8rem;font-weight:500;backdrop-filter:blur(4px)}
+.chip .mono{opacity:.95}
+
+/* ---- stat cards ---- */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:var(--s2);margin-bottom:var(--s3)}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:var(--r3);padding:var(--s2);box-shadow:var(--sh)}
+.stat .lbl{font-size:.75rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600;margin-bottom:.3rem}
+.stat .val{font-size:2rem;font-weight:700;line-height:1.1;font-family:var(--mono)}
+.stat .note{font-size:.78rem;color:var(--muted);margin-top:.25rem}
+.stat.hi{border-color:var(--primary);box-shadow:0 0 0 1px var(--primary),var(--sh)}
+.bar{height:6px;border-radius:999px;background:var(--sunk);overflow:hidden;margin-top:.55rem}
+.bar > i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--primary),var(--accent))}
+
+/* ---- sections ---- */
+section{margin-bottom:var(--s4)}
+h2{font-size:1.15rem;font-weight:700;margin:0 0 var(--s2);display:flex;align-items:center;gap:.55rem;letter-spacing:-.01em}
+h2::before{content:"";width:4px;height:1.15em;border-radius:999px;background:linear-gradient(180deg,var(--primary),var(--accent))}
+h3{font-size:.95rem;font-weight:600;margin:var(--s3) 0 var(--s1);color:var(--ink-soft)}
+p{margin:0 0 var(--s2)}
+
+/* ---- badges ---- */
+.b{display:inline-flex;align-items:center;gap:.3rem;border-radius:999px;padding:.13rem .6rem;font-size:.76rem;font-weight:600;white-space:nowrap;border:1px solid}
+.b-ok{background:var(--ok-sf);color:var(--ok-tx);border-color:var(--ok-bd)}
+.b-wa{background:var(--wa-sf);color:var(--wa-tx);border-color:var(--wa-bd)}
+.b-er{background:var(--er-sf);color:var(--er-tx);border-color:var(--er-bd)}
+.b-in{background:var(--in-sf);color:var(--in-tx);border-color:var(--in-bd)}
+.b-mu{background:var(--sunk);color:var(--muted);border-color:var(--line)}
+
+/* ---- table ---- */
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r3);background:var(--surface);box-shadow:var(--sh)}
+table{border-collapse:collapse;width:100%;min-width:600px;font-size:.87rem}
+th{background:var(--sunk);text-align:left;font-weight:600;font-size:.76rem;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-soft);padding:.6rem .8rem;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:.65rem .8rem;border-bottom:1px solid var(--line-soft);vertical-align:top}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:var(--sunk)}
+td.num,th.num{text-align:right;font-family:var(--mono)}
+.hl{font-weight:700;color:var(--primary)}
+
+/* ---- callout ---- */
+.call{border-radius:var(--r2);padding:var(--s2);border:1px solid;border-left-width:4px;margin-bottom:var(--s2)}
+.call h4{margin:0 0 .35rem;font-size:.9rem;font-weight:700}
+.call p:last-child{margin-bottom:0}
+.c-in{background:var(--in-sf);border-color:var(--in-bd);border-left-color:var(--primary)}
+.c-wa{background:var(--wa-sf);border-color:var(--wa-bd);border-left-color:var(--wa)}
+.c-ok{background:var(--ok-sf);border-color:var(--ok-bd);border-left-color:var(--ok)}
+
+/* ---- compare bars ---- */
+.cmp{display:grid;gap:.55rem}
+.cmp-row{display:grid;grid-template-columns:64px 1fr 78px;align-items:center;gap:.7rem;font-size:.84rem}
+.cmp-row .m{font-weight:600;color:var(--ink-soft);font-family:var(--mono)}
+.cmp-row .v{text-align:right;font-family:var(--mono);font-weight:600}
+.track{height:22px;background:var(--sunk);border-radius:var(--r1);overflow:hidden}
+.track > i{display:block;height:100%;border-radius:var(--r1);background:linear-gradient(90deg,var(--primary),var(--accent))}
+.track.alt > i{background:linear-gradient(90deg,#7c8ea0,var(--n300))}
+.cmp-row.now .m{color:var(--primary)}
+.cmp-row.now .track > i{background:linear-gradient(90deg,var(--primary),var(--tech))}
+.legend{font-size:.78rem;color:var(--muted);margin-top:.5rem}
+
+/* ---- score grid ---- */
+.sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:var(--s2)}
+.sc{background:var(--surface);border:1px solid var(--line);border-radius:var(--r3);padding:var(--s2);box-shadow:var(--sh)}
+.sc .top{display:flex;justify-content:space-between;align-items:flex-start;gap:.5rem;margin-bottom:.4rem}
+.sc .nm{font-weight:600;font-size:.9rem}
+.sc .wt{font-size:.72rem;color:var(--muted);font-family:var(--mono)}
+.sc .why{font-size:.82rem;color:var(--ink-soft);margin:0}
+
+/* ---- footer ---- */
+.foot{border-top:1px solid var(--line);padding-top:var(--s2);font-size:.8rem;color:var(--muted);display:flex;flex-wrap:wrap;gap:.4rem 1.2rem}
+.priv{background:var(--er-sf);border:1px solid var(--er-bd);color:var(--er-tx);border-radius:var(--r2);padding:.5rem .8rem;font-size:.8rem;font-weight:600;margin-bottom:var(--s3)}
+ul{margin:0 0 var(--s2);padding-left:1.15rem}
+li{margin-bottom:.35rem}
+@media(max-width:620px){.hero h1{font-size:1.4rem}.stat .val{font-size:1.6rem}.cmp-row{grid-template-columns:52px 1fr 66px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="priv">🔒 Tài liệu nội bộ — chứa dữ liệu đánh giá nhân sự. Lưu cục bộ, KHÔNG publish ra ngoài.</div>
+
+<header class="hero">
+  <h1>Đánh giá P2+ · Tháng 08/2026</h1>
+  <p class="sub">Trịnh Quốc Hoàn Đạt · <span class="mono">dattqh@inet.vn</span> · Bộ phận Công Nghệ · vai trò <strong>Fullstack</strong></p>
+  <div class="hero-meta">
+    <span class="chip">Kỳ <span class="mono">2026-08</span></span>
+    <span class="chip">Bản tự đánh giá · <span class="mono">draft</span></span>
+    <span class="chip"><span class="mono">_id 6a98cba57b3fe1485cb59891</span></span>
+    <span class="chip">Đo ngày 03/09/2026</span>
+  </div>
+</header>
+
+<div class="stats">
+  <div class="stat hi">
+    <div class="lbl">Tổng P2+</div>
+    <div class="val">1,060</div>
+    <div class="bar"><i style="width:88.3%"></i></div>
+    <div class="note">Trần thang điểm 1,100 · xếp loại <strong>Tốt</strong></div>
+  </div>
+  <div class="stat">
+    <div class="lbl">P2-Core</div>
+    <div class="val">1,00</div>
+    <div class="bar"><i style="width:100%"></i></div>
+    <div class="note">4/4 tiêu chí <strong>Đạt</strong> — trần của thang core</div>
+  </div>
+  <div class="stat">
+    <div class="lbl">P2-Delivery</div>
+    <div class="val">1,12</div>
+    <div class="bar"><i style="width:80%"></i></div>
+    <div class="note">okr Đạt · quality Tốt · commitment Tốt</div>
+  </div>
+  <div class="stat">
+    <div class="lbl">Xếp loại</div>
+    <div class="val" style="font-size:1.5rem;color:var(--ok)">Tốt</div>
+    <div class="note" style="margin-top:.6rem">Ngưỡng: &lt;1,0 Chưa đạt · =1,0 Đạt · &gt;1,0 Tốt</div>
+  </div>
+</div>
+
+<section>
+  <h2>Trạng thái trên my.inet.vn</h2>
+  <div class="tw"><table>
+    <thead><tr><th>Hạng mục</th><th>Trạng thái</th><th>Ghi chú</th></tr></thead>
+    <tbody>
+      <tr><td>OKR/KPI 08/2026</td><td><span class="b b-wa">5 mục · waiting</span></td><td>“Chờ duyệt” — công việc <strong>đã làm</strong>, chờ quản lý duyệt. Đủ <code>difficulty</code>, không mục nào thiếu.</td></tr>
+      <tr><td>P2+ tự đánh giá</td><td><span class="b b-in">draft · đã lưu</span></td><td>Còn phải tự bấm <strong>gửi</strong>. Gửi rồi không sửa được (cần quản lý/nhân sự mở lại).</td></tr>
+      <tr><td>P2+ điểm chính thức</td><td><span class="b b-mu">chưa ai chấm</span></td><td><code>scores</code> rỗng, <code>computed: null</code> — portal hiện 0/“Chưa đạt”, <strong>không phải điểm xấu</strong>.</td></tr>
+      <tr><td>Kỳ 2026-05</td><td><span class="b b-mu">draft — bỏ qua</span></td><td>Chốt không gửi bù (04 đã submitted, 06 &amp; 07 đã locked).</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section>
+  <h2>Đối chiếu 5 mục OKR ↔ GitLab ↔ mã nguồn</h2>
+  <div class="tw"><table>
+    <thead><tr><th>Hạng mục</th><th>Issue</th><th>Tính chất</th><th>Bằng chứng trong repo</th><th>Kết luận</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>Giám sát theo tiến trình</strong><br><span class="b b-mu">XL</span></td>
+        <td><span class="mono">#228</span><br><span class="b b-wa">opened</span></td>
+        <td><span class="b b-ok">mới</span></td>
+        <td>Phase 1–3 xong 14/08, deploy cả hai prod 17/08 + 19/08 · Phase 4 <strong>bỏ 28/08</strong> (chốt chủ sở hữu) · Phase 5 agent + phép đo lab xong 27–28/08, BE/FE lịch 09/2026</td>
+        <td><span class="b b-wa">3/5 giai đoạn</span><br><span style="font-size:.8rem;color:var(--muted)">mục duy nhất hụt mục tiêu</span></td>
+      </tr>
+      <tr>
+        <td><strong>Theo dõi hiệu năng project</strong><br><span class="b b-mu">XL</span></td>
+        <td><span class="mono">#231</span><br><span class="b b-ok">closed 13/08</span></td>
+        <td><span class="b b-in">mở rộng</span></td>
+        <td>Phase tiếp theo của epic APM mở từ tháng 07 (<span class="mono">#217</span>); nghiệm thu prod 04/08</td>
+        <td><span class="b b-ok">6/6 — đúng cam kết</span></td>
+      </tr>
+      <tr>
+        <td><strong>Chặn theo dải địa chỉ</strong><br><span class="b b-mu">L</span></td>
+        <td><span class="mono">#220</span><br><span class="b b-ok">closed 27/08</span></td>
+        <td><span class="b b-in">mở rộng</span></td>
+        <td>Phase 00–04 xong (phát hành 19/08, 22/08, 24/08); bảng nghiệm thu 26/08 đạt 8/9 — tiêu chí còn lại chặn bởi hạ tầng ngoài</td>
+        <td><span class="b b-ok">5/5 · vượt mục tiêu 3/5</span></td>
+      </tr>
+      <tr>
+        <td><strong>Object Storage — catalog gói</strong><br><span class="b b-mu">XL</span></td>
+        <td><span class="mono">#239</span><br><span class="b b-ok">closed 27/08</span></td>
+        <td><span class="b b-in">mở rộng</span></td>
+        <td>Tiếp nối increment 2–8 của tháng 07; 14/14 increment + 6/6 bản vá đóng 24/08</td>
+        <td><span class="b b-ok">đủ cả 3 mục tiêu</span></td>
+      </tr>
+      <tr>
+        <td><strong>Agent cụm lưu trữ — bỏ bí mật dùng chung</strong><br><span class="b b-mu">XL</span></td>
+        <td><span class="mono">#207</span><br><span class="b b-ok">closed 27/08</span></td>
+        <td><span class="b b-ok">mới</span></td>
+        <td>Đổi kiến trúc: chữ ký bất đối xứng thay tệp bí mật; đảo chiều phân phối đẩy → kéo; nghiệm thu 12/12 bước trên máy chủ thật của cụm</td>
+        <td><span class="b b-ok">9/9 + 7/7 giai đoạn</span></td>
+      </tr>
+    </tbody>
+  </table></div>
+  <p class="legend">Nhãn <em>mới / mở rộng / thường kỳ</em> gán theo runbook <code>monthly-okr-p2-review-guide.md</code> §2 điều kiện 3, đối chiếu với OKR kỳ 07/2026.</p>
+
+  <h3>Khối lượng không nằm trong OKR</h3>
+  <ul>
+    <li><strong>8 issue đóng</strong> với vai trò người thực hiện: <span class="mono">#178 · #207 · #220 · #222 · #231 · #239 · #259</span> (+ <span class="mono">#217</span> đóng 28/07).</li>
+    <li><strong>1.025 commit</strong> trên <code>main</code> — chiếm <strong>68%</strong> toàn repo trong tháng.</li>
+    <li>2 issue mở đúng kế hoạch: <span class="mono">#228</span> (lịch 09) và <span class="mono">#258</span> (MCP OAuth 2.1).</li>
+  </ul>
+</section>
+
+<section>
+  <h2>So sánh liên tháng</h2>
+  <div class="tw"><table>
+    <thead><tr><th>Trục</th><th class="num">05/2026</th><th class="num">06/2026</th><th class="num">07/2026</th><th class="num">08/2026</th></tr></thead>
+    <tbody>
+      <tr><td>Số mục OKR</td><td class="num">4</td><td class="num">11</td><td class="num">7</td><td class="num hl">5</td></tr>
+      <tr><td>Độ khó</td><td class="num">chưa khai</td><td class="num">chưa khai</td><td class="num">3L + 4XL</td><td class="num hl">1L + 4XL</td></tr>
+      <tr><td>Tỷ lệ đạt mục tiêu</td><td class="num">—</td><td class="num">—</td><td class="num"><strong>7/7</strong>, 2 vượt</td><td class="num hl">4/5, 1 vượt</td></tr>
+      <tr><td>Hạng mục nhãn <em>mới</em></td><td class="num">—</td><td class="num">—</td><td class="num"><strong>5/7</strong></td><td class="num hl">2/5</td></tr>
+      <tr><td>Issue đóng</td><td class="num">—</td><td class="num">14</td><td class="num"><strong>20</strong></td><td class="num hl">7</td></tr>
+      <tr><td>Commit <code>main</code></td><td class="num">366</td><td class="num">393</td><td class="num">784</td><td class="num hl">1.025</td></tr>
+      <tr><td>P2 delivery / tổng</td><td class="num">1,13 / 1,065</td><td class="num"><strong>1,20 / 1,100</strong></td><td class="num">1,13 / 1,065</td><td class="num hl">1,12 / 1,060</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Commit trên <code>main</code></h3>
+  <div class="cmp">
+    <div class="cmp-row"><span class="m">05</span><span class="track alt"><i style="width:35.7%"></i></span><span class="v">366</span></div>
+    <div class="cmp-row"><span class="m">06</span><span class="track alt"><i style="width:38.3%"></i></span><span class="v">393</span></div>
+    <div class="cmp-row"><span class="m">07</span><span class="track alt"><i style="width:76.5%"></i></span><span class="v">784</span></div>
+    <div class="cmp-row now"><span class="m">08</span><span class="track"><i style="width:100%"></i></span><span class="v">1.025</span></div>
+  </div>
+  <p class="legend">Cao nhất bốn tháng — hơn tháng 07 <strong>31%</strong>.</p>
+
+  <h3>Issue đóng (vai trò người thực hiện)</h3>
+  <div class="cmp">
+    <div class="cmp-row"><span class="m">06</span><span class="track alt"><i style="width:70%"></i></span><span class="v">14</span></div>
+    <div class="cmp-row"><span class="m">07</span><span class="track alt"><i style="width:100%"></i></span><span class="v">20</span></div>
+    <div class="cmp-row now"><span class="m">08</span><span class="track"><i style="width:35%"></i></span><span class="v">7</span></div>
+  </div>
+  <p class="legend">Thấp nhất — hệ quả trực tiếp của việc mỗi hạng mục lớn hơn hẳn (4/5 mục là XL), không phải dấu hiệu chậm.</p>
+
+  <div class="call c-wa" style="margin-top:var(--s3)">
+    <h4>Tháng 08 KHÔNG vượt trội trên mọi trục</h4>
+    <p><strong>Cao nhất</strong> ở khối lượng mã và tỷ lệ việc XL. <strong>Thấp nhất</strong> ở số issue đóng. <strong>Thấp hơn tháng 07</strong> ở cả tỷ lệ đạt mục tiêu (4/5 so với 7/7) lẫn tỷ lệ hạng mục <em>mới</em> (2/5 so với 5/7) — đây đúng là hai trục quyết định của tiêu chí <code>okr</code>.</p>
+  </div>
+
+  <div class="call c-in">
+    <h4>Thang P2+ không diễn đạt được “tốt hơn một tháng đã Tốt”</h4>
+    <p>Core khoá ở 1,0 và delivery trần 1,2 ⟹ tổng tối đa <strong>1,100</strong>, mà tháng 06/2026 <strong>đã chạm trần</strong>. Chỉ có hai kết cục có nghĩa: <code>okr</code>=Tốt → 1,100 (cao hơn 07, bằng 06) hoặc <code>okr</code>=Đạt → 1,060 (thấp hơn cả hai).</p>
+  </div>
+</section>
+
+<section>
+  <h2>Chấm điểm chi tiết</h2>
+
+  <h3>Core — trọng số 0,5 · thang chỉ 2 mức (Chưa đạt 0,8 · Đạt 1,0)</h3>
+  <div class="sg">
+    <div class="sc"><div class="top"><span class="nm">A. Năng lực kỹ thuật</span><span class="b b-ok">Đạt</span></div><div class="wt">trọng số 30</div>
+      <p class="why">Định hướng end-to-end qua ba lớp (Agent Go · backend · giao diện); đảo chiều mô hình dữ liệu hạn mức S3; chuyển thành phần điều khiển cụm sang chữ ký bất đối xứng.</p></div>
+    <div class="sc"><div class="top"><span class="nm">B. Ownership &amp; trách nhiệm</span><span class="b b-ok">Đạt</span></div><div class="wt">trọng số 30</div>
+      <p class="why">Rút phạm vi có căn cứ đo và ghi lại tri thức thay vì hoãn vô hạn; đóng dứt điểm ba chương trình lớn; nêu rõ phần bộ bằng chứng chưa chứng minh được.</p></div>
+    <div class="sc"><div class="top"><span class="nm">C. DevOps &amp; vận hành</span><span class="b b-ok">Đạt</span></div><div class="wt">trọng số 15</div>
+      <p class="why">Nghiệm thu trên hệ thật qua đường công khai; hạ tiêu thụ CPU nền của phần thu thập từ 2,27% xuống 0,5% một lõi, đo trên bốn máy chủ trước khi bật.</p></div>
+    <div class="sc"><div class="top"><span class="nm">D. AI Agent &amp; cải tiến</span><span class="b b-ok">Đạt</span></div><div class="wt">trọng số 25</div>
+      <p class="why">1.025 commit trong tháng với quy trình dựng sẵn; bộ quy tắc và cổng kiểm tự động mở rộng liên tục theo từng lớp lỗi gặp phải.</p></div>
+  </div>
+
+  <h3>Delivery — trọng số 0,5 · thang 3 mức (Chưa đạt 0,8 · Đạt 1,0 · Tốt 1,2)</h3>
+  <div class="sg">
+    <div class="sc" style="border-color:var(--wa)"><div class="top"><span class="nm">Mức độ hoàn thành OKR</span><span class="b b-wa">Đạt · 1,0</span></div><div class="wt">trọng số 40 · chốt 03/09</div>
+      <p class="why">Xem khối lý do bên dưới — không đạt điều kiện 3 của ngưỡng “Tốt”.</p></div>
+    <div class="sc"><div class="top"><span class="nm">Chất lượng kết quả</span><span class="b b-ok">Tốt · 1,2</span></div><div class="wt">trọng số 35</div>
+      <p class="why">Nghiệm thu bằng số trên hệ thật: S3 15/15 đầu-cuối + 394 cổng/4.520 phép kiểm · nâng cụm lưu trữ 64/64 và 45/45 · agent cụm 12/12 · SSHWatch 8/9 · ô gom bảng tiến trình 90/90 sai số 0,0000%. Phát hiện và vá <strong>3 lỗi đang sống trên hệ thật</strong>, một lỗi tồn tại 5 tháng.</p></div>
+    <div class="sc"><div class="top"><span class="nm">Cam kết &amp; tiến độ</span><span class="b b-ok">Tốt · 1,2</span></div><div class="wt">trọng số 25</div>
+      <p class="why">Nhịp phát hành đều suốt tháng (15–17/08 · 18/08 · 19–25/08 · 22/08 · 24/08 · 27/08); chấm công đúng giờ 95%, chỉ 1 lần trễ. Cùng mức đã ghi nhận ở ba kỳ 05–07/2026.</p></div>
+  </div>
+
+  <div class="call c-wa" style="margin-top:var(--s3)">
+    <h4>Vì sao <code>okr</code> = Đạt chứ không phải Tốt</h4>
+    <p>Runbook chốt ngưỡng “Tốt” cần <strong>ba điều kiện đồng thời</strong>. Tháng 08 hụt điều kiện 3:</p>
+    <ul style="margin-bottom:.5rem">
+      <li><span class="b b-ok">✓</span> <strong>Hoàn thành cao</strong> — 4/5 mục đạt hoặc vượt, có bằng chứng mã nguồn cho từng mục.</li>
+      <li><span class="b b-ok">✓</span> <strong>≥1 deliverable stretch L–XL</strong> — 4/5 mục là XL.</li>
+      <li><span class="b b-er">✗</span> <strong>Phần <em>mới</em> chiếm phần đáng kể của kỳ</strong> — chỉ 2/5 mục nhãn <em>mới</em>; ba mục lớn nhất (<span class="mono">#231</span>, <span class="mono">#239</span>, <span class="mono">#220</span>) là phase tiếp theo của epic đã mở từ tháng 07. Runbook nêu rõ: <em>“mở rộng trên nền có sẵn KHÔNG được đánh giá cao, dù khối lượng rất lớn”</em>.</li>
+    </ul>
+    <p>Cộng thêm: <span class="mono">#228</span> giao 3/5 giai đoạn, trong đó các tiêu chí định lượng của phần hụt (sai số dưới 10%, chi phí CPU không quá 2 điểm phần trăm) <strong>chưa bao giờ được giao</strong>. Tháng 07 đạt 7/7 với 5/7 mục <em>mới</em> và cũng chỉ được “Tốt” — chấm tháng 08 ngang bằng sẽ làm trục <code>okr</code> mất khả năng phân biệt.</p>
+  </div>
+
+  <div class="call c-in">
+    <h4>Đánh đổi đã chấp nhận có ý thức</h4>
+    <p>1,060 thấp hơn cả 06 (1,100) lẫn 07 (1,065) trong khi tháng 08 cao nhất về khối lượng mã và tỷ lệ việc XL. Ưu tiên tính trung thực của trục <code>okr</code> hơn thứ hạng. <strong>Khi trình duyệt nên đưa kèm bảng so sánh liên tháng</strong> để người duyệt thấy phần chiều sâu mà thang điểm không phản ánh được — và không giấu việc <span class="mono">#228</span> hụt 2/5 giai đoạn.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Số liệu tham chiếu của kỳ</h2>
+  <div class="tw"><table>
+    <thead><tr><th>Chỉ số</th><th>Giá trị</th><th>Cách đọc</th></tr></thead>
+    <tbody>
+      <tr><td>Chấm công</td><td><strong>20</strong> ngày duyệt · trễ <strong>1</strong> · đúng giờ <strong>95%</strong></td><td><span class="b b-ok">dùng được</span> — trục duy nhất có dữ liệu thật</td></tr>
+      <tr><td>Task</td><td>0 tổng</td><td><span class="b b-mu">không có dữ liệu</span> — hệ thống task không được dùng, <strong>không</strong> phải 0% thật, không dùng để hạ điểm</td></tr>
+      <tr><td>Hội thoại ticket</td><td>0</td><td><span class="b b-mu">không có dữ liệu</span></td></tr>
+      <tr><td>Trực</td><td>0 ca</td><td><span class="b b-mu">không áp dụng</span></td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section>
+  <h2>Lịch sử P2+</h2>
+  <div class="tw"><table>
+    <thead><tr><th>Kỳ</th><th class="num">Core</th><th class="num">Delivery</th><th class="num">Tổng</th><th>Loại</th><th>Trạng thái</th></tr></thead>
+    <tbody>
+      <tr><td>2026-04</td><td class="num">1,00</td><td class="num">1,08</td><td class="num">1,040</td><td><span class="b b-ok">Tốt</span></td><td><span class="b b-mu">submitted</span></td></tr>
+      <tr><td>2026-05</td><td class="num">1,00</td><td class="num">1,13</td><td class="num">1,065</td><td><span class="b b-ok">Tốt</span></td><td><span class="b b-wa">draft — bỏ qua</span></td></tr>
+      <tr><td>2026-06</td><td class="num">1,00</td><td class="num">1,20</td><td class="num"><strong>1,100</strong></td><td><span class="b b-ok">Tốt</span></td><td><span class="b b-mu">locked</span></td></tr>
+      <tr><td>2026-07</td><td class="num">1,00</td><td class="num">1,13</td><td class="num">1,065</td><td><span class="b b-ok">Tốt</span></td><td><span class="b b-mu">locked</span></td></tr>
+      <tr style="background:var(--in-sf)"><td><strong>2026-08</strong></td><td class="num">1,00</td><td class="num">1,12</td><td class="num hl">1,060</td><td><span class="b b-ok">Tốt</span></td><td><span class="b b-in">draft · tự đánh giá</span></td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section>
+  <h2>Việc còn lại</h2>
+  <ul>
+    <li>Bản tự đánh giá 08/2026 đã lưu <strong>nháp</strong> — còn phải tự bấm <strong>gửi</strong> tại <code>/account/p2/evaluation?account=dattqh@inet.vn&amp;period=2026-08</code>. Gửi rồi thì phải nhờ quản lý hoặc nhân sự mở lại mới sửa được.</li>
+    <li>5 mục OKR 08/2026 vẫn <code>waiting</code> — chờ quản lý duyệt, không phải việc phía người sở hữu.</li>
+  </ul>
+  <div class="call c-ok">
+    <h4>Không còn câu hỏi mở</h4>
+    <p><code>okr</code> chốt <strong>Đạt</strong> · kỳ 2026-05 chốt <strong>bỏ qua</strong> · bản nháp 08/2026 chờ chủ sở hữu tự gửi.</p>
+  </div>
+</section>
+
+<div class="foot">
+  <span>Nguồn: <code>accountkpi/search</code> · <code>p2evaluation/{get,metrics,compute,history}</code> · <code>p2config/list</code> · GitLab API project 300 · git log <code>main</code></span>
+  <span>Bản chi tiết đi kèm: <code>evaluation-260903-0808-p2-thang-08-2026.md</code></span>
+  <span>Style: iNET Design System (viui) — Simple · Secure · Stable</span>
+</div>
+
+</div>
+</body>
+</html>

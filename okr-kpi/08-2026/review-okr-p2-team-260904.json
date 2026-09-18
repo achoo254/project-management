@@ -1,0 +1,736 @@
+{
+  "meta": {
+    "title": "Review OKR + P2 tháng 08/2026 — đối chiếu tự đánh giá với bằng chứng thật",
+    "period": "08/2026",
+    "auditDate": "04/09/2026",
+    "subtitle": "BP Công Nghệ · iNET · 3 thành viên trong phạm vi P2 của dattqh: ducnd · chuongdt · hobv (dattqh có bản riêng cùng thư mục)",
+    "chips": [
+      "Audit 04/09/2026",
+      "Chỉ-đọc — chưa ghi điểm lên portal",
+      "Nguồn mức: my.inet.vn (p2evaluation/get)",
+      "Bằng chứng: GitLab API + site production",
+      "🔒 Dữ liệu nhân sự — lưu local, KHÔNG publish"
+    ],
+    "sourceNote": "Cả 3 người đã <b>submit tự đánh giá</b> (<code>selfStatus=submitted</code>) nhưng <b>quản lý chưa chấm</b> — <code>scores</code> rỗng, <code>status=draft</code>. Portal đang hiện 0/\"Chưa đạt\" ở khối chính thức: đó là <b>chưa ai chấm</b>, không phải điểm xấu. <code>__permission</code> của dattqh trên cả 3 hồ sơ = <code>manager</code> ⟹ chấm được."
+  },
+  "banners": [
+    {
+      "tone": "warn",
+      "title": "1 hạng mục XL của ducnd nằm NGOÀI kỳ",
+      "html": "Entry <i>“Chuyển toàn bộ icon OneDash sang bộ viui-icons”</i> (XL) khai ở OKR tháng 8, nhưng GitLab <code>#215</code> <b>tạo 27/07, đóng 31/07</b> — trọn vẹn trong tháng 7. Đối chiếu OKR T7/2026 của ducnd (6 entry): <b>không có</b> hạng mục icon nào ⟹ đây là việc T7 chưa được tính, nay khai vào T8. Runbook chốt mốc “landed ≤ ngày cuối tháng N”, nên hạng mục này <b>không tính cho tháng 8</b>. Quản lý quyết định có ghi nhận bù cho T7 hay không."
+    },
+    {
+      "tone": "err",
+      "title": "hobv: 2/5 mục tiêu cam kết đạt — nhưng khối lượng thực tế lớn nhất nhóm",
+      "html": "5 OKR đã cam kết: <b>2 đạt</b> (đúng/trước hạn), <b>3 không đạt</b> (2 issue vẫn <code>opened</code> tới 04/09, 1 mục chỉ xong 1/3). Cùng lúc hobv có <b>706 commit · 38 release · 8 issue đóng ngoài OKR</b> — cao nhất nhóm. Vấn đề nằm ở <b>kỷ luật khai OKR</b> (việc lớn nhất trong tháng không được khai), không phải năng suất. Xem §hobv."
+    },
+    {
+      "tone": "warn",
+      "title": "developers.inet.vn: 12/12 pipeline fail cả tháng — không có dấu vết CI cho deploy",
+      "html": "Toàn bộ pipeline <code>main</code> tháng 8 của <code>donv/developers.inet.vn</code> fail ở job <code>build</code> ⟹ job <code>deploy</code> bị <code>skipped</code> 12/12 lần. Đọc trace: <code>docker login … unauthorized: incorrect username or password</code> — <b>lỗi credential registry của CI, không phải lỗi code</b>. Deliverable của chuongdt vẫn được xác minh <b>trực tiếp trên site production</b> (sitemap 182 URL, có đủ nhóm <code>/docs/oneportal/*</code>). Cần sửa credential CI để tháng sau có dấu vết audit."
+    }
+  ],
+  "summary": [
+    {
+      "name": "ducnd",
+      "role": "Frontend",
+      "roleNote": "trọng số core A30·B25·C10·D35",
+      "self": "1.075",
+      "selfGrade": "Tốt",
+      "selfNote": "submit — okr Tốt / quality Tốt / commitment Đạt",
+      "official": "—",
+      "officialGrade": "chưa chấm",
+      "officialNote": "scores rỗng",
+      "status": "draft",
+      "statusNote": "__permission: manager (dattqh chấm được)",
+      "delivery": "Tốt / Tốt / Đạt",
+      "proposal": "Hạ OKR → Đạt · tổng 1.035",
+      "proposalTone": "warn",
+      "proposalNote": "hụt điều kiện 3 (toàn mở rộng) + 1 XL ngoài kỳ",
+      "flag": true
+    },
+    {
+      "name": "chuongdt",
+      "role": "Frontend",
+      "roleNote": "role đã sửa từ Backend (history 'sửa role' 04/08)",
+      "self": "1.000",
+      "selfGrade": "Đạt",
+      "selfNote": "submit — cả 3 trục Đạt",
+      "official": "—",
+      "officialGrade": "chưa chấm",
+      "officialNote": "scores rỗng",
+      "status": "draft",
+      "statusNote": "__permission: manager",
+      "delivery": "Đạt / Đạt / Đạt",
+      "proposal": "Giữ nguyên 1.000",
+      "proposalTone": "ok",
+      "proposalNote": "tự chấm khớp bằng chứng",
+      "flag": false
+    },
+    {
+      "name": "hobv",
+      "role": "Design System",
+      "roleNote": "trọng số core A30·B25·C15·D30",
+      "self": "0.96",
+      "selfGrade": "Chưa đạt",
+      "selfNote": "tự khai okr = Chưa đạt",
+      "official": "—",
+      "officialGrade": "chưa chấm",
+      "officialNote": "scores rỗng",
+      "status": "draft",
+      "statusNote": "__permission: manager",
+      "delivery": "Chưa đạt / Đạt / Đạt",
+      "proposal": "Giữ nguyên 0.96",
+      "proposalTone": "warn",
+      "proposalNote": "tự chấm khớp bằng chứng — xem khuyến nghị về cách khai OKR",
+      "flag": true
+    }
+  ],
+  "refMetrics": {
+    "title": "Số liệu tham chiếu (POST p2evaluation/metrics) — phần lớn KHÔNG dùng được",
+    "items": [
+      {
+        "tone": "n",
+        "html": "<b><code>tasks.total</code> = 0 / 1 / 1</b> và <b><code>ticketConversations.count</code> = 0</b> cho cả 3 người ⟹ hệ thống task &amp; ticket <b>không được dùng</b>. Cột “Task đúng hạn 0%” trên form là <b>KHÔNG CÓ DỮ LIỆU</b>, tuyệt đối không dùng để hạ điểm."
+      },
+      {
+        "tone": "n",
+        "html": "<code>calendar.total</code> = 0 (không ai trực) · <code>quality</code> = <code>null</code> ⟹ hai cột này cũng rỗng."
+      },
+      {
+        "tone": "y",
+        "html": "Chỉ <b><code>timekeeping</code></b> là số dùng được, và nó <b>phân hoá thật</b> giữa 3 người (100% ↔ 80%)."
+      }
+    ],
+    "source": "POST https://my.inet.vn/api/client/v1/p2evaluation/metrics · period 2026-08 (31/07 17:00Z → 31/08 16:59Z)",
+    "timekeeping": {
+      "title": "Chấm công tháng 08/2026",
+      "rows": [
+        {
+          "who": "ducnd",
+          "approved": 20,
+          "late": 0,
+          "onTimeRate": 100,
+          "tone": "ok",
+          "flag": false
+        },
+        {
+          "who": "hobv",
+          "approved": 20,
+          "late": 1,
+          "onTimeRate": 95,
+          "tone": "warn",
+          "flag": false
+        },
+        {
+          "who": "chuongdt",
+          "approved": 20,
+          "late": 4,
+          "onTimeRate": 80,
+          "tone": "err",
+          "flag": true
+        }
+      ]
+    }
+  },
+  "members": [
+    {
+      "name": "ducnd · Nguyễn Đăng Đức",
+      "flag": true,
+      "pills": [
+        {
+          "tone": "info",
+          "text": "8 entry · 6×XL + 2×L"
+        },
+        {
+          "tone": "warn",
+          "text": "8/8 còn waiting — chưa ai duyệt OKR"
+        },
+        {
+          "tone": "gray",
+          "text": "498 commit · 22 issue đóng · 0 MR (push thẳng main)"
+        },
+        {
+          "tone": "warn",
+          "text": "nhãn: 1 mới (một phần) · 6 mở rộng · 1 ngoài kỳ"
+        }
+      ],
+      "score": "đề xuất 1.035 · Tốt  (tự chấm 1.075)",
+      "formula": {
+        "lines": [
+          "core (role Frontend, A30·B25·C10·D35, tất cả Đạt = 1,0)",
+          "     = (30×1,0 + 25×1,0 + 10×1,0 + 35×1,0)/100 = 1,000",
+          "delivery đề xuất = okr Đạt 1,0×0,40 + quality Tốt 1,2×0,35 + commitment Đạt 1,0×0,25",
+          "     = 0,400 + 0,420 + 0,250 = 1,070",
+          "total = 0,5×1,000 + 0,5×1,070 = 1,035  → Tốt (>1,0)",
+          "— so sánh: tự chấm okr Tốt ⟹ 0,480 + 0,420 + 0,250 = 1,150 ⟹ total 1,075"
+        ],
+        "server": "selfComputed server trả 1,075 / Tốt — khớp công thức tự chấm. Con số đề xuất 1,035 chưa gửi lên server."
+      },
+      "criteria": [
+        {
+          "name": "Mức độ hoàn thành OKR",
+          "weight": "40%",
+          "level": "Đạt (hạ từ Tốt)",
+          "levelTone": "warn",
+          "evidence": [
+            {
+              "tone": "y",
+              "html": "<b>Điều kiện 1 — hoàn thành cao: ĐẠT.</b> 7/8 hạng mục landed trong kỳ, tất cả có issue đóng đối chứng: <code>#225</code> 10/08 · <code>#240</code> 10/08 · <code>#241</code> 12/08 + <code>#251</code> 13/08 + <code>#252</code> 27/08 · <code>#247</code> 12/08 · <code>#248</code>/<code>#249</code> 12/08 · <code>#234</code> 06/08 · <code>#245</code> 11/08."
+            },
+            {
+              "tone": "y",
+              "html": "<b>Điều kiện 2 — có stretch L–XL: ĐẠT.</b> 6/8 hạng mục XL."
+            },
+            {
+              "tone": "n",
+              "html": "<b>Điều kiện 3 — phần <code>mới</code> chiếm phần đáng kể: HỤT.</b> Đối chiếu OKR T7/2026 (nền MCP + agent đã dựng trong T7): toàn bộ hạng mục T8 là <b>mở rộng trên nền đó</b> — thêm toolset MCP (<code>#225</code>, <code>#247</code>, <code>#234</code>), parity thêm họ hệ điều hành (<code>#240</code>/<code>#241</code>), sửa lỗi (<code>#245</code>). Runbook ghi thẳng: “thêm instance theo khuôn đã có (thêm tool/trang/endpoint/<b>loại OS</b>)” = <code>mở rộng</code>, và <i>“mở rộng trên nền có sẵn KHÔNG được đánh giá cao, dù khối lượng rất lớn”</i>. Chỉ <code>#248</code>/<code>#249</code> (tách lớp token quản trị — đổi mô hình phân quyền) là <code>mới</code> một phần, cỡ XL nhưng không chiếm phần lớn kỳ."
+            },
+            {
+              "tone": "n",
+              "html": "<b>1 hạng mục XL nằm ngoài kỳ:</b> icon viui-icons — <code>#215</code> đóng <b>31/07</b>. Loại khỏi phép đo tháng 8."
+            },
+            {
+              "tone": "i",
+              "html": "<b>Nhất quán với kỳ trước:</b> T7/2026 ducnd cũng được <code>okr = Đạt</code> (0,40) với 1 <code>mới</code> + 5 <code>mở rộng</code>. Hồ sơ T8 (0 <code>mới</code> trọn vẹn + 6 <code>mở rộng</code>) không có căn cứ để chấm <b>cao hơn</b> T7."
+            }
+          ]
+        },
+        {
+          "name": "Chất lượng kết quả",
+          "weight": "35%",
+          "level": "Tốt",
+          "levelTone": "ok",
+          "evidence": [
+            {
+              "tone": "y",
+              "html": "<b>Nghiệm thu trên máy thật, có số:</b> <code>#251</code> — QA agent 40/40 mục xanh trên Rocky 9.4 máy sạch, Debian 12 xanh, hồi quy Ubuntu 24.04 <b>so từng byte</b>; 6 lỗi tầng backend đã vá và nghiệm thu lại (agent v2.3.94→v2.3.98)."
+            },
+            {
+              "tone": "y",
+              "html": "<b>Tự tìm lỗi của chính mình:</b> File Manager qua AI — sau khi làm xong tự rà lại phần nguy hiểm, tìm thêm <b>6 lỗi</b>, đều đã sửa. Bản vá pnpm — kiểm trên máy thật phát hiện <b>2 lỗi khiến bản sửa vô tác dụng dù test tự động vẫn báo đạt</b>, sửa và đối chiếu lại bằng danh sách phiên bản trước/sau."
+            },
+            {
+              "tone": "y",
+              "html": "<b>Sửa 2 lỗi lớp bảo mật:</b> <code>#242</code> <code>sanitizeCommand</code> xoá nhầm nội dung lệnh thật · <code>#243</code> <code>getSeverityFromAction()</code> phân loại sai severity cho <b>5/7</b> hành động phá huỷ."
+            },
+            {
+              "tone": "y",
+              "html": "<b>Không đánh dấu xong khi chưa xong:</b> <code>#252</code> đóng 27/08 với các ô còn trống <b>kèm lý do chặn cụ thể</b> (không có quyền quản trị máy Rocky, không đọc được audit log, không chuyển được permissive) thay vì tick bừa. Đây là hành vi báo cáo trung thực, tính vào Chất lượng."
+            }
+          ]
+        },
+        {
+          "name": "Cam kết & tiến độ",
+          "weight": "25%",
+          "level": "Đạt",
+          "levelTone": "info",
+          "evidence": [
+            {
+              "tone": "y",
+              "html": "<b>Chấm công 100% đúng giờ, 0 ngày trễ</b> — tốt nhất nhóm."
+            },
+            {
+              "tone": "y",
+              "html": "<b>Nhịp làm việc đều:</b> 498 commit trải 21 ngày; theo tuần 155 · 142 · 106 · 95 — giảm dần đều, không dồn cuối tháng."
+            },
+            {
+              "tone": "q",
+              "html": "<b>Vệ sinh hồ sơ OKR kém:</b> ô <code>result</code> của 2 hạng mục <b>lạc hậu nặng</b> — “Webserver đa distro” ghi <i>“đang chờ hoàn tất phần nền tảng trước khi bắt đầu thực hiện”</i> trong khi <code>#241</code>/<code>#251</code>/<code>#252</code> đã đóng 12–27/08; “Project đa distro” ghi <i>“còn 2 phần”</i> trong khi <code>#240</code> đóng 10/08. Ghi <b>thấp hơn</b> thực tế nên không phải thổi phồng, nhưng làm người duyệt đọc sai tiến độ. Cộng với việc khai 1 hạng mục ngoài kỳ ⟹ giữ <b>Đạt</b>, không nâng Tốt."
+            }
+          ]
+        }
+      ],
+      "entries": [
+        {
+          "effort": "XL",
+          "status": "waiting",
+          "novelty": "mở rộng",
+          "tone": "y",
+          "target": "MCP Server OneDash — nhóm tool Admin + phân quyền admin (23 tool, 3 toolset, phân quyền 3 lớp)",
+          "evidence": "<code>#225</code> tạo 28/07, <b>đóng 10/08</b>. Mở rộng nền MCP dựng ở T7. Kết quả tự khai khớp: 23 tool end-to-end, thu hồi token khi hạ quyền, lọc tool theo phạm vi."
+        },
+        {
+          "effort": "XL",
+          "status": "waiting",
+          "novelty": "mở rộng",
+          "tone": "n",
+          "target": "Chuyển toàn bộ icon OneDash sang bộ viui-icons theo DNA iNET",
+          "evidence": "⛔ <b>NGOÀI KỲ</b> — <code>#215</code> tạo <b>27/07</b>, đóng <b>31/07</b>. OKR T7/2026 của ducnd (6 entry) không có hạng mục này ⟹ việc T7 chưa được tính, khai sang T8. Không tính cho tháng 8."
+        },
+        {
+          "effort": "XL",
+          "status": "waiting",
+          "novelty": "mở rộng",
+          "tone": "y",
+          "target": "Mở rộng hỗ trợ hệ điều hành cho tính năng Project (Debian + Rocky/Alma/CentOS)",
+          "evidence": "<code>#240</code> tạo 06/08, <b>đóng 10/08</b>. ⚠️ Ô <code>result</code> khai <i>“còn 2 phần”</i> — <b>lạc hậu, thực tế đã đóng</b>."
+        },
+        {
+          "effort": "XL",
+          "status": "waiting",
+          "novelty": "mở rộng",
+          "tone": "y",
+          "target": "Mở rộng hỗ trợ hệ điều hành cho tính năng Webserver (PHP, DB, FTP, phpMyAdmin)",
+          "evidence": "<code>#241</code> đóng 12/08 (agent v2.3.94 phát hành 11/08, tính năng live) → <code>#251</code> đóng 13/08 (nợ nghiệm thu, 4 lỗi vá) → <code>#252</code> đóng 27/08 (phần còn lại, <b>chặn bởi quyền/hạ tầng, ghi rõ từng mục</b>). ⚠️ Ô <code>result</code> khai <i>“chưa bắt đầu”</i> — <b>sai nặng so với thực tế</b>."
+        },
+        {
+          "effort": "L",
+          "status": "waiting",
+          "novelty": "mở rộng",
+          "tone": "y",
+          "target": "MCP Admin — nhóm tool Truy cập & Phân quyền (4 tool chỉ đọc, nâng 23 → 27 tool)",
+          "evidence": "<code>#247</code> tạo và <b>đóng 12/08</b>. Cố ý không mở đường sửa phân quyền qua AI — ranh giới an toàn đúng cam kết."
+        },
+        {
+          "effort": "XL",
+          "status": "waiting",
+          "novelty": "mới",
+          "tone": "y",
+          "target": "Tách riêng và quản lý token quản trị của MCP (xoá vĩnh viễn + bảng tra token đã xoá)",
+          "evidence": "<code>#248</code> + <code>#249</code> <b>đóng 12/08</b>. Đổi mô hình phân quyền token (tách lớp toàn bộ đường cấp phát, bảng token đã xoá lấy từ nhật ký kiểm toán) ⟹ nhãn <b>mới</b> — hạng mục <code>mới</code> duy nhất của kỳ."
+        },
+        {
+          "effort": "XL",
+          "status": "waiting",
+          "novelty": "mở rộng",
+          "tone": "y",
+          "target": "Quản lý tệp trên máy chủ bằng trợ lý AI — 19 chức năng, 4 mức quyền, xác nhận trước khi xoá/tải về",
+          "evidence": "<code>#234</code> tạo 29/07, <b>đóng 06/08</b>. Tự rà lại sau khi xong, tìm thêm 6 lỗi đã sửa. Windows chặn hoàn toàn (đúng phạm vi khai)."
+        },
+        {
+          "effort": "L",
+          "status": "waiting",
+          "novelty": "thường kỳ",
+          "tone": "y",
+          "target": "Sửa lỗi cài đặt làm hỏng phiên bản thư viện của khách (pnpm tự nâng phá lockfile)",
+          "evidence": "<code>#245</code> tạo và <b>đóng 11/08</b>. Kiểm trên máy thật phát hiện thêm 2 lỗi khiến bản sửa vô tác dụng dù test tự động báo đạt — đã sửa, đối chiếu danh sách phiên bản trước/sau."
+        }
+      ],
+      "unverified": [
+        "Mốc production của OneDash: bundle <code>onedash.inet.vn</code> có <code>last-modified 27/08/2026</code> (trong kỳ) và release <code>v1.8.0</code> 17/08 · <code>v1.8.1</code> 26/08 — nhưng repo <code>cloud-panel-application</code> dùng chung với dattqh nên <b>không tách được phần deploy nào thuộc ducnd</b>.",
+        "44/100 pipeline của <code>cloud-panel-application</code> trong tháng 8 ở trạng thái <code>failed</code> — repo dùng chung, <b>không quy được cho cá nhân</b>, không dùng để chấm."
+      ]
+    },
+    {
+      "name": "chuongdt · Đinh Tiến Chương",
+      "flag": false,
+      "pills": [
+        {
+          "tone": "info",
+          "text": "4 entry · 1×XL + 1×L + 2×M"
+        },
+        {
+          "tone": "warn",
+          "text": "4/4 còn waiting — chưa ai duyệt OKR"
+        },
+        {
+          "tone": "gray",
+          "text": "257 commit · 8 issue đóng · 1 MR merged"
+        },
+        {
+          "tone": "ok",
+          "text": "nhãn: 3 mới + 1 mở rộng"
+        }
+      ],
+      "score": "đề xuất 1.000 · Đạt  (tự chấm 1.000 — giữ nguyên)",
+      "formula": {
+        "lines": [
+          "core (role Frontend, A30·B25·C10·D35, tất cả Đạt = 1,0)",
+          "     = (30×1,0 + 25×1,0 + 10×1,0 + 35×1,0)/100 = 1,000",
+          "delivery = okr Đạt 1,0×0,40 + quality Đạt 1,0×0,35 + commitment Đạt 1,0×0,25",
+          "     = 0,400 + 0,350 + 0,250 = 1,000",
+          "total = 0,5×1,000 + 0,5×1,000 = 1,000  → Đạt (=1,0)"
+        ],
+        "server": "selfComputed server trả 1,000 / Đạt — khớp. Đề xuất giữ nguyên, không sửa."
+      },
+      "criteria": [
+        {
+          "name": "Mức độ hoàn thành OKR",
+          "weight": "40%",
+          "level": "Đạt",
+          "levelTone": "info",
+          "evidence": [
+            {
+              "tone": "y",
+              "html": "<b>Điều kiện 1 — hoàn thành: 3/4 hạng mục khai đã landed, có bằng chứng production.</b> Portal ViUI: 3 release thật trong kỳ (<code>v2026.08.03</code> · <code>v2026.08.14</code> · <code>v2026.08.24</code>, mỗi bản có changelog nghiệp vụ). Docs Portal + bản khai Thông tư 48: xác minh <b>trực tiếp trên site production</b> — sitemap <code>developers.inet.vn</code> có 182 URL, gồm nhóm <code>/docs/oneportal/*</code> (tổng quan tên miền/hosting/website/email, OneShield) và đủ 5 trang <code>ban-khai-ten-mien*</code>."
+            },
+            {
+              "tone": "y",
+              "html": "<b>Điều kiện 2 — có stretch: ĐẠT.</b> 1×XL (chuẩn hoá toàn Portal theo ViUI) + 1×L."
+            },
+            {
+              "tone": "y",
+              "html": "<b>Điều kiện 3 — có phần <code>mới</code>: ĐẠT.</b> Đối chiếu OKR T7/2026 (khu CTV, Telegram ops report, base kit ViUI): docs hướng dẫn Portal cho khách là <b>năng lực chưa từng có</b> (trước chỉ có API docs); bản khai Thông tư 48 là luồng mới theo quy định mới; gateway DNS Proxy OneShield là bề mặt mới. 3/4 entry nhãn <code>mới</code>."
+            },
+            {
+              "tone": "n",
+              "html": "<b>Nhưng 1 hạng mục đã khai KHÔNG được giao:</b> “MCP docs — tự động phát hiện và dựng bản cập nhật khi giao diện đổi” bị hoãn (ô <code>note</code>: <i>“Chưa triển khai tạm để lại đợi update lại Auth”</i>), đổi sang việc khác (gateway + API cho DNS Proxy OneShield, <code>#10</code> đóng 28/08). Việc thay thế <b>có giao và có ghi lý do</b> — minh bạch, nhưng cam kết gốc vẫn hụt ⟹ chặn trần ở <b>Đạt</b>, không lên Tốt."
+            }
+          ]
+        },
+        {
+          "name": "Chất lượng kết quả",
+          "weight": "35%",
+          "level": "Đạt",
+          "levelTone": "info",
+          "evidence": [
+            {
+              "tone": "y",
+              "html": "<b>Có bổ sung test cho phần nhạy cảm:</b> <code>test: cover authz, SSO breaker, notification delivery and docs guards</code> (24/08) — không phải chỉ chạy tay."
+            },
+            {
+              "tone": "y",
+              "html": "<b>Sửa lỗi ảnh hưởng khách thật:</b> <code>#154</code> (tài khoản chưa bật 2 lớp bị che header, không scroll được) · <code>#155</code> (tìm kiếm ở trang 2 không ra kết quả) — đóng 21/08."
+            },
+            {
+              "tone": "q",
+              "html": "<b>Có 1 vòng revert–làm lại:</b> <code>Revert \"fix(docs): hide pages of a hidden category…\"</code> (25/08) rồi làm lại đúng ngày hôm sau (26/08). Nhỏ, tự phát hiện và tự xử trong kỳ."
+            },
+            {
+              "tone": "q",
+              "html": "<b>Deploy production suốt tháng mà không có bản build xanh:</b> 12/12 pipeline <code>developers.inet.vn</code> fail (job <code>build</code> hỏng vì <code>docker login … unauthorized</code>) ⟹ <code>deploy</code> skipped 12/12. Nguyên nhân là <b>credential CI, không phải code</b>, nhưng để hỏng cả tháng thì mất sạch dấu vết audit và mất luôn cổng chặn hồi quy. Đây là lý do giữ <b>Đạt</b> thay vì cân nhắc Tốt."
+            }
+          ]
+        },
+        {
+          "name": "Cam kết & tiến độ",
+          "weight": "25%",
+          "level": "Đạt",
+          "levelTone": "info",
+          "evidence": [
+            {
+              "tone": "n",
+              "html": "<b>Chấm công 80% đúng giờ — 4 ngày trễ, kém nhất nhóm</b> (ducnd 100%, hobv 95%)."
+            },
+            {
+              "tone": "q",
+              "html": "<b>Nhịp làm việc lệch:</b> theo tuần 110 · <b>33</b> · <b>22</b> · 92 — trũng sâu giữa tháng (tuần 33–34) rồi dồn lại tuần cuối. Khác hẳn nhịp đều của ducnd."
+            },
+            {
+              "tone": "y",
+              "html": "<b>Nhưng deliverable vẫn về trong kỳ</b> và việc đổi phạm vi được <b>ghi lý do ngay trong hồ sơ OKR</b> (ô <code>note</code>) — báo sớm, không giấu ⟹ đủ <b>Đạt</b>, không hạ xuống Chưa đạt."
+            },
+            {
+              "tone": "i",
+              "html": "So với T7/2026 (commitment = <b>Tốt</b>, tổng 1,025): tháng 8 tụt xuống Đạt, khớp với chấm công 80% và nhịp lệch. Tự chấm đã phản ánh đúng."
+            }
+          ]
+        }
+      ],
+      "entries": [
+        {
+          "effort": "XL",
+          "status": "waiting",
+          "novelty": "mở rộng",
+          "tone": "y",
+          "target": "Chuẩn hoá giao diện toàn bộ Portal theo Design System ViUI (trừ OneShield)",
+          "evidence": "226 commit <code>portal-client</code> (64 refactor · 54 feat · 54 fix). 3 release production trong kỳ: <code>v2026.08.03</code>, <code>v2026.08.14</code>, <code>v2026.08.24</code> (VibePages, phản hồi–báo lỗi trực tiếp, cập nhật chủ thể tên miền). Commit khớp cam kết: <code>rebuild the offers tab on the ViUI base</code>, <code>chuyển trang hoàn tất thanh toán sang module trên base ViUI</code>, <code>move the game manager onto the ViUI base kit</code>. Nhãn <b>mở rộng</b>: base kit ViUI đã dựng ở T7, T8 là nhân ra phần còn lại."
+        },
+        {
+          "effort": "M",
+          "status": "waiting",
+          "novelty": "mới",
+          "tone": "y",
+          "target": "Bộ docs hướng dẫn sử dụng Portal trên iNET Developers",
+          "evidence": "Xác minh trên production 04/09: sitemap <code>developers.inet.vn</code> 182 URL, có nhóm <code>/docs/oneportal/*</code> đầy đủ (tổng quan tên miền · hosting · website · email · OneShield thêm tên miền/CNAME · đổi tên miền chính hosting · đổi tài khoản quản trị). Trước T8 site chỉ có API docs ⟹ nhãn <b>mới</b>. Khai “deploy production 21/08” — <b>CI không xác nhận được</b> (deploy skipped 12/12), nhưng nội dung live."
+        },
+        {
+          "effort": "L",
+          "status": "waiting",
+          "novelty": "mới",
+          "tone": "q",
+          "target": "MCP docs: tự động phát hiện và dựng bản cập nhật khi giao diện đổi → ĐỔI sang gateway + API cho DNS Proxy (OneShield)",
+          "evidence": "⚠️ <b>Cam kết gốc KHÔNG giao</b> — ô <code>note</code> ghi rõ hoãn chờ Auth. Việc thay thế đã giao: <code>#10</code> “Thêm gateway cho api trỏ bản ghi dns proxy” <b>đóng 28/08</b>; commit đối chứng <code>fix(gateway): return 404 for a declared endpoint that is disabled</code> (27/08), <code>fix(ui): list OneShield in upstream dropdown</code> (26/08). Minh bạch nhưng vẫn là hụt cam kết gốc."
+        },
+        {
+          "effort": "M",
+          "status": "waiting",
+          "novelty": "mới",
+          "tone": "y",
+          "target": "Bản khai hồ sơ tên miền .vn chứa từ khoá nhạy cảm theo mẫu Thông tư 48",
+          "evidence": "Xác minh production: 5 trang live — <code>ban-khai-ten-mien</code>, <code>-ca-nhan</code>, <code>-to-chuc</code>, <code>-ho-kinh-doanh</code>, <code>-nop-ban-da-ky</code>. Khai “deploy production 19/08”, nằm trong khoảng release <code>v2026.08.14</code> → <code>v2026.08.24</code>. Luồng nghiệp vụ mới theo quy định mới ⟹ nhãn <b>mới</b>."
+        }
+      ],
+      "unverified": [
+        "Mốc deploy chính xác của từng hạng mục trên <code>developers.inet.vn</code>: <b>không kiểm chứng được</b> — CI deploy skipped 12/12 cả tháng, site không trả <code>last-modified</code>. Chỉ khẳng định được <b>nội dung đang live tại thời điểm audit 04/09</b>, không khẳng định được ngày lên.",
+        "Bundle <code>portal.inet.vn</code> có <code>last-modified 04/09/2026</code> — <b>ngoài kỳ</b>, là lần deploy gần nhất chứ không phải mốc của tháng 8. Mốc trong kỳ dựa vào 3 release object của <code>portal-client</code>.",
+        "Repo <code>portal-server</code> không nằm trong dữ liệu thu thập kỳ này — phần backend của các hạng mục trên <b>không đối chứng được</b>."
+      ]
+    },
+    {
+      "name": "hobv · Bùi Văn Hổ",
+      "flag": true,
+      "pills": [
+        {
+          "tone": "info",
+          "text": "5 entry · 5×L"
+        },
+        {
+          "tone": "warn",
+          "text": "5/5 còn waiting — chưa ai duyệt OKR"
+        },
+        {
+          "tone": "err",
+          "text": "2/5 mục tiêu cam kết đạt"
+        },
+        {
+          "tone": "gray",
+          "text": "706 commit · 38 release · 10 issue đóng (8 ngoài OKR) — cao nhất nhóm"
+        }
+      ],
+      "score": "đề xuất 0.96 · Chưa đạt  (tự chấm 0.96 — giữ nguyên)",
+      "formula": {
+        "lines": [
+          "core (role Design System, A30·B25·C15·D30, tất cả Đạt = 1,0)",
+          "     = (30×1,0 + 25×1,0 + 15×1,0 + 30×1,0)/100 = 1,000",
+          "delivery = okr Chưa đạt 0,8×0,40 + quality Đạt 1,0×0,35 + commitment Đạt 1,0×0,25",
+          "     = 0,320 + 0,350 + 0,250 = 0,920",
+          "total = 0,5×1,000 + 0,5×0,920 = 0,960  → Chưa đạt (<1,0)"
+        ],
+        "server": "selfComputed server trả 0,96 / Chưa đạt — khớp. Đề xuất giữ nguyên."
+      },
+      "criteria": [
+        {
+          "name": "Mức độ hoàn thành OKR",
+          "weight": "40%",
+          "level": "Chưa đạt",
+          "levelTone": "err",
+          "evidence": [
+            {
+              "tone": "y",
+              "html": "<b>2/5 đạt, cả hai đúng hoặc trước hạn:</b> KR3.2 — 37 lỗi hiển thị cho người khiếm thị về 0 (<code>#70</code> <b>đóng 20/08</b>, hạn 22/08, quét đủ 327/327 trang cả chế độ sáng và tối) · KR3.5 — 105 icon 2 tông có lớp tô vô hình về 15 kèm lý do cho 15 cái còn lại (<code>#72</code> <b>đóng 20/08</b>, đúng hạn 20/08)."
+            },
+            {
+              "tone": "n",
+              "html": "<b>3/5 không đạt, xác minh bằng trạng thái issue tại 04/09:</b> “Dọn 24 nợ sau bản 1.0.1” (<code>assets #20</code>) <b>vẫn <code>opened</code></b>, hạn 31/08 · “Luồng góp ý đáng tin” chỉ xong 1/3 — <code>#57</code> đóng 26/08 nhưng <code>#56</code> và <code>#59</code> <b>vẫn <code>opened</code></b>, hạn 28/08 · “Tìm ảnh bằng đường dẫn” (<code>assets #21</code>) <b>vẫn <code>opened</code></b>, production vẫn TẮT, hạn 31/08."
+            },
+            {
+              "tone": "q",
+              "html": "<b>1 trong 3 mục hụt bị chặn bởi quyết định ngoài tầm:</b> “Tìm ảnh bằng đường dẫn” treo từ 05/08 đến 27/08 chỉ để chờ chốt <i>bật lại trên production hay chỉ làm bản chạy thử</i>. hobv có báo, có ghi ngày — nhưng <b>3 tuần chờ mà không có ai gỡ</b> là lỗi quy trình của cả hai phía, không riêng hobv."
+            },
+            {
+              "tone": "n",
+              "html": "<b>Khối lượng lớn nhất tháng lại KHÔNG nằm trong OKR đã khai:</b> assets <code>v1.3.0</code> (108 commit từ staging, kèm migration 0018) phát hành 22/08 · 26 release <code>design-sys-fe</code> · 8 issue đóng ngoài OKR (<code>#50</code>, <code>#51</code>, <code>#52</code>, <code>#55</code>, <code>#57</code>, <code>#62</code>, <code>#69</code>, <code>#71</code>). Khác với chuongdt, <b>không có ô <code>note</code> nào ghi việc đổi phạm vi</b> ⟹ theo runbook, trục <code>okr</code> đo “tỷ lệ hoàn thành các mục tiêu <b>đã cam kết</b>” ⟹ giữ <b>Chưa đạt</b>."
+            }
+          ]
+        },
+        {
+          "name": "Chất lượng kết quả",
+          "weight": "35%",
+          "level": "Đạt",
+          "levelTone": "info",
+          "evidence": [
+            {
+              "tone": "y",
+              "html": "<b>Đo được, không tự khai:</b> hai mục đạt đều có phép đo đóng — 37→0 kiểm bằng lần quét đủ 327/327 trang; 105→15 kiểm bằng diện tích lớp tô (≤13/576) và <b>ghi lý do</b> cho 15 file không sửa được thay vì làm tròn thành 0."
+            },
+            {
+              "tone": "y",
+              "html": "<b>Issue viết từ số đo trên production, không suy đoán:</b> <code>assets #23</code> mở đầu bằng <i>“đo trực tiếp trên production 2026-08-17, không phải suy từ plan”</i>, kèm lệnh <code>curl</code> đối chứng."
+            },
+            {
+              "tone": "n",
+              "html": "<b>Có 1 lỗi đang chạy trên production chưa được đưa lên main:</b> <code>assets #23</code> — <code>pages/admin/login.vue</code> truyền <code>return</code> dạng đường dẫn tương đối nên người dùng bị đẩy sang site khác khi đăng nhập/đăng xuất. Phát hiện <b>17/08</b>, tới <b>04/09 issue vẫn <code>opened</code></b> (nhãn “chờ review”). Lỗi ảnh hưởng người dùng thật, tồn tại qua hết kỳ ⟹ <b>chặn trần ở Đạt</b>, không xét Tốt."
+            },
+            {
+              "tone": "i",
+              "html": "38 release trong một tháng (26 <code>design-sys-fe</code> + 12 <code>assets</code>) là nhịp phát hành gói thư viện, <b>không đọc thành churn chất lượng</b> — pipeline <code>design-sys-fe</code> 86/100 success."
+            }
+          ]
+        },
+        {
+          "name": "Cam kết & tiến độ",
+          "weight": "25%",
+          "level": "Đạt",
+          "levelTone": "info",
+          "evidence": [
+            {
+              "tone": "y",
+              "html": "<b>Chủ động báo tiến độ có mốc ngày</b> ngay trong ô <code>result</code> của từng hạng mục: 05/08 → 19/08 → 21/08 → 27/08, gồm cả những dòng bất lợi cho chính mình (<i>“Chưa bắt đầu”</i>, <i>“Vẫn chờ quyết định; production vẫn đang TẮT”</i>). Đây đúng là “chủ động báo sớm rủi ro” trong mô tả tiêu chí."
+            },
+            {
+              "tone": "y",
+              "html": "<b>Chấm công 95% đúng giờ, 1 ngày trễ.</b>"
+            },
+            {
+              "tone": "q",
+              "html": "<b>Nhịp làm việc dồn:</b> theo tuần 170 · 123 · <b>326</b> · 87 — tuần 34 (24–28/08) gấp đôi các tuần khác."
+            },
+            {
+              "tone": "i",
+              "html": "<b>Vì sao KHÔNG hạ tiếp trục này dù trễ 3/5 hạn:</b> runbook cấm dùng cùng một sự việc để hạ hai trục mà không giải thích. Việc <b>hụt mục tiêu</b> đã được tính trọn vẹn ở <code>okr = Chưa đạt</code>. Trục Cam kết đo thêm <i>chủ động báo sớm rủi ro</i> và <i>phối hợp</i> — hai phần này hobv làm đủ (báo cáo có mốc ngày, nêu rõ chỗ đang chờ quyết định). Hạ tiếp sẽ là phạt hai lần cho cùng một sự việc."
+            }
+          ]
+        }
+      ],
+      "entries": [
+        {
+          "effort": "L",
+          "status": "waiting",
+          "novelty": "thường kỳ",
+          "tone": "n",
+          "target": "Assets DAM — dọn 24 nợ chất lượng sau bản 1.0.1 về 0, không nợ nào ở mức nguy hiểm nhất, hạn 31/08",
+          "evidence": "⛔ <b>KHÔNG ĐẠT.</b> <code>assets #20</code> (nhãn “báo cáo lên KPI”, <code>effort::l</code>) <b>vẫn <code>opened</code> tại 04/09</b>. Tự khai dừng ở mốc 21/08: “11/16 mục xong, còn 5”. Không có cập nhật nào sau đó tới hết kỳ."
+        },
+        {
+          "effort": "L",
+          "status": "waiting",
+          "novelty": "mở rộng",
+          "tone": "y",
+          "target": "KR3.2 · DS-R6 — 37 lỗi hiển thị cho người khiếm thị (nhóm kỹ thuật) về 0, hạn 22/08",
+          "evidence": "✅ <b>ĐẠT, trước hạn.</b> <code>design-sys-fe #70</code> <b>đóng 20/08</b>. Nghiệm thu: quét đủ 327/327 trang, cả chế độ sáng và tối. Nhãn <b>mở rộng</b>: tháng 7 đã sửa một phần nhóm này (runbook §T7 ghi “tháng 7 sửa nửa vời”), T8 làm trọn bộ."
+        },
+        {
+          "effort": "L",
+          "status": "waiting",
+          "novelty": "mở rộng",
+          "tone": "n",
+          "target": "KR3.4 · DS-R6 — luồng góp ý chuyển thành đầu việc phải đáng tin (cấu hình thật, không trùng, mức độ đúng), hạn 28/08",
+          "evidence": "⛔ <b>KHÔNG ĐẠT — 1/3.</b> <code>#57</code> (mức nghiêm trọng không còn gán cứng) <b>đóng 26/08</b>; <code>#56</code> (Feedback→GitLab issue chưa từng cấu hình, dedup thô) và <code>#59</code> (test chạy trên bản SQLite tự sao chép) <b>vẫn <code>opened</code></b>. Khớp đúng phần tự khai."
+        },
+        {
+          "effort": "L",
+          "status": "waiting",
+          "novelty": "mở rộng",
+          "tone": "y",
+          "target": "KR3.5 · DS-R6 — 105 icon 2 tông có lớp tô vô hình đưa về 0, hạn 20/08",
+          "evidence": "✅ <b>ĐẠT, đúng hạn.</b> <code>design-sys-fe #72</code> <b>đóng 20/08</b>. Kết quả 105 → 15; 15 file còn lại là dấu chấm nhỏ không có thân để tô, <b>đã ghi lý do</b> thay vì báo 0."
+        },
+        {
+          "effort": "L",
+          "status": "waiting",
+          "novelty": "mở rộng",
+          "tone": "n",
+          "target": "Assets DAM — tìm ảnh bằng đường dẫn, chặn 100% ca tấn công mạng nội bộ (SSRF), hạn 31/08",
+          "evidence": "⛔ <b>KHÔNG ĐẠT.</b> <code>assets #21</code> <b>vẫn <code>opened</code></b>, production vẫn TẮT từ 03/08. Treo <b>toàn kỳ chỉ để chờ một quyết định</b> (bật lại prod hay chỉ làm bản chạy thử) — hobv báo ở cả mốc 05/08 và 27/08."
+        }
+      ],
+      "unverified": [
+        "Mốc production của <code>assets.inet.vn</code>: site <b>không trả <code>last-modified</code></b> ⟹ không đo được ngày lên của từng bản. Chỉ dựa vào 12 release object trong kỳ (<code>v1.0.1</code> 03/08 → <code>v1.3.0</code> 22/08).",
+        "Repo <code>donv/inet.vn</code> (nội dung website iNET, hobv từng có việc ở T7) <b>ngoài scope token</b> — không kiểm chứng được, và tháng 8 hobv cũng không khai hạng mục nào ở repo này.",
+        "24 issue đang mở gán cho hobv có 12 issue thuộc <code>donv/zimbra-webmail-client</code> (<code>#223</code>–<code>#234</code>) — <b>không nằm trong OKR khai</b> và không có commit của hobv ở repo đó trong tháng 8; không rõ là việc thật hay tồn đọng gán nhầm."
+      ]
+    }
+  ],
+  "traps": [
+    {
+      "tag": "Bẫy 1",
+      "title": "“Portal đang hiện 0 / Chưa đạt ở khối chính thức” — KHÔNG phải điểm xấu",
+      "steps": [
+        {
+          "d": "Cách đọc sai",
+          "html": "Mở form P2 của cả 3 người, thấy khối ĐÁNH GIÁ CHÍNH THỨC = 0 và “Chưa đạt” ⟹ kết luận cả nhóm bị chấm 0.",
+          "bad": true
+        },
+        {
+          "d": "Cách đọc đúng",
+          "html": "<code>scores</code> = <code>{}</code> và <code>status = draft</code> nghĩa là <b>chưa ai chấm</b>. Ba trạng thái phải phân biệt: rỗng (chưa chấm) · <code>draft</code> (đã chấm chưa chốt) · <code>locked</code> (phải <code>reopen</code> mới sửa). Điểm đang có hiệu lực của kỳ này là <code>selfComputed</code>."
+        }
+      ]
+    },
+    {
+      "tag": "Bẫy 2",
+      "title": "Ô <code>result</code> của OKR có thể lạc hậu theo CẢ HAI chiều",
+      "steps": [
+        {
+          "d": "Cách đọc sai",
+          "html": "Đọc <code>result</code> của ducnd: “Webserver đa distro — đang chờ hoàn tất phần nền tảng trước khi bắt đầu thực hiện” ⟹ kết luận hạng mục XL này chưa làm, hạ điểm.",
+          "bad": true
+        },
+        {
+          "d": "Cách đọc đúng",
+          "html": "Kiểm GitLab: <code>#241</code> đóng 12/08, <code>#251</code> đóng 13/08, <code>#252</code> đóng 27/08, agent v2.3.94 phát hành 11/08. <b>Đã giao xong</b> — ô <code>result</code> chỉ là chưa cập nhật. Chiều ngược lại cũng có: “Đã deploy production” của chuongdt không được CI xác nhận. <b>Luôn kiểm bằng issue/release/site thật, cả khi lời khai bất lợi cho chính người khai.</b>"
+        }
+      ]
+    },
+    {
+      "tag": "Bẫy 3",
+      "title": "Pipeline fail cả tháng ≠ code kém",
+      "steps": [
+        {
+          "d": "Cách đọc sai",
+          "html": "12/12 pipeline <code>developers.inet.vn</code> fail ⟹ chuongdt viết code hỏng, hạ Chất lượng.",
+          "bad": true
+        },
+        {
+          "d": "Cách đọc đúng",
+          "html": "Đọc trace job: <code>docker login … unauthorized: incorrect username or password</code> — hỏng ở <b>credential registry của CI</b>, chưa từng chạy tới bước biên dịch. Hệ quả đúng là <b>mất dấu vết audit + mất cổng chặn hồi quy</b>, không phải chất lượng code. Ghi đúng hệ quả, đừng ghi sai nguyên nhân."
+        }
+      ]
+    },
+    {
+      "tag": "Bẫy 4",
+      "title": "“706 commit” không cứu được trục OKR",
+      "steps": [
+        {
+          "d": "Cách đọc sai",
+          "html": "hobv có khối lượng lớn nhất nhóm (706 commit, 38 release) ⟹ nâng <code>okr</code> lên Đạt cho công bằng.",
+          "bad": true
+        },
+        {
+          "d": "Cách đọc đúng",
+          "html": "Trục <code>okr</code> theo <code>p2config</code> là <i>“tỷ lệ hoàn thành các mục tiêu <b>đã cam kết</b> trong kỳ”</i> — không phải khối lượng. 2/5 mục cam kết đạt ⟹ Chưa đạt. Khối lượng ngoài OKR là bằng chứng để sửa <b>cách khai OKR</b> (xem việc cần làm), không phải để sửa điểm. Ngược lại cũng đúng: đừng hạ thêm trục Cam kết vì cùng sự việc đó."
+        }
+      ]
+    }
+  ],
+  "todos": [
+    {
+      "task": "Chốt mức cho ducnd: giữ tự chấm 1,075 (okr Tốt) hay nhận đề xuất 1,035 (okr Đạt). Căn cứ hạ: hụt điều kiện 3 (0 hạng mục mới trọn vẹn / 6 mở rộng) + 1 XL đóng 31/07 nằm ngoài kỳ.",
+      "level": "quyết định",
+      "levelTone": "err",
+      "owner": "dattqh"
+    },
+    {
+      "task": "Chốt cách xử lý hạng mục icon viui-icons (#215, đóng 31/07): bỏ khỏi OKR T8, hay giữ và ghi chú là bù cho T7 — T7 của ducnd đã locked ở 1,035 và không có hạng mục này.",
+      "level": "quyết định",
+      "levelTone": "warn",
+      "owner": "dattqh"
+    },
+    {
+      "task": "hobv — kết quả kỳ này là 0,96 (Chưa đạt) theo chính bản tự chấm. Trước khi khoá, chốt xem 5 mục tiêu tháng 8 có được đặt sai ngay từ đầu không: khối lượng thật đổ vào assets v1.3.0 + 8 issue design-sys-fe ngoài OKR. Đây là buổi nói chuyện về cách đặt OKR, không phải chỉ là con điểm.",
+      "level": "blocker",
+      "levelTone": "err",
+      "owner": "dattqh"
+    },
+    {
+      "task": "Sửa credential registry trong CI của donv/developers.inet.vn — build hỏng 12/12 lần cả tháng 8, deploy chạy ngoài CI nên không còn dấu vết audit lẫn cổng chặn hồi quy.",
+      "level": "hạ tầng",
+      "levelTone": "warn",
+      "owner": "chuongdt"
+    },
+    {
+      "task": "assets #23 — lỗi đăng nhập/đăng xuất SSO đang chạy trên production, phát hiện 17/08, tới 04/09 vẫn opened (chờ review). Đưa lên main hoặc nêu rõ ai đang chặn.",
+      "level": "lỗi prod",
+      "levelTone": "err",
+      "owner": "hobv"
+    },
+    {
+      "task": "assets #21 — treo toàn tháng 8 chỉ để chờ quyết định “bật lại production hay chỉ làm bản chạy thử”. Ra quyết định để tháng 9 không lặp lại.",
+      "level": "quyết định",
+      "levelTone": "warn",
+      "owner": "dattqh"
+    },
+    {
+      "task": "17 entry OKR tháng 8 của cả 3 người đều còn status waiting — duyệt hoặc trả lại, vì để nguyên thì kỳ sau không có baseline sạch để so.",
+      "level": "thường kỳ",
+      "levelTone": "info",
+      "owner": "dattqh"
+    },
+    {
+      "task": "Nhắc ducnd cập nhật ô result trước khi submit — 2/8 hạng mục ghi thấp hơn thực tế tới mức người duyệt đọc thành chưa làm.",
+      "level": "quy trình",
+      "levelTone": "info",
+      "owner": "dattqh"
+    },
+    {
+      "task": "Làm rõ 12 issue donv/zimbra-webmail-client (#223–#234) đang gán cho hobv nhưng không có commit và không nằm trong OKR — việc thật hay gán nhầm.",
+      "level": "cần làm rõ",
+      "levelTone": "info",
+      "owner": "hobv"
+    }
+  ],
+  "sourcesHtml": "\n<b>Mức đánh giá &amp; OKR</b> — my.inet.vn JSON API, đo 04/09/2026:\n<code>POST /api/client/v1/accountkpi/search</code> (<code>monthStr</code> 082026 và 072026, phân trang đủ, đối chiếu <code>totalElements</code>: ducnd 8 · chuongdt 4 · hobv 5) ·\n<code>POST /p2evaluation/get</code> (<code>selfScores</code>/<code>selfComputed</code>/<code>selfStatus</code> + <code>scores</code>/<code>status</code> + <code>history[]</code>) ·\n<code>POST /p2evaluation/metrics</code> · <code>POST /p2config/list</code> (trọng số lấy từ đây, không gõ lại từ nhớ).<br>\n<b>Bằng chứng công việc</b> — <code>gitlabs.inet.vn/api/v4</code>: <code>issues</code> (lọc theo <code>closed_at</code> trong 08/2026, không dùng <code>updated_after</code> để kết luận) ·\n<code>merge_requests</code> · <code>repository/commits</code> (phân trang đủ, <code>since</code>/<code>until</code> theo kỳ) ·\n<code>releases</code> (dùng <code>created_at</code> của release object, <b>không</b> dùng <code>creatordate</code> của tag lightweight) ·\n<code>pipelines</code> + <code>jobs/:id/trace</code>. Project: 300 cloud-panel-application · 301 workspace-application · 238 portal-client · 303 developers.inet.vn · 256 design-sys-fe · 338 assets.inet.vn.<br>\n<b>Mốc production</b> — <code>last-modified</code> của bundle <code>portal.inet.vn</code> (04/09, ngoài kỳ) và <code>onedash.inet.vn</code> (27/08, trong kỳ); <code>assets.inet.vn</code> không trả header này;\n<code>developers.inet.vn</code> xác minh bằng <code>sitemap.xml</code> (182 URL) vì không có <code>last-modified</code>.<br>\n<b>Baseline kỳ N-1</b> — <code>okr-kpi/07-2026/review-okr-p2-team-260805.json</code> (nhãn mới/mở rộng và mức đã khoá của T7: ducnd 1,035 · chuongdt 1,025 · hobv 1,025).\n",
+  "footerHtml": "\nAudit <b>chỉ-đọc</b>, chạy 04/09/2026 theo <code>docs/monthly-okr-p2-review-guide.md</code>. Chưa ghi bất kỳ điểm nào lên my.inet.vn.\nMọi mức trong cột “đề xuất” <b>chỉ là đề xuất</b> — điểm cuối do quản lý chấm và khoá.\nPhạm vi P2 của dattqh: dattqh · hobv · ducnd · chuongdt (<b>không</b> gồm anhtct).\n🔒 Chứa dữ liệu đánh giá nhân sự — giữ trong repo nội bộ, KHÔNG publish.\n"
+}
