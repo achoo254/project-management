@@ -310,9 +310,9 @@ footer{padding:var(--s6) 0 var(--s8);color:var(--muted);font-size:13px}
     <h1 class="rv">Nguyễn Đăng Đức
       <span class="sub">Đang làm: gom bề mặt vận hành cloud server/VPS về OneDash · Tới đây: Office trên web thay Collabora, rồi đưa AI vào tài liệu</span>
     </h1>
-    <p class="lead rv">T8–T9 đóng nốt OneDash: đưa phần quản trị của Portal lên OneDash. T10–T12 làm MVP
-      Office. 2027 thay Collabora trong OneMail theo số liệu, và đưa AI vào tài liệu — cùng trục với phần
-      agent của Chương.</p>
+    <p class="lead rv">T8–T9 đóng nốt OneDash: gom phần quản trị cloud server/VPS từ Portal về OneDash, trừ
+      hạng mục gia hạn. Song song nghiên cứu Office. Phần MVP Office từ T10 và hướng 2027 chỉ triển khai
+      <b>nếu kết quả nghiên cứu T8–T9 đạt</b> — chưa cam kết ở bản này.</p>
     <div class="pillrow rv">
       <span class="pill on">1 kỹ sư toàn thời gian + hỗ trợ AI</span>
       <span class="pill">Lớp phụ trách: bề mặt vận hành · client · trải nghiệm sản phẩm</span>
@@ -449,22 +449,22 @@ footer{padding:var(--s6) 0 var(--s8);color:var(--muted);font-size:13px}
         <div class="cellnote">—</div><div class="cellnote">—</div><div class="cellnote">—</div>
         <div class="cellnote">—</div><div class="cellnote">—</div><div class="cellnote">—</div>
 
-        <div class="row-l">MVP Office</div>
+        <div class="row-l">MVP Office <span style="font-weight:400;opacity:.7">(dự kiến)</span></div>
         <div class="cellnote">—</div><div class="cellnote">—</div>
         <div class="bar b3">M1</div><div class="bar b3">M2</div><div class="bar b3">M3</div>
         <div class="cellnote">—</div><div class="cellnote">—</div><div class="cellnote">—</div>
 
-        <div class="row-l">Thay Collabora (OneMail)</div>
+        <div class="row-l">Thay Collabora (OneMail) <span style="font-weight:400;opacity:.7">(dự kiến)</span></div>
         <div class="cellnote">—</div><div class="cellnote">—</div><div class="cellnote">—</div>
         <div class="cellnote">—</div><div class="cellnote">—</div>
         <div class="bar b1">xem</div><div class="bar b1">XLSX</div><div class="bar b1">đo</div>
 
-        <div class="row-l">Agent · AI trong tài liệu</div>
+        <div class="row-l">Agent · AI trong tài liệu <span style="font-weight:400;opacity:.7">(dự kiến)</span></div>
         <div class="cellnote">—</div><div class="cellnote">—</div><div class="cellnote">—</div>
         <div class="cellnote">—</div><div class="cellnote">—</div>
         <div class="bar b2">chuẩn bị</div><div class="bar b3">trợ lý v1</div><div class="bar b3">mở rộng</div>
 
-        <div class="row-l">Sửa DOCX · collaboration</div>
+        <div class="row-l">Sửa DOCX · collaboration <span style="font-weight:400;opacity:.7">(dự kiến)</span></div>
         <div class="cellnote">—</div><div class="cellnote">—</div><div class="cellnote">—</div>
         <div class="cellnote">—</div><div class="cellnote">—</div><div class="cellnote">—</div>
         <div class="cellnote">—</div><div class="bar b5">khởi động</div>
@@ -490,9 +490,12 @@ footer{padding:var(--s6) 0 var(--s8);color:var(--muted);font-size:13px}
 <section id="s4">
   <div class="wrap">
     <div class="s-num rv">04 / 08</div>
-    <h2 class="s-title rv">T8 – T9: đưa phần quản trị của Portal lên OneDash</h2>
-    <p class="s-desc rv">Theo nguyên tắc đã chốt ngày 13/08: <b>quản trị dồn về OneDash, billing dồn về
-      Portal</b>. Cloud server clone sang OneDash, không move — Portal vẫn gia hạn bình thường.</p>
+    <h2 class="s-title rv">T8 – T9: gom bề mặt vận hành cloud server/VPS về OneDash</h2>
+    <p class="s-desc rv">Theo nguyên tắc đã chốt ngày 13/08: <b>mua và gia hạn dịch vụ ở Portal, vận hành dịch
+      vụ ở OneDash</b>. Toàn bộ tính năng quản trị cloud server và VPS đang nằm trên Portal gom về OneDash,
+      <b>trừ hạng mục gia hạn</b> — gia hạn là hành vi thương mại nên ở lại Portal. Cloud server clone sang
+      OneDash, không move. Kết quả: khách vận hành ở một nơi thay vì hai, và Portal được trả về đúng vai bề mặt
+      bán.</p>
 
     <div class="g2 rv" style="margin-bottom:var(--s4)">
       <div class="card ok">
@@ -507,7 +510,7 @@ footer{padding:var(--s6) 0 var(--s8);color:var(--muted);font-size:13px}
       <div class="card stop">
         <div class="k">Portal · kinh doanh</div>
         <ul class="scope-list no" style="padding:0">
-          <li>OneDash không làm hoá đơn, thanh toán, gia hạn — chỉ link sang Portal</li>
+          <li><b>Gia hạn, hoá đơn, thanh toán ở lại Portal</b> — OneDash chỉ link sang</li>
           <li>OneDash không viết lại tính năng Portal — client gọi thẳng BE Portal</li>
           <li>Portal ngừng thêm tính năng quản trị mới</li>
         </ul>
@@ -608,13 +611,20 @@ footer{padding:var(--s6) 0 var(--s8);color:var(--muted);font-size:13px}
 <section id="s6">
   <div class="wrap">
     <div class="s-num rv">06 / 08</div>
-    <h2 class="s-title rv">T10 – T12: MVP Office cơ bản</h2>
-    <p class="s-desc rv">MVP = xem chuẩn xác ba định dạng, sửa được một định dạng mà không hỏng file, chạy
+    <h2 class="s-title rv">Phương án MVP Office — dự kiến, chưa cam kết</h2>
+    <p class="s-desc rv">Phần này là <b>phương án dự kiến nếu nghiên cứu T8–T9 cho kết quả đạt</b>, không phải
+      cam kết tiến độ. MVP = xem chuẩn xác ba định dạng, sửa được một định dạng mà không hỏng file, chạy
       được khi mất mạng, và tự triển khai được. Phạm vi cắt từ con số 60 ngày làm việc.</p>
+    <div class="callout warn rv" style="margin-bottom:var(--s3)">
+      <div class="k">Điều kiện để chuyển từ nghiên cứu sang triển khai</div>
+      <p>Chỉ bắt đầu MVP khi sáu đầu ra nghiên cứu ở chặng T8–T9 hoàn tất và cho thấy nền open-source đáp ứng
+        được chất lượng cần thiết. Nếu không đạt thì dừng ở mức nghiên cứu và bố trí lại phần việc — quyết định
+        này chốt cuối T9, không mặc định chạy tiếp.</p>
+    </div>
 
     <div class="scope rv" style="margin-bottom:var(--s4)">
       <div class="scope-col">
-        <div class="scope-hd in">Trong phạm vi<span>cam kết demo được trong 2026</span></div>
+        <div class="scope-hd in">Trong phạm vi<span>dự kiến demo được trong 2026, nếu triển khai</span></div>
         <ul class="scope-list yes">
           <li>SSO tài khoản iNET, quản lý danh sách tệp</li>
           <li>Xem DOCX, XLSX, PDF — lưu lại giống hệt từng byte</li>
@@ -679,7 +689,7 @@ footer{padding:var(--s6) 0 var(--s8);color:var(--muted);font-size:13px}
             <li><b>Ngắt mạng</b> vẫn mở và sửa được; có mạng thì tự đồng bộ.</li>
             <li>Đức <b>tự build image, tự deploy, tự vận hành</b> — không cần trưởng phòng làm thay.</li>
           </ul>
-          <div class="tl-tags"><span class="tag ok">MVP cơ bản</span><span class="tag acc">Cam kết trong 2026</span></div>
+          <div class="tl-tags"><span class="tag ok">MVP cơ bản</span><span class="tag acc">Dự kiến trong 2026</span></div>
         </div>
       </div>
     </div>
@@ -764,10 +774,11 @@ footer{padding:var(--s6) 0 var(--s8);color:var(--muted);font-size:13px}
     </div>
 
     <div class="callout stop rv">
-      <div class="k">Mức cam kết, nói thẳng</div>
-      <p>Đầu 2027 <b>thay được Collabora ở luồng xem và luồng bảng tính</b> — phần này đo được và cam kết
-        được. <b>Tắt hẳn Collabora</b> còn phụ thuộc phần sửa văn bản DOCX, là hạng mục đắt nhất dự án và
-        không nằm trong 60 ngày của MVP.</p>
+      <div class="k">Mức ràng buộc, nói thẳng</div>
+      <p>Toàn bộ phần 2027 dưới đây <b>phụ thuộc việc MVP có được triển khai hay không</b>, mà điều đó chốt
+        cuối T9 theo kết quả nghiên cứu. Nếu có triển khai thì đầu 2027 <b>thay được Collabora ở luồng xem và
+        luồng bảng tính</b> — phần này đo được. <b>Tắt hẳn Collabora</b> còn phụ thuộc phần sửa văn bản DOCX,
+        là hạng mục đắt nhất dự án và không nằm trong 60 ngày của MVP.</p>
     </div>
 
     <h3 class="rv" style="font-size:18px;margin:var(--s6) 0 var(--s2)">Agent trong Office — bắt đầu từ đầu 2027</h3>
