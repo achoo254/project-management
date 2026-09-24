@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Góp ý giá vốn thiết bị</title>
+<style>
+:root{
+  --primary:#0582D4;--primary-2:#619ee9;--primary-soft:#e8f3fc;--red:#E8353C;--red-soft:#fdecec;
+  --success:#16a34a;--success-soft:#e8f7ee;--warning:#d97706;--warning-soft:#fdf3e2;--info:#0582D4;
+  --text:#1a2433;--muted:#5b6778;--line:#e3e8ef;--bg:#f5f7fa;--card:#fff;
+  --r1:4px;--r2:8px;--r3:12px;--r4:16px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --primary-soft:#0d2a40;--red-soft:#3a1618;--success-soft:#10301d;--warning-soft:#35260d;
+  --text:#e6ebf2;--muted:#9aa6b6;--line:#2a3441;--bg:#0f141b;--card:#171e27;}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.6 "Be Vietnam Pro",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px 64px}
+header.hero{background:linear-gradient(120deg,var(--primary),var(--primary-2));color:#fff;padding:32px 0 28px}
+header.hero .eyebrow{font-size:13px;opacity:.85;letter-spacing:.04em;text-transform:uppercase}
+header.hero h1{margin:6px 0 8px;font-size:28px;line-height:1.25}
+header.hero p{margin:0;opacity:.92;max-width:760px}
+nav.toc{position:sticky;top:0;z-index:5;background:var(--card);border-bottom:1px solid var(--line)}
+nav.toc .wrap{display:flex;gap:4px;overflow-x:auto;padding-bottom:0}
+nav.toc a{white-space:nowrap;padding:12px 10px;color:var(--muted);text-decoration:none;font-size:14px;border-bottom:2px solid transparent}
+nav.toc a:hover{color:var(--primary);border-color:var(--primary)}
+section{margin-top:40px}
+h2{font-size:21px;margin:0 0 4px;display:flex;align-items:center;gap:10px}
+h2 .num{background:var(--primary);color:#fff;border-radius:var(--r2);font-size:14px;min-width:28px;height:28px;display:inline-flex;align-items:center;justify-content:center}
+.lead{color:var(--muted);margin:0 0 16px}
+.grid{display:grid;gap:16px}
+.g4{grid-template-columns:repeat(4,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g2{grid-template-columns:repeat(2,1fr)}
+@media(max-width:860px){.g4,.g3{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.g4,.g3,.g2{grid-template-columns:1fr}header.hero h1{font-size:23px}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r3);padding:16px 18px}
+.kpi .v{font-size:26px;font-weight:700;line-height:1.2}
+.kpi .l{font-size:13px;color:var(--muted)}
+.kpi .s{font-size:13px;margin-top:6px}
+.kpi.red .v{color:var(--red)}.kpi.blue .v{color:var(--primary)}.kpi.warn .v{color:var(--warning)}
+.callout{border-radius:var(--r3);padding:14px 18px;border-left:4px solid var(--primary);background:var(--primary-soft);margin:16px 0}
+.callout.red{border-color:var(--red);background:var(--red-soft)}
+.callout.green{border-color:var(--success);background:var(--success-soft)}
+.callout.warn{border-color:var(--warning);background:var(--warning-soft)}
+.callout b.t{display:block;margin-bottom:4px}
+.badge{display:inline-block;font-size:12px;font-weight:600;padding:2px 8px;border-radius:999px;white-space:nowrap}
+.b-high{background:var(--red-soft);color:var(--red)}.b-mid{background:var(--warning-soft);color:var(--warning)}
+.b-low{background:var(--primary-soft);color:var(--primary)}.b-ok{background:var(--success-soft);color:var(--success)}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{font-size:12px;text-transform:uppercase;letter-spacing:.03em;color:var(--muted);font-weight:600}
+td.n,th.n{text-align:right;white-space:nowrap}
+.tbl{overflow-x:auto;background:var(--card);border:1px solid var(--line);border-radius:var(--r3)}
+.tldr{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.tldr li{background:var(--card);border:1px solid var(--line);border-radius:var(--r3);padding:12px 16px 12px 52px;position:relative}
+.tldr li::before{content:attr(data-i);position:absolute;left:14px;top:12px;width:26px;height:26px;border-radius:50%;background:var(--primary);color:#fff;font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center}
+.issue{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;align-items:start}
+.issue h3{margin:0;font-size:16px}
+.issue .body{grid-column:2}
+.issue .say{margin-top:8px;font-size:14px;background:var(--bg);border-radius:var(--r2);padding:8px 12px}
+.issue .say::before{content:"Nói trong họp: ";font-weight:600;color:var(--primary)}
+.lever h3{margin:4px 0 6px;font-size:16px}
+.lever .meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.lever p{margin:0 0 6px;font-size:14px}
+.bar{height:12px;background:var(--line);border-radius:999px;position:relative;overflow:visible;margin:28px 0 30px}
+.bar .fill{height:100%;background:var(--red);border-radius:999px;min-width:4px}
+.bar .mk{position:absolute;top:-22px;font-size:12px;transform:translateX(-50%);white-space:nowrap;color:var(--muted)}
+.bar .mk::after{content:"";position:absolute;left:50%;top:18px;width:2px;height:24px;background:var(--text);opacity:.5}
+.bar .mk.b{top:auto;bottom:-24px}.bar .mk.b::after{top:-26px}
+.mini{display:grid;grid-template-columns:150px 1fr 70px;gap:8px;align-items:center;font-size:13px;margin:6px 0}
+.mini .track{height:10px;background:var(--line);border-radius:999px;overflow:hidden}
+.mini .track i{display:block;height:100%;background:var(--primary);border-radius:999px}
+.mini .track i.r{background:var(--red)}
+ol.q{margin:0;padding-left:22px}ol.q li{margin:6px 0}
+.small{font-size:13px;color:var(--muted)}
+.pill-row{display:flex;gap:8px;flex-wrap:wrap}
+footer{margin-top:48px;font-size:13px;color:var(--muted);border-top:1px solid var(--line);padding-top:16px}
+@media print{nav.toc{display:none}section{break-inside:avoid-page}}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<header class="hero"><div class="wrap">
+  <div class="eyebrow">Chuẩn bị họp · 24/09/2026 chiều · BP Công Nghệ</div>
+  <h1>Góp ý báo cáo tác động giá thiết bị tới giá vốn (bản v2, BP MKT)</h1>
+  <p>Đọc từ góc độ phát triển sản phẩm, lấy khách hàng làm trung tâm: đợt tăng giá thiết bị nên được xử lý sao cho <b>vẫn tìm được khách mới và giữ được khách cũ</b>. Tài liệu đối chiếu báo cáo giá vốn với báo cáo theo dõi đối thủ tuần 38, dữ liệu khách hàng từ họp CXO và số đo thật trên OneDash.</p>
+</div></header>
+
+<nav class="toc"><div class="wrap">
+  <a href="#tldr">Tóm tắt</a><a href="#growth">Khách mới · khách cũ</a><a href="#overview">Tổng quan</a><a href="#review">Góp ý báo cáo</a>
+  <a href="#s3">S3 số đo thật</a><a href="#customer">Customer insight</a><a href="#market">Đối thủ</a><a href="#levers">Đòn bẩy</a><a href="#pricing">Định giá</a>
+  <a href="#questions">Câu hỏi</a><a href="#actions">Hành động</a>
+</div></nav>
+
+<main class="wrap">
+
+<section id="tldr">
+  <h2><span class="num">1</span>Tóm tắt 30 giây</h2>
+  <div class="callout green" style="margin-top:8px"><b class="t">Nguyên tắc xuyên suốt: khách hàng là người trả lương cho chúng ta</b>
+  Khách không trả tiền cho giá ổ cứng của iNET. Khách trả tiền để vấn đề của họ được giải quyết. Vì vậy phản ứng với cú sốc giá thiết bị theo thứ tự: <b>(1)</b> tối ưu phần khách không nhìn thấy; <b>(2)</b> tăng giá trị ở chỗ khách sẵn lòng trả thêm; <b>(3)</b> không để khách hiện hữu chịu thiệt; <b>(4)</b> lấp dung lượng đang trống bằng sản phẩm khách thật sự cần. Chuyển nguyên chi phí sang giá bán là lựa chọn cuối cùng.</div>
+  <ul class="tldr">
+    <li data-i="1"><b>Ghép hai báo cáo của MKT lại thì thấy lời giải nằm ở thiết kế gói.</b> Báo cáo giá vốn nói gói Cloud Server entry 89.000đ đã sát giá vốn, ngụ ý phải tăng giá. Báo cáo đối thủ nói giá vào cửa của thị trường đã rơi về 49.000–70.000đ và đề xuất làm gói dưới 60.000đ. Lời giải không nằm ở con số giá mà ở <b>thiết kế sản phẩm</b>: một gói khởi điểm "bán kết quả" chạy trên hạ tầng dùng chung, giá vốn thấp, thay vì một máy ảo nhỏ.</li>
+    <li data-i="2"><b>Giữ khách cũ trước.</b> Không tăng giá gia hạn vì lý do giá thiết bị. Lần ngừng bán hosting cũ đã làm 71% khách rời đi hẳn. Email Dedicated tăng giá từ 01/10 đúng lúc Viettel IDC giảm 35% và Tenten tặng gấp đôi thời gian cho cả đơn gia hạn, nên cần có ngay kịch bản giữ khách.</li>
+    <li data-i="3"><b>Tìm khách mới bằng thứ đang trống.</b> Cụm S3 84TB (dùng chung cho Object Storage và Drive của OneMail) đã cấp khoảng <b>51TB quota (61%)</b> nhưng khách mới thật sự dùng khoảng <b>1,8TB (2,1%)</b>, theo số đo prod ngày 23/09. Đóng gói "Sao lưu một chạm" cho tập khách hosting và email hiện có là cách lấp dung lượng nhanh nhất. Theo báo cáo đối thủ tuần 38, chưa thấy đối thủ Việt Nam nào có Object Storage không tính phí truyền tải.</li>
+    <li data-i="4"><b>Báo cáo giá vốn đúng chẩn đoán nhưng chưa nên dùng để chốt giá:</b> còn 3 lỗi phương pháp (so với gói rẻ nhất; coi máy mới bằng máy cũ; mốc dài hạn của Cloud Server dùng cấu hình 8 SSD trong khi thực mua 4 SSD) và một câu hỏi có thể đảo kết luận về Email: "8.949 gói" là số gói dịch vụ hay số hộp thư (portal chỉ có khoảng 1.760 dịch vụ email Active). Báo cáo cũng chưa có phần phản ứng của khách hàng.</li>
+    <li data-i="5"><b>Tối ưu phần khách không nhìn thấy:</b> mua ổ 4TB thay 2TB (tiết kiệm khoảng <b>338 triệu</b>, cần báo giá NVMe 4TB để chốt), thu hồi ổ từ cụm CEPH của VPS, đo mức dùng thật để bán vượt có kiểm soát. Các việc này hạ giá vốn mà không đụng tới khách.</li>
+  </ul>
+</section>
+
+<section id="growth">
+  <h2><span class="num">2</span>Đề xuất lấy khách hàng làm trung tâm: tìm khách mới và giữ khách cũ</h2>
+  <p class="lead">Mỗi đề xuất đi theo mạch: khách đang gặp vấn đề gì, iNET giải quyết thế nào, và tác động ra sao tới giá vốn. Bằng chứng nằm ở mục 5–7.</p>
+
+  <div class="grid g2">
+    <div class="card" style="border-top:4px solid var(--primary)">
+      <h3 style="margin:0 0 8px;font-size:17px">🎯 Tìm khách mới</h3>
+      <div class="lever">
+        <h3>N1. Gói khởi điểm "bán kết quả" thay cho máy ảo giá rẻ</h3>
+        <p><b>Vấn đề của khách:</b> "Tôi vừa làm app bằng AI, giờ đưa lên mạng thế nào?" hoặc "Tôi cần chạy n8n". Khách không cần một máy ảo, khách cần thứ đó chạy được.</p>
+        <p><b>Giải pháp:</b> gói starter chạy trên hạ tầng dùng chung (OneSite, ứng dụng trên OnePanel, n8n có quản trị), mở bằng tình huống của khách như Mắt Bão đang làm. Đáp lại vùng giá 49.000–70.000đ của Long Vân, Mắt Bão và BKNS.</p>
+        <p><b>Giá vốn:</b> mật độ cao nên giá vốn mỗi khách thấp hơn nhiều so với máy ảo có ổ riêng. Nhờ đó iNET không phải hạ giá CS-Linux 1 xuống dưới giá vốn, cũng không phải tăng giá nó.</p>
+      </div>
+      <hr style="border:0;border-top:1px solid var(--line);margin:12px 0">
+      <div class="lever">
+        <h3>N2. Một thuê bao AI đổi được công cụ (n8n, OpenClaw, Hermes)</h3>
+        <p><b>Vấn đề của khách:</b> sợ chọn sai là mất tiền. Hostinger đã giải đúng nỗi sợ này và công bố hơn 100.000 tác nhân OpenClaw đang chạy (theo báo cáo đối thủ tuần 38).</p>
+        <p><b>Giá vốn:</b> một thuê bao chạy công cụ khách đang dùng, thay vì 3 Cloud Server riêng. Ít tài nguyên nằm im hơn.</p>
+      </div>
+      <hr style="border:0;border-top:1px solid var(--line);margin:12px 0">
+      <div class="lever">
+        <h3>N3. Mở cửa vào S3 cho khách phổ thông: "Sao lưu một chạm"</h3>
+        <p><b>Vấn đề của khách:</b> sợ mất website và mất mail, nhưng không biết S3 là gì. Hiện S3 chỉ có cửa vào qua OneDash, nơi tập khách này không bao giờ tới.</p>
+        <p><b>Giải pháp:</b> nút sao lưu ngay trong OnePanel, OneMail và Portal, lưu vào Object Storage; cảnh báo và báo cáo gửi qua Zalo. Nên kéo hạng mục "sao lưu như một dịch vụ" từ Q2/2027 (lộ trình trong báo cáo đối thủ) lên sớm hơn, vì cụm S3 đã mua xong và dữ liệu thật mới chiếm khoảng 2%.</p>
+        <p><b>Giá vốn:</b> đưa cụm S3 từ khoảng 2% dữ liệu thật lên gần ngưỡng hoà vốn bằng chính tập khách đang có, không tốn chi phí thu hút khách mới.</p>
+      </div>
+      <hr style="border:0;border-top:1px solid var(--line);margin:12px 0">
+      <div class="lever">
+        <h3>N4. Dùng thử có chủ đích, hoặc bảo đảm hoàn tiền</h3>
+        <p><b>Vấn đề hiện tại:</b> 325 gói trial Cloud Server chỉ chuyển đổi 2,6%, trong khi phần cứng vẫn phải cấp cho cả 325 gói. Hostinger dùng bảo đảm hoàn tiền 30 ngày thay cho dùng thử.</p>
+        <p><b>Đề xuất:</b> thử song song hai cách với hai nhóm khách (A/B): trial nhỏ chạy trên máy đã hết khấu hao, và bảo đảm hoàn tiền. Đo xem cách nào chuyển đổi tốt hơn.</p>
+      </div>
+      <hr style="border:0;border-top:1px solid var(--line);margin:12px 0">
+      <div class="lever">
+        <h3>N5. Bán bằng tổng chi phí trung thực, không bằng giá mồi</h3>
+        <p>Báo cáo đối thủ đã chỉ ra: tính trên 3 năm, khoảng cách giữa iNET và giá mồi 25.000đ nhỏ hơn nhiều so với cảm giác. Làm bảng tổng chi phí cho Cloud Server n8n so với n8n Cloud, Make, Zapier, như Vinahost đã làm. Cạnh tranh bằng sự rõ ràng thì không phải hạ giá.</p>
+      </div>
+    </div>
+
+    <div class="card" style="border-top:4px solid var(--success)">
+      <h3 style="margin:0 0 8px;font-size:17px">🤝 Giữ khách cũ</h3>
+      <div class="lever">
+        <h3>R1. Không để khách hiện hữu trả tiền cho giá ổ cứng</h3>
+        <p>Giữ nguyên giá gia hạn cho khách đang dùng; mọi điều chỉnh chỉ áp cho gói thế hệ mới của khách mới. Giữ đúng lời hứa "trọn đời" đã đưa ra. Bằng chứng: 71% khách hosting cũ rời đi hẳn khi bị ngừng gói.</p>
+      </div>
+      <hr style="border:0;border-top:1px solid var(--line);margin:12px 0">
+      <div class="lever">
+        <h3>R2. Kịch bản giữ khách Email trước 01/10</h3>
+        <p><b>Tình huống:</b> Email Dedicated tăng 12–32% từ 01/10, trong khi Tenten tặng gấp đôi thời gian cho cả đơn gia hạn và Viettel IDC chạy combo giảm 35%.</p>
+        <p><b>Đề xuất:</b> báo sớm cho khách gia hạn tháng 10–11; cho khóa giá cũ nếu gia hạn dài hạn trước 01/10. Khách được lợi, còn iNET <b>thu tiền trước để bù vốn đầu tư</b>. Với email thường, báo cáo tính giá vốn trước mắt chỉ tăng 5,4%, nhưng kết luận này còn chờ làm rõ "8.949 gói" là gói dịch vụ hay hộp thư (mục 4). Trong lúc chờ, không nên dùng giá thiết bị làm lý do tăng giá email.</p>
+      </div>
+      <hr style="border:0;border-top:1px solid var(--line);margin:12px 0">
+      <div class="lever">
+        <h3>R3. Tăng giá trị trước, tăng giá sau</h3>
+        <p>Nếu cần tăng doanh thu mỗi khách thì làm một tầng có quản trị (cập nhật, sao lưu, bảo mật do iNET lo). Theo báo cáo đối thủ tuần 38, Hostinger bán gói có quản trị đắt gấp khoảng 2,8 lần iNET mà vẫn có khách. Ngoài ra đưa OneShield+, sao lưu và cảnh báo Zalo vào gói. Khách trả thêm cho thứ họ thấy được.</p>
+      </div>
+      <hr style="border:0;border-top:1px solid var(--line);margin:12px 0">
+      <div class="lever">
+        <h3>R4. Phát hiện sớm khách sắp rời</h3>
+        <p>Hiện lớp customer insight mới gắn cờ nguy cơ rời bỏ cho người dùng OneDash (20 tài khoản, báo cáo T7), chưa phủ khách hosting và email. Đề xuất mở rộng cùng cách làm sang hosting và email: lập danh sách khách im lặng, dùng giảm dần hoặc sắp gia hạn, rồi đẩy tới CSKH trước kỳ gia hạn tháng 10–11. Giữ một khách cũ rẻ hơn tìm một khách mới.</p>
+      </div>
+      <hr style="border:0;border-top:1px solid var(--line);margin:12px 0">
+      <div class="lever">
+        <h3>R5. Chuyển khách VPS sang Cloud Server theo cách khách được lợi</h3>
+        <p>Chuyển hộ miễn phí, giữ giá hoặc cho khách tốt hơn, có người đồng hành. Làm tốt thì iNET được thêm phần lợi phụ: thu hồi 288 ổ SSD (khoảng 9,9 tỷ nếu mua mới). Nếu ép buộc sẽ lặp lại kịch bản rời bỏ của hosting cũ.</p>
+      </div>
+      <hr style="border:0;border-top:1px solid var(--line);margin:12px 0">
+      <div class="lever">
+        <h3>R6. Giữ niềm tin bằng giá minh bạch</h3>
+        <p>Không chạy theo mô hình "rẻ năm đầu, gia hạn gấp đôi" (Hostinger, giá mồi 25.000đ). Bậc chiết khấu công khai 0–30% của iNET là điểm trung thực nên nói to hơn. Khách phổ thông quay lại vì tin, không vì rẻ một lần.</p>
+      </div>
+      <hr style="border:0;border-top:1px solid var(--line);margin:12px 0">
+      <div class="lever">
+        <h3>R7. Giúp khách dùng thứ họ đã được cấp</h3>
+        <p><b>Số đo prod 23/09:</b> 45.902 tài khoản OneMail được bật Drive, nhưng chỉ 14,5% từng tải file lên. Khách đang trả tiền cho một giá trị mà họ chưa nhận ra.</p>
+        <p><b>Đề xuất:</b> hướng dẫn ngay trong hộp thư (ví dụ "lưu tệp đính kèm lớn vào Drive"), tự động lưu tệp đính kèm, gửi nhắc qua Zalo. Khách dùng Drive thì khó rời OneMail hơn. Chi phí gần như bằng 0 vì dữ liệu thật trên cụm mới khoảng 2%.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <b>Kiểm tra các đề xuất trong báo cáo giá vốn theo góc khách hàng</b>
+    <p class="small" style="margin:4px 0 8px">Ba câu hỏi cho mỗi đề xuất: khách được thêm gì? khách hiện hữu có bị thiệt không? khách phổ thông có hiểu ngay trong một màn hình không?</p>
+    <div class="tbl" style="border:0"><table>
+      <tr><th>Đề xuất (từ báo cáo hoặc có thể suy ra)</th><th>Khách được gì</th><th>Khách cũ thiệt?</th><th>Kết luận</th></tr>
+      <tr><td>Tăng giá gói Cloud Server Linux 1 vì sát giá vốn</td><td>Không gì</td><td>Có (khi gia hạn)</td><td><span class="badge b-high">Không nên</span> Thay bằng N1 cùng SKU mới cho khách mới</td></tr>
+      <tr><td>Cắt dung lượng Email tặng kèm</td><td>Mất bớt giá trị</td><td>Có</td><td><span class="badge b-mid">Chờ số đo</span> Khách dùng ít thì cắt cũng tiết kiệm được rất ít</td></tr>
+      <tr><td>Tính lại KM −40% trọn đời của Turbo Business</td><td>—</td><td>Có, nếu áp cho khách cũ</td><td><span class="badge b-ok">Chỉ khách mới</span> Giữ lời hứa với khách cũ</td></tr>
+      <tr><td>Chuyển S3 sang replicate 3 kèm tăng giá</td><td>An toàn hơn</td><td>Có</td><td><span class="badge b-mid">Xem EC 2+2</span> An toàn hơn mà không cần tăng giá</td></tr>
+      <tr><td>Kéo dài khấu hao lên 48 tháng</td><td>Không đổi</td><td>Không</td><td><span class="badge b-ok">Nên xem</span> Khách không nhìn thấy</td></tr>
+      <tr><td>Mua ổ 4TB, bán vượt có kiểm soát, thu hồi ổ CEPH</td><td>Không đổi</td><td>Không</td><td><span class="badge b-ok">Nên làm</span> Hạ giá vốn mà không đụng tới khách</td></tr>
+    </table></div>
+  </div>
+</section>
+
+<section id="overview">
+  <h2><span class="num">3</span>Tổng quan báo cáo</h2>
+  <p class="lead">Các con số chính. Tôi đã đối chiếu HTML với Excel: số liệu khớp với nhau (chỉ lệch nhỏ do quy 1TB = 1024GB).</p>
+  <div class="grid g4">
+    <div class="card kpi blue"><div class="l">Vốn đợt đầu tư (14 máy)</div><div class="v">3,73 tỷ</div><div class="s">theo giá T12/2025: 0,84 tỷ · <b>+342%</b></div></div>
+    <div class="card kpi red"><div class="l">Phần đội thêm</div><div class="v">+2,89 tỷ</div><div class="s">SSD 38,9% · RAM 29,9% · NVMe 25,9%</div></div>
+    <div class="card kpi warn"><div class="l">Cloud Server: giá vốn / gói Linux 1</div><div class="v">94,6%</div><div class="s">giá vốn cũ (T12/2025) 84.208 đ so với giá 89.000 đ; khi lấp đầy khoảng 99.950 đ, tức 112%</div></div>
+    <div class="card kpi red"><div class="l">S3: giá vốn ở mức dùng 70%</div><div class="v">1.523 đ/GB</div><div class="s">vượt gói Pro (1.300 đ) 17,2%</div></div>
+  </div>
+
+  <div class="grid g2" style="margin-top:16px">
+    <div class="card">
+      <b>Giá vốn/gói theo 3 mốc: 5 dòng có máy mới</b>
+      <p class="small" style="margin:4px 0 10px">Thanh xanh là "khi lấp đầy" (mốc ổn định của đợt này), thanh đỏ là "thay mới toàn bộ" (mốc lý thuyết để định giá dài hạn).</p>
+      <div class="mini"><span>Cloud Server</span><div class="track"><i style="width:10.1%"></i></div><span>+18,7%</span></div>
+      <div class="mini"><span></span><div class="track"><i class="r" style="width:82%"></i></div><span>+146,8%</span></div>
+      <div class="mini"><span>Email</span><div class="track"><i style="width:3%"></i></div><span>+5,4%</span></div>
+      <div class="mini"><span></span><div class="track"><i class="r" style="width:50.9%"></i></div><span>+90,8%</span></div>
+      <div class="mini"><span>Wordpress Hosting</span><div class="track"><i style="width:4.7%"></i></div><span>+8,3%</span></div>
+      <div class="mini"><span></span><div class="track"><i class="r" style="width:36.5%"></i></div><span>+65,2%</span></div>
+      <div class="mini"><span>Cloud Hosting</span><div class="track"><i style="width:5%"></i></div><span>+8,9%</span></div>
+      <div class="mini"><span></span><div class="track"><i class="r" style="width:31.1%"></i></div><span>+55,5%</span></div>
+      <div class="mini"><span>Turbo (cPanel)</span><div class="track"><i style="width:3.5%"></i></div><span>+6,3%</span></div>
+      <div class="mini"><span></span><div class="track"><i class="r" style="width:19.4%"></i></div><span>+34,7%</span></div>
+    </div>
+    <div class="card">
+      <b>Đọc báo cáo theo góc sản phẩm</b>
+      <table style="margin-top:8px">
+        <tr><th>Nhóm</th><th>Áp lực thật</th><th>Ý nghĩa sản phẩm</th></tr>
+        <tr><td>S3 Object Storage</td><td><span class="badge b-high">Cao nhất</span></td><td>Thực chất là bán ổ cứng. Rủi ro nằm ở đầu ra.</td></tr>
+        <tr><td>Cloud Server</td><td><span class="badge b-high">Cao</span></td><td>Chiếm 66% vốn đợt này. Gói entry đã sát giá vốn.</td></tr>
+        <tr><td>Email</td><td><span class="badge b-mid">Trung bình</span></td><td>Dung lượng tặng kèm là biến số chính.</td></tr>
+        <tr><td>Hosting OnePanel</td><td><span class="badge b-ok">Thấp</span></td><td>Biên còn rộng. Máy mới dày hơn nên có thể còn rẻ đi.</td></tr>
+        <tr><td>Hosting cPanel</td><td><span class="badge b-ok">Thấp</span></td><td>Bản quyền pha loãng. Cần xem lại KM 40% trọn đời.</td></tr>
+        <tr><td>Cloud VPS, AMD</td><td><span class="badge b-low">Chưa phát sinh</span></td><td>Không mua máy mới. Chỉ ảnh hưởng quyết định mở rộng.</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="callout green"><b class="t">Điểm mạnh nên ghi nhận trong họp</b>
+  Báo cáo tách riêng phần do tỷ giá và phần do linh kiện; tách 3 mốc để không ai lấy một con số duy nhất; tự cảnh báo rằng chỉ số "giá vốn / giá gói rẻ nhất" chỉ là chỉ báo áp lực; tính lại cả 13 loại máy khớp hồ sơ; nêu rõ các giả định (70%, ổ 7.68TB, R640). Đây là nền tốt để làm tiếp.</div>
+</section>
+
+<section id="review">
+  <h2><span class="num">4</span>Góp ý báo cáo: cần sửa trước khi dùng để chốt giá</h2>
+  <p class="lead">Mỗi mục có bằng chứng và một câu gợi ý để nói trong họp. Sắp theo mức ảnh hưởng tới kết luận.</p>
+
+  <div class="grid" style="gap:12px">
+  <div class="card issue"><span class="badge b-high">Cao</span><h3>So giá vốn bình quân với giá gói rẻ nhất là so lệch</h3>
+    <div class="body">Giá vốn là bình quân trên mọi gói (to lẫn nhỏ), còn mẫu số là gói nhỏ nhất. Con số "Cloud Server 233,5%" ở cột thay mới toàn bộ dễ bị đọc nhầm thành "lỗ 2,3 lần". Hai phép so đúng là: <b>giá vốn bình quân so với doanh thu bình quân mỗi gói (ARPU)</b>, lấy doanh thu thực đã trừ chiết khấu kỳ hạn và khuyến mãi; hoặc <b>giá vốn theo đơn vị tài nguyên</b> (đ/vCPU, đ/GB RAM, đ/GB SSD) rồi ráp thành giá vốn cho từng gói.
+    <div class="say">Để quyết giá từng gói, mình cần giá vốn theo từng gói hoặc ARPU thực. Tỷ lệ so với gói rẻ nhất chỉ nên dùng làm cờ cảnh báo.</div></div></div>
+
+  <div class="card issue"><span class="badge b-high">Cao</span><h3>Mốc "khi lấp đầy" coi máy mới có năng lực bằng máy cũ</h3>
+    <div class="body">Báo cáo giả định "số gói tăng theo số máy". Nhưng theo sheet <i>Dot dau tu moi</i>, cấu hình máy mới khác máy đang chạy:
+    <table style="margin:8px 0">
+      <tr><th>Loại máy</th><th>Đang chạy</th><th>Mua đợt này</th></tr>
+      <tr><td>Cloud Hosting / Turbo (cPanel)</td><td>4 RAM · 4×NVMe 2TB</td><td><b>8 RAM · 4×NVMe 4TB</b> (gấp 2)</td></tr>
+      <tr><td>Wordpress Hosting</td><td>4 RAM · 4×SSD 2TB</td><td><b>8 RAM · 4×SSD 4TB</b> (gấp 2)</td></tr>
+      <tr><td>Cloud Server Linux/Windows</td><td>16 RAM · 8×SSD 2TB</td><td>16 RAM · <b>4×SSD 2TB</b> (một nửa ổ)</td></tr>
+    </table>
+    Nếu máy mới chứa được gấp đôi số gói thì khi lấp đầy, giá vốn Cloud Hosting còn khoảng <b>16.900 đ (−4,7% so với T12/2025)</b> thay vì +8,9%, còn Wordpress khoảng <b>9.300 đ (−2,5%)</b>. Tức là đầu tư máy dày hơn còn làm giá vốn giảm, vì bản quyền, thuê chỗ và vận hành được chia cho nhiều gói hơn. Kết luận phụ thuộc vào tài nguyên nào là nút thắt (CPU vẫn là Gold 6154 như cũ).
+    <div class="say">Đề nghị tính năng lực theo đơn vị bán được (GB, RAM), không theo số máy, và KT xác nhận nút thắt của từng dòng là CPU, RAM hay ổ.</div></div></div>
+
+  <div class="card issue"><span class="badge b-high">Cao</span><h3>Mốc "thay mới toàn bộ" của Cloud Server có thể bị phóng đại</h3>
+    <div class="body">Mục 2 tính máy Cloud Server Linux/Windows với <b>8 SSD 2TB, 380 triệu/máy</b>, trong khi bảng kê đợt này mua cấu hình <b>4 SSD, 242 triệu/máy</b>. Nếu cấu hình 4 SSD là chuẩn cho các đợt thay sau, mức +146,8% sẽ thấp hơn đáng kể. Đây lại chính là con số được đề xuất làm căn cứ giá bán dài hạn.
+    <div class="say">Mốc dài hạn nên dùng cấu hình chuẩn mà mình sẽ thực mua, không dùng cấu hình lịch sử.</div></div></div>
+
+  <div class="card issue"><span class="badge b-high">Cao</span><h3>Email: "8.949 gói" là đơn vị gì?</h3>
+    <div class="body">Báo cáo giá vốn chia chi phí Email (92,4 triệu/tháng) cho <b>8.949 gói</b>, ra 10.321đ/gói, bằng khoảng 21% gói A (49.000đ). Nhưng báo cáo Email trên portal (kỳ 01/01–30/09/2026) chỉ có <b>1.759 dịch vụ email Active</b> (1.489 OneMail, 268 forwarding không chiếm lưu trữ). Nếu 8.949 là số hộp thư, còn giá bán tính theo gói dịch vụ, thì giá vốn bình quân theo dịch vụ Active là khoảng <b>52.500đ</b>, cao hơn cả gói A. Kết luận "Email biên còn rộng" có thể sai hoàn toàn. Nếu chi phí đang gánh cả tenant đã ngừng, cần tách phần đó ra.
+    <div class="say">Đơn vị 8.949 là gói dịch vụ hay hộp thư? Trên portal hiện chỉ có khoảng 1.760 dịch vụ email Active.</div></div></div>
+  <div class="card issue"><span class="badge b-mid">TB</span><h3>S3: đang gộp hai biến số có tác động ngược chiều</h3>
+    <div class="body">(1) <b>Tỷ lệ lấp đầy cụm</b>, tức dung lượng đã bán so với 84TB: thấp thì giá vốn mỗi GB bán ra tăng. (2) <b>Tỷ lệ khách dùng thật trên quota đã mua</b>: gói S3 bán theo quota (OneDash cấp quota 10GB/100GB cho mỗi tài khoản), nên khách chỉ dùng 70% quota lại là <b>cơ hội bán vượt (overcommit)</b> chứ không làm giá vốn tăng. Báo cáo viết "khách dùng bao nhiêu phần dung lượng đã mua" nhưng tính theo nghĩa (1).
+    <div class="say">Con số 70% là lấp đầy cụm hay mức dùng quota? Hai cách hiểu cho hai chính sách ngược nhau.</div></div></div>
+
+  <div class="card issue"><span class="badge b-mid">TB</span><h3>Giả định "giữ nguyên giá" làm thấp giá vốn một số dòng</h3>
+    <div class="body">Linh kiện không có báo giá mới thì được giữ giá cũ: RAM 2933 ($44), RAM 3200 ($275), HDD 18TB. Nhưng RAM DDR4 2400 và 2666 đều tăng khoảng 5–6 lần, nên việc RAM 2933 đứng yên là khó tin. Vì vậy Turbo Business (RAM 2933), AMD (RAM 3200, ổ 7.68TB suy diễn) và Images (HDD) có thể đang bị đánh giá thấp. Thêm nữa, giá SSD 2TB chỉ neo vào một báo giá duy nhất ($1.300).
+    <div class="say">Đề nghị thêm bảng độ nhạy ±20–30% cho giá SSD và RAM, và lấy báo giá cho các linh kiện đang để "giữ nguyên".</div></div></div>
+
+  <div class="card issue"><span class="badge b-mid">TB</span><h3>Excel có dòng lẫn đơn vị năm và tháng (Cloud VPS)</h3>
+    <div class="body">Sheet <i>Ty trong &amp; Gia von DV</i>, dòng Cloud VPS: cột "Tổng giá vốn/tháng" là 1,54 tỷ, suy ra giá vốn <b>2.088.672 đ/gói/tháng</b> (và 5,8 triệu ở mốc mới). Con số này gấp đúng 12 lần số 174.056 đ trong báo cáo HTML, nên nhiều khả năng dòng này đang ở đơn vị năm. Cần sửa trước khi file Excel được chuyển đi, vì ai lọc riêng sheet này sẽ thấy VPS "lỗ gấp 3 lần giá bán".
+    <div class="say">Có một lỗi đơn vị ở sheet tỷ trọng, dòng Cloud VPS. Nhờ MKT sửa trước khi gửi rộng.</div></div></div>
+
+  <div class="card issue"><span class="badge b-mid">TB</span><h3>S3 chạy replicate 2 trên production; replicate 3 không phải lựa chọn duy nhất</h3>
+    <div class="body">Replicate 2 chỉ chịu được 1 node hỏng, là mức an toàn thấp cho dịch vụ lưu dữ liệu của khách. Báo cáo chỉ so với replicate 3 (giá vốn 1.599 đ/GB). Với 4 node, Ceph còn có erasure coding:
+    <table style="margin:8px 0"><tr><th>Cấu hình</th><th class="n">Dung lượng khả dụng</th><th class="n">Giá vốn khi lấp đầy</th><th>Chịu hỏng</th></tr>
+      <tr><td>Replicate 2 (hiện tại)</td><td class="n">84 TB</td><td class="n">1.066 đ/GB</td><td>1 node</td></tr>
+      <tr><td>EC 2+2</td><td class="n">84 TB</td><td class="n">1.066 đ/GB</td><td><b>2 node</b></td></tr>
+      <tr><td>EC 2+1</td><td class="n"><b>112 TB</b></td><td class="n"><b>~800 đ/GB</b></td><td>1 node</td></tr>
+      <tr><td>Replicate 3</td><td class="n">56 TB</td><td class="n">1.599 đ/GB</td><td>2 node</td></tr></table>
+    Đổi lại, EC tốn CPU hơn và chậm hơn với object nhỏ. Cần KT (KienVT) đánh giá trên cụm thật.
+    <div class="say">Trước khi nói "an toàn hơn thì phải tăng giá", nhờ KT xem EC 2+2: an toàn như replicate 3 mà dung lượng không đổi.</div></div></div>
+
+
+  <div class="card issue"><span class="badge b-low">Thấp</span><h3>Thuật ngữ "điểm hoà vốn" và thiếu trục thời gian</h3>
+    <div class="body">"Hoà vốn 5.100 gói" của Cloud Server thực ra là điểm mà giá vốn mỗi gói quay về mức cũ (84.208 đ), không phải hoà vốn lợi nhuận, và được tính với giả định mọi chi phí là cố định. Điều quan trọng hơn là cần thêm khoảng 1.537 gói <b>trong bao lâu</b>: nếu tốc độ tăng ròng hiện tại thấp, thời gian lấp đầy sẽ tiến gần 36 tháng khấu hao. Báo cáo chưa có tốc độ tăng gói, tỷ lệ rời bỏ (churn) hay doanh thu thực.
+    <div class="say">Mỗi tháng Cloud Server đang tăng ròng bao nhiêu gói? Từ con số đó mới biết 10 máy là vừa hay thừa.</div></div></div>
+  </div>
+</section>
+
+<section id="s3">
+  <h2><span class="num">5</span>S3 Object Storage: số đo thật từ OneDash</h2>
+  <p class="lead">Báo cáo ghi "mức dùng 70% là giả định, cần thay bằng số thực khi có". Phía Công Nghệ đã có số này.</p>
+  <div class="grid g4">
+    <div class="card kpi blue"><div class="l">Tài khoản S3 từng tạo</div><div class="v">25</div><div class="s">phần lớn là trial đã hết hạn hoặc tài khoản nội bộ</div></div>
+    <div class="card kpi"><div class="l">Đang active</div><div class="v">7</div><div class="s">2 gói PRO_P1 · 5 trial</div></div>
+    <div class="card kpi red"><div class="l">Quota đang cấp</div><div class="v">~250 GB</div><div class="s">2×100GB trả phí + 5×10GB trial</div></div>
+    <div class="card kpi red"><div class="l">Dữ liệu thật trên cụm 84 TB</div><div class="v">~2,1%</div><div class="s">Drive 1,52TB + S3 ≤0,25TB · quota đã cấp ~61%</div></div>
+  </div>
+  <div class="card" style="margin-top:16px">
+    <b>Mức lấp đầy cụm so với ngưỡng hoà vốn</b>
+    <div class="bar"><div class="fill" style="width:2.1%"></div>
+      <span class="mk" style="left:66.6%">Enterprise hoà vốn 66,6%</span>
+      <span class="mk b" style="left:82%">Pro hoà vốn 82%</span>
+      <span class="mk b" style="left:4%">Dữ liệu thật ~2,1% (quota đã cấp ~61%)</span>
+    </div>
+    <p class="small" style="margin:0">Nguồn: OneDash (hệ kh), danh sách dịch vụ Object Storage, đối chiếu quota lúc 01:51 ngày 24/09/2026. Phần S3 tính theo quota đã cấp. Phần Drive của OneMail (cùng cụm) lấy từ snapshot hằng ngày trên Mongo production (collection <code>adminusageinfodrives</code>, số liệu lấy từ Ceph RGW), bản ngày 23/09/2026: <b>6.650 domain, quota đã cấp 50,83TB, đã dùng 1,515TB</b>. Doanh thu ước tính: 2 × 100GB × 1.300 đ ≈ <b>260 nghìn đ/tháng</b>, so với chi phí cụm khoảng <b>91,7 triệu đ/tháng</b> (3,30 tỷ / 36 tháng).</p>
+  </div>
+  <div class="callout red"><b class="t">Hàm ý</b>
+  Tranh luận Pro 1.300 đ/GB lỗ hay lãi ở mức 70% hay 82% hiện chưa phải việc gấp nhất. Việc gấp là <b>đưa dung lượng ra thị trường</b>: khoảng 10 khách ngoài đã dùng thử nhưng mới có 2 khách trả phí. Và như đã ghi ở bản đồ sản phẩm, S3 hiện chỉ có cửa vào qua OneDash, trong khi tệp khách phổ thông không vào OneDash. Nên tăng giá lúc này sẽ làm chậm thêm đầu ra.</div>
+  <div class="callout warn"><b class="t">Drive của OneMail lưu trên cùng cụm S3: báo cáo đang bỏ sót điều này</b>
+  <b>(1) Phân bổ chi phí sai.</b> Báo cáo tính Object Storage như một dịch vụ độc lập gánh trọn 3,30 tỷ. Thực tế cụm phục vụ cả Drive của OneMail, nên phải chia chi phí cụm theo dung lượng dùng cho cả hai. Như vậy giá vốn mỗi GB của Object Storage và giá vốn Email đều cần tính lại.<br>
+  <b>(2) Quota đã cấp 61% nhưng dữ liệu thật chỉ 2%.</b> Drive đã cấp <b>50,8TB quota</b> cho 6.650 domain, khách mới dùng <b>1,52TB, tức 3,0% quota</b>. Từ 07/2025 đến nay dữ liệu Drive chỉ tăng khoảng 100GB mỗi tháng. Giả định "khách dùng 70%" trong báo cáo lệch rất xa thực tế. Hệ quả: nếu chỉ bán theo quota mà không bán vượt, phần còn lại cho Object Storage chỉ khoảng 33TB. Muốn bán thêm thì phải có chính sách bán vượt có kiểm soát, và số đo cho thấy việc đó an toàn.<br>
+  <b>(2b) Cách chia chi phí làm thay đổi hẳn kết luận.</b> Nếu chia chi phí cụm theo quota, Email phải gánh khoảng 61% (khoảng 56 triệu/tháng), gần bằng 60% toàn bộ giá vốn Email hiện tại (92 triệu/tháng). Nếu chia theo dữ liệu thật, phần của Email không đáng kể. Đề xuất chia theo dữ liệu thật, đi cùng với chính sách bán vượt.<br>
+  <b>(2c) Phần lớn quota thuộc về tenant không còn trả phí.</b> Mongo có 6.650 domain được cấp quota Drive nhưng không phân biệt tenant còn dùng hay đã ngừng. Đối chiếu với báo cáo Email trên portal (kỳ 01/01–30/09/2026): chỉ <b>1.489 dịch vụ OneMail (email-062025) đang Active</b> trên tổng 2.111; toàn hệ có 800 trial, 643 đã xoá, 827 email-lite không còn active. Như vậy con số "61% quota đã cấp" bị thổi phồng bởi quota của tenant đã hết hạn nhưng chưa thu hồi. Cần chính sách thu hồi quota: báo trước cho khách, cho tải dữ liệu về, rồi mới giải phóng.<br>
+  <b>(3) Cần một chỉ số chung cho cả cụm.</b> Theo dõi dung lượng thực đã dùng của cả cụm (Object Storage + Drive + các tải khác sau này), kèm ngưỡng cảnh báo khi cụm đầy. Không theo dõi riêng lẻ từng dịch vụ.</div>
+</section>
+
+<section id="customer">
+  <h2><span class="num">6</span>Customer insight: khách sẽ phản ứng thế nào?</h2>
+  <p class="lead">Báo cáo mới trả lời câu hỏi "giá vốn tăng bao nhiêu", chưa trả lời "nếu chuyển chi phí sang giá bán thì khách phản ứng ra sao". Dưới đây là những gì dữ liệu khách hàng iNET đã cho thấy, lấy từ biên bản CXO 07/07 và 04/08/2026 cùng số đo trên OneDash.</p>
+
+  <div class="callout warn"><b class="t">Bối cảnh cần nhắc trong họp</b>
+  Tại họp CXO 07/07, BLĐ đã góp ý báo cáo của MKT: mới dừng ở số liệu nội bộ, còn thiếu thị trường, đối thủ, lý do khách huỷ và khách đi đâu. Báo cáo giá vốn lần này đang lặp lại khoảng trống đó ở phía cầu. Nên đề nghị bản v3 có thêm một phần về phản ứng của khách hàng.</div>
+
+  <div class="grid g2">
+    <div class="card lever"><span class="badge b-high">Insight 1</span><h3>Gói "hoà vốn" lại chính là động cơ tăng trưởng</h3>
+      <p>Cloud Server tháng 7 đạt <b>1,19 tỷ doanh thu (+97% YoY, 28,7% tổng doanh thu)</b>. Nếu bỏ Cloud Server, doanh thu iNET giảm so với cùng kỳ. Trong đó <b>CS-Linux là dòng chủ lực: 396 gói Active, chiếm 70,4% doanh thu đăng ký mới</b>. Đây đúng là dòng mà báo cáo cảnh báo giá vốn đã bằng 94,6% giá gói entry.</p>
+      <p><b>Hàm ý:</b> tăng giá gói entry CS-Linux là đánh vào cửa vào của nguồn tăng trưởng duy nhất. BLĐ cũng đã nhận định thị trường Cloud Server đang bão hoà với nhiều nhà cung cấp nhỏ, tức là khách Cloud Server so giá rất dễ.</p></div>
+    <div class="card lever"><span class="badge b-high">Insight 2</span><h3>Đổi gói hoặc ép giá làm mất khách thật</h3>
+      <p>Khi ngừng bán 3 dòng hosting cũ, <b>71% khách rời hệ thống hoàn toàn</b>, chỉ 9% chuyển sang Cloud Server (và phần lớn trong số đó là 1 đại lý cùng 2 nhân viên nội bộ). Doanh thu gia hạn hosting giảm 19,3% YoY.</p>
+      <p><b>Hàm ý:</b> mọi thay đổi giá hoặc cấu hình với khách hiện hữu là rủi ro rời bỏ cao. Nếu có điều chỉnh thì chỉ áp cho khách mới, còn khách cũ giữ nguyên gói.</p></div>
+    <div class="card lever"><span class="badge b-mid">Insight 3</span><h3>Khách mua theo giá và tiện, không mua theo phần cứng</h3>
+      <p>AMD Hosting: số gói Active tăng 34% nhưng doanh thu gói mới giảm 49%, giá trung bình rơi 62%. Các đơn vị khác (AZ, Vietnix) đã đẩy AMD xuống sau và quay lại Intel/Xeon. Với hosting, khách chọn gói rẻ và kỳ hạn ngắn hơn (9,9 tháng so với 11,5 tháng); giá đơn mới giảm 7,2%.</p>
+      <p><b>Hàm ý:</b> không nên mở rộng AMD với giá 550 triệu/máy. Khi cần tăng giá trị gói thì tăng bằng tính năng mà khách thấy được (bảo mật OneShield, sao lưu một chạm, cảnh báo qua Zalo), không bằng phần cứng.</p></div>
+    <div class="card lever"><span class="badge b-mid">Insight 4</span><h3>Khách không dùng hết dung lượng: iNET đang thừa storage</h3>
+      <p>Drive của OneMail và Object Storage dùng <b>chung một cụm S3 84TB</b>. Số đo prod ngày 23/09: <b>45.902 tài khoản được bật Drive nhưng chỉ 6.669 tài khoản (14,5%) từng tải file lên</b>; quota 50,8TB, mới dùng 1,52TB (3,0%). Object Storage mới cấp khoảng 0,25TB. Tệp khách phổ thông lưu rất ít, và phần lớn còn chưa dùng tới tính năng đã được cấp.</p>
+      <p>Portal (01/01–30/09/2026): tỷ lệ huỷ email <b>19,9%</b>, chuyển đổi trial <b>0,8%</b>, 800 dịch vụ đang ở trạng thái trial. Giữ khách email là bài toán lớn hơn giá vốn email.</p>
+      <p><b>Hàm ý:</b> (a) dung lượng lớn trên gói là công cụ marketing gần như không tốn tiền nếu khách không dùng, nên cắt dung lượng tặng kèm Email như báo cáo đề xuất có thể làm giảm giá trị cảm nhận mà tiết kiệm được rất ít. Cần đo mức dùng thật trước khi cắt. (b) Trước khi mua thêm ổ cho các dịch vụ lưu trữ (ví dụ máy Onemail Zimbra Storage 446 triệu trong đợt này), nên xem có gom tải về cụm S3 (dữ liệu thật mới khoảng 2%) được không.</p></div>
+    <div class="card lever"><span class="badge b-mid">Insight 5</span><h3>Gói dùng thử đang chiếm phần cứng nhưng ít khi chuyển đổi</h3>
+      <p>Tháng 7: <b>325 gói trial Cloud Server, chỉ 2,6% chuyển đổi</b> (BLĐ đặt mục tiêu trên 10%). Trial hosting 0,4%. Với S3, khoảng 10 khách ngoài đã dùng thử và mới có 2 khách trả phí.</p>
+      <p><b>Hàm ý:</b> báo cáo chia giá vốn cho 3.563 gói Cloud Server nhưng không nói trong đó bao nhiêu là trial hoặc nội bộ. Nếu trial chiếm phần đáng kể thì giá vốn trên mỗi gói trả phí cao hơn con số báo cáo. Có thể hạ giá vốn bằng chính sách trial: cấu hình trial nhỏ hơn, ngắn hạn hơn, chạy trên máy cũ đã hết khấu hao.</p></div>
+    <div class="card lever"><span class="badge b-low">Insight 6</span><h3>Tăng giá vẫn làm được nếu khách thấy giá trị</h3>
+      <p>Tên miền quốc tế tăng doanh thu 67% <b>kể cả sau khi đã tăng giá</b>, vì khách chuyển sang đuôi cao cấp và mua nhiều năm. Ngược lại, khi tăng giá gia hạn tên miền, BLĐ nhận xét MKT không có hành động gì khác biệt đi kèm.</p>
+      <p><b>Hàm ý:</b> tăng giá phải đi kèm phân khúc khách và gói giá trị mới, không chỉ chuyển nguyên chi phí sang giá. Mọi đối thủ cũng chịu cùng cú sốc RAM/SSD, nên cần theo dõi xem ai tăng giá trước. <i>(Giả thuyết: giữ giá gói entry trong khi đối thủ tăng có thể là cơ hội hút khách.)</i></p></div>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <b>Chuyển insight thành nguyên tắc định giá</b>
+    <div class="tbl" style="margin-top:8px;border:0"><table>
+      <tr><th>Phân khúc</th><th>Hành vi quan sát được</th><th>Nên làm</th><th>Tránh</th></tr>
+      <tr><td><b>Khách Cloud Server (biết kỹ thuật)</b></td><td>Tăng mạnh, so giá dễ, thị trường bão hoà</td><td>Giữ giá entry; tách dung lượng thành add-on; ưu đãi trả trước năm; gói Turbo cho nhóm trả cao</td><td>Tăng giá CS-Linux 1</td></tr>
+      <tr><td><b>Khách hosting phổ thông</b></td><td>Nhạy giá, chọn gói rẻ, dễ rời đi khi bị đổi gói</td><td>Giữ gói cũ cho khách hiện hữu; tăng giá trị bằng bảo mật, sao lưu, cảnh báo Zalo</td><td>Ép chuyển gói, tăng giá khi gia hạn</td></tr>
+      <tr><td><b>Khách email / lưu trữ</b></td><td>Dùng rất ít so với quota</td><td>Đo mức dùng thật; bán vượt có kiểm soát; lớp lưu trữ HDD</td><td>Cắt dung lượng tặng kèm khi chưa có số đo</td></tr>
+      <tr><td><b>Khách S3 (mới)</b></td><td>Có dùng thử, rất ít trả phí; cửa vào chỉ qua OneDash</td><td>Mở cửa vào từ Portal; đóng gói "sao lưu một chạm"</td><td>Tăng giá khi chưa có đầu ra</td></tr>
+    </table></div>
+  </div>
+</section>
+
+<section id="market">
+  <h2><span class="num">7</span>Thị trường và đối thủ: đặt hai báo cáo MKT cạnh nhau</h2>
+  <p class="lead">Nguồn: báo cáo theo dõi đối thủ tuần 38 (dữ liệu 14–20/09/2026, giá đối chiếu tại trang gốc ngày 21/09). Giá chưa gồm VAT, quy về cùng cam kết 12 tháng.</p>
+
+  <div class="callout red"><b class="t">Hai báo cáo cần đọc cùng nhau</b>
+  <b>Báo cáo giá vốn:</b> giá vốn bình quân Cloud Server trước đợt tăng (T12/2025) là 84.208đ, bằng 94,6% gói Linux 1 (89.000đ); ở mốc khi lấp đầy (+18,7%) là khoảng 99.950đ, tức 112%. Nên gói này "không còn biên". &nbsp;·&nbsp; <b>Báo cáo đối thủ:</b> giá máy chủ AI của thị trường vẫn đang rơi, và đề xuất "cân nhắc gói khởi điểm dưới 60.000đ".<br>
+  Đọc riêng từng báo cáo thì dễ dẫn tới hai quyết định ngược nhau. Chìa khoá là con số 84.208đ là <b>giá vốn bình quân của mọi gói</b>, còn giá vốn thật của gói Linux 1 chưa ai tính. Cần giá vốn cho từng gói trước khi quyết định tăng hay giảm.<br>Cũng cần nói thẳng: khuyến mãi n8n −30% của chính iNET (62.300đ) chỉ bằng khoảng 74% giá vốn bình quân, kể cả theo mức cũ. Đây là thêm lý do để gói khởi điểm chạy trên hạ tầng dùng chung thay vì bán máy ảo nhỏ với giá khuyến mãi.</div>
+
+  <div class="grid g2">
+    <div class="card">
+      <b>Vùng giá vào cửa máy chủ AI (cam kết 12 tháng)</b>
+      <div style="margin-top:10px">
+        <div class="mini"><span>Long Vân OpenClaw</span><div class="track"><i style="width:42.7%"></i></div><span>49.000</span></div>
+        <div class="mini"><span>iNET n8n (−30%)</span><div class="track"><i style="width:54.3%;background:var(--success)"></i></div><span>62.300</span></div>
+        <div class="mini"><span>Mắt Bão Vibe Host</span><div class="track"><i style="width:55.1%"></i></div><span>63.200</span></div>
+        <div class="mini"><span>BKNS OpenClaw*</span><div class="track"><i style="width:61%"></i></div><span>70.000</span></div>
+        <div class="mini"><span><b>iNET CS Linux 1</b></span><div class="track"><i class="r" style="width:65.9%"></i></div><span><b>75.650</b></span></div>
+        <div class="mini"><span>Vinahost n8n</span><div class="track"><i style="width:66.7%"></i></div><span>76.500</span></div>
+        <div class="mini"><span>Interdata Vibe</span><div class="track"><i style="width:72.4%"></i></div><span>83.100</span></div>
+        <div class="mini"><span>Zhost n8n</span><div class="track"><i style="width:83.7%"></i></div><span>96.000</span></div>
+        <div class="mini"><span>HostVN n8n</span><div class="track"><i style="width:100%"></i></div><span>114.750</span></div>
+      </div>
+      <p class="small" style="margin:8px 0 0">* giá sau mã giảm 50%, giới hạn 100 suất. Thuê 1 tháng: iNET 89.000đ, đứng thứ 3 sau Long Vân và BKNS.</p>
+    </div>
+    <div class="card">
+      <b>Tín hiệu đối thủ cũng đang chịu sức ép chi phí phần cứng</b>
+      <ul style="margin:8px 0 0;padding-left:18px;font-size:14px">
+        <li><b>Vinahost</b> tăng giá vào cửa VPS GPU khoảng 57% (297K lên 467.500đ).</li>
+        <li><b>Contabo</b> gỡ 24 gói Server Deals và tăng một mức máy chủ từ 233 EUR lên 440 EUR.</li>
+        <li><b>Long Vân</b> đổi giá máy chủ vật lý theo cả hai chiều trong cùng một tuần.</li>
+        <li>Giá thấp của BKNS là mã giảm có giới hạn 100 suất, không phải giá bền vững.</li>
+      </ul>
+      <p class="small" style="margin:8px 0 0"><b>Hàm ý (giả thuyết cần theo dõi):</b> các mức 49–70K khó giữ lâu khi giá RAM/SSD tăng 3–6 lần. Chạy theo giá bằng máy ảo nhỏ là cuộc đua xuống đáy. Nên cạnh tranh bằng cách đóng gói (N1, N2) và bằng sự minh bạch (N5).</p>
+    </div>
+  </div>
+
+  <div class="grid g3" style="margin-top:16px">
+    <div class="card"><span class="badge b-high">Đang bị tấn công</span><h3 style="margin:6px 0;font-size:16px">Mắt xích Email (giữ chân)</h3><p class="small" style="margin:0">iNET tăng giá Email Dedicated từ 01/10, trong khi Viettel IDC giảm 35% và Tenten tặng gấp đôi thời gian cho cả đơn gia hạn. Đề xuất: R2.</p></div>
+    <div class="card"><span class="badge b-high">Đang bị tấn công</span><h3 style="margin:6px 0;font-size:16px">Mắt xích Website AI (kích hoạt)</h3><p class="small" style="margin:0">Mắt Bão Vibe Host bán bằng nỗi đau "đưa app AI lên mạng trong 3 phút". OneSite có gói Free mạnh hơn nhưng chưa kể được như vậy. Đề xuất: N1.</p></div>
+    <div class="card"><span class="badge b-ok">Lợi thế chưa khai thác</span><h3 style="margin:6px 0;font-size:16px">Object Storage và MCP</h3><p class="small" style="margin:0">Theo báo cáo đối thủ tuần 38, chưa thấy đối thủ Việt Nam nào có Object Storage không tính phí truyền tải. OnePanel có MCP trước cPanel 3 tháng 18 ngày. Nhưng S3 mới có 2 khách trả phí. Đề xuất: N3.</p></div>
+  </div>
+
+  <div class="callout"><b class="t">Điểm chung của cả hai báo cáo: thị trường đã chuyển từ bán cấu hình sang bán kết quả</b>
+  Đây cũng là lời giải cho bài toán giá vốn. Khi bán cấu hình, mỗi khách chiếm cố định RAM và ổ, nên giá vốn tăng theo giá linh kiện. Khi bán kết quả (web chạy được, n8n chạy được, dữ liệu được sao lưu), iNET tự quyết cách xếp tài nguyên, dồn được nhiều khách trên cùng phần cứng. Khách nhận đúng thứ họ cần, còn iNET có giá vốn thấp hơn.</div>
+</section>
+
+<section id="levers">
+  <h2><span class="num">8</span>Đòn bẩy phía sản phẩm và kỹ thuật (ngoài tăng giá)</h2>
+  <p class="lead">Chi phí nằm ở ổ và RAM, nên đòn bẩy cũng phải đánh vào đúng hai thứ đó.</p>
+  <div class="grid g2">
+    <div class="card lever"><span class="badge b-high">Làm ngay · đợt này</span><h3>① Mua ổ 4TB thay vì 2TB</h3>
+      <p>Theo giá mới, <b>SSD 2TB là 17,2 triệu/TB, còn SSD 4TB là 13,0 triệu/TB</b>: ổ 2TB đắt hơn 32% cho mỗi TB. Đợt này Cloud Server vẫn mua 40 ổ 2TB (24 SSD + 16 NVMe). Đổi sang 20 ổ 4TB cho cùng dung lượng sẽ tiết kiệm khoảng <b>338 triệu đ (9,1% vốn)</b>. Con số này dùng giá SSD 4TB cho cả 16 ổ NVMe; giá NVMe 4TB khác nên cần báo giá riêng trước khi chốt.</p>
+      <p class="small">Đánh đổi: ít ổ hơn thì IOPS thấp hơn và bố trí RAID khác đi. KT cần xác nhận. Điều kiện tiên quyết: các máy này chưa chốt đơn hàng.</p>
+      <div class="meta"><span class="badge b-low">Owner: KT + mua sắm</span><span class="badge b-ok">−338 tr</span></div></div>
+    <div class="card lever"><span class="badge b-high">Làm ngay</span><h3>② Đo thật thay cho giả định</h3>
+      <p>OneDash đã thu metric máy chủ và đối chiếu quota S3 mỗi 6 giờ. Có thể xuất hằng tháng: mức lấp đầy S3, mức dùng RAM và ổ thật của từng máy, số gói trên mỗi máy. Đây là đầu vào cho ③ và ④, đồng thời trả lời câu hỏi "10 máy là vừa hay thừa".</p>
+      <div class="meta"><span class="badge b-low">Owner: Công Nghệ</span><span class="badge b-ok">Nguồn dữ liệu có sẵn</span></div></div>
+    <div class="card lever"><span class="badge b-mid">Ngắn hạn</span><h3>③ Bán vượt có kiểm soát với dịch vụ bán theo quota</h3>
+      <p>S3, Email và dung lượng hosting đều bán theo quota, và khách hiếm khi dùng hết. Drive của OneMail là bằng chứng: đã cấp 50,8TB quota nhưng khách mới dùng 1,52TB (3,0%). Nếu số đo cho thấy khách dùng khoảng 70% quota thì có thể bán 1,2–1,3 lần dung lượng vật lý, kèm cảnh báo khi cụm đầy. Cách này hạ giá vốn mỗi GB bán ra mà không cần đổi giá.</p>
+      <div class="meta"><span class="badge b-low">Owner: KT + Công Nghệ</span></div></div>
+    <div class="card lever"><span class="badge b-mid">Ngắn hạn</span><h3>④ Bán dung lượng tách khỏi gói</h3>
+      <p>Ổ cứng là biến chi phí chính, nên cho giá bán bám theo nó: gói thế hệ mới có dung lượng mặc định vừa phải, dung lượng thêm bán dạng add-on theo GB. Khách cũ giữ nguyên gói (grandfather). Áp cho Cloud Server, Email (dung lượng tặng kèm mà báo cáo đã nêu) và hosting.</p>
+      <div class="meta"><span class="badge b-low">Owner: MKT + Portal</span></div></div>
+    <div class="card lever"><span class="badge b-mid">Trung hạn</span><h3>⑤ Thêm lớp lưu trữ HDD</h3>
+      <p>HDD 18TB khoảng <b>0,43 triệu/TB</b>, rẻ hơn SSD 4TB khoảng <b>30 lần</b> và không nằm trong đợt tăng giá. Phù hợp cho backup, lưu trữ email cũ và S3 lớp "lưu trữ lạnh". Đóng gói theo kiểu "Sao lưu một chạm" để hợp tệp khách phổ thông, khách không phải hiểu storage class là gì.</p>
+      <p class="small">HDD cũng có thể tăng giá theo thị trường, nhưng vẫn rẻ hơn SSD một bậc.</p>
+      <div class="meta"><span class="badge b-low">Owner: KT + Công Nghệ</span></div></div>
+    <div class="card lever"><span class="badge b-mid">Trung hạn</span><h3>⑥ Thu hồi ổ từ cụm CEPH của Cloud VPS</h3>
+      <p>Cloud VPS đang được thay dần bằng Cloud Server. 12 node CEPH × 24 SSD 2TB = <b>288 ổ</b>, nếu mua mới theo giá hiện tại là khoảng <b>9,9 tỷ</b>. Đẩy nhanh việc chuyển 738 khách VPS rồi tái dùng số ổ này (sau khi kiểm tra độ mòn và bảo hành) cho các đợt sau có thể thay cho một phần lớn khoản mua mới. 9,9 tỷ là mức tránh mua mới tối đa; ổ đã chạy nhiều năm nên giá trị thực thấp hơn.</p>
+      <p class="small">Giả định cả 12 máy của Cloud VPS là node CEPH 24 ổ. Cần KT xác nhận.</p>
+      <div class="meta"><span class="badge b-low">Owner: KT + KD (chuyển khách)</span><span class="badge b-ok">tới ~9,9 tỷ</span></div></div>
+    <div class="card lever"><span class="badge b-mid">Quyết định đầu tư</span><h3>⑦ Mua Cloud Server theo đợt, có điều kiện mở</h3>
+      <p>10 máy Cloud Server chiếm 2,47 tỷ, tức 66% vốn đợt này, lại đang mua ở đỉnh giá bộ nhớ. Nếu chưa chốt đơn: mua trước 5 máy, 5 máy còn lại chỉ mua khi mức lấp đầy vượt một ngưỡng (ví dụ 80%). Đây là phương án rẻ nhất nếu phải dừng giữa chừng: giá giảm thì mua sau rẻ hơn, nhu cầu chậm thì không bị kẹt vốn.</p>
+      <div class="meta"><span class="badge b-low">Owner: BLĐ + KT</span></div></div>
+    <div class="card lever"><span class="badge b-low">Sản phẩm</span><h3>⑧ Gói Cloud Server Linux 1: giữ giá, đổi cấu hình</h3>
+      <p>Tệp khách nhạy cảm về giá, và gói entry là cửa vào. Thay vì tăng giá 89.000 đ: giữ giá nhưng giảm ổ mặc định, ưu tiên thanh toán năm, thiết kế đường nâng cấp rõ ràng, và tạo SKU thế hệ mới chỉ áp cho khách mới.</p>
+      <div class="meta"><span class="badge b-low">Owner: MKT + Công Nghệ</span></div></div>
+  </div>
+</section>
+
+<section id="pricing">
+  <h2><span class="num">9</span>Góp ý về hướng định giá</h2>
+  <div class="grid g3">
+    <div class="card"><b>Không chốt bảng giá dài hạn theo đỉnh giá</b><p class="small">Giá bộ nhớ đi theo chu kỳ. Mốc "thay mới toàn bộ" đang giả định giá đỉnh kéo dài suốt vòng thay máy. Nên có thêm kịch bản giá linh kiện −30% và −50% trước khi tăng giá niêm yết.</p></div>
+    <div class="card"><b>Ưu tiên SKU mới hơn là tăng giá toàn bảng</b><p class="small">Tăng giá khách hiện hữu dễ gây rời bỏ. Dùng gói thế hệ mới cho khách mới, còn khách cũ giữ giá đến kỳ gia hạn. Rủi ro thấp hơn và dễ rút lại.</p></div>
+    <div class="card"><b>Dừng KM "−40% trọn đời" cho khách mới</b><p class="small">Turbo Business ở mốc thay mới có giá vốn chỉ cách giá KM 23,4%. Đồng ý với báo cáo, và đề xuất làm ngay cho khách mới, không đợi tới kỳ thay máy. Với khách cũ đã được hứa "trọn đời" thì <b>phải giữ lời</b>: phá lời hứa sẽ mất niềm tin, thiệt hại lớn hơn phần biên lấy lại được.</p></div>
+  </div>
+  <div class="callout"><b class="t">Về kéo dài khấu hao lên 48 tháng</b>
+  Có lý với ổ và RAM enterprise, nhưng khung máy là R630 và E5 v4, loại đã có từ lâu và thường là hàng đã qua sử dụng. Gắn ổ 34 triệu và RAM 5,7 triệu vào khung máy đời cũ thì cần tính riêng vòng đời khung máy (hỏng thì chuyển linh kiện sang khung khác) so với vòng đời linh kiện. Có thể khấu hao theo từng nhóm linh kiện thay vì một con số chung cho cả máy.</div>
+</section>
+
+<section id="questions">
+  <h2><span class="num">10</span>Câu hỏi mang vào họp</h2>
+  <div class="grid g2">
+    <div class="card"><b>Cho BP MKT (tác giả báo cáo)</b>
+      <ol class="q">
+        <li>Con số 70% ở S3 là mức lấp đầy cụm hay mức khách dùng quota? Thực tế Drive trên cùng cụm cho thấy khách chỉ dùng 3,0% quota.</li>
+        <li>Báo cáo đã tính phần Drive của OneMail dùng chung cụm S3 chưa? Chi phí cụm nên chia giữa Object Storage và Email thế nào?</li>
+        <li>"8.949 gói Email" là số gói dịch vụ hay số hộp thư? Portal chỉ có 1.759 dịch vụ email Active. Chi phí có đang gánh cả tenant đã ngừng không?</li>
+        <li>Có ARPU thực, tức doanh thu sau chiết khấu, cho từng dòng dịch vụ không?</li>
+        <li>Mốc "thay mới toàn bộ" Cloud Server đang dùng cấu hình 8 SSD hay 4 SSD?</li>
+        <li>Dòng Cloud VPS ở sheet tỷ trọng là đơn vị năm phải không?</li>
+        <li>Giá bán dài hạn định chốt theo mốc nào, áp từ khi nào, cho khách mới hay cả khách cũ?</li>
+        <li>3.563 gói Cloud Server gồm những gì: bao nhiêu gói trả phí, bao nhiêu trial, bao nhiêu nội bộ?</li>
+        <li>Giá vốn riêng của gói Cloud Server Linux 1 là bao nhiêu? Báo cáo giá vốn ngụ ý tăng giá gói này, còn báo cáo đối thủ đề xuất làm gói dưới 60.000đ. MKT chốt hướng nào?</li>
+        <li>Kịch bản giữ khách Email Dedicated trước 01/10 đã có chưa? Có cho khóa giá cũ khi gia hạn dài hạn không?</li>
+        <li>Đã theo dõi giá của đối thủ (AZDIGI, Vietnix, Mắt Bão, PA...) sau đợt tăng giá RAM/SSD chưa? Ai đã tăng giá trước?</li>
+        <li>Có ước lượng mức giảm khách hoặc rời bỏ nếu tăng giá gói entry không? Có dữ liệu lần tăng giá gia hạn tên miền để tham chiếu không?</li>
+      </ol></div>
+    <div class="card"><b>Cho KT / mua sắm / KD</b>
+      <ol class="q" start="13">
+        <li>Trong 14 máy, những máy nào đã chốt đơn? Còn đổi được sang ổ 4TB hay mua theo đợt không?</li>
+        <li>Nút thắt năng lực từng dòng là CPU, RAM hay ổ? Máy hosting mới chứa được bao nhiêu gói so với máy cũ?</li>
+        <li>Cloud Server đang tăng ròng bao nhiêu gói mỗi tháng? Tỷ lệ rời bỏ bao nhiêu?</li>
+        <li>Ngoài Object Storage và Drive, cụm S3 có tải nào khác không? Kế hoạch bán hàng S3 cho quý tới là gì?</li>
+        <li>KT đã cân nhắc EC 2+2 hay EC 2+1 cho S3 chưa? Cụm CEPH của VPS có tái dùng ổ được không?</li>
+        <li>Máy Onemail (Zimbra Storage) mua đợt này có gom được vào cụm S3 (nơi Drive đang chạy, dữ liệu thật mới khoảng 2%) không? Lộ trình OxMail lưu thư trên S3 có nén và khử trùng lặp.</li>
+      </ol></div>
+  </div>
+</section>
+
+<section id="actions">
+  <h2><span class="num">11</span>Đề xuất hành động sau họp</h2>
+  <div class="tbl"><table>
+    <tr><th>#</th><th>Việc</th><th>Owner đề xuất</th><th>Mức ưu tiên</th></tr>
+    <tr><td>A</td><td><b>Giữ khách:</b> kịch bản Email Dedicated trước 01/10 (báo sớm, khóa giá cũ nếu gia hạn dài hạn); cam kết không tăng giá gia hạn vì lý do thiết bị</td><td>KD + CSKH</td><td><span class="badge b-high">Trong tuần</span></td></tr>
+    <tr><td>B</td><td><b>Khách mới:</b> đặc tả "Sao lưu một chạm" (OnePanel, OneMail, Portal lưu vào S3, cảnh báo Zalo) để lấp cụm S3 đang trống</td><td>Công Nghệ + KT</td><td><span class="badge b-high">Cao</span></td></tr>
+    <tr><td>C</td><td><b>Khách mới:</b> thiết kế gói khởi điểm "bán kết quả" trên hạ tầng dùng chung, và quyết định mô hình một thuê bao AI đổi công cụ</td><td>MKT + Công Nghệ</td><td><span class="badge b-high">Quyết trong tháng</span></td></tr>
+    <tr><td>D</td><td><b>Giữ khách:</b> mở rộng cờ nguy cơ rời bỏ (hiện chỉ có cho OneDash) sang khách hosting và email, đẩy danh sách tới CSKH trước kỳ gia hạn tháng 10–11</td><td>Công Nghệ + CSKH</td><td><span class="badge b-mid">Trung bình</span></td></tr>
+    <tr><td>E</td><td>Chính sách thu hồi quota Drive của tenant đã ngừng (báo trước, cho tải dữ liệu về rồi mới giải phóng); đối soát danh sách domain có quota với trạng thái dịch vụ trên portal</td><td>Công Nghệ + KD</td><td><span class="badge b-mid">Trung bình</span></td></tr>
+    <tr><td>1</td><td>Rà các máy chưa chốt đơn: đổi ổ 2TB sang 4TB, cân nhắc mua Cloud Server theo đợt</td><td>KT + mua sắm</td><td><span class="badge b-high">Trước khi đặt hàng</span></td></tr>
+    <tr><td>2</td><td>Sửa báo cáo v3: giá vốn theo gói hoặc ARPU, năng lực theo đơn vị tài nguyên, cấu hình chuẩn cho mốc dài hạn, sửa lỗi đơn vị VPS, thêm độ nhạy</td><td>MKT (Công Nghệ cấp dữ liệu)</td><td><span class="badge b-high">Trước khi chốt giá</span></td></tr>
+    <tr><td>3</td><td>Xuất số đo thật hằng tháng từ OneDash: lấp đầy S3, mức dùng RAM và ổ của từng máy</td><td>Công Nghệ</td><td><span class="badge b-high">Cao</span></td></tr>
+    <tr><td>4</td><td>Kế hoạch đầu ra cho S3: cửa vào ngoài OneDash, chuyển khách dùng thử sang trả phí</td><td>KD + MKT + Công Nghệ</td><td><span class="badge b-high">Cao</span></td></tr>
+    <tr><td>5</td><td>Đánh giá EC 2+2 / EC 2+1 cho cụm S3</td><td>KT</td><td><span class="badge b-mid">Trung bình</span></td></tr>
+    <tr><td>6</td><td>Thiết kế gói thế hệ mới: dung lượng add-on, lớp lưu trữ HDD, dừng KM trọn đời cho khách mới</td><td>MKT + Công Nghệ</td><td><span class="badge b-mid">Trung bình</span></td></tr>
+    <tr><td>7</td><td>Lộ trình chuyển khách VPS sang Cloud Server và thu hồi ổ CEPH</td><td>KT + KD</td><td><span class="badge b-mid">Trung bình</span></td></tr>
+    <tr><td>8</td><td>Bổ sung phần phản ứng khách hàng vào báo cáo v3: phân khúc, đối thủ, rủi ro rời bỏ; tách gói trả phí, trial và nội bộ</td><td>MKT (Công Nghệ cấp dữ liệu sử dụng)</td><td><span class="badge b-high">Trước khi chốt giá</span></td></tr>
+    <tr><td>9</td><td>Rà chính sách trial Cloud Server: cấu hình nhỏ hơn, thời hạn ngắn hơn, chạy trên máy đã hết khấu hao</td><td>MKT + KT</td><td><span class="badge b-mid">Trung bình</span></td></tr>
+  </table></div>
+</section>
+
+<footer>
+  <b>Nguồn và phương pháp.</b> Báo cáo HTML v2 và file Excel v2 của BP MKT (lập 22/09/2026). Các số phái sinh trong tài liệu này (giá mỗi TB, tiết kiệm 338 triệu, kịch bản máy mới gấp đôi năng lực, EC, giá trị ổ CEPH) do BP Công Nghệ tính lại từ chính đơn giá và cấu hình trong Excel. Số liệu S3 lấy từ OneDash (hệ kh) lúc 24/09/2026 và chỉ tính theo quota. Thông tin đối thủ lấy từ báo cáo theo dõi đối thủ tuần 38 (dữ liệu 14–20/09/2026). Số Drive lấy từ Mongo production (<code>adminusageinfodrives</code>, 23/09/2026); trạng thái dịch vụ email lấy từ my.inet.vn/report/email (kỳ 01/01–30/09/2026, xem ngày 24/09). Customer insight lấy từ biên bản họp CXO 07/07/2026 và 04/08/2026 (<code>hop-cxo/</code>). Định nghĩa "gói/Active" ở đó có thể khác định nghĩa trong báo cáo giá vốn. Tài liệu nội bộ, không chia sẻ ra ngoài.
+</footer>
+</main>
+<script>
+document.querySelectorAll('nav.toc a').forEach(function(a){a.addEventListener('click',function(e){
+  var t=document.getElementById(a.getAttribute('href').slice(1));if(!t)return;e.preventDefault();
+  var y=t.getBoundingClientRect().top+window.scrollY-56;window.scrollTo({top:y,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});});});
+</script>
+</body>
+</html>
