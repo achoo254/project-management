@@ -1,16 +1,104 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "hooks": {
-    "PreToolUse": [
+    "PostToolUse": [
       {
-        "matcher": "Read|Edit|Write|MultiEdit|NotebookEdit",
         "hooks": [
           {
-            "type": "command",
-            "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/committable-privacy-guard.cjs\""
+            "command": "node \"${CLAUDE_PROJECT_DIR}/.claude/hooks/dev-rules-reminder.cjs\"",
+            "type": "command"
           }
-        ]
+        ],
+        "matcher": "Write|Edit"
+      },
+      {
+        "hooks": [
+          {
+            "command": "node \"${CLAUDE_PROJECT_DIR}/.claude/hooks/post-edit-simplify-reminder.cjs\"",
+            "type": "command"
+          }
+        ],
+        "matcher": "Edit|Write|MultiEdit"
+      }
+    ],
+    "PreToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/committable-privacy-guard.cjs\"",
+            "type": "command"
+          }
+        ],
+        "matcher": "Read|Edit|Write|MultiEdit|NotebookEdit"
+      },
+      {
+        "hooks": [
+          {
+            "command": "node \"${CLAUDE_PROJECT_DIR}/.claude/hooks/descriptive-name.cjs\"",
+            "type": "command"
+          }
+        ],
+        "matcher": "Write"
+      },
+      {
+        "hooks": [
+          {
+            "command": "node \"${CLAUDE_PROJECT_DIR}/.claude/hooks/privacy-block.cjs\"",
+            "type": "command"
+          }
+        ],
+        "matcher": "Read|Write|Edit|Bash"
+      },
+      {
+        "hooks": [
+          {
+            "command": "node \"${CLAUDE_PROJECT_DIR}/.claude/hooks/scout-block.cjs\"",
+            "type": "command"
+          }
+        ],
+        "matcher": "Bash|Read"
+      },
+      {
+        "hooks": [
+          {
+            "command": "node \"${CLAUDE_PROJECT_DIR}/.claude/hooks/context-firewall.cjs\"",
+            "type": "command"
+          }
+        ],
+        "matcher": "Bash|Read|Grep|Glob"
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "command": "node \"${CLAUDE_PROJECT_DIR}/.claude/hooks/secret-output-guardrail.cjs\"",
+            "type": "command"
+          },
+          {
+            "command": "node \"${CLAUDE_PROJECT_DIR}/.claude/hooks/simplify-gate.cjs\"",
+            "type": "command"
+          }
+        ],
+        "matcher": "*"
+      },
+      {
+        "hooks": [
+          {
+            "command": "node \"${CLAUDE_PROJECT_DIR}/.claude/hooks/secret-output-guardrail.cjs\"",
+            "type": "command"
+          },
+          {
+            "command": "node \"${CLAUDE_PROJECT_DIR}/.claude/hooks/dev-rules-reminder.cjs\"",
+            "type": "command"
+          }
+        ],
+        "matcher": "*"
       }
     ]
+  },
+  "statusLine": {
+    "command": "node \"$CLAUDE_PROJECT_DIR/.claude/ak-marketing-statusline.cjs\"",
+    "type": "command"
   }
 }
