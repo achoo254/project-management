@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mock quy trình biểu mẫu</title>
+<style>
+:root{
+  --pri:#0582D4; --pri-2:#619ee9; --red:#E8353C;
+  --ok:#0E9F6E; --ok-bg:#ECFDF5; --warn:#D47B0A; --warn-bg:#FFFBEB;
+  --err:#B91C1C; --err-bg:#FEF2F2; --info:#1E40AF; --info-bg:#EFF6FF;
+  --bg:#E9EEF3; --paper:#fff; --ink:#0F1E2D; --muted:#5B6B7C; --line:#C9D4E0; --soft:#F4F7FA;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:"Be Vietnam Pro","Segoe UI",system-ui,-apple-system,Arial,sans-serif;font-size:14px;line-height:1.55}
+.app{display:grid;grid-template-columns:270px 1fr;min-height:100vh}
+nav{background:#0F2A42;color:#DCE7F2;padding:18px 14px;position:sticky;top:0;height:100vh;overflow:auto}
+nav .brand{font-weight:700;font-size:15px;color:#fff;margin-bottom:4px}
+nav .hint{font-size:11.5px;opacity:.7;margin-bottom:14px}
+nav .grp{font-size:10.5px;letter-spacing:.6px;text-transform:uppercase;opacity:.6;margin:14px 6px 6px}
+nav a{display:block;color:#DCE7F2;text-decoration:none;padding:6px 8px;border-radius:6px;font-size:12.8px;cursor:pointer}
+nav a:hover{background:rgba(255,255,255,.08)}
+nav a.on{background:var(--pri);color:#fff}
+nav a .c{font-family:"JetBrains Mono",Menlo,monospace;font-size:11px;opacity:.8;margin-right:6px}
+nav .tag{font-size:10px;border-radius:999px;padding:0 6px;margin-left:4px;background:rgba(255,255,255,.15)}
+main{padding:24px 16px 60px}
+.paper{max-width:980px;margin:0 auto 28px;background:var(--paper);border:1px solid var(--line);border-radius:6px;box-shadow:0 2px 10px rgba(15,30,45,.08);padding:30px 34px}
+.doc{display:none}.doc.on{display:block}
+.showall .doc{display:block}
+.legend{max-width:980px;margin:0 auto 14px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:12.5px;color:var(--muted)}
+.legend button{font:inherit;font-size:12px;border:1px solid var(--line);background:#fff;border-radius:6px;padding:4px 10px;cursor:pointer}
+/* header block */
+table{border-collapse:collapse;width:100%}
+.hdr td{border:1px solid #8FA3B8;padding:6px 10px;vertical-align:middle}
+.hdr .logo{width:130px;text-align:center;font-weight:800;color:var(--pri);font-size:20px}
+.hdr .logo small{display:block;font-size:10px;color:var(--muted);font-weight:500}
+.hdr .ttl{text-align:center;font-weight:700;font-size:16px;text-transform:uppercase}
+.hdr .ttl small{display:block;font-weight:500;text-transform:none;font-size:12px;color:var(--muted)}
+.hdr .meta{width:210px;font-size:12px}
+.sign{margin-top:12px}
+.sign th,.sign td{border:1px solid #8FA3B8;padding:6px 10px;font-size:12.5px;text-align:center}
+.sign th{background:var(--soft);font-weight:600}
+.sign td{height:28px}
+h2{font-size:14.5px;margin:22px 0 8px;text-transform:uppercase;color:#0B3B60;border-bottom:1px solid var(--line);padding-bottom:4px}
+h3{font-size:13.5px;margin:14px 0 6px}
+p{margin:6px 0}
+ul,ol{margin:4px 0;padding-left:22px}
+.t{width:100%;font-size:12.5px;margin:6px 0}
+.t th{background:#EDF2F7;border:1px solid var(--line);padding:6px 8px;text-align:left;font-weight:600;font-size:11.5px;vertical-align:bottom}
+.t td{border:1px solid var(--line);padding:6px 8px;vertical-align:top}
+.tw{overflow-x:auto}
+.tw .t{min-width:760px}
+.ex td{color:#5B6B7C;font-style:italic;background:#FBFCFD}
+.ex td:first-child::before{content:"VÍ DỤ";font-style:normal;font-size:9.5px;font-weight:700;color:var(--warn);background:var(--warn-bg);border:1px solid #F0DCA8;border-radius:4px;padding:0 4px;margin-right:4px}
+.blank td{height:28px}
+.pill{display:inline-block;border-radius:999px;padding:0 8px;font-size:11px;font-weight:600;white-space:nowrap;font-style:normal}
+.p-ok{background:var(--ok-bg);color:var(--ok);border:1px solid #BFE7D5}
+.p-err{background:var(--err-bg);color:var(--err);border:1px solid #F3C4C4}
+.p-warn{background:var(--warn-bg);color:var(--warn);border:1px solid #F0DCA8}
+.p-info{background:var(--info-bg);color:var(--info);border:1px solid #C7D7F5}
+.p-gray{background:#EEF3F8;color:#41536A;border:1px solid var(--line)}
+.note{background:var(--info-bg);border:1px solid #C7D7F5;border-radius:6px;padding:8px 12px;font-size:12.5px;margin:8px 0}
+.warnbox{background:var(--err-bg);border:1px solid #F3C4C4;border-radius:6px;padding:8px 12px;font-size:12.5px;margin:8px 0;color:#7F1D1D}
+.flow{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:8px 0}
+.flow .s{border:1.5px solid var(--pri);border-radius:6px;padding:6px 10px;font-size:12px;background:#F2F8FD;max-width:150px;text-align:center}
+.flow .s b{display:block;font-size:10.5px;color:var(--pri)}
+.flow .s.g{border-color:var(--warn);background:var(--warn-bg)}
+.flow .s.g b{color:var(--warn)}
+.flow .s.e{border-color:var(--ok);background:var(--ok-bg)}
+.flow .s.e b{color:var(--ok)}
+.flow .a{color:var(--muted);font-weight:700}
+.alt{display:flex;flex-wrap:wrap;gap:10px;margin-top:4px}
+.alt div{flex:1 1 260px;border:1px dashed var(--line);border-radius:6px;padding:8px 10px;font-size:12.5px}
+.form td{border:1px solid var(--line);padding:7px 10px;font-size:12.5px;vertical-align:top}
+.form td.k{width:32%;background:var(--soft);font-weight:600}
+.form td.v{color:#9AA8B7}
+.chk{font-family:"JetBrains Mono",Menlo,monospace}
+.foot{margin-top:22px;font-size:11px;color:var(--muted);border-top:1px solid var(--line);padding-top:6px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.cover h1{font-size:20px;margin:0 0 6px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px;margin-top:10px}
+.cards div{border:1px solid var(--line);border-radius:6px;padding:10px 12px}
+.cards b{display:block;margin-bottom:2px}
+.mob{display:none}
+@media (max-width:860px){
+  .app{display:block}
+  nav{display:none}
+  .mob{display:block;max-width:980px;margin:0 auto 12px}
+  .mob select{width:100%;font:inherit;padding:8px;border-radius:6px;border:1px solid var(--line)}
+  .paper{padding:18px 16px}
+  .hdr .logo{width:70px;font-size:15px}.hdr .meta{width:auto}
+}
+@media print{
+  nav,.legend,.mob{display:none}
+  .app{display:block} main{padding:0}
+  .paper{box-shadow:none;border:none;page-break-after:always}
+  .doc{display:block}
+}
+</style>
+</head>
+<body>
+<div class="app">
+<nav id="nav">
+  <div class="brand">Bộ tài liệu ANM · BP-DEV</div>
+  <div class="hint">Bản mock để duyệt hình thức trước khi điền nội dung thật. Dòng có nhãn VÍ DỤ là dữ liệu minh họa.</div>
+  <a data-t="cover" class="on"><span class="c">00</span>Tổng quan bộ tài liệu</a>
+  <a data-t="tpl"><span class="c">TPL</span>Mẫu chung một quy trình</a>
+  <div class="grp">Quy trình / Quy định</div>
+  <a data-t="qt01"><span class="c">QT-01</span>Phát triển phần mềm an toàn<span class="tag">3 luồng</span></a>
+  <a data-t="qt02"><span class="c">QT-02</span>Lập trình an toàn &amp; review</a>
+  <a data-t="qt03"><span class="c">QT-03</span>Thay đổi, phát hành, CI/CD<span class="tag">mẫu đầy đủ</span></a>
+  <a data-t="qt04"><span class="c">QT-04</span>Mã nguồn, GitLab &amp; API quản trị</a>
+  <a data-t="qt05"><span class="c">QT-05</span>Bí mật, khóa, chứng thư</a>
+  <a data-t="qt06"><span class="c">QT-06</span>Lỗ hổng, phụ thuộc, EOL</a>
+  <a data-t="qt07"><span class="c">QT-07</span>Vận hành &amp; giám sát</a>
+  <a data-t="qt08"><span class="c">QT-08</span>Xử lý sự cố ứng dụng<span class="tag">mẫu đầy đủ</span></a>
+  <a data-t="qt09"><span class="c">QT-09</span>Sao lưu &amp; khôi phục</a>
+  <a data-t="qt10"><span class="c">QT-10</span>Dữ liệu cá nhân &amp; bên thứ ba</a>
+  <div class="grp">Biểu mẫu / Sổ</div>
+  <a data-t="bm01"><span class="c">BM-01</span>Danh mục sản phẩm &amp; repo</a>
+  <a data-t="bm02"><span class="c">BM-02</span>Sổ thành phần EOL</a>
+  <a data-t="bm03"><span class="c">BM-03</span>Sổ khóa &amp; chứng thư số</a>
+  <a data-t="bm04"><span class="c">BM-04</span>Sổ thay đổi &amp; phát hành</a>
+  <a data-t="bm05"><span class="c">BM-05</span>Sổ lỗ hổng ứng dụng</a>
+  <a data-t="bm06"><span class="c">BM-06</span>Quyền GitLab &amp; biên bản rà soát</a>
+  <a data-t="bm07"><span class="c">BM-07</span>Phiếu báo cáo sự cố</a>
+  <a data-t="bm08"><span class="c">BM-08</span>Biên bản kiểm thử khôi phục</a>
+  <a data-t="bm09"><span class="c">BM-09</span>Danh mục dịch vụ bên thứ ba</a>
+  <a data-t="bm10"><span class="c">BM-10</span>Bảng rủi ro BP-DEV</a>
+  <a data-t="bm11"><span class="c">BM-11</span>Bàn giao vào vận hành<span class="tag">mới</span></a>
+  <a data-t="bm12"><span class="c">BM-12</span>Nghiệm thu SP bên ngoài<span class="tag">mới</span></a>
+</nav>
+
+<main id="main">
+<div class="mob"><select id="mobsel"></select></div>
+<div class="legend">
+  <span><span class="pill p-ok">ĐÃ CÓ</span> <span class="pill p-warn">MỘT PHẦN</span> <span class="pill p-err">CHƯA CÓ</span> trạng thái áp dụng thực tế</span>
+  <span>· Dòng <b>VÍ DỤ</b> chỉ để minh họa cách ghi</span>
+  <button id="allbtn" type="button">Xem tất cả / In</button>
+</div>
+
+<!-- ============ COVER ============ -->
+<section class="doc on" id="cover"><div class="paper cover">
+  <h1>Bộ tài liệu quy trình, biểu mẫu an ninh mạng — Bộ phận Phát triển sản phẩm thuộc Phòng Nền tảng (BP-DEV)</h1>
+  <p class="note"><b>Căn cứ tổ chức:</b> Ban an toàn thông tin, an ninh mạng, bảo vệ dữ liệu cá nhân và dữ liệu số (sau đây gọi là <b>Ban ATANM &amp; BVDL</b>) được thành lập theo <b>Quyết định số 159/2026/QĐ-iNET ngày 15/9/2026</b> của Giám đốc Công ty TNHH Phần mềm iNET. Ban là đầu mối tham mưu, điều phối, giám sát công tác an toàn thông tin, an ninh mạng, bảo vệ dữ liệu cá nhân và dữ liệu số của Công ty. Thành viên Ban đại diện BP-DEV: Ông Trịnh Quốc Hoàn Đạt.</p>
+  <p class="note"><b>Cơ cấu Phòng Nền tảng</b> (QĐ 169/2026/QĐ-iNET): gồm Bộ phận Kỹ thuật và Bộ phận Phát triển sản phẩm (BP-DEV), chịu sự quản lý trực tiếp của CEO. Trưởng phòng Nền tảng chịu trách nhiệm cao nhất về quản trị GitLab. CEO chịu trách nhiệm quy trình triển khai production. Hai bộ phận không có chức danh trưởng bộ phận; mỗi bộ phận có người phụ trách do CEO chỉ định.</p>
+  <p class="note">Đây là <b>bản mock</b> để duyệt hình thức, cấu trúc và cách ghi. Nội dung thật được điền trong các ngày 02–07/10/2026. Hạn nộp: <b>trước 17:00 thứ Sáu 09/10/2026</b>.</p>
+  <h2>Cách bộ tài liệu được tổ chức</h2>
+  <div class="cards">
+    <div><b>10 quy trình (DEV-QT)</b>Mô tả cách bộ phận làm việc: ai làm, làm theo bước nào, để lại hồ sơ gì. QT-03 và QT-08 trong bản mock được viết đầy đủ làm mẫu, 8 quy trình còn lại hiện mới có dàn ý.</div>
+    <div><b>12 biểu mẫu/sổ (DEV-BM)</b>Nơi ghi số liệu thật: danh mục, sổ theo dõi, biên bản. Mỗi biểu mẫu có cột, dòng ví dụ và dòng trống. BM-11 (bàn giao vào vận hành) và BM-12 (nghiệm thu sản phẩm từ bên ngoài) phục vụ các luồng phát triển ngoài BP-DEV.</div>
+    <div><b>Một quy trình chung, ba luồng vào</b>Phần mềm đưa vào vận hành phải qua cùng 6 cổng kiểm soát, dù do BP-DEV, dự án CEO trực tiếp quản lý hay bộ phận khác tự làm. Khác nhau giữa các luồng là người thực hiện và độ sâu kiểm tra. Chi tiết ở Phụ lục A của QT-01.</div>
+    <div><b>Cấp ban hành</b>QT-01 và QT-03 áp dụng cho nhiều phòng ban nên ban hành ở <b>cấp công ty</b>, BP-DEV soạn và vận hành. Các quy trình còn lại ban hành cấp bộ phận. <b>Người phê duyệt của từng tài liệu chưa xác định nên để trống</b> trong bảng ký, điền khi chốt.</div>
+    <div><b>Thông tin kiểm soát thống nhất</b>Mọi tài liệu có khối tiêu đề (mã, lần ban hành, ngày hiệu lực), bảng ký (lập, kiểm tra, phê duyệt) và lịch sử thay đổi, đúng yêu cầu ghi trong file Excel của Ban ATANM.</div>
+    <div><b>Mục "Hiện trạng áp dụng" bắt buộc</b>Mục 8 của mỗi quy trình ghi rõ yêu cầu nào đã có, có một phần hay chưa có. Dòng chưa có phải kèm hạn khắc phục, người phụ trách và biện pháp tạm thời.</div>
+  </div>
+  <h2>Quy ước mã và tên file</h2>
+  <table class="t">
+    <tr><th>Loại</th><th>Mã</th><th>Tên file nộp</th></tr>
+    <tr><td>Quy trình / quy định</td><td>DEV-QT-01 … 10</td><td><code>DEV-QT-03_Quy-trinh-thay-doi-phat-hanh_v0.9_20261009.docx</code></td></tr>
+    <tr><td>Biểu mẫu / sổ</td><td>DEV-BM-01 … 12</td><td><code>DEV-BM-02_So-theo-doi-EOL_v0.9_20261009.xlsx</code></td></tr>
+    <tr><td>Bằng chứng</td><td>EVD-…</td><td><code>EVD-BM01-20261002-ket-xuat-danh-sach-repo-gitlab.csv</code></td></tr>
+    <tr><td>Lần ban hành</td><td>0.9 = dự thảo trình ký · 1.0 = ban hành · 1.x = sửa đổi</td><td>—</td></tr>
+  </table>
+</div></section>
+
+<!-- ============ TEMPLATE ============ -->
+<section class="doc" id="tpl"><div class="paper">
+  <table class="hdr"><tr>
+    <td class="logo" rowspan="1">iNET<small>BP Phát triển sản phẩm · Phòng Nền tảng</small></td>
+    <td class="ttl">[TÊN QUY TRÌNH / QUY ĐỊNH]<small>Mẫu khung chung áp dụng cho DEV-QT-01 … DEV-QT-10</small></td>
+    <td class="meta">Mã: <b>DEV-QT-xx</b><br>Lần ban hành: 0.9 (dự thảo)<br>Ngày hiệu lực: __/__/2026<br>Rà soát kế tiếp: __/__/2027<br>Trang: x / y</td>
+  </tr></table>
+  <table class="sign"><tr><th></th><th>Người lập</th><th>Người kiểm tra</th><th>Người phê duyệt</th></tr>
+    <tr><td>Họ tên</td><td></td><td></td><td></td></tr>
+    <tr><td>Chức vụ</td><td></td><td></td><td></td></tr>
+    <tr><td>Chữ ký / ngày</td><td></td><td></td><td></td></tr></table>
+  <h3>Lịch sử thay đổi</h3>
+  <table class="t"><tr><th>Lần</th><th>Ngày</th><th>Nội dung thay đổi</th><th>Người thực hiện</th></tr>
+    <tr class="ex"><td>0.9</td><td>09/10/2026</td><td>Dự thảo đầu tiên, trình Ban ATANM &amp; BVDL</td><td>[Họ tên]</td></tr></table>
+  <h2>1. Mục đích</h2><p>Một đến ba câu: quy trình này kiểm soát việc gì và giảm rủi ro gì.</p>
+  <h2>2. Phạm vi áp dụng</h2><p>Sản phẩm (theo DEV-BM-01), môi trường (dev, staging, production), đối tượng áp dụng, và những gì không thuộc phạm vi.</p>
+  <h2>3. Căn cứ</h2><p class="small">Ghi theo chuỗi truy vết: điều khoản tiêu chuẩn → luật → nghị định → thông tư → tài liệu công ty.</p><ul><li><b>TCVN 14423:2026</b>, điều khoản cụ thể theo cấp độ của hệ thống (ví dụ 5.17.2.1)</li><li>Luật: Luật An ninh mạng 2025; Luật Bảo vệ dữ liệu cá nhân 2025; Luật Dữ liệu 2024 (khi liên quan)</li><li>Nghị định: 331/2026/NĐ-CP, 356/2025/NĐ-CP, 165/2025/NĐ-CP, điều khoản cụ thể</li><li>Thông tư, văn bản hướng dẫn (nếu có)</li><li>ISO/IEC 27001:2022, mã kiểm soát Phụ lục A</li><li>Tài liệu công ty liên quan: Quyết định 159/2026/QĐ-iNET (thành lập Ban ATANM &amp; BVDL), GOV-03, OPS-xx</li></ul>
+  <h2>4. Thuật ngữ và viết tắt</h2><table class="t"><tr><th>Thuật ngữ</th><th>Giải thích</th></tr><tr class="blank"><td></td><td></td></tr></table>
+  <h2>5. Trách nhiệm</h2><p>Bảng RACI theo người thật. R = thực hiện, A = chịu trách nhiệm cuối, C = tham vấn, I = được thông báo.</p>
+  <table class="t"><tr><th>Hoạt động</th><th>Lập trình viên</th><th>Người review</th><th>Người phụ trách BP-DEV</th><th>BP Kỹ thuật</th><th>Ban ATANM</th></tr><tr class="blank"><td></td><td></td><td></td><td></td><td></td><td></td></tr></table>
+  <h2>6. Nội dung quy trình</h2><p>Lưu đồ, sau đó là bảng các bước: Bước | Nội dung | Người thực hiện | Đầu ra / hồ sơ | Thời hạn. Cuối mục là các trường hợp ngoại lệ.</p>
+  <h2>7. Hồ sơ phát sinh và lưu trữ</h2><table class="t"><tr><th>Hồ sơ</th><th>Biểu mẫu</th><th>Nơi lưu</th><th>Thời gian lưu</th><th>Người lưu</th></tr><tr class="blank"><td></td><td></td><td></td><td></td><td></td></tr></table>
+  <h2>8. Hiện trạng áp dụng và kế hoạch khắc phục <span class="pill p-err">bắt buộc</span></h2>
+  <table class="t"><tr><th>Yêu cầu</th><th>Hiện trạng</th><th>Bằng chứng</th><th>Hạn khắc phục</th><th>Người phụ trách</th><th>Biện pháp tạm thời</th></tr>
+    <tr class="ex"><td>Quét secret trên CI</td><td><span class="pill p-err">CHƯA CÓ</span> 0/20 repo, chụp ngày 01/10/2026</td><td>EVD-QT03-20261002-…</td><td>31/10/2026</td><td>[Họ tên]</td><td>Rà tay khi review MR</td></tr></table>
+  <h2>9. Rà soát và cập nhật</h2><p>Rà soát tài liệu tối thiểu 01 lần/năm, hoặc ngay khi có thay đổi về hệ thống, tổ chức, quy định pháp luật, hay sau sự cố liên quan (theo yêu cầu chung của TCVN 14423:2026). Mỗi lần rà soát ghi vào bảng lịch sử thay đổi, kể cả khi không sửa nội dung.</p>
+  <h2>10. Phụ lục</h2><p>Checklist, sơ đồ chi tiết, liên kết.</p>
+  <div class="foot"><span>DEV-QT-xx · Lần 0.9</span><span>Tài liệu nội bộ — không chứa giá trị bí mật</span></div>
+</div></section>
+
+<!-- ============ QT-03 FULL ============ -->
+<section class="doc" id="qt03"><div class="paper">
+  <table class="hdr"><tr>
+    <td class="logo">iNET<small>Cấp công ty</small></td>
+    <td class="ttl">Quy trình quản lý thay đổi, phát hành và CI/CD<small>Ban hành cấp công ty · Áp dụng cho mọi phần mềm đưa vào vận hành nội bộ, theo 3 luồng ở Phụ lục A của DEV-QT-01</small></td>
+    <td class="meta">Mã: <b>DEV-QT-03</b><br>Lần ban hành: 0.9 (dự thảo)<br>Ngày hiệu lực: __/10/2026<br>Chủ sở hữu quy trình: CEO<br>Phê duyệt: ____________</td>
+  </tr></table>
+  <table class="sign"><tr><th></th><th>Người lập</th><th>Người kiểm tra</th><th>Người phê duyệt</th></tr>
+    <tr><td>Họ tên</td><td>[Họ tên]</td><td>[Ban ATANM &amp; BVDL]</td><td></td></tr>
+    <tr><td>Chức vụ</td><td>Người phụ trách BP-DEV</td><td>[Chức vụ]</td><td></td></tr>
+    <tr><td>Chữ ký / ngày</td><td></td><td></td><td></td></tr></table>
+
+  <h2>1. Mục đích</h2>
+  <p>Bảo đảm mọi thay đổi về mã nguồn, cấu hình và môi trường chạy của sản phẩm đều được ghi nhận, rà soát, kiểm thử và được CEO hoặc người được CEO ủy quyền phê duyệt trước khi lên môi trường production. Mỗi thay đổi đều truy vết được và hoàn tác được khi có sự cố.</p>
+  <h2>2. Phạm vi áp dụng</h2>
+  <ul>
+    <li>Các sản phẩm có tên trong DEV-BM-01 Danh mục sản phẩm và kho mã nguồn, bất kể do BP-DEV, dự án CEO trực tiếp quản lý hay bộ phận khác phát triển.</li>
+    <li>Ba môi trường, tách biệt theo dữ liệu và người truy cập:<ul><li><b>dev</b>: môi trường phát triển; chỉ người đang làm mới xem được.</li><li><b>staging</b>: thử nghiệm nội bộ; <b>không có dữ liệu khách hàng</b>.</li><li><b>production</b>: môi trường vận hành; là nơi <b>duy nhất có dữ liệu khách hàng</b>.</li></ul></li>
+    <li>Ba loại thay đổi: tiêu chuẩn, thông thường, khẩn cấp (mục 6.2).</li>
+    <li>Không thuộc phạm vi: thay đổi hạ tầng máy chủ và mạng. Phần này áp dụng quy trình của BP Kỹ thuật.</li>
+  </ul>
+  <h2>3. Căn cứ</h2>
+  <ul>
+    <li>Luật An ninh mạng số 116/2025/QH15.</li>
+    <li>Nghị định 331/2026/NĐ-CP, Điều 30 khoản 3 (quản lý thiết kế, xây dựng và quản lý vận hành hệ thống).</li>
+    <li>TCVN 14423:2026, nhóm yêu cầu quản lý vận hành.</li>
+    <li>ISO/IEC 27001:2022, Phụ lục A: 8.32 Quản lý thay đổi · 8.31 Tách biệt môi trường · 8.9 Quản lý cấu hình · 8.25 Vòng đời phát triển an toàn.</li>
+    <li>ISO/IEC 20000-1:2018, mục 8.5.1 (quản lý thay đổi) và 8.5.3 (quản lý phát hành và triển khai).</li>
+  </ul>
+  <h2>4. Thuật ngữ và viết tắt</h2>
+  <table class="t">
+    <tr><th>Thuật ngữ</th><th>Giải thích</th></tr>
+    <tr><td>MR (Merge Request)</td><td>Yêu cầu gộp mã trên GitLab. Đây là đơn vị rà soát của mọi thay đổi.</td></tr>
+    <tr><td>Pipeline</td><td>Chuỗi kiểm tra tự động trên GitLab CI: lint, test, build, quét bảo mật, triển khai.</td></tr>
+    <tr><td>Tag phát hành</td><td>Nhãn phiên bản gắn vào commit được đưa lên production, ví dụ <code>v2.4.1</code>.</td></tr>
+    <tr><td>Rollback</td><td>Hoàn tác về phiên bản ổn định gần nhất.</td></tr>
+  </table>
+  <h2>5. Trách nhiệm</h2>
+  <table class="t">
+    <tr><th>Hoạt động</th><th>Người phụ trách sản phẩm</th><th>Người review</th><th>Người duyệt production*</th><th>CEO</th><th>BP Kỹ thuật</th><th>Ban ATANM</th></tr>
+    <tr><td>Tạo issue, nhánh và MR</td><td>R</td><td>I</td><td>I</td><td>—</td><td>—</td><td>—</td></tr>
+    <tr><td>Rà soát mã (review)</td><td>C</td><td>R</td><td>I</td><td>—</td><td>—</td><td>—</td></tr>
+    <tr><td>Phê duyệt đưa lên production</td><td>I</td><td>C</td><td>R</td><td>A (chịu trách nhiệm quy trình triển khai production)</td><td>C</td><td>I</td></tr>
+    <tr><td>Triển khai lên production</td><td>R</td><td>I</td><td>I</td><td>A</td><td>C</td><td>—</td></tr>
+    <tr><td>Thay đổi khẩn cấp</td><td>R</td><td>C</td><td>R (đồng ý qua kênh nhanh)</td><td>A</td><td>C</td><td>I</td></tr>
+    <tr><td>Rollback</td><td>R</td><td>—</td><td>I</td><td>A</td><td>C</td><td>I</td></tr>
+  </table>
+  <p class="small">* Người duyệt production là CEO hoặc người được CEO ủy quyền bằng văn bản. CEO chịu trách nhiệm cuối cùng về triển khai production. Mỗi sản phẩm có người phụ trách sản phẩm (ghi ở DEV-BM-01) tự chịu trách nhiệm chuẩn bị bản phát hành và báo thẳng CEO, không qua người phụ trách BP-DEV. Khi người phụ trách sản phẩm vắng mặt, một thành viên khác của BP-DEV hỗ trợ thay.</p>
+
+  <h2>6. Nội dung quy trình</h2>
+  <h3>6.1. Lưu đồ</h3>
+  <div class="flow">
+    <div class="s"><b>B1</b>Issue mô tả thay đổi</div><span class="a">→</span>
+    <div class="s"><b>B2</b>Nhánh feature / fix</div><span class="a">→</span>
+    <div class="s"><b>B3</b>MR + review ≥ 1 người</div><span class="a">→</span>
+    <div class="s"><b>B4</b>Pipeline: lint · test · quét</div><span class="a">→</span>
+    <div class="s"><b>B5</b>Triển khai staging, kiểm thử</div><span class="a">→</span>
+    <div class="s g"><b>B6 · Cổng duyệt</b>CEO hoặc người được CEO ủy quyền duyệt</div><span class="a">→</span>
+    <div class="s"><b>B7</b>Gắn tag, triển khai production</div><span class="a">→</span>
+    <div class="s e"><b>B8</b>Theo dõi 24h, ghi BM-04</div>
+  </div>
+  <div class="alt">
+    <div><b>Nhánh lỗi tại B4 hoặc B5:</b> pipeline đỏ hoặc kiểm thử staging không đạt thì MR quay lại B2. Không được bỏ qua bước kiểm tra để gộp mã.</div>
+    <div><b>Nhánh lỗi sau B7:</b> lỗi trên production thì rollback về tag trước theo mục 6.4, đồng thời mở sự cố theo DEV-QT-08.</div>
+  </div>
+  <h3>6.2. Phân loại thay đổi</h3>
+  <table class="t">
+    <tr><th>Loại</th><th>Định nghĩa</th><th>Phê duyệt</th><th>Ví dụ</th></tr>
+    <tr><td>Tiêu chuẩn</td><td>Rủi ro thấp, lặp lại, đã có quy trình mẫu</td><td>MR đã được review; CEO hoặc người được CEO ủy quyền duyệt tại B6</td><td>Sửa nội dung hiển thị, cập nhật bản vá thư viện (patch)</td></tr>
+    <tr><td>Thông thường</td><td>Thay đổi tính năng, cấu trúc dữ liệu hoặc cấu hình</td><td>MR đã được review, đã kiểm thử trên staging; CEO hoặc người được CEO ủy quyền duyệt tại B6</td><td>Thêm API, migration cơ sở dữ liệu</td></tr>
+    <tr><td>Khẩn cấp</td><td>Cần làm ngay để khắc phục sự cố hoặc lỗ hổng nghiêm trọng</td><td>CEO hoặc người được CEO ủy quyền đồng ý qua kênh nhanh; ghi bổ sung vào BM-04 và mở sự cố theo DEV-QT-08 trong 24 giờ</td><td>Vá lỗ hổng đang bị khai thác</td></tr>
+  </table>
+  <h3>6.3. Các bước chi tiết</h3>
+  <table class="t">
+    <tr><th>Bước</th><th>Nội dung</th><th>Người thực hiện</th><th>Đầu ra / hồ sơ</th><th>Thời hạn</th></tr>
+    <tr><td>B1</td><td>Tạo issue trên GitLab: mục tiêu, phạm vi ảnh hưởng, loại thay đổi</td><td>Lập trình viên</td><td>Issue</td><td>Trước khi code</td></tr>
+    <tr><td>B2</td><td>Tạo nhánh từ <code>main</code>/<code>develop</code>. Không commit thẳng vào nhánh được bảo vệ.</td><td>Lập trình viên</td><td>Nhánh liên kết với issue</td><td>—</td></tr>
+    <tr><td>B3</td><td>Mở MR theo checklist ở Phụ lục 9.1. Ít nhất 1 người không phải tác giả review.</td><td>Lập trình viên, người review</td><td>MR được duyệt</td><td>≤ 2 ngày làm việc</td></tr>
+    <tr><td>B4</td><td>Pipeline chạy lint, test, build, quét secret và quét thư viện phụ thuộc. Phải xanh mới được gộp.</td><td>Hệ thống CI</td><td>Log pipeline</td><td>Tự động</td></tr>
+    <tr><td>B5</td><td>Triển khai lên staging. Kiểm thử chức năng chính và kiểm thử hồi quy.</td><td>Lập trình viên</td><td>Kết quả kiểm thử ghi trên MR</td><td>—</td></tr>
+    <tr><td>B6</td><td>CEO hoặc người được CEO ủy quyền phê duyệt bằng job thủ công trên pipeline production</td><td>Người duyệt production</td><td>Bản ghi duyệt trên pipeline</td><td>—</td></tr>
+    <tr><td>B7</td><td>Gắn tag phiên bản, triển khai production, ghi changelog</td><td>Lập trình viên</td><td>Tag, changelog</td><td>Ngoài giờ cao điểm</td></tr>
+    <tr><td>B8</td><td>Theo dõi log và cảnh báo trong 24 giờ, rồi ghi một dòng vào Sổ thay đổi DEV-BM-04</td><td>Lập trình viên</td><td>Dòng BM-04</td><td>≤ 24 giờ sau triển khai</td></tr>
+  </table>
+  <h3>6.4. Hoàn tác (rollback)</h3>
+  <p>Mỗi lần triển khai thông thường phải ghi sẵn cách hoàn tác trên MR (tag đích, có migration ngược hay không). Thời gian hoàn tác mục tiêu: ≤ 30 phút. Sau hoàn tác phải mở sự cố theo DEV-QT-08.</p>
+  <h3>6.5. Áp dụng theo luồng phát triển</h3>
+  <table class="t">
+    <tr><th>Luồng (theo DEV-QT-01 Phụ lục A)</th><th>Bước B1–B5, B7–B8</th><th>B6 · Người duyệt production</th><th>Điều kiện thêm trước lần phát hành đầu tiên</th></tr>
+    <tr><td>L1 · Nội bộ BP-DEV</td><td>Như mục 6.3; người phụ trách sản phẩm tự chuẩn bị bản phát hành và báo CEO</td><td>CEO hoặc người được CEO ủy quyền bằng văn bản</td><td>—</td></tr>
+    <tr><td>L2 · Dự án CEO trực tiếp quản lý</td><td>Như mục 6.3; BP-DEV là người review</td><td>CEO</td><td>Biên bản bàn giao vận hành BM-11</td></tr>
+    <tr><td>L3a · Bộ phận khác, rủi ro thấp</td><td>Rút gọn: G1–G4 bắt buộc; staging không bắt buộc</td><td>CEO hoặc người được CEO ủy quyền bằng văn bản (có thể ủy quyền cho người phụ trách bộ phận đó)</td><td>Đăng ký BM-01; tự kiểm theo checklist rút gọn của BM-12</td></tr>
+    <tr><td>L3b · Bộ phận khác, rủi ro cao</td><td>Bộ phận đẩy mã lên GitLab công ty; MR do BP-DEV review</td><td>CEO hoặc người được CEO ủy quyền bằng văn bản</td><td>BM-12 đầy đủ + BM-11</td></tr>
+  </table>
+
+  <h2>7. Hồ sơ phát sinh và lưu trữ</h2>
+  <table class="t">
+    <tr><th>Hồ sơ</th><th>Biểu mẫu</th><th>Nơi lưu</th><th>Thời gian lưu</th><th>Người lưu</th></tr>
+    <tr><td>Issue, MR, lịch sử review</td><td>—</td><td>GitLab</td><td>Suốt vòng đời sản phẩm</td><td>Hệ thống</td></tr>
+    <tr><td>Log pipeline, bản ghi phê duyệt</td><td>—</td><td>GitLab CI</td><td>≥ 12 tháng (đề xuất)</td><td>Hệ thống</td></tr>
+    <tr><td>Sổ thay đổi và phát hành</td><td>DEV-BM-04</td><td>Kho bằng chứng BP-DEV</td><td>≥ 24 tháng (đề xuất)</td><td>Người phụ trách BP-DEV</td></tr>
+  </table>
+
+  <h2>8. Hiện trạng áp dụng và kế hoạch khắc phục</h2>
+  <p class="note">Số liệu chụp ngày 01/10/2026 bằng cách quét 20 repo đã clone về máy. Sẽ chạy lại qua GitLab API ngày 02/10/2026 trước khi chốt.</p>
+  <table class="t">
+    <tr><th>Yêu cầu</th><th>Hiện trạng</th><th>Bằng chứng</th><th>Hạn khắc phục</th><th>Người phụ trách</th><th>Biện pháp tạm thời</th></tr>
+    <tr><td>Tách môi trường dev / staging / production; dữ liệu khách hàng chỉ ở production</td><td><span class="pill p-ok">ĐÃ CÓ</span> dev chỉ người làm xem được; staging thử nghiệm nội bộ, không có dữ liệu khách hàng; production là nơi duy nhất có dữ liệu khách hàng (người phụ trách BP-DEV xác nhận 01/10/2026)</td><td>Phiếu hiện trạng EVD-QT01-20261001</td><td>—</td><td>[Họ tên]</td><td>—</td></tr>
+    <tr><td>Mọi thay đổi đi qua MR và review</td><td><span class="pill p-warn">MỘT PHẦN</span> Đang làm theo thói quen, chưa bắt buộc bằng cấu hình</td><td>EVD-QT03-…-mr-stats</td><td>31/10/2026</td><td>[Họ tên]</td><td>Người phụ trách BP-DEV kiểm tra MR hằng tuần</td></tr>
+    <tr><td>Nhánh chính được bảo vệ, cấm push thẳng</td><td><span class="pill p-gray">CẦN XÁC MINH</span></td><td>EVD-QT03-…-protected-branches</td><td>31/10/2026</td><td>[Họ tên]</td><td>—</td></tr>
+    <tr><td>Có pipeline CI</td><td><span class="pill p-warn">MỘT PHẦN</span> 12/20 repo; phần lớn chỉ có build và deploy</td><td>EVD-QT03-…-ci-inventory</td><td>31/12/2026</td><td>[Họ tên]</td><td>Chạy test cục bộ trước khi gộp</td></tr>
+    <tr><td>Quét secret và thư viện phụ thuộc trong pipeline</td><td><span class="pill p-err">CHƯA CÓ</span> 0/20 repo (chỉ 1 repo có SAST)</td><td>EVD-QT03-…-ci-inventory</td><td>31/12/2026</td><td>[Họ tên]</td><td>Rà tay khi review MR</td></tr>
+    <tr><td>Cổng phê duyệt production (B6)</td><td><span class="pill p-warn">MỘT PHẦN</span> 3/50 repo có bước duyệt thủ công trong CI (chốt 01/10/2026)</td><td>EVD-QT03-20261001-ci-va-nhanh-bao-ve.csv</td><td>30/11/2026</td><td>[Họ tên]</td><td>Báo CEO hoặc người được ủy quyền trước mỗi lần triển khai</td></tr>
+    <tr><td>Sổ thay đổi BM-04</td><td><span class="pill p-err">CHƯA CÓ</span></td><td>—</td><td>31/10/2026 (sinh tự động từ tag và MR)</td><td>[Họ tên]</td><td>Dùng changelog trong repo</td></tr>
+    <tr><td>Mã nguồn do bộ phận khác phát triển nằm trên GitLab công ty</td><td><span class="pill p-warn">MỘT PHẦN</span> Đã xác nhận một phần, chưa rà hết các bộ phận</td><td>EVD-QT03-…-danh-sach-repo-ngoai-bp</td><td>31/10/2026</td><td>[Họ tên]</td><td>—</td></tr>
+  </table>
+  <h2>9. Phụ lục</h2>
+  <h3>9.1. Checklist MR</h3>
+  <table class="t">
+    <tr><th class="chk">☐</th><th>Nội dung kiểm tra</th></tr>
+    <tr><td class="chk">☐</td><td>Có liên kết tới issue và ghi loại thay đổi</td></tr>
+    <tr><td class="chk">☐</td><td>Không có mật khẩu, token hay khóa trong diff, kể cả file <code>.env*</code></td></tr>
+    <tr><td class="chk">☐</td><td>Đầu vào người dùng được kiểm tra; truy vấn có tham số hóa (theo DEV-QT-02)</td></tr>
+    <tr><td class="chk">☐</td><td>Có test hoặc mô tả cách đã kiểm thử</td></tr>
+    <tr><td class="chk">☐</td><td>Có cách hoàn tác nếu là thay đổi thông thường</td></tr>
+    <tr><td class="chk">☐</td><td>Nếu có xử lý dữ liệu cá nhân mới, đã báo theo DEV-QT-10</td></tr>
+  </table>
+  <div class="foot"><span>DEV-QT-03 · Lần 0.9</span><span>Tài liệu nội bộ — không chứa giá trị bí mật</span></div>
+</div></section>
+
+<!-- ============ QT-08 FULL ============ -->
+<section class="doc" id="qt08"><div class="paper">
+  <table class="hdr"><tr>
+    <td class="logo">iNET<small>BP Phát triển sản phẩm · Phòng Nền tảng</small></td>
+    <td class="ttl">Quy trình xử lý sự cố ứng dụng<small>Quy trình tầng bộ phận, nối vào quy trình ứng cứu sự cố OPS-12 của công ty</small></td>
+    <td class="meta">Mã: <b>DEV-QT-08</b><br>Lần ban hành: 0.9 (dự thảo)<br>Ngày hiệu lực: __/10/2026<br>Trang: 1 / 5</td>
+  </tr></table>
+  <table class="sign"><tr><th></th><th>Người lập</th><th>Người kiểm tra</th><th>Người phê duyệt</th></tr>
+    <tr><td>Họ tên</td><td>[Họ tên]</td><td>[Họ tên]</td><td></td></tr>
+    <tr><td>Chữ ký / ngày</td><td></td><td></td><td></td></tr></table>
+
+  <h2>1. Mục đích</h2>
+  <p>Phát hiện, phân loại, ngăn chặn và khắc phục sự cố của sản phẩm nhanh nhất có thể. Bảo đảm thông tin chuyển kịp cho Đội ứng cứu sự cố (CSIRT) của công ty, để công ty báo cáo cơ quan chức năng đúng thời hạn luật định.</p>
+  <h2>2. Phạm vi</h2>
+  <p>Sự cố ở tầng ứng dụng của các sản phẩm trong DEV-BM-01: lỗi gây gián đoạn, rò rỉ hoặc nghi rò rỉ dữ liệu, tài khoản bị chiếm, lộ khóa hay bí mật, mã độc trong thư viện phụ thuộc. Sự cố hạ tầng và mạng do BP Kỹ thuật chủ trì, BP-DEV hỗ trợ.</p>
+  <h2>3. Căn cứ</h2>
+  <ul>
+    <li>Nghị định 331/2026/NĐ-CP, Điều 28 (giám sát, ứng cứu) và Điều 31 (báo cáo sự cố).</li>
+    <li>Luật Bảo vệ dữ liệu cá nhân 91/2025/QH15; Nghị định 356/2025/NĐ-CP, Mẫu số 08 (thông báo vi phạm).</li>
+    <li>ISO/IEC 27001:2022, Phụ lục A: 5.24–5.28, 6.8 · ISO/IEC 27035-1:2023.</li>
+    <li>OPS-12 Ứng cứu sự cố (tài liệu công ty).</li>
+  </ul>
+  <h2>5. Trách nhiệm</h2>
+  <table class="t">
+    <tr><th>Vai trò</th><th>Người đảm nhận</th><th>Nhiệm vụ</th></tr>
+    <tr><td>Người phụ trách sản phẩm (người chủ chốt)</td><td>Theo từng sản phẩm, ghi ở DEV-BM-01. Ví dụ: OneDash, OneMail do Ông Trịnh Quốc Hoàn Đạt phụ trách</td><td>Tự tiếp nhận, phân loại, xử lý sự cố của sản phẩm mình phụ trách; báo CEO; chuẩn bị bản sửa và báo CEO để triển khai production</td></tr>
+    <tr><td>Người hỗ trợ khi người phụ trách sản phẩm vắng mặt (người dự phòng)</td><td>Thành viên khác của BP-DEV, ghi theo từng sản phẩm ở DEV-BM-01</td><td>Tiếp nhận và xử lý thay; báo CEO như người phụ trách sản phẩm</td></tr>
+    <tr><td>Người phụ trách BP-DEV</td><td>Ông Trịnh Quốc Hoàn Đạt (do CEO chỉ định)</td><td>Hỗ trợ, điều phối công việc khi cần. Không phải khâu trung gian: người phụ trách sản phẩm báo thẳng CEO</td></tr>
+    <tr><td>Người chịu trách nhiệm cuối cùng</td><td>CEO</td><td>Quyết định ngăn chặn, rollback; duyệt triển khai production bản sửa (CEO hoặc người được CEO ủy quyền)</td></tr>
+    <tr><td>Đầu mối báo cáo cơ quan chức năng</td><td>Ban ATANM &amp; BVDL (QĐ 159/2026/QĐ-iNET; quy trình OPS-12)</td><td>BP-DEV cung cấp dữ liệu; không tự gửi báo cáo ra ngoài</td></tr>
+  </table>
+
+  <h2>6. Nội dung quy trình</h2>
+  <h3>6.1. Mức độ sự cố và thời hạn</h3>
+  <table class="t">
+    <tr><th>Mức</th><th>Dấu hiệu</th><th>Báo CSIRT nội bộ</th><th>Thời hạn công ty báo cơ quan chức năng</th></tr>
+    <tr><td><span class="pill p-err">P1 · Nghiêm trọng</span></td><td>Gián đoạn diện rộng; rò rỉ dữ liệu cá nhân; hệ thống bị chiếm quyền</td><td>≤ 15 phút</td><td>≤ 24 giờ (NĐ 331 Đ31). Nếu liên quan an ninh quốc gia: báo ngay. Vi phạm DLCN: Mẫu 08 NĐ 356 (⚠ Ban ATANM &amp; BVDL xác nhận thời hạn)</td></tr>
+    <tr><td><span class="pill p-warn">P2 · Cao</span></td><td>Một chức năng chính ngừng; lộ khóa hoặc bí mật chưa ghi nhận bị khai thác</td><td>≤ 1 giờ</td><td>≤ 72 giờ (báo cáo ban đầu, NĐ 331 Đ31)</td></tr>
+    <tr><td><span class="pill p-info">P3 · Trung bình</span></td><td>Lỗi ảnh hưởng một nhóm nhỏ, có cách đi vòng</td><td>Trong ngày</td><td>Theo đánh giá của CSIRT</td></tr>
+    <tr><td><span class="pill p-gray">P4 · Thấp</span></td><td>Lỗi giao diện, không ảnh hưởng dữ liệu</td><td>Không bắt buộc</td><td>Không</td></tr>
+  </table>
+  <h3>6.2. Lưu đồ</h3>
+  <div class="flow">
+    <div class="s"><b>B1</b>Phát hiện: cảnh báo, người dùng báo, quét</div><span class="a">→</span>
+    <div class="s g"><b>B2</b>Tiếp nhận, phân loại P1–P4</div><span class="a">→</span>
+    <div class="s"><b>B3</b>Báo CSIRT (P1, P2), mở BM-07</div><span class="a">→</span>
+    <div class="s"><b>B4</b>Ngăn chặn: chặn, khóa, thu hồi, rollback</div><span class="a">→</span>
+    <div class="s"><b>B5</b>Thu thập bằng chứng (log, thời điểm)</div><span class="a">→</span>
+    <div class="s"><b>B6</b>Khắc phục và khôi phục</div><span class="a">→</span>
+    <div class="s e"><b>B7</b>Đóng sự cố, post-mortem ≤ 5 ngày làm việc</div>
+  </div>
+  <div class="alt">
+    <div><b>Nếu có dữ liệu cá nhân bị ảnh hưởng:</b> tại B3 phải đánh dấu "có DLCN" trên BM-07 để Ban ATANM lập Mẫu 08 theo NĐ 356/2025.</div>
+    <div><b>Nếu lộ khóa hoặc bí mật:</b> tại B4 thu hồi và phát hành lại khóa theo DEV-QT-05, cập nhật trạng thái trong DEV-BM-03.</div>
+  </div>
+  <h3>6.3. Nguyên tắc khi xử lý</h3>
+  <ul>
+    <li>Giữ nguyên bằng chứng trước khi sửa: chụp log, ghi thời điểm theo giờ Việt Nam (UTC+7).</li>
+    <li>Không công bố thông tin sự cố ra ngoài khi chưa có ý kiến của Ban ATANM.</li>
+    <li>Mọi thao tác trên production trong lúc xử lý được ghi vào dòng thời gian của BM-07.</li>
+  </ul>
+  <h2>7. Hồ sơ</h2>
+  <table class="t"><tr><th>Hồ sơ</th><th>Biểu mẫu</th><th>Nơi lưu</th><th>Thời gian lưu</th></tr>
+    <tr><td>Phiếu báo cáo sự cố và post-mortem</td><td>DEV-BM-07</td><td>Kho bằng chứng BP-DEV, bản sao gửi CSIRT</td><td>≥ 24 tháng (đề xuất)</td></tr></table>
+  <h2>8. Hiện trạng áp dụng và kế hoạch khắc phục</h2>
+  <table class="t">
+    <tr><th>Yêu cầu</th><th>Hiện trạng</th><th>Bằng chứng</th><th>Hạn khắc phục</th><th>Người phụ trách</th><th>Biện pháp tạm thời</th></tr>
+    <tr><td>Kênh cảnh báo tự động</td><td><span class="pill p-warn">MỘT PHẦN</span> Có healthcheck và cảnh báo qua Telegram ở một số sản phẩm</td><td>EVD-QT08-…</td><td>31/12/2026</td><td>[Họ tên]</td><td>Kiểm tra thủ công hằng ngày</td></tr>
+    <tr><td>Phân loại mức độ và thời hạn báo cáo bằng văn bản</td><td><span class="pill p-err">CHƯA CÓ</span> Trước đây xử lý theo kinh nghiệm</td><td>—</td><td>Ban hành cùng tài liệu này</td><td>Người phụ trách BP-DEV</td><td>—</td></tr>
+    <tr><td>Người chủ chốt xử lý sự cố theo từng sản phẩm</td><td><span class="pill p-ok">ĐÃ CÓ</span> Người phụ trách sản phẩm tự xử lý và báo CEO; CEO chịu trách nhiệm cuối cùng (xác nhận 01/10/2026)</td><td>—</td><td>—</td><td>Người phụ trách BP-DEV</td><td>—</td></tr>
+    <tr><td>Ít nhất một người dự phòng (TCVN 14423:2026 mục ứng phó sự cố)</td><td><span class="pill p-warn">MỘT PHẦN</span> Nguyên tắc đã có: thành viên khác của BP-DEV hỗ trợ khi người phụ trách sản phẩm vắng mặt. Chưa ghi tên người hỗ trợ cho từng sản phẩm</td><td>—</td><td>09/10/2026 (ghi vào DEV-BM-01)</td><td>Người phụ trách BP-DEV</td><td>Thành viên BP-DEV có mặt hỗ trợ; CEO điều phối</td></tr>
+    <tr><td>Lịch trực sự cố</td><td><span class="pill p-err">CHƯA CÓ</span> Sự cố do người phụ trách sản phẩm tự nhận</td><td>—</td><td>31/10/2026</td><td>Người phụ trách BP-DEV</td><td>Người phụ trách sản phẩm là đầu mối mặc định</td></tr>
+    <tr><td>Sổ sự cố và post-mortem</td><td><span class="pill p-err">CHƯA CÓ</span></td><td>—</td><td>31/10/2026</td><td>[Họ tên]</td><td>—</td></tr>
+    <tr><td>Diễn tập xử lý sự cố</td><td><span class="pill p-err">CHƯA CÓ</span></td><td>—</td><td>31/12/2026 (lần đầu)</td><td>[Họ tên]</td><td>—</td></tr>
+  </table>
+  <div class="foot"><span>DEV-QT-08 · Lần 0.9</span><span>Tài liệu nội bộ — không chứa giá trị bí mật</span></div>
+</div></section>
+
+<!-- ============ OUTLINE QTs ============ -->
+<section class="doc" id="qt01"><div class="paper">
+  <table class="hdr"><tr><td class="logo">iNET<small>Cấp công ty</small></td><td class="ttl">Quy trình phát triển phần mềm an toàn (SSDLC)<small>Ban hành cấp công ty · Áp dụng cho mọi đơn vị phát triển phần mềm đưa vào vận hành nội bộ</small></td><td class="meta">Mã: <b>DEV-QT-01</b><br>Lần ban hành: 0.9<br>Soạn và vận hành: BP-DEV<br>Phê duyệt: ____________</td></tr></table>
+  <table class="sign"><tr><th></th><th>Người lập</th><th>Người kiểm tra</th><th>Người phê duyệt</th></tr>
+    <tr><td>Họ tên</td><td>[Họ tên]</td><td>[Ban ATANM &amp; BVDL]</td><td></td></tr>
+    <tr><td>Chức vụ</td><td>Người phụ trách BP-DEV</td><td>[Chức vụ]</td><td></td></tr>
+    <tr><td>Chữ ký / ngày</td><td></td><td></td><td></td></tr></table>
+  <h2>Mục đích</h2><p>Đưa yêu cầu an ninh vào mọi giai đoạn của vòng đời sản phẩm, từ yêu cầu đến ngừng sử dụng, thay vì chỉ kiểm tra lúc phát hành. Mọi phần mềm vận hành nội bộ đều phải qua cùng một bộ cổng kiểm soát, bất kể đơn vị nào phát triển.</p>
+  <h2>Phạm vi</h2><p>Mọi phần mềm, công cụ hoặc dịch vụ chạy trên hạ tầng của công ty hoặc xử lý dữ liệu của công ty. Phát triển bởi: BP-DEV, dự án do CEO trực tiếp quản lý, hoặc bộ phận khác tự phát triển.</p>
+  <h2>Các giai đoạn chính</h2>
+  <div class="flow"><div class="s"><b>1</b>Yêu cầu: có yêu cầu ANM, DLCN</div><span class="a">→</span><div class="s"><b>2</b>Thiết kế: mô hình mối đe dọa cho tính năng rủi ro</div><span class="a">→</span><div class="s"><b>3</b>Lập trình theo QT-02</div><span class="a">→</span><div class="s"><b>4</b>Kiểm thử chức năng và bảo mật</div><span class="a">→</span><div class="s"><b>5</b>Phát hành theo QT-03</div><span class="a">→</span><div class="s"><b>6</b>Vận hành theo QT-07</div><span class="a">→</span><div class="s e"><b>7</b>Ngừng sử dụng: xóa dữ liệu, thu hồi khóa</div></div>
+  <h2>Căn cứ chính</h2><p>NĐ 331/2026 Đ30 k3 (quản lý thiết kế, xây dựng, hủy bỏ hệ thống) · ISO 27001 A.5.8, 8.25, 8.26, 8.27, 8.29, 8.30, 8.31, 8.33.</p>
+  <h2>Hồ sơ sinh ra</h2><p>Tài liệu thiết kế trong <code>docs/</code> của repo, biên bản review thiết kế, kết quả kiểm thử, biên bản ngừng sử dụng hệ thống.</p>
+  <h2>Hiện trạng sơ bộ</h2><p><span class="pill p-ok">ĐÃ CÓ</span> Tách ba môi trường dev (chỉ người làm xem được), staging (nội bộ, không có dữ liệu khách hàng), production (nơi duy nhất có dữ liệu khách hàng). <span class="pill p-ok">ĐÃ CÓ</span> 20/20 repo của BP-DEV có README, gần như tất cả có <code>docs/</code>. <span class="pill p-warn">MỘT PHẦN</span> Có test ở 12 repo. <span class="pill p-err">CHƯA CÓ</span> Bước đánh giá mối đe dọa và yêu cầu ANM trong giai đoạn thiết kế. <span class="pill p-gray">CẦN XÁC MINH</span> Các luồng dự án CEO và bộ phận khác chưa được rà.</p>
+  <p class="small">Trả lời các dòng Excel: 3, 14, 35–38, 57–65.</p>
+
+  <h2>Phụ lục A — Ba luồng phát triển</h2>
+  <p class="note">Nguyên tắc: <b>cùng cổng, khác đường vào.</b> Cả ba luồng phải qua đủ 6 cổng G1–G6. Khác nhau giữa các luồng là người thực hiện, độ sâu kiểm tra và hồ sơ đi kèm; mọi luồng đều qua bước duyệt production của CEO hoặc người được CEO ủy quyền.</p>
+  <h3>A.1. Sáu cổng kiểm soát bắt buộc</h3>
+  <div class="flow">
+    <div class="s"><b>G1 · Đăng ký</b>Có tên trong BM-01, có chủ sở hữu</div><span class="a">→</span>
+    <div class="s"><b>G2 · Mã nguồn</b>Nằm trên GitLab công ty</div><span class="a">→</span>
+    <div class="s"><b>G3 · Review</b>Người review không phải tác giả</div><span class="a">→</span>
+    <div class="s"><b>G4 · Quét</b>Không có secret, CI có quét</div><span class="a">→</span>
+    <div class="s g"><b>G5 · Duyệt</b>CEO hoặc người được CEO ủy quyền duyệt lên production</div><span class="a">→</span>
+    <div class="s e"><b>G6 · Bàn giao</b>Biên bản BM-11: ai vận hành, ai trực sự cố, sao lưu</div>
+  </div>
+  <h3>A.2. Áp dụng theo luồng</h3>
+  <div class="tw"><table class="t">
+    <tr><th>Luồng</th><th>Ai phát triển</th><th>G3 · Ai review</th><th>G5 · Ai duyệt production</th><th>G6 · Ai vận hành</th><th>Hồ sơ riêng của luồng</th></tr>
+    <tr><td><b>L1 · Nội bộ BP-DEV</b></td><td>Thành viên BP-DEV</td><td>Thành viên khác trong BP</td><td>CEO hoặc người được CEO ủy quyền bằng văn bản</td><td>BP-DEV</td><td>Theo QT-03</td></tr>
+    <tr><td><b>L2 · Dự án CEO trực tiếp quản lý</b></td><td>Nhóm do CEO điều phối</td><td>BP-DEV (review mã và bảo mật)</td><td>CEO</td><td>BP-DEV hoặc đơn vị CEO chỉ định, ghi rõ trong BM-11</td><td>Quyết định giao dự án của CEO</td></tr>
+        <tr><td><b>L3a · Bộ phận khác tự phát triển, rủi ro thấp</b></td><td>Nhân sự ngoài BP-DEV</td><td>Người khác trong bộ phận đó</td><td>CEO hoặc người được CEO ủy quyền bằng văn bản (có thể ủy quyền cho người phụ trách bộ phận đó)</td><td>Chính bộ phận đó (ghi tên người trực)</td><td>Đăng ký BM-01; tự kiểm theo checklist rút gọn của BM-12</td></tr>
+    <tr><td><b>L3b · Bộ phận khác tự phát triển, rủi ro cao</b></td><td>Như L3a</td><td>BP-DEV nghiệm thu theo BM-12</td><td>CEO hoặc người được CEO ủy quyền bằng văn bản</td><td>Thỏa thuận trong BM-11</td><td>BM-12 đầy đủ</td></tr>
+  </table></div>
+  <h3>A.3. Khi nào bộ phận khác tự làm bị coi là rủi ro cao (L3b)</h3>
+  <p>Chỉ cần thỏa <b>một</b> trong các điều kiện sau:</p>
+  <ul>
+    <li>Đọc hoặc ghi dữ liệu khách hàng, dữ liệu cá nhân, hoặc cơ sở dữ liệu production.</li>
+    <li>Truy cập được từ Internet, không chỉ trong mạng nội bộ hoặc VPN.</li>
+    <li>Giữ khóa, token hoặc quyền quản trị của hệ thống khác.</li>
+    <li>Gửi dữ liệu ra dịch vụ bên ngoài, nhất là dịch vụ đặt máy chủ ở nước ngoài.</li>
+  </ul>
+  <p>Mọi mã nguồn, dù được viết bằng cách nào hay lấy từ nguồn nào, đều phải có người review ở G3. Người đưa mã lên production chịu trách nhiệm về toàn bộ mã đó.</p>
+  <h3>A.4. Hiện trạng áp dụng theo luồng</h3>
+  <table class="t">
+    <tr><th>Luồng</th><th>Hiện trạng</th><th>Hạn khắc phục</th><th>Người phụ trách</th></tr>
+    <tr class="ex"><td>L2 · Dự án CEO</td><td><span class="pill p-gray">CẦN XÁC MINH</span> Danh sách dự án và người vận hành</td><td>09/10/2026 (ghi vào BM-01)</td><td>[Họ tên]</td></tr>
+    
+    <tr><td>L3 · Bộ phận khác</td><td><span class="pill p-warn">MỘT PHẦN</span> Một phần mã nguồn đã nằm trên GitLab công ty. <span class="pill p-err">CHƯA CÓ</span> Đăng ký danh mục các công cụ đang chạy; biên bản nghiệm thu BM-12</td><td>31/10/2026 (rà và đăng ký)</td><td>[Họ tên]</td></tr>
+  </table>
+</div></section>
+
+<section class="doc" id="qt02"><div class="paper">
+  <table class="hdr"><tr><td class="logo">iNET<small>BP-DEV</small></td><td class="ttl">Quy định lập trình an toàn và rà soát mã<small>Dàn ý</small></td><td class="meta">Mã: <b>DEV-QT-02</b><br>Lần ban hành: 0.9</td></tr></table>
+  <h2>Mục đích</h2><p>Thống nhất các quy tắc viết mã để tránh nhóm lỗ hổng phổ biến (OWASP Top 10) và quy định cách review mã.</p>
+  <h2>Nội dung chính</h2><ol><li>Kiểm tra và làm sạch đầu vào; truy vấn có tham số; mã hóa đầu ra.</li><li>Xác thực, phiên đăng nhập, phân quyền phía máy chủ.</li><li>Không lưu bí mật trong mã; đọc từ biến môi trường hoặc kho bí mật (theo QT-05).</li><li>Thông báo lỗi không lộ thông tin nội bộ; ghi log không chứa dữ liệu nhạy cảm.</li><li>Quy tắc dùng thư viện bên ngoài: nguồn tin cậy, khóa phiên bản (lockfile).</li><li>Tiêu chí review và checklist (dùng chung Phụ lục 9.1 của QT-03).</li><li>Mỗi repo có file <code>SECURITY.md</code> nêu đầu mối báo lỗi bảo mật.</li></ol>
+  <h2>Căn cứ chính</h2><p>NĐ 331/2026 Đ30 k4 (an toàn ứng dụng) · TCVN 14423:2026 · ISO 27001 A.8.28 · OWASP ASVS.</p>
+  <h2>Hiện trạng sơ bộ</h2><p><span class="pill p-err">CHƯA CÓ</span> Chưa có quy định viết thành văn bản. Không repo sản phẩm nào có SECURITY.md.</p>
+  <p class="small">Trả lời các dòng Excel: 39–48, 50–51.</p>
+</div></section>
+
+<section class="doc" id="qt04"><div class="paper">
+  <table class="hdr"><tr><td class="logo">iNET<small>BP-DEV</small></td><td class="ttl">Quy định quản trị mã nguồn, GitLab và quyền truy cập API quản trị<small>Dàn ý</small></td><td class="meta">Mã: <b>DEV-QT-04</b><br>Lần ban hành: 0.9</td></tr></table>
+  <h2>Nội dung chính</h2><ol><li><b>Trách nhiệm:</b> Trưởng phòng Nền tảng chịu trách nhiệm cao nhất về quản trị GitLab (gitlabs.inet.vn): cấp quyền Admin, chính sách 2FA/SSO, sao lưu và cập nhật GitLab. BP-DEV và Bộ phận Kỹ thuật quản trị các nhóm, project của mình theo phân quyền do Trưởng phòng Nền tảng cấp.</li><li>Cấp, thay đổi và thu hồi quyền khi người vào, chuyển việc hoặc nghỉ việc.</li><li>Nguyên tắc quyền tối thiểu: Admin, Owner, Maintainer, Developer.</li><li>Bắt buộc 2FA; tích hợp SSO khi đã có.</li><li>Bảo vệ nhánh chính; mọi MR phải được review trước khi gộp.</li><li>Rà soát quyền định kỳ hằng quý, lập biên bản DEV-BM-06.</li><li>Quản lý token truy cập cá nhân và token CI: hạn dùng, phạm vi.</li><li><b>Token API quản trị của sản phẩm</b> (mọi giao diện lập trình có quyền đọc dữ liệu khách hàng): chỉ cấp cho người có nhu cầu công việc, theo đúng phạm vi quyền cần dùng; có hạn dùng (đề xuất ≤ 90 ngày); thu hồi ngay khi người được cấp nghỉ việc hoặc chuyển việc; ghi vào danh sách token trong DEV-BM-06.</li><li><b>Log truy cập API quản trị:</b> ghi người gọi, endpoint, thời điểm, đối tượng dữ liệu được đọc; lưu tối thiểu 12 tháng (đề xuất); rà soát bất thường hằng tháng.</li></ol>
+  <h2>Căn cứ chính</h2><p>ISO 27001 A.5.15–5.18, 8.2, 8.4, 8.5, 8.15 · OPS-09.</p>
+  <h2>Hiện trạng sơ bộ</h2><table class="t"><tr><th>Yêu cầu</th><th>Hiện trạng</th><th>Hạn</th><th>Người phụ trách</th></tr><tr><td>2FA, danh sách Admin, nhánh bảo vệ trên GitLab</td><td><span class="pill p-gray">CẦN XÁC MINH</span> Kết xuất qua GitLab API ngày 02/10</td><td>02/10/2026 xác minh · 31/10/2026 khắc phục</td><td>[Họ tên]</td></tr><tr><td>Danh sách token API quản trị của sản phẩm (người được cấp, phạm vi, hạn dùng)</td><td><span class="pill p-gray">CẦN XÁC MINH</span></td><td>02/10/2026 xác minh · 31/10/2026 thu hồi token thừa</td><td>[Họ tên]</td></tr><tr><td>Log truy cập API quản trị</td><td><span class="pill p-gray">CẦN XÁC MINH</span> Nếu chưa ghi log thì chuyển sang CHƯA CÓ</td><td>02/10/2026 xác minh · 31/12/2026 bổ sung nếu thiếu</td><td>[Họ tên]</td></tr><tr><td>Thành viên project GitLab nhận phản hồi khách hàng chỉ gồm người xử lý phản hồi</td><td><span class="pill p-gray">CẦN XÁC MINH</span></td><td>02/10/2026 xác minh · 31/10/2026 rút quyền thừa</td><td>[Họ tên]</td></tr></table>
+  <p class="small">Trả lời các dòng Excel: 4, 6–7, 12–13, 88–90.</p>
+</div></section>
+
+<section class="doc" id="qt05"><div class="paper">
+  <table class="hdr"><tr><td class="logo">iNET<small>BP-DEV</small></td><td class="ttl">Quy định quản lý bí mật, khóa và chứng thư số<small>Dàn ý</small></td><td class="meta">Mã: <b>DEV-QT-05</b><br>Lần ban hành: 0.9</td></tr></table>
+  <h2>Nội dung chính</h2><ol><li>Phân loại bí mật: mật khẩu cơ sở dữ liệu, API key, service account, khóa TLS, khóa SSH.</li><li>Nơi lưu được phép: kho bí mật chuyên dụng, biến CI được che và bảo vệ. Cấm lưu trong repo.</li><li>Chu kỳ xoay vòng theo loại khóa; xoay ngay khi người giữ khóa nghỉ việc.</li><li>Xử lý khi khóa bị lộ: thu hồi, phát hành lại, rà lịch sử Git, mở sự cố theo QT-08.</li><li>Ghi Sổ khóa DEV-BM-03, không ghi giá trị khóa.</li></ol>
+  <h2>Căn cứ chính</h2><p>NĐ 331/2026 Đ30 k4 (an toàn dữ liệu) · ISO 27001 A.5.17, 8.24.</p>
+  <h2>Hiện trạng sơ bộ</h2><p><span class="pill p-err">CHƯA CÓ</span> 12/20 repo đang lưu file <code>.env*</code>. 3 repo lưu khóa service account hoặc khóa TLS. Đề xuất hạn: xoay vòng khóa và gỡ khỏi repo trước 31/10/2026; có kho bí mật chuyên dụng trước 31/12/2026; làm sạch lịch sử Git trước 31/03/2027.</p>
+  <p class="small">Trả lời các dòng Excel: 12, 31–33, 69, 91–96, 110, 116, 122.</p>
+</div></section>
+
+<section class="doc" id="qt06"><div class="paper">
+  <table class="hdr"><tr><td class="logo">iNET<small>BP-DEV</small></td><td class="ttl">Quy trình quản lý lỗ hổng, thư viện phụ thuộc và thành phần EOL<small>Dàn ý</small></td><td class="meta">Mã: <b>DEV-QT-06</b><br>Lần ban hành: 0.9</td></tr></table>
+  <h2>Nội dung chính</h2><ol><li>Nguồn phát hiện lỗ hổng: quét tự động trên CI, bản tin bảo mật, pentest, người dùng báo.</li><li>Đánh giá mức độ theo CVSS. Thời hạn xử lý đề xuất: Nghiêm trọng 7 ngày · Cao 30 ngày · Trung bình 90 ngày.</li><li>Theo dõi trong Sổ lỗ hổng DEV-BM-05.</li><li>Rà soát thành phần EOL (runtime, framework) hằng quý; ghi vào Sổ EOL DEV-BM-02 kèm lộ trình nâng cấp.</li></ol>
+  <h2>Căn cứ chính</h2><p>ISO 27001 A.8.8, 5.21, 8.19 · OPS-10 · CMP-07 mục 11.</p>
+  <h2>Hiện trạng sơ bộ</h2><p><span class="pill p-err">CHƯA CÓ</span> Chưa repo nào quét thư viện phụ thuộc. Node 20 đã hết hỗ trợ (30/04/2026) nhưng vẫn là nền của 7 repo; Node 18 ở 2 repo. Không thấy AngularJS hay Java trong repo của bộ phận.</p>
+  <p class="small">Trả lời các dòng Excel: 3, 29–30, 34, 49, 56, 66–68, 97–105, 115, 117, 120–121.</p>
+</div></section>
+
+<section class="doc" id="qt07"><div class="paper">
+  <table class="hdr"><tr><td class="logo">iNET<small>BP-DEV</small></td><td class="ttl">Quy trình vận hành và giám sát ứng dụng<small>Dàn ý</small></td><td class="meta">Mã: <b>DEV-QT-07</b><br>Lần ban hành: 0.9</td></tr></table>
+  <h2>Nội dung chính</h2><ol><li>Tài liệu vận hành (runbook) cho từng sản phẩm: khởi động, dừng, kiểm tra sức khỏe.</li><li>Ghi log ứng dụng và log kiểm toán: đăng nhập, thay đổi quyền, thao tác quản trị.</li><li>Ngưỡng cảnh báo và luật phát hiện (DET) do BP-DEV đề xuất: tỷ lệ lỗi theo cửa sổ thời gian, số thao tác bất thường.</li><li>Kiểm tra định kỳ: hằng ngày, hằng tuần.</li></ol>
+  <h2>Căn cứ chính</h2><p>NĐ 331/2026 Đ28 · ISO 27001 A.5.37, 8.6, 8.15, 8.16, 8.17.</p>
+  <h2>Hiện trạng sơ bộ</h2><p><span class="pill p-warn">MỘT PHẦN</span> Có OpenTelemetry/Prometheus và healthcheck ở một số sản phẩm. Chưa có log kiểm toán bảo mật tập trung.</p>
+  <p class="small">Trả lời các dòng Excel: 73–75. Dòng 73–74 cần quyết định ngưỡng; bản mock đề xuất: tỷ lệ lỗi 5xx &gt; 5% trong 5 phút, hoặc &gt; 20 lần đăng nhập sai trong 10 phút trên một tài khoản.</p>
+</div></section>
+
+<section class="doc" id="qt09"><div class="paper">
+  <table class="hdr"><tr><td class="logo">iNET<small>BP-DEV</small></td><td class="ttl">Kế hoạch sao lưu, khôi phục và kiểm thử sau khôi phục<small>Dàn ý</small></td><td class="meta">Mã: <b>DEV-QT-09</b><br>Lần ban hành: 0.9</td></tr></table>
+  <h2>Nội dung chính</h2><ol><li>Bảng sao lưu theo sản phẩm: dữ liệu gì, tần suất, nơi lưu, thời gian giữ, mã hóa.</li><li>Mục tiêu RTO/RPO cho từng sản phẩm.</li><li>Kịch bản kiểm thử nghiệm thu sau khôi phục: đăng nhập, dữ liệu mẫu, đối chiếu số bản ghi, chức năng chính.</li><li>Diễn tập khôi phục 6 tháng một lần, lập biên bản DEV-BM-08.</li><li>Vai trò trong khôi phục: BP Kỹ thuật khôi phục máy chủ; BP-DEV khôi phục ứng dụng và nghiệm thu.</li></ol>
+  <h2>Căn cứ chính</h2><p>NĐ 331/2026 Đ29 k2 · ISO 27001 A.8.13, 8.14, 5.29, 5.30 · ISO 22301 · OPS-13.</p>
+  <h2>Hiện trạng sơ bộ</h2><p><span class="pill p-gray">CẦN XÁC MINH</span> Sao lưu cơ sở dữ liệu do bộ phận nào làm. <span class="pill p-err">CHƯA CÓ</span> Kịch bản nghiệm thu và biên bản diễn tập.</p>
+  <p class="small">Trả lời các dòng Excel: 110–114.</p>
+</div></section>
+
+<section class="doc" id="qt10"><div class="paper">
+  <table class="hdr"><tr><td class="logo">iNET<small>BP-DEV</small></td><td class="ttl">Quy định bảo vệ dữ liệu cá nhân và sử dụng dịch vụ bên thứ ba trong sản phẩm<small>Dàn ý</small></td><td class="meta">Mã: <b>DEV-QT-10</b><br>Lần ban hành: 0.9</td></tr></table>
+  <h2>Nội dung chính</h2><ol><li>Bảo vệ dữ liệu ngay từ thiết kế: chỉ thu dữ liệu cần thiết; che dữ liệu trong log. <b>Dữ liệu khách hàng chỉ nằm ở production</b>; dev và staging không dùng dữ liệu khách hàng (staging là môi trường thử nghiệm nội bộ).</li><li>Trước khi tích hợp bất kỳ dịch vụ bên thứ ba nào nhận dữ liệu của công ty: kê khai vào DEV-BM-09 và hỏi Ban ATANM &amp; BVDL xem có cần Mẫu 09 hoặc Mẫu 10 của NĐ 356 không.</li><li>Dữ liệu eKYC và sinh trắc học là dữ liệu cá nhân nhạy cảm: chỉ xử lý khi có cơ sở pháp lý và hợp đồng.</li><li>Cấm gửi dữ liệu khách hàng, dữ liệu cá nhân, mã nguồn hoặc thông tin cấu hình nội bộ tới dịch vụ đặt máy chủ ở nước ngoài, trừ khi đã được Ban ATANM &amp; BVDL phê duyệt và đã hoàn tất hồ sơ chuyển dữ liệu ra nước ngoài theo NĐ 356.</li><li>Ưu tiên dịch vụ đặt máy chủ tại Việt Nam hoặc tự vận hành trên hạ tầng của công ty.</li><li><b>Dữ liệu khách hàng lấy qua giao diện quản trị, API hoặc bản xuất dữ liệu không được đưa vào phần mềm hay dịch vụ bên ngoài chưa được Ban ATANM &amp; BVDL phê duyệt.</b> Quy định áp dụng cho mọi nhân sự và tài khoản có quyền truy cập, kể cả khi sao chép thủ công.</li><li>Tính năng tự thu thập dữ liệu trên màn hình người dùng (ảnh chụp màn hình, nội dung cửa sổ dòng lệnh) chỉ đính kèm khi người dùng chủ động chọn, và phải che thông tin có dạng mật khẩu, token, khóa trước khi gửi.</li><li>Mỗi loại dữ liệu cá nhân có thời hạn lưu trữ ghi trong danh mục dữ liệu (CMP-08). Khi xóa phải xóa đồng thời mọi bản sao, kể cả bản sao trong hệ thống nội bộ như GitLab và kho lưu trữ tệp.</li></ol>
+  <h2>Căn cứ chính</h2><p>Luật 91/2025/QH15 · NĐ 356/2025 · ISO 27001 A.5.19–5.23, 5.34, 8.11, 8.12 · ISO 27701.</p>
+  <h2>Hiện trạng sơ bộ</h2><p><span class="pill p-warn">MỘT PHẦN</span> Đã xác định được một số dịch vụ bên thứ ba đang dùng, trong đó có dịch vụ đặt máy chủ ở nước ngoài (thông báo đẩy, kênh thông báo vận hành, phân tích truy cập), cùng các cổng thanh toán và eKYC. Danh sách chi tiết ghi trong DEV-BM-09. <span class="pill p-err">CHƯA CÓ</span> Danh mục chính thức và đánh giá chuyển dữ liệu ra nước ngoài.</p><table class="t"><tr><th>Yêu cầu</th><th>Hiện trạng</th><th>Hạn</th><th>Người phụ trách</th></tr><tr><td>Dữ liệu khách hàng không có ở dev và staging</td><td><span class="pill p-ok">ĐÃ CÓ</span> Theo cách làm hiện tại, người phụ trách BP-DEV xác nhận 01/10/2026</td><td>—</td><td>[Họ tên]</td></tr>
+ <tr><td>Quy định không đưa dữ liệu lấy qua API quản trị sang dịch vụ bên ngoài</td><td><span class="pill p-err">CHƯA CÓ</span> Ban hành cùng tài liệu này</td><td>09/10/2026</td><td>Người phụ trách BP-DEV</td></tr><tr><td>OneDash · Phản hồi khách hàng: nội dung cửa sổ dòng lệnh chỉ đính kèm khi người dùng chọn, có che bí mật</td><td><span class="pill p-err">CHƯA CÓ</span> Hiện tự đính kèm 200 dòng cuối, người dùng không bỏ chọn được</td><td>31/10/2026</td><td>[Họ tên]</td></tr><tr><td>OneDash · Phản hồi khách hàng: ảnh chụp màn hình</td><td><span class="pill p-ok">ĐÃ CÓ</span> Có ô bỏ chọn và cảnh báo dữ liệu nhạy cảm; ảnh truy cập qua kiểm tra quyền sở hữu, liên kết ký sẵn hết hạn sau 300 giây</td><td>—</td><td>[Họ tên]</td></tr><tr><td>OneDash · Phản hồi khách hàng: thời hạn lưu trữ và xóa đồng bộ OneDash, kho tệp, GitLab</td><td><span class="pill p-err">CHƯA CÓ</span> Đang lưu không thời hạn</td><td>31/12/2026</td><td>[Họ tên]</td></tr><tr><td>Thông báo cho khách chỉ qua kênh đã được đồng ý</td><td><span class="pill p-ok">ĐÃ CÓ</span> OneDash · Phản hồi khách hàng chỉ thông báo trong ứng dụng</td><td>—</td><td>[Họ tên]</td></tr></table>
+  <p class="small">Trả lời các dòng Excel: 9–11, 76–87.</p>
+</div></section>
+
+<!-- ============ BM ============ -->
+<section class="doc" id="bm01"><div class="paper">
+  <table class="hdr"><tr><td class="logo">iNET<small>BP-DEV</small></td><td class="ttl">Danh mục sản phẩm và kho mã nguồn<small>Chốt tại ngày: __/10/2026 · Nguồn: kết xuất GitLab API (EVD-BM01-…)</small></td><td class="meta">Mã: <b>DEV-BM-01</b><br>Lần ban hành: 0.9</td></tr></table>
+  <div class="tw"><table class="t">
+    <tr><th>STT</th><th>Mã HT</th><th>Sản phẩm</th><th>Repo GitLab</th><th>Tên miền</th><th>Môi trường</th><th>Luồng</th><th>Đơn vị phát triển</th><th>Đơn vị vận hành</th><th>Chủ sở hữu nghiệp vụ</th><th>Người phụ trách sản phẩm</th><th>Người hỗ trợ khi vắng</th><th>Loại dữ liệu xử lý</th><th>Cấp độ đề xuất</th><th>Trạng thái</th></tr>
+    <tr class="ex"><td>1</td><td>HT-?? (cần xác định)</td><td>iNET Portal</td><td>portal-client, portal-server</td><td>[tên miền]</td><td>staging, production</td><td>L2</td><td>BP-DEV + CEO</td><td>BP-DEV</td><td>[Phòng]</td><td>[Họ tên]</td><td>[Thành viên BP-DEV]</td><td>DLCN cơ bản, eKYC (nhạy cảm), thanh toán</td><td>3 (nếu ≥ 100.000 chủ thể dữ liệu)</td><td>Đang vận hành</td></tr>
+    <tr class="ex"><td>2</td><td>HT-16</td><td>GitLab nội bộ</td><td>— (hệ thống)</td><td>gitlabs.inet.vn</td><td>production</td><td>—</td><td>Phần mềm mua ngoài</td><td>Phòng Nền tảng</td><td>Phòng Nền tảng</td><td>Trưởng phòng Nền tảng</td><td>—</td><td>Mã nguồn, cấu hình</td><td>[?]</td><td>Đang vận hành</td></tr>
+        <tr class="ex"><td>3</td><td>—</td><td>[Công cụ nội bộ do BP Kỹ thuật tự phát triển]</td><td>[repo]</td><td>Nội bộ / VPN</td><td>production</td><td>L3a</td><td>BP Kỹ thuật</td><td>BP Kỹ thuật</td><td>BP Kỹ thuật</td><td>[Họ tên]</td><td>[Thành viên BP-DEV]</td><td>Không có DLCN</td><td>1</td><td>Đang vận hành</td></tr>
+    <tr class="blank"><td>4</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+  </table></div>
+  <p class="small">Luồng: L1 Nội bộ BP-DEV · L2 Dự án CEO trực tiếp quản lý · L3a/L3b Bộ phận khác tự phát triển, rủi ro thấp/cao (tiêu chí ở DEV-QT-01 Phụ lục A.3).</p>
+  <h3>Phần B — Rà soát tài sản chưa được phân loại (shadow IT)</h3>
+  <table class="t"><tr><th>Repo / tên miền</th><th>Không có trong danh mục vì</th><th>Xử lý</th><th>Hạn</th></tr><tr class="blank"><td></td><td></td><td></td><td></td></tr></table>
+  <p class="small">Trả lời các dòng Excel: 8, 14, 15–28. Tổng số repo phải lấy từ API, không ước lượng.</p>
+</div></section>
+
+<section class="doc" id="bm02"><div class="paper">
+  <table class="hdr"><tr><td class="logo">iNET<small>BP-DEV</small></td><td class="ttl">Sổ theo dõi thành phần hết hỗ trợ (EOL)<small>Tương ứng Sổ 12 của OPS-16 · Rà soát hằng quý</small></td><td class="meta">Mã: <b>DEV-BM-02</b><br>Lần ban hành: 0.9</td></tr></table>
+  <div class="tw"><table class="t">
+    <tr><th>Mã</th><th>Thành phần</th><th>Phiên bản đang dùng</th><th>Ngày hết hỗ trợ</th><th>Repo bị ảnh hưởng</th><th>Mức rủi ro</th><th>Phương án</th><th>Hạn khắc phục</th><th>Phụ trách</th><th>Trạng thái</th></tr>
+    <tr class="ex"><td>EOL-01</td><td>Node.js</td><td>20.x</td><td>30/04/2026</td><td>7 repo (danh sách ở EVD)</td><td>Cao</td><td>Nâng lên Node 22/24 LTS</td><td>31/12/2026</td><td>[Họ tên]</td><td><span class="pill p-err">CHƯA CÓ</span></td></tr>
+    <tr class="ex"><td>EOL-02</td><td>Node.js</td><td>18.x</td><td>30/04/2025</td><td>2 repo</td><td>Cao</td><td>Nâng lên Node 22/24 LTS</td><td>30/11/2026</td><td>[Họ tên]</td><td><span class="pill p-err">CHƯA CÓ</span></td></tr>
+    <tr class="blank"><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+  </table></div>
+  <p class="small">Trả lời các dòng Excel: 97–105, 120–121. OS, Nginx, Docker và cơ sở dữ liệu do BP Kỹ thuật bổ sung (dòng 105).</p>
+</div></section>
+
+<section class="doc" id="bm03"><div class="paper">
+  <table class="hdr"><tr><td class="logo">iNET<small>BP-DEV</small></td><td class="ttl">Sổ đăng ký khóa và chứng thư số<small>Tương ứng Sổ 13 của OPS-16</small></td><td class="meta">Mã: <b>DEV-BM-03</b><br>Lần ban hành: 0.9</td></tr></table>
+  <div class="warnbox"><b>Tuyệt đối không ghi giá trị khóa, mật khẩu hay token vào sổ này.</b> Sổ chỉ ghi mã định danh, nơi lưu và trạng thái.</div>
+  <div class="tw"><table class="t">
+    <tr><th>Mã</th><th>Loại</th><th>Mục đích</th><th>Hệ thống</th><th>Nơi lưu</th><th>Chủ sở hữu</th><th>Ngày cấp</th><th>Ngày hết hạn</th><th>Chu kỳ xoay</th><th>Lần xoay gần nhất</th><th>Trạng thái</th></tr>
+    <tr class="ex"><td>KEY-01</td><td>Service account (cloud)</td><td>Gửi thông báo đẩy</td><td>[Sản phẩm]</td><td>Đang nằm trong repo → chuyển sang biến CI</td><td>[Họ tên]</td><td>[?]</td><td>Không hết hạn</td><td>12 tháng</td><td>—</td><td><span class="pill p-err">CẦN XOAY</span></td></tr>
+    <tr class="ex"><td>CRT-01</td><td>Chứng thư TLS wildcard</td><td>HTTPS</td><td>[Sản phẩm]</td><td>[Nơi lưu]</td><td>[Họ tên]</td><td>[ngày]</td><td>[ngày]</td><td>Theo hạn chứng thư</td><td>—</td><td><span class="pill p-warn">KIỂM TRA</span></td></tr>
+    <tr class="blank"><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+  </table></div>
+  <p class="small">Trả lời dòng Excel: 122. Trạng thái dùng một trong các giá trị: Hoạt động / Cần xoay / Đã thu hồi / Đã lộ.</p>
+</div></section>
+
+<section class="doc" id="bm04"><div class="paper">
+  <table class="hdr"><tr><td class="logo">iNET<small>BP-DEV</small></td><td class="ttl">Sổ thay đổi và phát hành<small>Sinh tự động từ tag, MR và pipeline của GitLab</small></td><td class="meta">Mã: <b>DEV-BM-04</b><br>Lần ban hành: 0.9</td></tr></table>
+  <div class="tw"><table class="t">
+    <tr><th>Mã</th><th>Ngày triển khai</th><th>Sản phẩm</th><th>Phiên bản / tag</th><th>Loại</th><th>Mô tả ngắn</th><th>MR / issue</th><th>Người thực hiện</th><th>Người review</th><th>Người duyệt production</th><th>Kết quả kiểm thử</th><th>Cách hoàn tác</th><th>Kết quả</th></tr>
+    <tr class="ex"><td>CHG-2610-001</td><td>12/10/2026 21:00</td><td>[Sản phẩm]</td><td>v2.4.1</td><td>Thông thường</td><td>Thêm API xuất hóa đơn</td><td>!123 / #456</td><td>[Họ tên]</td><td>[Họ tên]</td><td>[CEO hoặc người được ủy quyền]</td><td>Đạt (staging)</td><td>Quay về v2.4.0, migration ngược</td><td><span class="pill p-ok">Thành công</span></td></tr>
+    <tr class="blank"><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+  </table></div>
+</div></section>
+
+<section class="doc" id="bm05"><div class="paper">
+  <table class="hdr"><tr><td class="logo">iNET<small>BP-DEV</small></td><td class="ttl">Sổ lỗ hổng ứng dụng<small>Theo dõi từ lúc phát hiện đến lúc đóng</small></td><td class="meta">Mã: <b>DEV-BM-05</b><br>Lần ban hành: 0.9</td></tr></table>
+  <div class="tw"><table class="t">
+    <tr><th>Mã</th><th>Ngày phát hiện</th><th>Nguồn</th><th>Sản phẩm</th><th>CVE / mô tả</th><th>CVSS</th><th>Mức</th><th>Hạn xử lý</th><th>Phụ trách</th><th>Ngày đóng</th><th>Bằng chứng</th></tr>
+    <tr class="ex"><td>VUL-001</td><td>15/10/2026</td><td>Quét thư viện trên CI</td><td>[Sản phẩm]</td><td>CVE-XXXX-XXXX trong thư viện [tên]</td><td>8.1</td><td>Cao</td><td>14/11/2026 (30 ngày)</td><td>[Họ tên]</td><td></td><td>MR !…</td></tr>
+    <tr class="blank"><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+  </table></div>
+</div></section>
+
+<section class="doc" id="bm06"><div class="paper">
+  <table class="hdr"><tr><td class="logo">iNET<small>BP-DEV</small></td><td class="ttl">Danh sách quyền quản trị GitLab, token API quản trị và biên bản rà soát quyền<small>Rà soát hằng quý</small></td><td class="meta">Mã: <b>DEV-BM-06</b><br>Lần ban hành: 0.9</td></tr></table>
+  <h3>Phần A — Danh sách tài khoản có quyền cao</h3>
+  <div class="tw"><table class="t">
+    <tr><th>STT</th><th>Tài khoản</th><th>Họ tên</th><th>Quyền</th><th>Phạm vi</th><th>2FA</th><th>Đăng nhập gần nhất</th><th>Lý do cần quyền</th><th>Kết luận</th></tr>
+    <tr class="ex"><td>1</td><td>[username]</td><td>[Họ tên]</td><td>Administrator</td><td>Toàn hệ thống</td><td>Có / Chưa</td><td>[ngày]</td><td>Quản trị GitLab</td><td>Giữ / Hạ quyền / Thu hồi</td></tr>
+    <tr class="blank"><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+  </table></div>
+  <h3>Phần B — Token API quản trị của sản phẩm</h3>
+  <div class="warnbox"><b>Không ghi giá trị token.</b> Chỉ ghi mã định danh hoặc tên gợi nhớ của token.</div>
+  <div class="tw"><table class="t">
+    <tr><th>STT</th><th>Sản phẩm</th><th>Tên / mã token</th><th>Người được cấp</th><th>Phạm vi quyền</th><th>Có đọc dữ liệu khách hàng?</th><th>Ngày cấp</th><th>Hết hạn</th><th>Lần dùng gần nhất</th><th>Kết luận</th></tr>
+    <tr class="ex"><td>1</td><td>OneDash</td><td>[tên token]</td><td>[Họ tên]</td><td>Đọc phản hồi khách hàng</td><td>Có</td><td>[ngày]</td><td>[ngày]</td><td>[ngày]</td><td>Giữ / Thu hẹp phạm vi / Thu hồi</td></tr>
+    <tr class="blank"><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+  </table></div>
+  <h3>Phần C — Biên bản rà soát</h3>
+  <table class="form">
+    <tr><td class="k">Thời gian rà soát</td><td class="v">__/__/2026</td></tr>
+    <tr><td class="k">Thành phần</td><td class="v">[Họ tên, chức vụ]</td></tr>
+    <tr><td class="k">Số tài khoản đã rà / số tài khoản phải xử lý</td><td class="v">__ / __</td></tr>
+    <tr><td class="k">Kết luận và hành động</td><td class="v">…</td></tr>
+    <tr><td class="k">Ký xác nhận</td><td class="v"></td></tr>
+  </table>
+</div></section>
+
+<section class="doc" id="bm07"><div class="paper">
+  <table class="hdr"><tr><td class="logo">iNET<small>BP-DEV</small></td><td class="ttl">Phiếu báo cáo sự cố và post-mortem<small>Mở tại bước B3 của DEV-QT-08</small></td><td class="meta">Mã: <b>DEV-BM-07</b><br>Lần ban hành: 0.9</td></tr></table>
+  <h3>Phần A — Thông tin sự cố</h3>
+  <table class="form">
+    <tr><td class="k">Mã sự cố</td><td class="v">INC-2610-001</td></tr>
+    <tr><td class="k">Thời điểm phát hiện (UTC+7)</td><td class="v">__/__/2026 __:__</td></tr>
+    <tr><td class="k">Người phát hiện / kênh</td><td class="v">Cảnh báo tự động · người dùng báo · nội bộ</td></tr>
+    <tr><td class="k">Sản phẩm / mã HT</td><td class="v"></td></tr>
+    <tr><td class="k">Mô tả</td><td class="v"></td></tr>
+    <tr><td class="k">Mức độ</td><td class="v">☐ P1 &nbsp; ☐ P2 &nbsp; ☐ P3 &nbsp; ☐ P4</td></tr>
+    <tr><td class="k">Có ảnh hưởng dữ liệu cá nhân?</td><td class="v">☐ Không &nbsp; ☐ Có → báo Ban ATANM để lập Mẫu 08 NĐ 356</td></tr>
+    <tr><td class="k">Thời điểm báo CSIRT</td><td class="v">__:__ (P1 ≤ 15 phút · P2 ≤ 1 giờ)</td></tr>
+    <tr><td class="k">Hạn công ty báo cơ quan chức năng</td><td class="v">Ngay · ≤ 24 giờ · ≤ 72 giờ · không cần</td></tr>
+  </table>
+  <h3>Phần B — Dòng thời gian xử lý</h3>
+  <table class="t"><tr><th>Thời điểm</th><th>Thao tác</th><th>Người thực hiện</th></tr><tr class="blank"><td></td><td></td><td></td></tr><tr class="blank"><td></td><td></td><td></td></tr></table>
+  <h3>Phần C — Post-mortem (trong 5 ngày làm việc)</h3>
+  <table class="form">
+    <tr><td class="k">Nguyên nhân gốc</td><td class="v"></td></tr>
+    <tr><td class="k">Ảnh hưởng thực tế (thời gian gián đoạn, số người dùng, dữ liệu)</td><td class="v"></td></tr>
+    <tr><td class="k">Điều làm tốt / chưa tốt</td><td class="v"></td></tr>
+    <tr><td class="k">Hành động phòng ngừa (người, hạn)</td><td class="v"></td></tr>
+    <tr><td class="k">Ký xác nhận đóng sự cố</td><td class="v"></td></tr>
+  </table>
+</div></section>
+
+<section class="doc" id="bm08"><div class="paper">
+  <table class="hdr"><tr><td class="logo">iNET<small>BP-DEV</small></td><td class="ttl">Biên bản kiểm thử khôi phục<small>Diễn tập 6 tháng một lần cho mỗi sản phẩm</small></td><td class="meta">Mã: <b>DEV-BM-08</b><br>Lần ban hành: 0.9</td></tr></table>
+  <table class="form">
+    <tr><td class="k">Sản phẩm / mã HT</td><td class="v"></td></tr>
+    <tr><td class="k">Bản sao lưu dùng để khôi phục (ngày, nơi lưu)</td><td class="v"></td></tr>
+    <tr><td class="k">Mục tiêu RTO / RPO</td><td class="v">RTO __ giờ · RPO __ giờ</td></tr>
+    <tr><td class="k">Thời gian thực tế</td><td class="v">Bắt đầu __:__ · Xong __:__ · Dữ liệu mất __ giờ</td></tr>
+  </table>
+  <h3>Checklist nghiệm thu sau khôi phục</h3>
+  <table class="t">
+    <tr><th>Hạng mục</th><th>Cách kiểm tra</th><th>Đạt</th><th>Ghi chú</th></tr>
+    <tr><td>Ứng dụng khởi động, healthcheck xanh</td><td>Gọi <code>/health</code></td><td class="chk">☐</td><td></td></tr>
+    <tr><td>Đăng nhập được bằng tài khoản kiểm thử</td><td>Thử đăng nhập</td><td class="chk">☐</td><td></td></tr>
+    <tr><td>Số bản ghi các bảng chính khớp với bản gốc</td><td>Đối chiếu số đếm</td><td class="chk">☐</td><td></td></tr>
+    <tr><td>Chức năng chính chạy đúng</td><td>Theo kịch bản của sản phẩm</td><td class="chk">☐</td><td></td></tr>
+  </table>
+  <p><b>Kết luận:</b> ☐ Đạt &nbsp; ☐ Không đạt, có hành động khắc phục. &nbsp; <b>Ký:</b> BP Kỹ thuật · BP-DEV</p>
+</div></section>
+
+<section class="doc" id="bm09"><div class="paper">
+  <table class="hdr"><tr><td class="logo">iNET<small>BP-DEV</small></td><td class="ttl">Danh mục dịch vụ bên thứ ba và luồng dữ liệu<small>Ban ATANM &amp; BVDL xác định hồ sơ cần lập theo NĐ 356/2025</small></td><td class="meta">Mã: <b>DEV-BM-09</b><br>Lần ban hành: 0.9</td></tr></table>
+  <div class="tw"><table class="t">
+    <tr><th>STT</th><th>Nhà cung cấp</th><th>Dịch vụ</th><th>Sản phẩm sử dụng</th><th>Dữ liệu gửi đi</th><th>Có DLCN?</th><th>DLCN nhạy cảm?</th><th>Nơi đặt hạ tầng</th><th>Hợp đồng / DPA</th><th>Cần Mẫu 09?</th><th>Phụ trách</th></tr>
+    <tr class="ex"><td>1</td><td>Telegram</td><td>Thông báo vận hành CI và cảnh báo</td><td>~5 repo</td><td>Trạng thái build, log lỗi</td><td>Cần kiểm tra</td><td>Không</td><td>Nước ngoài</td><td>Không có</td><td>Ban ATANM &amp; BVDL đánh giá</td><td>[Họ tên]</td></tr>
+    <tr class="ex"><td>2</td><td>[Nhà cung cấp nước ngoài]</td><td>API xử lý nội dung</td><td>[Sản phẩm]</td><td>Nội dung người dùng nhập</td><td>Có thể có</td><td>Cần kiểm tra</td><td>Nước ngoài</td><td>Điều khoản dịch vụ chuẩn</td><td>Có khả năng</td><td>[Họ tên]</td></tr>
+    <tr class="blank"><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+  </table></div>
+  <p class="small">Trả lời các dòng Excel: 9–11, 84–87.</p>
+</div></section>
+
+<section class="doc" id="bm10"><div class="paper">
+  <table class="hdr"><tr><td class="logo">iNET<small>BP-DEV</small></td><td class="ttl">Bảng rủi ro an ninh mạng của BP-DEV<small>Đầu vào cho Sổ 7 RSK cấp công ty · Điểm = Khả năng × Tác động (1–5)</small></td><td class="meta">Mã: <b>DEV-BM-10</b><br>Lần ban hành: 0.9</td></tr></table>
+  <div class="tw"><table class="t">
+    <tr><th>Mã</th><th>Rủi ro</th><th>Tài sản</th><th>Khả năng</th><th>Tác động</th><th>Điểm</th><th>Biện pháp hiện có</th><th>Biện pháp bổ sung</th><th>Chủ rủi ro</th><th>Hạn</th><th>Trạng thái</th></tr>
+    <tr class="ex"><td>R-DEV-01</td><td>Khóa và cấu hình môi trường nằm trong repo bị lộ</td><td>Nhiều sản phẩm</td><td>4</td><td>5</td><td><b>20</b></td><td>Repo để chế độ riêng tư</td><td>Xoay vòng khóa, chuyển sang kho bí mật, quét secret trên CI</td><td>Người phụ trách BP-DEV</td><td>31/10/2026</td><td><span class="pill p-err">Mở</span></td></tr>
+    <tr class="ex"><td>R-DEV-02</td><td>Runtime hết hỗ trợ không còn bản vá bảo mật</td><td>7–9 repo</td><td>3</td><td>4</td><td><b>12</b></td><td>—</td><td>Nâng lên Node LTS</td><td>[Họ tên]</td><td>31/12/2026</td><td><span class="pill p-err">Mở</span></td></tr>
+    <tr class="blank"><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+  </table></div>
+  <p class="small">Trả lời các dòng Excel: 67–72, 118–119.</p>
+</div></section>
+
+<section class="doc" id="bm11"><div class="paper">
+  <table class="hdr"><tr><td class="logo">iNET<small>Cấp công ty</small></td><td class="ttl">Biên bản bàn giao hệ thống vào vận hành<small>Cổng G6 của DEV-QT-01 · Lập trước lần phát hành production đầu tiên với luồng L2, L3b, và khi đổi đơn vị vận hành</small></td><td class="meta">Mã: <b>DEV-BM-11</b><br>Lần ban hành: 0.9</td></tr></table>
+  <h3>Phần A — Thông tin hệ thống</h3>
+  <table class="form">
+    <tr><td class="k">Tên hệ thống / mã HT</td><td class="v"></td></tr>
+    <tr><td class="k">Luồng phát triển</td><td class="v">☐ L1 &nbsp; ☐ L2 &nbsp; ☐ L3a &nbsp; ☐ L3b</td></tr>
+    <tr><td class="k">Bên giao (đơn vị phát triển)</td><td class="v">[Đơn vị, người đại diện]</td></tr>
+    <tr><td class="k">Bên nhận (đơn vị vận hành)</td><td class="v">[Đơn vị, người đại diện]</td></tr>
+    <tr><td class="k">Phiên bản bàn giao / tag</td><td class="v"></td></tr>
+  </table>
+  <h3>Phần B — Danh mục bàn giao</h3>
+  <table class="t">
+    <tr><th>Hạng mục</th><th>Nơi lưu / đường dẫn</th><th>Đã nhận</th><th>Ghi chú</th></tr>
+    <tr><td>Mã nguồn đầy đủ trên GitLab công ty, đúng tag đang chạy</td><td></td><td class="chk">☐</td><td></td></tr>
+    <tr><td>Tài liệu kiến trúc, cài đặt, cấu hình</td><td></td><td class="chk">☐</td><td></td></tr>
+    <tr><td>Runbook vận hành: khởi động, dừng, kiểm tra sức khỏe, lỗi thường gặp</td><td></td><td class="chk">☐</td><td></td></tr>
+    <tr><td>Danh sách khóa và bí mật đã chuyển vào kho bí mật của công ty, đã ghi vào BM-03 (<b>không ghi giá trị</b>)</td><td></td><td class="chk">☐</td><td></td></tr>
+    <tr><td>Bên giao đã xoay vòng hoặc thu hồi các khóa họ từng giữ</td><td></td><td class="chk">☐</td><td>Bắt buộc khi bên giao không tiếp tục vận hành</td></tr>
+    <tr><td>Phương án sao lưu và khôi phục (theo DEV-QT-09)</td><td></td><td class="chk">☐</td><td></td></tr>
+    <tr><td>Giám sát và cảnh báo đã gắn vào kênh của bên nhận</td><td></td><td class="chk">☐</td><td></td></tr>
+    <tr><td>Thu hồi quyền truy cập production của bên giao (nếu không còn tham gia)</td><td></td><td class="chk">☐</td><td>Bắt buộc khi bên giao không tiếp tục vận hành</td></tr>
+  </table>
+  <h3>Phần C — Trách nhiệm sau bàn giao</h3>
+  <table class="t">
+    <tr><th>Việc</th><th>Người chịu trách nhiệm</th><th>Liên hệ công việc</th></tr>
+    <tr><td>Trực sự cố (theo DEV-QT-08)</td><td></td><td></td></tr>
+    <tr><td>Vá lỗi và bảo trì</td><td></td><td></td></tr>
+    <tr><td>Duyệt thay đổi production (CEO hoặc người được CEO ủy quyền, theo DEV-QT-03)</td><td></td><td></td></tr>
+    <tr><td>Thời hạn bên giao còn hỗ trợ sau bàn giao</td><td colspan="2">__ ngày, đến __/__/____</td></tr>
+  </table>
+  <table class="sign"><tr><th>Bên giao</th><th>Bên nhận</th><th>Người phê duyệt (CEO hoặc người được CEO ủy quyền)</th></tr><tr><td style="height:60px"></td><td></td><td></td></tr></table>
+</div></section>
+
+<section class="doc" id="bm12"><div class="paper">
+  <table class="hdr"><tr><td class="logo">iNET<small>Cấp công ty</small></td><td class="ttl">Phiếu nghiệm thu bảo mật sản phẩm phát triển bên ngoài BP-DEV<small>Bắt buộc cho luồng L3b · Luồng L3a dùng các dòng có dấu ★ để tự kiểm</small></td><td class="meta">Mã: <b>DEV-BM-12</b><br>Lần ban hành: 0.9</td></tr></table>
+  <h3>Phần A — Thông tin</h3>
+  <table class="form">
+    <tr><td class="k">Sản phẩm / phiên bản</td><td class="v"></td></tr>
+    <tr><td class="k">Đơn vị phát triển</td><td class="v">Bộ phận: [tên] · Người phụ trách: [họ tên]</td></tr>
+        <tr><td class="k">Người nghiệm thu (BP-DEV)</td><td class="v"></td></tr>
+    <tr><td class="k">Ngày nghiệm thu</td><td class="v">__/__/____</td></tr>
+  </table>
+  <h3>Phần B — Tiêu chí nghiệm thu</h3>
+  <div class="tw"><table class="t">
+    <tr><th>Nhóm</th><th>Tiêu chí</th><th>Đạt</th><th>Không đạt / ghi chú</th></tr>
+    <tr><td>Mã nguồn</td><td>★ Mã nằm trên GitLab công ty, build lại được từ mã nguồn</td><td class="chk">☐</td><td></td></tr>
+    <tr><td>Bí mật</td><td>★ Không có mật khẩu, token, khóa trong repo và lịch sử Git (kết quả quét đính kèm)</td><td class="chk">☐</td><td></td></tr>
+    <tr><td>Thư viện</td><td>★ Không còn lỗ hổng mức Nghiêm trọng hoặc Cao chưa xử lý; runtime còn được hỗ trợ</td><td class="chk">☐</td><td></td></tr>
+    <tr><td>Xác thực</td><td>Đăng nhập an toàn; phân quyền kiểm tra phía máy chủ; có 2FA cho tài khoản quản trị</td><td class="chk">☐</td><td></td></tr>
+    <tr><td>Dữ liệu</td><td>★ Đã kê khai dữ liệu cá nhân và dịch vụ bên thứ ba vào BM-09; không gửi dữ liệu khách hàng ra dịch vụ nước ngoài khi chưa được phê duyệt</td><td class="chk">☐</td><td></td></tr>
+    <tr><td>Kiểm thử</td><td>Có kết quả kiểm thử chức năng chính; kiểm tra nhanh các lỗi OWASP Top 10</td><td class="chk">☐</td><td></td></tr>
+    <tr><td>Vận hành</td><td>★ Có log, healthcheck, người trực sự cố, phương án sao lưu</td><td class="chk">☐</td><td></td></tr>
+    <tr><td>Review</td><td>★ Người không phải tác giả đã review toàn bộ mã, kể cả phần lấy từ nguồn bên ngoài</td><td class="chk">☐</td><td></td></tr>
+  </table></div>
+  <h3>Phần C — Kết luận</h3>
+  <table class="form">
+    <tr><td class="k">Kết luận</td><td class="v">☐ Đạt, được đưa vào vận hành &nbsp; ☐ Đạt có điều kiện (ghi hạn khắc phục) &nbsp; ☐ Không đạt</td></tr>
+    <tr><td class="k">Các điểm phải khắc phục và hạn</td><td class="v"></td></tr>
+    <tr><td class="k">Ký: người nghiệm thu · đơn vị phát triển · người phê duyệt (CEO hoặc người được CEO ủy quyền)</td><td class="v"></td></tr>
+  </table>
+</div></section>
+
+</main>
+</div>
+<script>
+(function(){
+  var links=[].slice.call(document.querySelectorAll('nav a[data-t]'));
+  var docs=[].slice.call(document.querySelectorAll('.doc'));
+  var sel=document.getElementById('mobsel');
+  function show(id){
+    docs.forEach(function(d){d.classList.toggle('on',d.id===id)});
+    links.forEach(function(a){a.classList.toggle('on',a.getAttribute('data-t')===id)});
+    if(sel) sel.value=id;
+    document.body.classList.remove('showall');
+    window.scrollTo(0,0);
+    try{history.replaceState(null,'','#'+id)}catch(e){}
+  }
+  links.forEach(function(a){
+    var o=document.createElement('option');o.value=a.getAttribute('data-t');o.textContent=a.textContent;sel.appendChild(o);
+    a.addEventListener('click',function(){show(a.getAttribute('data-t'))});
+  });
+  sel.addEventListener('change',function(){show(sel.value)});
+  document.getElementById('allbtn').addEventListener('click',function(){document.body.classList.toggle('showall')});
+  var h=location.hash.replace('#','');
+  if(h&&document.getElementById(h)) show(h);
+})();
+</script>
+</body>
+</html>
