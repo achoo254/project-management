@@ -27,7 +27,7 @@ Does NOT handle: SSH key management, deployment automation, non-GitLab git opera
 
 ## Credential Discovery
 
-Run `source scripts/load-env.sh` — it loads credentials from an env file in iCloud Drive. No secret file lives in the repo, and the script is the only place holding the path. Variables:
+Run `source scripts/load-env.sh` — it loads credentials from an env file in iCloud Drive, and takes the my.inet.vn cookies `sid`/`ssid` from `access-tokens.json` (sổ token chung trên iCloud Drive, entry `service: "inet.vn"`, `type: "session-cookie"`) (the env file values are only a fallback). No secret file lives in the repo, and the script is the only place holding the paths. Variables:
 
 | Variable | Purpose |
 |----------|---------|
@@ -143,7 +143,7 @@ Always confirm via `AskUserQuestion`:
 
 ## Error Handling
 
-- **Cookie auth fails (302/401)** → notify user re-login SSO + update the iCloud env file (cookie `sid` sống ~1 ngày)
+- **Cookie auth fails (302/401)** → notify user re-login SSO + update `token.sid`/`token.ssid` of the `inet.vn` entry in `access-tokens.json` (cookie `sid` sống ~1 ngày)
 - **Request timeout** → retry 1 lần với same payload, log + báo user nếu fail tiếp
 - **Validation 400 từ BE** → show response body; không retry tự động (có thể thiếu field required như `difficulty`)
 - **Update KPI sai `_id`** → check lại qua `/accountkpi/search`, KHÔNG đoán

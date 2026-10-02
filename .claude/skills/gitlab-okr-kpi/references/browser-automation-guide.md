@@ -11,8 +11,10 @@ Install if needed: `npm install -g agent-browser && agent-browser install`
 agent-browser open "https://my.inet.vn" --headed
 
 # Set cookies using --url (NOT --domain)
-agent-browser cookies set sid "<jwt_token>" --url "https://my.inet.vn"
-agent-browser cookies set ssid "<ssid_value>" --url "https://my.inet.vn"
+# sid/ssid: load-env.sh lấy từ access-tokens.json (entry inet.vn)
+source scripts/load-env.sh
+agent-browser cookies set sid "$sid" --url "https://my.inet.vn"
+agent-browser cookies set ssid "$ssid" --url "https://my.inet.vn"
 
 # Navigate to member KPI page
 agent-browser open "https://my.inet.vn/account/kpi/detail/{email}"

@@ -91,6 +91,6 @@ Kiểm tra OKR/KPI có liên quan đến issues/projects trên gitlabs.inet.vn.
 
 ## Dependencies
 
-- File env trên iCloud Drive với `sid`, `ssid` (cookie my.inet.vn — TTL ≈ 1 ngày) và `GITLABS_ACCESS_TOKEN`, nạp qua `source scripts/load-env.sh`
+- `sid`, `ssid` (cookie my.inet.vn — TTL ≈ 1 ngày) từ `access-tokens.json` (sổ token chung trên iCloud Drive, entry `service: "inet.vn"`, `type: "session-cookie"`) và `GITLABS_ACCESS_TOKEN` từ file env trên iCloud Drive, nạp qua `source scripts/load-env.sh`
 - `curl` + `jq` — cả hai flag chạy bằng HTTP thuần, **không cần browser**
 - `docs/monthly-okr-p2-review-guide.md` — bản đồ repo ↔ thành viên + ngưỡng đánh giá (cho `--verify-gitlab`)

@@ -15,7 +15,7 @@ Hệ thống quản lý nội bộ theo dõi **OKR/KPI hàng tháng**, **đánh 
 - **`scripts/`** - Script Python đọc/dump mẫu công thức P2 (`dump_p2_*.py`, chỉ đọc)
 - **`P2_Form_BP_Cong_Nghe.xlsx`** - **Chỉ là mẫu công thức tính P2** (ở root, không sửa trực tiếp) — không chứa mức đánh giá
 - **`members/`** - Workbook P2 lịch sử (đến T5/2026). ⛔ Không dùng làm nguồn dữ liệu
-- **`scripts/load-env.sh`** - Nạp cookie my.inet.vn (`sid`/`ssid`) + token GitLab từ file env trên iCloud Drive. Repo không chứa file secret nào
+- **`scripts/load-env.sh`** - Nạp cookie my.inet.vn (`sid`/`ssid`, lấy từ `access-tokens.json` — entry `inet.vn`) + token GitLab từ file env trên iCloud Drive. Repo không chứa file secret nào
 
 Dữ liệu OKR/KPI **và mức đánh giá P2** đều nằm trên **my.inet.vn**, không lưu trong repo. Repo này chỉ chứa tài liệu, mẫu công thức P2 và báo cáo đối chiếu.
 
@@ -52,7 +52,7 @@ Phạm vi đánh giá P2 của dattqh: **dattqh, hobv, ducnd, chuongdt**. Không
 
 **Thêm OKR cho tháng này:**
 1. Đọc [quy tắc viết nội dung OKR](./docs/quy-tac-viet-noi-dung-okr.html) - đặc biệt phần định dạng trường và cách chọn độ khó
-2. Cập nhật cookie `sid`/`ssid` trong file env trên iCloud Drive nếu đã hết hạn (sống khoảng một ngày)
+2. Cập nhật cookie `sid`/`ssid` trong entry `inet.vn` của `access-tokens.json` (iCloud Drive) nếu đã hết hạn (sống khoảng một ngày)
 3. Chạy skill: `/gitlab-okr-kpi 08/2026`
 4. Xác nhận entry trên my.inet.vn
 

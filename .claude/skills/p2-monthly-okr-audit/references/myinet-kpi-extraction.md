@@ -32,7 +32,7 @@ Trang KPI detail là **AngularJS SPA** — data nạp qua API gateway `POST /api
 
 ## Cách B — auth bằng cookie từ iCloud Drive (khi browser chưa login)
 
-File credentials trên iCloud Drive chứa `sid` (JWT) + `ssid`; repo KHÔNG chứa file secret nào. Privacy-hook có thể chặn đọc → cần user phê duyệt. KHÔNG nhúng literal credential vào lệnh (secret-scan hook chặn) — nạp qua helper:
+`sid` (JWT) + `ssid` nằm trong `access-tokens.json` (sổ token chung trên iCloud Drive, entry `service: "inet.vn"`, `type: "session-cookie"`); repo KHÔNG chứa file secret nào. Privacy-hook có thể chặn đọc → cần user phê duyệt. KHÔNG nhúng literal credential vào lệnh (secret-scan hook chặn) — nạp qua helper:
 ```bash
 source scripts/load-env.sh   # nạp $sid $ssid từ iCloud Drive
 # validate (200=OK, 302/401=hết hạn):

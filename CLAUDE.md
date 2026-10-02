@@ -18,7 +18,7 @@ Internal project management repo for iNET Tech Department. Tracks monthly OKR/KP
 - `dao-tao/DD-MM-YYYY/` - Internal training material (HTML slides, transcripts)
 - `scripts/` - Python read-only helpers to inspect the P2 formula template (`dump_p2_*.py`, openpyxl) + `load-env.sh` (credential loader)
 - `.claude/skills/` - Local skills: `gitlab-okr-kpi` (write), `p2-monthly-okr-audit` (read-only audit)
-- `scripts/load-env.sh` - loads my.inet.vn session cookies (`sid`/`ssid`, lowercase) + GitLab tokens from an env file in iCloud Drive. **No secret file lives in this repo**; the script is the only place that knows the path
+- `scripts/load-env.sh` - loads my.inet.vn session cookies (`sid`/`ssid`, lowercase — taken from the `inet.vn` entry, `type: "session-cookie"`, of `access-tokens.json`, the shared token registry on iCloud Drive; the env file value is only a fallback) + GitLab tokens from an env file in iCloud Drive. **No secret file lives in this repo**; the script is the only place that knows the path
 
 There is no `weekly meetings/` or `agent/` directory - both were removed. Monthly OKR/KPI data now lives on my.inet.vn, not in repo meeting notes.
 

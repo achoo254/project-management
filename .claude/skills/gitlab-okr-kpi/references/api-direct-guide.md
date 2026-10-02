@@ -21,7 +21,7 @@ Cookie pair (cùng domain `.inet.vn`):
 - `sid` — JWT, **TTL ~1 ngày** (`exp = iat + 86400`). Hết hạn → cần re-login SSO
 - `ssid` — server session id, format `<random>_<accountId>`
 
-Read qua `source scripts/load-env.sh` — helper nạp credentials từ file env trên iCloud Drive (variables lowercase: `sid=`, `ssid=`). Repo KHÔNG chứa file secret nào.
+Read qua `source scripts/load-env.sh` — helper lấy `sid`/`ssid` từ `access-tokens.json` (sổ token chung trên iCloud Drive, entry `service: "inet.vn"`, `type: "session-cookie"`), fallback file env trên iCloud Drive (variables lowercase: `sid=`, `ssid=`). Repo KHÔNG chứa file secret nào.
 
 ### Pre-flight check
 
@@ -30,10 +30,10 @@ source scripts/load-env.sh   # nạp $sid $ssid từ iCloud Drive
 HTTP=$(curl -s -o /dev/null -w "%{http_code}" \
   -H "Cookie: sid=$sid; ssid=$ssid" \
   "https://my.inet.vn/account/kpi")
-[ "$HTTP" = "200" ] || { echo "Cookie expired (HTTP $HTTP). Re-login SSO + cập nhật file env trên iCloud."; exit 1; }
+[ "$HTTP" = "200" ] || { echo "Cookie expired (HTTP $HTTP). Re-login SSO + cập nhật entry inet.vn trong access-tokens.json."; exit 1; }
 ```
 
-`200` = OK. `302` / `401` = expired → user phải login lại trên browser, copy cookie mới vào file env trên iCloud Drive.
+`200` = OK. `302` / `401` = expired → user phải login lại trên browser, copy cookie mới vào entry `inet.vn` của `access-tokens.json`.
 
 ## Payload schemas
 
@@ -250,7 +250,7 @@ source scripts/load-env.sh   # nạp $sid $ssid từ iCloud Drive
 
 # Pre-flight
 HTTP=$(curl -s -o /dev/null -w "%{http_code}" -H "Cookie: sid=$sid; ssid=$ssid" "https://my.inet.vn/account/kpi")
-[ "$HTTP" = "200" ] || { echo "Cookie expired (HTTP $HTTP). Re-login + cập nhật file env trên iCloud."; exit 1; }
+[ "$HTTP" = "200" ] || { echo "Cookie expired (HTTP $HTTP). Re-login + cập nhật entry inet.vn trong access-tokens.json."; exit 1; }
 
 jq -c '.[]' "$ENTRIES_FILE" | while read -r entry; do
   payload=$(jq -n \
@@ -300,10 +300,9 @@ Nếu pre-flight `HTTP != 200`:
 
 1. Báo user: "Cookie my.inet.vn hết hạn (HTTP <code>). Cần re-login."
 2. User mở browser → login `https://my.inet.vn` → mở DevTools (F12) → Application/Storage → Cookies → copy `sid` + `ssid` value
-3. User update vào file env trên iCloud Drive:
-   ```
-   sid=<new_jwt>
-   ssid=<new_session_id>
+3. User update vào entry `service: "inet.vn"`, `type: "session-cookie"` của `access-tokens.json` (iCloud Drive):
+   ```json
+   "token": { "sid": "<new_jwt>", "ssid": "<new_session_id>" }
    ```
 4. User báo skill tiếp tục → re-run pre-flight
 

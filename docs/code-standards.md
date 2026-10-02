@@ -32,7 +32,7 @@
 
 ### Configuration Files
 - **Credentials:** iCloud env file, outside the repo — load with `source scripts/load-env.sh`
-  - my.inet.vn cookies: `sid`, `ssid` — **lowercase variable names**
+  - my.inet.vn cookies: `sid`, `ssid` — **lowercase variable names**; the script takes them from the `inet.vn` entry (`type: "session-cookie"`) of `access-tokens.json`, the shared token registry on iCloud Drive, and falls back to the env file
   - GitLab: `GITLABS_ACCESS_TOKEN` / `GITLAB_PRIVATE_TOKEN` (project access tokens, not personal)
   - `sid` is a JWT with **TTL ≈ 1 day** — expect to refresh it almost every working session
 - **.gitignore:** all `.env*` are still ignored as a guard even though secrets no longer live here; if a secret ever lands in git, **rotate it** (`git rm --cached` is not enough, it stays in history)
@@ -149,7 +149,7 @@ GITLABS_ACCESS_TOKEN=<token>
 1. **Never copy the env file into the repo** — all `.env*` patterns stay git-ignored as a guard
 2. **Store in iCloud Drive** under `secrets/` (dir `700`, file `600`) — synced across the owner's Macs, nowhere else
 3. **Refresh `sid` ≈ daily** — it is a JWT with `exp = iat + 86400`; a 302/401 pre-flight means expired
-4. **Retrieve:** Browser DevTools → Application → Cookies → copy `sid` and `ssid`
+4. **Retrieve:** Browser DevTools → Application → Cookies → copy `sid` and `ssid` into `token.sid` / `token.ssid` of the `inet.vn` entry in `access-tokens.json`
 5. **Share:** only via secure channels, never email or group chat
 6. **If leaked:** rotate immediately — removing the file from the index does not purge git history
 

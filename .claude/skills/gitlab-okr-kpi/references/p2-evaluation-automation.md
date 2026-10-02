@@ -4,7 +4,7 @@
 
 - Base API: `https://my.inet.vn/api/client/v1` — **tất cả endpoint là POST, JSON, RPC-style** (có field `api` trong body). KHÔNG có GET.
 - Page: `https://my.inet.vn/account/p2/evaluation?account={SSO}&period={YYYY-MM}`
-- Auth: Cookie `sid` + `ssid` — nạp qua `source scripts/load-env.sh` (helper đọc từ iCloud Drive; tên biến lowercase).
+- Auth: Cookie `sid` + `ssid` — nạp qua `source scripts/load-env.sh` (helper đọc từ `access-tokens.json` (sổ token chung trên iCloud Drive, entry `service: "inet.vn"`, `type: "session-cookie"`); tên biến lowercase).
 - `{SSO}` = email (vd `chuongdt@inet.vn`); `{period}` = `YYYY-MM` (vd `2026-05`).
 
 ## Cấu trúc đánh giá
@@ -158,7 +158,7 @@ curl -s --max-time 25 -X POST "$BASE/p2evaluation/save" \
 3. Báo cáo: điểm tổng (`computed.total`), `grade`, trạng thái `draft`, nhắc quản lý vào my.inet.vn review.
 
 ## Error Handling
-- `/get`,`/compute`,`/save` trả HTML hoặc 302/401 → cookie hết hạn → báo user cập nhật `sid`/`ssid` trong file env trên iCloud Drive.
+- `/get`,`/compute`,`/save` trả HTML hoặc 302/401 → cookie hết hạn → báo user cập nhật `sid`/`ssid` trong entry `inet.vn` của `access-tokens.json`.
 - 502 "temporarily unavailable" → server quá tải do gọi dồn → đợi ~15s, gọi lại tuần tự.
 - `{"status":"error","message":"Trường roles không được để trống"}` → thiếu `roles` trong body compute.
 - Giá trị mức không hợp lệ → đọc `<select>` option trên page lấy đúng chuỗi (dấu/hoa-thường).

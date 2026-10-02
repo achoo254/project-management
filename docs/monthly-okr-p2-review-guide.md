@@ -17,7 +17,7 @@ Runbook lặp lại mỗi tháng: đối chiếu **tự đánh giá (OKR + P2)**
 | **OKR kỳ N-1 (bắt buộc)** | Cùng endpoint, `monthStr` tháng trước | Baseline để gán nhãn `mới`/`mở rộng`/`thường kỳ` ở §2. KHÔNG bỏ bước này |
 | **Code thực tế (local)** | Scout repo local qua git log + đọc source | Bản đồ repo ở mục 4 |
 
-Cookie `sid`/`ssid` + token nạp bằng `source scripts/load-env.sh` — helper đọc từ file env trên iCloud Drive; repo không chứa file secret nào.
+Cookie `sid`/`ssid` + token nạp bằng `source scripts/load-env.sh` — helper lấy `sid`/`ssid` từ `access-tokens.json` (sổ token chung trên iCloud Drive, entry `service: "inet.vn"`, `type: "session-cookie"`), token GitLab từ file env trên iCloud Drive; repo không chứa file secret nào.
 
 ## 2. Phương pháp đánh giá 3 lớp
 
