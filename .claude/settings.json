@@ -96,9 +96,5 @@
         "matcher": "*"
       }
     ]
-  },
-  "statusLine": {
-    "command": "node \"$CLAUDE_PROJECT_DIR/.claude/ak-marketing-statusline.cjs\"",
-    "type": "command"
   }
 }
