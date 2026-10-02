@@ -17,7 +17,7 @@ Ban ATANM & BVDL nhận đủ bộ hồ sơ trước 17:00 09/10/2026 và xác n
 - [ ] Bước 2 (script đóng gói sẵn sàng, chạy thử 01/10 đạt; đóng gói chính thức sáng 09/10): Đóng gói `BP-DEV-ho-so-2026-10.zip` gồm:
    - `01-quy-trinh/` (10 tài liệu)
    - `02-bieu-mau/` (13 tài liệu)
-   - `03-bang-tra-loi/` (bản sao Excel đã điền, ma trận 122 dòng)
+   - `03-bang-tra-loi/` (file Excel gốc `05-BP-PHAT-TRIEN-SAN-PHAM-NOI_BO.xlsx` đã điền, ma trận 122 dòng)
    - `04-bang-chung-nop/`: **bản tóm tắt đã lọc** của bằng chứng (số lượng, kết luận, ngày chốt). Không có đường dẫn file nhạy cảm, không có tên tài khoản cá nhân ngoài danh sách được phép, không có bằng chứng thô. Thư mục `04-bang-chung/` thô giữ nội bộ.
    - `00-thu-gui.txt`: danh sách tài liệu, các mục CHƯA XÁC MINH đang chờ đơn vị nào, các điểm cần Ban sửa trong file Excel (tên đơn vị không tồn tại, các dòng chỉ ghi chung "BP-DEV")
 - [ ] Bước 3: Gửi cho Ban ATANM & BVDL trước 15:00 (chừa 2 giờ cho việc bổ sung). Nhận xác nhận bằng văn bản.

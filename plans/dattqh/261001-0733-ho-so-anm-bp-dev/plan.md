@@ -32,7 +32,7 @@ Kế thừa (không làm lại):
 3. Không nhắc AI, công cụ sinh mã, MCP trong mọi tài liệu nộp. Rủi ro dữ liệu ra ngoài viết theo quy định chung về dịch vụ bên thứ ba.
 4. Tên tổ chức: dùng đúng QĐ 169/2026 và QĐ 159/2026; không viết "BP Công Nghệ", "CTO", "Pháp chế"; không nêu tên thành viên outsource.
 5. Người phê duyệt để trống cho tới khi được chốt.
-6. File Excel gốc không bị sửa. Câu trả lời ghi vào bản sao.
+6. (Đổi 02/10/2026) File Excel gốc `05-BP-PHAT-TRIEN-SAN-PHAM-NOI_BO.xlsx` là bản nộp: chỉ điền 6 cột màu vàng J–O, giữ nguyên cột A–I và đủ 122 dòng (kể cả dòng trùng nội dung). Mẫu trống sao lưu ở `99-cong-cu-noi-bo/phase3/mau-goc/`. Cột K chỉ ghi mã và tên quy trình, biểu mẫu (và số QĐ), không ghi đường dẫn tệp hay mã bằng chứng EVD.
 7. Bộ nộp và bằng chứng lưu ở iCloud, cạnh file Excel (`QUY TRINH QUY DINH NOI BO/BP-DEV-ho-so-2026-10/`), **không commit vào git**, vì có thông tin lỗ hổng.
 
 ## Phases
@@ -50,7 +50,7 @@ Phụ thuộc: 1 → 2 → 3. Phase 4 chạy song song phần cuối của 2 và
 
 ## Success Criteria
 
-- [ ] 122/122 dòng của bản sao Excel có nội dung ở các cột màu vàng (J–N). Mọi dòng CHƯA CÓ / CHƯA XÁC MINH có hạn dạng dd/mm/yyyy và tên người phụ trách.
+- [ ] 122/122 dòng của file Excel gốc (bản nộp) có nội dung ở các cột màu vàng (J–N). Mọi dòng CHƯA CÓ / CHƯA XÁC MINH có hạn dạng dd/mm/yyyy và tên người phụ trách.
 - [ ] 10 DEV-QT và 13 DEV-BM bản 0.9: có khối kiểm soát, căn cứ ghi tới điều khoản TCVN 14423, mục "Hiện trạng áp dụng" và mục "Rà soát và cập nhật".
 - [ ] Mục 6 (nội dung quy trình) của mỗi DEV-QT mô tả cách BP-DEV đang làm thật, được người phụ trách BP-DEV xác nhận (người trả lời phiếu cho toàn bộ sản phẩm).
 - [ ] Mọi số liệu (số repo, tài khoản quản trị, phiên bản runtime, số pipeline có quét) có file EVD và ngày chốt.
@@ -67,7 +67,7 @@ Phụ thuộc: 1 → 2 → 3. Phase 4 chạy song song phần cuối của 2 và
 
 ## Quyết định đã chốt (01/10/2026)
 
-- Định dạng nộp: **.docx** cho quy trình và biểu mẫu dạng văn bản; các sổ dạng bảng có thể dùng .xlsx; bảng trả lời là bản sao .xlsx.
+- Định dạng nộp: **.docx** cho quy trình và biểu mẫu dạng văn bản; các sổ dạng bảng có thể dùng .xlsx; bảng trả lời là chính file Excel gốc đã điền (.xlsx).
 - Tên đơn vị: **Phòng Nền tảng**, gồm Bộ phận Kỹ thuật và Bộ phận Phát triển sản phẩm (BP-DEV). Trưởng phòng Nền tảng chịu trách nhiệm cao nhất về quản trị GitLab; CEO chịu trách nhiệm quy trình triển khai production.
 
 - Không gửi yêu cầu ra ngoài BP-DEV: BP-DEV tự mô tả đúng việc đang làm; việc không tự xác minh được ghi CHƯA XÁC MINH kèm hạn.

@@ -61,6 +61,7 @@ vàng **J–O**, trỏ sang tài liệu DEV và file bằng chứng. File gốc 
 
 ## Kết quả 01/10/2026
 - Bản sao: `03-bang-tra-loi/05-BP-PHAT-TRIEN-SAN-PHAM-NOI_BO_tra-loi-BP-DEV.xlsx`; ma trận: `03-bang-tra-loi/ma-tran-122-dong.csv`. Danh sách chọn ở cột N còn nguyên.
+- Cập nhật 02/10/2026: điền thẳng file gốc theo quyết định của người phụ trách BP-DEV. `fill_122.py` điền từ mẫu trống `phase3/mau-goc/`, ghi `03-bang-tra-loi/05-BP-PHAT-TRIEN-SAN-PHAM-NOI_BO.xlsx` (cùng tên file gốc, dùng để đóng gói) rồi chép đè file gốc; bản sao tên `_tra-loi-BP-DEV` đã bỏ (lưu ở backup). Cột K chỉ còn mã + tên quy trình, biểu mẫu, số QĐ. `qa_check.py` kiểm file gốc trùng bản đóng gói, cột A–I và 122 dòng khớp bảng của Ban, cột K đúng dạng: 0 lỗi.
 - Kiểm tra: 0 lỗi trên 122 dòng (J–N không trống, trạng thái hợp lệ, mọi dòng CHƯA có hạn, 29 dòng "Cung cấp tệp…" trỏ tới tệp có thật, không từ cấm, không chuỗi giống bí mật). File gốc giữ nguyên 11:02, 17.676 byte.
 - Trạng thái: 56 Hoàn thành, 66 Chờ xác nhận (22 chờ câu trả lời của người phụ trách BP-DEV, hạn 05/10; 44 chờ đơn vị khác hoặc Ban đối chiếu, hạn xác minh 31/10).
 - 60 dòng gốc chỉ ghi tên bộ phận: trả lời theo tiêu đề mục, cột O ghi đề nghị Ban đối chiếu với bản gốc GOV/CMP/OPS (BP-DEV chưa có).
