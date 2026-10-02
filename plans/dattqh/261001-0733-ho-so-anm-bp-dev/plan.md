@@ -1,7 +1,7 @@
 ---
 title: "Hồ sơ an ninh mạng BP-DEV — nộp trước 17:00 09/10/2026"
 description: "Mô tả đúng công việc hiện tại của BP-DEV (phát triển, vận hành, sự cố, bảo mật) thành 10 quy trình + 13 biểu mẫu bản 0.9 và trả lời đủ 122 dòng việc của Ban ATANM & BVDL, kèm bằng chứng, trước hạn."
-status: pending
+status: in-progress
 priority: P1
 effort: "L (6 phase; tier theo ai-collaboration-workflow, không ước giờ)"
 tags: [an-ninh-mang, ho-so, tcvn-14423, nd-331, bp-dev]
@@ -39,8 +39,8 @@ Kế thừa (không làm lại):
 
 | # | Phase | Ngày | Tier | Status |
 |---|-------|------|------|--------|
-| 1 | [Thu hiện trạng thực tế](./phase-01-thu-hien-trang-thuc-te.md) | 01–02/10 | M | In progress |
-| 2 | [Viết mô tả công việc hiện tại thành 23 tài liệu bản 0.9](./phase-02-mo-ta-cong-viec-hien-tai.md) | 02–05/10 | L | In progress |
+| 1 | [Thu hiện trạng thực tế](./phase-01-thu-hien-trang-thuc-te.md) | 01–02/10 | M | In progress (chỉ còn chờ câu trả lời phiếu, 05/10) |
+| 2 | [Viết mô tả công việc hiện tại thành 23 tài liệu bản 0.9](./phase-02-mo-ta-cong-viec-hien-tai.md) | 02–05/10 | L | In progress (23 tài liệu bản 0.9 đã xuất; còn 35 ô chờ phiếu và mã EVD ở mục 6 của 4 QT) |
 | 3 | [Trả lời đủ 122 dòng việc vào bản sao Excel](./phase-03-tra-loi-122-dong.md) | 05–07/10 | M | In progress (01/10: 122/122 dòng đã điền, 22 dòng chờ trả lời) |
 | 4 | [Kiểm tra dữ kiện và chốt khoảng trống](./phase-04-kiem-tra-du-kien-chot-khoang-trong.md) | 06–07/10 | S | In progress (01/10: khoảng trống đã chốt hạn; chờ xác nhận sản phẩm và chatbot Portal) |
 | 5 | [Rà soát chéo và đóng băng nội dung](./phase-05-ra-soat-cheo-dong-bang.md) | 08/10, 17:00 | S | In progress (01/10: kiểm tra tự động và rà độc lập xong, 0 lỗi; chờ rà chéo người thật và khóa bản) |

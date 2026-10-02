@@ -49,10 +49,10 @@ vàng **J–O**, trỏ sang tài liệu DEV và file bằng chứng. File gốc 
 | 118–122 | OPS-16 Sổ 7, 12, 13 | Hạn hoàn thành cho rủi ro và EOL; sổ khóa | BM-10, BM-02, BM-03 |
 
 ## Tasks & Steps
-1. [x] 01/10: tạo bản sao, điền nhóm dữ kiện có sẵn (1–34, 76–87, 97–105, 118–122) từ EVD.
-2. [x] 01/10: điền nhóm tham chiếu quy trình (35–75, 88–96, 106–117) từ tài liệu bản 0.9.
-3. [x] 01/10: dòng BP-DEV không tự xác minh được ghi `CHƯA XÁC MINH`, trạng thái `Chờ xác nhận`.
-4. [x] Sinh `ma-tran-122-dong.csv` từ bản sao để Phase 5 kiểm tra.
+- [x] Bước 1: 01/10: tạo bản sao, điền nhóm dữ kiện có sẵn (1–34, 76–87, 97–105, 118–122) từ EVD.
+- [x] Bước 2: 01/10: điền nhóm tham chiếu quy trình (35–75, 88–96, 106–117) từ tài liệu bản 0.9.
+- [x] Bước 3: 01/10: dòng BP-DEV không tự xác minh được ghi `CHƯA XÁC MINH`, trạng thái `Chờ xác nhận`.
+- [x] Bước 4: Sinh `ma-tran-122-dong.csv` từ bản sao để Phase 5 kiểm tra.
 - [ ] Điền nốt 22 dòng chờ câu trả lời của người phụ trách BP-DEV (STT 1, 6, 7, 11, 16, 18, 20–24, 26, 55, 62, 65, 73, 74, 87, 90, 106, 107, 122), chạy lại script và kiểm tra.
 
 ## Verification

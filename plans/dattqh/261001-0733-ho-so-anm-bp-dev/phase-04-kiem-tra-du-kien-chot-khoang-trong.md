@@ -14,19 +14,19 @@ Mỗi câu khẳng định trong bộ hồ sơ hoặc được người phụ tr
 có hạn. Không còn câu nào đứng một mình không có bằng chứng.
 
 ## Tasks & Steps
-1. [ ] **06/10, người phụ trách BP-DEV kiểm toàn bộ sản phẩm trong phiếu.** Đọc mục 6 và 8 của các DEV-QT liên quan cùng dòng của sản phẩm trong BM-01, BM-02, BM-06, BM-09. Đánh dấu Đúng / Sai / Không chắc. Sai thì sửa kèm bằng chứng. Không chắc thì chuyển thành CHƯA XÁC MINH.
-2. [ ] **07/10 sáng, chốt khoảng trống.** Mục nào BP-DEV không tự xác minh được (sao lưu CSDL, log tập trung, EOL hạ tầng, 2FA toàn GitLab, tài liệu gốc GOV/CMP/OPS): ghi `CHƯA XÁC MINH — <lý do> · Hạn xác minh: 31/10/2026 · Người phụ trách: <tên>` ở cả tài liệu DEV và cột J của bản sao Excel.
-4. [ ] **07/10, quyết định về dữ liệu ra dịch vụ nước ngoài.** Dựa vào trạng thái production đã xác minh ở Phase 1:
+- [ ] Bước 1: **06/10, người phụ trách BP-DEV kiểm toàn bộ sản phẩm trong phiếu.** Đọc mục 6 và 8 của các DEV-QT liên quan cùng dòng của sản phẩm trong BM-01, BM-02, BM-06, BM-09. Đánh dấu Đúng / Sai / Không chắc. Sai thì sửa kèm bằng chứng. Không chắc thì chuyển thành CHƯA XÁC MINH.
+- [x] Bước 2: **07/10 sáng, chốt khoảng trống.** Mục nào BP-DEV không tự xác minh được (sao lưu CSDL, log tập trung, EOL hạ tầng, 2FA toàn GitLab, tài liệu gốc GOV/CMP/OPS): ghi `CHƯA XÁC MINH — <lý do> · Hạn xác minh: 31/10/2026 · Người phụ trách: <tên>` ở cả tài liệu DEV và cột J của bản sao Excel.
+- [ ] Bước 4 (01/10: đã có kết luận cho 4 sản phẩm; chatbot iNET Portal chờ câu 12): **07/10, quyết định về dữ liệu ra dịch vụ nước ngoài.** Dựa vào trạng thái production đã xác minh ở Phase 1:
    - Nếu không còn gửi dữ liệu khách hàng hoặc dữ liệu cá nhân: ghi "Không có tính năng sản phẩm nào gửi dữ liệu khách hàng ra dịch vụ đặt máy chủ ở nước ngoài", kèm bằng chứng cấu hình.
    - Nếu vẫn còn gửi: hoặc người có thẩm quyền tắt trước 08/10 (kèm bằng chứng tắt), hoặc kê khai đúng vào BM-09 với trạng thái và hạn xử lý. **Không ghi "không có" khi thực tế vẫn có.**
-5. [ ] **07/10, ba quyết định của người phụ trách BP-DEV** (nếu đã có trả lời thì áp ngay):
+- [ ] Bước 5 (mô hình người chính/dự phòng đã chốt; tên theo sản phẩm và ngưỡng DET chờ câu 1–3, 13): **07/10, ba quyết định của người phụ trách BP-DEV** (nếu đã có trả lời thì áp ngay):
    - Người chính và người dự phòng ứng phó sự cố: **đã chốt 01/10** — người chính là người phụ trách từng sản phẩm, người dự phòng là thành viên khác của BP-DEV; CEO chịu trách nhiệm cuối cùng. Tên theo từng sản phẩm lấy từ phiếu, ghi vào BM-01 trước 09/10.
    - Ngưỡng cho DET dòng 73–74: mặc định đề xuất là tỷ lệ lỗi 5xx > 5% trong 5 phút; > 20 lần đăng nhập sai trong 10 phút trên một tài khoản.
-6. [ ] Chiều 07/10 để dự phòng.
+- [ ] Bước 6: Chiều 07/10 để dự phòng.
 
 ## Verification
 - [ ] Bảng xác nhận của người phụ trách BP-DEV cho từng sản phẩm: `04-bang-chung/EVD-XN-20261001-bang-xac-nhan-san-pham.xlsx` (đã soạn sẵn 01/10, chờ đánh dấu); sau khi đánh dấu, xuất `EVD-XN-…-xac-nhan.csv` gồm sản phẩm, người xác nhận, số câu Đúng/Sai/Không chắc, rồi áp phần Sai vào tài liệu.
-- [x] Không còn câu trả lời "chờ" mà không có hạn: sổ khoảng trống 183 mục đều có hạn và người phụ trách; Excel 0 lỗi (mỗi CHƯA CÓ / CHƯA XÁC MINH có hạn ngay sau).
+- [x] Không còn câu trả lời "chờ" mà không có hạn: sổ khoảng trống 192 mục (sinh lại sau Phase 5) đều có hạn và người phụ trách; Excel 0 lỗi (mỗi CHƯA CÓ / CHƯA XÁC MINH có hạn ngay sau).
 - [ ] Có bằng chứng cho kết luận về dữ liệu ra nước ngoài: đã có cho WebPanel / Central, OxMail, công cụ của Bộ phận Kỹ thuật, Design System; còn chatbot iNET Portal chờ câu trả lời 05/10.
 
 ## Kết quả 01/10/2026

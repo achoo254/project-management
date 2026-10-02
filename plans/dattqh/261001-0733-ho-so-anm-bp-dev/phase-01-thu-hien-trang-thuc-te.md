@@ -24,23 +24,23 @@ ra ngoài bộ phận; việc BP-DEV không tự xác minh được thì ghi CH�
 - `00-nguon/phieu-hien-trang/EVD-QT01-20261001-phieu-hien-trang-san-pham.docx`: một phiếu cho mọi sản phẩm, người phụ trách BP-DEV trả lời (mẫu ở bước 4).
 
 ## Tasks & Steps
-1. [ ] **Kiểm quyền token chỉ-đọc:** `source scripts/load-env.sh` (không in giá trị), gọi `GET /api/v4/user` và `GET /api/v4/projects?per_page=1` để xác nhận token đọc được và có/không quyền admin. Không có quyền admin thì cột 2FA và đăng nhập cuối ghi "cần Admin GitLab cung cấp" và đưa vào yêu cầu ở bước 5.
-2. [ ] **Kết xuất GitLab** (script Python chỉ đọc, lưu ở scratchpad, không vào repo): projects (phân trang), members theo access_level ≥ 40, protected_branches, approval rules, file `.gitlab-ci.yml` của nhánh mặc định, pipelines 90 ngày gần nhất (đếm job theo stage), users với `two_factor_enabled` nếu có quyền.
-3. [ ] **Quét repo cục bộ** để lấy thành phần phần mềm, CI, file nhạy cảm và dịch vụ bên thứ ba. Dùng lại phương pháp đã chạy ngày 01/10, mở rộng ra mọi repo trong danh sách GitLab: clone nông (`--depth 1`, chỉ-đọc) vào scratchpad những repo chưa có.
-4. [ ] **Phiếu hiện trạng cho mỗi sản phẩm** (trọng tâm "mô tả công việc hiện tại"). Người phụ trách BP-DEV trả lời cho mọi sản phẩm trước 17:00 05/10. Mỗi câu trả lời thực tế, cụ thể, có ví dụ:
+- [x] Bước 1: **Kiểm quyền token chỉ-đọc:** `source scripts/load-env.sh` (không in giá trị), gọi `GET /api/v4/user` và `GET /api/v4/projects?per_page=1` để xác nhận token đọc được và có/không quyền admin. Không có quyền admin thì cột 2FA và đăng nhập cuối ghi "cần Admin GitLab cung cấp" và đưa vào yêu cầu ở bước 5.
+- [x] Bước 2: **Kết xuất GitLab** (script Python chỉ đọc, lưu ở scratchpad, không vào repo): projects (phân trang), members theo access_level ≥ 40, protected_branches, approval rules, file `.gitlab-ci.yml` của nhánh mặc định, pipelines 90 ngày gần nhất (đếm job theo stage), users với `two_factor_enabled` nếu có quyền.
+- [x] Bước 3: **Quét repo cục bộ** để lấy thành phần phần mềm, CI, file nhạy cảm và dịch vụ bên thứ ba. Dùng lại phương pháp đã chạy ngày 01/10, mở rộng ra mọi repo trong danh sách GitLab: clone nông (`--depth 1`, chỉ-đọc) vào scratchpad những repo chưa có.
+- [ ] Bước 4 (phiếu đã điền sẵn 01/10; chờ người phụ trách BP-DEV trả lời trước 17:00 05/10): **Phiếu hiện trạng cho mỗi sản phẩm** (trọng tâm "mô tả công việc hiện tại"). Người phụ trách BP-DEV trả lời cho mọi sản phẩm trước 17:00 05/10. Mỗi câu trả lời thực tế, cụ thể, có ví dụ:
    - Phát triển: nhận yêu cầu ở đâu; có issue không; ai review; ai merge; môi trường dev/staging.
    - Phát hành: ai bấm deploy; deploy bằng gì; có duyệt không; rollback thế nào; lần rollback gần nhất.
    - Vận hành: theo dõi lỗi ở đâu; log để đâu và giữ bao lâu; ai trực; healthcheck.
    - Sự cố: sự cố gần nhất là gì; ai phát hiện; xử lý ra sao; có ghi lại không.
    - Bảo mật: đăng nhập sản phẩm (mật khẩu, 2FA, khóa phiên); quyền quản trị; bí mật cấu hình để đâu; dịch vụ bên ngoài nhận dữ liệu gì.
    - Sao lưu: dữ liệu gì; ai sao lưu; đã thử khôi phục chưa.
-5. [ ] **Không gửi yêu cầu ra ngoài BP-DEV** (quyết định 01/10). Các mục cần thông tin của đơn vị khác (sao lưu CSDL, log tập trung, EOL hạ tầng, 2FA toàn GitLab, tài liệu gốc GOV/CMP/OPS, trạng thái production ngoài quyền của BP-DEV) ghi CHƯA XÁC MINH kèm hạn ở Phase 4.
-6. [ ] **Ghi nhật ký bằng chứng:** mỗi file EVD ghi người chạy, lệnh hoặc nguồn, thời điểm chốt (UTC+7).
+- [x] Bước 5: **Không gửi yêu cầu ra ngoài BP-DEV** (quyết định 01/10). Các mục cần thông tin của đơn vị khác (sao lưu CSDL, log tập trung, EOL hạ tầng, 2FA toàn GitLab, tài liệu gốc GOV/CMP/OPS, trạng thái production ngoài quyền của BP-DEV) ghi CHƯA XÁC MINH kèm hạn ở Phase 4.
+- [x] Bước 6: **Ghi nhật ký bằng chứng:** mỗi file EVD ghi người chạy, lệnh hoặc nguồn, thời điểm chốt (UTC+7).
 
 ## Verification
-- [ ] Đủ 9 loại file EVD ở trên. Mỗi file có dòng tiêu đề và ngày chốt 02/10/2026.
+- [x] Đủ các loại file EVD ở trên (nay 18 tệp trong `04-bang-chung/`). Mỗi file có dòng tiêu đề, người chạy, phương pháp và thời điểm chốt 01/10/2026.
 - [x] `grep -E -i "(glpat-|sk-[A-Za-z0-9]{10}|BEGIN (RSA|OPENSSH|EC) PRIVATE|password\s*[:=]\s*\S{6,})" 04-bang-chung/*` không trả dòng nào.
-- [ ] Số phiếu hiện trạng đã phát bằng số sản phẩm đang chạy trong danh sách GitLab.
+- [x] Phiếu hiện trạng phủ đủ 17 sản phẩm trong DEV-BM-01 (1 phiếu, người phụ trách BP-DEV trả lời toàn bộ).
 
 ## Rủi ro
 - Token không có quyền admin GitLab: chỉ lấy được phần project-level. Phần còn lại chuyển thành yêu cầu, không đoán.

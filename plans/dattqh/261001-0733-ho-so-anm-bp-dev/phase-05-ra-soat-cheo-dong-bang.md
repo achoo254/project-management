@@ -13,15 +13,15 @@ dependencies: [2, 3, 4]
 Bộ hồ sơ qua được kiểm tra tự động và rà chéo của người thứ hai. Sau 17:00 08/10 chỉ được sửa lỗi chính tả hoặc định dạng.
 
 ## Tasks & Steps
-1. [ ] **Kiểm tra tự động** (script Python chỉ đọc, lưu ở scratchpad), chạy trên `00-nguon/`, `01-quy-trinh/`, `02-bieu-mau/`, `03-bang-tra-loi/`:
+- [x] Bước 1: **Kiểm tra tự động** (script Python chỉ đọc, lưu ở scratchpad), chạy trên `00-nguon/`, `01-quy-trinh/`, `02-bieu-mau/`, `03-bang-tra-loi/`:
    - Độ phủ: kiểm tra 122 dòng như ở Phase 3; 23 tài liệu đều có khối kiểm soát, mục 8, mục 9.
    - Từ cấm, so theo nguyên từ. `AI` so **phân biệt hoa thường**, để không bắt nhầm chữ "ai" (nghĩa là "người nào"); các từ còn lại không phân biệt hoa thường: `AI`, `trí tuệ nhân tạo`, `vibe`, `MCP`, `OpenAI`, `Anthropic`, `Gemini`, `Groq`, `CTO`, `BP Công Nghệ`, `Pháp chế`, `outsource`.
    - Chuỗi giống bí mật: `glpat-`, `sk-…`, `BEGIN … PRIVATE KEY`, `password=`, chuỗi base64 dài ≥ 40 ký tự trong ô bảng.
    - Mọi `CHƯA CÓ` / `CHƯA XÁC MINH` có ngày `dd/mm/yyyy` và tên người phụ trách.
    - Mọi mã `EVD-…` được nhắc đến đều tồn tại trong `04-bang-chung/`.
-2. [ ] **Rà chéo** (người rà khác người soạn): hobv rà QT-01, 02, 03; ducnd rà QT-04, 05, 06; chuongdt rà QT-07, 08, 09, 10; dattqh rà toàn bộ BM và bản sao Excel. Câu hỏi duy nhất cho mỗi câu khẳng định: "Có bằng chứng cho câu này không?"
-3. [ ] Sửa lỗi, chạy lại script đến khi 0 lỗi.
-4. [ ] 17:00: khóa bản. Ghi ngày rà soát vào bảng lịch sử thay đổi của mỗi tài liệu.
+- [ ] Bước 2 (phần tự động đã xong 01/10; chờ người phụ trách BP-DEV xác nhận người rà): **Rà chéo** (người rà khác người soạn): hobv rà QT-01, 02, 03; ducnd rà QT-04, 05, 06; chuongdt rà QT-07, 08, 09, 10; dattqh rà toàn bộ BM và bản sao Excel. Câu hỏi duy nhất cho mỗi câu khẳng định: "Có bằng chứng cho câu này không?"
+- [x] Bước 3: Sửa lỗi, chạy lại script đến khi 0 lỗi (vòng rà độc lập 01/10: 126 phát hiện đã sửa, 0 lỗi; chạy lại sau rà chéo của người thật ở bước 4).
+- [ ] Bước 4: 17:00: khóa bản. Ghi ngày rà soát vào bảng lịch sử thay đổi của mỗi tài liệu.
 
 ## Verification
 - [x] Kết quả script (chạy 01/10/2026 19:32) lưu ở `04-bang-chung/EVD-QA-20261001-kiem-tra-tu-dong.txt`: 0 lỗi độ phủ, 0 từ cấm, 0 chuỗi giống bí mật, 0 mã EVD treo. Chạy lại bằng `FREEZE=1` lúc khóa bản 08/10 và lưu thành `EVD-QA-20261008-…`.
