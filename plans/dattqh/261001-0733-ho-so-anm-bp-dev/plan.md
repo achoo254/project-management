@@ -71,29 +71,20 @@ Phụ thuộc: 1 → 2 → 3. Phase 4 chạy song song phần cuối của 2 và
 - Tên đơn vị: **Phòng Nền tảng**, gồm Bộ phận Kỹ thuật và Bộ phận Phát triển sản phẩm (BP-DEV). Trưởng phòng Nền tảng chịu trách nhiệm cao nhất về quản trị GitLab; CEO chịu trách nhiệm quy trình triển khai production.
 
 - Không gửi yêu cầu ra ngoài BP-DEV: BP-DEV tự mô tả đúng việc đang làm; việc không tự xác minh được ghi CHƯA XÁC MINH kèm hạn.
+- (02/10) **Quy trình và biểu mẫu áp dụng chung cho mọi sản phẩm; người phụ trách sản phẩm tự chịu trách nhiệm làm đúng.** Không hỏi lần lượt từng người phụ trách về hiện trạng sản phẩm của họ. Khoảng trống phát hiện từ mã nguồn (bằng chứng `EVD-KT-20261002-doi-chieu-ma-nguon-moi-nhat-*.txt`) ghi đúng hiện trạng vào bảng khoảng trống, giao người phụ trách sản phẩm tự rà soát và khắc phục trước hạn chung; không đưa vào câu hỏi của hồ sơ. Ô phiếu hiện trạng còn trống ghi "Người phụ trách sản phẩm tự rà soát và cập nhật theo DEV-QT tương ứng" kèm hạn. Dòng nào bằng chứng cho thấy chưa đạt (vd tách môi trường, ảnh chụp phản hồi OneDash) ghi MỘT PHẦN, không ghi ĐÃ CÓ.
 - Môi trường (thực tế đang làm): **dev** chỉ người đang làm xem được; **staging** thử nghiệm nội bộ, không có dữ liệu khách hàng; **production** là nơi duy nhất có dữ liệu khách hàng.
 
-## Câu hỏi còn mở
+## Trả lời 6 câu cấp hệ thống (chốt 02/10/2026)
 
-Còn 16 câu chỉ người phụ trách BP-DEV trả lời được, hạn 17:00 05/10/2026 (tự điền từ bằng chứng 01/10 đã giảm ô chờ phiếu từ 218 xuống 35):
+1. Danh sách người phụ trách 17 sản phẩm: đồng ý theo đề xuất. **Không ghi tên người trực tiếp vào quy trình, biểu mẫu, quy định**: chỉ dùng vai trò (Người phụ trách sản phẩm, Người phụ trách BP-DEV, Trưởng phòng Nền tảng, CEO). Bảng ánh xạ sản phẩm → người chỉ nằm ở tài liệu nội bộ không nộp. Ngoại lệ: dòng 1 bảng trả lời Excel (liên hệ Trưởng phòng Nền tảng).
+2. Hạn chung để người phụ trách sản phẩm tự rà soát và đưa sản phẩm về đúng quy trình: **31/10/2026**. Quy định chuẩn: **dữ liệu khách hàng chỉ gửi tới dịch vụ trên hạ tầng nội bộ iNET**; tài liệu không nhắc tới việc gửi ra nước ngoài. Sản phẩm chưa tuân thủ: ghi đúng hiện trạng, Người phụ trách sản phẩm xử lý lại trước hạn chung.
+3. Báo và duyệt triển khai production qua **my.inet.vn** (hệ thống quản trị nội bộ: lưu trữ, quản lý ticket, duyệt deploy); bản ghi duyệt lưu trên my.inet.vn.
+4. Kênh chung nhận báo cáo lỗ hổng từ bên ngoài: **my.inet.vn**.
+5. Ngưỡng phát hiện chung: DET-01 lỗi 5xx > 5% trong 5 phút; DET-02 > 20 lần đăng nhập sai/tài khoản trong 10 phút.
+6. Email Trưởng phòng Nền tảng (Excel dòng 1): kienvt@inet.vn.
 
-1. Người hỗ trợ khi vắng cho 8 sản phẩm (Super Admin Dashboard, công cụ nội bộ, Developers, OneOffice, Design System, Assets, Sàn tên miền, iNET Editor), hoặc chấp nhận ghi chung "thành viên BP-DEV khác do người phụ trách BP-DEV phân công".
-2. WebPanel/Central và OnePanel: tên miền production, người phụ trách, người hỗ trợ.
-3. OxMail, Imapsync, công cụ Bộ phận Kỹ thuật: người phụ trách, người hỗ trợ.
-4. Hình thức báo CEO và CEO duyệt production, nơi lưu bản ghi duyệt.
-5. Sản phẩm có API quản trị: ai giữ token, phạm vi, hạn dùng, nơi lưu.
-6. Ma trận quyền: người phụ trách sản phẩm và thành viên BP-DEV với trang quản trị, CSDL production, dữ liệu khách hàng.
-7. Thu hồi quyền quản trị sản phẩm (ngoài GitLab) có được ghi lại không.
-8. Đã từng nhận báo cáo lỗ hổng từ bên ngoài chưa, qua kênh nào.
-9. Ai triển khai production cho Assets và iNET Portal (tài liệu repo ghi người ngoài BP-DEV phát hành).
-10. Tính năng gửi nội dung ra dịch vụ đặt ở nước ngoài (WebPanel/Central, OxMail, goclaw) đã chạy trên production chưa.
-11. Email công vụ của Trưởng phòng Nền tảng (Excel dòng 1).
-12. Chatbot iNET Portal gửi tin nhắn, ảnh của khách tới dịch vụ trả lời tự động đặt ở đâu (nội bộ iNET hay bên ngoài, trong hay ngoài nước).
-13. Chốt ngưỡng phát hiện đề xuất: DET-01 lỗi 5xx > 5% trong 5 phút; DET-02 > 20 lần đăng nhập sai/tài khoản trong 10 phút.
-14. Đồng ý hạn khắc phục mirror mã nguồn ra GitHub (Assets kho cá nhân, Design System) 31/10/2026 và bản sao lưu Design System ở kho nước ngoài 31/12/2026?
-15. Dòng "Tách môi trường dev / staging / production": giữ ĐÃ CÓ theo xác nhận (kèm ngoại lệ máy dev nối dữ liệu production của Webmail, Design System, Công cụ nội bộ, hạn 31/10/2026) hay đổi MỘT PHẦN?
-16. Ảnh chụp màn hình phản hồi OneDash đang tự chụp, người dùng bỏ chọn được, trong khi nguyên tắc DEV-QT-10 §6.4 là "chỉ đính kèm khi người dùng chủ động chọn": đổi trạng thái dòng này sang MỘT PHẦN (kèm hạn) hay nới nguyên tắc?
+Còn mở: BP-DEV đã từng nhận báo cáo lỗ hổng từ bên ngoài chưa (chưa trả lời; nếu dòng Excel bắt buộc thì ghi CHƯA XÁC MINH kèm hạn).
 
-Mô hình trách nhiệm (xác nhận 01/10/2026): mỗi sản phẩm có **người phụ trách sản phẩm** tự triển khai, xử lý sự cố và báo thẳng CEO, không qua người phụ trách BP-DEV. Người phụ trách BP-DEV chỉ hỗ trợ, quản lý công việc khi cần, đồng thời phụ trách OneDash và OneMail. Người phụ trách sản phẩm vắng mặt thì thành viên khác của BP-DEV hỗ trợ. **CEO** chịu trách nhiệm cuối cùng về triển khai production (CEO hoặc người được CEO ủy quyền duyệt). Phiếu hiện trạng thu thêm tên người phụ trách và người hỗ trợ cho từng sản phẩm.
+Mô hình trách nhiệm (xác nhận 01/10/2026): mỗi sản phẩm có **người phụ trách sản phẩm** tự triển khai, xử lý sự cố và báo thẳng CEO, không qua người phụ trách BP-DEV. Người phụ trách BP-DEV chỉ hỗ trợ, quản lý công việc khi cần, đồng thời phụ trách OneDash và OneMail. Người phụ trách sản phẩm vắng mặt thì thành viên khác của BP-DEV hỗ trợ. **CEO** chịu trách nhiệm cuối cùng về triển khai production (CEO hoặc người được CEO ủy quyền duyệt). Tên người cụ thể không ghi vào tài liệu nộp (quyết định 02/10).
 
 <!-- slug: ho-so-anm-bp-dev -->
