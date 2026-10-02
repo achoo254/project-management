@@ -19,13 +19,13 @@ Bộ hồ sơ qua được kiểm tra tự động và rà chéo của người 
    - Chuỗi giống bí mật: `glpat-`, `sk-…`, `BEGIN … PRIVATE KEY`, `password=`, chuỗi base64 dài ≥ 40 ký tự trong ô bảng.
    - Mọi `CHƯA CÓ` / `CHƯA XÁC MINH` có ngày `dd/mm/yyyy` và tên người phụ trách.
    - Mọi mã `EVD-…` được nhắc đến đều tồn tại trong `04-bang-chung/`.
-- [ ] Bước 2 (phần tự động đã xong 01/10; chờ người phụ trách BP-DEV xác nhận người rà): **Rà chéo** (người rà khác người soạn): hobv rà QT-01, 02, 03; ducnd rà QT-04, 05, 06; chuongdt rà QT-07, 08, 09, 10; dattqh rà toàn bộ BM và bản sao Excel. Câu hỏi duy nhất cho mỗi câu khẳng định: "Có bằng chứng cho câu này không?"
+- [ ] Bước 2 (phần tự động đã xong 01/10; phân công đã được người phụ trách BP-DEV duyệt 02/10, rà xong trước 08/10): **Rà chéo** (người rà khác người soạn): hobv rà QT-01, 02, 03; ducnd rà QT-04, 05, 06; chuongdt rà QT-07, 08, 09, 10; dattqh rà toàn bộ BM và bản sao Excel. Câu hỏi duy nhất cho mỗi câu khẳng định: "Có bằng chứng cho câu này không?"
 - [x] Bước 3: Sửa lỗi, chạy lại script đến khi 0 lỗi (vòng rà độc lập 01/10: 126 phát hiện đã sửa, 0 lỗi; chạy lại sau rà chéo của người thật ở bước 4).
 - [ ] Bước 4: 17:00: khóa bản. Ghi ngày rà soát vào bảng lịch sử thay đổi của mỗi tài liệu.
 
 ## Verification
 - [x] Kết quả script (chạy 01/10/2026 19:32) lưu ở `04-bang-chung/EVD-QA-20261001-kiem-tra-tu-dong.txt`: 0 lỗi độ phủ, 0 từ cấm, 0 chuỗi giống bí mật, 0 mã EVD treo. Chạy lại bằng `FREEZE=1` lúc khóa bản 08/10 và lưu thành `EVD-QA-20261008-…`.
-- [ ] Mỗi tài liệu có tên người rà chéo trong lịch sử thay đổi (ghi vào `99-cong-cu-noi-bo/phase5/reviewers.json`, bộ chuyển .docx tự thêm dòng "Rà soát chéo"; chế độ `FREEZE=1` báo lỗi nếu thiếu).
+- [ ] Mỗi tài liệu có dòng "Rà soát chéo" trong lịch sử thay đổi, ghi vai trò người rà, không ghi họ tên (quyết định 02/10); phân công theo tên chỉ lưu nội bộ ở bước 2 (ghi vào `99-cong-cu-noi-bo/phase5/reviewers.json`, bộ chuyển .docx tự thêm dòng "Rà soát chéo"; chế độ `FREEZE=1` báo lỗi nếu thiếu).
 
 ## Kết quả 01/10/2026
 - Bước 1: script `qa_check.py` (chỉ đọc) kiểm 23 .docx, 23 nguồn HTML, phiếu hiện trạng và 122 dòng Excel; đã thử bộ phát hiện bằng chuỗi giả (bắt đủ 5 dạng bí mật, AI viết hoa, mã EVD treo; không bắt nhầm chữ "ai", đường dẫn, mã băm). Kết quả cuối: 0 lỗi.

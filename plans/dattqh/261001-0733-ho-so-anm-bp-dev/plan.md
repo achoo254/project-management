@@ -39,11 +39,11 @@ Kế thừa (không làm lại):
 
 | # | Phase | Ngày | Tier | Status |
 |---|-------|------|------|--------|
-| 1 | [Thu hiện trạng thực tế](./phase-01-thu-hien-trang-thuc-te.md) | 01–02/10 | M | In progress (chỉ còn chờ câu trả lời phiếu, 05/10) |
-| 2 | [Viết mô tả công việc hiện tại thành 23 tài liệu bản 0.9](./phase-02-mo-ta-cong-viec-hien-tai.md) | 02–05/10 | L | In progress (23 tài liệu bản 0.9 đã xuất; còn 35 ô chờ phiếu và mã EVD ở mục 6 của 4 QT) |
-| 3 | [Trả lời đủ 122 dòng việc vào bản sao Excel](./phase-03-tra-loi-122-dong.md) | 05–07/10 | M | In progress (01/10: 122/122 dòng đã điền, 22 dòng chờ trả lời) |
-| 4 | [Kiểm tra dữ kiện và chốt khoảng trống](./phase-04-kiem-tra-du-kien-chot-khoang-trong.md) | 06–07/10 | S | In progress (01/10: khoảng trống đã chốt hạn; chờ xác nhận sản phẩm và chatbot Portal) |
-| 5 | [Rà soát chéo và đóng băng nội dung](./phase-05-ra-soat-cheo-dong-bang.md) | 08/10, 17:00 | S | In progress (01/10: kiểm tra tự động và rà độc lập xong, 0 lỗi; chờ rà chéo người thật và khóa bản) |
+| 1 | [Thu hiện trạng thực tế](./phase-01-thu-hien-trang-thuc-te.md) | 01–02/10 | M | Completed (02/10: bỏ câu hỏi theo từng sản phẩm, người phụ trách sản phẩm tự rà soát; đối chiếu lại mã nguồn mới nhất) |
+| 2 | [Viết mô tả công việc hiện tại thành 23 tài liệu bản 0.9](./phase-02-mo-ta-cong-viec-hien-tai.md) | 02–05/10 | L | Completed (02/10: 0 ô chờ phiếu, tên người thay bằng vai trò, quy định dữ liệu khách chỉ gửi hạ tầng nội bộ + danh mục ngoại lệ) |
+| 3 | [Trả lời đủ 122 dòng việc vào bản sao Excel](./phase-03-tra-loi-122-dong.md) | 05–07/10 | M | Completed (02/10: 122/122 dòng, 0 dòng chờ trả lời; 76 Hoàn thành, 46 Chờ xác nhận đều có hạn 31/10/2026) |
+| 4 | [Kiểm tra dữ kiện và chốt khoảng trống](./phase-04-kiem-tra-du-kien-chot-khoang-trong.md) | 06–07/10 | S | Completed (02/10: sổ khoảng trống 199 mục, 0 lỗi; khoảng trống giao Người phụ trách sản phẩm) |
+| 5 | [Rà soát chéo và đóng băng nội dung](./phase-05-ra-soat-cheo-dong-bang.md) | 08/10, 17:00 | S | In progress (02/10: kiểm tra tự động 0 lỗi; phân công rà chéo đã duyệt; chờ rà chéo và khóa bản 17:00 08/10) |
 | 6 | [Ký và nộp](./phase-06-ky-va-nop.md) | 09/10, trước 17:00 | S | In progress (01/10: gói nộp, thư gửi, sổ theo dõi đã chuẩn bị, chạy thử 0 lỗi; chưa gửi) |
 
 Phụ thuộc: 1 → 2 → 3. Phase 4 chạy song song phần cuối của 2 và 3. Sau đó 5 → 6.
