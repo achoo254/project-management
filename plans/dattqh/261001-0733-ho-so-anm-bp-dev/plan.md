@@ -76,9 +76,9 @@ Phụ thuộc: 1 → 2 → 3. Phase 4 chạy song song phần cuối của 2 và
 
 ## Trả lời 6 câu cấp hệ thống (chốt 02/10/2026)
 
-1. Danh sách người phụ trách 17 sản phẩm: đồng ý theo đề xuất. **Không ghi tên người trực tiếp vào quy trình, biểu mẫu, quy định**: chỉ dùng vai trò (Người phụ trách sản phẩm, Người phụ trách BP-DEV, Trưởng phòng Nền tảng, CEO). Bảng ánh xạ sản phẩm → người chỉ nằm ở tài liệu nội bộ không nộp. Ngoại lệ: dòng 1 bảng trả lời Excel (liên hệ Trưởng phòng Nền tảng).
+1. Danh sách người phụ trách 17 sản phẩm: đồng ý theo đề xuất. **Không ghi tên người trực tiếp vào quy trình, biểu mẫu, quy định**: chỉ dùng vai trò (Người phụ trách sản phẩm, Người phụ trách BP-DEV, Trưởng phòng Nền tảng, CEO). Bảng ánh xạ sản phẩm → người chỉ nằm ở tài liệu nội bộ không nộp. Ngoại lệ: dòng 1 và dòng 2 bảng trả lời Excel (liên hệ Trưởng phòng Nền tảng và Người phụ trách BP-DEV). Dữ liệu khách chỉ gửi hạ tầng nội bộ, trừ danh mục ngoại lệ được duyệt (cổng thanh toán, CDN/DNS, Zalo OA, thông báo đẩy) do CEO duyệt trên my.inet.vn (DEV-QT-10 mục 6.7).
 2. Hạn chung để người phụ trách sản phẩm tự rà soát và đưa sản phẩm về đúng quy trình: **31/10/2026**. Quy định chuẩn: **dữ liệu khách hàng chỉ gửi tới dịch vụ trên hạ tầng nội bộ iNET**; tài liệu không nhắc tới việc gửi ra nước ngoài. Sản phẩm chưa tuân thủ: ghi đúng hiện trạng, Người phụ trách sản phẩm xử lý lại trước hạn chung.
-3. Báo và duyệt triển khai production qua **my.inet.vn** (hệ thống quản trị nội bộ: lưu trữ, quản lý ticket, duyệt deploy); bản ghi duyệt lưu trên my.inet.vn.
+3. Báo triển khai production qua **my.inet.vn** (hệ thống quản trị nội bộ: lưu trữ, quản lý ticket, yêu cầu deploy). Luồng thật (xác nhận 11:12 02/10): "Deploy" trên my.inet.vn chỉ tạo yêu cầu và gửi thông báo tới CEO qua Telegram; CEO tự triển khai production thủ công trên hệ thống runner riêng. Chưa có màn hình quản lý triển khai production; bản ghi duyệt và bản ghi triển khai production chưa lưu tập trung (CHƯA CÓ, hạn 31/10/2026).
 4. Kênh chung nhận báo cáo lỗ hổng từ bên ngoài: **my.inet.vn**.
 5. Ngưỡng phát hiện chung: DET-01 lỗi 5xx > 5% trong 5 phút; DET-02 > 20 lần đăng nhập sai/tài khoản trong 10 phút.
 6. Email Trưởng phòng Nền tảng (Excel dòng 1): kienvt@inet.vn.
