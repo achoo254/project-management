@@ -17,8 +17,8 @@ Internal project management repo for iNET Tech Department. Tracks monthly OKR/KP
 - `review-services/DD-MM-YYYY/` - Internal product/architecture review minutes (`.srt` transcript + self-contained HTML report per session)
 - `dao-tao/DD-MM-YYYY/` - Internal training material (HTML slides, transcripts)
 - `scripts/` - Python read-only helpers to inspect the P2 formula template (`dump_p2_*.py`, openpyxl) + `load-env.sh` (credential loader)
-- `.claude/skills/` - Local skills: `gitlab-okr-kpi` (write), `p2-monthly-okr-audit` (read-only audit)
-- `scripts/load-env.sh` - loads my.inet.vn session cookies (`sid`/`ssid`, lowercase — taken from the `inet.vn` entry, `type: "session-cookie"`, of `access-tokens.json`, the shared token registry on iCloud Drive; the env file value is only a fallback) + GitLab tokens from an env file in iCloud Drive. **No secret file lives in this repo**; the script is the only place that knows the path
+- `.claude/skills/` - Local skill: `p2-monthly-okr-audit` (read-only audit). The write skill `gitlab-okr-kpi` is **global** (`~/.claude/skills/gitlab-okr-kpi/`, not in this repo) and bundles its own copy of `load-env.sh`
+- `scripts/load-env.sh` - loads my.inet.vn session cookies (`sid`/`ssid`, lowercase — taken from the `inet.vn` entry, `type: "session-cookie"`, of `access-tokens.json`, the shared token registry on iCloud Drive; the env file value is only a fallback) + GitLab tokens from an env file in iCloud Drive. **No secret file lives in this repo**; this script and the copy bundled in the global `gitlab-okr-kpi` skill are the only places that know the path (change both together)
 
 There is no `weekly meetings/` or `agent/` directory - both were removed. Monthly OKR/KPI data now lives on my.inet.vn, not in repo meeting notes.
 
@@ -37,7 +37,7 @@ P2 scope of dattqh: dattqh, hobv, ducnd, chuongdt. ⛔ NOT anhtct (another manag
 ## Key Workflows
 
 ### OKR/KPI Automation
-Use `/gitlab-okr-kpi` to create/update OKR entries on https://my.inet.vn. Primary method is **direct JSON API via curl** (`POST /api/client/v1/accountkpi/{create,update,delete,search}`), authenticated with `sid`/`ssid` cookies loaded via `source scripts/load-env.sh`. Browser automation is legacy fallback only.
+Use `/gitlab-okr-kpi` to create/update OKR entries on https://my.inet.vn. Primary method is **direct JSON API via curl** (`POST /api/client/v1/accountkpi/{create,update,delete,search}`), authenticated with `sid`/`ssid` cookies loaded via the skill-bundled `source ~/.claude/skills/gitlab-okr-kpi/scripts/load-env.sh`. The skill is global, so it runs from any directory and must be installed per machine (it does not come with `git pull`). Browser automation is legacy fallback only.
 
 Two traps: `update` is **full replace** (untransmitted fields get wiped - always read-modify-write via `/search` first), and `difficulty` (`S|M|L|XL`) is mandatory in the UI so it must be set in the payload on both create and update.
 

@@ -39,7 +39,7 @@
 
 ### Automation Tools
 - **Skill files:** `.claude/skills/<skill-name>/SKILL.md`
-  - `gitlab-okr-kpi` — writes OKR/KPI and P2 drafts to my.inet.vn, plus GitLab API operations
+  - `gitlab-okr-kpi` — writes OKR/KPI and P2 drafts to my.inet.vn, plus GitLab API operations. **Global skill** at `~/.claude/skills/gitlab-okr-kpi/` (not in this repo)
   - `p2-monthly-okr-audit` — read-only monthly audit of P2-Delivery against git + KPI evidence
   - Frontmatter: name, description, license, version, argument-hint
   - Long detail goes in `references/*.md`, not inline in SKILL.md
@@ -181,7 +181,7 @@ Read-only helpers that dump workbook content to text so the **formula template**
 
 ### `gitlab-okr-kpi` skill
 - **Method:** direct JSON API over `curl` — `POST /api/client/v1/accountkpi/{create,update,delete,search}`. Browser automation is legacy fallback only.
-- **Authentication:** cookie pair `sid` + `ssid` via `source scripts/load-env.sh`; pre-flight with `GET /account/kpi` (200 = OK, 302/401 = expired)
+- **Authentication:** cookie pair `sid` + `ssid` via the skill-bundled `source ~/.claude/skills/gitlab-okr-kpi/scripts/load-env.sh`; pre-flight with `GET /account/kpi` (200 = OK, 302/401 = expired)
 - **`update` is FULL REPLACE.** Fields omitted from the payload are wiped to null. Always read-modify-write: `search` → merge (keep `difficulty`) → `update`.
 - **`search` pages at 30 entries and ignores `size`.** Always send `monthStr` so the backend filters; never fetch one page and filter client-side. Reconcile `totalElements` against the rows actually received.
 - **`delete` is a hard delete** with no undo — verify `_id` via `search` and confirm with the owner first.

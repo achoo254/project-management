@@ -63,7 +63,6 @@ project-management/
     ├── settings.json                      # Project Claude Code settings
     ├── hooks/                             # Local hooks
     └── skills/
-        ├── gitlab-okr-kpi/                # Write path: OKR/KPI + P2 drafts + GitLab API
         └── p2-monthly-okr-audit/          # Read-only monthly P2-Delivery audit
 ```
 
@@ -108,7 +107,7 @@ project-management/
 ### Automation Tools
 | Path | Purpose | Method | Status |
 |------|---------|--------|--------|
-| `.claude/skills/gitlab-okr-kpi/` | Create/update OKR entries, draft P2+ evaluations, GitLab API operations | Direct JSON API over `curl` | Active |
+| `~/.claude/skills/gitlab-okr-kpi/` (global, not in repo) | Create/update OKR entries, draft P2+ evaluations, GitLab API operations | Direct JSON API over `curl` | Active |
 | `.claude/skills/p2-monthly-okr-audit/` | Audit P2-Delivery against git commits and official KPI | Read-only, `curl` + git | Active |
 | `scripts/dump_p2_*.py` | Dump workbook sheets to text to inspect the formula template | Python 3 + openpyxl, read-only | Active |
 
@@ -122,7 +121,7 @@ project-management/
    - target / result = plain text
    - difficulty = S/M/L/XL, mandatory
 3. Entry created — manually on the form, or via /gitlab-okr-kpi:
-   - source scripts/load-env.sh (reads sid/ssid from iCloud), pre-flight GET /account/kpi (200 = OK)
+   - source ~/.claude/skills/gitlab-okr-kpi/scripts/load-env.sh (reads sid/ssid from iCloud), pre-flight GET /account/kpi (200 = OK)
    - POST /api/client/v1/accountkpi/create per entry, capture _id
 4. Verification:
    - POST /accountkpi/search with monthStr, reconcile totalElements vs rows received
@@ -210,7 +209,7 @@ GitLab user IDs (for evidence queries): dattqh=5, ducnd=27, chuongdt=26, hobv=17
 1. **Legacy P2 copies:** `members/*.xlsx` and `members/T5/` predate the `{năm}/T{tháng}/` layout. Treat the period folders as authoritative; do not add new files to the flat locations.
 2. **Removed directories:** `weekly meetings/` (deleted — content was stale, OKR baseline now comes from my.inet.vn) and `agent/` (manual KPI guide, superseded by the skills). Documentation should not reference either.
 3. **Excel structure:** the master template carries the formulas and per-role weights; member copies must preserve them and never hard-code summary cells.
-4. **Automation is API-first:** browser automation remains only as a legacy fallback in `gitlab-okr-kpi/references/browser-automation-guide.md`.
+4. **Automation is API-first:** browser automation remains only as a legacy fallback in `~/.claude/skills/gitlab-okr-kpi/references/browser-automation-guide.md`.
 5. **Two verification traps** that have caused wrong conclusions before: `accountkpi/search` pages at 30 and ignores `size`; and "đã build lên production" is not evidence without a deploy marker. Both are documented in the review runbook.
 6. **Reports stay local:** everything in `okr-kpi/`, `plans/reports/` and the period audit HTML contains personnel data and is never published outside the company.
 7. **Audit output location changed:** monthly OKR+P2 audit reports go to `okr-kpi/MM-YYYY/` from period T8/2026 onward. Earlier periods stayed where they were produced (`plans/reports/`, `plans/dattqh/reports/`, `members/2026/T5/`) and were not migrated.
